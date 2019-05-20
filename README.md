@@ -7,11 +7,11 @@
 composer -V
 ```
 4. [Server Requirements](https://laravel.com/docs/5.8/installation#server-requirements) дээр заасан PHP extension тохиргоог **php.ini** файл дотроос тохируулж өгөх
-5. MySQL дээр шинээр database, user үүсгэх
+5. MySQL дээр шинээр database, user үүсгэхэд дараах SQL query ажлуулна уу
 ```
-CREATE DATABASE g-framework CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-CREATE USER 'g-framework'@'%' IDENTIFIED BY 'g-framework';
-GRANT ALL PRIVILEGES ON g-framework.* TO 'g-framework'@'%';
+CREATE DATABASE gframework CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+CREATE USER 'gframework'@'%' IDENTIFIED BY 'gframework';
+GRANT ALL PRIVILEGES ON gframework.* TO 'gframework'@'%';
 FLUSH PRIVILEGES;
 ```
 6. Project clone хийж авах
@@ -33,9 +33,9 @@ php artisan key:generate
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306
-DB_DATABASE=g-framework
-DB_USERNAME=g-framework
-DB_PASSWORD=g-framework
+DB_DATABASE=gframework
+DB_USERNAME=gframework
+DB_PASSWORD=gframework
 ```
 10. Database-тай холбогдож байгаа эсэхийг шалгахад дараах command ажилж байх ёстой.
 ```
