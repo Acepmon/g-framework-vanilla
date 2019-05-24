@@ -22,3 +22,5 @@ Route::get('/test/blank', function () {
 Route::get('/test/example', function () {
     return view('test.example');
 });
+
+Route::resource('roles', 'RoleController');
