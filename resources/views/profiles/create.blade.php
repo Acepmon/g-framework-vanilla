@@ -1,6 +1,22 @@
 @extends('layouts.admin')
 
 @section('load')
+	<link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
+	<link href="/assets/css/icons/icomoon/styles.css" rel="stylesheet" type="text/css">
+	<link href="/assets/css/bootstrap.css" rel="stylesheet" type="text/css">
+	<link href="/assets/css/core.css" rel="stylesheet" type="text/css">
+	<link href="/assets/css/components.css" rel="stylesheet" type="text/css">
+	<link href="/assets/css/colors.css" rel="stylesheet" type="text/css">
+	<script type="text/javascript" src="/assets/js/plugins/forms/validation/validate.min.js"></script>
+	<script type="text/javascript" src="/assets/js/plugins/forms/selects/bootstrap_multiselect.js"></script>
+	<script type="text/javascript" src="/assets/js/plugins/forms/inputs/touchspin.min.js"></script>
+	<script type="text/javascript" src="/assets/js/plugins/forms/selects/select2.min.js"></script>
+	<script type="text/javascript" src="/assets/js/plugins/forms/styling/switch.min.js"></script>
+	<script type="text/javascript" src="/assets/js/plugins/forms/styling/switchery.min.js"></script>
+	<script type="text/javascript" src="/assets/js/plugins/forms/styling/uniform.min.js"></script>
+
+	<script type="text/javascript" src="/assets/js/core/app.js"></script>
+	<script type="text/javascript" src="/assets/js/pages/form_validation.js"></script>
 @endsection
 
 @section('pageheader')
@@ -17,7 +33,7 @@
 <div class="breadcrumb-line">
     <ul class="breadcrumb">
         <li><a href="/"><i class="icon-home2 position-left"></i> Home</a></li>
-        <li><a href="/profiles">Profile</a></li>
+        <li><a href="/profiles">Profiles</a></li>
         <li class="active">Create</li>
     </ul>
 
@@ -84,62 +100,62 @@
                     @endforeach
                 @endif
 
-                <form method="post" class="form-horizontal" action="/profiles" enctype="multipart/form-data">
+                <form method="post" class="form-horizontal form-validate-jquery" action="/profiles" enctype="multipart/form-data">
                     {{ csrf_field() }}
 
                     <div class="form-group">
-                        <label class="control-label col-lg-2">Username</label>
+                        <label class="control-label col-lg-2">Username <span class="text-danger">*</span></label>
                         <div class="col-lg-10">
-                            <input name="username" type="text" class="form-control">
+                            <input name="username" required="true" type="text" class="form-control" placeholder="e.g. user123, john_doe..." value="{{ session('profile')?session('profile')['username']:'' }}">
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="control-label col-lg-2">Email</label>
+                        <label class="control-label col-lg-2">Email <span class="text-danger">*</span></label>
                         <div class="col-lg-10">
-                            <input name="email" type="text" class="form-control">
+                            <input name="email" required="true" type="email" class="form-control" placeholder="e.g. user@example.com..." value="{{ session('profile')?session('profile')['email']:'' }}">
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="control-label col-lg-2">Password</label>
+                        <label class="control-label col-lg-2">Password <span class="text-danger">*</span></label>
                         <div class="col-lg-10">
-                            <input name="password" type="password" class="form-control">
+                            <input id="password" name="password" required="true" type="password" class="form-control" placeholder="Minimum 6 characters allowed">
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="control-label col-lg-2">Re-password</label>
+                        <label class="control-label col-lg-2">Re-password <span class="text-danger">*</span></label>
                         <div class="col-lg-10">
-                            <input name="password2" type="password" class="form-control">
+                            <input name="repeat_password" required="true" type="password" class="form-control" placeholder="Retype password">
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="control-label col-lg-2">Name</label>
+                        <label class="control-label col-lg-2">Name <span class="text-danger">*</span></label>
                         <div class="col-lg-10">
-                            <input name="name" type="text" class="form-control">
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="control-label col-lg-2">Nickname</label>
-                        <div class="col-lg-10">
-                            <input name="nickname" type="text" class="form-control">
+                            <input name="name" required="true" type="text" class="form-control" placeholder="e.g. John Doe..." value="{{ session('profile')?session('profile')['name']:'' }}">
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="control-label col-lg-2">Avatar</label>
                         <div class="col-lg-10">
-                            <input type="file" name="avatar" class="file-styled uploader form-control">
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <img id="avatar" src="/assets/images/placeholder.jpg" class="img-circle img-md"/>
+                                </div>
+                                <div class="col-lg-8">
+                                    <input type="file" name="avatar" class="file-styled form-control" onchange="readURL(this);">
+                                </div>
+                            </div>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="control-label col-lg-2">Language</label>
+                        <label class="control-label col-lg-2">Language <span class="text-danger">*</span></label>
                         <div class="col-lg-10">
-                            <select name="language" class="form-control">
+                            <select name="language" class="form-control" value="{{ session('profile')?session('profile')['language']:'' }}">
                                 <option value="en">en</option>
                                 <option value="mn">mn</option>
                             </select>
@@ -147,19 +163,27 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="control-label col-lg-2">Role</label>
+                        <label class="control-label col-lg-2">Role <span class="text-danger">*</span></label>
                         <div class="col-lg-10">
-                            <select name="role_id" class="form-control">
+                            <select name="role_id" class="form-control" value="{{ session('profile')?session('profile')['role_id']:'' }}">
                                 @foreach($roles as $role)
                                 <option value="{{$role->id}}">{{$role->name}}</option>
                                 @endforeach
-                                <option value="789">Dont</option>
                             </select>
                         </div>
                     </div>
 
-                    <div class="text-right">
-                        <button type="submit" class="btn btn-primary">Submit form <i class="icon-arrow-right14 position-right"></i></button>
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="text-left">
+                                <button type="button" class="btn btn-default" onclick="location.href='/profiles';"><i class="icon-arrow-left52 position-left"></i> Back</button>
+                            </div>
+                        </div>
+                        <div class="col-lg-8">
+                            <div class="text-right">
+                                <button type="reset" class="btn btn-default" id="reset">Reset <i class="icon-reload-alt position-right"></i></button>
+                                <button type="submit" class="btn btn-primary">Submit form <i class="icon-arrow-right14 position-right"></i></button>
+                        </div>
                     </div>
                 </form>
             </div>
@@ -174,4 +198,20 @@
 @endsection
 
 @section('script')
+<script>
+
+function readURL(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            $('#avatar')
+                .attr('src', e.target.result);
+        };
+
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+</script>
 @endsection
