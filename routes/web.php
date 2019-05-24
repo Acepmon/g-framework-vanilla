@@ -35,3 +35,4 @@ Route::get('/', function () {
 });
 
 Auth::routes();
+Route::resource('profiles', 'ProfileController');
