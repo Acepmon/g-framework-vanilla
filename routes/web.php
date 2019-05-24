@@ -24,15 +24,3 @@ Route::get('/test/example', function () {
 });
 
 Route::resource('menus', 'MenuController');
-
-// Route::put('menus/{id}', 'MenuController');
-
-// Route::put('menus/{id}/edit', 'MenuController');
-
-
-// Route::get('menus', function () {
-
-//     $menus = DB::table('menus')->get();
-
-//     return view('menus', ['menus' => $menus]);
-// });

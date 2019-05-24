@@ -64,10 +64,6 @@
         </div>
     </div>
 
-    <div class="panel-body">
-        
-    </div>
-
     <div class="table-responsive">
         <table class="table">
             <thead>
@@ -78,56 +74,40 @@
                     <th>Menu URL</th>
                     <th>Parent ID</th>
                     <th>Published</th>
+                    <th>Created_at</th>
+                    <th>Updated_at</th>
+                    <th>Deleted_at</th>
+                    <th>Show</th>
+                    <th>Edit</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach($menu as $data){
+                @foreach($menus as $data)
                 <tr>
-                    <th>{{ $data -> id}}</th> <br>
-                    <th>{{ $data -> name}}</th> <br>
-                    <th>{{ $data -> age}}</th> <br>
-                    <th>{{ $data -> address}}</th>
+                    <td>{{ $data -> id}}</td> 
+                    <td>{{ $data -> type}}</td> 
+                    <td>{{ $data -> name}}</td> 
+                    <td>{{ $data -> url}}</td> 
+                    <td>{{ $data -> parent_id}}</td> 
+                    <td>{{ $data -> published}}</td>
+                    <td>{{ $data -> created_at}}</td> 
+                    <td>{{ $data -> updated_at}}</td> 
+                    <td>{{ $data -> deleted_at}}</td> 
+                    <td><a href='/menus/{{ $data -> id}}' type="btn btn-primary">Show</a> </td>
+                    <td><a href='/menus/{{ $data -> id}}/edit' type="btn btn-primary">Edit</a> </td>
                 </tr>
-                }
                 @endforeach
-                <tr>
-                    <td ><a href="/menus/create" id="1">1</a></td>
-                    <td >Menu Type</td>
-                    <td >Menu Name</td>
-                    <td >Menu URL</td>
-                    <td >Menu Name</td>
-                    <td >Menu URL</td>
-                </tr>
-                <!-- <tr>
-                    <td id="3" >2</td>
-                    <td >Victoria</td>
-                    <td >Baker</td>
-                    <td >@Vicky</td>
-                    <td >Baker</td>
-                    <td >@Vicky</td>
-                </tr>
-                <tr>
-                    <td id="2">3</td>
-                    <td >James</td>
-                    <td >Alexander</td>
-                    <td >@Alex</td>
-                    <td >Alexander</td>
-                    <td >@Alex</td>
-                </tr>
-                <tr>
-                    <td id="4">4</td>
-                    <td >Franklin</td>
-                    <td >Morrison</td>
-                    <td >Morrison</td>
-                    <td >@Frank</td>
-                    <td >@Frank</td>
-                </tr> -->
             </tbody>
         </table>
     </div>
 </div>
 <!-- /table -->
 
+<div class="panel-body">
+        <div class="text-right">
+            <a href="{{ url('menus/create') }}" class="btn btn-primary">Create menu<i class="icon-arrow-right14 position-right"></i></a>
+        </div>
+    </div>
 
 <!-- Grid -->
 <div class="row">

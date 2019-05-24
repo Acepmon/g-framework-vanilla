@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Menu;
 
 class MenuController extends Controller
 {
@@ -14,8 +15,9 @@ class MenuController extends Controller
     public function index()
     {
 
-        $menus = DB::select('select * from menus');
+        $menus = Menu::all();
         return view('menus.menu', ['menus' => $menus]);
+        
     }
 
     /**
@@ -36,7 +38,15 @@ class MenuController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $menu = new menu;
+
+        $menu->type = $request->type;
+        $menu->name = $request->name;
+        $menu->url = $request->url;
+        $menu->parent_id = $request->parent_id;
+        $menu->published = $request->published;
+
+        $menu->save();
     }
 
     /**
@@ -47,7 +57,8 @@ class MenuController extends Controller
      */
     public function show($id)
     {
-        return view('menus.menuShow');
+        $menu = Menu::find($id);
+        return view('menus.menuShow', ['menu' => $menu]);
     }
 
     /**
@@ -58,7 +69,8 @@ class MenuController extends Controller
      */
     public function edit($id)
     {
-        return view('menus.menuEdit');
+        $menu = Menu::find($id);
+        return view('menus.menuEdit', ['menu' => $menu]);
     }
 
     /**
@@ -81,6 +93,6 @@ class MenuController extends Controller
      */
     public function destroy($id)
     {
-        //
+        // 
     }
 }
