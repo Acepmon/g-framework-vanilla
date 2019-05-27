@@ -6,8 +6,39 @@
 @section('pageheader')
 <div class="page-header-content">
     <div class="page-title">
-        <h4><i class="icon-arrow-left52 position-left"></i> <span class="text-semibold">Roles</span></h4>
+        <h4><i class="icon-arrow-left52 position-left"></i> <span class="text-semibold">Starters</span> - 2 Columns</h4>
     </div>
+
+    <div class="heading-elements">
+        <a href="#" class="btn btn-labeled btn-labeled-right bg-blue heading-btn">Button <b><i class="icon-menu7"></i></b></a>
+    </div>
+</div>
+
+<div class="breadcrumb-line">
+    <ul class="breadcrumb">
+        <li><a href="index.html"><i class="icon-home2 position-left"></i> Home</a></li>
+        <li><a href="2_col.html">Starters</a></li>
+        <li class="active">2 columns</li>
+    </ul>
+
+    <ul class="breadcrumb-elements">
+        <li><a href="#"><i class="icon-comment-discussion position-left"></i> Link</a></li>
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                <i class="icon-gear position-left"></i>
+                Dropdown
+                <span class="caret"></span>
+            </a>
+
+            <ul class="dropdown-menu dropdown-menu-right">
+                <li><a href="#"><i class="icon-user-lock"></i> Account security</a></li>
+                <li><a href="#"><i class="icon-statistics"></i> Analytics</a></li>
+                <li><a href="#"><i class="icon-accessibility"></i> Accessibility</a></li>
+                <li class="divider"></li>
+                <li><a href="#"><i class="icon-gear"></i> All settings</a></li>
+            </ul>
+        </li>
+    </ul>
 </div>
 <!-- /page header -->
 @endsection
@@ -19,6 +50,11 @@
 </div>
 
 <div class="panel panel-flat">
+    @if (session('status'))
+        <div id="timer" class="alert alert-success">
+            {{ session('status') }}
+        </div>
+    @endif
     <div class="table-responsive">
         <table class="table">
             <thead>
@@ -29,25 +65,21 @@
                 </tr>
             </thead>
             <tbody>
-            @foreach($Roles as $role)
+            @foreach($roles as $role)
                 <tr>                    
                     <td>{{$role->id}}</td>
                     <td>{{$role->name}}</td>
                     <td>{{$role->description}}</td>
-                    <td style="width:50px">
-                        <form action="/roles/{{ $role->id }}" method="GET">
-                        {{ csrf_field() }}
-                            <button type="submit" class="btn">View</button>
-                        </form>
-                    </td>
-                    <td style="width:50px">
-                        <form action="/roles/{{ $role->id }}/edit" method="GET">
-                        {{ csrf_field() }}
-                            <button type="submit" class="btn">Edit</button>
-                        </form>
-                    </td>
-                    <td style="width:50px">
-                        <button data-toggle="modal" data-target="#modal_theme_danger" type="submit" class="btn" onclick="choose_role({{ $role->id }})">Delete</button>
+                    <td width="250px">
+                        <div class="btn-group">
+                            <form action="/roles/{{ $role->id }}" method="GET" style="float: left; margin-right: 5px">
+                                <button type="submit" class="btn btn-default">View</button>
+                            </form>
+                            <form action="/roles/{{ $role->id }}/edit" method="GET" style="float: left; margin-right: 5px">
+                                <button type="submit" class="btn btn-default">Edit</button>
+                            </form>
+                            <button data-toggle="modal" data-target="#modal_theme_danger" type="submit" class="btn btn-default" onclick="choose_role({{ $role->id }})">Delete</button>
+                        </div>
                     </td>
                 </tr>
             @endforeach
@@ -89,5 +121,8 @@
     window.choose_role = function(id) {
         $("#delete_form").attr('action', '/roles/'+id);
     }
+
+    setTimeout(function(){ document.getElementById("timer").remove() }, 10000);
 </script>
 @endsection
+

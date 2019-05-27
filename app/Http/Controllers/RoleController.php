@@ -15,7 +15,7 @@ class RoleController extends Controller
     public function index()
     {
         $roles = Role::all();
-        return view('roles.index', ['Roles' => $roles]);
+        return view('roles.index', ['roles' => $roles]);
     }
 
     /**
@@ -45,7 +45,8 @@ class RoleController extends Controller
         $role->name = $request->name;
         $role->description = $request->description;
         $role->save();
-        return redirect()->route('roles.index');
+
+        return redirect()->route('roles.index')->with('status', 'Role created!');
     }
 
     /**
@@ -56,7 +57,7 @@ class RoleController extends Controller
      */
     public function show($id)
     {
-        $role = Role::find($id);
+        $role = Role::findOrFail($id);
         return view('roles.show', ['role' => $role]);
     }
 
@@ -68,7 +69,7 @@ class RoleController extends Controller
      */
     public function edit($id)
     {
-        $role = Role::find($id);
+        $role = Role::findOrFail($id);
         return view('roles.edit', ['role' => $role]);
     }
 
@@ -85,12 +86,12 @@ class RoleController extends Controller
             'name' => 'required|max:100',
             'description' => 'nullable|max:250',
         ]);
-        
-        $role = Role::find($id);
+
+        $role = Role::findOrFail($id);
         $role->name=$request->name;
         $role->description=$request->description;
         $role->save();
-        return redirect()->route('roles.index');
+        return redirect()->route('roles.index')->with('status', 'Role edited');
     }
 
     /**
@@ -102,6 +103,6 @@ class RoleController extends Controller
     public function destroy($id)
     {
         Role::destroy($id);
-        return redirect()->route('roles.index');
+        return redirect()->route('roles.index')->with('status', 'Role deleted');
     }
 }
