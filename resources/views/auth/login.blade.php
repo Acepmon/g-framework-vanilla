@@ -14,16 +14,24 @@
             </div>
 
             <div class="form-group has-feedback has-feedback-left">
-<!--                <input type="text" class="form-control" placeholder="Username">-->
-                <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" placeholder="Username" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+                @error('name')
+                <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                @enderror
                 <div class="form-control-feedback">
                     <i class="icon-user text-muted"></i>
                 </div>
             </div>
 
             <div class="form-group has-feedback has-feedback-left">
-<!--                <input type="password" class="form-control" placeholder="Password">-->
-                <input id="password" type="password" class="form-control" name="password" required autocomplete="current-password">
+                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" placeholder="Password" name="password" required autocomplete="current-password">
+                @error('password')
+                <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                @enderror
                 <div class="form-control-feedback">
                     <i class="icon-lock2 text-muted"></i>
                 </div>
@@ -39,15 +47,12 @@
                     {{ __('Forgot password?') }}
                 </a>
                 @endif
-<!--                <a href="login_password_recover.html">Forgot password?</a>-->
             </div>
         </div>
     </form>
     <!-- /simple login form -->
     <!-- Footer -->
-    <div class="footer text-muted text-center">
-        &copy; 2015. <a href="#">Limitless Web App Kit</a> by <a href="http://themeforest.net/user/Kopyov" target="_blank">Eugene Kopyov</a>
-    </div>
+    @include('includes.footer')
     <!-- /footer -->
 
 </div>

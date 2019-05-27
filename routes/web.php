@@ -34,5 +34,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::resource('menus', 'MenuController');
+
 Auth::routes();
 Route::resource('profiles', 'ProfileController');
