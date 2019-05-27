@@ -1,0 +1,217 @@
+@extends('layouts.admin')
+
+@section('load')
+	<link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
+	<link href="/assets/css/icons/icomoon/styles.css" rel="stylesheet" type="text/css">
+	<link href="/assets/css/bootstrap.css" rel="stylesheet" type="text/css">
+	<link href="/assets/css/core.css" rel="stylesheet" type="text/css">
+	<link href="/assets/css/components.css" rel="stylesheet" type="text/css">
+	<link href="/assets/css/colors.css" rel="stylesheet" type="text/css">
+	<script type="text/javascript" src="/assets/js/plugins/forms/validation/validate.min.js"></script>
+	<script type="text/javascript" src="/assets/js/plugins/forms/selects/bootstrap_multiselect.js"></script>
+	<script type="text/javascript" src="/assets/js/plugins/forms/inputs/touchspin.min.js"></script>
+	<script type="text/javascript" src="/assets/js/plugins/forms/selects/select2.min.js"></script>
+	<script type="text/javascript" src="/assets/js/plugins/forms/styling/switch.min.js"></script>
+	<script type="text/javascript" src="/assets/js/plugins/forms/styling/switchery.min.js"></script>
+	<script type="text/javascript" src="/assets/js/plugins/forms/styling/uniform.min.js"></script>
+
+	<script type="text/javascript" src="/assets/js/core/app.js"></script>
+	<script type="text/javascript" src="/assets/js/pages/form_validation.js"></script>
+@endsection
+
+@section('pageheader')
+<div class="page-header-content">
+    <div class="page-title">
+        <h4><i class="icon-arrow-left52 position-left"></i> <span class="text-semibold">Profile Create</span></h4>
+    </div>
+
+    <div class="heading-elements">
+        <a href="#" class="btn btn-labeled btn-labeled-right bg-blue heading-btn">Button <b><i class="icon-menu7"></i></b></a>
+    </div>
+</div>
+
+<div class="breadcrumb-line">
+    <ul class="breadcrumb">
+        <li><a href="/"><i class="icon-home2 position-left"></i> Home</a></li>
+        <li><a href="/profiles">Profiles</a></li>
+        <li class="active">Create</li>
+    </ul>
+
+    <ul class="breadcrumb-elements">
+        <li><a href="#"><i class="icon-comment-discussion position-left"></i> Link</a></li>
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                <i class="icon-gear position-left"></i>
+                Dropdown
+                <span class="caret"></span>
+            </a>
+
+            <ul class="dropdown-menu dropdown-menu-right">
+                <li><a href="#"><i class="icon-user-lock"></i> Account security</a></li>
+                <li><a href="#"><i class="icon-statistics"></i> Analytics</a></li>
+                <li><a href="#"><i class="icon-accessibility"></i> Accessibility</a></li>
+                <li class="divider"></li>
+                <li><a href="#"><i class="icon-gear"></i> All settings</a></li>
+            </ul>
+        </li>
+    </ul>
+</div>
+<!-- /page header -->
+@endsection
+
+@section('content')
+
+<!-- Grid -->
+<div class="row">
+    <div class="col-md-12">
+
+        <!-- Horizontal form -->
+        <div class="panel panel-flat">
+            <div class="panel-heading">
+                <h5 class="panel-title">New Profile</h5>
+                <div class="heading-elements">
+                    <ul class="icons-list">
+                        <li><a data-action="collapse"></a></li>
+                        <li><a data-action="close"></a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="panel-body">
+
+                @if(Session::has('success'))
+                <div class="alert alert-success no-border">
+                    <button type="button" class="close" data-dismiss="alert"><span>&times;</span><span class="sr-only">Close</span></button>
+                    {{ session('success') }}
+                </div>
+                @endif
+                @if(Session::has('error'))
+                <div class="alert alert-danger no-border">
+                    <button type="button" class="close" data-dismiss="alert"><span>&times;</span><span class="sr-only">Close</span></button>
+                    {{ session('error') }}
+                </div>
+                @endif
+                @if ($errors->any())
+                    @foreach ($errors->all() as $error)
+                    <div class="alert alert-danger no-border">
+                        <button type="button" class="close" data-dismiss="alert"><span>&times;</span><span class="sr-only">Close</span></button>
+                        {{ $error }}
+                    </div>
+                    @endforeach
+                @endif
+
+                <form method="post" class="form-horizontal form-validate-jquery" action="/profiles" enctype="multipart/form-data">
+                    {{ csrf_field() }}
+
+                    <div class="form-group">
+                        <label class="control-label col-lg-2">Username <span class="text-danger">*</span></label>
+                        <div class="col-lg-10">
+                            <input name="username" required="true" type="text" class="form-control" placeholder="e.g. user123, john_doe..." value="{{ session('profile')?session('profile')['username']:'' }}">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-lg-2">Email <span class="text-danger">*</span></label>
+                        <div class="col-lg-10">
+                            <input name="email" required="true" type="email" class="form-control" placeholder="e.g. user@example.com..." value="{{ session('profile')?session('profile')['email']:'' }}">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-lg-2">Password <span class="text-danger">*</span></label>
+                        <div class="col-lg-10">
+                            <input id="password" name="password" required="true" type="password" class="form-control" placeholder="Minimum 6 characters allowed">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-lg-2">Re-password <span class="text-danger">*</span></label>
+                        <div class="col-lg-10">
+                            <input name="repeat_password" required="true" type="password" class="form-control" placeholder="Retype password">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-lg-2">Name <span class="text-danger">*</span></label>
+                        <div class="col-lg-10">
+                            <input name="name" required="true" type="text" class="form-control" placeholder="e.g. John Doe..." value="{{ session('profile')?session('profile')['name']:'' }}">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-lg-2">Avatar</label>
+                        <div class="col-lg-10">
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <img id="avatar" src="/assets/images/placeholder.jpg" class="img-circle img-md"/>
+                                </div>
+                                <div class="col-lg-8">
+                                    <input type="file" name="avatar" class="file-styled form-control" onchange="readURL(this);">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-lg-2">Language <span class="text-danger">*</span></label>
+                        <div class="col-lg-10">
+                            <select name="language" class="form-control" value="{{ session('profile')?session('profile')['language']:'' }}">
+                                <option value="en">en</option>
+                                <option value="mn">mn</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-lg-2">Role <span class="text-danger">*</span></label>
+                        <div class="col-lg-10">
+                            <select name="role_id" class="form-control" value="{{ session('profile')?session('profile')['role_id']:'' }}">
+                                @foreach($roles as $role)
+                                <option value="{{$role->id}}">{{$role->name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="text-left">
+                                <button type="button" class="btn btn-default" onclick="location.href='/profiles';"><i class="icon-arrow-left52 position-left"></i> Back</button>
+                            </div>
+                        </div>
+                        <div class="col-lg-8">
+                            <div class="text-right">
+                                <button type="reset" class="btn btn-default" id="reset">Reset <i class="icon-reload-alt position-right"></i></button>
+                                <button type="submit" class="btn btn-primary">Submit form <i class="icon-arrow-right14 position-right"></i></button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- /horizotal form -->
+
+    </div>
+</div>
+<!-- /grid -->
+
+
+@endsection
+
+@section('script')
+<script>
+
+function readURL(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            $('#avatar')
+                .attr('src', e.target.result);
+        };
+
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+</script>
+@endsection

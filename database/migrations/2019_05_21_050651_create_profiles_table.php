@@ -17,14 +17,12 @@ class CreateProfilesTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('role_id');
             $table->string('name', 100);
-            $table->string('nickname', 100);
             $table->string('email', 250);
-            $table->string('avatar', 250);
+            $table->string('avatar', 250)->nullable();
             $table->string('language', 2);
             $table->timestamps();
-            $table->softDeletes();
 
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('role_id')->references('id')->on('roles');
         });
     }

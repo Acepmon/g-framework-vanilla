@@ -58,10 +58,10 @@
 
                     @yield('content')
 
+                    @include('includes.footer')
+
                 </div>
                 <!-- /content area -->
-
-                @include('includes.footer')
 
             </div>
             <!-- /main content -->
