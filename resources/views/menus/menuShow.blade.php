@@ -57,42 +57,52 @@
                     <div class="form-group">
                         <label class="control-label col-lg-2">Menu Type</label>
                         <div class="col-lg-10">
-                            <input type="text" value="{{ $menu -> type}}" class="form-control">
+<!--                            <input type="text" disabled value="{{ $menu -> type}}" class="form-control">-->
+                            {{$menu -> type}}
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="control-label col-lg-2">Menu Name</label>
                         <div class="col-lg-10">
-                            <input type="text" value="{{ $menu -> name}}" class="form-control">
+<!--                            <input type="text" disabled value="{{ $menu -> name}}" class="form-control">-->
+                            {{$menu -> name}}
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="control-label col-lg-2">Menu URL</label>
                         <div class="col-lg-10">
-                            <input type="text" value="{{ $menu -> url}}" class="form-control">
+<!--                            <input type="text" disabled value="{{ $menu -> url}}" class="form-control">-->
+                            {{$menu -> url}}
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="control-label col-lg-2">Parent ID</label>
                         <div class="col-lg-10">
-                            <input type="text" value="{{ $menu -> parent_id}}" class="form-control">
+                            @if(!empty($menu->parent_id))
+                            {{$menu->parent->name}}
+                            @endif
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="control-label col-lg-2">published</label>
+                        <label class="control-label col-lg-2">Published</label>
                         <div class="col-lg-10">
-                            <input type="text" value="{{ $menu -> published}}" class="form-control">
+<!--                            <input type="text" disabled value="{{ $menu -> published}}" class="form-control">-->
+                            @if ($menu->parent_id==1)
+                            Published
+                            @else
+                            Not published
+                            @endif
                         </div>
                     </div>
 
                     <div class="text-right">
-                        <a type="" href="/menus/" class="btn btn-primary" >Back <i class="icon-arrow-right14 position-right"></i></a>
+                        <a type="button" href="/menus/" class="btn btn-primary" ><i class="icon-arrow-left13 position-left"></i> Back</a>
                         
-                        <button type="button" class="btn btn-danger">Delete form </i></button>
+                        <a type="button" href="/menus/{{ $menu -> id}}/edit" class="btn btn-warning">Edit</i> <i class="icon-arrow-right14 position-left"></i> </a>
                     </div>
                 </form>
             </div>

@@ -44,14 +44,6 @@
 @endsection
 
 @section('content')
-
-<!-- Simple panel -->
-<div class="panel panel-flat">
-    
-</div>
-<!-- /simple panel -->
-
-
 <!-- Table -->
 <div class="panel panel-flat">
     <div class="panel-heading">
@@ -63,8 +55,16 @@
             </ul>
         </div>
     </div>
+    <div class="panel-body">
+        @if (session('status'))
+        <div class="alert alert-success">
+            {{ session('status') }}
+        </div>
+        @endif
+    </div>
 
     <div class="table-responsive">
+
         <table class="table">
             <thead>
                 <tr>
@@ -79,6 +79,7 @@
                     <th>Deleted_at</th>
                     <th>Show</th>
                     <th>Edit</th>
+                    <th>Delete</th>
                 </tr>
             </thead>
             <tbody>
@@ -88,13 +89,21 @@
                     <td>{{ $data -> type}}</td> 
                     <td>{{ $data -> name}}</td> 
                     <td>{{ $data -> url}}</td> 
-                    <td>{{ $data -> parent_id}}</td> 
+                    <td>
+                        @if (!empty($data->parent_id))
+                        <a href="{{ route('menus.show', ['id' => $data->parent_id]) }}">{{ $data ->parent->name }}</a>
+                        @endif
+                    </td>
                     <td>{{ $data -> published}}</td>
                     <td>{{ $data -> created_at}}</td> 
                     <td>{{ $data -> updated_at}}</td> 
                     <td>{{ $data -> deleted_at}}</td> 
                     <td><a href='/menus/{{ $data -> id}}' type="btn btn-primary">Show</a> </td>
                     <td><a href='/menus/{{ $data -> id}}/edit' type="btn btn-primary">Edit</a> </td>
+                    <td>
+<!--                        <button type="button" class="btn btn-warning" onclick="return confirm('Are you sure?')">Delete</button>-->
+                        <a href="#" data-toggle="modal" data-target="#modal_theme_danger" onclick="delete_confirm({{ $data->id }})"><i class="icon-trash"></i> Delete</a>
+                    </td>
                 </tr>
                 @endforeach
             </tbody>
@@ -109,14 +118,38 @@
         </div>
     </div>
 
-<!-- Grid -->
-<div class="row">
-    
+<!-- Danger modal -->
+<div id="modal_theme_danger" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-danger">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h6 class="modal-title">Delete?</h6>
+            </div>
+
+            <div class="modal-body">
+                <p>Are you sure you want to delete this record?</p>
+            </div>
+
+            <div class="modal-footer">
+                <form method="post" id="delete_form" action="/menus/0">
+                    {{ method_field('DELETE') }}
+                    {{ csrf_field() }}
+
+                    <button type="button" class="btn btn-link" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
-<!-- /grid -->
-
-
+<!-- /default modal -->
 @endsection
 
 @section('script')
+<script>
+    window.delete_confirm = function(id) {
+        $("#delete_form").attr('action', '/menus/'+id);
+    }
+</script>
 @endsection
