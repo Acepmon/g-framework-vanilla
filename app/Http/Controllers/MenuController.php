@@ -82,7 +82,16 @@ class MenuController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $menus = Menu::find($id);
+        $menu = new menu;
+
+        $menu->type = $request->type;
+        $menu->name = $request->name;
+        $menu->url = $request->url;
+        $menu->parent_id = $request->parent_id;
+        $menu->published = $request->published;
+
+        $menu->save();
     }
 
     /**
@@ -93,6 +102,7 @@ class MenuController extends Controller
      */
     public function destroy($id)
     {
-        // 
+        $menu = Menu::find($id);
+        $menu->delete();
     }
 }

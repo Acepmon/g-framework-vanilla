@@ -53,7 +53,9 @@
             </div>
 
             <div class="panel-body">
-                <form class="form-horizontal" action="#">
+                <form class="form-horizontal" method="POST" action="/menus/{{ $menu -> id }}">
+                    @csrf
+                    @method('DELETE')
                     <div class="form-group">
                         <label class="control-label col-lg-2">Menu Type</label>
                         <div class="col-lg-10">
@@ -92,7 +94,7 @@
                     <div class="text-right">
                         <a type="" href="/menus/" class="btn btn-primary" >Back <i class="icon-arrow-right14 position-right"></i></a>
                         
-                        <button type="button" class="btn btn-danger">Delete form </i></button>
+                        <a type="submit" class="btn btn-danger">Delete form </i></a>
                     </div>
                 </form>
             </div>

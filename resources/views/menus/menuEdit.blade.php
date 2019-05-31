@@ -28,7 +28,7 @@
 
 <!-- Grid -->
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-12">
 
         <!-- Horizontal form -->
         <div class="panel panel-flat">
@@ -43,7 +43,7 @@
             </div>
 
             <div class="panel-body">
-                <form class="form-horizontal" action="#">
+                <form method="put" action="" class="form-horizontal">
                     <div class="form-group">
                         <label class="control-label col-lg-2">Menu Type</label>
                         <div class="col-lg-10">
@@ -89,11 +89,6 @@
 
     </div>
 
-    <div class="col-md-6">
-
-        <!-- /vertical form -->
-
-    </div>
 </div>
 <!-- /grid -->
 

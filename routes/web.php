@@ -25,16 +25,18 @@ Route::middleware(['auth'])->group(function () {
         return view('test.login');
     });
 
+    Route::resource('menus', 'MenuController');
+
     Route::get('/home', 'HomeController@index')->name('home');
 
     Route::get('/admin', 'AdminController@index')->name('admin.index');
+
+    Route::resource('profiles', 'ProfileController');
 });
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('menus', 'MenuController');
-
 Auth::routes();
-Route::resource('profiles', 'ProfileController');
+
