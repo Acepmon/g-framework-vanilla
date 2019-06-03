@@ -14,8 +14,8 @@
             </div>
 
             <div class="form-group has-feedback has-feedback-left">
-                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" placeholder="Username" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
-                @error('name')
+                <input id="username" type="text" class="form-control @error('name') is-invalid @enderror" placeholder="Username" name="username" value="{{ old('username') }}" required autocomplete="username" autofocus>
+                @error('username')
                 <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -39,6 +39,7 @@
 
             <div class="form-group">
                 <button type="submit" class="btn btn-primary btn-block">Sign in <i class="icon-circle-right2 position-right"></i></button>
+                <a href="/register" class="btn btn-default btn-block">Register <i class="icon-circle-right2 position-right"></i></a>
             </div>
 
             <div class="text-center">

@@ -28,7 +28,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/admin', 'AdminController@index')->name('admin.index');
     Route::get('/home', 'HomeController@index')->name('home');
     Route::resource('menus', 'MenuController');
-    Route::resource('profiles', 'ProfileController');
+    Route::resource('users', 'UserController');
     Route::resource('roles', 'RoleController');
 });
 

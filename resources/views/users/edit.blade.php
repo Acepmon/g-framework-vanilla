@@ -29,8 +29,8 @@
 <div class="breadcrumb-line">
     <ul class="breadcrumb">
         <li><a href="/"><i class="icon-home2 position-left"></i> Home</a></li>
-        <li><a href="/profiles">Profiles</a></li>
-        <li><a href="/profiles/{{ $profile->user->id }}">Detail</a></li>
+        <li><a href="/users">Profiles</a></li>
+        <li><a href="/users/{{ $user->id }}">Detail</a></li>
         <li class="active">Edit</li>
     </ul>
 
@@ -97,28 +97,28 @@
                     @endforeach
                 @endif
 
-                <form method="post" class="form-horizontal form-validate-jquery" action="/profiles/{{ $profile->user->id }}" enctype="multipart/form-data">
+                <form method="post" class="form-horizontal form-validate-jquery" action="/users/{{ $user->id }}" enctype="multipart/form-data">
                     {{ method_field('PATCH') }}
                     {{ csrf_field() }}
 
                     <div class="form-group">
                         <label class="control-label col-lg-2">Username</label>
                         <div class="col-lg-10">
-                            <input name="username" type="text" class="form-control" value="{{ $profile->user->name }}" placeholder="e.g. user123, john_doe...">
+                            <input name="username" type="text" class="form-control" value="{{ $user->username }}" placeholder="e.g. user123, john_doe...">
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="control-label col-lg-2">Email</label>
                         <div class="col-lg-10">
-                            <input id="email" name="email" type="email" class="form-control" value="{{ $profile->email }}" placeholder="e.g. user@example.com...">
+                            <input id="email" name="email" type="email" class="form-control" value="{{ $user->email }}" placeholder="e.g. user@example.com...">
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="control-label col-lg-2">Name</label>
                         <div class="col-lg-10">
-                            <input name="name" type="text" class="form-control" value="{{ $profile->name }}" placeholder="e.g. John Doe...">
+                            <input name="name" type="text" class="form-control" value="{{ $user->name }}" placeholder="e.g. John Doe...">
                         </div>
                     </div>
 
@@ -127,7 +127,7 @@
                         <div class="col-lg-10">
                             <div class="row">
                                 <div class="col-lg-4">
-                                    <img id="avatar" src="{{ ($profile->avatar)?'/storage/'.$profile->avatar:'/assets/images/placeholder.jpg'}}" class="img-circle img-md"/>
+                                    <img id="avatar" src="{{ ($user->avatar)?'/storage/'.$user->avatar:'/assets/images/placeholder.jpg'}}" class="img-circle img-md"/>
                                 </div>
                                 <div class="col-lg-8">
                                     <input type="file" name="avatar" class="file-styled form-control" onchange="readURL(this);"></div>
@@ -138,20 +138,9 @@
                     <div class="form-group">
                         <label class="control-label col-lg-2">Language</label>
                         <div class="col-lg-10">
-                            <select name="language" class="form-control" value="{{ $profile->language }}">
-                                <option value="en" selected="{{ $profile->language == 'en' }}">en</option>
-                                <option value="mn" selected="{{ $profile->language == 'mn' }}">mn</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="control-label col-lg-2">Role</label>
-                        <div class="col-lg-10">
-                            <select name="role_id" class="form-control">
-                                @foreach($roles as $role)
-                                <option value="{{$role->id}}" selected="{{ $role->name == $profile->role->name }}">{{$role->name}}</option>
-                                @endforeach
+                            <select name="language" class="form-control" value="{{ $user->language }}">
+                                <option value="en" selected="{{ $user->language == 'en' }}">en</option>
+                                <option value="mn" selected="{{ $user->language == 'mn' }}">mn</option>
                             </select>
                         </div>
                     </div>
@@ -172,7 +161,7 @@
                     <div class="form-group">
                         <label class="control-label col-lg-2">New password</label>
                         <div class="col-lg-10">
-                            <input id="new_password" name="new_password" type="password" class="form-control" disabled="true" placeholder="Minimum 6 characters allowed">
+                            <input id="new_password" name="new_password" type="password" class="form-control" disabled="true" placeholder="Minimum 8 characters allowed">
                         </div>
                     </div>
 
