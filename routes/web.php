@@ -25,16 +25,15 @@ Route::middleware(['auth'])->group(function () {
         return view('test.login');
     });
 
-    Route::get('/home', 'HomeController@index')->name('home');
-
     Route::get('/admin', 'AdminController@index')->name('admin.index');
+    Route::get('/home', 'HomeController@index')->name('home');
+    Route::resource('menus', 'MenuController');
+    Route::resource('profiles', 'ProfileController');
+    Route::resource('roles', 'RoleController');
 });
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('menus', 'MenuController');
-
 Auth::routes();
-Route::resource('profiles', 'ProfileController');
