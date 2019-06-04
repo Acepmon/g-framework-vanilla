@@ -117,7 +117,7 @@ $(function() {
         },
         rules: {
             password: {
-                minlength: 5
+                minlength: 6
             },
             repeat_password: {
                 equalTo: "#password"

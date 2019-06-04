@@ -25,13 +25,18 @@ Route::middleware(['auth'])->group(function () {
         return view('test.login');
     });
 
-    Route::resource('menus', 'MenuController');
+    // Route::resource('menus', 'MenuController');
 
-    Route::get('/home', 'HomeController@index')->name('home');
+    // Route::get('/home', 'HomeController@index')->name('home');
 
+    // Route::get('/admin', 'AdminController@index')->name('admin.index');
+
+    // Route::resource('profiles', 'ProfileController');
     Route::get('/admin', 'AdminController@index')->name('admin.index');
-
+    Route::get('/home', 'HomeController@index')->name('home');
+    Route::resource('menus', 'MenuController');
     Route::resource('profiles', 'ProfileController');
+    Route::resource('roles', 'RoleController');
 });
 
 Route::get('/', function () {
@@ -39,4 +44,3 @@ Route::get('/', function () {
 });
 
 Auth::routes();
-

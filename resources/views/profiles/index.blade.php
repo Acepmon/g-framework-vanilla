@@ -1,7 +1,8 @@
 @extends('layouts.admin')
 
 @section('load')
-
+<script type="text/javascript" src="assets/js/plugins/tables/datatables/datatables.min.js"></script>
+<script type="text/javascript" src="assets/js/pages/datatables_basic.js"></script>
 @endsection
 
 @section('pageheader')
@@ -52,7 +53,7 @@
         <h5 class="panel-title">Profiles datatable</h5>
         <div class="heading-elements">
             <ul class="icons-list">
-                <li><form action="/profiles/create"><button type="submit" class="btn btn-primary">Register New</button></form></li>
+                <li><form action="/profiles/create"><button type="submit" class="btn btn-primary">Register New <i class="icon-add position-right"></i></button></form></li>
                 <li> </li>
                 <li><a data-action="collapse"></a></li>
                 <li><a data-action="reload"></a></li>
@@ -65,16 +66,10 @@
         <thead>
             <tr>
                 <th>#</th>
-                <th>Name</th>
-                <th>Nickname</th>
-                <th>email</th>
-                <th>Username</th>
-                <th>Avatar</th>
-                <th>Language</th>
+                <th>User</th>
+                <th>Email</th>
                 <th>Role</th>
                 <th>Created Date</th>
-                <th>Updated Date</th>
-                <th>Deleted Date</th>
                 <th class="text-center">Actions</th>
             </tr>
         </thead>
@@ -82,16 +77,16 @@
             @foreach($profiles as $profile)
             <tr>
                 <td>{{ $profile->user->id }}</td>
-                <td>{{ $profile->name }}</td>
-                <td>{{ $profile->nickname }}</td>
+                <td>
+                    <a href="#" class="media-left"><img src="{{ ($profile->avatar)?'/storage/'.$profile->avatar:'/assets/images/placeholder.jpg'}}" class="img-sm img-circle" alt=""></a>
+                    <div class="media-body">
+                        <span class="media-heading text-semibold">{{ $profile->name }}</span>
+                        <span class="text-size-mini text-muted display-block">{{ '@'.$profile->user->name }}</span>
+                    </div>
+                </td>
                 <td>{{ $profile->email }}</td>
-                <td>{{ $profile->user->name }}</td>
-                <td>{{ $profile->avatar }}</td>
-                <td>{{ $profile->language }}</td>
                 <td>{{ $profile->role->name }}</td>
                 <td>{{ $profile->created_at }}</td>
-                <td>{{ $profile->updated_at }}</td>
-                <td>{{ $profile->deleted_at }}</td>
                 <!---->
                 <td class="text-center">
                     <ul class="icons-list">
@@ -108,12 +103,6 @@
                         </li>
                     </ul>
                 </td>
-                <!--
-                <td>
-                    <button type="button" class="btn btn-default"><i class="icon-eye position-left"></i> View</button>
-                    <button type="button" class="btn btn-default"><i class="icon-pencil position-left"></i> Edit</button>
-                    <button type="button" class="btn btn-default"><i class="icon-trash position-left"></i> Delete</button>
-                </td>-->
             </tr>
             @endforeach
         </tbody>

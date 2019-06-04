@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Validation\Rule;
 use App\Profile;
 use App\User;
 use App\Role;
@@ -20,7 +23,7 @@ class ProfileController extends Controller
     {
         //
         $profiles = Profile::all();
-        return view('test.profile_list', ['profiles' => $profiles]);
+        return view('profiles.index', ['profiles' => $profiles]);
     }
 
     /**
@@ -31,7 +34,7 @@ class ProfileController extends Controller
     public function create()
     {
         $roles = Role::all();
-        return view('test.profile_create', ['roles' => $roles]);
+        return view('profiles.create', ['roles' => $roles]);
     }
 
     /**
@@ -43,37 +46,44 @@ class ProfileController extends Controller
     public function store(Request $request)
     {
         //
+        $temp = [
+            'username' => $request->input('username'),
+            'email' => $request->input('email'),
+            'name' => $request->input('name'),
+            'language' => $request->input('language'),
+            'role_id' => $request->input('role_id'),
+        ];
+        Session::flash('profile', $temp);
         $validatedData = $request->validate([
             'username' => 'required|max:100',
             'email' => 'required|email|unique:profiles,email|max:255',
             'role_id' => 'required|integer|exists:roles,id',
-            'password' => 'required',
+            'password' => 'required|min:6',
             'name' => 'required|max:100',
-            'nickname' => 'required|max:100',
-            'avatar' => 'required',
             'language' => 'required|max:2',
         ]);
 
         $password = $request->input('password');
-        $password2 = $request->input('password2');
-        if ($password == $password2) {
+        $repeat_password = $request->input('repeat_password');
+        if ($password == $repeat_password) {
             try{
                     DB::beginTransaction();
                     
                     $user = new User();
                     $user->name = $request->input('username');
                     $user->email = $request->input('email');
-                    $user->password = $password;
+                    $user->password = Hash::make($password);
                     $user->save();
 
                     $profile = new Profile();
                     $profile->user_id = $user->id;
                     $profile->role_id = $request->input('role_id');
                     $profile->name = $request->input('name');
-                    $profile->nickname = $request->input('nickname');
                     $profile->email = $request->input('email');
                     $profile->language = $request->input('language');
-                    $profile->avatar = str_replace("public/", "", $request->file('avatar')->store('public/avatars'));
+                    if ($request->hasFile('avatar')) {
+                        $profile->avatar = str_replace("public/", "", $request->file('avatar')->store('public/avatars'));
+                    }
                     $profile->save();
 
                     DB::commit();
@@ -97,8 +107,9 @@ class ProfileController extends Controller
     {
         //
         // $profile = Profile::where('user_id', $id)->first();
-        $profile = Profile::find($id);
-        return view('test.profile_detail', ['profile' => $profile]);
+        $profile = Profile::findOrFail($id);
+        $roles = Role::all();
+        return view('profiles.show', ['profile' => $profile, 'roles' => $roles]);
     }
 
     /**
@@ -110,9 +121,9 @@ class ProfileController extends Controller
     public function edit($id)
     {
         //5002331176
-        $profile = Profile::find($id);
+        $profile = Profile::findOrFail($id);
         $roles = Role::all();
-        return view('test.profile_edit', ['profile' => $profile, 'roles' => $roles]);
+        return view('profiles.edit', ['profile' => $profile, 'roles' => $roles]);
     }
 
     /**
@@ -125,21 +136,24 @@ class ProfileController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $profile = Profile::findOrFail($id);
         $validatedData = $request->validate([
             'username' => 'max:100',
-            'email' => 'nullable|email|unique:profiles,email|max:255',
+            'email' => [
+                'nullable',
+                'email',
+                'max:255',
+                Rule::unique('profiles')->ignore($profile->email, 'email'),
+            ],
             'role_id' => 'integer|exists:roles,id',
             'name' => 'max:100',
-            'nickname' => 'max:100',
             'language' => 'max:2',
         ]);
 
-        $profile = Profile::find($id);//->first();
         $updated = false;
         $username = $request->input('username');
         $email = $request->input('email');
         $name = $request->input('name');
-        $nickname = $request->input('nickname');
         $avatar = NULL;
         if ($request->hasFile('avatar')) {
             $avatar = str_replace("public/", "", $request->file('avatar')->store('public/avatars'));
@@ -150,13 +164,15 @@ class ProfileController extends Controller
         $new_pass2 = $request->input('new_password2');
         
         try{
-            if ($request->input('password') && !($new_pass == NULL && $new_pass2 == NULL)) {
+            DB::beginTransaction();
+
+            if ($request->input('password_checked') && !($new_pass == NULL && $new_pass2 == NULL)) {
                 if ($new_pass == $new_pass2) {
                     $updated = true;
-                    $profile->user->password = $new_pass;
+                    $profile->user->password = Hash::make($new_pass);
                     $profile->user->save();
                 } else {
-                    return redirect('/profiles/'.$id.'/edit')->with('error', 'Passwords do not match!');
+                    return redirect()->route('profiles.edit', $id)->with('error', 'Passwords do not match!');
                 }
             }
             if ($username != NULL) {
@@ -169,9 +185,6 @@ class ProfileController extends Controller
             }
             if ($name != NULL) {
                 $profile->name = $name;
-            }
-            if ($nickname != NULL) {
-                $profile->nickname = $nickname;
             }
             if ($avatar != NULL) {
                 $profile->avatar = $avatar;
@@ -186,18 +199,18 @@ class ProfileController extends Controller
             //$profile->updated_at = date('Y-m-d H:i:s');
             $profile->save();
             $updated = true;
+
+            DB::commit();
         } catch (\Exception $e) {
-            return redirect('/profiles/'.$id.'/edit')->with('error', $e->getMessage());
+            DB::rollBack();
+            return redirect()->route('profiles.edit', $id)->with('error', $e->getMessage());
         }
 
         if ($updated) {
-            return redirect('/profiles/'.$id.'/edit')->with('success', 'Successfully updated!');
+            return redirect()->route('profiles.edit', $id)->with('success', 'Successfully updated!');
         } else {
-            return redirect('/profiles/'.$id.'/edit');
+            return redirect()->route('profiles.edit', $id);
         }
-        // } else {
-        //     return redirect('/profiles/'.$id.'/edit')->with('error', 'Wrong Password!');
-        // }
     }
 
     /**
@@ -210,7 +223,7 @@ class ProfileController extends Controller
     {
         //
         Profile::destroy($id);
-        // User:destroy($id);
-        return redirect('/profiles');
+        User::destroy($id);
+        return redirect()->route('profiles.index');
     }
 }
