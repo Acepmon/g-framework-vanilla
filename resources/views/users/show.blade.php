@@ -33,7 +33,7 @@
 <div class="breadcrumb-line">
     <ul class="breadcrumb">
         <li><a href="/"><i class="icon-home2 position-left"></i> Home</a></li>
-        <li><a href="/profiles">Profiles</a></li>
+        <li><a href="/users">Profiles</a></li>
         <li class="active">Detail</li>
     </ul>
 
@@ -70,14 +70,14 @@
                     <div class="panel-body bg-indigo-400 border-radius-top text-center" style="background-image: url(http://demo.interface.club/limitless/assets/images/bg.png); background-size: contain;">
                         <div class="content-group-sm">
                             <h6 class="text-semibold no-margin-bottom">
-                                {{ $profile->name }}
+                                {{ $user->name }}
                             </h6>
 
-                            <span class="display-block">{{ '@'.$profile->user->name }}</span>
+                            <span class="display-block">{{ '@'.$user->username }}</span>
                         </div>
 
                         <a href="#" class="display-inline-block content-group-sm">
-                            <img src="{{ ($profile->avatar)?'/storage/'.$profile->avatar:'/assets/images/placeholder.jpg'}}" class="img-circle img-responsive" alt="" style="width: 110px; height: 110px;">
+                            <img src="{{ ($user->avatar)?'/storage/'.$user->avatar:'/assets/images/placeholder.jpg'}}" class="img-circle img-responsive" alt="" style="width: 110px; height: 110px;">
                         </a>
 
                         <ul class="list-inline list-inline-condensed no-margin-bottom">
@@ -90,10 +90,11 @@
                     <div class="panel no-border-top no-border-radius-top">
                         <ul class="navigation">
                             <li class="navigation-header">Navigation</li>
-                            <li class="active"><a href="#profile" data-toggle="tab"><i class="icon-files-empty"></i> Profile</a></li>
+                            <li class="active"><a href="#user" data-toggle="tab"><i class="icon-files-empty"></i> Profile</a></li>
                             <li><a href="#schedule" data-toggle="tab"><i class="icon-files-empty"></i> Schedule</a></li>
                             <li><a href="#messages" data-toggle="tab"><i class="icon-files-empty"></i> Inbox <span class="badge bg-warning-400">23</span></a></li>
                             <li><a href="#orders" data-toggle="tab"><i class="icon-files-empty"></i> Orders</a></li>
+                            <li><a href="#settings" data-toggle="tab"><i class="icon-files-empty"></i> Settings</a></li>
                             <li class="navigation-divider"></li>
                             <li><a href="login_advanced.html"><i class="icon-switch2"></i> Log out</a></li>
                         </ul>
@@ -255,7 +256,7 @@
 
             <!-- Tab content -->
             <div class="tab-content">
-                <div class="tab-pane fade in active" id="profile">
+                <div class="tab-pane fade in active" id="user">
 
                     <!-- Daily stats -->
                     <div class="panel panel-flat">
@@ -351,28 +352,28 @@
                     @endforeach
                 @endif
 
-                <form method="post" class="form-horizontal form-validate-jquery" action="/profiles/{{ $profile->user->id }}" enctype="multipart/form-data">
+                <form method="post" class="form-horizontal form-validate-jquery" action="/users/{{ $user->id }}" enctype="multipart/form-data">
                     {{ method_field('PATCH') }}
                     {{ csrf_field() }}
 
                     <div class="form-group">
                         <label class="control-label col-lg-2">Username</label>
                         <div class="col-lg-10">
-                            <input name="username" type="text" class="form-control" value="{{ $profile->user->name }}" placeholder="e.g. user123, john_doe...">
+                            <input name="username" type="text" class="form-control" value="{{ $user->username }}" placeholder="e.g. user123, john_doe...">
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="control-label col-lg-2">Email</label>
                         <div class="col-lg-10">
-                            <input id="email" name="email" type="email" type="text" class="form-control" value="{{ $profile->email }}" placeholder="e.g. user@example.com...">
+                            <input id="email" name="email" type="email" type="text" class="form-control" value="{{ $user->email }}" placeholder="e.g. user@example.com...">
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="control-label col-lg-2">Name</label>
                         <div class="col-lg-10">
-                            <input name="name" type="text" class="form-control" value="{{ $profile->name }}" placeholder="e.g. John Doe...">
+                            <input name="name" type="text" class="form-control" value="{{ $user->name }}" placeholder="e.g. John Doe...">
                         </div>
                     </div>
 
@@ -381,7 +382,7 @@
                         <div class="col-lg-10">
                             <div class="row">
                                 <div class="col-lg-4">
-                                    <img id="avatar" src="{{ ($profile->avatar)?'/storage/'.$profile->avatar:'/assets/images/placeholder.jpg'}}" class="img-circle img-md"/>
+                                    <img id="avatar" src="{{ ($user->avatar)?'/storage/'.$user->avatar:'/assets/images/placeholder.jpg'}}" class="img-circle img-md"/>
                                 </div>
                                 <div class="col-lg-8">
                                     <input type="file" name="avatar" class="file-styled form-control" onchange="readURL(this);"></div>
@@ -392,20 +393,9 @@
                     <div class="form-group">
                         <label class="control-label col-lg-2">Language</label>
                         <div class="col-lg-10">
-                            <select name="language" class="form-control" value="{{ $profile->language }}">
-                                <option value="en" selected="{{ $profile->language == 'en' }}">en</option>
-                                <option value="mn" selected="{{ $profile->language == 'mn' }}">mn</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="control-label col-lg-2">Role</label>
-                        <div class="col-lg-10">
-                            <select name="role_id" class="form-control">
-                                @foreach($roles as $role)
-                                <option value="{{$role->id}}" selected="{{ $role->name == $profile->role->name }}">{{$role->name}}</option>
-                                @endforeach
+                            <select name="language" class="form-control" value="{{ $user->language }}">
+                                <option value="en" selected="{{ $user->language == 'en' }}">en</option>
+                                <option value="mn" selected="{{ $user->language == 'mn' }}">mn</option>
                             </select>
                         </div>
                     </div>
@@ -874,7 +864,7 @@
                                         </td>
                                         <td class="table-inbox-message">
                                             <div class="table-inbox-subject"><span class="label bg-pink-400 position-left">Track</span> Achilles's shield</div>
-                                            <span class="table-inbox-preview">Wooden whales, or whales cut in profile out of the small dark slabs of the noble South Sea war-wood, are frequently met with in the forecastles of American whalers. Some of them are done with much accuracy</span>
+                                            <span class="table-inbox-preview">Wooden whales, or whales cut in user out of the small dark slabs of the noble South Sea war-wood, are frequently met with in the forecastles of American whalers. Some of them are done with much accuracy</span>
                                         </td>
                                         <td class="table-inbox-attachment"></td>
                                         <td class="table-inbox-time">
@@ -986,7 +976,7 @@
                                         </td>
                                         <td class="table-inbox-message">
                                             <div class="table-inbox-subject">Here and there from some lucky point of view</div>
-                                            <span class="table-inbox-preview">You will catch passing glimpses of the profiles of whales defined along the undulating ridges. But you must be a thorough whaleman, to see these sights; and not only that, but if you wish to return to such a sight again</span>
+                                            <span class="table-inbox-preview">You will catch passing glimpses of the users of whales defined along the undulating ridges. But you must be a thorough whaleman, to see these sights; and not only that, but if you wish to return to such a sight again</span>
                                         </td>
                                         <td class="table-inbox-attachment">
                                             <i class="icon-attachment text-muted"></i>
@@ -1880,6 +1870,50 @@
                     </div>
                     <!-- /orders history -->
 
+                </div>
+
+                <div class="tab-pane fade" id="settings">
+
+                <div class="panel panel-white">
+                        <div class="panel-heading">
+                            <h6 class="panel-title">Settings</h6>
+                        </div>
+
+                        <table class="table datatable-basic">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Key</th>
+                                    <th>Value</th>
+                                    <th class="text-center">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($user->settings as $setting)
+                                <tr>
+                                    <td>{{ $setting->id }}</td>
+                                    <td>{{ $setting->key }}</td>
+                                    <td>{{ $setting->value }}</td>
+                                    <!---->
+                                    <td class="text-center">
+                                        <ul class="icons-list">
+                                            <li class="dropdown">
+                                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                                    <i class="icon-menu9"></i>
+                                                </a>
+
+                                                <ul class="dropdown-menu dropdown-menu-right">
+                                                    <li><a href="/users/{{ $user->id }}/edit"><i class="icon-pencil"></i> Edit</a></li>
+                                                    <!--li><a href="#" data-toggle="modal" data-target="#modal_theme_danger" onclick="choose_user({{ $user->id }})"><i class="icon-trash"></i> Delete</a></li-->
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
             <!-- /tab content -->

@@ -33,7 +33,7 @@
 <div class="breadcrumb-line">
     <ul class="breadcrumb">
         <li><a href="/"><i class="icon-home2 position-left"></i> Home</a></li>
-        <li><a href="/profiles">Profiles</a></li>
+        <li><a href="/users">Profiles</a></li>
         <li class="active">Create</li>
     </ul>
 
@@ -100,41 +100,41 @@
                     @endforeach
                 @endif
 
-                <form method="post" class="form-horizontal form-validate-jquery" action="/profiles" enctype="multipart/form-data">
+                <form method="post" class="form-horizontal form-validate-jquery" action="/users" enctype="multipart/form-data">
                     {{ csrf_field() }}
 
                     <div class="form-group">
                         <label class="control-label col-lg-2">Username <span class="text-danger">*</span></label>
                         <div class="col-lg-10">
-                            <input name="username" required="true" type="text" class="form-control" placeholder="e.g. user123, john_doe..." value="{{ session('profile')?session('profile')['username']:'' }}">
+                            <input name="username" required="true" type="text" class="form-control" placeholder="e.g. user123, john_doe..." value="{{Request::old('username')}}">
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="control-label col-lg-2">Email <span class="text-danger">*</span></label>
                         <div class="col-lg-10">
-                            <input name="email" required="true" type="email" class="form-control" placeholder="e.g. user@example.com..." value="{{ session('profile')?session('profile')['email']:'' }}">
+                            <input name="email" required="true" type="email" class="form-control" placeholder="e.g. user@example.com..." value="{{Request::old('email')}}">
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="control-label col-lg-2">Password <span class="text-danger">*</span></label>
                         <div class="col-lg-10">
-                            <input id="password" name="password" required="true" type="password" class="form-control" placeholder="Minimum 6 characters allowed">
+                            <input id="password" name="password" required="true" type="password" class="form-control" placeholder="Minimum 8 characters allowed">
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="control-label col-lg-2">Re-password <span class="text-danger">*</span></label>
                         <div class="col-lg-10">
-                            <input name="repeat_password" required="true" type="password" class="form-control" placeholder="Retype password">
+                            <input name="password_confirmation" required="true" type="password" class="form-control" placeholder="Retype password">
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="control-label col-lg-2">Name <span class="text-danger">*</span></label>
                         <div class="col-lg-10">
-                            <input name="name" required="true" type="text" class="form-control" placeholder="e.g. John Doe..." value="{{ session('profile')?session('profile')['name']:'' }}">
+                            <input name="name" required="true" type="text" class="form-control" placeholder="e.g. John Doe..." value="{{Request::old('name')}}">
                         </div>
                     </div>
 
@@ -146,7 +146,7 @@
                                     <img id="avatar" src="/assets/images/placeholder.jpg" class="img-circle img-md"/>
                                 </div>
                                 <div class="col-lg-8">
-                                    <input type="file" name="avatar" class="file-styled form-control" onchange="readURL(this);">
+                                    <input type="file" name="avatar" class="file-styled form-control" onchange="readURL(this);" value="{{Request::old('avatar')}}">
                                 </div>
                             </div>
                         </div>
@@ -155,9 +155,9 @@
                     <div class="form-group">
                         <label class="control-label col-lg-2">Language <span class="text-danger">*</span></label>
                         <div class="col-lg-10">
-                            <select name="language" class="form-control" value="{{ session('profile')?session('profile')['language']:'' }}">
-                                <option value="en">en</option>
-                                <option value="mn">mn</option>
+                            <select name="language" class="form-control" value="{{Request::old('language')}}">
+                                <option value="en" selected="{{ Request::old('language') == 'en' }}">en</option>
+                                <option value="mn" selected="{{ Request::old('language') == 'mn' }}">mn</option>
                             </select>
                         </div>
                     </div>
@@ -165,9 +165,9 @@
                     <div class="form-group">
                         <label class="control-label col-lg-2">Role <span class="text-danger">*</span></label>
                         <div class="col-lg-10">
-                            <select name="role_id" class="form-control" value="{{ session('profile')?session('profile')['role_id']:'' }}">
+                            <select name="role_id" class="form-control">
                                 @foreach($roles as $role)
-                                <option value="{{$role->id}}">{{$role->name}}</option>
+                                <option value="{{$role->id}}" selected="{{ Request::old('role_id') == $role->id }}">{{$role->name}}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -176,7 +176,7 @@
                     <div class="row">
                         <div class="col-lg-4">
                             <div class="text-left">
-                                <button type="button" class="btn btn-default" onclick="location.href='/profiles';"><i class="icon-arrow-left52 position-left"></i> Back</button>
+                                <button type="button" class="btn btn-default" onclick="location.href='/users';"><i class="icon-arrow-left52 position-left"></i> Back</button>
                             </div>
                         </div>
                         <div class="col-lg-8">

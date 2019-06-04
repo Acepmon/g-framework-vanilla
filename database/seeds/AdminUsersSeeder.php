@@ -13,17 +13,10 @@ class AdminUsersSeeder extends Seeder
     public function run()
     {
         DB::table('users')->insert([
-            'name' => 'admin',
+            'username' => 'admin',
             'email' => 'admin@gmail.com',
-            'password' => Hash::make('admin')
-        ]);
-
-        DB::table('profiles')->insert([
-            'user_id' => 1,
-            'role_id' => 1,
+            'password' => Hash::make('admin'),
             'name' => 'Administrator',
-            'email' => 'admin@gmail.com',
-            'avatar' => '/assets/images/placeholder.jpg',
             'language' => 'en'
         ]);
     }
