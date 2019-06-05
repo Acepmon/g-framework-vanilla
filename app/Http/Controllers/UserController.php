@@ -3,14 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Session;
 use Illuminate\Validation\Rule;
 use App\User;
-use App\Role;
-use App\Setting;
 
 class UserController extends Controller
 {
@@ -33,8 +28,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        $roles = Role::all();
-        return view('users.create', ['roles' => $roles]);
+        return view('users.create');
     }
 
     /**
@@ -90,8 +84,7 @@ class UserController extends Controller
         //
         // $user = user::where('user_id', $id)->first();
         $user = User::findOrFail($id);
-        $roles = Role::all();
-        return view('users.show', ['user' => $user, 'roles' => $roles]);
+        return view('users.show', ['user' => $user]);
     }
 
     /**
@@ -102,10 +95,9 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //5002331176
+        //
         $user = User::findOrFail($id);
-        $roles = Role::all();
-        return view('users.edit', ['user' => $user, 'roles' => $roles]);
+        return view('users.edit', ['user' => $user]);
     }
 
     /**

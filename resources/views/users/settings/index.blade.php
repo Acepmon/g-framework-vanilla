@@ -1,24 +1,24 @@
 @extends('layouts.admin')
 
 @section('load')
-	<!-- Theme JS files -->
-	<script type="text/javascript" src="/assets/js/plugins/forms/validation/validate.min.js"></script>
-	<script type="text/javascript" src="/assets/js/plugins/forms/selects/bootstrap_multiselect.js"></script>
-	<script type="text/javascript" src="/assets/js/plugins/forms/inputs/touchspin.min.js"></script>
-	<script type="text/javascript" src="/assets/js/plugins/forms/selects/select2.min.js"></script>
-	<script type="text/javascript" src="/assets/js/plugins/forms/styling/switch.min.js"></script>
-	<script type="text/javascript" src="/assets/js/plugins/forms/styling/switchery.min.js"></script>
-	<script type="text/javascript" src="/assets/js/pages/form_validation.js"></script>
-	<script type="text/javascript" src="/assets/js/plugins/forms/styling/uniform.min.js"></script>
+<!-- Theme JS files -->
+<script type="text/javascript" src="/assets/js/plugins/forms/validation/validate.min.js"></script>
+<script type="text/javascript" src="/assets/js/plugins/forms/selects/bootstrap_multiselect.js"></script>
+<script type="text/javascript" src="/assets/js/plugins/forms/inputs/touchspin.min.js"></script>
+<script type="text/javascript" src="/assets/js/plugins/forms/selects/select2.min.js"></script>
+<script type="text/javascript" src="/assets/js/plugins/forms/styling/switch.min.js"></script>
+<script type="text/javascript" src="/assets/js/plugins/forms/styling/switchery.min.js"></script>
+<script type="text/javascript" src="/assets/js/pages/form_validation.js"></script>
+<script type="text/javascript" src="/assets/js/plugins/forms/styling/uniform.min.js"></script>
 
-	<script type="text/javascript" src="/assets/js/core/app.js"></script>
-	<script type="text/javascript" src="/assets/js/pages/form_validation.js"></script>
+<script type="text/javascript" src="/assets/js/core/app.js"></script>
+<script type="text/javascript" src="/assets/js/pages/form_validation.js"></script>
 @endsection
 
 @section('pageheader')
 <div class="page-header-content">
     <div class="page-title">
-        <h4><i class="icon-arrow-left52 position-left"></i> <span class="text-semibold">User Details</span></h4>
+        <h4><i class="icon-arrow-left52 position-left"></i> <span class="text-semibold">Profile Details</span></h4>
     </div>
 
     <div class="heading-elements">
@@ -33,7 +33,7 @@
 <div class="breadcrumb-line">
     <ul class="breadcrumb">
         <li><a href="/"><i class="icon-home2 position-left"></i> Home</a></li>
-        <li><a href="/users">Users</a></li>
+        <li><a href="/users">Profiles</a></li>
         <li class="active">Detail</li>
     </ul>
 
@@ -61,194 +61,7 @@
 
 @section('content')
 <div class="has-detached-left">
-    <div class="sidebar-detached">
-        <div class="sidebar sidebar-default sidebar-separate">
-            <div class="sidebar-content">
-
-                <!-- User details -->
-                <div class="content-group">
-                    <div class="panel-body bg-indigo-400 border-radius-top text-center" style="background-image: url(http://demo.interface.club/limitless/assets/images/bg.png); background-size: contain;">
-                        <div class="content-group-sm">
-                            <h6 class="text-semibold no-margin-bottom">
-                                {{ $user->name }}
-                            </h6>
-
-                            <span class="display-block">{{ '@'.$user->username }}</span>
-                        </div>
-
-                        <a href="#" class="display-inline-block content-group-sm">
-                            <img src="{{ ($user->avatar)?'/storage/'.$user->avatar:'/assets/images/placeholder.jpg'}}" class="img-circle img-responsive" alt="" style="width: 110px; height: 110px;">
-                        </a>
-
-                        <ul class="list-inline list-inline-condensed no-margin-bottom">
-                            <li><a href="#" class="btn bg-indigo btn-rounded btn-icon"><i class="icon-google-drive"></i></a></li>
-                            <li><a href="#" class="btn bg-indigo btn-rounded btn-icon"><i class="icon-twitter"></i></a></li>
-                            <li><a href="#" class="btn bg-indigo btn-rounded btn-icon"><i class="icon-github"></i></a></li>
-                        </ul>
-                    </div>
-
-                    <div class="panel no-border-top no-border-radius-top">
-                        <ul class="navigation">
-                            <li class="navigation-header">Navigation</li>
-                            <li class="active"><a href="#user" data-toggle="tab"><i class="icon-files-empty"></i> User</a></li>
-                            <li><a href="#schedule" data-toggle="tab"><i class="icon-files-empty"></i> Schedule</a></li>
-                            <li><a href="#messages" data-toggle="tab"><i class="icon-files-empty"></i> Inbox <span class="badge bg-warning-400">23</span></a></li>
-                            <li><a href="#orders" data-toggle="tab"><i class="icon-files-empty"></i> Orders</a></li>
-                            <li><a href="/users/{{ $user->id }}/settings"><i class="icon-files-empty"></i> Settings</a></li>
-                            <li class="navigation-divider"></li>
-                            <li><a href="login_advanced.html"><i class="icon-switch2"></i> Log out</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <!-- /user details -->
-
-
-                <!-- Online users -->
-                <div class="sidebar-category">
-                    <div class="category-title">
-                        <span>Online users</span>
-                        <ul class="icons-list">
-                            <li><a href="#" data-action="collapse"></a></li>
-                        </ul>
-                    </div>
-
-                    <div class="category-content">
-                        <ul class="media-list">
-                            <li class="media">
-                                <a href="#" class="media-left"><img src="/assets/images/placeholder.jpg" class="img-sm img-circle" alt=""></a>
-                                <div class="media-body">
-                                    <a href="#" class="media-heading text-semibold">James Alexander</a>
-                                    <span class="text-size-mini text-muted display-block">Santa Ana, CA.</span>
-                                </div>
-                                <div class="media-right media-middle">
-                                    <span class="status-mark border-success"></span>
-                                </div>
-                            </li>
-
-                            <li class="media">
-                                <a href="#" class="media-left"><img src="/assets/images/placeholder.jpg" class="img-sm img-circle" alt=""></a>
-                                <div class="media-body">
-                                    <a href="#" class="media-heading text-semibold">Jeremy Victorino</a>
-                                    <span class="text-size-mini text-muted display-block">Dowagiac, MI.</span>
-                                </div>
-                                <div class="media-right media-middle">
-                                    <span class="status-mark border-danger"></span>
-                                </div>
-                            </li>
-
-                            <li class="media">
-                                <a href="#" class="media-left"><img src="/assets/images/placeholder.jpg" class="img-sm img-circle" alt=""></a>
-                                <div class="media-body">
-                                    <a href="#" class="media-heading text-semibold">Margo Baker</a>
-                                    <span class="text-size-mini text-muted display-block">Kasaan, AK.</span>
-                                </div>
-                                <div class="media-right media-middle">
-                                    <span class="status-mark border-success"></span>
-                                </div>
-                            </li>
-
-                            <li class="media">
-                                <a href="#" class="media-left"><img src="/assets/images/placeholder.jpg" class="img-sm img-circle" alt=""></a>
-                                <div class="media-body">
-                                    <a href="#" class="media-heading text-semibold">Beatrix Diaz</a>
-                                    <span class="text-size-mini text-muted display-block">Neenah, WI.</span>
-                                </div>
-                                <div class="media-right media-middle">
-                                    <span class="status-mark border-warning"></span>
-                                </div>
-                            </li>
-
-                            <li class="media">
-                                <a href="#" class="media-left"><img src="/assets/images/placeholder.jpg" class="img-sm img-circle" alt=""></a>
-                                <div class="media-body">
-                                    <a href="#" class="media-heading text-semibold">Richard Vango</a>
-                                    <span class="text-size-mini text-muted display-block">Grapevine, TX.</span>
-                                </div>
-                                <div class="media-right media-middle">
-                                    <span class="status-mark border-grey-400"></span>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <!-- /online-users -->
-
-
-                <!-- Latest updates -->
-                <div class="sidebar-category">
-                    <div class="category-title">
-                        <span>Latest updates</span>
-                        <ul class="icons-list">
-                            <li><a href="#" data-action="collapse"></a></li>
-                        </ul>
-                    </div>
-
-                    <div class="category-content">
-                        <ul class="media-list">
-                            <li class="media">
-                                <div class="media-left">
-                                    <a href="#" class="btn border-primary text-primary btn-flat btn-rounded btn-icon btn-sm"><i class="icon-git-pull-request"></i></a>
-                                </div>
-
-                                <div class="media-body">
-                                    Drop the IE <a href="#">specific hacks</a> for temporal inputs
-                                    <div class="media-annotation">4 minutes ago</div>
-                                </div>
-                            </li>
-
-                            <li class="media">
-                                <div class="media-left">
-                                    <a href="#" class="btn border-warning text-warning btn-flat btn-rounded btn-icon btn-sm"><i class="icon-git-commit"></i></a>
-                                </div>
-                                
-                                <div class="media-body">
-                                    Add full font overrides for popovers and tooltips
-                                    <div class="media-annotation">36 minutes ago</div>
-                                </div>
-                            </li>
-
-                            <li class="media">
-                                <div class="media-left">
-                                    <a href="#" class="btn border-info text-info btn-flat btn-rounded btn-icon btn-sm"><i class="icon-git-branch"></i></a>
-                                </div>
-                                
-                                <div class="media-body">
-                                    <a href="#">Chris Arney</a> created a new <span class="text-semibold">Design</span> branch
-                                    <div class="media-annotation">2 hours ago</div>
-                                </div>
-                            </li>
-
-                            <li class="media">
-                                <div class="media-left">
-                                    <a href="#" class="btn border-success text-success btn-flat btn-rounded btn-icon btn-sm"><i class="icon-git-merge"></i></a>
-                                </div>
-                                
-                                <div class="media-body">
-                                    <a href="#">Eugene Kopyov</a> merged <span class="text-semibold">Master</span> and <span class="text-semibold">Dev</span> branches
-                                    <div class="media-annotation">Dec 18, 18:36</div>
-                                </div>
-                            </li>
-
-                            <li class="media">
-                                <div class="media-left">
-                                    <a href="#" class="btn border-primary text-primary btn-flat btn-rounded btn-icon btn-sm"><i class="icon-git-pull-request"></i></a>
-                                </div>
-                                
-                                <div class="media-body">
-                                    Have Carousel ignore keyboard events
-                                    <div class="media-annotation">Dec 12, 05:46</div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <!-- /latest updates -->
-
-            </div>
-        </div>
-    </div>
-    <!-- /detached sidebar -->
-
+    @include('users.includes.sidebar')
 
     <!-- Detached content -->
     <div class="container-detached">
@@ -256,7 +69,7 @@
 
             <!-- Tab content -->
             <div class="tab-content">
-                <div class="tab-pane fade in active" id="user">
+                <div class="tab-pane fade" id="user">
 
                     <!-- Daily stats -->
                     <div class="panel panel-flat">
@@ -319,120 +132,120 @@
 
 
                     <div class="panel panel-flat">
-            <div class="panel-heading">
-                <h5 class="panel-title">Edit User Detail</h5>
-                <div class="heading-elements">
-                    <ul class="icons-list">
-                        <li><a data-action="collapse"></a></li>
-                        <li><a data-action="close"></a></li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="panel-body">
-
-                @if(Session::has('success'))
-                <div class="alert alert-success no-border">
-                    <button type="button" class="close" data-dismiss="alert"><span>&times;</span><span class="sr-only">Close</span></button>
-                    {{ session('success') }}
-                </div>
-                @endif
-                @if(Session::has('error'))
-                <div class="alert alert-danger no-border">
-                    <button type="button" class="close" data-dismiss="alert"><span>&times;</span><span class="sr-only">Close</span></button>
-                    {{ session('error') }}
-                </div>
-                @endif
-                @if ($errors->any())
-                    @foreach ($errors->all() as $error)
-                    <div class="alert alert-danger no-border">
-                        <button type="button" class="close" data-dismiss="alert"><span>&times;</span><span class="sr-only">Close</span></button>
-                        {{ $error }}
-                    </div>
-                    @endforeach
-                @endif
-
-                <form method="post" class="form-horizontal form-validate-jquery" action="/users/{{ $user->id }}" enctype="multipart/form-data">
-                    {{ method_field('PATCH') }}
-                    {{ csrf_field() }}
-
-                    <div class="form-group">
-                        <label class="control-label col-lg-2">Username</label>
-                        <div class="col-lg-10">
-                            <input name="username" type="text" class="form-control" value="{{ $user->username }}" placeholder="e.g. user123, john_doe...">
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="control-label col-lg-2">Email</label>
-                        <div class="col-lg-10">
-                            <input id="email" name="email" type="email" type="text" class="form-control" value="{{ $user->email }}" placeholder="e.g. user@example.com...">
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="control-label col-lg-2">Name</label>
-                        <div class="col-lg-10">
-                            <input name="name" type="text" class="form-control" value="{{ $user->name }}" placeholder="e.g. John Doe...">
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="control-label col-lg-2">Avatar</label>
-                        <div class="col-lg-10">
-                            <div class="row">
-                                <div class="col-lg-4">
-                                    <img id="avatar" src="{{ ($user->avatar)?'/storage/'.$user->avatar:'/assets/images/placeholder.jpg'}}" class="img-circle img-md"/>
-                                </div>
-                                <div class="col-lg-8">
-                                    <input type="file" name="avatar" class="file-styled form-control" onchange="readURL(this);"></div>
-                                </div>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="control-label col-lg-2">Language</label>
-                        <div class="col-lg-10">
-                            <select name="language" class="form-control" value="{{ $user->language }}">
-                                <option value="en" selected="{{ $user->language == 'en' }}">en</option>
-                                <option value="mn" selected="{{ $user->language == 'mn' }}">mn</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <hr>
-
-                    <div class="form-group">
-                        <div class="col-lg-2">
-                            <div class="checkbox checkbox-left">
-                                <label>
-                                    <input id="password_checked" name="password_checked" type="checkbox" class="styled" onchange="toggle_password_form(this)">
-                                    Change Password?
-                                </label>
+                        <div class="panel-heading">
+                            <h5 class="panel-title">Edit Profile Detail</h5>
+                            <div class="heading-elements">
+                                <ul class="icons-list">
+                                    <li><a data-action="collapse"></a></li>
+                                    <li><a data-action="close"></a></li>
+                                </ul>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="form-group">
-                        <label class="control-label col-lg-2">New password</label>
-                        <div class="col-lg-10">
-                            <input id="new_password" name="new_password" type="password" class="form-control" disabled="true" placeholder="Minimum 6 characters allowed">
+                        <div class="panel-body">
+
+                            @if(Session::has('success'))
+                            <div class="alert alert-success no-border">
+                                <button type="button" class="close" data-dismiss="alert"><span>&times;</span><span class="sr-only">Close</span></button>
+                                {{ session('success') }}
+                            </div>
+                            @endif
+                            @if(Session::has('error'))
+                            <div class="alert alert-danger no-border">
+                                <button type="button" class="close" data-dismiss="alert"><span>&times;</span><span class="sr-only">Close</span></button>
+                                {{ session('error') }}
+                            </div>
+                            @endif
+                            @if ($errors->any())
+                            @foreach ($errors->all() as $error)
+                            <div class="alert alert-danger no-border">
+                                <button type="button" class="close" data-dismiss="alert"><span>&times;</span><span class="sr-only">Close</span></button>
+                                {{ $error }}
+                            </div>
+                            @endforeach
+                            @endif
+
+                            <form method="post" class="form-horizontal form-validate-jquery" action="/users/{{ $user->id }}" enctype="multipart/form-data">
+                                {{ method_field('PATCH') }}
+                                {{ csrf_field() }}
+
+                                <div class="form-group">
+                                    <label class="control-label col-lg-2">Username</label>
+                                    <div class="col-lg-10">
+                                        <input name="username" type="text" class="form-control" value="{{ $user->username }}" placeholder="e.g. user123, john_doe...">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-lg-2">Email</label>
+                                    <div class="col-lg-10">
+                                        <input id="email" name="email" type="email" type="text" class="form-control" value="{{ $user->email }}" placeholder="e.g. user@example.com...">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-lg-2">Name</label>
+                                    <div class="col-lg-10">
+                                        <input name="name" type="text" class="form-control" value="{{ $user->name }}" placeholder="e.g. John Doe...">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-lg-2">Avatar</label>
+                                    <div class="col-lg-10">
+                                        <div class="row">
+                                            <div class="col-lg-4">
+                                                <img id="avatar" src="{{ ($user->avatar)?'/storage/'.$user->avatar:'/assets/images/placeholder.jpg'}}" class="img-circle img-md" />
+                                            </div>
+                                            <div class="col-lg-8">
+                                                <input type="file" name="avatar" class="file-styled form-control" onchange="readURL(this);"></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-lg-2">Language</label>
+                                    <div class="col-lg-10">
+                                        <select name="language" class="form-control" value="{{ $user->language }}">
+                                            <option value="en" selected="{{ $user->language == 'en' }}">en</option>
+                                            <option value="mn" selected="{{ $user->language == 'mn' }}">mn</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <hr>
+
+                                <div class="form-group">
+                                    <div class="col-lg-2">
+                                        <div class="checkbox checkbox-left">
+                                            <label>
+                                                <input id="password_checked" name="password_checked" type="checkbox" class="styled" onchange="toggle_password_form(this)">
+                                                Change Password?
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-lg-2">New password</label>
+                                    <div class="col-lg-10">
+                                        <input id="new_password" name="new_password" type="password" class="form-control" disabled="true" placeholder="Minimum 6 characters allowed">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-lg-2">Retype New Password</label>
+                                    <div class="col-lg-10">
+                                        <input id="new_password2" name="new_password2" type="password" class="form-control" disabled="true" placeholder="Retype password">
+                                    </div>
+                                </div>
+
+                                <div class="text-right">
+                                    <button type="submit" class="btn btn-primary">Submit form <i class="icon-arrow-right14 position-right"></i></button>
+                                </div>
+                            </form>
                         </div>
                     </div>
-
-                    <div class="form-group">
-                        <label class="control-label col-lg-2">Retype New Password</label>
-                        <div class="col-lg-10">
-                            <input id="new_password2" name="new_password2" type="password" class="form-control" disabled="true" placeholder="Retype password">
-                        </div>
-                    </div>
-
-                    <div class="text-right">
-                        <button type="submit" class="btn btn-primary">Submit form <i class="icon-arrow-right14 position-right"></i></button>
-                    </div>
-                </form>
-            </div>
-        </div>
 
                 </div>
 
@@ -1101,7 +914,7 @@
                                             Nov 23
                                         </td>
                                     </tr>
-                                
+
                                     <tr>
                                         <td class="table-inbox-checkbox rowlink-skip">
                                             <input type="checkbox" class="styled">
@@ -1360,7 +1173,7 @@
                                     <tr>
                                         <td class="no-padding-right">
                                             <a href="#">
-                                            <img src="/assets/images/placeholder.jpg" height="60" class="" alt="">
+                                                <img src="/assets/images/placeholder.jpg" height="60" class="" alt="">
                                             </a>
                                         </td>
                                         <td>
@@ -1872,11 +1685,15 @@
 
                 </div>
 
-                <div class="tab-pane fade" id="settings">
-
-                <div class="panel panel-white">
+                <div class="tab-pane fade in active" id="settings">
+                    <div class="panel panel-flat">
                         <div class="panel-heading">
                             <h6 class="panel-title">Settings</h6>
+                            <div class="heading-elements">
+                                <ul class="icons-list">
+                                    <li><form action="/users/{{ $user->id }}/settings/create"><button type="submit" class="btn btn-primary">New Settings <i class="icon-add position-right"></i></button></form></li>
+                                </ul>
+                            </div>
                         </div>
 
                         <table class="table datatable-basic">
@@ -1903,7 +1720,7 @@
                                                 </a>
 
                                                 <ul class="dropdown-menu dropdown-menu-right">
-                                                    <li><a href="/users/{{ $setting->id }}/edit"><i class="icon-pencil"></i> Edit</a></li>
+                                                    <li><a href="/users/{{ $user->id }}/settings/{{ $setting->id }}/edit"><i class="icon-pencil"></i> Edit</a></li>
                                                     <li><a href="#" data-toggle="modal" data-target="#modal_theme_danger" onclick="choose_setting({{ $setting->id }})"><i class="icon-trash"></i> Delete</a></li>
                                                 </ul>
                                             </li>
@@ -1921,32 +1738,60 @@
         </div>
     </div>
 </div>
+
+<!-- Danger modal -->
+<div id="modal_theme_danger" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-danger">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h6 class="modal-title">Delete?</h6>
+            </div>
+
+            <div class="modal-body">
+                <p>Are you sure you want to delete this user?</p>
+            </div>
+
+            <div class="modal-footer">
+                <form method="post" id="delete_form" action="/users/0">
+                    {{ method_field('DELETE') }}
+                    {{ csrf_field() }}
+                    
+                    <button type="button" class="btn btn-link" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
 
 @section('script')
 
 <script>
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
 
-function readURL(input) {
-    if (input.files && input.files[0]) {
-        var reader = new FileReader();
+            reader.onload = function(e) {
+                $('#avatar')
+                    .attr('src', e.target.result);
+            };
 
-        reader.onload = function (e) {
-            $('#avatar')
-                .attr('src', e.target.result);
-        };
-
-        reader.readAsDataURL(input.files[0]);
+            reader.readAsDataURL(input.files[0]);
+        }
     }
-}
 
-function toggle_password_form(checkbox) {
-    var toggle = checkbox.checked;
-    $('#new_password').val('');
-    $('#new_password2').val('');
-    $('#new_password').attr('disabled', !toggle);
-    $('#new_password2').attr('disabled', !toggle);
-}
+    function toggle_password_form(checkbox) {
+        var toggle = checkbox.checked;
+        $('#new_password').val('');
+        $('#new_password2').val('');
+        $('#new_password').attr('disabled', !toggle);
+        $('#new_password2').attr('disabled', !toggle);
+    }
 
+    window.choose_setting = function(id) {
+        $("#delete_form").attr('action', '/users/{{ $user->id }}/settings/'+id);
+    }
 </script>
 @endsection

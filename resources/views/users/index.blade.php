@@ -8,7 +8,7 @@
 @section('pageheader')
 <div class="page-header-content">
     <div class="page-title">
-        <h4><i class="icon-arrow-left52 position-left"></i> <span class="text-semibold">Profiles</span></h4>
+        <h4><i class="icon-arrow-left52 position-left"></i> <span class="text-semibold">Users</span></h4>
     </div>
 
     <div class="heading-elements">
@@ -19,7 +19,7 @@
 <div class="breadcrumb-line">
     <ul class="breadcrumb">
         <li><a href="index.html"><i class="icon-home2 position-left"></i> Home</a></li>
-        <li class="active">Profiles</li>
+        <li class="active">Users</li>
     </ul>
 
     <ul class="breadcrumb-elements">
@@ -50,7 +50,7 @@
 
 <div class="panel panel-flat">
     <div class="panel-heading">
-        <h5 class="panel-title">Profiles datatable</h5>
+        <h5 class="panel-title">Users datatable</h5>
         <div class="heading-elements">
             <ul class="icons-list">
                 <li><form action="/users/create"><button type="submit" class="btn btn-primary">Register New <i class="icon-add position-right"></i></button></form></li>
