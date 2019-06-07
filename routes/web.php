@@ -36,6 +36,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/home', 'HomeController@index')->name('home');
     Route::resource('menus', 'MenuController');
     Route::resource('users', 'UserController');
+    Route::resource('permissions', 'PermissionController');
     Route::resource('roles', 'RoleController');
     Route::get('/users/{user}/settings', 'UserSettingController@index')->name('users.settings.index');
     Route::get('/users/{user}/settings/create', 'UserSettingController@create')->name('users.settings.create');

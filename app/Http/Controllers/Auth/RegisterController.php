@@ -63,7 +63,6 @@ class RegisterController extends Controller
             'name' => ['max:100'],
             'avatar' => ['image'],
             'language' => ['required', 'max:2'],
-            'role_id' => 'required|integer|exists:roles,id',
         ]);
     }
 
@@ -87,7 +86,6 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'avatar' => $avatar,
             'language' => $data['language'],
-            'role_id' => $data['role_id'],
         ]);
     }
 }
