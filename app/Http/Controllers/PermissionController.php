@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Permission;
+use Illuminate\Support\Facades\Validator;
+//use phpDocumentor\Reflection\DocBlock\Tags\Uses;
 
 class PermissionController extends Controller
 {
@@ -14,8 +17,8 @@ class PermissionController extends Controller
     public function index()
     {
 
-        $permissons = Permisson::all();
-        return view('permissons.permisson', ['permissons' => $permissons]);
+        $permissions = Permission::all();
+        return view('permissions.permission', ['permissions' => $permissions]);
         
     }
 
@@ -26,8 +29,8 @@ class PermissionController extends Controller
      */
     public function create()
     {
-        $permissons = Permisson::all();
-        return view('permissons.permissonCreate', ['permissons' => $permissons]);
+        $permissions = Permission::all();
+        return view('permissions.permissionCreate', ['permissions' => $permissions]);
     }
 
     /**
@@ -40,25 +43,16 @@ class PermissionController extends Controller
 
     {
         $request->validate([
-            'type' => 'required|in:admin,car,tour,default',
-            'name' => 'required|max:100',
-            'published' => 'boolean',
+            'title' => 'required|max:191',
+            'description' => 'required|max:255',
         ]);
-        $permisson = new Permisson();
+        $permission = new Permission();
 
-        $permisson->type = $request->type;
-        $permisson->name = $request->name;
-        $permisson->url = $request->url;
-        $permisson->parent_id = $request->parent_id;
-        if($request->published == 1){
-            $permisson->published = 1;
-        }
-        else{
-            $permisson->published = 0;
-        }
+        $permission->title = $request->title;
+        $permission->description = $request->description;
 
-        $permisson->save();
-        return redirect() -> route('permissons.index')->with('status', 'Success');
+        $permission->save();
+        return redirect() -> route('permissions.index')->with('status', 'Success');
     }
 
     /**
@@ -69,8 +63,8 @@ class PermissionController extends Controller
      */
     public function show($id)
     {
-        $permisson = Permisson::find($id);
-        return view('permissons.permissonShow', ['permisson' => $permisson]);
+        $permission = Permission::find($id);
+        return view('permissions.permissionShow', ['permission' => $permission]);
     }
 
     /**
@@ -82,10 +76,10 @@ class PermissionController extends Controller
     public function edit($id)
     {
 
-        $permissons = Permisson::all();
+        $permissions = Permission::all();
 
-        $permisson = Permisson::find($id);
-        return view('permissons.permissonEdit', ['permisson' => $permisson, 'permissons' => $permissons]);
+        $permission = Permission::find($id);
+        return view('permissions.permissionEdit', ['permission' => $permission, 'permissions' => $permissions]);
     }
 
     /**
@@ -98,20 +92,16 @@ class PermissionController extends Controller
     public function update(Request $request, $id)
     {        
         $request->validate([
-            'type' => 'required|in:admin,car,tour,default',
-            'name' => 'required|max:100',
-            'published' => 'boolean',
+            'title' => 'required|max:191',
+            'description' => 'required|max:255',
         ]);
 
-        $permisson = Permisson::findOrFail($id);
+        $permission = Permission::findOrFail($id);
 
-        $permisson->type = $request->type;
-        $permisson->name = $request->name;
-        $permisson->url = $request->url;
-        $permisson->parent_id = $request->parent_id;       
-        
-        $permisson->save();
-        return redirect() -> route('permissons.edit', ['id' => $permisson->id])->with('status', 'Success');
+        $permission->title = $request->title;
+        $permission->description = $request->description;        
+        $permission->save();
+        return redirect() -> route('permissions.edit', ['id' => $permission->id])->with('status', 'Success');
     }
 
     /**
@@ -122,8 +112,8 @@ class PermissionController extends Controller
      */
     public function destroy($id)
     {
-        Permisson::destroy($id);
-        return redirect()->route('permissons.index');
+        Permission::destroy($id);
+        return redirect()->route('permissions.index');
         // 
     }
 }

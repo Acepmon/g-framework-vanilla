@@ -22,7 +22,7 @@
 
 <div class="breadcrumb-line">
     <ul class="breadcrumb">
-        <li><a href="/menus/"><i class="icon-home2 position-left"></i> Home</a></li>
+        <li><a href="/permission/"><i class="icon-home2 position-left"></i> Home</a></li>
     </ul>
 </div>
 <!-- /page header -->
@@ -45,56 +45,14 @@
                     </ul>
                 </div>
             </div>
-
             <div class="panel-body">
-                <form class="form-horizontal" method="POST" action="{{ route('menus.store') }}">
+                <form class="form-horizontal" method="POST" action="{{ route('permissions.store') }}">
                     @csrf
                     <div class="form-group">
-                        <label class="control-label col-lg-2">Menu Type</label>
+                        <label class="control-label col-lg-2">Title</label>
                         <div class="col-lg-10">
-                            <select class="selectbox" name="type" type="text" id="type" value="{{ old('type') }}" required>
-                                <option value="admin">admin</option>
-                                <option value="car">car</option>
-                                <option value="tour">tour</option>
-                                <option value="default">default</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="control-label col-lg-2">Menu Name</label>
-                        <div class="col-lg-10">
-                            <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" placeholder="Menu name" value="{{ old('name') }}" required autocomplete="name">
-                            @error('name')
-                            <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                            @enderror
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="control-label col-lg-2">Menu URL</label>
-                        <div class="col-lg-10">
-                            <input id="url" type="text" class="form-control @error('url') is-invalid @enderror" name="url" placeholder="Menu url" value="{{ old('url') }}" required autocomplete="url">
-                            @error('url')
-                            <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                            @enderror
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="control-label col-lg-2">Parent ID</label>
-                        <div class="col-lg-10">
-                            <select class="selectbox" name="parent_id" type="text" id="type">
-                                <option value=""></option>
-                                @foreach($menus as $data)
-                                <option value="{{$data -> id}}">{{$data -> name}}</option>
-                                @endforeach
-                            </select>
-                            @error('parent_id')
+                            <input id="title" type="text" class="form-control @error('title') is-invalid @enderror" name="title" placeholder="Title" value="{{ old('title') }}" required autocomplete="title">
+                            @error('title')
                             <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -102,19 +60,19 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-lg-2">Is published</label>
+                        <label class="control-label col-lg-2">Description</label>
                         <div class="col-lg-10">
-                            <div class="checkbox">
-                                <label>
-                                    <input id="published" type="checkbox" value="1" name="published" autocomplete="published">
-                                    Published
-                                </label>
-                            </div>
+                            <textarea id="description" type="text" class="form-control @error('description') is-invalid @enderror" name="description" placeholder="Description" value="{{ old('description') }}" required autocomplete="description"></textarea>
+                            @error('description')
+                            <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                            @enderror
                         </div>
-                    </div>
+                    </div>                   
                     <div class="text-right">
-                        <a type="button" class="btn btn-primary" href='/menus' type="btn btn-primary"><i class="icon-arrow-left13 position-left"></i>Back</a>
-                        <button type="submit" class="btn btn-success">Create menu
+                        <a type="button" class="btn btn-primary" href='/permissions' type="btn btn-primary"><i class="icon-arrow-left13 position-left"></i>Back</a>
+                        <button type="submit" class="btn btn-success">Create permission
                             <i class="icon-arrow-right14 position-right"></i></button>
                     </div>
                 </form>

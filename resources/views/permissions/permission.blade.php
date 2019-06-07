@@ -69,39 +69,23 @@
             <thead>
                 <tr>
                     <th>#</th>
-                    <th>Menu Type</th>
-                    <th>Menu Name</th>
-                    <th>Menu URL</th>
-                    <th>Parent ID</th>
-                    <th>Published</th>
-                    <th>Created_at</th>
-                    <th>Updated_at</th>
-                    <th>Deleted_at</th>
+                    <th>Title</th>
+                    <th>Description</th>                    
                     <th>Show</th>
                     <th>Edit</th>
                     <th>Delete</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach($menus as $data)
+            <div style="display: none">{{$i=1}}</div>
+                @foreach($permissions as $data)
                 <tr>
-                    <td>{{ $data -> id}}</td> 
-                    <td>{{ $data -> type}}</td> 
-                    <td>{{ $data -> name}}</td> 
-                    <td>{{ $data -> url}}</td> 
+                    <td>{{ $i++}}</td> 
+                    <td>{{ $data -> title}}</td> 
+                    <td>{{ $data -> description}}</td>                     
+                    <td><a href='/permissions/{{ $data -> id}}' type="btn btn-primary">Show</a> </td>
+                    <td><a href='/permissions/{{ $data -> id}}/edit' type="btn btn-primary">Edit</a> </td>
                     <td>
-                        @if (!empty($data->parent_id))
-                        <a href="{{ route('menus.show', ['id' => $data->parent_id]) }}">{{ $data ->parent->name }}</a>
-                        @endif
-                    </td>
-                    <td>{{ $data -> published}}</td>
-                    <td>{{ $data -> created_at}}</td> 
-                    <td>{{ $data -> updated_at}}</td> 
-                    <td>{{ $data -> deleted_at}}</td> 
-                    <td><a href='/menus/{{ $data -> id}}' type="btn btn-primary">Show</a> </td>
-                    <td><a href='/menus/{{ $data -> id}}/edit' type="btn btn-primary">Edit</a> </td>
-                    <td>
-<!--                        <button type="button" class="btn btn-warning" onclick="return confirm('Are you sure?')">Delete</button>-->
                         <a href="#" data-toggle="modal" data-target="#modal_theme_danger" onclick="delete_confirm({{ $data->id }})"><i class="icon-trash"></i> Delete</a>
                     </td>
                 </tr>
@@ -114,7 +98,7 @@
 
 <div class="panel-body">
         <div class="text-right">
-            <a href="{{ url('menus/create') }}" class="btn btn-primary">Create menu<i class="icon-arrow-right14 position-right"></i></a>
+            <a href="{{ url('permissions/create') }}" class="btn btn-primary">Create permission<i class="icon-arrow-right14 position-right"></i></a>
         </div>
     </div>
 
@@ -132,7 +116,7 @@
             </div>
 
             <div class="modal-footer">
-                <form method="post" id="delete_form" action="/menus/0">
+                <form method="post" id="delete_form" action="/permissions/0">
                     {{ method_field('DELETE') }}
                     {{ csrf_field() }}
 
@@ -149,7 +133,7 @@
 @section('script')
 <script>
     window.delete_confirm = function(id) {
-        $("#delete_form").attr('action', '/menus/'+id);
+        $("#delete_form").attr('action', '/permissions/'+id);
     }
 </script>
 @endsection

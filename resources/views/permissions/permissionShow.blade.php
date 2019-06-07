@@ -6,7 +6,7 @@
 @section('pageheader')
 <div class="page-header-content">
     <div class="page-title">
-        <h4><i class="icon-arrow-left52 position-left"></i> <span class="text-semibold">Menu</span> Show Page</h4>
+        <h4><i class="icon-arrow-left52 position-left"></i> <span class="text-semibold">Permission</span> Show Page</h4>
     </div>
 
     <div class="heading-elements">
@@ -16,25 +16,13 @@
 
 <div class="breadcrumb-line">
     <ul class="breadcrumb">
-        <li><a href="/menus/"><i class="icon-home2 position-left"></i> Home</a></li>
+        <li><a href="/permissions/"><i class="icon-home2 position-left"></i> Home</a></li>
     </ul>
 </div>
 <!-- /page header -->
 @endsection
 
 @section('content')
-
-<!-- Simple panel -->
-<div class="panel panel-flat">
-</div>
-<!-- /simple panel -->
-
-
-<!-- Table -->
-<div class="panel panel-flat">
-</div>
-<!-- /table -->
-
 
 <!-- Grid -->
 <div class="row">
@@ -53,59 +41,26 @@
             </div>
 
             <div class="panel-body">
-                <form class="form-horizontal" method="POST" action="/menus/{{ $menu -> id }}">
+                <form class="form-horizontal" method="POST" action="/permissions/{{ $permission -> id }}">
                     @csrf
-                    @method('DELETE')
                     <div class="form-group">
-                        <label class="control-label col-lg-2">Menu Type</label>
+                        <label class="control-label col-lg-2">Title</label>
                         <div class="col-lg-10">
-<!--                            <input type="text" disabled value="{{ $menu -> type}}" class="form-control">-->
-                            {{$menu -> type}}
+                            {{$permission -> title}}
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="control-label col-lg-2">Menu Name</label>
+                        <label class="control-label col-lg-2">Description</label>
                         <div class="col-lg-10">
-<!--                            <input type="text" disabled value="{{ $menu -> name}}" class="form-control">-->
-                            {{$menu -> name}}
+                            {{$permission -> description}}
                         </div>
                     </div>
-
-                    <div class="form-group">
-                        <label class="control-label col-lg-2">Menu URL</label>
-                        <div class="col-lg-10">
-<!--                            <input type="text" disabled value="{{ $menu -> url}}" class="form-control">-->
-                            {{$menu -> url}}
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="control-label col-lg-2">Parent ID</label>
-                        <div class="col-lg-10">
-                            @if(!empty($menu->parent_id))
-                            {{$menu->parent->name}}
-                            @endif
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="control-label col-lg-2">Published</label>
-                        <div class="col-lg-10">
-<!--                            <input type="text" disabled value="{{ $menu -> published}}" class="form-control">-->
-                            @if ($menu->parent_id==1)
-                            Published
-                            @else
-                            Not published
-                            @endif
-                        </div>
-                    </div>
-
                     <div class="text-right">
-                        <a type="button" href="/menus/" class="btn btn-primary" ><i class="icon-arrow-left13 position-left"></i> Back</a>
+                        <a type="button" href="/permissions/" class="btn btn-primary" ><i class="icon-arrow-left13 position-left"></i> Back</a>
                         
                         <!-- <a type="submit" class="btn btn-danger">Delete form </i></a> -->
-                        <a type="button" href="/menus/{{ $menu -> id}}/edit" class="btn btn-warning">Edit</i> <i class="icon-arrow-right14 position-left"></i> </a>
+                        <a type="button" href="/permissions/{{ $permission -> id}}/edit" class="btn btn-warning">Edit</i> <i class="icon-arrow-right14 position-left"></i> </a>
                     </div>
                 </form>
             </div>
