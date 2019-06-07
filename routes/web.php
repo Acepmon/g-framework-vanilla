@@ -24,3 +24,8 @@ Route::get('/test/example', function () {
 });
 
 Route::resource('roles', 'RoleController');
+
+Route::resource('pages', 'PageController');
+Route::get('pages/{id}/metas', 'PageController@metasIndex');
+Route::get('pages/{id}/metas/{id}', 'PageMetaController@index');
+
