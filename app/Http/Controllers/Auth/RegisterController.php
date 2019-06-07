@@ -63,7 +63,6 @@ class RegisterController extends Controller
             'name' => ['max:100'],
             'avatar' => ['image'],
             'language' => ['required', 'max:2'],
-            'role_id' => 'required|integer|exists:roles,id',
         ]);
     }
 
@@ -76,8 +75,8 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         $request = request();
-        $avatar = '/assets/images/placeholder.jpg';
-        if ($data['avatar']) {
+        $avatar = NULL;
+        if ($request->hasFile('avatar')) {
             $avatar = str_replace("public/", "", $data['avatar']->store('public/avatars'));
         }
         return User::create([
@@ -87,7 +86,6 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'avatar' => $avatar,
             'language' => $data['language'],
-            'role_id' => $data['role_id'],
         ]);
     }
 }

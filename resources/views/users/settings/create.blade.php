@@ -17,7 +17,7 @@
 @section('pageheader')
 <div class="page-header-content">
     <div class="page-title">
-        <h4><i class="icon-arrow-left52 position-left"></i> <span class="text-semibold">Profile Details</span></h4>
+        <h4><i class="icon-arrow-left52 position-left"></i> <span class="text-semibold">User Details</span></h4>
     </div>
 
     <div class="heading-elements">
@@ -32,7 +32,7 @@
 <div class="breadcrumb-line">
     <ul class="breadcrumb">
         <li><a href="/"><i class="icon-home2 position-left"></i> Home</a></li>
-        <li><a href="/users">Profiles</a></li>
+        <li><a href="/users">Users</a></li>
         <li class="active">Detail</li>
     </ul>
 
@@ -132,7 +132,7 @@
 
                     <div class="panel panel-flat">
                         <div class="panel-heading">
-                            <h5 class="panel-title">Edit Profile Detail</h5>
+                            <h5 class="panel-title">Edit User Detail</h5>
                             <div class="heading-elements">
                                 <ul class="icons-list">
                                     <li><a data-action="collapse"></a></li>
