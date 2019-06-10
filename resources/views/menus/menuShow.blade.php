@@ -57,26 +57,65 @@
                     @csrf
                     @method('DELETE')
                     <div class="form-group">
-                        <label class="control-label col-lg-2">Menu Type</label>
+                        <label class="control-label col-lg-2">Type</label>
                         <div class="col-lg-10">
-<!--                            <input type="text" disabled value="{{ $menu -> type}}" class="form-control">-->
                             {{$menu -> type}}
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="control-label col-lg-2">Menu Name</label>
+                        <label class="control-label col-lg-2">Title</label>
                         <div class="col-lg-10">
-<!--                            <input type="text" disabled value="{{ $menu -> name}}" class="form-control">-->
-                            {{$menu -> name}}
+                            {{$menu -> title}}
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="control-label col-lg-2">Menu URL</label>
+                        <label class="control-label col-lg-2">Subtitle</label>
                         <div class="col-lg-10">
-<!--                            <input type="text" disabled value="{{ $menu -> url}}" class="form-control">-->
-                            {{$menu -> url}}
+                            {{$menu -> subtitle}}
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-lg-2">Link</label>
+                        <div class="col-lg-10">
+                            {{$menu -> link}}
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="control-label col-lg-2">Icon</label>
+                        <div class="col-lg-10">
+                            {{$menu -> icon}}
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="control-label col-lg-2">Status</label>
+                        <div class="col-lg-10">
+                            {{$menu -> status}}
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="control-label col-lg-2">Visibility</label>
+                        <div class="col-lg-10">
+                            {{$menu -> visibility}}
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="control-label col-lg-2">Order</label>
+                        <div class="col-lg-10">
+                            {{$menu -> order}}
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="control-label col-lg-2">Sublevel</label>
+                        <div class="col-lg-10">
+                            {{$menu -> sublevel}}
                         </div>
                     </div>
 
@@ -89,23 +128,11 @@
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <label class="control-label col-lg-2">Published</label>
-                        <div class="col-lg-10">
-<!--                            <input type="text" disabled value="{{ $menu -> published}}" class="form-control">-->
-                            @if ($menu->parent_id==1)
-                            Published
-                            @else
-                            Not published
-                            @endif
-                        </div>
-                    </div>
-
                     <div class="text-right">
-                        <a type="button" href="/menus/" class="btn btn-primary" ><i class="icon-arrow-left13 position-left"></i> Back</a>
+                        <a type="button" href="/menus/" class="btn btn-default" ><i class="icon-arrow-left13 position-left"></i> Back</a>
                         
                         <!-- <a type="submit" class="btn btn-danger">Delete form </i></a> -->
-                        <a type="button" href="/menus/{{ $menu -> id}}/edit" class="btn btn-warning">Edit</i> <i class="icon-arrow-right14 position-left"></i> </a>
+                        <a type="button" href="/menus/{{ $menu -> id}}/edit" class="btn btn-primary">Edit</i> <i class="icon-arrow-right14 position-left"></i> </a>
                     </div>
                 </form>
             </div>

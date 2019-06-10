@@ -50,7 +50,7 @@
                 <form class="form-horizontal" method="POST" action="{{ route('menus.store') }}">
                     @csrf
                     <div class="form-group">
-                        <label class="control-label col-lg-2">Menu Type</label>
+                        <label class="control-label col-lg-2">Type</label>
                         <div class="col-lg-10">
                             <select class="selectbox" name="type" type="text" id="type" value="{{ old('type') }}" required>
                                 <option value="admin">admin</option>
@@ -62,10 +62,10 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="control-label col-lg-2">Menu Name</label>
+                        <label class="control-label col-lg-2">Title</label>
                         <div class="col-lg-10">
-                            <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" placeholder="Menu name" value="{{ old('name') }}" required autocomplete="name">
-                            @error('name')
+                            <input id="title" type="text" class="form-control @error('title') is-invalid @enderror" name="title" placeholder="Menu title" value="{{ old('title') }}" required autocomplete="title">
+                            @error('title')
                             <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -74,10 +74,82 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="control-label col-lg-2">Menu URL</label>
+                        <label class="control-label col-lg-2">Subtitle</label>
                         <div class="col-lg-10">
-                            <input id="url" type="text" class="form-control @error('url') is-invalid @enderror" name="url" placeholder="Menu url" value="{{ old('url') }}" required autocomplete="url">
-                            @error('url')
+                            <input id="subtitle" type="text" class="form-control @error('title') is-invalid @enderror" name="subtitle" placeholder="Menu subtitle" value="{{ old('subtitle') }}" required autocomplete="subtitle">
+                            @error('subtitle')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-lg-2">Link</label>
+                        <div class="col-lg-10">
+                            <input id="link" type="text" class="form-control @error('link') is-invalid @enderror" name="link" placeholder="Menu link" value="{{ old('link') }}" required autocomplete="link">
+                            @error('link')
+                            <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-lg-2">Icon</label>
+                        <div class="col-lg-10">
+                            <input id="icon" type="text" class="form-control @error('icon') is-invalid @enderror" name="icon" placeholder="Menu icon" value="{{ old('icon') }}" required autocomplete="icon">
+                            @error('icon')
+                            <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-lg-2">status</label>
+                        <div class="col-lg-10">
+                            <input id="status" type="text" class="form-control @error('status') is-invalid @enderror" name="status" placeholder="Menu status" value="{{ old('status') }}" required autocomplete="status">
+                            @error('status')
+                            <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-lg-2">visibility</label>
+                        <div class="col-lg-10">
+                            <input id="visibility" type="text" class="form-control @error('visibility') is-invalid @enderror" name="visibility" placeholder="Menu visibility" value="{{ old('visibility') }}" required autocomplete="visibility">
+                            @error('visibility')
+                            <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-lg-2">order</label>
+                        <div class="col-lg-10">
+                            <input id="order" type="text" class="form-control @error('order') is-invalid @enderror" name="order" placeholder="Menu order" value="{{ old('order') }}" required autocomplete="order">
+                            @error('order')
+                            <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-lg-2">sublevel</label>
+                        <div class="col-lg-10">
+                            <input id="sublevel" type="text" class="form-control @error('sublevel') is-invalid @enderror" name="sublevel" placeholder="Menu sublevel" value="{{ old('sublevel') }}" required autocomplete="sublevel">
+                            @error('sublevel')
                             <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -91,7 +163,7 @@
                             <select class="selectbox" name="parent_id" type="text" id="type">
                                 <option value=""></option>
                                 @foreach($menus as $data)
-                                <option value="{{$data -> id}}">{{$data -> name}}</option>
+                                <option value="{{$data -> id}}">{{$data -> title}}</option>
                                 @endforeach
                             </select>
                             @error('parent_id')
@@ -101,19 +173,8 @@
                             @enderror
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label class="control-label col-lg-2">Is published</label>
-                        <div class="col-lg-10">
-                            <div class="checkbox">
-                                <label>
-                                    <input id="published" type="checkbox" value="1" name="published" autocomplete="published">
-                                    Published
-                                </label>
-                            </div>
-                        </div>
-                    </div>
                     <div class="text-right">
-                        <a type="button" class="btn btn-primary" href='/menus' type="btn btn-primary"><i class="icon-arrow-left13 position-left"></i>Back</a>
+                        <a type="button" class="btn btn-default" href='/menus' type="btn btn-primary"><i class="icon-arrow-left13 position-left"></i>Back</a>
                         <button type="submit" class="btn btn-success">Create menu
                             <i class="icon-arrow-right14 position-right"></i></button>
                     </div>
