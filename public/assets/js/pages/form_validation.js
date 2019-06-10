@@ -117,9 +117,9 @@ $(function() {
         },
         rules: {
             password: {
-                minlength: 5
+                minlength: 8
             },
-            repeat_password: {
+            password_confirmation: {
                 equalTo: "#password"
             },
             email: {

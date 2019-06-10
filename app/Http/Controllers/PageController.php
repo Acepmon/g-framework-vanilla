@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Page;
+use App\User;
 use Illuminate\Http\Request;
 
 class PageController extends Controller
@@ -13,7 +15,8 @@ class PageController extends Controller
      */
     public function index()
     {
-        //
+        $pages = Page::all();
+        return view('pages.index', ['pages' => $pages]);
     }
 
     /**
@@ -23,7 +26,8 @@ class PageController extends Controller
      */
     public function create()
     {
-        //
+        $users = User::all();
+        return view('pages.create', ['users' => $users]);
     }
 
     /**
@@ -34,7 +38,25 @@ class PageController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'title' => 'required|max:191',
+            'slug' => 'required|max:255',
+            'content' => 'nullable',
+            'status' => 'required|max:50',
+            'visibility' => 'required|max:50',
+            'author_id' => 'required|integer|exists:users,id'
+        ]);
+        $page = new Page();
+
+        $page->title = $request->title;
+        $page->slug = $request->slug;
+        $page->content = $request->content;
+        $page->status = $request->status;
+        $page->visibility = $request->visibility;
+        $page->author_id = $request->author_id;
+
+        $page->save();
+        return redirect() -> route('pages.index');
     }
 
     /**
@@ -56,7 +78,9 @@ class PageController extends Controller
      */
     public function edit($id)
     {
-        //
+        $page = Page::findOrFail($id);
+        $users = User::all();
+        return view('pages.edit', ['page' => $page], ['users' => $users]);
     }
 
     /**
@@ -68,7 +92,26 @@ class PageController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'title' => 'required|max:191',
+            'slug' => 'required|max:255',
+            'content' => 'nullable',
+            'status' => 'required|max:50',
+            'visibility' => 'required|max:50',
+            'author_id' => 'required|integer|exists:users,id'
+        ]);
+        
+        $page = Page::findOrFail($id);
+
+        $page->title = $request->title;
+        $page->slug = $request->slug;
+        $page->content = $request->content;
+        $page->status = $request->status;
+        $page->visibility = $request->visibility;
+        $page->author_id = $request->author_id;
+
+        $page->save();
+        return redirect() -> route('pages.index');
     }
 
     /**
@@ -79,6 +122,7 @@ class PageController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Page::destroy($id);
+        return redirect()->route('pages.index');
     }
 }

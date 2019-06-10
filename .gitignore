@@ -4,8 +4,15 @@
 /storage/*.key
 /vendor
 .env
+.env.pgsql
 .phpunit.result.cache
 Homestead.json
 Homestead.yaml
 npm-debug.log
 yarn-error.log
+.idea/workspace.xml
+.idea/g-framework.iml
+.idea/misc.xml
+.idea/modules.xml
+.idea/php.xml
+.idea/vcs.xml
