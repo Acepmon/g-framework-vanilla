@@ -87,23 +87,23 @@
             <tbody>
                 @foreach($menus as $data)
                 <tr>
-                    <td>{{ $data -> id}}</td> 
-                    <td>{{ $data -> type}}</td> 
-                    <td>{{ $data -> title}}</td> 
-                    <td>{{ $data -> subtitle}}</td> 
-                    <td>{{ $data -> link}}</td> 
-                    <td>{{ $data -> icon}}</td> 
-                    <td>{{ $data -> status}}</td> 
-                    <td>{{ $data -> visibility}}</td> 
-                    <td>{{ $data -> order}}</td> 
-                    <td>{{ $data -> sublevel}}</td> 
+                    <td>{{ $data->id}}</td> 
+                    <td>{{ $data->type}}</td> 
+                    <td>{{ $data->title}}</td> 
+                    <td>{{ $data->subtitle}}</td> 
+                    <td>{{ $data->link}}</td> 
+                    <td>{{ $data->icon}}</td> 
+                    <td>{{ $data->status}}</td> 
+                    <td>{{ $data->visibility}}</td> 
+                    <td>{{ $data->order}}</td> 
+                    <td>{{ $data->sublevel}}</td> 
                     <td>
                         @if (!empty($data->parent_id))
                         <a href="{{ route('menus.show', ['id' => $data->parent_id]) }}">{{ $data ->parent->name }}</a>
                         @endif
                     </td>
-                    <td><a href='/menus/{{ $data -> id}}' type="btn btn-primary">Show</a> </td>
-                    <td><a href='/menus/{{ $data -> id}}/edit' type="btn btn-primary">Edit</a> </td>
+                    <td><a href='/menus/{{ $data->id}}' type="btn btn-primary">Show</a> </td>
+                    <td><a href='/menus/{{ $data->id}}/edit' type="btn btn-primary">Edit</a> </td>
                     <td>
                         <a href="#" data-toggle="modal" data-target="#modal_theme_danger" onclick="delete_confirm({{ $data->id }})"><i class="icon-trash"></i> Delete</a>
                     </td>

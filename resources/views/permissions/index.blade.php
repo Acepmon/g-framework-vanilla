@@ -81,10 +81,10 @@
                 @foreach($permissions as $data)
                 <tr>
                     <td>{{ $i++}}</td> 
-                    <td>{{ $data -> title}}</td> 
-                    <td>{{ $data -> description}}</td>                     
-                    <td><a href='/permissions/{{ $data -> id}}' type="btn btn-primary">Show</a> </td>
-                    <td><a href='/permissions/{{ $data -> id}}/edit' type="btn btn-primary">Edit</a> </td>
+                    <td>{{ $data->title}}</td> 
+                    <td>{{ $data->description}}</td>                     
+                    <td><a href='/permissions/{{ $data->id}}' type="btn btn-primary">Show</a> </td>
+                    <td><a href='/permissions/{{ $data->id}}/edit' type="btn btn-primary">Edit</a> </td>
                     <td>
                         <a href="#" data-toggle="modal" data-target="#modal_theme_danger" onclick="delete_confirm({{ $data->id }})"><i class="icon-trash"></i> Delete</a>
                     </td>

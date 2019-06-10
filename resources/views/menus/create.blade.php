@@ -163,7 +163,7 @@
                             <select class="selectbox" name="parent_id" type="text" id="type">
                                 <option value=""></option>
                                 @foreach($menus as $data)
-                                <option value="{{$data -> id}}">{{$data -> title}}</option>
+                                <option value="{{$data->id}}">{{$data->title}}</option>
                                 @endforeach
                             </select>
                             @error('parent_id')

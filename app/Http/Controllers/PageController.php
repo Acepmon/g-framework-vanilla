@@ -56,7 +56,7 @@ class PageController extends Controller
         $page->author_id = $request->author_id;
 
         $page->save();
-        return redirect() -> route('pages.index');
+        return redirect()->route('pages.index');
     }
 
     /**
@@ -100,7 +100,7 @@ class PageController extends Controller
             'visibility' => 'required|max:50',
             'author_id' => 'required|integer|exists:users,id'
         ]);
-        
+
         $page = Page::findOrFail($id);
 
         $page->title = $request->title;
@@ -111,7 +111,7 @@ class PageController extends Controller
         $page->author_id = $request->author_id;
 
         $page->save();
-        return redirect() -> route('pages.index');
+        return redirect()->route('pages.index');
     }
 
     /**

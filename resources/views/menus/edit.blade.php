@@ -55,13 +55,13 @@
                     {{ session('status') }}
                 </div>
                 @endif
-                <form class="form-horizontal" method="POST" action="{{ route('menus.update', $menu -> id) }}">
+                <form class="form-horizontal" method="POST" action="{{ route('menus.update', $menu->id) }}">
                     @csrf
                     @method ('PUT')
                     <div class="form-group">
                         <label class="control-label col-lg-2">Type</label>
                         <div class="col-lg-10">
-                            <select class="selectbox" name="type" type="text" id="type" value="{{ $menu -> type }}" required autofocus>
+                            <select class="selectbox" name="type" type="text" id="type" value="{{ $menu->type }}" required autofocus>
                                 <option value="admin">admin</option>
                                 <option value="car">car</option>
                                 <option value="tour">tour</option>
@@ -73,7 +73,7 @@
                     <div class="form-group">
                         <label class="control-label col-lg-2">Title</label>
                         <div class="col-lg-10">
-                            <input id="title" type="text" class="form-control @error('title') is-invalid @enderror" name="title" placeholder="Menu title" value="{{ $menu -> title }}" required autocomplete="title" autofocus>
+                            <input id="title" type="text" class="form-control @error('title') is-invalid @enderror" name="title" placeholder="Menu title" value="{{ $menu->title }}" required autocomplete="title" autofocus>
                             @error('title')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -85,7 +85,7 @@
                     <div class="form-group">
                         <label class="control-label col-lg-2">Subtitle</label>
                         <div class="col-lg-10">
-                            <input id="subtitle" type="text" class="form-control @error('subtitle') is-invalid @enderror" name="subtitle" placeholder="Menu subtitle" value="{{ $menu -> subtitle }}" required autocomplete="subtitle" autofocus>
+                            <input id="subtitle" type="text" class="form-control @error('subtitle') is-invalid @enderror" name="subtitle" placeholder="Menu subtitle" value="{{ $menu->subtitle }}" required autocomplete="subtitle" autofocus>
                             @error('subtitle')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -97,7 +97,7 @@
                     <div class="form-group">
                         <label class="control-label col-lg-2">Link</label>
                         <div class="col-lg-10">
-                            <input id="link" type="text" class="form-control @error('link') is-invalid @enderror" name="link" placeholder="Menu link" value="{{ $menu -> link }}" required autocomplete="link" autofocus>
+                            <input id="link" type="text" class="form-control @error('link') is-invalid @enderror" name="link" placeholder="Menu link" value="{{ $menu->link }}" required autocomplete="link" autofocus>
                             @error('link')
                             <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -109,7 +109,7 @@
                     <div class="form-group">
                         <label class="control-label col-lg-2">Icon</label>
                         <div class="col-lg-10">
-                            <input id="icon" type="text" class="form-control @error('icon') is-invalid @enderror" name="icon" placeholder="Menu icon" value="{{ $menu -> icon }}" required autocomplete="icon" autofocus>
+                            <input id="icon" type="text" class="form-control @error('icon') is-invalid @enderror" name="icon" placeholder="Menu icon" value="{{ $menu->icon }}" required autocomplete="icon" autofocus>
                             @error('icon')
                             <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -121,7 +121,7 @@
                     <div class="form-group">
                         <label class="control-label col-lg-2">Status</label>
                         <div class="col-lg-10">
-                            <input id="status" type="text" class="form-control @error('status') is-invalid @enderror" name="status" placeholder="Menu status" value="{{ $menu -> status }}" required autocomplete="status" autofocus>
+                            <input id="status" type="text" class="form-control @error('status') is-invalid @enderror" name="status" placeholder="Menu status" value="{{ $menu->status }}" required autocomplete="status" autofocus>
                             @error('status')
                             <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -133,7 +133,7 @@
                     <div class="form-group">
                         <label class="control-label col-lg-2">Visibility</label>
                         <div class="col-lg-10">
-                            <input id="visibility" type="text" class="form-control @error('visibility') is-invalid @enderror" name="visibility" placeholder="Menu visibility" value="{{ $menu -> visibility }}" required autocomplete="visibility" autofocus>
+                            <input id="visibility" type="text" class="form-control @error('visibility') is-invalid @enderror" name="visibility" placeholder="Menu visibility" value="{{ $menu->visibility }}" required autocomplete="visibility" autofocus>
                             @error('visibility')
                             <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -145,7 +145,7 @@
                     <div class="form-group">
                         <label class="control-label col-lg-2">Order</label>
                         <div class="col-lg-10">
-                            <input id="order" type="text" class="form-control @error('order') is-invalid @enderror" name="order" placeholder="Menu order" value="{{ $menu -> order }}" required autocomplete="order" autofocus>
+                            <input id="order" type="text" class="form-control @error('order') is-invalid @enderror" name="order" placeholder="Menu order" value="{{ $menu->order }}" required autocomplete="order" autofocus>
                             @error('order')
                             <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -157,7 +157,7 @@
                     <div class="form-group">
                         <label class="control-label col-lg-2">Sublevel</label>
                         <div class="col-lg-10">
-                            <input id="sublevel" type="text" class="form-control @error('sublevel') is-invalid @enderror" name="sublevel" placeholder="Menu sublevel" value="{{ $menu -> sublevel }}" required autocomplete="sublevel" autofocus>
+                            <input id="sublevel" type="text" class="form-control @error('sublevel') is-invalid @enderror" name="sublevel" placeholder="Menu sublevel" value="{{ $menu->sublevel }}" required autocomplete="sublevel" autofocus>
                             @error('sublevel')
                             <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -169,10 +169,10 @@
                     <div class="form-group">
                         <label class="control-label col-lg-2">Parent ID</label>
                         <div class="col-lg-10">
-                            <select class="selectbox" name="parent_id" type="text" value="{{ $menu -> parent_id }}" id="type" required autofocus>
+                            <select class="selectbox" name="parent_id" type="text" value="{{ $menu->parent_id }}" id="type" required autofocus>
                                 <option value=""></option>
                                 @foreach($menus as $data)
-                                <option value="{{$data -> id}}" {{$menu -> parent_id == $data -> id ? 'selected':''}}>{{$data -> name}}</option>
+                                <option value="{{$data->id}}" {{$menu->parent_id == $data->id ? 'selected':''}}>{{$data->name}}</option>
                                 @endforeach
                             </select>
 

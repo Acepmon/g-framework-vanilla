@@ -41,26 +41,26 @@
             </div>
 
             <div class="panel-body">
-                <form class="form-horizontal" method="POST" action="/permissions/{{ $permission -> id }}">
+                <form class="form-horizontal" method="POST" action="/permissions/{{ $permission->id }}">
                     @csrf
                     <div class="form-group">
                         <label class="control-label col-lg-2">Title</label>
                         <div class="col-lg-10">
-                            {{$permission -> title}}
+                            {{$permission->title}}
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="control-label col-lg-2">Description</label>
                         <div class="col-lg-10">
-                            {{$permission -> description}}
+                            {{$permission->description}}
                         </div>
                     </div>
                     <div class="text-right">
                         <a type="button" href="/permissions/" class="btn btn-primary" ><i class="icon-arrow-left13 position-left"></i> Back</a>
                         
                         <!-- <a type="submit" class="btn btn-danger">Delete form </i></a> -->
-                        <a type="button" href="/permissions/{{ $permission -> id}}/edit" class="btn btn-warning">Edit</i> <i class="icon-arrow-right14 position-left"></i> </a>
+                        <a type="button" href="/permissions/{{ $permission->id}}/edit" class="btn btn-warning">Edit</i> <i class="icon-arrow-right14 position-left"></i> </a>
                     </div>
                 </form>
             </div>

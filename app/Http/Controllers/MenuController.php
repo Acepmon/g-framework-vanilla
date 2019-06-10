@@ -68,7 +68,7 @@ class MenuController extends Controller
         $menu->parent_id = $request->parent_id;
 
         $menu->save();
-        return redirect() -> route('menus.index')->with('status', 'Success');
+        return redirect()->route('menus.index')->with('status', 'Success');
     }
 
     /**
@@ -139,7 +139,7 @@ class MenuController extends Controller
 
         // $menu->save();
         $menu->save();
-        return redirect() -> route('menus.edit', ['id' => $menu->id])->with('status', 'Success');
+        return redirect()->route('menus.edit', ['id' => $menu->id])->with('status', 'Success');
     }
 
     /**
@@ -154,7 +154,7 @@ class MenuController extends Controller
         // $menu->delete();
 
         Menu::destroy($id);
-//        return redirect() -> route('menus.index')->with('status', 'Success');
+//        return redirect()->route('menus.index')->with('status', 'Success');
         return redirect()->route('menus.index');
         //
     }

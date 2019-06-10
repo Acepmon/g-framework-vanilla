@@ -55,13 +55,13 @@
                     {{ session('status') }}
                 </div>
                 @endif
-                <form class="form-horizontal" method="POST" action="{{ route('permissions.update', $permission -> id) }}">
+                <form class="form-horizontal" method="POST" action="{{ route('permissions.update', $permission->id) }}">
                     @csrf
                     @method ('PUT')
                     <div class="form-group">
                         <label class="control-label col-lg-2">Title</label>
                         <div class="col-lg-10">
-                            <input id="title" type="text" class="form-control @error('title') is-invalid @enderror" name="title" placeholder="Title" value="{{ $permission -> title }}" required autocomplete="title" autofocus>
+                            <input id="title" type="text" class="form-control @error('title') is-invalid @enderror" name="title" placeholder="Title" value="{{ $permission->title }}" required autocomplete="title" autofocus>
                             @error('title')
                             <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -73,7 +73,7 @@
                     <div class="form-group">
                         <label class="control-label col-lg-2">Description</label>
                         <div class="col-lg-10">
-                            <input id="description" type="text" class="form-control @error('description') is-invalid @enderror" name="description" placeholder="Description" value="{{ $permission -> description }}" required autocomplete="description" autofocus>
+                            <input id="description" type="text" class="form-control @error('description') is-invalid @enderror" name="description" placeholder="Description" value="{{ $permission->description }}" required autocomplete="description" autofocus>
                             @error('description')
                             <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>

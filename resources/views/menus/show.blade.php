@@ -53,69 +53,69 @@
             </div>
 
             <div class="panel-body">
-                <form class="form-horizontal" method="POST" action="/menus/{{ $menu -> id }}">
+                <form class="form-horizontal" method="POST" action="/menus/{{ $menu->id }}">
                     @csrf
                     @method('DELETE')
                     <div class="form-group">
                         <label class="control-label col-lg-2">Type</label>
                         <div class="col-lg-10">
-                            {{$menu -> type}}
+                            {{$menu->type}}
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="control-label col-lg-2">Title</label>
                         <div class="col-lg-10">
-                            {{$menu -> title}}
+                            {{$menu->title}}
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="control-label col-lg-2">Subtitle</label>
                         <div class="col-lg-10">
-                            {{$menu -> subtitle}}
+                            {{$menu->subtitle}}
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="control-label col-lg-2">Link</label>
                         <div class="col-lg-10">
-                            {{$menu -> link}}
+                            {{$menu->link}}
                         </div>
                     </div>
                     
                     <div class="form-group">
                         <label class="control-label col-lg-2">Icon</label>
                         <div class="col-lg-10">
-                            {{$menu -> icon}}
+                            {{$menu->icon}}
                         </div>
                     </div>
                     
                     <div class="form-group">
                         <label class="control-label col-lg-2">Status</label>
                         <div class="col-lg-10">
-                            {{$menu -> status}}
+                            {{$menu->status}}
                         </div>
                     </div>
                     
                     <div class="form-group">
                         <label class="control-label col-lg-2">Visibility</label>
                         <div class="col-lg-10">
-                            {{$menu -> visibility}}
+                            {{$menu->visibility}}
                         </div>
                     </div>
                     
                     <div class="form-group">
                         <label class="control-label col-lg-2">Order</label>
                         <div class="col-lg-10">
-                            {{$menu -> order}}
+                            {{$menu->order}}
                         </div>
                     </div>
                     
                     <div class="form-group">
                         <label class="control-label col-lg-2">Sublevel</label>
                         <div class="col-lg-10">
-                            {{$menu -> sublevel}}
+                            {{$menu->sublevel}}
                         </div>
                     </div>
 
@@ -132,7 +132,7 @@
                         <a type="button" href="/menus/" class="btn btn-default" ><i class="icon-arrow-left13 position-left"></i> Back</a>
                         
                         <!-- <a type="submit" class="btn btn-danger">Delete form </i></a> -->
-                        <a type="button" href="/menus/{{ $menu -> id}}/edit" class="btn btn-primary">Edit</i> <i class="icon-arrow-right14 position-left"></i> </a>
+                        <a type="button" href="/menus/{{ $menu->id}}/edit" class="btn btn-primary">Edit</i> <i class="icon-arrow-right14 position-left"></i> </a>
                     </div>
                 </form>
             </div>

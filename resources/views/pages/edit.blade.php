@@ -96,7 +96,7 @@
                             <select class="selectbox" name="author_id" type="text" id="author_id" class="control-label" selected="{{$page->author_id}}">
                                 <option value=""></option>
                                 @foreach($users as $user)
-                                <option value="{{$user -> id}}">{{$user -> username}}</option>
+                                <option value="{{$user->id}}">{{$user->username}}</option>
                                 @endforeach
                             </select>
                         </div>
