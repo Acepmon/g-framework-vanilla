@@ -16,7 +16,7 @@ class AdminUsersSeeder extends Seeder
             'username' => 'admin',
             'email' => 'admin@gmail.com',
             'password' => Hash::make('admin'),
-            'name' => 'Administrator',
+            'name' => 'G-Framework',
             'language' => 'en'
         ]);
 
