@@ -44,23 +44,28 @@ class MenuController extends Controller
     {
         $request->validate([
             'type' => 'required|in:admin,car,tour,default',
-            'name' => 'required|max:100',
-            'url' => 'required|unique:menus|max:250',
-            'parent_id' => 'nullable|integer|exists:menus,id',
-            'published' => 'boolean',
+            'title' => 'required|max:191',
+            'subtitle' => 'nullable|max:255',
+            'link' => 'nullable|max:255',
+            'icon' => 'nullable|max:50',
+            'status' => 'required|max:50',
+            'visibility' => 'required|max:50',
+            'order' => 'required|integer',
+            'sublevel' => 'required|integer',
+            'parent_id' => 'nullable|integer|exists:menus,id'
         ]);
         $menu = new Menu();
 
         $menu->type = $request->type;
-        $menu->name = $request->name;
-        $menu->url = $request->url;
+        $menu->title = $request->title;
+        $menu->subtitle = $request->subtitle;
+        $menu->link = $request->link;
+        $menu->icon = $request->icon;
+        $menu->status = $request->status;
+        $menu->visibility = $request->visibility;
+        $menu->order = $request->order;
+        $menu->sublevel = $request->sublevel;
         $menu->parent_id = $request->parent_id;
-        if($request->published == 1){
-            $menu->published = 1;
-        }
-        else{
-            $menu->published = 0;
-        }
 
         $menu->save();
         return redirect() -> route('menus.index')->with('status', 'Success');
@@ -106,29 +111,33 @@ class MenuController extends Controller
         // $menu = new menu;
         $request->validate([
             'type' => 'required|in:admin,car,tour,default',
-            'name' => 'required|max:100',
-            'url' => 'required|unique:menus|max:250',
-            // 'url' => 'required|max:250',
-            'parent_id' => 'nullable|integer|exists:menus,id',
-            'published' => 'boolean',
+            'title' => 'required|max:191',
+            'subtitle' => 'nullable|max:255',
+            'link' => 'nullable|max:255',
+            'icon' => 'nullable|max:50',
+            'status' => 'required|max:50',
+            'visibility' => 'required|max:50',
+            'order' => 'required|integer',
+            'sublevel' => 'required|integer',
+            'parent_id' => 'nullable|integer|exists:menus,id'
         ]);
 
         $menu = Menu::findOrFail($id);
-
+        
         $menu->type = $request->type;
-        $menu->name = $request->name;
-        $menu->url = $request->url;
+        $menu->title = $request->title;
+        $menu->subtitle = $request->subtitle;
+        $menu->link = $request->link;
+        $menu->icon = $request->icon;
+        $menu->status = $request->status;
+        $menu->visibility = $request->visibility;
+        $menu->order = $request->order;
+        $menu->sublevel = $request->sublevel;
         $menu->parent_id = $request->parent_id;
 
         // $menu->published = $request->published;
 
         // $menu->save();
-        if($request->published == 1){
-            $menu->published = 1;
-        }
-        else{
-            $menu->published = 0;
-        }
         $menu->save();
         return redirect() -> route('menus.edit', ['id' => $menu->id])->with('status', 'Success');
     }

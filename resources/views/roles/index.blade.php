@@ -27,7 +27,7 @@
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 <i class="icon-gear position-left"></i>
                 Dropdown
-                <span class="caret"></span>
+                <span class="caret"></span> 
             </a>
 
             <ul class="dropdown-menu dropdown-menu-right">

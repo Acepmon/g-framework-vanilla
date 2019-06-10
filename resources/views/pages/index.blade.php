@@ -6,7 +6,7 @@
 @section('pageheader')
 <div class="page-header-content">
     <div class="page-title">
-        <h4><i class="icon-arrow-left52 position-left"></i> <span class="text-semibold">Menu</span> Index Page</h4>
+        <h4><i class="icon-arrow-left52 position-left"></i> <span class="text-semibold">Starters</span> - 2 Columns</h4>
     </div>
 
     <div class="heading-elements">
@@ -27,7 +27,7 @@
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 <i class="icon-gear position-left"></i>
                 Dropdown
-                <span class="caret"></span>
+                <span class="caret"></span> 
             </a>
 
             <ul class="dropdown-menu dropdown-menu-right">
@@ -44,82 +44,57 @@
 @endsection
 
 @section('content')
-<!-- Table -->
+
+<div class="text-right" style="padding-bottom: 5px">
+    <a href="/pages/create" class="btn btn-primary">Create Pages</a>
+</div>
+
 <div class="panel panel-flat">
-    <div class="panel-heading">
-        <h5 class="panel-title">Basic table</h5>
-        <div class="heading-elements">
-            <ul class="icons-list">
-                <li><a data-action="collapse"></a></li>
-                <li><a data-action="close"></a></li>
-            </ul>
-        </div>
-    </div>
-    <div class="panel-body">
-        @if (session('status'))
-        <div class="alert alert-success">
+    @if (session('status'))
+        <div id="timer" class="alert alert-success">
             {{ session('status') }}
         </div>
-        @endif
-    </div>
-
+    @endif
     <div class="table-responsive">
-
         <table class="table">
             <thead>
                 <tr>
                     <th>#</th>
-                    <th>Type</th>
                     <th>Title</th>
-                    <th>Subtitle</th>
-                    <th>Link</th>
-                    <th>Icon</th>
+                    <th>Slug</th>
+                    <th>Content</th>
                     <th>Status</th>
                     <th>Visibility</th>
-                    <th>Order</th>
-                    <th>Sublevel</th>
-                    <th>Parent ID</th>
-                    <th>Show</th>
-                    <th>Edit</th>
-                    <th>Delete</th>
+                    <th>Author Id</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach($menus as $data)
-                <tr>
-                    <td>{{ $data -> id}}</td> 
-                    <td>{{ $data -> type}}</td> 
-                    <td>{{ $data -> title}}</td> 
-                    <td>{{ $data -> subtitle}}</td> 
-                    <td>{{ $data -> link}}</td> 
-                    <td>{{ $data -> icon}}</td> 
-                    <td>{{ $data -> status}}</td> 
-                    <td>{{ $data -> visibility}}</td> 
-                    <td>{{ $data -> order}}</td> 
-                    <td>{{ $data -> sublevel}}</td> 
-                    <td>
-                        @if (!empty($data->parent_id))
-                        <a href="{{ route('menus.show', ['id' => $data->parent_id]) }}">{{ $data ->parent->name }}</a>
-                        @endif
-                    </td>
-                    <td><a href='/menus/{{ $data -> id}}' type="btn btn-primary">Show</a> </td>
-                    <td><a href='/menus/{{ $data -> id}}/edit' type="btn btn-primary">Edit</a> </td>
-                    <td>
-                        <a href="#" data-toggle="modal" data-target="#modal_theme_danger" onclick="delete_confirm({{ $data->id }})"><i class="icon-trash"></i> Delete</a>
+            @foreach($pages as $page)
+                <tr>                    
+                    <td>{{$page->id}}</td>
+                    <td>{{$page->title}}</td>
+                    <td>{{$page->slug}}</td>
+                    <td>{{$page->content}}</td>
+                    <td>{{$page->status}}</td>
+                    <td>{{$page->visibility}}</td>
+                    <td>{{$page->author_id}}</td>
+                    <td width="250px">
+                        <div class="btn-group">
+                            <form action="/pages/{{ $page->id }}" method="GET" style="float: left; margin-right: 5px">
+                                <button type="submit" class="btn btn-default">View</button>
+                            </form>
+                            <form action="/pages/{{ $page->id }}/edit" method="GET" style="float: left; margin-right: 5px">
+                                <button type="submit" class="btn btn-default">Edit</button>
+                            </form>
+                            <button data-toggle="modal" data-target="#modal_theme_danger" type="submit" class="btn btn-default" onclick="delete_page({{ $page->id }})">Delete</button>
+                        </div>
                     </td>
                 </tr>
-                @endforeach
+            @endforeach
             </tbody>
         </table>
     </div>
 </div>
-<!-- /table -->
-
-<div class="panel-body">
-        <div class="text-right">
-            <a href="{{ url('menus/create') }}" class="btn btn-primary">Create menu<i class="icon-arrow-right14 position-right"></i></a>
-        </div>
-    </div>
 
 <!-- Danger modal -->
 <div id="modal_theme_danger" class="modal fade">
@@ -131,14 +106,14 @@
             </div>
 
             <div class="modal-body">
-                <p>Are you sure you want to delete this record?</p>
+                <p>Are you sure you want to delete this page?</p>
             </div>
 
             <div class="modal-footer">
-                <form method="post" id="delete_form" action="/menus/0">
+                <form method="POST" id="delete_form">
                     {{ method_field('DELETE') }}
                     {{ csrf_field() }}
-
+                    
                     <button type="button" class="btn btn-link" data-dismiss="modal">Cancel</button>
                     <button type="submit" class="btn btn-danger">Delete</button>
                 </form>
@@ -151,8 +126,11 @@
 
 @section('script')
 <script>
-    window.delete_confirm = function(id) {
-        $("#delete_form").attr('action', '/menus/'+id);
+    window.delete_page = function(id) {
+        $("#delete_form").attr('action', '/pages/'+id);
     }
+
+    setTimeout(function(){ document.getElementById("timer").remove() }, 10000);
 </script>
 @endsection
+
