@@ -163,11 +163,17 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="control-label col-lg-2">Role <span class="text-danger">*</span></label>
+                        <label class="control-label col-lg-2">Groups}}</label>
                         <div class="col-lg-10">
-                            <select name="role_id" class="form-control">
-                                @foreach($roles as $role)
-                                <option value="{{$role->id}}" selected="{{ Request::old('role_id') == $role->id }}">{{$role->name}}</option>
+                            <select name="groups[]" id="groups" data-placeholder="Select Groups..." multiple="multiple" class="select">
+                                @foreach($groups as $group)
+                                    @php $selected = False @endphp
+                                    @if(Request::old('groups'))
+                                        @foreach(Request::old('groups') as $user_group)
+                                            @php $selected = ($selected || $user_group == $group->id) @endphp
+                                        @endforeach
+                                    @endif
+                                    <option value="{{ $group->id }}" {{ $selected?'selected':'' }}>{{ $group->title }}</option>
                                 @endforeach
                             </select>
                         </div>

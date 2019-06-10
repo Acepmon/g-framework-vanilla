@@ -68,6 +68,7 @@
                 <th>#</th>
                 <th>User</th>
                 <th>Email</th>
+                <th>Groups</th>
                 <th>Created Date</th>
                 <th class="text-center">Actions</th>
             </tr>
@@ -84,6 +85,11 @@
                     </div>
                 </td>
                 <td>{{ $user->email }}</td>
+                <td>
+                    @foreach($user->groups as $group)
+                        {{ $group->title }}, 
+                    @endforeach
+                </td>
                 <td>{{ $user->created_at }}</td>
                 <!---->
                 <td class="text-center">

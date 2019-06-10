@@ -145,6 +145,21 @@
                         </div>
                     </div>
 
+                    <div class="form-group">
+                        <label class="control-label col-lg-2">Groups</label>
+                        <div class="col-lg-10">
+                            <select name="groups[]" id="groups" data-placeholder="Select Groups..." multiple="multiple" class="select">
+                                @foreach($groups as $group)
+                                    @php $selected = False @endphp
+                                    @foreach($user->groups as $user_group)
+                                        @php $selected = ($selected || $user_group->id == $group->id) @endphp
+                                    @endforeach
+                                    <option value="{{ $group->id }}" {{ $selected?'selected':'' }}>{{ $group->title }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+
                     <hr>
 
                     <div class="form-group">

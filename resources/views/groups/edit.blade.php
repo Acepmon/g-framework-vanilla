@@ -52,25 +52,26 @@
         <!-- Horizontal form -->
         <div class="panel panel-flat">
             <div class="panel-body">
-                <form class="form-horizontal" action="/roles" method="POST">
+                <form class="form-horizontal" action="/groups/{{$group->id}}" method="POST">
+                @method('PUT')
                 {{ csrf_field() }}
                     <div class="form-group">
                         <label class="control-label col-lg-2">Name <span class="text-danger">*</span></label>
                         <div class="col-lg-10">
-                            <input type="text" class="form-control" name="name" placeholder="Enter role name..." required="required" aria-required="true" invalid="true">
+                            <input type="text" class="form-control" name="title" placeholder="Enter group name..." value="{{$group->title}}" required="required" aria-required="true" invalid="true">
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="control-label col-lg-2">Description</label>
                         <div class="col-lg-10">
-                            <textarea rows="5" cols="5" class="form-control" placeholder="Enter role description..." name="description"></textarea>
+                            <textarea rows="5" cols="5" class="form-control" placeholder="Description" name="description">{{$group->description}}</textarea>
                         </div>
                     </div>
 
                     <div class="text-right">
-                        <a href="/roles" class="btn btn-default">Back</a>
-                        <button type="submit" class="btn btn-primary">Create</button>
+                        <a href="/groups" class="btn btn-default">Back</a>
+                        <button type="submit" class="btn btn-primary">Save</button>
                     </div>
                 </form>
             </div>

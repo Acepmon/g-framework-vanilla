@@ -52,28 +52,22 @@
         <!-- Horizontal form -->
         <div class="panel panel-flat">
             <div class="panel-body">
-                <form class="form-horizontal" action="/roles/{{$role->id}}" method="POST">
-                @method('PUT')
-                {{ csrf_field() }}
-                    <div class="form-group">
-                        <label class="control-label col-lg-2">Name <span class="text-danger">*</span></label>
-                        <div class="col-lg-10">
-                            <input type="text" class="form-control" name="name" placeholder="Enter role name..." value="{{$role->name}}" required="required" aria-required="true" invalid="true">
-                        </div>
+                <div class="form-group">
+                    <label class="control-label col-lg-2">Name</label>
+                    <div class="col-lg-10">
+                        <label class="control-label col-lg-2">{{$group->title}}</label>
                     </div>
+                </div>
 
-                    <div class="form-group">
-                        <label class="control-label col-lg-2">Description</label>
-                        <div class="col-lg-10">
-                            <textarea rows="5" cols="5" class="form-control" placeholder="Description" name="description">{{$role->description}}</textarea>
-                        </div>
+                <div class="form-group">
+                    <label class="control-label col-lg-2">Description</label>
+                    <div class="col-lg-10">
+                        <label class="control-label col-lg-2">{{$group->description}}</label>
                     </div>
-
-                    <div class="text-right">
-                        <a href="/roles" class="btn btn-default">Back</a>
-                        <button type="submit" class="btn btn-primary">Save</button>
-                    </div>
-                </form>
+                </div>
+                <div class="text-right" style="padding-bottom: 5px">
+                    <a href="/groups" class="btn btn-default">Back</a>
+                </div>
             </div>
         </div>
         <!-- /horizotal form -->
