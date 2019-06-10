@@ -12,9 +12,13 @@
 */
 
 Route::middleware(['auth'])->group(function () {
+    Route::prefix('admin')->group(function () {
+        Route::namespace('Admin')->group(function () {
+            Route::get('/', 'AdminController@index')->name('admin.index');
+            Route::get('changelog', 'ChangelogController@index')->name('admin.changelog.index');
+        });
+    });
 
-    Route::get('/admin', 'AdminController@index')->name('admin.index');
-    Route::get('/home', 'HomeController@index')->name('home');
     Route::resource('menus', 'MenuController');
     Route::resource('users', 'UserController');
     Route::resource('permissions', 'PermissionController');
@@ -26,7 +30,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/users/{user}/settings/{setting}/edit', 'UserSettingController@edit')->name('users.settings.edit');
     Route::put('/users/{user}/settings/{setting}', 'UserSettingController@update')->name('users.settings.update');
     Route::delete('/users/{user}/settings/{setting}', 'UserSettingController@destroy')->name('users.settings.destroy');
-    
+
     Route::resource('pages', 'PageController');
     //Route::get('pages/{id}/metas', 'PageController@metasIndex');
     //Route::get('pages/{id}/metas/{id}', 'PageMetaController@index');
