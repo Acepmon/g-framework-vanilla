@@ -32,8 +32,17 @@
             <div class="category-content no-padding">
                 <ul class="navigation navigation-main navigation-accordion">
 
+                    <li class="navigation-header"><span>Core</span> <i class="icon-menu" title="Core Features"></i></li>
+                    <li><a href="/admin/dashboard"><i class="icon-home4"></i> <span>Dashboard</span></a></li>
+                    <li><a href="/admin/menus"><i class="icon-menu2"></i> <span>Menus</span></a></li>
+                    <li><a href="/admin/users"><i class="icon-users"></i> <span>Users</span></a></li>
+                    <li><a href="/admin/permissions"><i class="icon-key"></i> <span>Permissions</span></a></li>
+                    <li><a href="/admin/groups"><i class="icon-users2"></i> <span>Groups</span></a></li>
+                    <li><a href="/admin/pages"><i class="icon-files-empty2"></i> <span>Pages</span></a></li>
+                    <li><a href="/admin/changelog"><i class="icon-list-unordered"></i> <span>Changelog</span></a></li>
+
                     <!-- Main -->
-                    <li class="navigation-header"><span>Main</span> <i class="icon-menu" title="Main pages"></i></li>
+                    {{-- <li class="navigation-header"><span>Main</span> <i class="icon-menu" title="Main pages"></i></li>
                     <li><a href="../index.html"><i class="icon-home4"></i> <span>Dashboard</span></a></li>
                     <li>
                         <a href="#"><i class="icon-stack"></i> <span>Starter kit</span></a>
@@ -65,7 +74,7 @@
                             <li><a href="layout_fixed.html">Fixed layout</a></li>
                         </ul>
                     </li>
-                    <li><a href="../changelog.html"><i class="icon-list-unordered"></i> <span>Changelog</span></a></li>
+                    <li><a href="../changelog.html"><i class="icon-list-unordered"></i> <span>Changelog</span></a></li> --}}
                     <!-- /main -->
 
                 </ul>
