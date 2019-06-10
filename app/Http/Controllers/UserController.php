@@ -7,6 +7,7 @@ use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
+use Validator;
 
 class UserController extends Controller
 {
@@ -196,11 +197,11 @@ class UserController extends Controller
  */
     public function login()
     {
-        if (Auth::attempt(['email' => request('name'), 'password' => request('password')])) {
+        if (Auth::attempt(['email' => request('username'), 'password' => request('password')])) {
             $user = Auth::user();
             $success['token'] = $user->createToken('MyApp')->accessToken;
             return response()->json(['success' => $success], $this->successStatus);
-        } else if (Auth::attempt(['username' => request('name'), 'password' => request('password')])) {
+        } else if (Auth::attempt(['username' => request('username'), 'password' => request('password')])) {
             $user = Auth::user();
             $success['token'] = $user->createToken('MyApp')->accessToken;
             return response()->json(['success' => $success], $this->successStatus);
@@ -216,11 +217,13 @@ class UserController extends Controller
     public function register(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required',
-            'email' => 'required|email',
-            'password' => 'required',
-            'c_password' => 'required|same:password',
+            'username' => 'required|max:100',
+            'email' => 'required|email|unique:users,email|max:255',
+            'password' => 'required|min:6',
+            'name' => 'required|max:100',
+            'language' => 'required|max:2',
         ]);
+
         if ($validator->fails()) {
             return response()->json(['error' => $validator->errors()], 401);
         }
