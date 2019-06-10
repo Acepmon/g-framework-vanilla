@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Group;
 use App\User;
 use Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 use Validator;
@@ -30,7 +32,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('users.create');
+        return view('users.create', ['groups' => Group::all()]);
     }
 
     /**
@@ -54,6 +56,8 @@ class UserController extends Controller
         $password_confirmation = $request->input('password_confirmation');
         if ($password == $password_confirmation) {
             try {
+                DB::beginTransaction();
+
                 $user = new User();
                 $user->username = $request->input('username');
                 $user->email = $request->input('email');
@@ -65,9 +69,12 @@ class UserController extends Controller
                     $user->avatar = str_replace("public/", "", $request->file('avatar')->store('public/avatars'));
                 }
                 $user->save();
+                $user->groups()->sync($request->input('groups'));
 
+                DB::commit();
                 return redirect()->route('users.create')->with('success', 'Successfully registered!');
             } catch (\Exception $e) {
+                DB::rollBack();
                 return redirect()->route('users.create')->with('error', $e->getMessage());
             }
         } else {
@@ -86,7 +93,7 @@ class UserController extends Controller
         //
         // $user = user::where('user_id', $id)->first();
         $user = User::findOrFail($id);
-        return view('users.show', ['user' => $user]);
+        return view('users.show', ['user' => $user, 'groups' => Group::all()]);
     }
 
     /**
@@ -99,7 +106,7 @@ class UserController extends Controller
     {
         //
         $user = User::findOrFail($id);
-        return view('users.edit', ['user' => $user]);
+        return view('users.edit', ['user' => $user, 'groups' => Group::all()]);
     }
 
     /**
@@ -133,6 +140,7 @@ class UserController extends Controller
         if ($request->hasFile('avatar')) {
             $avatar = str_replace("public/", "", $request->file('avatar')->store('public/avatars'));
         }
+        $groups = $request->input('groups');
         $language = $request->input('language');
         $new_pass = $request->input('new_password');
         $new_pass2 = $request->input('new_password2');
@@ -163,6 +171,7 @@ class UserController extends Controller
                 $user->language = $language;
             }
             $user->save();
+            $user->groups()->sync($groups);
             $updated = true;
 
         } catch (\Exception $e) {
@@ -190,11 +199,12 @@ class UserController extends Controller
     }
 
     public $successStatus = 200;
-/**
- * login api
- *
- * @return \Illuminate\Http\Response
- */
+
+    /**
+     * login api
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function login()
     {
         if (Auth::attempt(['email' => request('username'), 'password' => request('password')])) {
@@ -209,11 +219,12 @@ class UserController extends Controller
             return response()->json(['error' => 'Unauthorised'], 401);
         }
     }
-/**
- * Register api
- *
- * @return \Illuminate\Http\Response
- */
+
+    /**
+     * Register api
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function register(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -234,11 +245,12 @@ class UserController extends Controller
         $success['name'] = $user->name;
         return response()->json(['success' => $success], $this->successStatus);
     }
-/**
- * details api
- *
- * @return \Illuminate\Http\Response
- */
+        
+    /**
+     * details api
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function details()
     {
         $user = Auth::user();

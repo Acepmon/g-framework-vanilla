@@ -52,22 +52,27 @@
         <!-- Horizontal form -->
         <div class="panel panel-flat">
             <div class="panel-body">
-                <div class="form-group">
-                    <label class="control-label col-lg-2">Name</label>
-                    <div class="col-lg-10">
-                        <label class="control-label col-lg-2">{{$role->name}}</label>
+                <form class="form-horizontal" action="/groups" method="POST">
+                {{ csrf_field() }}
+                    <div class="form-group">
+                        <label class="control-label col-lg-2">Name <span class="text-danger">*</span></label>
+                        <div class="col-lg-10">
+                            <input type="text" class="form-control" name="title" placeholder="Enter group name..." required="required" aria-required="true" invalid="true">
+                        </div>
                     </div>
-                </div>
 
-                <div class="form-group">
-                    <label class="control-label col-lg-2">Description</label>
-                    <div class="col-lg-10">
-                        <label class="control-label col-lg-2">{{$role->description}}</label>
+                    <div class="form-group">
+                        <label class="control-label col-lg-2">Description</label>
+                        <div class="col-lg-10">
+                            <textarea rows="5" cols="5" class="form-control" placeholder="Enter group description..." name="description"></textarea>
+                        </div>
                     </div>
-                </div>
-                <div class="text-right" style="padding-bottom: 5px">
-                    <a href="/roles" class="btn btn-default">Back</a>
-                </div>
+
+                    <div class="text-right">
+                        <a href="/groups" class="btn btn-default">Back</a>
+                        <button type="submit" class="btn btn-primary">Create</button>
+                    </div>
+                </form>
             </div>
         </div>
         <!-- /horizotal form -->

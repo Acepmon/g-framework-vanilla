@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Group;
 use Illuminate\Http\Request;
 
 class GroupController extends Controller
@@ -13,8 +14,8 @@ class GroupController extends Controller
      */
     public function index()
     {
-        $groups = Role::all();
-        return view('groups.index', ['roles' => $groups]);
+        $groups = Group::all();
+        return view('groups.index', ['groups' => $groups]);
     }
 
     /**
@@ -87,7 +88,7 @@ class GroupController extends Controller
         //     'description' => 'nullable|max:250',
         // ]);
 
-        $group = Role::findOrFail($id);
+        $group = Group::findOrFail($id);
         $group->parent_id = $request->parent_id;
         $group->title = $request->title;
         $group->description = $request->description;
@@ -103,7 +104,7 @@ class GroupController extends Controller
      */
     public function destroy($id)
     {
-        Role::destroy($id);
+        Group::destroy($id);
         return redirect()->route('groups.index')->with('status', 'Group deleted');
     }
 }
