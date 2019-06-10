@@ -19,5 +19,10 @@ class AdminUsersSeeder extends Seeder
             'name' => 'Administrator',
             'language' => 'en'
         ]);
+
+        DB::table('user_group')->insert([
+            'user_id' => 1,
+            'group_id' => 1
+        ]);
     }
 }
