@@ -19,7 +19,7 @@ class MenuController extends Controller
 
         $menus = Menu::all();
         return view('menus.menu', ['menus' => $menus]);
-        
+
     }
 
     /**
@@ -30,7 +30,7 @@ class MenuController extends Controller
     public function create()
     {
         $menus = Menu::all();
-        return view('menus.menuCreate', ['menus' => $menus]);
+        return view('menus.create', ['menus' => $menus]);
     }
 
     /**
@@ -80,7 +80,7 @@ class MenuController extends Controller
     public function show($id)
     {
         $menu = Menu::find($id);
-        return view('menus.menuShow', ['menu' => $menu]);
+        return view('menus.show', ['menu' => $menu]);
     }
 
     /**
@@ -95,7 +95,7 @@ class MenuController extends Controller
         $menus = Menu::all();
 
         $menu = Menu::find($id);
-        return view('menus.menuEdit', ['menu' => $menu, 'menus' => $menus]);
+        return view('menus.edit', ['menu' => $menu, 'menus' => $menus]);
     }
 
     /**
@@ -123,7 +123,7 @@ class MenuController extends Controller
         ]);
 
         $menu = Menu::findOrFail($id);
-        
+
         $menu->type = $request->type;
         $menu->title = $request->title;
         $menu->subtitle = $request->subtitle;
@@ -156,6 +156,6 @@ class MenuController extends Controller
         Menu::destroy($id);
 //        return redirect() -> route('menus.index')->with('status', 'Success');
         return redirect()->route('menus.index');
-        // 
+        //
     }
 }
