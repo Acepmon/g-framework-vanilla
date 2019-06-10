@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class UserGroup extends Migration
+class DropRolesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,7 @@ class UserGroup extends Migration
      */
     public function up()
     {
-        Schema::create('user_group', function (Blueprint $table) {
-            $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('group_id');
-            
-            $table->foreign('group_id')->references('id')->on('groups');
-        });
+        Schema::dropIfExists('roles');
     }
 
     /**
@@ -28,6 +23,6 @@ class UserGroup extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_group');
+        //
     }
 }

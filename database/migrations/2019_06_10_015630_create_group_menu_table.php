@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateMenuRoleTable extends Migration
+class CreateGroupMenuTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,11 @@ class CreateMenuRoleTable extends Migration
      */
     public function up()
     {
-        Schema::create('menu_role', function (Blueprint $table) {
+        Schema::create('group_menu', function (Blueprint $table) {
+            $table->unsignedBigInteger('group_id');
             $table->unsignedBigInteger('menu_id');
-            $table->unsignedBigInteger('role_id');
 
-            $table->foreign('menu_id')->references('id')->on('menus');
-            $table->foreign('role_id')->references('id')->on('roles');
+            $table->foreign('group_id')->references('id')->on('groups');
         });
     }
 
@@ -29,6 +28,6 @@ class CreateMenuRoleTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('menu_role');
+        Schema::dropIfExists('group_menu');
     }
 }

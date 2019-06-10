@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class GroupMenu extends Migration
+class CreateGroupPermissionTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,10 @@ class GroupMenu extends Migration
      */
     public function up()
     {
-        Schema::create('group_menu', function (Blueprint $table) {
+        Schema::create('group_permission', function (Blueprint $table) {
             $table->unsignedBigInteger('group_id');
-            $table->unsignedBigInteger('menu_id');
+            $table->unsignedBigInteger('permission_id');
+            $table->boolean('is_granted')->default(false);
 
             $table->foreign('group_id')->references('id')->on('groups');
         });
@@ -28,6 +29,6 @@ class GroupMenu extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('group_menu');
+        Schema::dropIfExists('group_permission');
     }
 }
