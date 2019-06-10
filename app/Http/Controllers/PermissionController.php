@@ -18,8 +18,8 @@ class PermissionController extends Controller
     {
 
         $permissions = Permission::all();
-        return view('permissions.permission', ['permissions' => $permissions]);
-        
+        return view('permissions.index', ['permissions' => $permissions]);
+
     }
 
     /**
@@ -30,7 +30,7 @@ class PermissionController extends Controller
     public function create()
     {
         $permissions = Permission::all();
-        return view('permissions.permissionCreate', ['permissions' => $permissions]);
+        return view('permissions.create', ['permissions' => $permissions]);
     }
 
     /**
@@ -64,7 +64,7 @@ class PermissionController extends Controller
     public function show($id)
     {
         $permission = Permission::find($id);
-        return view('permissions.permissionShow', ['permission' => $permission]);
+        return view('permissions.show', ['permission' => $permission]);
     }
 
     /**
@@ -79,7 +79,7 @@ class PermissionController extends Controller
         $permissions = Permission::all();
 
         $permission = Permission::find($id);
-        return view('permissions.permissionEdit', ['permission' => $permission, 'permissions' => $permissions]);
+        return view('permissions.edit', ['permission' => $permission, 'permissions' => $permissions]);
     }
 
     /**
@@ -90,7 +90,7 @@ class PermissionController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {        
+    {
         $request->validate([
             'title' => 'required|max:191',
             'description' => 'required|max:255',
@@ -99,7 +99,7 @@ class PermissionController extends Controller
         $permission = Permission::findOrFail($id);
 
         $permission->title = $request->title;
-        $permission->description = $request->description;        
+        $permission->description = $request->description;
         $permission->save();
         return redirect() -> route('permissions.edit', ['id' => $permission->id])->with('status', 'Success');
     }
@@ -114,6 +114,6 @@ class PermissionController extends Controller
     {
         Permission::destroy($id);
         return redirect()->route('permissions.index');
-        // 
+        //
     }
 }
