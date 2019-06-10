@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use Route;
 use App\User;
 use App\Setting;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class UserSettingController extends Controller
 {
@@ -13,13 +14,13 @@ class UserSettingController extends Controller
     public function index()
     {
         $user = User::findOrFail(Route::current()->parameter('user'));
-        return view('users.settings.index', ['user' => $user]);
+        return view('admin.users.settings.index', ['user' => $user]);
     }
 
     public function create()
     {
         $user = User::findOrFail(Route::current()->parameter('user'));
-        return view('users.settings.create', ['user' => $user]);
+        return view('admin.users.settings.create', ['user' => $user]);
     }
 
     public function store(Request $request)
@@ -52,7 +53,7 @@ class UserSettingController extends Controller
     {
         $setting = Setting::findOrFail($id);
         $user = User::findOrFail(Route::current()->parameter('user'));
-        return view('users.settings.edit', ['user' => $user, 'setting' => $setting]);
+        return view('admin.users.settings.edit', ['user' => $user, 'setting' => $setting]);
     }
 
     public function update(Request $request, $id)

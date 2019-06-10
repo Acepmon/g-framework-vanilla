@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
-use App\Role;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
-class RoleController extends Controller
+class PageMetaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +14,7 @@ class RoleController extends Controller
      */
     public function index()
     {
-        $roles = Role::all();
-        return view('roles.index', ['roles' => $roles]);
+        return view('admin.pages.metas.index');
     }
 
     /**
@@ -25,7 +24,7 @@ class RoleController extends Controller
      */
     public function create()
     {
-        return view('roles.create');
+        //
     }
 
     /**
@@ -36,17 +35,7 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
-            'name' => 'required|max:100',
-            'description' => 'nullable|max:250',
-        ]);
-
-        $role = new Role;
-        $role->name = $request->name;
-        $role->description = $request->description;
-        $role->save();
-
-        return redirect()->route('roles.index')->with('status', 'Role created!');
+        //
     }
 
     /**
@@ -57,8 +46,7 @@ class RoleController extends Controller
      */
     public function show($id)
     {
-        $role = Role::findOrFail($id);
-        return view('roles.show', ['role' => $role]);
+        //
     }
 
     /**
@@ -69,8 +57,7 @@ class RoleController extends Controller
      */
     public function edit($id)
     {
-        $role = Role::findOrFail($id);
-        return view('roles.edit', ['role' => $role]);
+        //
     }
 
     /**
@@ -82,16 +69,7 @@ class RoleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $validatedData = $request->validate([
-            'name' => 'required|max:100',
-            'description' => 'nullable|max:250',
-        ]);
-
-        $role = Role::findOrFail($id);
-        $role->name=$request->name;
-        $role->description=$request->description;
-        $role->save();
-        return redirect()->route('roles.index')->with('status', 'Role edited');
+        //
     }
 
     /**
@@ -102,7 +80,6 @@ class RoleController extends Controller
      */
     public function destroy($id)
     {
-        Role::destroy($id);
-        return redirect()->route('roles.index')->with('status', 'Role deleted');
+        //
     }
 }

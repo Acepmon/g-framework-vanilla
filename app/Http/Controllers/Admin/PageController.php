@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\Page;
 use App\User;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class PageController extends Controller
 {
@@ -16,7 +17,7 @@ class PageController extends Controller
     public function index()
     {
         $pages = Page::all();
-        return view('pages.index', ['pages' => $pages]);
+        return view('admin.pages.index', ['pages' => $pages]);
     }
 
     /**
@@ -27,7 +28,7 @@ class PageController extends Controller
     public function create()
     {
         $users = User::all();
-        return view('pages.create', ['users' => $users]);
+        return view('admin.pages.create', ['users' => $users]);
     }
 
     /**
@@ -80,7 +81,7 @@ class PageController extends Controller
     {
         $page = Page::findOrFail($id);
         $users = User::all();
-        return view('pages.edit', ['page' => $page], ['users' => $users]);
+        return view('admin.pages.edit', ['page' => $page], ['users' => $users]);
     }
 
     /**

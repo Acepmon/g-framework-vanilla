@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\Group;
 use App\User;
@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
+use App\Http\Controllers\Controller;
 use Validator;
 
 class UserController extends Controller
@@ -22,7 +23,7 @@ class UserController extends Controller
     {
         //
         $users = User::all();
-        return view('users.index', ['users' => $users]);
+        return view('admin.users.index', ['users' => $users]);
     }
 
     /**
@@ -32,7 +33,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('users.create', ['groups' => Group::all()]);
+        return view('admin.users.create', ['groups' => Group::all()]);
     }
 
     /**
@@ -93,7 +94,7 @@ class UserController extends Controller
         //
         // $user = user::where('user_id', $id)->first();
         $user = User::findOrFail($id);
-        return view('users.show', ['user' => $user, 'groups' => Group::all()]);
+        return view('admin.users.show', ['user' => $user, 'groups' => Group::all()]);
     }
 
     /**
@@ -106,7 +107,7 @@ class UserController extends Controller
     {
         //
         $user = User::findOrFail($id);
-        return view('users.edit', ['user' => $user, 'groups' => Group::all()]);
+        return view('admin.users.edit', ['user' => $user, 'groups' => Group::all()]);
     }
 
     /**

@@ -60,7 +60,7 @@
 
 @section('content')
 <div class="has-detached-left">
-    @include('users.includes.sidebar')
+    @include('admin.users.includes.sidebar')
 
     <!-- Detached content -->
     <div class="container-detached">
@@ -1689,7 +1689,7 @@
 					<!-- Form horizontal -->
 					<div class="panel panel-flat">
 						<div class="panel-heading">
-							<h5 class="panel-title">Edit setting</h5>
+							<h5 class="panel-title">Create new setting</h5>
 							<div class="heading-elements">
 								<ul class="icons-list">
 			                		<li><a data-action="collapse"></a></li>
@@ -1700,8 +1700,7 @@
 						</div>
 
 						<div class="panel-body">
-                            <form method="post" class="form-horizontal form-validate-jquery" action="/users/{{ $user->id }}/settings/{{ $setting->id }}">
-                                {{ method_field('PUT') }}
+                            <form method="post" class="form-horizontal form-validate-jquery" action="/users/{{ $user->id }}/settings">
                                 {{ csrf_field() }}
 
                                 @if(Session::has('error'))
@@ -1714,14 +1713,14 @@
                                 <div class="form-group">
                                     <label class="control-label col-lg-2">Key <span class="text-danger">*</span></label>
                                     <div class="col-lg-10">
-                                        <input name="key" type="text" class="form-control" required="true" placeholder="Setting Key..." value="{{ $setting->key }}">
+                                        <input name="key" type="text" class="form-control" required="true" placeholder="Setting Key...">
                                     </div>
                                 </div>
                                 
                                 <div class="form-group">
                                     <label class="control-label col-lg-2">Value <span class="text-danger">*</span></label>
                                     <div class="col-lg-10">
-                                        <input name="value" type="text" class="form-control" required="true" placeholder="Setting Value..." value="{{ $setting->value }}">
+                                        <input name="value" type="text" class="form-control" required="true" placeholder="Setting Value...">
                                     </div>
                                 </div>
 

@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use App\Menu;
 use Illuminate\Support\Facades\Validator;
 use phpDocumentor\Reflection\DocBlock\Tags\Uses;
@@ -18,7 +19,7 @@ class MenuController extends Controller
     {
 
         $menus = Menu::all();
-        return view('menus.menu', ['menus' => $menus]);
+        return view('admin.menus.menu', ['menus' => $menus]);
 
     }
 
@@ -30,7 +31,7 @@ class MenuController extends Controller
     public function create()
     {
         $menus = Menu::all();
-        return view('menus.create', ['menus' => $menus]);
+        return view('admin.menus.create', ['menus' => $menus]);
     }
 
     /**
@@ -80,7 +81,7 @@ class MenuController extends Controller
     public function show($id)
     {
         $menu = Menu::find($id);
-        return view('menus.show', ['menu' => $menu]);
+        return view('admin.menus.show', ['menu' => $menu]);
     }
 
     /**
@@ -95,7 +96,7 @@ class MenuController extends Controller
         $menus = Menu::all();
 
         $menu = Menu::find($id);
-        return view('menus.edit', ['menu' => $menu, 'menus' => $menus]);
+        return view('admin.menus.edit', ['menu' => $menu, 'menus' => $menus]);
     }
 
     /**

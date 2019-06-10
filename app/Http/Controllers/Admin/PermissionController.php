@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use App\Permission;
 use Illuminate\Support\Facades\Validator;
 //use phpDocumentor\Reflection\DocBlock\Tags\Uses;
@@ -18,7 +19,7 @@ class PermissionController extends Controller
     {
 
         $permissions = Permission::all();
-        return view('permissions.index', ['permissions' => $permissions]);
+        return view('admin.permissions.index', ['permissions' => $permissions]);
 
     }
 
@@ -30,7 +31,7 @@ class PermissionController extends Controller
     public function create()
     {
         $permissions = Permission::all();
-        return view('permissions.create', ['permissions' => $permissions]);
+        return view('admin.permissions.create', ['permissions' => $permissions]);
     }
 
     /**
@@ -64,7 +65,7 @@ class PermissionController extends Controller
     public function show($id)
     {
         $permission = Permission::find($id);
-        return view('permissions.show', ['permission' => $permission]);
+        return view('admin.permissions.show', ['permission' => $permission]);
     }
 
     /**
@@ -79,7 +80,7 @@ class PermissionController extends Controller
         $permissions = Permission::all();
 
         $permission = Permission::find($id);
-        return view('permissions.edit', ['permission' => $permission, 'permissions' => $permissions]);
+        return view('admin.permissions.edit', ['permission' => $permission, 'permissions' => $permissions]);
     }
 
     /**

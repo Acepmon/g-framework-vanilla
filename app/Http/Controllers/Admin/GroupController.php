@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\Group;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class GroupController extends Controller
 {
@@ -15,7 +16,7 @@ class GroupController extends Controller
     public function index()
     {
         $groups = Group::all();
-        return view('groups.index', ['groups' => $groups]);
+        return view('admin.groups.index', ['groups' => $groups]);
     }
 
     /**
@@ -25,7 +26,7 @@ class GroupController extends Controller
      */
     public function create()
     {
-        return view('groups.create');
+        return view('admin.groups.create');
     }
 
     /**
@@ -59,7 +60,7 @@ class GroupController extends Controller
     public function show($id)
     {
         $group = Group::findOrFail($id);
-        return view('groups.show', ['group' => $group]);
+        return view('admin.groups.show', ['group' => $group]);
     }
 
     /**
@@ -71,7 +72,7 @@ class GroupController extends Controller
     public function edit($id)
     {
         $group = Group::findOrFail($id);
-        return view('groups.edit', ['group' => $group]);
+        return view('admin.groups.edit', ['group' => $group]);
     }
 
     /**
