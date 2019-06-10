@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
+use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
-use App\User;
 
 class UserController extends Controller
 {
@@ -51,7 +52,7 @@ class UserController extends Controller
         $password = $request->input('password');
         $password_confirmation = $request->input('password_confirmation');
         if ($password == $password_confirmation) {
-            try{
+            try {
                 $user = new User();
                 $user->username = $request->input('username');
                 $user->email = $request->input('email');
@@ -127,16 +128,16 @@ class UserController extends Controller
         $username = $request->input('username');
         $email = $request->input('email');
         $name = $request->input('name');
-        $avatar = NULL;
+        $avatar = null;
         if ($request->hasFile('avatar')) {
             $avatar = str_replace("public/", "", $request->file('avatar')->store('public/avatars'));
         }
         $language = $request->input('language');
         $new_pass = $request->input('new_password');
         $new_pass2 = $request->input('new_password2');
-        
-        try{
-            if ($request->input('password_checked') && !($new_pass == NULL && $new_pass2 == NULL)) {
+
+        try {
+            if ($request->input('password_checked') && !($new_pass == null && $new_pass2 == null)) {
                 if ($new_pass == $new_pass2) {
                     $updated = true;
                     $user->password = Hash::make($new_pass);
@@ -144,20 +145,20 @@ class UserController extends Controller
                     return redirect()->route('users.edit', $id)->with('error', 'Passwords do not match!');
                 }
             }
-            if ($username != NULL) {
+            if ($username != null) {
                 $user->name = $username;
                 // return redirect('/users/'.$id.'/edit')->with('error', 'Username cannot be blank!');
             }
-            if ($email != NULL) {
+            if ($email != null) {
                 $user->email = $email;
             }
-            if ($name != NULL) {
+            if ($name != null) {
                 $user->name = $name;
             }
-            if ($avatar != NULL) {
+            if ($avatar != null) {
                 $user->avatar = $avatar;
             }
-            if ($language != NULL) {
+            if ($language != null) {
                 $user->language = $language;
             }
             $user->save();
@@ -185,5 +186,59 @@ class UserController extends Controller
         //
         User::destroy($id);
         return redirect()->route('users.index');
+    }
+
+    public $successStatus = 200;
+/**
+ * login api
+ *
+ * @return \Illuminate\Http\Response
+ */
+    public function login()
+    {
+        if (Auth::attempt(['email' => request('name'), 'password' => request('password')])) {
+            $user = Auth::user();
+            $success['token'] = $user->createToken('MyApp')->accessToken;
+            return response()->json(['success' => $success], $this->successStatus);
+        } else if (Auth::attempt(['username' => request('name'), 'password' => request('password')])) {
+            $user = Auth::user();
+            $success['token'] = $user->createToken('MyApp')->accessToken;
+            return response()->json(['success' => $success], $this->successStatus);
+        } else {
+            return response()->json(['error' => 'Unauthorised'], 401);
+        }
+    }
+/**
+ * Register api
+ *
+ * @return \Illuminate\Http\Response
+ */
+    public function register(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'email' => 'required|email',
+            'password' => 'required',
+            'c_password' => 'required|same:password',
+        ]);
+        if ($validator->fails()) {
+            return response()->json(['error' => $validator->errors()], 401);
+        }
+        $input = $request->all();
+        $input['password'] = bcrypt($input['password']);
+        $user = User::create($input);
+        $success['token'] = $user->createToken('MyApp')->accessToken;
+        $success['name'] = $user->name;
+        return response()->json(['success' => $success], $this->successStatus);
+    }
+/**
+ * details api
+ *
+ * @return \Illuminate\Http\Response
+ */
+    public function details()
+    {
+        $user = Auth::user();
+        return response()->json(['success' => $user], $this->successStatus);
     }
 }
