@@ -41,7 +41,7 @@ class PageMetaController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'key' => 'required|max:100',
+            'key' => 'required|max:100|unique:page_metas,key',
             'value' => 'required|max:255'
         ]);
         
