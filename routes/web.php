@@ -14,7 +14,10 @@
 Route::middleware(['auth'])->group(function () {
     Route::prefix('admin')->group(function () {
         Route::namespace('Admin')->group(function () {
-            Route::get('/', 'AdminController@index')->name('admin.index');
+            Route::get('/', function () {
+                return redirect()->route('admin.dashboard');
+            });
+            Route::get('dashboard', 'AdminController@dashboard')->name('admin.dashboard');
             Route::get('changelog', 'ChangelogController@index')->name('admin.changelog.index');
 
             Route::resource('menus', 'MenuController')->names([
@@ -43,15 +46,6 @@ Route::middleware(['auth'])->group(function () {
                 'edit' => 'admin.permissions.edit',
                 'update' => 'admin.permissions.update',
                 'destroy' => 'admin.permissions.destroy'
-            ]);
-            Route::resource('roles', 'RoleController')->names([
-                'index' => 'admin.roles.index',
-                'create' => 'admin.roles.create',
-                'store' => 'admin.roles.store',
-                'show' => 'admin.roles.show',
-                'edit' => 'admin.roles.edit',
-                'update' => 'admin.roles.update',
-                'destroy' => 'admin.roles.destroy'
             ]);
             Route::resource('groups', 'GroupController')->names([
                 'index' => 'admin.groups.index',

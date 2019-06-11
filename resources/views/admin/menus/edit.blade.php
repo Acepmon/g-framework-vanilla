@@ -55,7 +55,7 @@
                     {{ session('status') }}
                 </div>
                 @endif
-                <form class="form-horizontal" method="POST" action="{{ route('menus.update', $menu->id) }}">
+                <form class="form-horizontal" method="POST" action="{{ route('admin.menus.update', $menu->id) }}">
                     @csrf
                     @method ('PUT')
                     <div class="form-group">

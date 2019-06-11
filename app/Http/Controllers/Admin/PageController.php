@@ -57,7 +57,7 @@ class PageController extends Controller
         $page->author_id = $request->author_id;
 
         $page->save();
-        return redirect()->route('pages.index');
+        return redirect()->route('admin.pages.index');
     }
 
     /**
@@ -112,7 +112,7 @@ class PageController extends Controller
         $page->author_id = $request->author_id;
 
         $page->save();
-        return redirect()->route('pages.index');
+        return redirect()->route('admin.pages.index');
     }
 
     /**
@@ -124,6 +124,6 @@ class PageController extends Controller
     public function destroy($id)
     {
         Page::destroy($id);
-        return redirect()->route('pages.index');
+        return redirect()->route('admin.pages.index');
     }
 }

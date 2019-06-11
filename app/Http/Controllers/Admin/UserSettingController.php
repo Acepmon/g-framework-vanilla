@@ -38,10 +38,10 @@ class UserSettingController extends Controller
             $setting->save();
 
             $user = User::findOrFail($user_id);
-            return redirect()->route('users.settings.index', ['user' => $user]);
+            return redirect()->route('admin.users.settings.index', ['user' => $user]);
         } catch (\Exception $e) {
             $user = User::findOrFail($user_id);
-            return redirect()->route('users.settings.create', ['user' => $user])->with('error', $e->getMessage());
+            return redirect()->route('admin.users.settings.create', ['user' => $user])->with('error', $e->getMessage());
         }
     }
 
@@ -69,10 +69,10 @@ class UserSettingController extends Controller
             $setting->value = $request->input('value');
             $setting->save();
             $user = User::findOrFail($user_id);
-            return redirect()->route('users.settings.index', ['user' => $user]);
+            return redirect()->route('admin.users.settings.index', ['user' => $user]);
         } catch (\Exception $e) {
             $user = User::findOrFail($user_id);
-            return redirect()->route('users.settings.edit', ['user' => $user, 'setting' => $setting])->with('error', $e->getMessage());
+            return redirect()->route('admin.users.settings.edit', ['user' => $user, 'setting' => $setting])->with('error', $e->getMessage());
         }
     }
 
@@ -81,6 +81,6 @@ class UserSettingController extends Controller
         $setting_id = Route::current()->parameter('setting');
         Setting::destroy($setting_id);
         $user = User::findOrFail(Route::current()->parameter('user'));
-        return redirect()->route('users.settings.index', ['user' => $user]);
+        return redirect()->route('admin.users.settings.index', ['user' => $user]);
     }
 }

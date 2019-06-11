@@ -46,7 +46,7 @@
                 </div>
             </div>
             <div class="panel-body">
-                <form class="form-horizontal" method="POST" action="{{ route('permissions.store') }}">
+                <form class="form-horizontal" method="POST" action="{{ route('admin.permissions.store') }}">
                     @csrf
                     <div class="form-group">
                         <label class="control-label col-lg-2">Title</label>

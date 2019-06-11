@@ -55,7 +55,7 @@
                     {{ session('status') }}
                 </div>
                 @endif
-                <form class="form-horizontal" method="POST" action="{{ route('permissions.update', $permission->id) }}">
+                <form class="form-horizontal" method="POST" action="{{ route('admin.permissions.update', $permission->id) }}">
                     @csrf
                     @method ('PUT')
                     <div class="form-group">

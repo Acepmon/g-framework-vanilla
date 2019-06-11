@@ -53,7 +53,7 @@
         <h5 class="panel-title">Users datatable</h5>
         <div class="heading-elements">
             <ul class="icons-list">
-                <li><form action="/users/create"><button type="submit" class="btn btn-primary">Register New <i class="icon-add position-right"></i></button></form></li>
+                <li><a href="{{ route('admin.users.create') }}" class="text-white btn btn-primary">Register New <i class="icon-add position-right"></i></a></li>
                 <li> </li>
                 <li><a data-action="collapse"></a></li>
                 <li><a data-action="reload"></a></li>

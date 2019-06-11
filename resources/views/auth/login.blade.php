@@ -38,8 +38,8 @@
             </div>
 
             <div class="form-group">
-                <button type="submit" class="btn btn-primary btn-block">Sign in <i class="icon-circle-right2 position-right"></i></button>
-                <a href="/register" class="btn btn-default btn-block">Register <i class="icon-circle-right2 position-right"></i></a>
+                <button type="submit" class="btn btn-primary btn-block">Sign in</button>
+                <a href="{{ route('register') }}" class="btn btn-default btn-block">Register</a>
             </div>
 
             <div class="text-center">

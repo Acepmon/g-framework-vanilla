@@ -48,7 +48,7 @@ class GroupController extends Controller
         $group->description = $request->description;
         $group->save();
 
-        return redirect()->route('groups.index')->with('status', 'Group created!');
+        return redirect()->route('admin.groups.index')->with('status', 'Group created!');
     }
 
     /**
@@ -94,7 +94,7 @@ class GroupController extends Controller
         $group->title = $request->title;
         $group->description = $request->description;
         $group->save();
-        return redirect()->route('groups.index')->with('status', 'Group edited');
+        return redirect()->route('admin.groups.index')->with('status', 'Group edited');
     }
 
     /**
@@ -106,6 +106,6 @@ class GroupController extends Controller
     public function destroy($id)
     {
         Group::destroy($id);
-        return redirect()->route('groups.index')->with('status', 'Group deleted');
+        return redirect()->route('admin.groups.index')->with('status', 'Group deleted');
     }
 }

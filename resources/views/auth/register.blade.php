@@ -81,7 +81,7 @@
                 </div>
             </div>
 
-            <div class="form-group has-feedback has-feedback-left">
+            {{-- <div class="form-group has-feedback has-feedback-left">
                 <div class="row">
                     <div class="col-lg-2">
                         <img id="avatar_view" src="/assets/images/placeholder.jpg" class="img-circle img-md"/>
@@ -95,9 +95,9 @@
                     <strong>{{ $message }}</strong>
                 </span>
                 @enderror
-            </div>
+            </div> --}}
 
-            <div class="form-group has-feedback has-feedback-left">
+            {{-- <div class="form-group has-feedback has-feedback-left">
                 <select name="language" class="form-control" value="{{Request::old('language')}}">
                     <option value="en" selected="{{ Request::old('language') == 'en' }}">en</option>
                     <option value="mn" selected="{{ Request::old('language') == 'mn' }}">mn</option>
@@ -110,12 +110,10 @@
                 <div class="form-control-feedback">
                     <i class="icon-flag3 text-muted"></i>
                 </div>
-            </div>
+            </div> --}}
 
-            <button type="submit" class="btn bg-teal btn-block btn-lg">Register <i class="icon-circle-right2 position-right"></i></button>
-            <div class="text-center">
-                <a href="{{ route('login') }}">back</a>
-            </div>
+            <button type="submit" class="btn bg-teal btn-block btn-lg">Register</button>
+            <a href="{{ route('login') }}" class="btn btn-default btn-block">Back to Login</a>
         </div>
     </form>
     <!-- /advanced login -->

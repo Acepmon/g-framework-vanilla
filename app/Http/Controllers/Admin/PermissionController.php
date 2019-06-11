@@ -53,7 +53,7 @@ class PermissionController extends Controller
         $permission->description = $request->description;
 
         $permission->save();
-        return redirect()->route('permissions.index')->with('status', 'Success');
+        return redirect()->route('admin.permissions.index')->with('status', 'Success');
     }
 
     /**
@@ -102,7 +102,7 @@ class PermissionController extends Controller
         $permission->title = $request->title;
         $permission->description = $request->description;
         $permission->save();
-        return redirect()->route('permissions.edit', ['id' => $permission->id])->with('status', 'Success');
+        return redirect()->route('admin.permissions.edit', ['id' => $permission->id])->with('status', 'Success');
     }
 
     /**
@@ -114,7 +114,7 @@ class PermissionController extends Controller
     public function destroy($id)
     {
         Permission::destroy($id);
-        return redirect()->route('permissions.index');
+        return redirect()->route('admin.permissions.index');
         //
     }
 }

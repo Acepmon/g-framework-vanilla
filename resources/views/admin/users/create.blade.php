@@ -163,7 +163,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="control-label col-lg-2">Groups}}</label>
+                        <label class="control-label col-lg-2">Groups</label>
                         <div class="col-lg-10">
                             <select name="groups[]" id="groups" data-placeholder="Select Groups..." multiple="multiple" class="select">
                                 @foreach($groups as $group)

@@ -47,7 +47,7 @@
             </div>
 
             <div class="panel-body">
-                <form class="form-horizontal" method="POST" action="{{ route('menus.store') }}">
+                <form class="form-horizontal" method="POST" action="{{ route('admin.menus.store') }}">
                     @csrf
                     <div class="form-group">
                         <label class="control-label col-lg-2">Type</label>

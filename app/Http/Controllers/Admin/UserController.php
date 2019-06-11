@@ -4,13 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Group;
 use App\User;
-use Auth;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
-use Validator;
 
 class UserController extends Controller
 {
@@ -21,7 +16,6 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
         $users = User::all();
         return view('admin.users.index', ['users' => $users]);
     }
@@ -73,13 +67,13 @@ class UserController extends Controller
                 $user->groups()->sync($request->input('groups'));
 
                 DB::commit();
-                return redirect()->route('users.create')->with('success', 'Successfully registered!');
+                return redirect()->route('admin.users.create')->with('success', 'Successfully registered!');
             } catch (\Exception $e) {
                 DB::rollBack();
-                return redirect()->route('users.create')->with('error', $e->getMessage());
+                return redirect()->route('admin.users.create')->with('error', $e->getMessage());
             }
         } else {
-            return redirect()->route('users.create')->with('error', 'Passwords do not match!');
+            return redirect()->route('admin.users.create')->with('error', 'Passwords do not match!');
         }
     }
 
@@ -152,7 +146,7 @@ class UserController extends Controller
                     $updated = true;
                     $user->password = Hash::make($new_pass);
                 } else {
-                    return redirect()->route('users.edit', $id)->with('error', 'Passwords do not match!');
+                    return redirect()->route('admin.users.edit', $id)->with('error', 'Passwords do not match!');
                 }
             }
             if ($username != null) {
@@ -176,13 +170,13 @@ class UserController extends Controller
             $updated = true;
 
         } catch (\Exception $e) {
-            return redirect()->route('users.edit', $id)->with('error', $e->getMessage());
+            return redirect()->route('admin.users.edit', $id)->with('error', $e->getMessage());
         }
 
         if ($updated) {
-            return redirect()->route('users.edit', $id)->with('success', 'Successfully updated!');
+            return redirect()->route('admin.users.edit', $id)->with('success', 'Successfully updated!');
         } else {
-            return redirect()->route('users.edit', $id);
+            return redirect()->route('admin.users.edit', $id);
         }
     }
 
@@ -196,65 +190,6 @@ class UserController extends Controller
     {
         //
         User::destroy($id);
-        return redirect()->route('users.index');
-    }
-
-    public $successStatus = 200;
-
-    /**
-     * login api
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function login()
-    {
-        if (Auth::attempt(['email' => request('username'), 'password' => request('password')])) {
-            $user = Auth::user();
-            $success['token'] = $user->createToken('MyApp')->accessToken;
-            return response()->json(['success' => $success], $this->successStatus);
-        } else if (Auth::attempt(['username' => request('username'), 'password' => request('password')])) {
-            $user = Auth::user();
-            $success['token'] = $user->createToken('MyApp')->accessToken;
-            return response()->json(['success' => $success], $this->successStatus);
-        } else {
-            return response()->json(['error' => 'Unauthorised'], 401);
-        }
-    }
-
-    /**
-     * Register api
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function register(Request $request)
-    {
-        $validator = Validator::make($request->all(), [
-            'username' => 'required|max:100',
-            'email' => 'required|email|unique:users,email|max:255',
-            'password' => 'required|min:6',
-            'name' => 'required|max:100',
-            'language' => 'required|max:2',
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json(['error' => $validator->errors()], 401);
-        }
-        $input = $request->all();
-        $input['password'] = bcrypt($input['password']);
-        $user = User::create($input);
-        $success['token'] = $user->createToken('MyApp')->accessToken;
-        $success['name'] = $user->name;
-        return response()->json(['success' => $success], $this->successStatus);
-    }
-        
-    /**
-     * details api
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function details()
-    {
-        $user = Auth::user();
-        return response()->json(['success' => $user], $this->successStatus);
+        return redirect()->route('admin.users.index');
     }
 }
