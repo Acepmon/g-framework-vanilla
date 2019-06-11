@@ -52,8 +52,8 @@
         <!-- Horizontal form -->
         <div class="panel panel-flat">
             <div class="panel-body">
-                <form class="form-horizontal" action="/pages" method="POST">
-                    {{ csrf_field() }}
+                <form class="form-horizontal" action="{{ route('admin.pages.store') }}" method="POST">
+                    @csrf
                     <div class="form-group">
                         <label class="control-label col-lg-2">Title<span class="text-danger">*</span></label>
                         <div class="col-lg-10">

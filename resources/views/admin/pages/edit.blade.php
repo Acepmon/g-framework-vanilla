@@ -52,9 +52,9 @@
         <!-- Horizontal form -->
         <div class="panel panel-flat">
             <div class="panel-body">
-                <form class="form-horizontal" action="/pages/{{$page->id}}" method="POST">
-                @method('PUT')
-                {{ csrf_field() }}
+                <form class="form-horizontal" action="{{ route('admin.pages.update', ['id' => $page->id]) }}" method="POST">
+                    @method('PUT')
+                    @csrf
                     <div class="form-group">
                         <label class="control-label col-lg-2">Title<span class="text-danger">*</span></label>
                         <div class="col-lg-10">

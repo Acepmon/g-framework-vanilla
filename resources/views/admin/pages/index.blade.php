@@ -66,6 +66,7 @@
                     <th>Status</th>
                     <th>Visibility</th>
                     <th>Author Id</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -127,7 +128,7 @@
 @section('script')
 <script>
     window.delete_page = function(id) {
-        $("#delete_form").attr('action', '/pages/'+id);
+        $("#delete_form").attr('action', '/admin/pages/'+id);
     }
 
     setTimeout(function(){ document.getElementById("timer").remove() }, 10000);
