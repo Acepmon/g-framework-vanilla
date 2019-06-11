@@ -46,7 +46,7 @@
 @section('content')
 
 <div class="text-right" style="padding-bottom: 5px">
-    <a href="/roles/create" class="btn btn-primary">Create Role</a>
+    <a href="/groups/create" class="btn btn-primary">Create Groups</a>
 </div>
 
 <div class="panel panel-flat">
@@ -65,20 +65,21 @@
                 </tr>
             </thead>
             <tbody>
-            @foreach($roles as $role)
+            @foreach($groups as $group)
                 <tr>                    
-                    <td>{{$role->id}}</td>
-                    <td>{{$role->name}}</td>
-                    <td>{{$role->description}}</td>
+                    <td>{{$group->id}}</td>
+                    <td>{{$group->parent_id}}</td>
+                    <td>{{$group->title}}</td>
+                    <td>{{$group->description}}</td>
                     <td width="250px">
                         <div class="btn-group">
-                            <form action="/roles/{{ $role->id }}" method="GET" style="float: left; margin-right: 5px">
+                            <form action="/groups/{{ $group->id }}" method="GET" style="float: left; margin-right: 5px">
                                 <button type="submit" class="btn btn-default">View</button>
                             </form>
-                            <form action="/roles/{{ $role->id }}/edit" method="GET" style="float: left; margin-right: 5px">
+                            <form action="/groups/{{ $group->id }}/edit" method="GET" style="float: left; margin-right: 5px">
                                 <button type="submit" class="btn btn-default">Edit</button>
                             </form>
-                            <button data-toggle="modal" data-target="#modal_theme_danger" type="submit" class="btn btn-default" onclick="choose_role({{ $role->id }})">Delete</button>
+                            <button data-toggle="modal" data-target="#modal_theme_danger" type="submit" class="btn btn-default" onclick="choose_role({{ $group->id }})">Delete</button>
                         </div>
                     </td>
                 </tr>
@@ -119,7 +120,7 @@
 @section('script')
 <script>
     window.choose_role = function(id) {
-        $("#delete_form").attr('action', '/roles/'+id);
+        $("#delete_form").attr('action', '/groups/'+id);
     }
 
     setTimeout(function(){ document.getElementById("timer").remove() }, 10000);

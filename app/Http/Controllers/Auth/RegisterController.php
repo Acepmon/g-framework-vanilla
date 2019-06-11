@@ -3,10 +3,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
-use App\Role;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
@@ -42,12 +40,6 @@ class RegisterController extends Controller
         $this->middleware('guest');
     }
 
-    public function showRegistrationForm()
-    {
-        $roles = Role::all();
-        return view("auth.register", compact("roles"));
-    }
-
     /**
      * Get a validator for an incoming registration request.
      *
@@ -57,12 +49,9 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'username' => ['required', 'string', 'max:191'],
-            'email' => ['required', 'string', 'email', 'max:191', 'unique:users'],
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'name' => ['max:100'],
-            'avatar' => ['image'],
-            'language' => ['required', 'max:2'],
         ]);
     }
 
@@ -74,18 +63,10 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        $request = request();
-        $avatar = NULL;
-        if ($request->hasFile('avatar')) {
-            $avatar = str_replace("public/", "", $data['avatar']->store('public/avatars'));
-        }
         return User::create([
-            'username' => $data['username'],
+            'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
-            'name' => $data['name'],
-            'avatar' => $avatar,
-            'language' => $data['language'],
         ]);
     }
 }
