@@ -72,6 +72,16 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/users/{user}/settings/{setting}/edit', 'UserSettingController@edit')->name('admin.users.settings.edit');
             Route::put('/users/{user}/settings/{setting}', 'UserSettingController@update')->name('admin.users.settings.update');
             Route::delete('/users/{user}/settings/{setting}', 'UserSettingController@destroy')->name('admin.users.settings.destroy');
+        
+            Route::get('/users/{user}/permissions', 'UserPermissionController@index')->name('admin.users.permissions.index');
+            Route::get('/users/{user}/permissions/create', 'UserPermissionController@create')->name('admin.users.permissions.create');
+            Route::post('/users/{user}/permissions', 'UserPermissionController@store')->name('admin.users.permissions.store');
+            Route::get('/users/{user}/permissions/{permission}/edit', 'UserPermissionController@edit')->name('admin.users.permissions.edit');
+            Route::put('/users/{user}/permissions/{permission}', 'UserPermissionController@update')->name('admin.users.permissions.update');
+            Route::delete('/users/{user}/permissions/{permission}', 'UserPermissionController@destroy')->name('admin.users.permissions.destroy');
+
+            Route::get('/users/{user}/pages', 'UserPageController@index')->name('admin.users.pages.index');
+            Route::get('/users/{user}/pages/{page}', 'UserPageController@show')->name('admin.users.pages.show');
         });
     });
 
