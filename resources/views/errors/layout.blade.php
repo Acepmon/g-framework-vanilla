@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
+	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>@yield('title')</title>
@@ -22,44 +22,47 @@
 	<script type="text/javascript" src="/assets/js/plugins/loaders/blockui.min.js"></script>
 	<!-- /core JS files -->
 
-	@yield('load')
 
 	<!-- Theme JS files -->
-	<script type="text/javascript" src="/assets/js/plugins/forms/styling/uniform.min.js"></script>
-
 	<script type="text/javascript" src="/assets/js/core/app.js"></script>
-	<script type="text/javascript" src="/assets/js/pages/login.js"></script>
 	<!-- /theme JS files -->
 
 </head>
+<body class="login-container">
 
-<body>
-
-    @include('includes.navbar')
     <!-- Page container -->
-    <div class="page-container">
+	<div class="page-container">
 
         <!-- Page content -->
-        <div class="page-content" id="app">
-
-            @include('includes.sidebar')
+        <div class="page-content">
 
             <!-- Main content -->
             <div class="content-wrapper">
 
-                <!-- Page header -->
-                <div class="page-header">
-                    @yield('pageheader')
-                </div>
-                <!-- /page header -->
-
                 <!-- Content area -->
-                <div class="content pt-0">
+                <div class="content">
+                    <!-- Error title -->
+					<div class="text-center content-group">
+                        <h1 class="error-title">@yield('code')</h1>
+                        <h5>@yield('message')</h5>
+                    </div>
+                    <!-- /error title -->
 
-                    @yield('content')
+                    <!-- Error content -->
+					<div class="row">
+                        <div class="col-lg-4 col-lg-offset-4 col-sm-6 col-sm-offset-3">
+                            <form action="#" class="main-search">
+                                <div class="row">
+                                    <div class="col-sm-6 col-sm-offset-3">
+                                        <a href="javascript:history.back()" class="btn btn-primary btn-block content-group"><i class="icon-circle-left2 position-left"></i> Go Back</a>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- /error wrapper -->
 
                     @include('includes.footer')
-
                 </div>
                 <!-- /content area -->
 
@@ -71,8 +74,5 @@
 
     </div>
     <!-- /page container -->
-
-    @yield('script')
-
 </body>
 </html>

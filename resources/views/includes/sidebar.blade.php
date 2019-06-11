@@ -26,47 +26,23 @@
         </div>
         <!-- /user menu -->
 
-
         <!-- Main navigation -->
         <div class="sidebar-category sidebar-category-visible">
             <div class="category-content no-padding">
                 <ul class="navigation navigation-main navigation-accordion">
 
-                    <!-- Main -->
-                    <li class="navigation-header"><span>Main</span> <i class="icon-menu" title="Main pages"></i></li>
-                    <li><a href="../index.html"><i class="icon-home4"></i> <span>Dashboard</span></a></li>
-                    <li>
-                        <a href="#"><i class="icon-stack"></i> <span>Starter kit</span></a>
-                        <ul>
-                            <li><a href="horizontal_nav.html">Horizontal navigation</a></li>
-                            <li><a href="1_col.html">1 column</a></li>
-                            <li class="active"><a href="2_col.html">2 columns</a></li>
-                            <li>
-                                <a href="#">3 columns</a>
-                                <ul>
-                                    <li><a href="3_col_dual.html">Dual sidebars</a></li>
-                                    <li><a href="3_col_double.html">Double sidebars</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="4_col.html">4 columns</a></li>
-                            <li>
-                                <a href="#">Detached layout</a>
-                                <ul>
-                                    <li><a href="detached_left.html">Left sidebar</a></li>
-                                    <li><a href="detached_right.html">Right sidebar</a></li>
-                                    <li><a href="detached_sticky.html">Sticky sidebar</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="layout_boxed.html">Boxed layout</a></li>
-                            <li class="navigation-divider"></li>
-                            <li><a href="layout_navbar_fixed_main.html">Fixed top navbar</a></li>
-                            <li><a href="layout_navbar_fixed_secondary.html">Fixed secondary navbar</a></li>
-                            <li><a href="layout_navbar_fixed_both.html">Both navbars fixed</a></li>
-                            <li><a href="layout_fixed.html">Fixed layout</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="../changelog.html"><i class="icon-list-unordered"></i> <span>Changelog</span></a></li>
-                    <!-- /main -->
+                    <li class="navigation-header"><span>System</span> <i class="icon-menu" title="Core Features"></i></li>
+                    <li><a href="/admin/dashboard"><i class="icon-home4"></i> <span>Dashboard</span></a></li>
+                    <li><a href="/admin/menus"><i class="icon-menu2"></i> <span>Menus</span></a></li>
+                    <li><a href="/admin/users"><i class="icon-users"></i> <span>Users</span></a></li>
+                    <li><a href="/admin/permissions"><i class="icon-key"></i> <span>Permissions</span></a></li>
+                    <li><a href="/admin/groups"><i class="icon-users2"></i> <span>Groups</span></a></li>
+                    <li><a href="/admin/pages"><i class="icon-files-empty2"></i> <span>Pages</span></a></li>
+                    <li><a href="/admin/terms"><i class="icon-price-tag2"></i> <span>Terms & Taxonomy</span></a></li>
+                    <li><a href="/admin/plugins"><i class="icon-puzzle2"></i> <span>Plugins</span></a></li>
+                    <li><a href="/admin/themes"><i class="icon-display4"></i> <span>Themes</span></a></li>
+                    <li><a href="/admin/configs"><i class="icon-gear"></i> <span>Configurations</span></a></li>
+                    <li><a href="/admin/changelog"><i class="icon-list-unordered"></i> <span>Changelog</span></a></li>
 
                 </ul>
             </div>
