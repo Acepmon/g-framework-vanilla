@@ -1,10 +1,10 @@
 <?php
 
 namespace App;
-use Laravel\Passport\HasApiTokens;
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Laravel\Passport\HasApiTokens;
 
 class User extends Authenticatable
 {
@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'username', 'email', 'password', 'name', 'avatar', 'language'
+        'username', 'email', 'password', 'name', 'avatar', 'language',
     ];
 
     /**
@@ -37,11 +37,13 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function groups() {
+    public function groups()
+    {
         return $this->belongsToMany('App\Group', 'user_group');
     }
 
-    public function settings() {
+    public function settings()
+    {
         return $this->hasMany('App\Setting');
     }
 }
