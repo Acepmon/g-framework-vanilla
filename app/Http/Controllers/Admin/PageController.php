@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Page;
 use App\User;
+use App\Page_metas;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -82,7 +83,8 @@ class PageController extends Controller
     {
         $page = Page::findOrFail($id);
         $users = User::all();
-        return view('admin.pages.edit', ['page' => $page], ['users' => $users]);
+        $page_metas = $page->page_metas;
+        return view('admin.pages.edit', ['page' => $page, 'users' => $users, 'metas' => $page_metas]);
     }
 
     /**

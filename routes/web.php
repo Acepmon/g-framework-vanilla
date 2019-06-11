@@ -72,6 +72,14 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/users/{user}/settings/{setting}/edit', 'UserSettingController@edit')->name('admin.users.settings.edit');
             Route::put('/users/{user}/settings/{setting}', 'UserSettingController@update')->name('admin.users.settings.update');
             Route::delete('/users/{user}/settings/{setting}', 'UserSettingController@destroy')->name('admin.users.settings.destroy');
+
+            Route::get('/pages/{page}/metas', 'PageMetaController@index')->name('admin.pages.metas.index');
+            Route::get('/pages/{page}/metas/create', 'PageMetaController@create')->name('admin.pages.metas.create');
+            Route::post('/pages/{page}/metas', 'PageMetaController@store')->name('admin.pages.metas.store');
+            Route::get('/pages/{page}/metas/{meta}/edit', 'PageMetaController@edit')->name('admin.pages.metas.edit');
+            Route::put('/pages/{page}/metas/{meta}', 'PageMetaController@update')->name('admin.pages.metas.update');
+            Route::delete('/pages/{page}/metas/{meta}', 'PageMetaController@destroy')->name('admin.pages.metas.destroy');
+
         });
     });
 

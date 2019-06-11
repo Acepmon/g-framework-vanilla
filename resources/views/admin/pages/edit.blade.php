@@ -47,7 +47,7 @@
 
 <!-- Grid -->
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-sm-7">
 
         <!-- Horizontal form -->
         <div class="panel panel-flat">
@@ -104,19 +104,88 @@
 
                     <div class="text-right">
                         <a href="javascript:history.back()" class="btn btn-default">Back</a>
+                        <a href="{{ route('admin.pages.index') }}" class="btn btn-default">List</a>
                         <button type="submit" class="btn btn-primary">Save</button>
                     </div>
                 </form>
             </div>
         </div>
         <!-- /horizotal form -->
-
+    </div>
+    <div class="col-sm-5">
+        <div class="text-right" style="padding-bottom: 5px">
+            <a href="{{ route('admin.pages.metas.create', ['id' => $page->id]) }}" class="btn btn-primary">Create Page Metas</a>
+        </div>
+        <div class="panel panel-flat">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Key</th>
+                            <th>Value</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    @foreach($metas as $meta)
+                        <tr>                    
+                            <td>{{$meta->id}}</td>
+                            <td>{{$meta->key}}</td>
+                            <td>{{$meta->value}}</td>
+                            <td width="250px">
+                                <div class="btn-group">
+                                    <form action="{{ route('admin.pages.metas.edit', ['page' => $page->id, 'meta' => $meta->id]) }}" method="GET" style="float: left; margin-right: 5px">
+                                        <button type="submit" class="btn btn-default">Edit</button>
+                                    </form>
+                                    <button data-toggle="modal" data-target="#modal_theme_danger" class="btn btn-default" onclick="delete_meta( {{$meta->id}} , {{$page->id}})">Delete</button>
+                                </div>
+                            </td>
+                        </tr>
+                    @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 </div>
 <!-- /grid -->
 
+<!-- Danger modal -->
+<div id="modal_theme_danger" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-danger">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h6 class="modal-title">Delete?</h6>
+            </div>
+
+            <div class="modal-body">
+                <p>Are you sure you want to delete this page meta?</p>
+            </div>
+
+            <div class="modal-footer">
+                <form method="POST" id="delete_form">
+                    {{ method_field('DELETE') }}
+                    {{ csrf_field() }}
+                    
+                    <button type="button" class="btn btn-link" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /default modal -->
 
 @endsection
 
 @section('script')
+<script>
+    window.delete_meta = function(id, pageId) {
+        $("#delete_form").attr('action', '/admin/pages/' + pageId + '/metas/'+id);
+    }
+
+    setTimeout(function(){ document.getElementById("timer").remove() }, 10000);
+</script>
 @endsection
