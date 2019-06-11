@@ -29,7 +29,7 @@ class UserSettingController extends Controller
             'key' => 'required|max:100',
             'value' => 'required|max:255'
         ]);
-        try{
+        try {
             $user_id = Route::current()->parameter('user');
             $setting = new Setting();
             $setting->user_id = $user_id;

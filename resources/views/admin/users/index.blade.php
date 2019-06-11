@@ -100,8 +100,8 @@
                             </a>
 
                             <ul class="dropdown-menu dropdown-menu-right">
-                                <li><a href="/users/{{ $user->id }}"><i class="icon-eye"></i> View</a></li>
-                                <li><a href="/users/{{ $user->id }}/edit"><i class="icon-pencil"></i> Edit</a></li>
+                                <li><a href="{{ route('admin.users.show', ['id' => $user->id]) }}"><i class="icon-eye"></i> View</a></li>
+                                <li><a href="{{ route('admin.users.edit', ['id' => $user->id]) }}"><i class="icon-pencil"></i> Edit</a></li>
                                 <li><a href="#" data-toggle="modal" data-target="#modal_theme_danger" onclick="choose_user({{ $user->id }})"><i class="icon-trash"></i> Delete</a></li>
                             </ul>
                         </li>

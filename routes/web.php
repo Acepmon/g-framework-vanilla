@@ -66,12 +66,12 @@ Route::middleware(['auth'])->group(function () {
                 'destroy' => 'admin.pages.destroy'
             ]);
         
-            Route::get('/users/{user}/settings', 'UserSettingController@index')->name('users.settings.index');
-            Route::get('/users/{user}/settings/create', 'UserSettingController@create')->name('users.settings.create');
-            Route::post('/users/{user}/settings', 'UserSettingController@store')->name('users.settings.store');
-            Route::get('/users/{user}/settings/{setting}/edit', 'UserSettingController@edit')->name('users.settings.edit');
-            Route::put('/users/{user}/settings/{setting}', 'UserSettingController@update')->name('users.settings.update');
-            Route::delete('/users/{user}/settings/{setting}', 'UserSettingController@destroy')->name('users.settings.destroy');
+            Route::get('/users/{user}/settings', 'UserSettingController@index')->name('admin.users.settings.index');
+            Route::get('/users/{user}/settings/create', 'UserSettingController@create')->name('admin.users.settings.create');
+            Route::post('/users/{user}/settings', 'UserSettingController@store')->name('admin.users.settings.store');
+            Route::get('/users/{user}/settings/{setting}/edit', 'UserSettingController@edit')->name('admin.users.settings.edit');
+            Route::put('/users/{user}/settings/{setting}', 'UserSettingController@update')->name('admin.users.settings.update');
+            Route::delete('/users/{user}/settings/{setting}', 'UserSettingController@destroy')->name('admin.users.settings.destroy');
         });
     });
 
