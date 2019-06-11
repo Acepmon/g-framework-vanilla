@@ -46,7 +46,7 @@
 @section('content')
 
 <div class="text-right" style="padding-bottom: 5px">
-    <a href="/groups/create" class="btn btn-primary">Create Role</a>
+    <a href="{{ route('admin.groups.create') }}" class="btn btn-primary">Create Role</a>
 </div>
 
 <div class="panel panel-flat">
@@ -116,7 +116,7 @@
 @section('script')
 <script>
     window.choose_group = function(id) {
-        $("#delete_form").attr('action', '/groups/'+id);
+        $("#delete_form").attr('action', '/admin/groups/'+id);
     }
 
     setTimeout(function(){ document.getElementById("timer").remove() }, 10000);

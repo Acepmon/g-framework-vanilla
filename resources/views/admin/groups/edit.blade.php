@@ -52,9 +52,9 @@
         <!-- Horizontal form -->
         <div class="panel panel-flat">
             <div class="panel-body">
-                <form class="form-horizontal" action="/groups/{{$group->id}}" method="POST">
-                @method('PUT')
-                {{ csrf_field() }}
+                <form class="form-horizontal" action="{{ route('admin.groups.update', ['id' => $group->id]) }}" method="POST">
+                    @method('PUT')
+                    @csrf
                     <div class="form-group">
                         <label class="control-label col-lg-2">Name <span class="text-danger">*</span></label>
                         <div class="col-lg-10">
