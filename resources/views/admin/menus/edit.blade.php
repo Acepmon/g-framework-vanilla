@@ -55,9 +55,9 @@
                     {{ session('status') }}
                 </div>
                 @endif
-                <form class="form-horizontal" method="POST" action="{{ route('admin.menus.update', $menu->id) }}">
+                <form class="form-horizontal" method="POST" action="{{ route('admin.menus.update', ['id' => $menu->id]) }}">
+                    @method('PUT')
                     @csrf
-                    @method ('PUT')
                     <div class="form-group">
                         <label class="control-label col-lg-2">Type</label>
                         <div class="col-lg-10">
@@ -169,7 +169,7 @@
                     <div class="form-group">
                         <label class="control-label col-lg-2">Parent ID</label>
                         <div class="col-lg-10">
-                            <select class="selectbox" name="parent_id" type="text" value="{{ $menu->parent_id }}" id="type" required autofocus>
+                            <select class="selectbox" name="parent_id" type="text" value="{{ $menu->parent_id }}" id="type">
                                 <option value=""></option>
                                 @foreach($menus as $data)
                                 <option value="{{$data->id}}" {{$menu->parent_id == $data->id ? 'selected':''}}>{{$data->name}}</option>

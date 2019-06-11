@@ -83,8 +83,8 @@
                     <td>{{ $i++}}</td> 
                     <td>{{ $data->title}}</td> 
                     <td>{{ $data->description}}</td>                     
-                    <td><a href='/permissions/{{ $data->id}}' type="btn btn-primary">Show</a> </td>
-                    <td><a href='/permissions/{{ $data->id}}/edit' type="btn btn-primary">Edit</a> </td>
+                    <td><a href='{{ route('admin.permissions.show', ['id' => $data->id]) }}' type="btn btn-primary">Show</a> </td>
+                    <td><a href='{{ route('admin.permissions.edit', ['id' => $data->id]) }}' type="btn btn-primary">Edit</a> </td>
                     <td>
                         <a href="#" data-toggle="modal" data-target="#modal_theme_danger" onclick="delete_confirm({{ $data->id }})"><i class="icon-trash"></i> Delete</a>
                     </td>
@@ -98,7 +98,7 @@
 
 <div class="panel-body">
         <div class="text-right">
-            <a href="{{ url('permissions/create') }}" class="btn btn-primary">Create permission<i class="icon-arrow-right14 position-right"></i></a>
+            <a href="{{ route('admin.permissions.create') }}" class="btn btn-primary">Create permission<i class="icon-arrow-right14 position-right"></i></a>
         </div>
     </div>
 
@@ -133,7 +133,7 @@
 @section('script')
 <script>
     window.delete_confirm = function(id) {
-        $("#delete_form").attr('action', '/permissions/'+id);
+        $("#delete_form").attr('action', '/admin/permissions/'+id);
     }
 </script>
 @endsection
