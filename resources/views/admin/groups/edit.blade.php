@@ -70,7 +70,7 @@
                     </div>
 
                     <div class="text-right">
-                        <a href="/groups" class="btn btn-default">Back</a>
+                        <a href="javascript:history.back()" class="btn btn-default">Back</a>
                         <button type="submit" class="btn btn-primary">Save</button>
                     </div>
                 </form>

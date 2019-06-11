@@ -22,7 +22,7 @@
 
 <div class="breadcrumb-line">
     <ul class="breadcrumb">
-        <li><a href="/menus/"><i class="icon-home2 position-left"></i> Home</a></li>
+        <li><a href="{{ route('admin.menus.index') }}"><i class="icon-home2 position-left"></i> Home</a></li>
     </ul>
 </div>
 <!-- /page header -->
@@ -174,7 +174,7 @@
                         </div>
                     </div>
                     <div class="text-right">
-                        <a type="button" class="btn btn-default" href='/menus' type="btn btn-primary"><i class="icon-arrow-left13 position-left"></i>Back</a>
+                        <a class="btn btn-default" href="javascript:history.back()" type="btn btn-primary"><i class="icon-arrow-left13 position-left"></i>Back</a>
                         <button type="submit" class="btn btn-success">Create menu
                             <i class="icon-arrow-right14 position-right"></i></button>
                     </div>

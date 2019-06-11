@@ -16,25 +16,13 @@
 
 <div class="breadcrumb-line">
     <ul class="breadcrumb">
-        <li><a href="/menus/"><i class="icon-home2 position-left"></i> Home</a></li>
+        <li><a href="{{ route('admin.menus.index') }}"><i class="icon-home2 position-left"></i> Home</a></li>
     </ul>
 </div>
 <!-- /page header -->
 @endsection
 
 @section('content')
-
-<!-- Simple panel -->
-<div class="panel panel-flat">
-</div>
-<!-- /simple panel -->
-
-
-<!-- Table -->
-<div class="panel panel-flat">
-</div>
-<!-- /table -->
-
 
 <!-- Grid -->
 <div class="row">
@@ -53,9 +41,7 @@
             </div>
 
             <div class="panel-body">
-                <form class="form-horizontal" method="POST" action="/menus/{{ $menu->id }}">
-                    @csrf
-                    @method('DELETE')
+                <form class="form-horizontal">
                     <div class="form-group">
                         <label class="control-label col-lg-2">Type</label>
                         <div class="col-lg-10">
@@ -129,10 +115,10 @@
                     </div>
 
                     <div class="text-right">
-                        <a type="button" href="/menus/" class="btn btn-default" ><i class="icon-arrow-left13 position-left"></i> Back</a>
+                        <a type="button" href="javascript:history.back()" class="btn btn-default" ><i class="icon-arrow-left13 position-left"></i> Back</a>
                         
                         <!-- <a type="submit" class="btn btn-danger">Delete form </i></a> -->
-                        <a type="button" href="/menus/{{ $menu->id}}/edit" class="btn btn-primary">Edit</i> <i class="icon-arrow-right14 position-left"></i> </a>
+                        <a type="button" href="{{ route('admin.menus.edit', ['id' => $menu->id]) }}" class="btn btn-primary">Edit</i> <i class="icon-arrow-right14 position-left"></i> </a>
                     </div>
                 </form>
             </div>

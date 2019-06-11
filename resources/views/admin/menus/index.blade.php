@@ -56,15 +56,15 @@
         </div>
     </div>
     <div class="panel-body">
+        <a href="{{ route('admin.menus.create') }}" class="btn btn-primary">Create menu<i class="icon-arrow-right14 position-right"></i></a>
         @if (session('status'))
-        <div class="alert alert-success">
-            {{ session('status') }}
-        </div>
+            <div class="alert alert-success">
+                {{ session('status') }}
+            </div>
         @endif
     </div>
 
     <div class="table-responsive">
-
         <table class="table">
             <thead>
                 <tr>
@@ -99,11 +99,11 @@
                     <td>{{ $data->sublevel}}</td> 
                     <td>
                         @if (!empty($data->parent_id))
-                        <a href="{{ route('menus.show', ['id' => $data->parent_id]) }}">{{ $data ->parent->name }}</a>
+                        <a href="{{ route('admin.menus.show', ['id' => $data->parent_id]) }}">{{ $data ->parent->name }}</a>
                         @endif
                     </td>
-                    <td><a href='/menus/{{ $data->id}}' type="btn btn-primary">Show</a> </td>
-                    <td><a href='/menus/{{ $data->id}}/edit' type="btn btn-primary">Edit</a> </td>
+                    <td><a href='{{ route('admin.menus.show', ['id' => $data->id]) }}' type="btn btn-primary">Show</a> </td>
+                    <td><a href='{{ route('admin.menus.edit', ['id' => $data->id]) }}' type="btn btn-primary">Edit</a> </td>
                     <td>
                         <a href="#" data-toggle="modal" data-target="#modal_theme_danger" onclick="delete_confirm({{ $data->id }})"><i class="icon-trash"></i> Delete</a>
                     </td>
@@ -114,12 +114,6 @@
     </div>
 </div>
 <!-- /table -->
-
-<div class="panel-body">
-        <div class="text-right">
-            <a href="{{ url('menus/create') }}" class="btn btn-primary">Create menu<i class="icon-arrow-right14 position-right"></i></a>
-        </div>
-    </div>
 
 <!-- Danger modal -->
 <div id="modal_theme_danger" class="modal fade">
@@ -135,7 +129,7 @@
             </div>
 
             <div class="modal-footer">
-                <form method="post" id="delete_form" action="/menus/0">
+                <form method="post" id="delete_form" action="/admin/menus/0">
                     {{ method_field('DELETE') }}
                     {{ csrf_field() }}
 
@@ -152,7 +146,7 @@
 @section('script')
 <script>
     window.delete_confirm = function(id) {
-        $("#delete_form").attr('action', '/menus/'+id);
+        $("#delete_form").attr('action', '/admin/menus/'+id);
     }
 </script>
 @endsection

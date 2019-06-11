@@ -101,7 +101,7 @@
                     </div>
 
                     <div class="text-right">
-                        <a href="/pages" class="btn btn-default">Back</a>
+                        <a href="javascript:history.back()" class="btn btn-default">Back</a>
                         <button type="submit" class="btn btn-primary">Create</button>
                     </div>
                 </form>

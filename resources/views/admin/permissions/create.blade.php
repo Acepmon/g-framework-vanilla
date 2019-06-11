@@ -71,7 +71,7 @@
                         </div>
                     </div>                   
                     <div class="text-right">
-                        <a type="button" class="btn btn-primary" href='/permissions' type="btn btn-primary"><i class="icon-arrow-left13 position-left"></i>Back</a>
+                        <a class="btn btn-primary" href="javascript:history.back()" type="btn btn-primary"><i class="icon-arrow-left13 position-left"></i>Back</a>
                         <button type="submit" class="btn btn-success">Create permission
                             <i class="icon-arrow-right14 position-right"></i></button>
                     </div>

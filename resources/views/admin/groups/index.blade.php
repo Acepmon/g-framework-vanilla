@@ -60,29 +60,26 @@
             <thead>
                 <tr>
                     <th>#</th>
-                    <th>Name</th>
+                    <th>Title</th>
                     <th>Description</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
-            @foreach($groups as $group)
-                <tr>                    
-                    <td>{{$group->id}}</td>
-                    <td>{{$group->title}}</td>
-                    <td>{{$group->description}}</td>
-                    <td width="250px">
-                        <div class="btn-group">
-                            <form action="/groups/{{ $group->id }}" method="GET" style="float: left; margin-right: 5px">
-                                <button type="submit" class="btn btn-default">View</button>
-                            </form>
-                            <form action="/groups/{{ $group->id }}/edit" method="GET" style="float: left; margin-right: 5px">
-                                <button type="submit" class="btn btn-default">Edit</button>
-                            </form>
-                            <button data-toggle="modal" data-target="#modal_theme_danger" type="submit" class="btn btn-default" onclick="choose_group({{ $group->id }})">Delete</button>
-                        </div>
-                    </td>
-                </tr>
-            @endforeach
+                @foreach($groups as $group)
+                    <tr>                    
+                        <td>{{$group->id}}</td>
+                        <td>{{$group->title}}</td>
+                        <td>{{$group->description}}</td>
+                        <td width="250px">
+                            <div class="btn-group">
+                                <a href="{{ route('admin.groups.show', ['id' => $group->id]) }}" class="btn btn-default">View</a>
+                                <a href="{{ route('admin.groups.edit', ['id' => $group->id]) }}" class="btn btn-default">Edit</a>
+                                <button data-toggle="modal" data-target="#modal_theme_danger" type="button" class="btn btn-default" onclick="choose_group({{ $group->id }})">Delete</button>
+                            </div>
+                        </td>
+                    </tr>
+                @endforeach
             </tbody>
         </table>
     </div>
