@@ -46,7 +46,7 @@
 @section('content')
 
 <div class="text-right" style="padding-bottom: 5px">
-    <a href="/pages/create" class="btn btn-primary">Create Pages</a>
+    <a href="{{ route('admin.pages.create') }}" class="btn btn-primary">Create Pages</a>
 </div>
 
 <div class="panel panel-flat">
@@ -80,10 +80,10 @@
                     <td>{{$page->author_id}}</td>
                     <td width="250px">
                         <div class="btn-group">
-                            <form action="/pages/{{ $page->id }}" method="GET" style="float: left; margin-right: 5px">
+                            <form action="{{ route('admin.pages.show', ['id' => $page->id]) }}" method="GET" style="float: left; margin-right: 5px">
                                 <button type="submit" class="btn btn-default">View</button>
                             </form>
-                            <form action="/pages/{{ $page->id }}/edit" method="GET" style="float: left; margin-right: 5px">
+                            <form action="{{ route('admin.pages.edit', ['id' => $page->id]) }}" method="GET" style="float: left; margin-right: 5px">
                                 <button type="submit" class="btn btn-default">Edit</button>
                             </form>
                             <button data-toggle="modal" data-target="#modal_theme_danger" type="submit" class="btn btn-default" onclick="delete_page({{ $page->id }})">Delete</button>
