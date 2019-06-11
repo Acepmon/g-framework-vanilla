@@ -51,7 +51,7 @@ class UserSettingController extends Controller
 
     public function edit($id)
     {
-        $setting = Setting::findOrFail($id);
+        $setting = Setting::findOrFail(Route::current()->parameter('setting'));
         $user = User::findOrFail(Route::current()->parameter('user'));
         return view('admin.users.settings.edit', ['user' => $user, 'setting' => $setting]);
     }
@@ -62,7 +62,7 @@ class UserSettingController extends Controller
             'key' => 'required|max:100',
             'value' => 'required|max:255'
         ]);
-        $setting = Setting::findOrFail($id);
+        $setting = Setting::findOrFail(Route::current()->parameter('setting'));
         $user_id = Route::current()->parameter('user');
         try{
             $setting->key = $request->input('key');

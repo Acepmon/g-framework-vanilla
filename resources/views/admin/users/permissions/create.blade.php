@@ -67,12 +67,13 @@
 
             <!-- Tab content -->
             <div class="tab-content">
-                <div class="tab-pane fade in active" id="settings">
+
+                <div class="tab-pane fade in active" id="permissions">
                     
 					<!-- Form horizontal -->
 					<div class="panel panel-flat">
 						<div class="panel-heading">
-							<h5 class="panel-title">Edit user setting</h5>
+							<h5 class="panel-title">Create new permission</h5>
 							<div class="heading-elements">
 								<ul class="icons-list">
 			                		<li><a data-action="collapse"></a></li>
@@ -83,8 +84,7 @@
 						</div>
 
 						<div class="panel-body">
-                            <form method="post" class="form-horizontal form-validate-jquery" action="{{ route('admin.users.settings.update', ['user' => $user->id, 'setting' => $setting->id]) }}">
-                                {{ method_field('PUT') }}
+                            <form method="post" class="form-horizontal form-validate-jquery" action="{{ route('admin.users.permissions.store', ['user' => $user->id]) }}">
                                 {{ csrf_field() }}
 
                                 @if(Session::has('error'))
@@ -95,23 +95,23 @@
                                 @endif
 
                                 <div class="form-group">
-                                    <label class="control-label col-lg-2">Key <span class="text-danger">*</span></label>
+                                    <label class="control-label col-lg-2">Title <span class="text-danger">*</span></label>
                                     <div class="col-lg-10">
-                                        <input name="key" type="text" class="form-control" required="true" placeholder="Setting Key..." value="{{ $setting->key }}">
+                                        <input name="title" type="text" class="form-control" required="true" placeholder="Permission Title...">
                                     </div>
                                 </div>
                                 
                                 <div class="form-group">
-                                    <label class="control-label col-lg-2">Value <span class="text-danger">*</span></label>
+                                    <label class="control-label col-lg-2">Description</label>
                                     <div class="col-lg-10">
-                                        <input name="value" type="text" class="form-control" required="true" placeholder="Setting Value..." value="{{ $setting->value }}">
+                                        <input name="description" type="text" class="form-control" placeholder="Permission Value...">
                                     </div>
                                 </div>
 
                                 <div class="row">
                                     <div class="col-lg-4">
                                         <div class="text-left">
-                                            <a href="{{ route('admin.users.settings.index', ['user' => $user->id]) }}" class="btn btn-default"><i class="icon-arrow-left52 position-left"></i> Back</a>
+                                            <a href="{{ route('admin.users.permissions.index', ['user' => $user->id]) }}" class="btn btn-default"><i class="icon-arrow-left52 position-left"></i> Back</a>
                                         </div>
                                     </div>
                                     <div class="col-lg-8">

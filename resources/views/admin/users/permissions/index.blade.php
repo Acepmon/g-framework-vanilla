@@ -42,7 +42,7 @@
                 <li><a href="#"><i class="icon-statistics"></i> Analytics</a></li>
                 <li><a href="#"><i class="icon-accessibility"></i> Accessibility</a></li>
                 <li class="divider"></li>
-                <li><a href="#"><i class="icon-gear"></i> All settings</a></li>
+                <li><a href="#"><i class="icon-gear"></i> All Settings</a></li>
             </ul>
         </li>
     </ul>
@@ -59,13 +59,15 @@
 
             <!-- Tab content -->
             <div class="tab-content">
-                <div class="tab-pane fade in active" id="settings">
+                <div class="tab-pane fade in active" id="permissions">
                     <div class="panel panel-flat">
                         <div class="panel-heading">
-                            <h6 class="panel-title">User Settings</h6>
+                            <h6 class="panel-title">User Permissions</h6>
                             <div class="heading-elements">
                                 <ul class="icons-list">
-                                    <li><a href="{{ route('admin.users.settings.create', ['id' => $user->id]) }}" class="text-white btn btn-primary">New Settings <i class="icon-add position-right"></i></a></li>
+                                    <li>
+                                        <a href="{{ route('admin.users.permissions.create', ['id' => $user->id]) }}" class="text-white btn btn-primary">New Permission <i class="icon-add position-right"></i></a>
+                                    </li>
                                 </ul>
                             </div>
                         </div>
@@ -74,17 +76,17 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Key</th>
-                                    <th>Value</th>
+                                    <th>Title</th>
+                                    <th>Description</th>
                                     <th class="text-center">Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($user->settings as $setting)
+                                @foreach($user->permissions as $permission)
                                 <tr>
-                                    <td>{{ $setting->id }}</td>
-                                    <td>{{ $setting->key }}</td>
-                                    <td>{{ $setting->value }}</td>
+                                    <td>{{ $permission->id }}</td>
+                                    <td>{{ $permission->title }}</td>
+                                    <td>{{ $permission->description }}</td>
                                     <!---->
                                     <td class="text-center">
                                         <ul class="icons-list">
@@ -94,8 +96,8 @@
                                                 </a>
 
                                                 <ul class="dropdown-menu dropdown-menu-right">
-                                                    <li><a href="{{ route('admin.users.settings.edit', ['user' => $user->id, 'setting' => $setting->id]) }}"><i class="icon-pencil"></i> Edit</a></li>
-                                                    <li><a href="#" data-toggle="modal" data-target="#modal_theme_danger" onclick="choose_setting({{ $setting->id }})"><i class="icon-trash"></i> Delete</a></li>
+                                                    <li><a href="{{ route('admin.users.permissions.edit', ['user' => $user->id, 'permission' => $permission->id]) }}"><i class="icon-pencil"></i> Edit</a></li>
+                                                    <li><a href="#" data-toggle="modal" data-target="#modal_theme_danger" onclick="choose_permission({{ $permission->id }})"><i class="icon-trash"></i> Delete</a></li>
                                                 </ul>
                                             </li>
                                         </ul>
@@ -123,7 +125,7 @@
             </div>
 
             <div class="modal-body">
-                <p>Are you sure you want to remove this setting?</p>
+                <p>Are you sure you want to remove this permission?</p>
             </div>
 
             <div class="modal-footer">
@@ -143,8 +145,8 @@
 @section('script')
 
 <script>
-    window.choose_setting = function(id) {
-        $("#delete_form").attr('action', "/admin/users/{{ $user-> id}}/settings/"+id);
+    window.choose_permission = function(id) {
+        $("#delete_form").attr('action', "/admin/users/{{ $user-> id}}/permissions/"+id);
     }
 </script>
 @endsection

@@ -42,6 +42,16 @@ class User extends Authenticatable
         return $this->belongsToMany('App\Group', 'user_group');
     }
 
+    public function pages()
+    {
+        return $this->hasMany('App\Page', 'author_id');
+    }
+
+    public function permissions()
+    {
+        return $this->belongsToMany('App\Permission', 'user_permission');
+    }
+
     public function settings()
     {
         return $this->hasMany('App\Setting');
