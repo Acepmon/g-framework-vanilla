@@ -55,20 +55,26 @@
                 <form class="form-horizontal" action="{{ route('admin.pages.update', ['id' => $page->id]) }}" method="POST">
                     @method('PUT')
                     @csrf
+                    @if ($errors->any())
+                        @foreach ($errors->all() as $error)
+                        <div class="alert alert-danger no-border">
+                            <button type="button" class="close" data-dismiss="alert"><span>&times;</span><span class="sr-only">Close</span></button>
+                            {{ $error }}
+                        </div>
+                        @endforeach
+                    @endif
                     <div class="form-group">
                         <label class="control-label col-lg-2">Title<span class="text-danger">*</span></label>
                         <div class="col-lg-10">
                             <input type="text" class="form-control" name="title" placeholder="Enter page title..." value="{{$page->title}}" required="required" aria-required="true" invalid="true">
                         </div>
                     </div>
-
                     <div class="form-group">
                         <label class="control-label col-lg-2">Slug<span class="text-danger">*</span></label>
                         <div class="col-lg-10">
                             <input type="text" class="form-control" name="slug" placeholder="Enter page slug..." value="{{$page->slug}}" required="required" aria-required="true" invalid="true">
                         </div>
                     </div>
-
                     <div class="form-group">
                         <label class="control-label col-lg-2">Content</label>
                         <div class="col-lg-10">
@@ -93,10 +99,9 @@
                     <div class="form-group">
                         <label class="control-label col-lg-2">Author ID</label>
                         <div class="control-label col-lg-2">
-                            <select class="selectbox" name="author_id" type="text" id="author_id" class="control-label" selected="{{$page->author_id}}">
-                                <option value=""></option>
+                            <select class="selectbox" name="author_id" type="text" id="author_id" class="control-label">
                                 @foreach($users as $user)
-                                <option value="{{$user->id}}">{{$user->username}}</option>
+                                <option {{$page->author_id == $user->id?'selected':''}} value="{{$user->id}}">{{$user->username}}</option>
                                 @endforeach
                             </select>
                         </div>

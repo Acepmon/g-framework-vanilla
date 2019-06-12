@@ -87,7 +87,7 @@
                             <form action="{{ route('admin.pages.edit', ['id' => $page->id]) }}" method="GET" style="float: left; margin-right: 5px">
                                 <button type="submit" class="btn btn-default">Edit</button>
                             </form>
-                            <button data-toggle="modal" data-target="#modal_theme_danger" type="submit" class="btn btn-default" onclick="delete_page({{ $page->id }})">Delete</button>
+                            <button data-toggle="modal" data-target="#modal_theme_danger" class="btn btn-default" onclick="delete_page({{ $page->id }})">Delete</button>
                         </div>
                     </td>
                 </tr>
