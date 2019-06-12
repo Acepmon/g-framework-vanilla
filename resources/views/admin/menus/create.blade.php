@@ -4,7 +4,6 @@
 <script type="text/javascript" src="/assets/js/core/libraries/jquery_ui/core.min.js"></script>
 <script type="text/javascript" src="/assets/js/plugins/forms/selects/selectboxit.min.js"></script>
 
-<script type="text/javascript" src="/assets/js/core/app.js"></script>
 <script type="text/javascript" src="/assets/js/pages/form_selectbox.js"></script>
 @endsection
 

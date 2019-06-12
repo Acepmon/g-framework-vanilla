@@ -99,7 +99,7 @@
                     <td>{{ $data->sublevel}}</td> 
                     <td>
                         @if (!empty($data->parent_id))
-                        <a href="{{ route('admin.menus.show', ['id' => $data->parent_id]) }}">{{ $data ->parent->name }}</a>
+                        <a href="{{ route('admin.menus.show', ['id' => $data->parent_id]) }}">{{ $data->parent->name }}</a>
                         @endif
                     </td>
                     <td><a href='{{ route('admin.menus.show', ['id' => $data->id]) }}' type="btn btn-primary">Show</a> </td>

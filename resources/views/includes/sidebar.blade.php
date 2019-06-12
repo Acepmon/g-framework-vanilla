@@ -29,7 +29,11 @@
         <!-- Main navigation -->
         <div class="sidebar-category sidebar-category-visible">
             <div class="category-content no-padding">
-                <ul class="navigation navigation-main navigation-accordion">
+                <ul class="navigation navigation-alt navigation-accordion">
+
+                    @if(True)
+                    @each('includes.sidemenus', Auth::user()->menus->where('parent_id', NULL), 'menu')
+                    @endif
 
                     <li class="navigation-header"><span>System</span> <i class="icon-menu" title="Core Features"></i></li>
                     <li><a href="/admin/dashboard"><i class="icon-home4"></i> <span>Dashboard</span></a></li>
