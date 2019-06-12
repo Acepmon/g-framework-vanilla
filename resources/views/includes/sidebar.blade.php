@@ -31,7 +31,7 @@
             <div class="category-content no-padding">
                 <ul class="navigation navigation-main navigation-accordion">
 
-                    <li class="navigation-header"><span>System</span> <i class="icon-menu" title="Core Features"></i></li>
+                    <li class="navigation-header"><span>Core</span> <i class="icon-menu" title="Core Features"></i></li>
                     <li><a href="/admin/dashboard"><i class="icon-home4"></i> <span>Dashboard</span></a></li>
                     <li><a href="/admin/menus"><i class="icon-menu2"></i> <span>Menus</span></a></li>
                     <li><a href="/admin/users"><i class="icon-users"></i> <span>Users</span></a></li>
