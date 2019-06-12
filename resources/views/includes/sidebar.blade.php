@@ -31,7 +31,7 @@
             <div class="category-content no-padding">
                 <ul class="navigation navigation-alt navigation-accordion">
 
-                    @if(True)
+                    @if(False)
                     @each('includes.sidemenus', Auth::user()->menus->where('parent_id', NULL), 'menu')
                     @endif
 
