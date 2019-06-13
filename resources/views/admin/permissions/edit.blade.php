@@ -1,12 +1,12 @@
 @extends('layouts.admin')
 
 @section('load')
-
-<script type="text/javascript" src="/assets/js/core/libraries/jquery_ui/core.min.js"></script>
-<script type="text/javascript" src="/assets/js/plugins/forms/selects/selectboxit.min.js"></script>
-
-<script type="text/javascript" src="/assets/js/core/app.js"></script>
-<script type="text/javascript" src="/assets/js/pages/form_selectbox.js"></script>
+{{--<!-- Theme JS files -->--}}
+<script type="text/javascript" src="/assets/js/plugins/forms/styling/uniform.min.js"></script>
+<script type="text/javascript" src="/assets/js/plugins/forms/styling/switchery.min.js"></script>
+<script type="text/javascript" src="/assets/js/plugins/forms/styling/switch.min.js"></script>
+<script type="text/javascript" src="/assets/js/pages/form_checkboxes_radios.js"></script>
+<!-- /theme JS files -->
 @endsection
 
 @section('pageheader')
@@ -58,33 +58,64 @@
                 <form class="form-horizontal" method="POST" action="{{ route('admin.permissions.update', $permission->id) }}">
                     @csrf
                     @method ('PUT')
-                    <div class="form-group">
-                        <label class="control-label col-lg-2">Title</label>
-                        <div class="col-lg-10">
-                            <input id="title" type="text" class="form-control @error('title') is-invalid @enderror" name="title" placeholder="Title" value="{{ $permission->title }}" required autocomplete="title" autofocus>
-                            @error('title')
-                            <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                            @enderror
+                    <div class="col-lg-9">
+                        <div class="form-group">
+                            <label class="control-label col-lg-2">Title</label>
+                            <div class="col-lg-10">
+                                <input id="title" type="text" class="form-control @error('title') is-invalid @enderror" name="title" placeholder="Title" value="{{ $permission->title }}" required autocomplete="title" autofocus>
+                                @error('title')
+                                <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                @enderror
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="form-group">
-                        <label class="control-label col-lg-2">Description</label>
-                        <div class="col-lg-10">
-                            <input id="description" type="text" class="form-control @error('description') is-invalid @enderror" name="description" placeholder="Description" value="{{ $permission->description }}" required autocomplete="description" autofocus>
-                            @error('description')
-                            <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                            @enderror
+                        <div class="form-group">
+                            <label class="control-label col-lg-2">Description</label>
+                            <div class="col-lg-10">
+                                <input id="description" type="text" class="form-control @error('description') is-invalid @enderror" name="description" placeholder="Description" value="{{ $permission->description }}" required autocomplete="description" autofocus>
+                                @error('description')
+                                <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                @enderror
+                            </div>
                         </div>
-                    </div>                    
-                    <div class="text-right">
-                        <button type="submit" class="btn btn-primary">Edit menu<i class="icon-arrow-right14 position-right"></i></button>
+                        <div class="text-right">
+                            <button type="submit" class="btn btn-primary">Edit menu<i class="icon-arrow-right14 position-right"></i></button>
+                        </div>
                     </div>
                 </form>
+                <div class="col-lg-3">
+                    <div class="form-group">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Username</th>
+                                <th>Check</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <div style="display: none">{{$i=1}}</div>
+                            @foreach($users as $data)
+                                <tr>
+                                    <td>{{ $i++}}</td>
+                                    <td>{{ $data->username}}</td>
+                                    <td>
+                                        <div class="checkbox checkbox-switch">
+                                            <label>
+                                                <input type="checkbox" data-off-color="danger" name="is_granted" data-on-text="Yes" data-off-text="No" class="switch" {{$data -> is_granted == 1 ? 'checked':''}}>
+                                            </label>
+                                        </div>{{ $data->is_granted }}
+                                    </td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
         <!-- /horizotal form -->
@@ -93,7 +124,6 @@
 
 </div>
 <!-- /grid -->
-
 
 @endsection
 

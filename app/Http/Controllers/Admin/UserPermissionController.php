@@ -36,7 +36,7 @@ class UserPermissionController extends Controller
             $permission->title = $request->input('title');
             $permission->description = $request->input('description');
             $permission->save();
-            $user->permissions()->attach($permission);
+            $user->permissions()->attach($permission, ['is_granted' => $request->input('is_granted', true)]);
 
             return redirect()->route('admin.users.permissions.index', ['user' => $user]);
         } catch (\Exception $e) {
