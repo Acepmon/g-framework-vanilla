@@ -66,7 +66,7 @@
                     <div class="form-group">
                         <label class="control-label col-lg-2">Slug<span class="text-danger">*</span></label>
                         <div class="col-lg-10">
-                            <input id="slug" type="text" class="form-control" name="slug" placeholder="Enter page slug..." required="required" aria-required="true" invalid="true">
+                            <input id="slug" type="text" class="form-control" name="slug" pattern="/^[A-Za-z0-9]+(?:-[A-Za-z0-9]+)*$/" placeholder="Enter page slug..." required="required" aria-required="true" invalid="true">
                         </div>
                     </div>
 
@@ -131,5 +131,15 @@
         document.getElementById("slug").value = title;
 
     }
+    
+    $( "#slug" ).keyup(function( event ) {
+            console.log(event.which);
+        if ( event.which == 32) {
+            var slug = document.getElementById("slug").value;
+            slug = slug.toString().toLowerCase()
+                .replace(' ', '-');
+            document.getElementById("slug").value = slug;
+        }
+    });
 </script>
 @endsection
