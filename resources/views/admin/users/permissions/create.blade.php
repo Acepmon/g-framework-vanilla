@@ -10,7 +10,6 @@
 <script type="text/javascript" src="/assets/js/plugins/forms/styling/switchery.min.js"></script>
 <script type="text/javascript" src="/assets/js/plugins/forms/styling/uniform.min.js"></script>
 
-<script type="text/javascript" src="/assets/js/core/app.js"></script>
 <script type="text/javascript" src="/assets/js/pages/form_validation.js"></script>
 @endsection
 

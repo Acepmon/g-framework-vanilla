@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Menu;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
@@ -55,5 +56,10 @@ class User extends Authenticatable
     public function settings()
     {
         return $this->hasMany('App\Setting');
+    }
+
+    public function getMenusAttribute()
+    {
+        return $this->groups->pluck('menus')->collapse();
     }
 }
