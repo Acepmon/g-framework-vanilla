@@ -11,6 +11,11 @@
 |
 */
 
+/*Route::get('/{slug}', function($slug){
+    $result =  DB::table('pages')->where('slug', $slug)->get(); 
+    
+});*/
+
 Route::middleware(['auth'])->group(function () {
     Route::prefix('admin')->group(function () {
         Route::namespace('Admin')->group(function () {
@@ -100,3 +105,5 @@ Route::get('/', function () {
 });
 
 Auth::routes();
+
+Route::get('/{slug}', 'HomeController@page')->name('page');
