@@ -107,6 +107,44 @@
                             </tbody>
                         </table>
                     </div>
+
+					<div class="panel panel-flat">
+						<div class="panel-heading">
+							<h5 class="panel-title">Add permission</h5>
+							<div class="heading-elements">
+								<ul class="icons-list">
+			                		<li><a data-action="collapse"></a></li>
+			                		<li><a data-action="reload"></a></li>
+			                		<li><a data-action="close"></a></li>
+			                	</ul>
+		                	</div>
+						</div>
+
+						<div class="panel-body">
+                            <form method="post" class="form-horizontal form-validate-jquery" action="{{ route('admin.users.permissions.store', ['user' => $user->id]) }}">
+                                {{ csrf_field() }}
+
+                                <div class="form-group">
+                                    <label class="control-label col-lg-2">Permission</label>
+                                    <div class="col-lg-10">
+                                        <select name="permission" type="text" class="form-control">
+                                            @foreach($permissions as $permission)
+                                            <option value="{{ $permission->id }}">{{ $permission->title }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="text-right">
+                                            <button type="submit" class="btn btn-primary">Submit <i class="icon-arrow-right14 position-right"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+							</form>
+						</div>
+					</div>
                 </div>
             </div>
             <!-- /tab content -->
