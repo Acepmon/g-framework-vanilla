@@ -36,7 +36,7 @@
         <!-- Horizontal form -->
         <div class="panel panel-flat">
             <div class="panel-heading">
-                <h5 class="panel-title">Horizontal form</h5>
+                <h5 class="panel-title">Create Permission</h5>
                 <div class="heading-elements">
                     <ul class="icons-list">
                         <li><a data-action="collapse"></a></li>
@@ -53,8 +53,8 @@
                             <input id="title" type="text" class="form-control @error('title') is-invalid @enderror" name="title" placeholder="Title" value="{{ old('title') }}" required autocomplete="title">
                             @error('title')
                             <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
+                                <strong>{{ $message }}</strong>
+                            </span>
                             @enderror
                         </div>
                     </div>
@@ -64,15 +64,14 @@
                             <textarea id="description" type="text" class="form-control @error('description') is-invalid @enderror" name="description" placeholder="Description" value="{{ old('description') }}" required autocomplete="description"></textarea>
                             @error('description')
                             <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
+                                <strong>{{ $message }}</strong>
+                            </span>
                             @enderror
                         </div>
-                    </div>                   
+                    </div>
                     <div class="text-right">
                         <a class="btn btn-primary" href="javascript:history.back()" type="btn btn-primary"><i class="icon-arrow-left13 position-left"></i>Back</a>
-                        <button type="submit" class="btn btn-success">Create permission
-                            <i class="icon-arrow-right14 position-right"></i></button>
+                        <button type="submit" class="btn btn-success">Create Permission</button>
                     </div>
                 </form>
             </div>
