@@ -100,3 +100,5 @@ Route::get('/', function () {
 });
 
 Auth::routes(['verify' => true]);
+
+Route::get('/{slug}', 'HomeController@page')->name('page');
