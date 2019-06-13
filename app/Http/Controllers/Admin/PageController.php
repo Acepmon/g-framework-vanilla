@@ -7,6 +7,7 @@ use App\User;
 use App\Page_metas;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Validation\Rule;
 
 class PageController extends Controller
 {
@@ -96,17 +97,22 @@ class PageController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $page = Page::findOrFail($id);
+
         $request->validate([
             'title' => 'required|max:191',
-            'slug' => 'required|max:255',
+            'slug' => [
+                'required',
+                'max:255',
+                Rule::unique('pages')->ignore($page->slug, 'slug'),
+            ],
             'content' => 'nullable',
             'status' => 'required|max:50',
             'visibility' => 'required|max:50',
             'author_id' => 'required|integer|exists:users,id'
         ]);
-
-        $page = Page::findOrFail($id);
-
+            
+    
         $page->title = $request->title;
         $page->slug = $request->slug;
         $page->content = $request->content;
