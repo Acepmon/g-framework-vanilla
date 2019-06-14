@@ -19,16 +19,23 @@
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="notificationsDropdownToggle">
                     <i class="icon-bell2"></i>
                     <span class="visible-xs-inline-block position-right">Notifications</span>
-                    <span class="badge bg-warning-400">{{ Auth::user()->notifications->count() }}</span>
+                    <span id="notificationsCount" class="badge bg-warning-400">{{ Auth::user()->unreadNotifications->count() }}</span>
                 </a>
 
                 <div class="dropdown-menu dropdown-content width-350" id="notificationsDropdown">
                     <div class="dropdown-content-heading">
-                        Notifications
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <h6 class="panel-title">Notifications</h6>
+                            </div>
+                            <div class="col-lg-6 text-right">
+                                <button onclick="markAsRead()" class="text-white btn btn-primary">Mark as Read</button>
+                            </div>
+                        </div>
                     </div>
 
-                    <ul class="media-list dropdown-content-body">
-                        @foreach(Auth::user()->notifications as $notification)
+                    <ul class="media-list dropdown-content-body" id="notificationsList">
+                        @foreach(Auth::user()->unreadNotifications as $notification)
                         <li class="media">
                             @if (!empty($notification->data['thumbnail']))
                             <div class="media-left">
@@ -46,6 +53,10 @@
                             </div>
                         </li>
                         @endforeach
+
+                        @if(count(Auth::user()->unreadNotifications) == 0)
+                        <div class="text-center">You do not have any notifications</div>
+                        @endif
                     </ul>
 
                     <div class="dropdown-content-footer">
@@ -70,7 +81,7 @@
                 </a>
 
                 <ul class="dropdown-menu dropdown-menu-right">
-                    <li><a href="#"><i class="icon-user-plus"></i> My profile</a></li>
+                    <li><a href="{{ route('admin.profile.index') }}"><i class="icon-user-plus"></i> My profile</a></li>
                     <li><a href="#"><i class="icon-coins"></i> My balance</a></li>
                     <li><a href="#"><span class="badge badge-warning pull-right">58</span> <i class="icon-comment-discussion"></i> Messages</a></li>
                     <li class="divider"></li>
@@ -89,9 +100,13 @@
 <!-- /main navbar -->
 
 <script>
-    $(document).ready(function () {
-        $("#notificationsDropdownToggle").on('shown.bs.dropdown', function () {
-            console.log('ais isdi sdif bsi')
-        });
+
+function markAsRead() {
+    $.ajax({
+        url: '/admin/profile/notifications/read'
+    }).done(function() {
+        $("#notificationsCount").html(0);
+        $("#notificationsList").html('<div class="text-center">You do not have any notifications</div>');
     });
+}
 </script>

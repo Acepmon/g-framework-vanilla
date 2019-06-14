@@ -23,6 +23,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::prefix('profile')->group(function () {
                 Route::get('/', 'ProfileController@index')->name('admin.profile.index');
                 Route::get('notifications', 'ProfileController@notifications')->name('admin.profile.notifications');
+                Route::get('notifications/read', 'ProfileController@readNotifications')->name('admin.profile.notifications.read');
                 Route::get('edit', 'ProfileController@edit')->name('admin.profile.edit');
             });
 
