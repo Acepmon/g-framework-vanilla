@@ -11,7 +11,7 @@
 |
 */
 
-Route::middleware(['auth', 'verified'])->group(function () {
+Route::middleware(['auth'])->group(function () {
     Route::prefix('admin')->group(function () {
         Route::namespace('Admin')->group(function () {
             Route::get('/', function () {
@@ -53,6 +53,15 @@ Route::middleware(['auth', 'verified'])->group(function () {
                 'edit' => 'admin.permissions.edit',
                 'update' => 'admin.permissions.update',
                 'destroy' => 'admin.permissions.destroy'
+            ]);
+            Route::resource('plugins', 'PluginController')->names([
+                'index' => 'admin.plugins.index',
+                'create' => 'admin.plugins.create',
+                'store' => 'admin.plugins.store',
+                'show' => 'admin.plugins.show',
+                'edit' => 'admin.plugins.edit',
+                'update' => 'admin.plugins.update',
+                'destroy' => 'admin.plugins.destroy'
             ]);
             Route::resource('groups', 'GroupController')->names([
                 'index' => 'admin.groups.index',
