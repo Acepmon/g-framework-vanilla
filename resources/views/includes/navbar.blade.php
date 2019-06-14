@@ -16,13 +16,13 @@
 
         <ul class="nav navbar-nav navbar-right">
             <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="notificationsDropdownToggle">
                     <i class="icon-bell2"></i>
-                    <span class="visible-xs-inline-block position-right">Messages</span>
+                    <span class="visible-xs-inline-block position-right">Notifications</span>
                     <span class="badge bg-warning-400">{{ Auth::user()->notifications->count() }}</span>
                 </a>
 
-                <div class="dropdown-menu dropdown-content width-350">
+                <div class="dropdown-menu dropdown-content width-350" id="notificationsDropdown">
                     <div class="dropdown-content-heading">
                         Notifications
                     </div>
@@ -87,3 +87,11 @@
     </div>
 </div>
 <!-- /main navbar -->
+
+<script>
+    $(document).ready(function () {
+        $("#notificationsDropdownToggle").on('shown.bs.dropdown', function () {
+            console.log('ais isdi sdif bsi')
+        });
+    });
+</script>

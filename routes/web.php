@@ -21,17 +21,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::get('changelog', 'ChangelogController@index')->name('admin.changelog.index');
 
             Route::prefix('profile')->group(function () {
-                Route::get('/', function () {
-
-                })->name('admin.profile');
-
-                Route::get('notifications', function () {
-
-                })->name('admin.profile.notifications');
-
-                Route::get('edit', function () {
-
-                })->name('admin.profile.edit');
+                Route::get('/', 'ProfileController@index')->name('admin.profile.index');
+                Route::get('notifications', 'ProfileController@notifications')->name('admin.profile.notifications');
+                Route::get('edit', 'ProfileController@edit')->name('admin.profile.edit');
             });
 
             Route::resource('menus', 'MenuController')->names([
