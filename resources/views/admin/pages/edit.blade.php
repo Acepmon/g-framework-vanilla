@@ -65,14 +65,17 @@
                     @endif
                     <div class="form-group">
                         <label class="control-label col-lg-2">Title<span class="text-danger">*</span></label>
-                        <div class="col-lg-10">
-                            <input type="text" class="form-control" name="title" placeholder="Enter page title..." value="{{$page->title}}" required="required" aria-required="true" invalid="true">
+                        <div class="col-lg-8">
+                            <input id="title" type="text" class="form-control" name="title" placeholder="Enter page title..." value="{{$page->title}}" required="required" aria-required="true" invalid="true">
+                        </div>
+                        <div class="col-lg-2">
+                            <button type="button" class="btn btn-default" onclick="create_slug()">Create Slug</button>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-lg-2">Slug<span class="text-danger">*</span></label>
                         <div class="col-lg-10">
-                            <input type="text" class="form-control" name="slug" placeholder="Enter page slug..." value="{{$page->slug}}" required="required" aria-required="true" invalid="true">
+                            <input id="slug" type="text" class="form-control" name="slug" placeholder="Enter page slug..." value="{{$page->slug}}" required="required" aria-required="true" invalid="true">
                         </div>
                     </div>
                     <div class="form-group">
@@ -192,5 +195,26 @@
     }
 
     setTimeout(function(){ document.getElementById("timer").remove() }, 10000);
+
+    function create_slug() {
+        var title = document.getElementById("title").value;
+        title = title.toString().toLowerCase()
+            .replace(/\s+/g, '-')
+            .replace(/[\s\W-]+/g, '-')
+            .replace(/\-\-+/g, '-')
+            .replace(/^-+/, '')
+            .replace(/-+$/, '');
+        document.getElementById("slug").value = title;
+    }
+
+    $( "#slug" ).keyup(function( event ) {
+            console.log(event.which);
+        if ( event.which == 32) {
+            var slug = document.getElementById("slug").value;
+            slug = slug.toString().toLowerCase()
+                .replace(' ', '-');
+            document.getElementById("slug").value = slug;
+        }
+    });
 </script>
 @endsection
