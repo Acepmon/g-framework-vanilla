@@ -53,6 +53,15 @@ Route::middleware(['auth'])->group(function () {
                 'update' => 'admin.permissions.update',
                 'destroy' => 'admin.permissions.destroy'
             ]);
+            Route::resource('plugins', 'PluginController')->names([
+                'index' => 'admin.plugins.index',
+                'create' => 'admin.plugins.create',
+                'store' => 'admin.plugins.store',
+                'show' => 'admin.plugins.show',
+                'edit' => 'admin.plugins.edit',
+                'update' => 'admin.plugins.update',
+                'destroy' => 'admin.plugins.destroy'
+            ]);
             Route::resource('groups', 'GroupController')->names([
                 'index' => 'admin.groups.index',
                 'create' => 'admin.groups.create',
