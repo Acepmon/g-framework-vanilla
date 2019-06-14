@@ -20,6 +20,12 @@ Route::middleware(['auth'])->group(function () {
             Route::get('dashboard', 'AdminController@dashboard')->name('admin.dashboard');
             Route::get('changelog', 'ChangelogController@index')->name('admin.changelog.index');
 
+            Route::prefix('profile')->group(function () {
+                Route::get('/', 'ProfileController@index')->name('admin.profile.index');
+                Route::get('notifications', 'ProfileController@notifications')->name('admin.profile.notifications');
+                Route::get('edit', 'ProfileController@edit')->name('admin.profile.edit');
+            });
+
             Route::resource('menus', 'MenuController')->names([
                 'index' => 'admin.menus.index',
                 'create' => 'admin.menus.create',

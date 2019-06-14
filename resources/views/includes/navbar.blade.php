@@ -15,7 +15,45 @@
         </ul>
 
         <ul class="nav navbar-nav navbar-right">
-            <li><a href="#">Text link</a></li>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="notificationsDropdownToggle">
+                    <i class="icon-bell2"></i>
+                    <span class="visible-xs-inline-block position-right">Notifications</span>
+                    <span class="badge bg-warning-400">{{ Auth::user()->notifications->count() }}</span>
+                </a>
+
+                <div class="dropdown-menu dropdown-content width-350" id="notificationsDropdown">
+                    <div class="dropdown-content-heading">
+                        Notifications
+                    </div>
+
+                    <ul class="media-list dropdown-content-body">
+                        @foreach(Auth::user()->notifications as $notification)
+                        <li class="media">
+                            @if (!empty($notification->data['thumbnail']))
+                            <div class="media-left">
+                                <img src="{{ $notification->data['thumbnail'] }}" class="img-circle img-sm" alt="">
+                            </div>
+                            @endif
+
+                            <div class="media-body">
+                                <a href="#" class="media-heading">
+                                    <span class="text-semibold">{{ $notification->data['title'] }}</span>
+                                    <span class="media-annotation pull-right">{{ $notification->created_at }}</span>
+                                </a>
+
+                                <span class="text-muted">{{ $notification->data['body'] }}</span>
+                            </div>
+                        </li>
+                        @endforeach
+                    </ul>
+
+                    <div class="dropdown-content-footer">
+                        <a href="{{ route('admin.profile.notifications') }}" data-popup="tooltip" title="All Notifications"><i class="icon-menu display-block"></i></a>
+                    </div>
+                </div>
+            </li>
+
 
             <li>
                 <a href="#">
@@ -49,3 +87,11 @@
     </div>
 </div>
 <!-- /main navbar -->
+
+<script>
+    $(document).ready(function () {
+        $("#notificationsDropdownToggle").on('shown.bs.dropdown', function () {
+            console.log('ais isdi sdif bsi')
+        });
+    });
+</script>
