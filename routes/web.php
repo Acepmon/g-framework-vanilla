@@ -11,7 +11,7 @@
 |
 */
 
-Route::middleware(['auth', 'verified'])->group(function () {
+Route::middleware(['auth'])->group(function () {
     Route::prefix('admin')->group(function () {
         Route::namespace('Admin')->group(function () {
             Route::get('/', function () {
