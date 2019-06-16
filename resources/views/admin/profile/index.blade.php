@@ -32,7 +32,7 @@
 <div class="breadcrumb-line">
     <ul class="breadcrumb">
         <li><a href="/"><i class="icon-home2 position-left"></i> Home</a></li>
-        <li><a href="{{ route('admin.users.index') }}">Users</a></li>
+        <li><a href="{{ route('admin.profile.index') }}">Users</a></li>
         <li class="active">Detail</li>
     </ul>
 
@@ -60,7 +60,7 @@
 
 @section('content')
 <div class="has-detached-left">
-    @include('admin.users.includes.sidebar')
+    @include('admin.profile.includes.sidebar')
 
     <!-- Detached content -->
     <div class="container-detached">
@@ -104,8 +104,8 @@
                                 @endforeach
                             @endif
 
-                            <form method="post" class="form-horizontal form-validate-jquery" action="{{ route('admin.users.update', ['id' =>  Auth::user()->id]) }}" enctype="multipart/form-data">
-                                {{ method_field('PATCH') }}
+                            <form method="post" class="form-horizontal form-validate-jquery" action="{{ route('admin.profile.update') }}" enctype="multipart/form-data">
+                                {{ method_field('PUT') }}
                                 {{ csrf_field() }}
 
                                 <div class="form-group">
@@ -169,7 +169,7 @@
                                 <hr>
 
                                 <div class="form-group">
-                                    <div class="col-lg-2">
+                                    <div class="col-lg-12">
                                         <div class="checkbox checkbox-left">
                                             <label>
                                                 <input id="password_checked" name="password_checked" type="checkbox" class="styled" onchange="toggle_password_form(this)">

@@ -24,7 +24,7 @@
 <div class="breadcrumb-line">
     <ul class="breadcrumb">
         <li><a href="/"><i class="icon-home2 position-left"></i> Home</a></li>
-        <li><a href="{{ route('admin.users.index') }}">Users</a></li>
+        <li><a href="{{ route('admin.profile.index') }}">Users</a></li>
         <li class="active">Detail</li>
     </ul>
 
@@ -42,7 +42,7 @@
                 <li><a href="#"><i class="icon-statistics"></i> Analytics</a></li>
                 <li><a href="#"><i class="icon-accessibility"></i> Accessibility</a></li>
                 <li class="divider"></li>
-                <li><a href="#"><i class="icon-gear"></i> All settings</a></li>
+                <li><a href="#"><i class="icon-gear"></i> All pages</a></li>
             </ul>
         </li>
     </ul>
@@ -51,7 +51,7 @@
 
 @section('content')
 <div class="has-detached-left">
-    @include('admin.users.includes.sidebar')
+    @include('admin.profile.includes.sidebar')
 
     <!-- Detached content -->
     <div class="container-detached">
@@ -59,26 +59,37 @@
 
             <!-- Tab content -->
             <div class="tab-content">
-                <div class="tab-pane fade in active" id="settings">
+                <div class="tab-pane fade in active" id="pages">
                     <div class="panel panel-flat">
                         <div class="panel-heading">
-                            <h6 class="panel-title">Notifications</h6>
+                            <h6 class="panel-title">Pages</h6>
                         </div>
 
                         <table class="table datatable-basic">
                             <thead>
                                 <tr>
-                                    <th>Title</th>
-                                    <th>Body</th>
-                                    <th>Created at</th>
+                                    <th width="5%">#</th>
+                                    <th width="25%">Title</th>
+                                    <th width="25%">Slug</th>
+                                    <th width="10%">Status</th>
+                                    <th width="10%">Visibility</th>
+                                    <th width="15%">Created At</th>
+                                    <th width="10%" class="text-center">Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($user->notifications as $notification)
+                                @foreach($user->pages as $page)
                                 <tr>
-                                    <td>{{ $notification->data['title'] }}</td>
-                                    <td>{{ $notification->data['body'] }}</td>
-                                    <td>{{ $notification->created_at }}</td>
+                                    <td>{{ $page->id }}</td>
+                                    <td>{{ $page->title }}</td>
+                                    <td>{{ $page->slug }}</td>
+                                    <td>{{ $page->status }}</td>
+                                    <td>{{ $page->visibility }}</td>
+                                    <td>{{ $page->created_at }}</td>
+                                    <!---->
+                                    <td class="text-center">
+                                        <a href="{{ route('admin.profile.pages.show', ['user' => $user->id, 'page' => $page->id]) }}" class="btn btn-default">Show more</a>
+                                    </td>
                                 </tr>
                                 @endforeach
                             </tbody>
@@ -92,39 +103,9 @@
     </div>
 </div>
 
-<!-- Danger modal -->
-<div id="modal_theme_danger" class="modal fade">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header bg-danger">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h6 class="modal-title">Delete?</h6>
-            </div>
-
-            <div class="modal-body">
-                <p>Are you sure you want to remove this setting?</p>
-            </div>
-
-            <div class="modal-footer">
-                <form method="post" id="delete_form" action="{{ route('admin.users.index') }}">
-                    {{ method_field('DELETE') }}
-                    {{ csrf_field() }}
-                    
-                    <button type="button" class="btn btn-link" data-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-danger">Delete</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
 @endsection
 
 @section('script')
-
 <script>
-    window.choose_setting = function(id) {
-        $("#delete_form").attr('action', "/admin/users/{{ $user-> id}}/settings/"+id);
-    }
-});
 </script>
 @endsection

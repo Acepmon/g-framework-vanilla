@@ -19,7 +19,9 @@
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="notificationsDropdownToggle">
                     <i class="icon-bell2"></i>
                     <span class="visible-xs-inline-block position-right">Notifications</span>
+                    @if (Auth::user()->unreadNotifications->count() > 0)
                     <span id="notificationsCount" class="badge bg-warning-400">{{ Auth::user()->unreadNotifications->count() }}</span>
+                    @endif
                 </a>
 
                 <div class="dropdown-menu dropdown-content width-350" id="notificationsDropdown">
@@ -29,7 +31,7 @@
                                 <h6 class="panel-title">Notifications</h6>
                             </div>
                             <div class="col-lg-6 text-right">
-                                <button onclick="markAsRead()" class="text-white btn btn-primary">Mark as Read</button>
+                                <button onclick="markAsRead()" id="notificationsMarkReadBtn" class="text-white btn btn-primary btn-sm" {{ Auth::user()->unreadNotifications->count() > 0 ? '' : 'disabled' }}>Mark as Read</button>
                             </div>
                         </div>
                     </div>
@@ -60,16 +62,16 @@
                     </ul>
 
                     <div class="dropdown-content-footer">
-                        <a href="{{ route('admin.profile.notifications') }}" data-popup="tooltip" title="All Notifications"><i class="icon-menu display-block"></i></a>
+                        <a href="{{ route('admin.profile.notifications.index') }}" data-popup="tooltip" title="All Notifications"><i class="icon-menu display-block"></i></a>
                     </div>
                 </div>
             </li>
 
 
             <li>
-                <a href="#">
+                <a href="{{ route('admin.configs.index') }}">
                     <i class="icon-cog3"></i>
-                    <span class="visible-xs-inline-block position-right">Icon link</span>
+                    <span class="visible-xs-inline-block position-right">Configurations</span>
                 </a>
             </li>
 
@@ -105,7 +107,8 @@ function markAsRead() {
     $.ajax({
         url: '/admin/profile/notifications/read'
     }).done(function() {
-        $("#notificationsCount").html(0);
+        $("#notificationsCount").remove();
+        $("#notificationsMarkReadBtn").attr('disabled', true);
         $("#notificationsList").html('<div class="text-center">You do not have any notifications</div>');
     });
 }

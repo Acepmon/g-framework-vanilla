@@ -22,7 +22,11 @@ Route::middleware(['auth'])->group(function () {
 
             Route::prefix('profile')->group(function () {
                 Route::get('/', 'ProfileController@index')->name('admin.profile.index');
-                Route::get('notifications', 'ProfileController@notifications')->name('admin.profile.notifications');
+                Route::put('/', 'ProfileController@update')->name('admin.profile.update');
+                Route::get('pages', 'ProfileController@pages')->name('admin.profile.pages.index');
+                Route::get('permissions', 'ProfileController@permissions')->name('admin.profile.permissions.index');
+                Route::get('settings', 'ProfileController@settings')->name('admin.profile.settings.index');
+                Route::get('notifications', 'ProfileController@notifications')->name('admin.profile.notifications.index');
                 Route::get('notifications/read', 'ProfileController@readNotifications')->name('admin.profile.notifications.read');
                 Route::get('edit', 'ProfileController@edit')->name('admin.profile.edit');
             });
@@ -80,6 +84,15 @@ Route::middleware(['auth'])->group(function () {
                 'edit' => 'admin.pages.edit',
                 'update' => 'admin.pages.update',
                 'destroy' => 'admin.pages.destroy'
+            ]);
+            Route::resource('configs', 'ConfigController')->names([
+                'index' => 'admin.configs.index',
+                'create' => 'admin.configs.create',
+                'store' => 'admin.configs.store',
+                'show' => 'admin.configs.show',
+                'edit' => 'admin.configs.edit',
+                'update' => 'admin.configs.update',
+                'destroy' => 'admin.configs.destroy'
             ]);
 
             Route::get('/users/{user}/settings', 'UserSettingController@index')->name('admin.users.settings.index');
