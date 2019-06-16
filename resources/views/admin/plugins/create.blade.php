@@ -69,6 +69,17 @@
                             @enderror
                         </div>
                     </div>
+                    <div class="form-group">
+                        <label class="control-label col-lg-2">Repository</label>
+                        <div class="col-lg-10">
+                            <input id="repository" type="text" class="form-control @error('repository') is-invalid @enderror" name="repository" placeholder="Repository" value="{{ old('repository') }}" required autocomplete="repository">
+                            @error('repository')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                        </div>
+                    </div>
                     <div class="text-right">
                         <a class="btn btn-primary" href="javascript:history.back()" type="btn btn-primary"><i class="icon-arrow-left13 position-left"></i>Back</a>
                         <button type="submit" class="btn btn-success">Create plugin</button>

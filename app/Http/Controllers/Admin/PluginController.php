@@ -44,14 +44,18 @@ class PluginController extends Controller
     public function store(Request $request)
 
     {
-//        $request->validate([
-//            'title' => 'required|max:191',
-//            'description' => 'required|max:255',
-//        ]);
+       $request->validate([
+           'title' => 'required|max:191',
+           'description' => 'nullable|max:255',
+           'repository' => 'required|max:255',
+       ]);
         $plugin = new Plugin();
 
         $plugin->title = $request->title;
         $plugin->description = $request->description;
+        $plugin->repository = $request->repository;
+        $plugin->version = '1.0.0';
+        $plugin->status = Plugin::AVAILABLE;
 
         $plugin->save();
         return redirect()->route('admin.plugins.index')->with('status', 'Success');
