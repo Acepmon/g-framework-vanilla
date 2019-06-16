@@ -6,19 +6,19 @@
 @section('pageheader')
 <div class="page-header-content">
     <div class="page-title">
-        <h4><i class="icon-arrow-left52 position-left"></i> <span class="text-semibold">Starters</span> - 2 Columns</h4>
+        <h4><i class="icon-arrow-left52 position-left"></i> <span class="text-semibold">Groups Management</span> - Index</h4>
     </div>
 
     <div class="heading-elements">
-        <a href="#" class="btn btn-labeled btn-labeled-right bg-blue heading-btn">Button <b><i class="icon-menu7"></i></b></a>
+        <a href="{{ route('admin.groups.create') }}" class="btn btn-primary heading-btn">Create Static Group</a>
     </div>
 </div>
 
 <div class="breadcrumb-line">
     <ul class="breadcrumb">
-        <li><a href="index.html"><i class="icon-home2 position-left"></i> Home</a></li>
-        <li><a href="2_col.html">Starters</a></li>
-        <li class="active">2 columns</li>
+        <li><a href="index.html"><i class="icon-home2 position-left"></i> Admin</a></li>
+        <li><a href="2_col.html">Groups</a></li>
+        <li class="active">Index</li>
     </ul>
 
     <ul class="breadcrumb-elements">
@@ -45,52 +45,49 @@
 
 @section('content')
 
-<div class="panel panel-flat">
-    <table class="table">
-        <tr>
-            <th colspan="3" class="active">Group type definition</th>
-        </tr>
-        <tr>
-            <td style="width: 25%;">System Group</td>
-            <td style="width: 20%;"><span class="label label-primary">system</span></td>
-            <td>System user groups are in the system by default. They cannot be deleted, it is unchanging.</td>
-        </tr>
-        <tr>
-            <td style="width: 25%;">Static Group</td>
-            <td style="width: 20%;"><span class="label label-info">static</span></td>
-            <td>Static user groups are those which are populated manually, that is added by the administrator.</td>
-        </tr>
-        <tr>
-            <td style="width: 25%;">Dynamic Group</td>
-            <td style="width: 20%;"><span class="label label-warning">dynamic</span></td>
-            <td>Dynamic user groups are populated and maintained through either a query or a directory server.</td>
-        </tr>
-    </table>
-</div>
-
-<div class="text-right" style="padding-bottom: 5px">
-    <a href="{{ route('admin.groups.create') }}" class="btn btn-primary">Create Role</a>
-</div>
-
-<div class="panel panel-flat">
-    @if (session('status'))
-        <div id="timer" class="alert alert-success">
-            {{ session('status') }}
-        </div>
-    @endif
-    <div class="table-responsive">
-        <table class="table">
-            <thead>
+<div class="row">
+    <div class="col-lg-12">
+        @if (session('status'))
+        <div class="panel">
+            <div class="panel-body">
+                    <div id="timer" class="alert alert-success">
+                        {{ session('status') }}
+                    </div>
+                </div>
+            </div>
+        @endif
+        <div class="panel panel-flat">
+            <table class="table">
                 <tr>
-                    <th>#</th>
-                    <th>Title</th>
-                    <th>Description</th>
-                    <th>Type</th>
-                    <th></th>
+                    <th colspan="3" class="active">Group type definition</th>
                 </tr>
-            </thead>
-            <tbody>
-                @foreach($groups as $group)
+                <tr>
+                    <td style="width: 25%;">System Group</td>
+                    <td style="width: 20%;"><span class="label label-primary">system</span></td>
+                    <td>System user groups are in the system by default. They cannot be deleted, it is unchanging.</td>
+                </tr>
+                <tr>
+                    <td style="width: 25%;">Dynamic Group</td>
+                    <td style="width: 20%;"><span class="label label-warning">dynamic</span></td>
+                    <td>Dynamic user groups are populated and maintained through either a query or a directory server.</td>
+                </tr>
+                <tr>
+                    <td style="width: 25%;">Static Group</td>
+                    <td style="width: 20%;"><span class="label label-info">static</span></td>
+                    <td>Static user groups are those which are populated manually, that is added by the administrator.</td>
+                </tr>
+            </table>
+            <table class="table">
+                <tr>
+                    <th colspan="4" class="active">System Groups ({{$systemGroups->count()}})</th>
+                </tr>
+                <tr>
+                    <th style="width: 50px">#</th>
+                    <th style="width: 150px;">Title</th>
+                    <th>Description</th>
+                    <th style="width: 100px">Type</th>
+                </tr>
+                @foreach($systemGroups as $group)
                     <tr>
                         <td>{{$group->id}}</td>
                         <td>{{$group->title}}</td>
@@ -98,21 +95,58 @@
                         <td>
                             <span class="label label-{{ $group->typeClass() }}">{{$group->type}}</span>
                         </td>
-                        <td width="250px">
-                            <div class="btn-group">
-                                <a href="{{ route('admin.groups.show', ['id' => $group->id]) }}" class="btn btn-default">View</a>
-                                @if ($group->type != \App\Group::TYPE_SYSTEM)
-                                <a href="{{ route('admin.groups.edit', ['id' => $group->id]) }}" class="btn btn-default">Edit</a>
-                                <button data-toggle="modal" data-target="#modal_theme_danger" type="button" class="btn btn-default" onclick="choose_group({{ $group->id }})">Delete</button>
-                                @endif
-                            </div>
+                    </tr>
+                @endforeach
+            </table>
+            <table class="table">
+                <tr>
+                    <th colspan="4" class="active">Dynamic Groups ({{$dynamicGroups->count()}})</th>
+                </tr>
+                <tr>
+                    <th style="width: 50px">#</th>
+                    <th style="width: 150px">Title</th>
+                    <th>Description</th>
+                    <th style="width: 100px">Type</th>
+                </tr>
+                @foreach($dynamicGroups as $group)
+                    <tr>
+                        <td>{{$group->id}}</td>
+                        <td>{{$group->title}}</td>
+                        <td>{{$group->description}}</td>
+                        <td>
+                            <span class="label label-{{ $group->typeClass() }}">{{$group->type}}</span>
                         </td>
                     </tr>
                 @endforeach
-            </tbody>
-        </table>
+            </table>
+            <table class="table">
+                <tr>
+                    <th colspan="5" class="active">
+                        Static Groups ({{$staticGroups->count()}})
+                    </th>
+                </tr>
+                <tr>
+                    <th style="width: 50px">#</th>
+                    <th style="width: 150px">Title</th>
+                    <th>Description</th>
+                    <th style="width: 100px">Type</th>
+                </tr>
+                @foreach($staticGroups as $group)
+                    <tr>
+                        <td>{{$group->id}}</td>
+                        <td>{{$group->title}}</td>
+                        <td>{{$group->description}}</td>
+                        <td>
+                            <span class="label label-{{ $group->typeClass() }}">{{$group->type}}</span>
+                        </td>
+
+                    </tr>
+                @endforeach
+            </table>
+        </div>
     </div>
 </div>
+
 
 <!-- Danger modal -->
 <div id="modal_theme_danger" class="modal fade">

@@ -15,8 +15,11 @@ class GroupController extends Controller
      */
     public function index()
     {
-        $groups = Group::all();
-        return view('admin.groups.index', ['groups' => $groups]);
+        $systemGroups = Group::where('type', Group::TYPE_SYSTEM)->get();
+        $staticGroups = Group::where('type', Group::TYPE_STATIC)->get();
+        $dynamicGroups = Group::where('type', Group::TYPE_DYNAMIC)->get();
+
+        return view('admin.groups.index', ['systemGroups' => $systemGroups, 'staticGroups' => $staticGroups, 'dynamicGroups' => $dynamicGroups]);
     }
 
     /**

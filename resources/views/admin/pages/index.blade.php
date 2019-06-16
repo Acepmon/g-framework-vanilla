@@ -27,7 +27,7 @@
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 <i class="icon-gear position-left"></i>
                 Dropdown
-                <span class="caret"></span> 
+                <span class="caret"></span>
             </a>
 
             <ul class="dropdown-menu dropdown-menu-right">
@@ -71,7 +71,7 @@
             </thead>
             <tbody>
             @foreach($pages as $page)
-                <tr>                    
+                <tr>
                     <td>{{$page->id}}</td>
                     <td>{{$page->title}}</td>
                     <td>{{$page->slug}}</td>
@@ -114,7 +114,7 @@
                 <form method="POST" id="delete_form">
                     {{ method_field('DELETE') }}
                     {{ csrf_field() }}
-                    
+
                     <button type="button" class="btn btn-link" data-dismiss="modal">Cancel</button>
                     <button type="submit" class="btn btn-danger">Delete</button>
                 </form>

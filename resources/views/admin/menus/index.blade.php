@@ -1,6 +1,16 @@
 @extends('layouts.admin')
 
 @section('load')
+<script type="text/javascript" src="/assets/js/core/libraries/jquery_ui/core.min.js"></script>
+<script type="text/javascript" src="/assets/js/core/libraries/jquery_ui/effects.min.js"></script>
+<script type="text/javascript" src="/assets/js/core/libraries/jquery_ui/interactions.min.js"></script>
+<script type="text/javascript" src="/assets/js/plugins/extensions/cookie.js"></script>
+<script type="text/javascript" src="/assets/js/plugins/forms/styling/switchery.min.js"></script>
+<script type="text/javascript" src="/assets/js/plugins/forms/styling/uniform.min.js"></script>
+<script type="text/javascript" src="/assets/js/plugins/trees/fancytree_all.min.js"></script>
+<script type="text/javascript" src="/assets/js/plugins/trees/fancytree_childcounter.js"></script>
+
+<script type="text/javascript" src="/assets/js/core/app.js"></script>
 @endsection
 
 @section('pageheader')
@@ -44,6 +54,7 @@
 @endsection
 
 @section('content')
+@if (false)
 <!-- Table -->
 <div class="panel panel-flat">
     <div class="panel-heading">
@@ -87,16 +98,16 @@
             <tbody>
                 @foreach($menus as $data)
                 <tr>
-                    <td>{{ $data->id}}</td> 
-                    <td>{{ $data->type}}</td> 
-                    <td>{{ $data->title}}</td> 
-                    <td>{{ $data->subtitle}}</td> 
-                    <td>{{ $data->link}}</td> 
-                    <td>{{ $data->icon}}</td> 
-                    <td>{{ $data->status}}</td> 
-                    <td>{{ $data->visibility}}</td> 
-                    <td>{{ $data->order}}</td> 
-                    <td>{{ $data->sublevel}}</td> 
+                    <td>{{ $data->id}}</td>
+                    <td>{{ $data->type}}</td>
+                    <td>{{ $data->title}}</td>
+                    <td>{{ $data->subtitle}}</td>
+                    <td>{{ $data->link}}</td>
+                    <td>{{ $data->icon}}</td>
+                    <td>{{ $data->status}}</td>
+                    <td>{{ $data->visibility}}</td>
+                    <td>{{ $data->order}}</td>
+                    <td>{{ $data->sublevel}}</td>
                     <td>
                         @if (!empty($data->parent_id))
                         <a href="{{ route('admin.menus.show', ['id' => $data->parent_id]) }}">{{ $data->parent->name }}</a>
@@ -114,6 +125,49 @@
     </div>
 </div>
 <!-- /table -->
+@endif
+
+<!-- Table tree -->
+<div class="panel panel-flat">
+    <div class="panel-heading">
+        <h6 class="panel-title">Table tree</h6>
+        <div class="heading-elements">
+            <ul class="icons-list">
+                <li><a data-action="collapse"></a></li>
+                <li><a data-action="reload"></a></li>
+                <li><a data-action="close"></a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="panel-body">
+        The following example demonstrates rendered tree as a table (aka tree grid) and support keyboard navigation in a grid with embedded input controls. Table functionality is based on Fancytree's <code>table.js</code> extension. The tree table extension takes care of rendering the node into one of the columns. Other columns have to be rendered in the <code>renderColumns</code> event.
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-bordered tree-table">
+            <thead>
+                <tr>
+                    <th style="width: 46px;"></th>
+                    <th style="width: 80px;">#</th>
+                    <th>Items</th>
+                    <th style="width: 80px;">Key</th>
+                    <th style="width: 46px;">Like</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<!-- /table tree -->
 
 <!-- Danger modal -->
 <div id="modal_theme_danger" class="modal fade">
@@ -148,5 +202,54 @@
     window.delete_confirm = function(id) {
         $("#delete_form").attr('action', '/admin/menus/'+id);
     }
+
+    $(document).ready(function () {
+        //
+        // Table tree
+        //
+
+        $(".tree-table").fancytree({
+            extensions: ["table", "dnd"],
+            checkbox: true,
+            table: {
+                indentation: 20,      // indent 20px per node level
+                nodeColumnIdx: 2,     // render the node title into the 2nd column
+                checkboxColumnIdx: 0  // render the checkboxes into the 1st column
+            },
+            source: {
+                url: "/assets/demo_data/fancytree/fancytree.json"
+            },
+            lazyLoad: function(event, data) {
+                data.result = {url: "ajax-sub2.json"}
+            },
+            renderColumns: function(event, data) {
+                var node = data.node,
+                $tdList = $(node.tr).find(">td");
+
+                // (index #0 is rendered by fancytree by adding the checkbox)
+                $tdList.eq(1).text(node.getIndexHier()).addClass("alignRight");
+
+                // (index #2 is rendered by fancytree)
+                $tdList.eq(3).text(node.key);
+                $tdList.eq(4).addClass('text-center').html("<input type='checkbox' class='styled' name='like' value='" + node.key + "'>");
+
+                // Style checkboxes
+                $(".styled").uniform({radioClass: 'choice'});
+            }
+        });
+
+        // Handle custom checkbox clicks
+        $(".tree-table").delegate("input[name=like]", "click", function (e){
+            var node = $.ui.fancytree.getNode(e),
+            $input = $(e.target);
+            e.stopPropagation(); // prevent fancytree activate for this row
+            if($input.is(":checked")){
+                alert("like " + $input.val());
+            }
+            else{
+                alert("dislike " + $input.val());
+            }
+        });
+    });
 </script>
 @endsection
