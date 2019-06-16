@@ -57,26 +57,28 @@
             </div>
         @endif
         <div class="panel panel-flat">
-            <table class="table">
-                <tr>
-                    <th colspan="3" class="active">Group type definition</th>
-                </tr>
-                <tr>
-                    <td style="width: 25%;">System Group</td>
-                    <td style="width: 20%;"><span class="label label-primary">system</span></td>
-                    <td>System user groups are in the system by default. They cannot be deleted, it is unchanging.</td>
-                </tr>
-                <tr>
-                    <td style="width: 25%;">Dynamic Group</td>
-                    <td style="width: 20%;"><span class="label label-warning">dynamic</span></td>
-                    <td>Dynamic user groups are populated and maintained through either a query or a directory server.</td>
-                </tr>
-                <tr>
-                    <td style="width: 25%;">Static Group</td>
-                    <td style="width: 20%;"><span class="label label-info">static</span></td>
-                    <td>Static user groups are those which are populated manually, that is added by the administrator.</td>
-                </tr>
-            </table>
+            <div class="panel-heading">
+                <h5 class="panel-title">Group type definition</h5>
+                <div class="heading-elements">
+                    <ul class="icons-list">
+                        <li><a data-action="collapse"></a></li>
+                        <li><a data-action="close"></a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="panel-body">
+                <h6 class="text-semibold">System Group</h6>
+                <p class="content-group">System user groups are in the system by default. They cannot be deleted, it is unchanging.</p>
+
+                <h6 class="text-semibold">Dynamic Group</h6>
+                <p class="content-group">Dynamic user groups are populated and maintained through either a query or a directory server.</p>
+
+                <h6 class="text-semibold">Static Group</h6>
+                <p>Static user groups are those which are populated manually, that is added by the administrator.</p>
+            </div>
+        </div>
+        <div class="panel panel-flat">
             <table class="table">
                 <tr>
                     <th colspan="4" class="active">System Groups ({{$systemGroups->count()}})</th>
