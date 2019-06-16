@@ -53,12 +53,12 @@
         <tr>
             <td style="width: 25%;">System Group</td>
             <td style="width: 20%;"><span class="label label-primary">system</span></td>
-            <td>System user groups are in the system by default. They cannot be deleted are removed, it is unchanging.</td>
+            <td>System user groups are in the system by default. They cannot be deleted, it is unchanging.</td>
         </tr>
         <tr>
             <td style="width: 25%;">Static Group</td>
             <td style="width: 20%;"><span class="label label-info">static</span></td>
-            <td>Static user groups are those which are populated manually, that is, all users are individually added by the administrator.</td>
+            <td>Static user groups are those which are populated manually, that is added by the administrator.</td>
         </tr>
         <tr>
             <td style="width: 25%;">Dynamic Group</td>
