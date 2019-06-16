@@ -33,8 +33,8 @@
             <div class="category-content no-padding">
                 <ul class="navigation navigation-alt navigation-accordion">
 
-                    @if(False)
-                    @each('includes.sidemenus', Auth::user()->menus->where('parent_id', NULL), 'menu')
+                    @if(false)
+                        @each('includes.sidemenus', Auth::user()->menus->where('parent_id', NULL), 'menu')
                     @endif
 
                     <li class="navigation-header"><span>Core</span> <i class="icon-menu" title="Core Features"></i></li>

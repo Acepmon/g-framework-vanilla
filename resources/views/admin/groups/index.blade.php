@@ -45,6 +45,29 @@
 
 @section('content')
 
+<div class="panel panel-flat">
+    <table class="table">
+        <tr>
+            <th colspan="3" class="active">Group type definition</th>
+        </tr>
+        <tr>
+            <td style="width: 25%;">System Group</td>
+            <td style="width: 20%;"><span class="label label-primary">system</span></td>
+            <td>System user groups are in the system by default. They cannot be deleted are removed, it is unchanging.</td>
+        </tr>
+        <tr>
+            <td style="width: 25%;">Static Group</td>
+            <td style="width: 20%;"><span class="label label-info">static</span></td>
+            <td>Static user groups are those which are populated manually, that is, all users are individually added by the administrator.</td>
+        </tr>
+        <tr>
+            <td style="width: 25%;">Dynamic Group</td>
+            <td style="width: 20%;"><span class="label label-warning">dynamic</span></td>
+            <td>Dynamic user groups are populated and maintained through either a query or a directory server.</td>
+        </tr>
+    </table>
+</div>
+
 <div class="text-right" style="padding-bottom: 5px">
     <a href="{{ route('admin.groups.create') }}" class="btn btn-primary">Create Role</a>
 </div>
@@ -62,20 +85,26 @@
                     <th>#</th>
                     <th>Title</th>
                     <th>Description</th>
+                    <th>Type</th>
                     <th></th>
                 </tr>
             </thead>
             <tbody>
                 @foreach($groups as $group)
-                    <tr>                    
+                    <tr>
                         <td>{{$group->id}}</td>
                         <td>{{$group->title}}</td>
                         <td>{{$group->description}}</td>
+                        <td>
+                            <span class="label label-{{ $group->typeClass() }}">{{$group->type}}</span>
+                        </td>
                         <td width="250px">
                             <div class="btn-group">
                                 <a href="{{ route('admin.groups.show', ['id' => $group->id]) }}" class="btn btn-default">View</a>
+                                @if ($group->type != \App\Group::TYPE_SYSTEM)
                                 <a href="{{ route('admin.groups.edit', ['id' => $group->id]) }}" class="btn btn-default">Edit</a>
                                 <button data-toggle="modal" data-target="#modal_theme_danger" type="button" class="btn btn-default" onclick="choose_group({{ $group->id }})">Delete</button>
+                                @endif
                             </div>
                         </td>
                     </tr>
@@ -102,7 +131,7 @@
                 <form method="POST" id="delete_form">
                     {{ method_field('DELETE') }}
                     {{ csrf_field() }}
-                    
+
                     <button type="button" class="btn btn-link" data-dismiss="modal">Cancel</button>
                     <button type="submit" class="btn btn-danger">Delete</button>
                 </form>
