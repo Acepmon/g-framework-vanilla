@@ -36,6 +36,6 @@ class Content extends Model
 
     public function metas()
     {
-        return $this->hasMany('App\ContentMetas', 'content_id');
+        return $this->hasMany('App\ContentMeta', 'content_id');
     }
 }
