@@ -52,46 +52,26 @@
         <!-- Horizontal form -->
         <div class="panel panel-flat">
             <div class="panel-body">
-                <div class="form-group">
-                    <label class="control-label col-lg-2">Title</label>
-                    <div class="col-lg-10">
-                        <label class="control-label col-lg-2">{{$page->title}}</label>
+                <form class="form-horizontal" action="{{ route('admin.contents.metas.store', ['content' => $content->id]) }}" method="POST">
+                    @csrf
+                    <div class="form-group">
+                        <label class="control-label col-lg-2">Key <span class="text-danger">*</span></label>
+                        <div class="col-lg-10">
+                            <input type="text" class="form-control" name="key" placeholder="Enter content meta key..." required="required" aria-required="true" invalid="true">
+                        </div>
                     </div>
-                </div>
+                    <div class="form-group">
+                        <label class="control-label col-lg-2">Value <span class="text-danger">*</span></label>
+                        <div class="col-lg-10">
+                            <input type="text" class="form-control" name="value" placeholder="Enter content meta value..." required="required" aria-required="true" invalid="true">
+                        </div>
+                    </div>
 
-                <div class="form-group">
-                    <label class="control-label col-lg-2">Slug</label>
-                    <div class="col-lg-10">
-                        <label class="control-label col-lg-2">{{$page->slug}}</label>
+                    <div class="text-right">
+                        <a href="javascript:history.back()" class="btn btn-default">Back</a>
+                        <button type="submit" class="btn btn-primary">Create</button>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-lg-2">Content</label>
-                    <div class="col-lg-10">
-                        <label class="control-label col-lg-2">{{$page->content}}</label>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-lg-2">Status</label>
-                    <div class="col-lg-10">
-                        <label class="control-label col-lg-2">{{$page->status}}</label>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-lg-2">Visibility</label>
-                    <div class="col-lg-10">
-                        <label class="control-label col-lg-2">{{$page->visibility}}</label>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-lg-2">Author id</label>
-                    <div class="col-lg-10">
-                        <label class="control-label col-lg-2">{{$page->author_id}}</label>
-                    </div>
-                </div>
-                <div class="text-right" style="padding-bottom: 5px">
-                    <a href="javascript:history.back()" class="btn btn-default">Back</a>
-                </div>
+                </form>
             </div>
         </div>
         <!-- /horizotal form -->

@@ -59,18 +59,19 @@
 
             <!-- Tab content -->
             <div class="tab-content">
-                <div class="tab-pane fade in active" id="pages">
+                <div class="tab-pane fade in active" id="contents">
                     <div class="panel panel-flat">
                         <div class="panel-heading">
-                            <h6 class="panel-title">Pages</h6>
+                            <h6 class="panel-title">Contents</h6>
                         </div>
 
                         <table class="table datatable-basic">
                             <thead>
                                 <tr>
                                     <th width="5%">#</th>
-                                    <th width="25%">Title</th>
-                                    <th width="25%">Slug</th>
+                                    <th width="20%">Title</th>
+                                    <th width="20%">Slug</th>
+                                    <th width="10%">Type</th>
                                     <th width="10%">Status</th>
                                     <th width="10%">Visibility</th>
                                     <th width="15%">Created At</th>
@@ -78,17 +79,18 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($user->pages as $page)
+                                @foreach($user->contents as $content)
                                 <tr>
-                                    <td>{{ $page->id }}</td>
-                                    <td>{{ $page->title }}</td>
-                                    <td>{{ $page->slug }}</td>
-                                    <td>{{ $page->status }}</td>
-                                    <td>{{ $page->visibility }}</td>
-                                    <td>{{ $page->created_at }}</td>
+                                    <td>{{ $content->id }}</td>
+                                    <td>{{ $content->title }}</td>
+                                    <td>{{ $content->slug }}</td>
+                                    <td>{{ $content->type }}</td>
+                                    <td>{{ $content->status }}</td>
+                                    <td>{{ $content->visibility }}</td>
+                                    <td>{{ $content->created_at }}</td>
                                     <!---->
                                     <td class="text-center">
-                                        <a href="{{ route('admin.users.pages.show', ['user' => $user->id, 'page' => $page->id]) }}" class="btn btn-default">Show more</a>
+                                        <a href="{{ route('admin.users.contents.show', ['user' => $user->id, 'content' => $content->id]) }}" class="btn btn-default">Show more</a>
                                     </td>
                                 </tr>
                                 @endforeach

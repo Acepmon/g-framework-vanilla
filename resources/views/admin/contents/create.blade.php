@@ -52,42 +52,42 @@
         <!-- Horizontal form -->
         <div class="panel panel-flat">
             <div class="panel-body">
-                <form class="form-horizontal" action="{{ route('admin.pages.store') }}" method="POST">
+                <form class="form-horizontal" action="{{ route('admin.contents.store') }}" method="POST">
                     @csrf
                     <div class="form-group">
-                        <label class="control-label col-lg-2">Title<span class="text-danger">*</span></label>
+                        <label class="control-label col-lg-2">Title <span class="text-danger">*</span></label>
                         <div class="col-lg-8">
-                            <input id="title" type="text" class="form-control" name="title" placeholder="Enter page title..." required="required" aria-required="true" invalid="true">
+                            <input id="title" type="text" class="form-control" name="title" placeholder="Enter content title..." required="required" aria-required="true" invalid="true">
                         </div>
                         <div class="col-lg-2">
                             <button class="btn btn-default" onclick="create_slug()">Create Slug</button>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-lg-2">Slug<span class="text-danger">*</span></label>
+                        <label class="control-label col-lg-2">Slug <span class="text-danger">*</span></label>
                         <div class="col-lg-10">
-                            <input id="slug" type="text" class="form-control" name="slug" pattern="/^[A-Za-z0-9]+(?:-[A-Za-z0-9]+)*$/" placeholder="Enter page slug..." required="required" aria-required="true" invalid="true">
+                            <input id="slug" type="text" class="form-control" name="slug" placeholder="Enter page slug..." required="required" aria-required="true" invalid="true">
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="control-label col-lg-2">Content</label>
+                        <label class="control-label col-lg-2">Type <span class="text-danger">*</span></label>
                         <div class="col-lg-10">
-                            <textarea rows="5" cols="5" class="form-control" placeholder="Enter page content..." name="content"></textarea>
+                            <input id="type" type="text" class="form-control" name="type" placeholder="Enter page type..." required="required" aria-required="true" invalid="true">
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="control-label col-lg-2">Status<span class="text-danger">*</span></label>
+                        <label class="control-label col-lg-2">Status <span class="text-danger">*</span></label>
                         <div class="col-lg-10">
-                            <input id="status" type="text" class="form-control" name="status" placeholder="Enter page status..." required aria-required="true" invalid="true">
+                            <input id="status" type="text" class="form-control" name="status" placeholder="Enter content status..." required aria-required="true" invalid="true">
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="control-label col-lg-2">Visibility<span class="text-danger">*</span></label>
+                        <label class="control-label col-lg-2">Visibility <span class="text-danger">*</span></label>
                         <div class="col-lg-10">
-                            <input id="visibility" type="text" class="form-control" name="visibility" placeholder="Enter page visibility..." required aria-required="true" invalid="true">
+                            <input id="visibility" type="text" class="form-control" name="visibility" placeholder="Enter content visibility..." required aria-required="true" invalid="true">
                         </div>
                     </div>
 

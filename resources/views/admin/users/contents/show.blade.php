@@ -59,10 +59,10 @@
 
             <!-- Tab content -->
             <div class="tab-content">
-                <div class="tab-pane fade in active" id="pages">
+                <div class="tab-pane fade in active" id="contents">
 					<div class="panel panel-flat">
 						<div class="panel-heading">
-							<h5 class="panel-title">Page Detail</h5>
+							<h5 class="panel-title">Content Detail</h5>
 							<div class="heading-elements">
 								<ul class="icons-list">
 			                		<li><a data-action="collapse"></a></li>
@@ -76,14 +76,14 @@
                             <div class="form-group">
                                 <b class="control-label col-lg-1 text-right">Title</b>
                                 <div class="col-lg-11">
-                                    <label>{{ $page->title }}</label>
+                                    <label>{{ $content->title }}</label>
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <b class="control-label col-lg-1 text-right">Slug</b>
                                 <div class="col-lg-11">
-                                    <label>{{ $page->slug }}</label>
+                                    <label>{{ $content->slug }}</label>
                                 </div>
                             </div>
 
@@ -97,41 +97,41 @@
                             <div class="form-group">
                                 <b class="control-label col-lg-1 text-right">Content</b>
                                 <div class="col-lg-11">
-                                    <label>{{ $page->content }}</label>
+                                    <label>{{ $content->content }}</label>
                                 </div>
                             </div>
                             
                             <div class="form-group">
                                 <b class="control-label col-lg-1 text-right">Status</b>
                                 <div class="col-lg-11">
-                                    <label>{{ $page->status }}</label>
+                                    <label>{{ $content->status }}</label>
                                 </div>
                             </div>
                             
                             <div class="form-group">
                                 <b class="control-label col-lg-1 text-right">Visibility</b>
                                 <div class="col-lg-11">
-                                    <label>{{ $page->visibility }}</label>
+                                    <label>{{ $content->visibility }}</label>
                                 </div>
                             </div>
                             
                             <div class="form-group">
                                 <b class="control-label col-lg-1 text-right">Created At</b>
                                 <div class="col-lg-11">
-                                    <label>{{ $page->created_at }}</label>
+                                    <label>{{ $content->created_at }}</label>
                                 </div>
                             </div>
                             
                             <div class="form-group">
                                 <b class="control-label col-lg-1 text-right">Updated At</b>
                                 <div class="col-lg-11">
-                                    <label>{{ $page->updated_at }}</label>
+                                    <label>{{ $content->updated_at }}</label>
                                 </div>
                             </div>
 
                             <br/>
                             <div class="text-left">
-                                <a href="{{ route('admin.users.pages.index', ['user' => $user->id]) }}" class="btn btn-default"><i class="icon-arrow-left52 position-left"></i> Back</a>
+                                <a href="{{ route('admin.users.contents.index', ['user' => $user->id]) }}" class="btn btn-default"><i class="icon-arrow-left52 position-left"></i> Back</a>
                             </div>
 						</div>
 					</div>
@@ -153,7 +153,7 @@
             </div>
 
             <div class="modal-body">
-                <p>Are you sure you want to remove this page?</p>
+                <p>Are you sure you want to remove this content?</p>
             </div>
 
             <div class="modal-footer">
@@ -173,8 +173,8 @@
 @section('script')
 
 <script>
-    window.choose_page = function(id) {
-        $("#delete_form").attr('action', "/admin/users/{{ $user-> id}}/pages/"+id);
+    window.choose_content = function(id) {
+        $("#delete_form").attr('action', "/admin/users/{{ $user-> id}}/contents/"+id);
     }
 </script>
 @endsection

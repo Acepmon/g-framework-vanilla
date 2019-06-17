@@ -52,19 +52,19 @@
         <!-- Horizontal form -->
         <div class="panel panel-flat">
             <div class="panel-body">
-                <form class="form-horizontal" action="{{ route('admin.pages.metas.update', ['page' => $meta->page_id, 'meta' => $meta->id]) }}" method="POST">
+                <form class="form-horizontal" action="{{ route('admin.contents.metas.update', ['content' => $meta->content_id, 'meta' => $meta->id]) }}" method="POST">
                     @method('PUT')
                     @csrf
                     <div class="form-group">
                         <label class="control-label col-lg-2">Key<span class="text-danger">*</span></label>
                         <div class="col-lg-10">
-                            <input type="text" class="form-control" name="key" placeholder="Enter page key..." required="required" aria-required="true" invalid="true" value="{{$meta->key}}">
+                            <input type="text" class="form-control" name="key" placeholder="Enter content key..." required="required" aria-required="true" invalid="true" value="{{$meta->key}}">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-lg-2">Value<span class="text-danger">*</span></label>
                         <div class="col-lg-10">
-                            <input type="text" class="form-control" name="value" placeholder="Enter page value..." required="required" aria-required="true" invalid="true" value="{{$meta->value}}">
+                            <input type="text" class="form-control" name="value" placeholder="Enter content value..." required="required" aria-required="true" invalid="true" value="{{$meta->value}}">
                         </div>
                     </div>
 

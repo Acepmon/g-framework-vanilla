@@ -23,7 +23,7 @@ Route::middleware(['auth'])->group(function () {
             Route::prefix('profile')->group(function () {
                 Route::get('/', 'ProfileController@index')->name('admin.profile.index');
                 Route::put('/', 'ProfileController@update')->name('admin.profile.update');
-                Route::get('pages', 'ProfileController@pages')->name('admin.profile.pages.index');
+                Route::get('contents', 'ProfileController@contents')->name('admin.profile.contents.index');
                 Route::get('permissions', 'ProfileController@permissions')->name('admin.profile.permissions.index');
                 Route::get('settings', 'ProfileController@settings')->name('admin.profile.settings.index');
                 Route::get('notifications', 'ProfileController@notifications')->name('admin.profile.notifications.index');
@@ -76,14 +76,14 @@ Route::middleware(['auth'])->group(function () {
                 'update' => 'admin.groups.update',
                 'destroy' => 'admin.groups.destroy'
             ]);
-            Route::resource('pages', 'PageController')->names([
-                'index' => 'admin.pages.index',
-                'create' => 'admin.pages.create',
-                'store' => 'admin.pages.store',
-                'show' => 'admin.pages.show',
-                'edit' => 'admin.pages.edit',
-                'update' => 'admin.pages.update',
-                'destroy' => 'admin.pages.destroy'
+            Route::resource('contents', 'ContentController')->names([
+                'index' => 'admin.contents.index',
+                'create' => 'admin.contents.create',
+                'store' => 'admin.contents.store',
+                'show' => 'admin.contents.show',
+                'edit' => 'admin.contents.edit',
+                'update' => 'admin.contents.update',
+                'destroy' => 'admin.contents.destroy'
             ]);
             Route::resource('configs', 'ConfigController')->names([
                 'index' => 'admin.configs.index',
@@ -94,6 +94,24 @@ Route::middleware(['auth'])->group(function () {
                 'update' => 'admin.configs.update',
                 'destroy' => 'admin.configs.destroy'
             ]);
+            Route::resource('comments', 'CommentController')->names([
+                'index' => 'admin.comments.index',
+                'create' => 'admin.comments.create',
+                'store' => 'admin.comments.store',
+                'show' => 'admin.comments.show',
+                'edit' => 'admin.comments.edit',
+                'update' => 'admin.comments.update',
+                'destroy' => 'admin.comments.destroy'
+            ]);
+            Route::resource('terms', 'TermController')->names([
+                'index' => 'admin.terms.index',
+                'create' => 'admin.terms.create',
+                'store' => 'admin.terms.store',
+                'show' => 'admin.terms.show',
+                'edit' => 'admin.terms.edit',
+                'update' => 'admin.terms.update',
+                'destroy' => 'admin.terms.destroy'
+            ]);
 
             Route::get('/users/{user}/settings', 'UserSettingController@index')->name('admin.users.settings.index');
             Route::get('/users/{user}/settings/create', 'UserSettingController@create')->name('admin.users.settings.create');
@@ -102,12 +120,12 @@ Route::middleware(['auth'])->group(function () {
             Route::put('/users/{user}/settings/{setting}', 'UserSettingController@update')->name('admin.users.settings.update');
             Route::delete('/users/{user}/settings/{setting}', 'UserSettingController@destroy')->name('admin.users.settings.destroy');
 
-            Route::get('/pages/{page}/metas', 'PageMetaController@index')->name('admin.pages.metas.index');
-            Route::get('/pages/{page}/metas/create', 'PageMetaController@create')->name('admin.pages.metas.create');
-            Route::post('/pages/{page}/metas', 'PageMetaController@store')->name('admin.pages.metas.store');
-            Route::get('/pages/{page}/metas/{meta}/edit', 'PageMetaController@edit')->name('admin.pages.metas.edit');
-            Route::put('/pages/{page}/metas/{meta}', 'PageMetaController@update')->name('admin.pages.metas.update');
-            Route::delete('/pages/{page}/metas/{meta}', 'PageMetaController@destroy')->name('admin.pages.metas.destroy');
+            Route::get('/contents/{content}/metas', 'ContentMetaController@index')->name('admin.contents.metas.index');
+            Route::get('/contents/{content}/metas/create', 'ContentMetaController@create')->name('admin.contents.metas.create');
+            Route::post('/contents/{content}/metas', 'ContentMetaController@store')->name('admin.contents.metas.store');
+            Route::get('/contents/{content}/metas/{meta}/edit', 'ContentMetaController@edit')->name('admin.contents.metas.edit');
+            Route::put('/contents/{content}/metas/{meta}', 'ContentMetaController@update')->name('admin.contents.metas.update');
+            Route::delete('/contents/{content}/metas/{meta}', 'ContentMetaController@destroy')->name('admin.contents.metas.destroy');
 
 
             Route::get('/users/{user}/permissions', 'UserPermissionController@index')->name('admin.users.permissions.index');
@@ -117,8 +135,8 @@ Route::middleware(['auth'])->group(function () {
             Route::put('/users/{user}/permissions/{permission}', 'UserPermissionController@update')->name('admin.users.permissions.update');
             Route::delete('/users/{user}/permissions/{permission}', 'UserPermissionController@destroy')->name('admin.users.permissions.destroy');
 
-            Route::get('/users/{user}/pages', 'UserPageController@index')->name('admin.users.pages.index');
-            Route::get('/users/{user}/pages/{page}', 'UserPageController@show')->name('admin.users.pages.show');
+            Route::get('/users/{user}/contents', 'UserContentController@index')->name('admin.users.contents.index');
+            Route::get('/users/{user}/contents/{content}', 'UserContentController@show')->name('admin.users.contents.show');
         });
     });
 
@@ -130,4 +148,4 @@ Route::get('/', function () {
 
 Auth::routes(['verify' => true]);
 
-Route::get('/{slug}', 'HomeController@page')->name('page');
+Route::get('/{slug}', 'HomeController@content')->name('content');

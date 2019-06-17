@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Page;
+use App\Content;
 use App\User;
-use App\Page_metas;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Validation\Rule;
 
-class PageController extends Controller
+class ContentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,8 +17,8 @@ class PageController extends Controller
      */
     public function index()
     {
-        $pages = Page::all();
-        return view('admin.pages.index', ['pages' => $pages]);
+        $contents = Content::all();
+        return view('admin.contents.index', ['contents' => $contents]);
     }
 
     /**
@@ -30,7 +29,7 @@ class PageController extends Controller
     public function create()
     {
         $users = User::all();
-        return view('admin.pages.create', ['users' => $users]);
+        return view('admin.contents.create', ['users' => $users]);
     }
 
     /**
@@ -49,17 +48,17 @@ class PageController extends Controller
             'visibility' => 'required|max:50',
             'author_id' => 'required|integer|exists:users,id'
         ]);
-        $page = new Page();
+        $content = new Content();
 
-        $page->title = $request->title;
-        $page->slug = $request->slug;
-        $page->content = $request->content;
-        $page->status = $request->status;
-        $page->visibility = $request->visibility;
-        $page->author_id = $request->author_id;
+        $content->title = $request->title;
+        $content->slug = $request->slug;
+        $content->type = $request->type;
+        $content->status = $request->status;
+        $content->visibility = $request->visibility;
+        $content->author_id = $request->author_id;
 
-        $page->save();
-        return redirect()->route('admin.pages.index');
+        $content->save();
+        return redirect()->route('admin.contents.index');
     }
 
     /**
@@ -70,8 +69,8 @@ class PageController extends Controller
      */
     public function show($id)
     {
-        $page = Page::find($id);
-        return view('admin.pages.show', ['page' => $page]);
+        $content = Content::find($id);
+        return view('admin.contents.show', ['content' => $content]);
     }
 
     /**
@@ -82,10 +81,10 @@ class PageController extends Controller
      */
     public function edit($id)
     {
-        $page = Page::findOrFail($id);
+        $content = Content::findOrFail($id);
         $users = User::all();
-        $page_metas = $page->page_metas;
-        return view('admin.pages.edit', ['page' => $page, 'users' => $users, 'metas' => $page_metas]);
+        $content_metas = $content->content_metas;
+        return view('admin.contents.edit', ['content' => $content, 'users' => $users, 'metas' => $content_metas]);
     }
 
     /**
@@ -97,14 +96,14 @@ class PageController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $page = Page::findOrFail($id);
+        $content = Content::findOrFail($id);
 
         $request->validate([
             'title' => 'required|max:191',
             'slug' => [
                 'required',
                 'max:255',
-                Rule::unique('pages')->ignore($page->slug, 'slug'),
+                Rule::unique('contents')->ignore($content->slug, 'slug'),
             ],
             'content' => 'nullable',
             'status' => 'required|max:50',
@@ -113,15 +112,15 @@ class PageController extends Controller
         ]);
             
     
-        $page->title = $request->title;
-        $page->slug = $request->slug;
-        $page->content = $request->content;
-        $page->status = $request->status;
-        $page->visibility = $request->visibility;
-        $page->author_id = $request->author_id;
+        $content->title = $request->title;
+        $content->slug = $request->slug;
+        $content->type = $request->type;
+        $content->status = $request->status;
+        $content->visibility = $request->visibility;
+        $content->author_id = $request->author_id;
 
-        $page->save();
-        return redirect()->route('admin.pages.index');
+        $content->save();
+        return redirect()->route('admin.contents.index');
     }
 
     /**
@@ -132,7 +131,7 @@ class PageController extends Controller
      */
     public function destroy($id)
     {
-        Page::destroy($id);
-        return redirect()->route('admin.pages.index');
+        Content::destroy($id);
+        return redirect()->route('admin.contents.index');
     }
 }

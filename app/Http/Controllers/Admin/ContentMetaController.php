@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Page;
-use App\Page_metas;
+use App\Content;
+use App\Content_metas;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Route;
 
-class PageMetaController extends Controller
+class ContentMetaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,7 +17,7 @@ class PageMetaController extends Controller
      */
     public function index()
     {
-        return view('admin.pages.metas.index');
+        return view('admin.contents.metas.index');
     }
 
     /**
@@ -27,9 +27,9 @@ class PageMetaController extends Controller
      */
     public function create($id)
     {
-        $page = Page::findOrFail($id);
-        $pages = Page::all();
-        return view('admin.pages.metas.create', ['pages' => $pages], ['page' => $page]);
+        $content = Content::findOrFail($id);
+        $contents = Content::all();
+        return view('admin.contents.metas.create', ['contents' => $contents], ['content' => $content]);
     }
 
     /**
@@ -41,23 +41,23 @@ class PageMetaController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'key' => 'required|max:100|unique:page_metas,key',
+            'key' => 'required|max:100|unique:content_metas,key',
             'value' => 'required|max:255'
         ]);
         
-        $page_id = Route::current()->parameter('page');
+        $content_id = Route::current()->parameter('content');
         try {
-            $page_metas = new Page_metas();
-            $page_metas->page_id = $page_id;
-            $page_metas->key = $request->input('key');
-            $page_metas->value = $request->input('value');
-            $page_metas->save();
+            $content_metas = new Content_metas();
+            $content_metas->content_id = $content_id;
+            $content_metas->key = $request->input('key');
+            $content_metas->value = $request->input('value');
+            $content_metas->save();
 
-            $page = Page::findOrFail($page_id);
-            return redirect()->route('admin.pages.edit', ['id' => $page->id]);
+            $content = Content::findOrFail($content_id);
+            return redirect()->route('admin.contents.edit', ['id' => $content->id]);
         } catch (\Exception $e) {
-            $page = Page::findOrFail($page_id);
-            return redirect()->route('admin.pages.edit', ['id' => $page->id])->with('error', $e->getMessage());
+            $content = Content::findOrFail($content_id);
+            return redirect()->route('admin.contents.edit', ['id' => $content->id])->with('error', $e->getMessage());
         }
     }
 
@@ -81,8 +81,10 @@ class PageMetaController extends Controller
     public function edit($id)
     {
         $meta_id = Route::current()->parameter('meta');
-        $meta = Page_metas::findOrFail($meta_id);
-        return view('admin.pages.metas.edit', ['meta' => $meta]);
+        $meta = Content_metas::findOrFail($meta_id);
+        $content_id = Route::current()->parameter('content');
+        $content = Content::findOrFail($content_id);
+        return view('admin.contents.metas.edit', ['content' => $content, 'meta' => $meta]);
     }
 
     /**
@@ -99,16 +101,16 @@ class PageMetaController extends Controller
             'value' => 'required|max:255'
         ]);
 
-        $page_id = Route::current()->parameter('page');
+        $content_id = Route::current()->parameter('content');
         $meta_id = Route::current()->parameter('meta');
-        $page_metas = Page_metas::findOrFail($meta_id);
+        $content_metas = Content_metas::findOrFail($meta_id);
 
-        $page_metas->key = $request->input('key');
-        $page_metas->value = $request->input('value');
+        $content_metas->key = $request->input('key');
+        $content_metas->value = $request->input('value');
 
-        $page_metas->save();
-        $page = Page::findOrFail($page_id);
-        return redirect()->route('admin.pages.edit', ['id' => $page->id]);
+        $content_metas->save();
+        $content = Content::findOrFail($content_id);
+        return redirect()->route('admin.contents.edit', ['content' => $content->id]);
     }
 
     /**
@@ -120,8 +122,8 @@ class PageMetaController extends Controller
     public function destroy($id)
     {
         $meta = Route::current()->parameter('meta');
-        $page = Route::current()->parameter('page');
-        Page_metas::destroy($meta);
-        return redirect()->route('admin.pages.edit', ['id' => $page]);
+        $content = Route::current()->parameter('content');
+        Content_metas::destroy($meta);
+        return redirect()->route('admin.contents.edit', ['id' => $content]);
     }
 }

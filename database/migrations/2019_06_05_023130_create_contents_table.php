@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePagesTable extends Migration
+class CreateContentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class CreatePagesTable extends Migration
      */
     public function up()
     {
-        Schema::create('pages', function (Blueprint $table) {
+        Schema::create('contents', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('title', 191);
             $table->string('slug', 255);
-            $table->text('content')->nullable();
+            $table->string('type', 50);
             $table->string('status', 50);
             $table->string('visibility', 50);
             $table->unsignedBigInteger('author_id');
@@ -34,6 +34,7 @@ class CreatePagesTable extends Migration
      */
     public function down()
     {
+        // Schema::dropIfExists('contents');
         Schema::dropIfExists('pages');
     }
 }
