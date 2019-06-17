@@ -104,8 +104,8 @@
 
                     <li class="navigation-header"><span>Content</span> <i class="icon-menu" title="Content"></i></li>
                     <li><a href="/admin/menus"><i class="icon-menu2"></i> <span>Menus</span></a></li>
-                    <li><a href="/admin/contents?type=pages"><i class="icon-files-empty2"></i> <span>Pages</span></a></li>
-                    <li><a href="/admin/contents?type=posts"><i class="icon-blog"></i> <span>Blog Posts</span></a></li>
+                    <li><a href="/admin/contents?type=page"><i class="icon-files-empty2"></i> <span>Pages</span></a></li>
+                    <li><a href="/admin/contents?type=post"><i class="icon-blog"></i> <span>Blog Posts</span></a></li>
                     <li><a href="/admin/comments"><i class="icon-comment"></i> <span>Comments</span></a></li>
                     <li><a href="/admin/media"><i class="icon-media"></i> <span>Media & Assets</span></a></li>
                     <li><a href="/admin/localization"><i class="icon-flag3"></i> <span>Localization</span></a></li>
