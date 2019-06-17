@@ -83,8 +83,8 @@ class ContentController extends Controller
     {
         $content = Content::findOrFail($id);
         $users = User::all();
-        $content_metas = $content->content_metas;
-        return view('admin.contents.edit', ['content' => $content, 'users' => $users, 'metas' => $content_metas]);
+        $metas = $content->metas;
+        return view('admin.contents.edit', ['content' => $content, 'users' => $users, 'metas' => $metas]);
     }
 
     /**
@@ -110,8 +110,8 @@ class ContentController extends Controller
             'visibility' => 'required|max:50',
             'author_id' => 'required|integer|exists:users,id'
         ]);
-            
-    
+
+
         $content->title = $request->title;
         $content->slug = $request->slug;
         $content->type = $request->type;
