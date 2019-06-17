@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Page;
+use App\Page_metas;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Route;
 
 class PageMetaController extends Controller
 {
@@ -22,9 +25,11 @@ class PageMetaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
-        //
+        $page = Page::findOrFail($id);
+        $pages = Page::all();
+        return view('admin.pages.metas.create', ['pages' => $pages], ['page' => $page]);
     }
 
     /**
@@ -35,7 +40,25 @@ class PageMetaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'key' => 'required|max:100|unique:page_metas,key',
+            'value' => 'required|max:255'
+        ]);
+        
+        $page_id = Route::current()->parameter('page');
+        try {
+            $page_metas = new Page_metas();
+            $page_metas->page_id = $page_id;
+            $page_metas->key = $request->input('key');
+            $page_metas->value = $request->input('value');
+            $page_metas->save();
+
+            $page = Page::findOrFail($page_id);
+            return redirect()->route('admin.pages.edit', ['id' => $page->id]);
+        } catch (\Exception $e) {
+            $page = Page::findOrFail($page_id);
+            return redirect()->route('admin.pages.edit', ['id' => $page->id])->with('error', $e->getMessage());
+        }
     }
 
     /**
@@ -57,7 +80,9 @@ class PageMetaController extends Controller
      */
     public function edit($id)
     {
-        //
+        $meta_id = Route::current()->parameter('meta');
+        $meta = Page_metas::findOrFail($meta_id);
+        return view('admin.pages.metas.edit', ['meta' => $meta]);
     }
 
     /**
@@ -69,7 +94,21 @@ class PageMetaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'key' => 'required|max:100',
+            'value' => 'required|max:255'
+        ]);
+
+        $page_id = Route::current()->parameter('page');
+        $meta_id = Route::current()->parameter('meta');
+        $page_metas = Page_metas::findOrFail($meta_id);
+
+        $page_metas->key = $request->input('key');
+        $page_metas->value = $request->input('value');
+
+        $page_metas->save();
+        $page = Page::findOrFail($page_id);
+        return redirect()->route('admin.pages.edit', ['id' => $page->id]);
     }
 
     /**
@@ -80,6 +119,9 @@ class PageMetaController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $meta = Route::current()->parameter('meta');
+        $page = Route::current()->parameter('page');
+        Page_metas::destroy($meta);
+        return redirect()->route('admin.pages.edit', ['id' => $page]);
     }
 }

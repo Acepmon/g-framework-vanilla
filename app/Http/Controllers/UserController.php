@@ -2,12 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Group;
 use App\User;
 use Auth;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 // use App\Http\Controllers\Controller;
 use Validator;
@@ -61,7 +58,7 @@ class UserController extends Controller
         $success['name'] = $user->name;
         return response()->json(['success' => $success], $this->successStatus);
     }
-        
+
     /**
      * details api
      *

@@ -56,14 +56,17 @@
                     @csrf
                     <div class="form-group">
                         <label class="control-label col-lg-2">Title<span class="text-danger">*</span></label>
-                        <div class="col-lg-10">
-                            <input type="text" class="form-control" name="title" placeholder="Enter page title..." required="required" aria-required="true" invalid="true">
+                        <div class="col-lg-8">
+                            <input id="title" type="text" class="form-control" name="title" placeholder="Enter page title..." required="required" aria-required="true" invalid="true">
+                        </div>
+                        <div class="col-lg-2">
+                            <button class="btn btn-default" onclick="create_slug()">Create Slug</button>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-lg-2">Slug<span class="text-danger">*</span></label>
                         <div class="col-lg-10">
-                            <input type="text" class="form-control" name="slug" placeholder="Enter page slug..." required="required" aria-required="true" invalid="true">
+                            <input id="slug" type="text" class="form-control" name="slug" pattern="/^[A-Za-z0-9]+(?:-[A-Za-z0-9]+)*$/" placeholder="Enter page slug..." required="required" aria-required="true" invalid="true">
                         </div>
                     </div>
 
@@ -92,7 +95,6 @@
                         <label class="control-label col-lg-2">Author ID</label>
                         <div class="control-label col-lg-2">
                             <select class="selectbox" name="author_id" type="text" id="author_id" class="control-label">
-                                <option value=""></option>
                                 @foreach($users as $user)
                                     <option value="{{$user->id}}">{{$user->username}}</option>
                                 @endforeach
@@ -117,4 +119,27 @@
 @endsection
 
 @section('script')
+<script>
+    function create_slug() {
+        var title = document.getElementById("title").value;
+        title = title.toString().toLowerCase()
+            .replace(/\s+/g, '-')
+            .replace(/[\s\W-]+/g, '-')
+            .replace(/\-\-+/g, '-')
+            .replace(/^-+/, '')
+            .replace(/-+$/, '');
+        document.getElementById("slug").value = title;
+
+    }
+    
+    $( "#slug" ).keyup(function( event ) {
+            console.log(event.which);
+        if ( event.which == 32) {
+            var slug = document.getElementById("slug").value;
+            slug = slug.toString().toLowerCase()
+                .replace(' ', '-');
+            document.getElementById("slug").value = slug;
+        }
+    });
+</script>
 @endsection

@@ -11,7 +11,6 @@
 	<script type="text/javascript" src="/assets/js/pages/form_validation.js"></script>
 	<script type="text/javascript" src="/assets/js/plugins/forms/styling/uniform.min.js"></script>
 
-	<script type="text/javascript" src="/assets/js/core/app.js"></script>
 	<script type="text/javascript" src="/assets/js/pages/form_validation.js"></script>
 @endsection
 
@@ -29,8 +28,8 @@
 <div class="breadcrumb-line">
     <ul class="breadcrumb">
         <li><a href="/"><i class="icon-home2 position-left"></i> Home</a></li>
-        <li><a href="/users">Users</a></li>
-        <li><a href="/users/{{ $user->id }}">Detail</a></li>
+        <li><a href="{{ route('admin.users.index') }}">Users</a></li>
+        <li><a href="{{ route('admin.users.show', ['id' => $user->id]) }}">Detail</a></li>
         <li class="active">Edit</li>
     </ul>
 
@@ -97,7 +96,7 @@
                     @endforeach
                 @endif
 
-                <form method="post" class="form-horizontal form-validate-jquery" action="/users/{{ $user->id }}" enctype="multipart/form-data">
+                <form method="post" class="form-horizontal form-validate-jquery" action="{{ route('admin.users.update', ['id' =>  $user->id]) }}" enctype="multipart/form-data">
                     {{ method_field('PATCH') }}
                     {{ csrf_field() }}
 
@@ -125,13 +124,12 @@
                     <div class="form-group">
                         <label class="control-label col-lg-2">Avatar</label>
                         <div class="col-lg-10">
-                            <div class="row">
-                                <div class="col-lg-4">
-                                    <img id="avatar" src="{{ ($user->avatar)?'/storage/'.$user->avatar:'/assets/images/placeholder.jpg'}}" class="img-circle img-md"/>
-                                </div>
-                                <div class="col-lg-8">
-                                    <input type="file" name="avatar" class="file-styled form-control" onchange="readURL(this);"></div>
-                                </div>
+                            <div class="media-left">
+                                <img id="avatar" src="{{ ($user->avatar)?'/storage/'.$user->avatar:'/assets/images/placeholder.jpg'}}" class="img-circle img-md"/>
+                            </div>
+                            <div class="media-body">
+                                <input type="file" name="avatar" class="file-styled form-control" onchange="readURL(this);">
+                            </div>
                         </div>
                     </div>
 

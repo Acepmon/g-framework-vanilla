@@ -90,10 +90,18 @@
                         </div>
 
                     </div>
-                    <div class="text-right" style="padding-bottom: 5px">
-                        <a href="javascript:history.back()" class="btn btn-default">Back</a>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-lg-2">Type</label>
+                    <div class="col-lg-10">
+                        <label class="control-label"><span class="label label-{{ $group->typeClass() }}">{{$group->type}}</span></label>
                     </div>
-                </form>
+                </div>
+
+                <div class="text-right" style="padding-bottom: 5px">
+                    <a href="javascript:history.back()" class="btn btn-default">Back</a>
+                </div>
             </div>
         </div>
         <!-- /horizotal form -->

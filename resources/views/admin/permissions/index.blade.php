@@ -47,30 +47,31 @@
 <!-- Table -->
 <div class="panel panel-flat">
     <div class="panel-heading">
-        <h5 class="panel-title">Basic table</h5>
+        <h5 class="panel-title">
+            Permissions
+        </h5>
         <div class="heading-elements">
             <ul class="icons-list">
-                <li><a data-action="collapse"></a></li>
-                <li><a data-action="close"></a></li>
+                <li><a href="{{ route('admin.permissions.create') }}" class="btn btn-primary text-white">Create permission<i class="icon-arrow-right14 position-right"></i></a></li>
             </ul>
         </div>
     </div>
-    <div class="panel-body">
-        @if (session('status'))
-        <div class="alert alert-success">
-            {{ session('status') }}
+
+    @if (session('status'))
+        <div class="panel-body">
+            <div class="alert alert-success">
+                {{ session('status') }}
+            </div>
         </div>
-        @endif
-    </div>
+    @endif
 
     <div class="table-responsive">
-
         <table class="table">
             <thead>
                 <tr>
                     <th>#</th>
                     <th>Title</th>
-                    <th>Description</th>                    
+                    <th>Description</th>
                     <th>Show</th>
                     <th>Edit</th>
                     <th>Delete</th>
@@ -80,11 +81,11 @@
             <div style="display: none">{{$i=1}}</div>
                 @foreach($permissions as $data)
                 <tr>
-                    <td>{{ $i++}}</td> 
-                    <td>{{ $data->title}}</td> 
-                    <td>{{ $data->description}}</td>                     
-                    <td><a href='{{ route('admin.permissions.show', ['id' => $data->id]) }}' type="btn btn-primary">Show</a> </td>
-                    <td><a href='{{ route('admin.permissions.edit', ['id' => $data->id]) }}' type="btn btn-primary">Edit</a> </td>
+                    <td>{{ $i++ }}</td>
+                    <td>{{ $data->title}}</td>
+                    <td>{{ $data->description}}</td>
+                    <td><a href='{{ route('admin.permissions.show', ['id' => $data->id]) }}' type="btn btn-default">Show</a></td>
+                    <td><a href='{{ route('admin.permissions.edit', ['id' => $data->id]) }}' type="btn btn-default">Edit</a></td>
                     <td>
                         <a href="#" data-toggle="modal" data-target="#modal_theme_danger" onclick="delete_confirm({{ $data->id }})"><i class="icon-trash"></i> Delete</a>
                     </td>
@@ -95,12 +96,6 @@
     </div>
 </div>
 <!-- /table -->
-
-<div class="panel-body">
-        <div class="text-right">
-            <a href="{{ route('admin.permissions.create') }}" class="btn btn-primary">Create permission<i class="icon-arrow-right14 position-right"></i></a>
-        </div>
-    </div>
 
 <!-- Danger modal -->
 <div id="modal_theme_danger" class="modal fade">

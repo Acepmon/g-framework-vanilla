@@ -22,7 +22,6 @@
 	<script type="text/javascript" src="/assets/js/plugins/loaders/blockui.min.js"></script>
 	<!-- /core JS files -->
 
-	@yield('load')
 
 	<!-- Theme JS files -->
 	<script type="text/javascript" src="/assets/js/plugins/forms/styling/uniform.min.js"></script>
@@ -31,6 +30,7 @@
 	<script type="text/javascript" src="/assets/js/pages/login.js"></script>
 	<!-- /theme JS files -->
 
+	@yield('load')
 </head>
 
 <body>

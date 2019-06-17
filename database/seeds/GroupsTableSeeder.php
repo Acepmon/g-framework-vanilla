@@ -12,31 +12,28 @@ class GroupsTableSeeder extends Seeder
      */
     public function run()
     {
+        // System Groups
         if (Schema::hasTable('groups')) {
             DB::table('groups')->insert([
                 [
                     "title" => "Administrator",
-                    "description" => "Administrator is the most powerful user role and should rarely be assigned to any other account. If you give someone else this user role, you’re essentially giving them the keys to the castle."
+                    "description" => "Administrator is the most powerful user role and should rarely be assigned to any other account.",
+                    "type" => App\Group::TYPE_SYSTEM
                 ],
                 [
-                    "title" => "Editor",
-                    "description" => "As the name of this user role suggests, an editor is generally responsible for managing content and thus has a high level of access. They can create, edit, delete, and publish both pages and posts – even those belonging to other users."
-                ],
-                [
-                    "title" => "Author",
-                    "description" => "An author has far fewer permissions than editors. They cannot edit pages and are unable to alter other users’ content. In addition, they lack any sort of administrative capabilities."
-                ],
-                [
-                    "title" => "Contributor",
-                    "description" => "The contributor role is essentially a stripped-down version of the author role. A contributor perform only three tasks – reading all posts, as well as deleting and editing their own posts."
-                ],
-                [
-                    "title" => "Subscriber",
-                    "description" => "Subscribers have only one main capability and their dashboard is usually incredibly bare. They can read all posts on the site. Normally, anyone can read posts without being assigned a role, so not all sites will use this option."
+                    "title" => "Operator",
+                    "description" => "Operators are the sub-system management user. Who has carefully selected privileges and permissions to specific services.",
+                    "type" => App\Group::TYPE_SYSTEM
                 ],
                 [
                     "title" => "Member",
-                    "description" => "Essentially the most basic role of all. No special privileges are granted, only the basic requirements are added such as authentication, viewing public posts etc.."
+                    "description" => "Essentially the most basic role of all. No special privileges are granted, only the basic requirements are added such as authentication, viewing public posts etc..",
+                    "type" => App\Group::TYPE_SYSTEM
+                ],
+                [
+                    "title" => "Guest",
+                    "description" => "Non member entity who has brief access to some services for a temporary time. Any user who is not registered is considered 'guest' by default.",
+                    "type" => App\Group::TYPE_SYSTEM
                 ]
             ]);
         }

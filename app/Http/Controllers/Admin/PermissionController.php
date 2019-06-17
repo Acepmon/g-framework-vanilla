@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Permission;
+use App\User;
 use Illuminate\Support\Facades\Validator;
 //use phpDocumentor\Reflection\DocBlock\Tags\Uses;
 
@@ -80,7 +81,8 @@ class PermissionController extends Controller
         $permissions = Permission::all();
 
         $permission = Permission::find($id);
-        return view('admin.permissions.edit', ['permission' => $permission, 'permissions' => $permissions]);
+        $users = User::all();
+        return view('admin.permissions.edit', ['permission' => $permission, 'permissions' => $permissions, 'users' => $users]);
     }
 
     /**
@@ -102,6 +104,7 @@ class PermissionController extends Controller
         $permission->title = $request->title;
         $permission->description = $request->description;
         $permission->save();
+
         return redirect()->route('admin.permissions.edit', ['id' => $permission->id])->with('status', 'Success');
     }
 

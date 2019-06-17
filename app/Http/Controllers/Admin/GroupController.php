@@ -16,9 +16,11 @@ class GroupController extends Controller
      */
     public function index()
     {
-        $groups = Group::all();
-        // $parent = Group::findOrFail('parent_id');
-        return view('admin.groups.index', ['groups' => $groups] );
+        $systemGroups = Group::where('type', Group::TYPE_SYSTEM)->get();
+        $staticGroups = Group::where('type', Group::TYPE_STATIC)->get();
+        $dynamicGroups = Group::where('type', Group::TYPE_DYNAMIC)->get();
+
+        return view('admin.groups.index', ['systemGroups' => $systemGroups, 'staticGroups' => $staticGroups, 'dynamicGroups' => $dynamicGroups]);
     }
 
     /**
@@ -48,6 +50,7 @@ class GroupController extends Controller
         $group->parent_id = $request->parent_id;
         $group->title = $request->title;
         $group->description = $request->description;
+        $group->type = Group::TYPE_STATIC;
         $group->save();
 
         return redirect()->route('admin.groups.index')->with('status', 'Group created!');
@@ -107,7 +110,13 @@ class GroupController extends Controller
      */
     public function destroy($id)
     {
-        Group::destroy($id);
-        return redirect()->route('admin.groups.index')->with('status', 'Group deleted');
+        $group = Group::findOrFail($id);
+
+        if ($group->type == Group::TYPE_SYSTEM) {
+            return redirect()->route('admin.groups.index')->with('status', 'System group cannot be deleted!');
+        } else {
+            $group->delete();
+            return redirect()->route('admin.groups.index')->with('status', 'Group deleted');
+        }
     }
 }

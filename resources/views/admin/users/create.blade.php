@@ -15,7 +15,6 @@
 	<script type="text/javascript" src="/assets/js/plugins/forms/styling/switchery.min.js"></script>
 	<script type="text/javascript" src="/assets/js/plugins/forms/styling/uniform.min.js"></script>
 
-	<script type="text/javascript" src="/assets/js/core/app.js"></script>
 	<script type="text/javascript" src="/assets/js/pages/form_validation.js"></script>
 @endsection
 
@@ -33,7 +32,7 @@
 <div class="breadcrumb-line">
     <ul class="breadcrumb">
         <li><a href="/"><i class="icon-home2 position-left"></i> Home</a></li>
-        <li><a href="/users">Users</a></li>
+        <li><a href="{{ route('admin.users.index') }}">Users</a></li>
         <li class="active">Create</li>
     </ul>
 
@@ -100,7 +99,7 @@
                     @endforeach
                 @endif
 
-                <form method="post" class="form-horizontal form-validate-jquery" action="/users" enctype="multipart/form-data">
+                <form method="post" class="form-horizontal form-validate-jquery" action="{{ route('admin.users.store') }}" enctype="multipart/form-data">
                     {{ csrf_field() }}
 
                     <div class="form-group">
@@ -141,13 +140,11 @@
                     <div class="form-group">
                         <label class="control-label col-lg-2">Avatar</label>
                         <div class="col-lg-10">
-                            <div class="row">
-                                <div class="col-lg-4">
-                                    <img id="avatar" src="/assets/images/placeholder.jpg" class="img-circle img-md"/>
-                                </div>
-                                <div class="col-lg-8">
-                                    <input type="file" name="avatar" class="file-styled form-control" onchange="readURL(this);" value="{{Request::old('avatar')}}">
-                                </div>
+                            <div class="media-left">
+                                <img id="avatar" src="/assets/images/placeholder.jpg" class="img-circle img-md"/>
+                            </div>
+                            <div class="media-body">
+                                <input type="file" name="avatar" class="file-styled form-control" onchange="readURL(this);" value="{{Request::old('avatar')}}">
                             </div>
                         </div>
                     </div>
@@ -181,8 +178,7 @@
 
                     <div class="row">
                         <div class="col-lg-4">
-                            <div class="text-left">
-                                <button type="button" class="btn btn-default" onclick="location.href='/users';"><i class="icon-arrow-left52 position-left"></i> Back</button>
+                                <div class="text-left"><a href="{{ route('admin.users.index') }}" class="btn btn-default"><i class="icon-arrow-left52 position-left"></i> Back</a>
                             </div>
                         </div>
                         <div class="col-lg-8">

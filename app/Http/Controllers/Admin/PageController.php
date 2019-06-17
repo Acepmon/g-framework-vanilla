@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Page;
 use App\User;
+use App\Page_metas;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Validation\Rule;
 
 class PageController extends Controller
 {
@@ -68,7 +70,8 @@ class PageController extends Controller
      */
     public function show($id)
     {
-        //
+        $page = Page::find($id);
+        return view('admin.pages.show', ['page' => $page]);
     }
 
     /**
@@ -81,7 +84,8 @@ class PageController extends Controller
     {
         $page = Page::findOrFail($id);
         $users = User::all();
-        return view('admin.pages.edit', ['page' => $page], ['users' => $users]);
+        $page_metas = $page->page_metas;
+        return view('admin.pages.edit', ['page' => $page, 'users' => $users, 'metas' => $page_metas]);
     }
 
     /**
@@ -93,17 +97,22 @@ class PageController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $page = Page::findOrFail($id);
+
         $request->validate([
             'title' => 'required|max:191',
-            'slug' => 'required|max:255',
+            'slug' => [
+                'required',
+                'max:255',
+                Rule::unique('pages')->ignore($page->slug, 'slug'),
+            ],
             'content' => 'nullable',
             'status' => 'required|max:50',
             'visibility' => 'required|max:50',
             'author_id' => 'required|integer|exists:users,id'
         ]);
-
-        $page = Page::findOrFail($id);
-
+            
+    
         $page->title = $request->title;
         $page->slug = $request->slug;
         $page->content = $request->content;
