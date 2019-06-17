@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Group;
+use App\GroupMenu;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -16,7 +17,8 @@ class GroupController extends Controller
     public function index()
     {
         $groups = Group::all();
-
+        // $parent = Group::findOrFail('parent_id');
+        return view('admin.groups.index', ['groups' => $groups] );
     }
 
     /**

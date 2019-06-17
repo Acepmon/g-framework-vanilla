@@ -60,6 +60,7 @@
             <thead>
                 <tr>
                     <th>#</th>
+                    <th>Parent id</th>
                     <th>Title</th>
                     <th>Description</th>
                     <th></th>
@@ -70,6 +71,8 @@
                 @foreach($groups as $group)
                     <tr>                    
                         <td>{{$group->id}}</td>
+                        <td>{{$group->parent_id}}
+                        </td>
                         <td>{{$group->title}}</td>
                         <td>{{$group->description}}</td>
                         <td width="250px">
