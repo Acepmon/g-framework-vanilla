@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Group;
+use App\GroupMenu;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
