@@ -52,7 +52,7 @@
         <!-- Horizontal form -->
         <div class="panel panel-flat">
             <div class="panel-body">
-                <form class="form-horizontal" action="{{ route('admin.pages.update', ['id' => $page->id]) }}" method="POST">
+                <form class="form-horizontal" action="{{ route('admin.contents.update', ['id' => $content->id]) }}" method="POST">
                     @method('PUT')
                     @csrf
                     @if ($errors->any())
@@ -64,38 +64,38 @@
                         @endforeach
                     @endif
                     <div class="form-group">
-                        <label class="control-label col-lg-2">Title<span class="text-danger">*</span></label>
+                        <label class="control-label col-lg-2">Title <span class="text-danger">*</span></label>
                         <div class="col-lg-8">
-                            <input id="title" type="text" class="form-control" name="title" placeholder="Enter page title..." value="{{$page->title}}" required="required" aria-required="true" invalid="true">
+                            <input id="title" type="text" class="form-control" name="title" placeholder="Enter content title..." value="{{$content->title}}" required="required" aria-required="true" invalid="true">
                         </div>
                         <div class="col-lg-2">
                             <button type="button" class="btn btn-default" onclick="create_slug()">Create Slug</button>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-lg-2">Slug<span class="text-danger">*</span></label>
+                        <label class="control-label col-lg-2">Slug <span class="text-danger">*</span></label>
                         <div class="col-lg-10">
-                            <input id="slug" type="text" class="form-control" name="slug" placeholder="Enter page slug..." value="{{$page->slug}}" required="required" aria-required="true" invalid="true">
+                            <input id="slug" type="text" class="form-control" name="slug" placeholder="Enter content slug..." value="{{$content->slug}}" required="required" aria-required="true" invalid="true">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-lg-2">Content</label>
+                        <label class="control-label col-lg-2">Type <span class="text-danger">*</span></label>
                         <div class="col-lg-10">
-                            <textarea rows="5" cols="5" class="form-control" placeholder="Enter page content..." name="content">{{$page->content}}</textarea>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="control-label col-lg-2">Status<span class="text-danger">*</span></label>
-                        <div class="col-lg-10">
-                            <input id="status" type="text" class="form-control" name="status" placeholder="Enter page status..." value="{{$page->status}}" required aria-required="true" invalid="true">
+                            <input id="type" type="text" class="form-control" name="type" placeholder="Enter content type..." value="{{$content->type}}" required="required" aria-required="true" invalid="true">
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="control-label col-lg-2">Visibility<span class="text-danger">*</span></label>
+                        <label class="control-label col-lg-2">Status <span class="text-danger">*</span></label>
                         <div class="col-lg-10">
-                            <input id="visibility" type="text" class="form-control" name="visibility" placeholder="Enter page visibility..." value="{{$page->visibility}}" required aria-required="true" invalid="true">
+                            <input id="status" type="text" class="form-control" name="status" placeholder="Enter content status..." value="{{$content->status}}" required aria-required="true" invalid="true">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-lg-2">Visibility <span class="text-danger">*</span></label>
+                        <div class="col-lg-10">
+                            <input id="visibility" type="text" class="form-control" name="visibility" placeholder="Enter content visibility..." value="{{$content->visibility}}" required aria-required="true" invalid="true">
                         </div>
                     </div>
 
@@ -104,7 +104,7 @@
                         <div class="control-label col-lg-2">
                             <select class="selectbox" name="author_id" type="text" id="author_id" class="control-label">
                                 @foreach($users as $user)
-                                <option {{$page->author_id == $user->id?'selected':''}} value="{{$user->id}}">{{$user->username}}</option>
+                                <option {{$content->author_id == $user->id?'selected':''}} value="{{$user->id}}">{{$user->username}}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -112,7 +112,7 @@
 
                     <div class="text-right">
                         <a href="javascript:history.back()" class="btn btn-default">Back</a>
-                        <a href="{{ route('admin.pages.index') }}" class="btn btn-default">List</a>
+                        <a href="{{ route('admin.contents.index') }}" class="btn btn-default">List</a>
                         <button type="submit" class="btn btn-primary">Save</button>
                     </div>
                 </form>
@@ -122,7 +122,7 @@
     </div>
     <div class="col-sm-5">
         <div class="text-right" style="padding-bottom: 5px">
-            <a href="{{ route('admin.pages.metas.create', ['id' => $page->id]) }}" class="btn btn-primary">Create Page Metas</a>
+            <a href="{{ route('admin.contents.metas.create', ['id' => $content->id]) }}" class="btn btn-primary">Create Content Metas</a>
         </div>
         <div class="panel panel-flat">
             <div class="table-responsive">
@@ -143,10 +143,10 @@
                             <td>{{$meta->value}}</td>
                             <td width="250px">
                                 <div class="btn-group">
-                                    <form action="{{ route('admin.pages.metas.edit', ['page' => $page->id, 'meta' => $meta->id]) }}" method="GET" style="float: left; margin-right: 5px">
+                                    <form action="{{ route('admin.contents.metas.edit', ['content' => $content->id, 'meta' => $meta->id]) }}" method="GET" style="float: left; margin-right: 5px">
                                         <button type="submit" class="btn btn-default">Edit</button>
                                     </form>
-                                    <button data-toggle="modal" data-target="#modal_theme_danger" class="btn btn-default" onclick="delete_meta( {{$meta->id}} , {{$page->id}})">Delete</button>
+                                    <button data-toggle="modal" data-target="#modal_theme_danger" class="btn btn-default" onclick="delete_meta( {{$meta->id}} , {{$content->id}})">Delete</button>
                                 </div>
                             </td>
                         </tr>
@@ -169,7 +169,7 @@
             </div>
 
             <div class="modal-body">
-                <p>Are you sure you want to delete this page meta?</p>
+                <p>Are you sure you want to delete this content meta?</p>
             </div>
 
             <div class="modal-footer">
@@ -190,8 +190,8 @@
 
 @section('script')
 <script>
-    window.delete_meta = function(id, pageId) {
-        $("#delete_form").attr('action', '/admin/pages/' + pageId + '/metas/'+id);
+    window.delete_meta = function(id, contentId) {
+        $("#delete_form").attr('action', '/admin/contents/' + contentId + '/metas/'+id);
     }
 
     setTimeout(function(){ document.getElementById("timer").remove() }, 10000);

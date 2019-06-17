@@ -46,9 +46,9 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
         return $this->belongsToMany('App\Group', 'user_group');
     }
 
-    public function pages()
+    public function contents()
     {
-        return $this->hasMany('App\Page', 'author_id');
+        return $this->hasMany('App\Content', 'author_id');
     }
 
     public function permissions()

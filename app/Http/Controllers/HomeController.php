@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Page;
+use App\Content;
 
 class HomeController extends Controller
 {
@@ -28,12 +28,12 @@ class HomeController extends Controller
         return view('home');
     }
 
-    public function page($slug){
-        $page = Page::where('slug', '=', $slug)->first();
-        if($page == null){
+    public function content($slug){
+        $content = Content::where('slug', '=', $slug)->first();
+        if($content == null){
             abort(404);
         }else{
-            echo $page->content;
+            echo $content->content;
         }
     }
 }

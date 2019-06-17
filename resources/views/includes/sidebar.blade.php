@@ -103,9 +103,10 @@
                     <li><a href="/admin/items"><i class="icon-cart2"></i> <span>Items</span></a></li>
 
                     <li class="navigation-header"><span>Content</span> <i class="icon-menu" title="Content"></i></li>
-                    <li><a href="/admin/pages"><i class="icon-files-empty2"></i> <span>Pages</span></a></li>
+                    <li><a href="/admin/contents/pages"><i class="icon-files-empty2"></i> <span>PAges</span></a></li>
                     <li><a href="/admin/menus"><i class="icon-menu2"></i> <span>Menus</span></a></li>
-                    <li><a href="/admin/posts"><i class="icon-blog"></i> <span>Blog Posts</span></a></li>
+                    <li><a href="/admin/contents/posts"><i class="icon-blog"></i> <span>Blog Posts</span></a></li>
+                    <li><a href="/admin/comments"><i class="icon-comment"></i> <span>Comments</span></a></li>
                     <li><a href="/admin/media"><i class="icon-media"></i> <span>Media & Assets</span></a></li>
                     <li><a href="/admin/localization"><i class="icon-flag3"></i> <span>Localization</span></a></li>
                     <li><a href="/admin/categories"><i class="icon-grid6"></i> <span>Categories</span></a></li>

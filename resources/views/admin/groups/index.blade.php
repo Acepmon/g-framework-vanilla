@@ -45,6 +45,7 @@
 
 @section('content')
 
+
 <div class="row">
     <div class="col-lg-12">
         @if (session('status'))
@@ -113,6 +114,8 @@
                 @foreach($dynamicGroups as $group)
                     <tr>
                         <td>{{$group->id}}</td>
+                        <td>{{$group->parent_id}}
+                        </td>
                         <td>{{$group->title}}</td>
                         <td>{{$group->description}}</td>
                         <td>

@@ -46,7 +46,7 @@
 @section('content')
 
 <div class="text-right" style="padding-bottom: 5px">
-    <a href="{{ route('admin.pages.create') }}" class="btn btn-primary">Create Pages</a>
+    <a href="{{ route('admin.contents.create') }}" class="btn btn-primary">Create Contents</a>
 </div>
 
 <div class="panel panel-flat">
@@ -62,7 +62,7 @@
                     <th>#</th>
                     <th>Title</th>
                     <th>Slug</th>
-                    <th>Content</th>
+                    <th>Type</th>
                     <th>Status</th>
                     <th>Visibility</th>
                     <th>Author Id</th>
@@ -70,24 +70,24 @@
                 </tr>
             </thead>
             <tbody>
-            @foreach($pages as $page)
+            @foreach($contents as $content)
                 <tr>
-                    <td>{{$page->id}}</td>
-                    <td>{{$page->title}}</td>
-                    <td>{{$page->slug}}</td>
-                    <td>{{$page->content}}</td>
-                    <td>{{$page->status}}</td>
-                    <td>{{$page->visibility}}</td>
-                    <td>{{$page->author_id}}</td>
+                    <td>{{$content->id}}</td>
+                    <td>{{$content->title}}</td>
+                    <td>{{$content->slug}}</td>
+                    <td>{{$content->type}}</td>
+                    <td>{{$content->status}}</td>
+                    <td>{{$content->visibility}}</td>
+                    <td>{{$content->author_id}}</td>
                     <td width="250px">
                         <div class="btn-group">
-                            <form action="{{ route('admin.pages.show', ['id' => $page->id]) }}" method="GET" style="float: left; margin-right: 5px">
+                            <form action="{{ route('admin.contents.show', ['id' => $content->id]) }}" method="GET" style="float: left; margin-right: 5px">
                                 <button type="submit" class="btn btn-default">View</button>
                             </form>
-                            <form action="{{ route('admin.pages.edit', ['id' => $page->id]) }}" method="GET" style="float: left; margin-right: 5px">
+                            <form action="{{ route('admin.contents.edit', ['id' => $content->id]) }}" method="GET" style="float: left; margin-right: 5px">
                                 <button type="submit" class="btn btn-default">Edit</button>
                             </form>
-                            <button data-toggle="modal" data-target="#modal_theme_danger" class="btn btn-default" onclick="delete_page({{ $page->id }})">Delete</button>
+                            <button data-toggle="modal" data-target="#modal_theme_danger" class="btn btn-default" onclick="delete_content({{ $content->id }})">Delete</button>
                         </div>
                     </td>
                 </tr>
@@ -107,7 +107,7 @@
             </div>
 
             <div class="modal-body">
-                <p>Are you sure you want to delete this page?</p>
+                <p>Are you sure you want to delete this content?</p>
             </div>
 
             <div class="modal-footer">
@@ -127,8 +127,8 @@
 
 @section('script')
 <script>
-    window.delete_page = function(id) {
-        $("#delete_form").attr('action', '/admin/pages/'+id);
+    window.delete_content = function(id) {
+        $("#delete_form").attr('action', '/admin/contents/'+id);
     }
 
     setTimeout(function(){ document.getElementById("timer").remove() }, 10000);

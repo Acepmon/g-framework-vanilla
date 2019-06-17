@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePageMetasTable extends Migration
+class CreateCommentMetasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,13 @@ class CreatePageMetasTable extends Migration
      */
     public function up()
     {
-        Schema::create('page_metas', function (Blueprint $table) {
+        Schema::create('comment_metas', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('page_id');
+            $table->unsignedBigInteger('comment_id');
             $table->string('key', 100)->unique();
             $table->string('value', 255);
-            $table->timestamps();
 
-            $table->foreign('page_id')->references('id')->on('pages');
+            $table->foreign('comment_id')->references('id')->on('comments');
         });
     }
 
@@ -31,6 +30,6 @@ class CreatePageMetasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('page_metas');
+        Schema::dropIfExists('comment_metas');
     }
 }
