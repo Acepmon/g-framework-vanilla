@@ -60,41 +60,53 @@
                             <input id="title" type="text" class="form-control" name="title" placeholder="Enter content title..." required="required" aria-required="true" invalid="true">
                         </div>
                         <div class="col-lg-2">
-                            <button class="btn btn-default" onclick="create_slug()">Create Slug</button>
+                            <button type="button" class="btn btn-default" onclick="create_slug()">Create Slug</button>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-lg-2">Slug <span class="text-danger">*</span></label>
                         <div class="col-lg-10">
-                            <input id="slug" type="text" class="form-control" name="slug" placeholder="Enter page slug..." required="required" aria-required="true" invalid="true">
+                            <input id="slug" type="text" class="form-control" name="slug" placeholder="Enter content slug..." required="required" aria-required="true" invalid="true">
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="control-label col-lg-2">Type <span class="text-danger">*</span></label>
                         <div class="col-lg-10">
-                            <input id="type" type="text" class="form-control" name="type" placeholder="Enter page type..." required="required" aria-required="true" invalid="true">
+                            <select id="type" name="type" required="required" class="form-control">
+                                @foreach(App\Content::TYPE_ARRAY as $value)
+                                <option value="{{ $value }}" {{ ($value === Session::get('type'))?'selected':'' }} >{{ $value }}</option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="control-label col-lg-2">Status <span class="text-danger">*</span></label>
                         <div class="col-lg-10">
-                            <input id="status" type="text" class="form-control" name="status" placeholder="Enter content status..." required aria-required="true" invalid="true">
+                            <select id="status" name="status" required="required" class="form-control">
+                                @foreach(App\Content::STATUS_ARRAY as $value)
+                                <option value="{{ $value }}">{{ $value }}</option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="control-label col-lg-2">Visibility <span class="text-danger">*</span></label>
                         <div class="col-lg-10">
-                            <input id="visibility" type="text" class="form-control" name="visibility" placeholder="Enter content visibility..." required aria-required="true" invalid="true">
+                            <select id="visibility" name="visibility" required="required" class="form-control">
+                                @foreach(App\Content::VISIBILITY_ARRAY as $value)
+                                <option value="{{ $value }}">{{ $value }}</option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="control-label col-lg-2">Author ID</label>
-                        <div class="control-label col-lg-2">
-                            <select class="selectbox" name="author_id" type="text" id="author_id" class="control-label">
+                        <div class="col-lg-10">
+                            <select name="author_id" type="text" id="author_id" class="form-control">
                                 @foreach($users as $user)
                                     <option value="{{$user->id}}">{{$user->username}}</option>
                                 @endforeach

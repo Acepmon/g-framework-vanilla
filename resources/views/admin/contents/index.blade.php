@@ -46,7 +46,7 @@
 @section('content')
 
 <div class="text-right" style="padding-bottom: 5px">
-    <a href="{{ route('admin.contents.create') }}" class="btn btn-primary">Create Contents</a>
+    <a href="{{ route('admin.contents.create') }}" class="btn btn-primary">Create New {{ ucfirst(Session::get('type')) }}</a>
 </div>
 
 <div class="panel panel-flat">
@@ -128,7 +128,7 @@
 @section('script')
 <script>
     window.delete_content = function(id) {
-        $("#delete_form").attr('action', '/admin/contents/'+id);
+        $("#delete_form").attr('action', '/admin/contents/'+id+'?type={{ Request::get('type') }}');
     }
 
     setTimeout(function(){ document.getElementById("timer").remove() }, 10000);
