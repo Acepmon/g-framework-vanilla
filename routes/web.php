@@ -19,6 +19,7 @@ Route::middleware(['auth'])->group(function () {
             });
             Route::get('dashboard', 'AdminController@dashboard')->name('admin.dashboard');
             Route::get('changelog', 'ChangelogController@index')->name('admin.changelog.index');
+            Route::get('install','PluginController@installPlugin')->name('admin.plugins.install');
 
             Route::prefix('profile')->group(function () {
                 Route::get('/', 'ProfileController@index')->name('admin.profile.index');
@@ -65,7 +66,9 @@ Route::middleware(['auth'])->group(function () {
                 'show' => 'admin.plugins.show',
                 'edit' => 'admin.plugins.edit',
                 'update' => 'admin.plugins.update',
-                'destroy' => 'admin.plugins.destroy'
+                'destroy' => 'admin.plugins.destroy',
+                //'install' => 'admin.plugins.install'
+
             ]);
             Route::resource('groups', 'GroupController')->names([
                 'index' => 'admin.groups.index',
@@ -119,10 +122,15 @@ Route::middleware(['auth'])->group(function () {
 
             Route::get('/users/{user}/pages', 'UserPageController@index')->name('admin.users.pages.index');
             Route::get('/users/{user}/pages/{page}', 'UserPageController@show')->name('admin.users.pages.show');
+
+//            Route::get('/admin/plugins/install','DataController@installPlugin');
+//            Route::get('extract','DataController@index');
         });
     });
 
 });
+
+
 
 Route::get('/', function () {
     return view('welcome');

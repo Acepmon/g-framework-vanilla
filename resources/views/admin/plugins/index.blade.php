@@ -72,7 +72,7 @@
                     <th>#</th>
                     <th>Title</th>
                     <th>Description</th>
-                    <th>Show</th>
+                    <th>install/update</th>
                     <th>Edit</th>
                     <th>Delete</th>
                 </tr>
@@ -84,7 +84,7 @@
                     <td>{{ $i++ }}</td>
                     <td>{{ $data->title}}</td>
                     <td>{{ $data->description}}</td>
-                    <td><a href='{{ route('admin.plugins.show', ['id' => $data->id]) }}' type="btn btn-default">Show</a></td>
+                    <td><a href="{{ route('admin.plugins.install', ['id' => $data-> id] ) }}" type="btn btn-default">Install</a></td>
                     <td><a href='{{ route('admin.plugins.edit', ['id' => $data->id]) }}' type="btn btn-default">Edit</a></td>
                     <td>
                         <a href="#" data-toggle="modal" data-target="#modal_theme_danger" onclick="delete_confirm({{ $data->id }})"><i class="icon-trash"></i> Delete</a>
@@ -107,7 +107,7 @@
             </div>
 
             <div class="modal-body">
-                <p>Are you sure you want to delete this record?</p>
+                <p>Are you sure you want to delete this plugin?</p>
             </div>
 
             <div class="modal-footer">
@@ -130,5 +130,16 @@
     window.delete_confirm = function(id) {
         $("#delete_form").attr('action', '/admin/plugins/'+id);
     }
+</script>
+<script>
+    window.insUpdPlugin = (function(url){
+        $.ajax({
+            url: url,
+            type: 'post',
+            success: function(response){
+                window.location = response;
+            }
+        });
+    });
 </script>
 @endsection
