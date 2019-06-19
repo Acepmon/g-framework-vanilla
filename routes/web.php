@@ -20,6 +20,10 @@ Route::middleware(['auth'])->group(function () {
             Route::get('dashboard', 'AdminController@dashboard')->name('admin.dashboard');
             Route::get('changelog', 'ChangelogController@index')->name('admin.changelog.index');
 
+            Route::get('install','PluginController@installPlugin')->name('admin.plugins.install');
+
+            Route::get('/menus/tree', 'MenuController@tree')->name('admin.menus.tree');
+
             Route::prefix('profile')->group(function () {
                 Route::get('/', 'ProfileController@index')->name('admin.profile.index');
                 Route::put('/', 'ProfileController@update')->name('admin.profile.update');
@@ -143,6 +147,9 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/users/{user}/permissions/{permission}/edit', 'UserPermissionController@edit')->name('admin.users.permissions.edit');
             Route::put('/users/{user}/permissions/{permission}', 'UserPermissionController@update')->name('admin.users.permissions.update');
             Route::delete('/users/{user}/permissions/{permission}', 'UserPermissionController@destroy')->name('admin.users.permissions.destroy');
+
+            Route::get('/users/{user}/pages', 'UserPageController@index')->name('admin.users.pages.index');
+            Route::get('/users/{user}/pages/{page}', 'UserPageController@show')->name('admin.users.pages.show');
 
             Route::get('/users/{user}/contents', 'UserContentController@index')->name('admin.users.contents.index');
             Route::get('/users/{user}/contents/{content}', 'UserContentController@show')->name('admin.users.contents.show');
