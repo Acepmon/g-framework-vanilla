@@ -20,6 +20,8 @@ Route::middleware(['auth'])->group(function () {
             Route::get('dashboard', 'AdminController@dashboard')->name('admin.dashboard');
             Route::get('changelog', 'ChangelogController@index')->name('admin.changelog.index');
 
+            Route::get('/menus/tree', 'MenuController@tree')->name('admin.menus.tree');
+
             Route::prefix('profile')->group(function () {
                 Route::get('/', 'ProfileController@index')->name('admin.profile.index');
                 Route::put('/', 'ProfileController@update')->name('admin.profile.update');
@@ -119,6 +121,7 @@ Route::middleware(['auth'])->group(function () {
 
             Route::get('/users/{user}/pages', 'UserPageController@index')->name('admin.users.pages.index');
             Route::get('/users/{user}/pages/{page}', 'UserPageController@show')->name('admin.users.pages.show');
+
         });
     });
 

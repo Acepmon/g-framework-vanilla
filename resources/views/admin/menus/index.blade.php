@@ -54,115 +54,39 @@
 @endsection
 
 @section('content')
-@if (false)
-<!-- Table -->
-<div class="panel panel-flat">
-    <div class="panel-heading">
-        <h5 class="panel-title">Basic table</h5>
-        <div class="heading-elements">
-            <ul class="icons-list">
-                <li><a data-action="collapse"></a></li>
-                <li><a data-action="close"></a></li>
-            </ul>
-        </div>
-    </div>
-    <div class="panel-body">
-        <a href="{{ route('admin.menus.create') }}" class="btn btn-primary">Create menu<i class="icon-arrow-right14 position-right"></i></a>
-        @if (session('status'))
-            <div class="alert alert-success">
-                {{ session('status') }}
-            </div>
-        @endif
-    </div>
-
-    <div class="table-responsive">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Type</th>
-                    <th>Title</th>
-                    <th>Subtitle</th>
-                    <th>Link</th>
-                    <th>Icon</th>
-                    <th>Status</th>
-                    <th>Visibility</th>
-                    <th>Order</th>
-                    <th>Sublevel</th>
-                    <th>Parent ID</th>
-                    <th>Show</th>
-                    <th>Edit</th>
-                    <th>Delete</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($menus as $data)
-                <tr>
-                    <td>{{ $data->id}}</td>
-                    <td>{{ $data->type}}</td>
-                    <td>{{ $data->title}}</td>
-                    <td>{{ $data->subtitle}}</td>
-                    <td>{{ $data->link}}</td>
-                    <td>{{ $data->icon}}</td>
-                    <td>{{ $data->status}}</td>
-                    <td>{{ $data->visibility}}</td>
-                    <td>{{ $data->order}}</td>
-                    <td>{{ $data->sublevel}}</td>
-                    <td>
-                        @if (!empty($data->parent_id))
-                        <a href="{{ route('admin.menus.show', ['id' => $data->parent_id]) }}">{{ $data->parent->name }}</a>
-                        @endif
-                    </td>
-                    <td><a href='{{ route('admin.menus.show', ['id' => $data->id]) }}' type="btn btn-primary">Show</a> </td>
-                    <td><a href='{{ route('admin.menus.edit', ['id' => $data->id]) }}' type="btn btn-primary">Edit</a> </td>
-                    <td>
-                        <a href="#" data-toggle="modal" data-target="#modal_theme_danger" onclick="delete_confirm({{ $data->id }})"><i class="icon-trash"></i> Delete</a>
-                    </td>
-                </tr>
-                @endforeach
-            </tbody>
-        </table>
-    </div>
-</div>
-<!-- /table -->
-@endif
 
 <!-- Table tree -->
 <div class="panel panel-flat">
     <div class="panel-heading">
-        <h6 class="panel-title">Table tree</h6>
+        <h6 class="panel-title">Menus</h6>
         <div class="heading-elements">
             <ul class="icons-list">
-                <li><a data-action="collapse"></a></li>
-                <li><a data-action="reload"></a></li>
-                <li><a data-action="close"></a></li>
+                <!-- <li><a data-action="collapse"></a></li>
+                <li><a data-action="reload"></a></li> -->
+                <li><a href="{{ route('admin.menus.create') }}" class="btn btn-primary" style="color: #ffffff">Create menu<i class="icon-arrow-right14 position-right"></i></a></li>
             </ul>
         </div>
     </div>
 
-    <div class="panel-body">
-        The following example demonstrates rendered tree as a table (aka tree grid) and support keyboard navigation in a grid with embedded input controls. Table functionality is based on Fancytree's <code>table.js</code> extension. The tree table extension takes care of rendering the node into one of the columns. Other columns have to be rendered in the <code>renderColumns</code> event.
-    </div>
-
+    @if (session('status'))
+            <div class="alert alert-success">
+                {{ session('status') }}
+            </div>
+        @endif
     <div class="table-responsive">
         <table class="table table-bordered tree-table">
             <thead>
                 <tr>
                     <th style="width: 46px;"></th>
                     <th style="width: 80px;">#</th>
-                    <th>Items</th>
-                    <th style="width: 80px;">Key</th>
-                    <th style="width: 46px;">Like</th>
+                    <th>Title</th>
+                    <th style="width: 100px;">Link</th>
+                    <th style="width: 50px;">Status</th>
+                    <th style="width: 50px;">Visibility</th>
+                    <th style="width: 180px;">Actions</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
             </tbody>
         </table>
     </div>
@@ -204,6 +128,8 @@
     }
 
     $(document).ready(function () {
+
+
         //
         // Table tree
         //
@@ -217,21 +143,26 @@
                 checkboxColumnIdx: 0  // render the checkboxes into the 1st column
             },
             source: {
-                url: "/assets/demo_data/fancytree/fancytree.json"
-            },
+                url: "/admin/menus/tree"
+                
+            }, 
             lazyLoad: function(event, data) {
                 data.result = {url: "ajax-sub2.json"}
             },
             renderColumns: function(event, data) {
-                var node = data.node,
+                var node = data.node;
+
+                console.log(node);
+
                 $tdList = $(node.tr).find(">td");
 
                 // (index #0 is rendered by fancytree by adding the checkbox)
                 $tdList.eq(1).text(node.getIndexHier()).addClass("alignRight");
 
-                // (index #2 is rendered by fancytree)
-                $tdList.eq(3).text(node.key);
-                $tdList.eq(4).addClass('text-center').html("<input type='checkbox' class='styled' name='like' value='" + node.key + "'>");
+                $tdList.eq(3).addClass('text-left').html("<a href='" + node.data.link + "' style='display: block;max-width: 150px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden;'>" + node.data.link + "</a>");
+                $tdList.eq(4).addClass('text-left').html("<span class='label label-" + node.data.statusClass + "'>" + node.data.status + "</a>");
+                $tdList.eq(5).addClass('text-center').html("<span class='" + node.data.visibilityIcon + "'></a>");
+                $tdList.eq(6).addClass('text-center').html("<div class='btn-group'><a href='/admin/menus/" + node.data.id + "' class='btn btn-default'><span class='icon-file-empty2'></span></a> <a href='/admin/menus/" + node.data.id + "/edit' class='btn btn-default'><span class='icon-pencil'></span></a> <a href='#' data-toggle='modal' data-target='#modal_theme_danger' onclick='delete_confirm(" + node.data.id + ")' class='btn btn-default'><span class='icon-trash'></span></a></div>");
 
                 // Style checkboxes
                 $(".styled").uniform({radioClass: 'choice'});
