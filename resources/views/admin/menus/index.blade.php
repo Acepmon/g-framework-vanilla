@@ -9,8 +9,6 @@
 <script type="text/javascript" src="/assets/js/plugins/forms/styling/uniform.min.js"></script>
 <script type="text/javascript" src="/assets/js/plugins/trees/fancytree_all.min.js"></script>
 <script type="text/javascript" src="/assets/js/plugins/trees/fancytree_childcounter.js"></script>
-
-<script type="text/javascript" src="/assets/js/core/app.js"></script>
 @endsection
 
 @section('pageheader')
