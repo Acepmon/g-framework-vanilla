@@ -31,6 +31,15 @@ Route::middleware(['auth'])->group(function () {
                 Route::get('edit', 'ProfileController@edit')->name('admin.profile.edit');
             });
 
+            Route::prefix('configs')->group(function () {
+                Route::get('maintenance', 'ConfigController@maintenance')->name('admin.configs.maintenance');
+                Route::get('base', 'ConfigController@base')->name('admin.configs.base');
+                Route::get('system', 'ConfigController@system')->name('admin.configs.system');
+                Route::get('themes', 'ConfigController@themes')->name('admin.configs.themes');
+                Route::get('plugins', 'ConfigController@plugins')->name('admin.configs.plugins');
+                Route::get('security', 'ConfigController@security')->name('admin.configs.security');
+            });
+
             Route::resource('menus', 'MenuController')->names([
                 'index' => 'admin.menus.index',
                 'create' => 'admin.menus.create',
