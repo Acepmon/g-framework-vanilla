@@ -137,14 +137,11 @@ Route::middleware(['auth'])->group(function () {
             Route::put('/users/{user}/permissions/{permission}', 'UserPermissionController@update')->name('admin.users.permissions.update');
             Route::delete('/users/{user}/permissions/{permission}', 'UserPermissionController@destroy')->name('admin.users.permissions.destroy');
 
-<<<<<<< HEAD
             Route::get('/users/{user}/pages', 'UserPageController@index')->name('admin.users.pages.index');
             Route::get('/users/{user}/pages/{page}', 'UserPageController@show')->name('admin.users.pages.show');
 
-=======
             Route::get('/users/{user}/contents', 'UserContentController@index')->name('admin.users.contents.index');
             Route::get('/users/{user}/contents/{content}', 'UserContentController@show')->name('admin.users.contents.show');
->>>>>>> 999a6dbd9de931b4f3408520a7be97a65ee59830
         });
     });
 
