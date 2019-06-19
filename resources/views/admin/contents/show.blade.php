@@ -96,6 +96,26 @@
         </div>
         <!-- /horizotal form -->
 
+        <div class="panel panel-flat">
+            <div class="panel-heading">
+                <h6 class="panel-title text-semiold">Comments</h6>
+                <div class="heading-elements">
+                    <ul class="list-inline list-inline-separate heading-text text-muted">
+                        <li>{{ count($content->comments) }} comments</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="panel-body">
+                <ul class="media-list stack-media-on-mobile">
+                    @foreach($content->comments->where('parent_id', NULL) as $comment)
+                    <li class="media">
+                        @include('admin.comments.includes.comment', ['comment' => $comment])
+                    </li>
+                    @endforeach()
+                </ul>
+            </div>
+        </div>
     </div>
 </div>
 <!-- /grid -->

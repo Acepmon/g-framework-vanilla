@@ -38,4 +38,9 @@ class Content extends Model
     {
         return $this->hasMany('App\ContentMeta', 'content_id');
     }
+
+    public function comments()
+    {
+        return $this->morphMany('App\Comment', 'commentable');
+    }
 }

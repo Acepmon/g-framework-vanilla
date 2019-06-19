@@ -127,6 +127,12 @@ Route::middleware(['auth'])->group(function () {
             Route::put('/contents/{content}/metas/{meta}', 'ContentMetaController@update')->name('admin.contents.metas.update');
             Route::delete('/contents/{content}/metas/{meta}', 'ContentMetaController@destroy')->name('admin.contents.metas.destroy');
 
+            Route::get('/comments/{comment}/metas', 'CommentMetaController@index')->name('admin.comments.metas.index');
+            Route::get('/comments/{comment}/metas/create', 'CommentMetaController@create')->name('admin.comments.metas.create');
+            Route::post('/comments/{comment}/metas', 'CommentMetaController@store')->name('admin.comments.metas.store');
+            Route::get('/comments/{comment}/metas/{meta}/edit', 'CommentMetaController@edit')->name('admin.comments.metas.edit');
+            Route::put('/comments/{comment}/metas/{meta}', 'CommentMetaController@update')->name('admin.comments.metas.update');
+            Route::delete('/comments/{comment}/metas/{meta}', 'CommentMetaController@destroy')->name('admin.comments.metas.destroy');
 
             Route::get('/users/{user}/permissions', 'UserPermissionController@index')->name('admin.users.permissions.index');
             Route::get('/users/{user}/permissions/create', 'UserPermissionController@create')->name('admin.users.permissions.create');

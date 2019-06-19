@@ -46,7 +46,7 @@
 @section('content')
 
 <div class="text-right" style="padding-bottom: 5px">
-    <a href="{{ route('admin.contents.create') }}" class="btn btn-primary">Create Pages</a>
+    <a href="{{ route('admin.comments.create') }}" class="btn btn-primary">Create Pages</a>
 </div>
 
 <div class="panel panel-flat">
@@ -65,11 +65,21 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>                    
-                    <td>1</td>
-                    <td>key</td>
-                    <td>value</td>
-                </tr>
+                @foreach($comment->metas as $meta)
+                    <tr>
+                        <td>{{$meta->id}}</td>
+                        <td>{{$meta->key}}</td>
+                        <td>{{$meta->value}}</td>
+                        <td width="250px">
+                            <div class="btn-group">
+                                <form action="{{ route('admin.comments.metas.edit', ['comment' => $comment->id, 'meta' => $meta->id]) }}" method="GET" style="float: left; margin-right: 5px">
+                                    <button type="submit" class="btn btn-default">Edit</button>
+                                </form>
+                                <button data-toggle="modal" data-target="#modal_theme_danger" class="btn btn-default" onclick="delete_meta( {{$meta->id}} , {{$comment->id}})">Delete</button>
+                            </div>
+                        </td>
+                    </tr>
+                @endforeach
             </tbody>
         </table>
     </div>
@@ -85,7 +95,7 @@
             </div>
 
             <div class="modal-body">
-                <p>Are you sure you want to delete this content?</p>
+                <p>Are you sure you want to delete this comment?</p>
             </div>
 
             <div class="modal-footer">
@@ -105,8 +115,8 @@
 
 @section('script')
 <script>
-    window.delete_content = function(id) {
-        $("#delete_form").attr('action', '/admin/contents/'+id);
+    window.delete_comment = function(id) {
+        $("#delete_form").attr('action', '/admin/comments/'+id);
     }
 
     setTimeout(function(){ document.getElementById("timer").remove() }, 10000);

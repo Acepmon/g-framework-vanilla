@@ -1,8 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Comment;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class CommentController extends Controller
 {
@@ -14,7 +16,8 @@ class CommentController extends Controller
     public function index()
     {
         //
-        
+        $comments = Comment::all();
+        return view('admin.comments.index', ['comments' => $comments]);
     }
 
     /**
@@ -25,6 +28,7 @@ class CommentController extends Controller
     public function create()
     {
         //
+        return view('admin.comments.create');
     }
 
     /**
@@ -36,6 +40,39 @@ class CommentController extends Controller
     public function store(Request $request)
     {
         //
+        $request->validate([
+            'parent_id' => 'nullable|integer|exists:comments,id',
+            'content' => 'required',
+            'type' => 'required|max:50',
+            'author_id' => 'required|integer|exists:users,id',
+            'author_ip' => 'required|max:50',
+            'author_name' => 'required|max:100',
+            'author_email' => 'required|max:191',
+            'author_avatar' => 'required|max:255',
+            'author_user_agent' => 'required|max:255',
+            'commentable_id' => 'required|integer',
+            'commentable_type' => 'required|max:191'
+        ]);
+
+        try {
+            $comment = new Comment();
+            $comment->parent_id = $request->parent_id;
+            $comment->content = $request->content;
+            $comment->type = $request->type;
+            $comment->author_id = $request->author_id;
+            $comment->author_ip = $request->author_ip;
+            $comment->author_name = $request->author_name;
+            $comment->author_email = $request->author_email;
+            $comment->author_avatar = $request->author_avatar;
+            $comment->author_user_agent = $request->author_user_agent;
+            $comment->commentable_id = $request->commentable_id;
+            $comment->commentable_type = $request->commentable_type;
+            $comment->save();
+
+            return redirect()->route('admin.comments.index');
+        } catch (\Exception $e) {
+            return redirect()->route('admin.comments.create')->with('error', $e->getMessage());
+        }
     }
 
     /**
@@ -47,6 +84,8 @@ class CommentController extends Controller
     public function show($id)
     {
         //
+        $comment = Comment::findOrFail($id);
+        return view('admin.comments.show', ['comment' => $comment]);
     }
 
     /**
@@ -81,5 +120,8 @@ class CommentController extends Controller
     public function destroy($id)
     {
         //
+        Comment::destroy($id);
+        // return redirect()->route('admin.comments.index');
+        return redirect()->back();
     }
 }
