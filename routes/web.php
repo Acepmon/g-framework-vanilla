@@ -20,6 +20,8 @@ Route::middleware(['auth'])->group(function () {
             Route::get('dashboard', 'AdminController@dashboard')->name('admin.dashboard');
             Route::get('changelog', 'ChangelogController@index')->name('admin.changelog.index');
 
+            Route::get('install','PluginController@installPlugin')->name('admin.plugins.install');
+
             Route::get('/menus/tree', 'MenuController@tree')->name('admin.menus.tree');
 
             Route::prefix('profile')->group(function () {
