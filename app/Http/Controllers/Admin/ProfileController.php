@@ -93,11 +93,11 @@ class ProfileController extends Controller
         }
     }
 
-    public function pages()
+    public function contents()
     {
         $user = Auth::user();
 
-        return view('admin.profile.pages.index', ['user' => $user]);
+        return view('admin.profile.contents.index', ['user' => $user]);
     }
 
     public function permissions()

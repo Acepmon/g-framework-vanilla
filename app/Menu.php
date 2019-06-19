@@ -36,4 +36,24 @@ class Menu extends Model
     {
         return $this->hasOne('App\Menu', 'id', 'parent_id');
     }
+
+    public function statusClass()
+    {
+        switch ($this->status) {
+            case self::STATUS_DRAFT: return 'default';
+            case self::STATUS_PUBLISH: return 'success';
+            default: return 'default';
+        }
+    }
+
+    public function visibilityIcon()
+    {
+        switch ($this->visibility) {
+            case self::VISIBILITY_PUBLIC: return 'icon-eye';
+            case self::VISIBILITY_PRIVATE: return 'icon-eye-blocked';
+            case self::VISIBILITY_AUTH: return 'icon-lock4';
+            default: return 'icon-eye';
+        }
+    }
+    
 }
