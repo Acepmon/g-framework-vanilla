@@ -46,24 +46,17 @@
 @endsection
 
 @section('content')
-<div class="panel panel-flat">
-    <div class="panel-heading">
-        <h1 class="panel-title">Base configurations list</h1>
-    </div>
+    @foreach ($configs as $config => $arr)
+    <div class="panel panel-flat">
+        <div class="panel-heading">
+            <h6 class="panel-title text-capitalize">{{$config}} Configuration</h6>
+        </div>
 
-    <div class="panel-body">
-
-    </div>
-
-    <table class="table">
-        @foreach ($configs as $config => $arr)
-            <tr>
-                <th colspan="2" class="active text-capitalize text-primary">{{$config}} Configuration</th>
-            </tr>
+        <table class="table table-condensed">
             @include('admin.configs.includes.tableRow', ['arr' => $arr, 'level' => 1])
-        @endforeach
-    </table>
-</div>
+        </table>
+    </div>
+    @endforeach
 @endsection
 
 @section('script')
