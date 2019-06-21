@@ -46,9 +46,10 @@ class MenuController extends Controller
         return $output;
     }
 
-    public function tree()
+    public function tree(Request $request)
     {
-        $output = $this->subtree(NULL);
+        $parent_id = $request->input('parent_id', null);
+        $output = $this->subtree($parent_id);
         return response()->json($output);
     }
 
@@ -73,7 +74,7 @@ class MenuController extends Controller
 
     {
         $request->validate([
-            'type' => 'required|in:admin,car,tour,default',
+            'type' => 'required',
             'title' => 'required|max:191',
             'subtitle' => 'nullable|max:255',
             'link' => 'nullable|max:255',
@@ -109,7 +110,7 @@ class MenuController extends Controller
      */
     public function show($id)
     {
-        $menu = Menu::find($id);
+        $menu = Menu::findOrFail($id);
         return view('admin.menus.show', ['menu' => $menu]);
     }
 

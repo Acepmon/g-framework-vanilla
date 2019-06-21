@@ -33,8 +33,7 @@
 
 <!-- Grid -->
 <div class="row">
-    <div class="col-md-12">
-
+    <div class="col-md-6">
         <!-- Horizontal form -->
         <div class="panel panel-flat">
             <div class="panel-heading">
@@ -60,19 +59,22 @@
                     <div class="form-group">
                         <label class="control-label col-lg-2">Type</label>
                         <div class="col-lg-10">
-                            <select class="selectbox" name="type" type="text" id="type" value="{{ $menu->type }}" required autofocus>
-                                <option value="admin">admin</option>
-                                <option value="car">car</option>
-                                <option value="tour">tour</option>
-                                <option value="default">default</option>
+                            <select id="type" name="type" type="text" value="{{ $menu->type }}" required class="selectbox">
+                                @foreach(App\Menu::TYPE_ARRAY as $value)
+                                <option value="{{ $value }}">{{ $value }}</option>
+                                @endforeach
                             </select>
-                        </div>
+                            @error('type')
+                            <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                            @enderror
                     </div>
 
                     <div class="form-group">
                         <label class="control-label col-lg-2">Title</label>
                         <div class="col-lg-10">
-                            <input id="title" type="text" class="form-control @error('title') is-invalid @enderror" name="title" placeholder="Menu title" value="{{ $menu->title }}" required autocomplete="title" autofocus>
+                            <input id="title" type="text" class="form-control @error('title') is-invalid @enderror" name="title" placeholder="Menu title" value="{{ $menu->title }}" required autocomplete="title">
                             @error('title')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -120,7 +122,11 @@
                     <div class="form-group">
                         <label class="control-label col-lg-2">Status</label>
                         <div class="col-lg-10">
-                            <input id="status" type="text" class="form-control @error('status') is-invalid @enderror" name="status" placeholder="Menu status" value="{{ $menu->status }}" required autocomplete="status" autofocus>
+                            <select id="status" name="status" type="text" value="{{ $menu->status }}" required class="form-control">
+                                @foreach(App\Menu::STATUS_ARRAY as $value)
+                                <option value="{{ $value }}">{{ $value }}</option>
+                                @endforeach
+                            </select>
                             @error('status')
                             <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -132,7 +138,11 @@
                     <div class="form-group">
                         <label class="control-label col-lg-2">Visibility</label>
                         <div class="col-lg-10">
-                            <input id="visibility" type="text" class="form-control @error('visibility') is-invalid @enderror" name="visibility" placeholder="Menu visibility" value="{{ $menu->visibility }}" required autocomplete="visibility" autofocus>
+                            <select id="visibility" name="visibility" type="text" value="{{ $menu->visibility }}" required class="form-control">
+                                @foreach(App\Menu::VISIBILITY_ARRAY as $value)
+                                <option value="{{ $value }}">{{ $value }}</option>
+                                @endforeach
+                            </select>
                             @error('visibility')
                             <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -191,9 +201,35 @@
             </div>
         </div>
         <!-- /horizotal form -->
-
     </div>
-
+    </div>
+    <div class="col-md-6">
+        <div class="panel panel-flat">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Title</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <div style="display: none">{{$i=1}}</div>
+                        @foreach($menu->groups as $data)
+                        <tr>
+                            <td>{{ $data->id}}</td>
+                            <td>{{ $data->title}}</td>
+                            <td>{{ $data->description}}</td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+    
 </div>
 <!-- /grid -->
 

@@ -51,12 +51,16 @@
                     <div class="form-group">
                         <label class="control-label col-lg-2">Type</label>
                         <div class="col-lg-10">
-                            <select class="selectbox" name="type" type="text" id="type" value="{{ old('type') }}" required>
-                                <option value="admin">admin</option>
-                                <option value="car">car</option>
-                                <option value="tour">tour</option>
-                                <option value="default">default</option>
+                            <select class="selectbox" id="type" name="type" type="text" value="{{ old('type') }}" required>
+                                @foreach(App\Menu::TYPE_ARRAY as $value)
+                                <option value="{{ $value }}">{{ $value }}</option>
+                                @endforeach
                             </select>
+                            @error('type')
+                            <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                            @enderror
                         </div>
                     </div>
 
@@ -109,9 +113,13 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="control-label col-lg-2">status</label>
+                        <label class="control-label col-lg-2">Status</label>
                         <div class="col-lg-10">
-                            <input id="status" type="text" class="form-control @error('status') is-invalid @enderror" name="status" placeholder="Menu status" value="{{ old('status') }}" required autocomplete="status">
+                            <select id="status" name="status" type="text" value="{{ old('status') }}" required class="form-control">
+                                @foreach(App\Menu::STATUS_ARRAY as $value)
+                                <option value="{{ $value }}">{{ $value }}</option>
+                                @endforeach
+                            </select>
                             @error('status')
                             <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -121,9 +129,13 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="control-label col-lg-2">visibility</label>
+                        <label class="control-label col-lg-2">Visibility</label>
                         <div class="col-lg-10">
-                            <input id="visibility" type="text" class="form-control @error('visibility') is-invalid @enderror" name="visibility" placeholder="Menu visibility" value="{{ old('visibility') }}" required autocomplete="visibility">
+                            <select id="visibility" name="visibility" type="text" value="{{ old('visibility') }}" required class="form-control">
+                                @foreach(App\Menu::VISIBILITY_ARRAY as $value)
+                                <option value="{{ $value }}">{{ $value }}</option>
+                                @endforeach
+                            </select>
                             @error('visibility')
                             <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -133,7 +145,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="control-label col-lg-2">order</label>
+                        <label class="control-label col-lg-2">Order</label>
                         <div class="col-lg-10">
                             <input id="order" type="text" class="form-control @error('order') is-invalid @enderror" name="order" placeholder="Menu order" value="{{ old('order') }}" required autocomplete="order">
                             @error('order')
@@ -145,7 +157,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="control-label col-lg-2">sublevel</label>
+                        <label class="control-label col-lg-2">Sublevel</label>
                         <div class="col-lg-10">
                             <input id="sublevel" type="text" class="form-control @error('sublevel') is-invalid @enderror" name="sublevel" placeholder="Menu sublevel" value="{{ old('sublevel') }}" required autocomplete="sublevel">
                             @error('sublevel')
