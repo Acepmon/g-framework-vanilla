@@ -103,14 +103,14 @@ Route::middleware(['auth'])->group(function () {
                 'update' => 'admin.comments.update',
                 'destroy' => 'admin.comments.destroy'
             ]);
-            Route::resource('terms', 'TermController')->names([
-                'index' => 'admin.terms.index',
-                'create' => 'admin.terms.create',
-                'store' => 'admin.terms.store',
-                'show' => 'admin.terms.show',
-                'edit' => 'admin.terms.edit',
-                'update' => 'admin.terms.update',
-                'destroy' => 'admin.terms.destroy'
+            Route::resource('taxonomy', 'TaxonomyController')->names([
+                'index' => 'admin.taxonomy.index',
+                'create' => 'admin.taxonomy.create',
+                'store' => 'admin.taxonomy.store',
+                'show' => 'admin.taxonomy.show',
+                'edit' => 'admin.taxonomy.edit',
+                'update' => 'admin.taxonomy.update',
+                'destroy' => 'admin.taxonomy.destroy'
             ]);
 
             Route::get('/users/{user}/settings', 'UserSettingController@index')->name('admin.users.settings.index');
@@ -133,6 +133,13 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/comments/{comment}/metas/{meta}/edit', 'CommentMetaController@edit')->name('admin.comments.metas.edit');
             Route::put('/comments/{comment}/metas/{meta}', 'CommentMetaController@update')->name('admin.comments.metas.update');
             Route::delete('/comments/{comment}/metas/{meta}', 'CommentMetaController@destroy')->name('admin.comments.metas.destroy');
+
+            Route::get('/taxonomy/{taxonomy}/metas', 'TermMetaController@index')->name('admin.taxonomy.metas.index');
+            Route::get('/taxonomy/{taxonomy}/metas/create', 'TermMetaController@create')->name('admin.taxonomy.metas.create');
+            Route::post('/taxonomy/{taxonomy}/metas', 'TermMetaController@store')->name('admin.taxonomy.metas.store');
+            Route::get('/taxonomy/{taxonomy}/metas/{meta}/edit', 'TermMetaController@edit')->name('admin.taxonomy.metas.edit');
+            Route::put('/taxonomy/{taxonomy}/metas/{meta}', 'TermMetaController@update')->name('admin.taxonomy.metas.update');
+            Route::delete('/taxonomy/{taxonomy}/metas/{meta}', 'TermMetaController@destroy')->name('admin.taxonomy.metas.destroy');
 
             Route::get('/users/{user}/permissions', 'UserPermissionController@index')->name('admin.users.permissions.index');
             Route::get('/users/{user}/permissions/create', 'UserPermissionController@create')->name('admin.users.permissions.create');

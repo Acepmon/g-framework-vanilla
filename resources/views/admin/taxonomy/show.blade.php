@@ -6,7 +6,7 @@
 @section('pageheader')
 <div class="page-header-content">
     <div class="page-title">
-        <h4><i class="icon-arrow-left52 position-left"></i> <span class="text-semibold">{{ ucfirst(Session::get('type')) }} Detail</span></h4>
+        <h4><i class="icon-arrow-left52 position-left"></i> <span class="text-semibold">{{ ucfirst(Session::get('taxonomy')) }} Detail</span></h4>
     </div>
 
     <div class="heading-elements">
@@ -17,7 +17,7 @@
 <div class="breadcrumb-line">
     <ul class="breadcrumb">
         <li><a href="index.html"><i class="icon-home2 position-left"></i> Home</a></li>
-        <li><a href="{{ route('admin.contents.index') }}">{{ ucfirst(Session::get('type')) }}s</a></li>
+        <li><a href="{{ route('admin.taxonomy.index') }}">{{ ucfirst(Session::get('taxonomy')) }} List</a></li>
         <li class="active">Detail</li>
     </ul>
 
@@ -53,74 +53,48 @@
         <div class="panel panel-flat">
             <div class="panel-body">
                 <div class="form-group">
-                    <label class="control-label col-lg-2">Title</label>
+                    <label class="control-label col-lg-2">Name</label>
                     <div class="col-lg-10">
-                        <label class="control-label col-lg-2">{{$content->title}}</label>
+                        <label class="control-label col-lg-2">{{$term_taxonomy->term->name}}</label>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label class="control-label col-lg-2">Slug</label>
                     <div class="col-lg-10">
-                        <label class="control-label col-lg-2">{{$content->slug}}</label>
+                        <label class="control-label col-lg-2">{{$term_taxonomy->term->slug}}</label>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label col-lg-2">Type</label>
+                    <label class="control-label col-lg-2">Description</label>
                     <div class="col-lg-10">
-                        <label class="control-label col-lg-2">{{$content->type}}</label>
+                        <label class="control-label col-lg-2">{{ $term_taxonomy->description}}&nbsp;</label>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label col-lg-2">Status</label>
+                    <label class="control-label col-lg-2">Parent</label>
                     <div class="col-lg-10">
-                        <label class="control-label col-lg-2">{{$content->status}}</label>
+                        <label class="control-label col-lg-2">{{$term_taxonomy->parent_id}}&nbsp;</label>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label col-lg-2">Visibility</label>
+                    <label class="control-label col-lg-2">Count</label>
                     <div class="col-lg-10">
-                        <label class="control-label col-lg-2">{{$content->visibility}}</label>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-lg-2">Author id</label>
-                    <div class="col-lg-10">
-                        <label class="control-label col-lg-2">{{$content->author_id}}</label>
+                        <label class="control-label col-lg-2">{{$term_taxonomy->count}}</label>
                     </div>
                 </div>
                 <div class="text-right" style="padding-bottom: 5px">
-                    <a href="{{ route('admin.contents.index') }}" class="btn btn-default">Back</a>
-                    <a href="{{ route('admin.contents.edit', ['id' => $content->id]) }}" class="btn btn-default">Edit</a>
+                    <a href="{{ route('admin.taxonomy.index') }}" class="btn btn-default">Back</a>
+                    <a href="{{ route('admin.taxonomy.edit', ['id' => $term_taxonomy->id]) }}" class="btn btn-default">Edit</a>
                 </div>
             </div>
         </div>
         <!-- /horizotal form -->
-
-        <div class="panel panel-flat">
-            <div class="panel-heading">
-                <h6 class="panel-title text-semiold">Comments</h6>
-                <div class="heading-elements">
-                    <ul class="list-inline list-inline-separate heading-text text-muted">
-                        <li>{{ count($content->comments) }} comments</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="panel-body">
-                <ul class="media-list stack-media-on-mobile">
-                    @foreach($content->comments->where('parent_id', NULL) as $comment)
-                    <li class="media">
-                        @include('admin.comments.includes.comment', ['comment' => $comment])
-                    </li>
-                    @endforeach()
-                </ul>
-            </div>
-        </div>
     </div>
+    
     <div class="col-sm-5">
         <div class="text-right" style="padding-bottom: 5px">
-            <a href="{{ route('admin.contents.metas.create', ['id' => $content->id]) }}" class="btn btn-primary">Create Content Metas</a>
+            <a href="{{ route('admin.taxonomy.metas.create', ['id' => $term_taxonomy->id]) }}" class="btn btn-primary">Create {{ ucfirst(Session::get('taxonomy')) }} Metas</a>
         </div>
         <div class="panel panel-flat">
             <div class="table-responsive">
@@ -134,17 +108,17 @@
                         </tr>
                     </thead>
                     <tbody>
-                    @foreach($content->metas as $meta)
+                    @foreach($term_taxonomy->term->metas as $meta)
                         <tr>
                             <td>{{$meta->id}}</td>
                             <td>{{$meta->key}}</td>
                             <td>{{$meta->value}}</td>
                             <td width="250px">
                                 <div class="btn-group">
-                                    <form action="{{ route('admin.contents.metas.edit', ['content' => $content->id, 'meta' => $meta->id]) }}" method="GET" style="float: left; margin-right: 5px">
+                                    <form action="{{ route('admin.taxonomy.metas.edit', ['taxonomy' => $term_taxonomy->id, 'meta' => $meta->id]) }}" method="GET" style="float: left; margin-right: 5px">
                                         <button type="submit" class="btn btn-default">Edit</button>
                                     </form>
-                                    <button data-toggle="modal" data-target="#modal_theme_danger" class="btn btn-default" onclick="delete_meta( {{$meta->id}} , {{$content->id}})">Delete</button>
+                                    <button data-toggle="modal" data-target="#modal_theme_danger" class="btn btn-default" onclick="delete_meta( {{$meta->id}} , {{$term_taxonomy->id}})">Delete</button>
                                 </div>
                             </td>
                         </tr>
@@ -154,17 +128,43 @@
             </div>
         </div>
     </div>
+
 </div>
 <!-- /grid -->
 
+<!-- Danger modal -->
+<div id="modal_theme_danger" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-danger">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h6 class="modal-title">Delete?</h6>
+            </div>
+
+            <div class="modal-body">
+                <p>Are you sure you want to delete this {{ Session::get('taxonomy') }} meta?</p>
+            </div>
+
+            <div class="modal-footer">
+                <form method="POST" id="delete_form">
+                    {{ method_field('DELETE') }}
+                    {{ csrf_field() }}
+                    
+                    <button type="button" class="btn btn-link" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 
 @endsection
 
 @section('script')
 
 <script>
-    window.delete_meta = function(id, contentId) {
-        $("#delete_form").attr('action', '/admin/contents/' + contentId + '/metas/'+id);
+    window.delete_meta = function(id, taxonomyId) {
+        $("#delete_form").attr('action', '/admin/taxonomy/' + taxonomyId + '/metas/'+id);
     }
 </script>
 @endsection

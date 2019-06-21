@@ -17,7 +17,7 @@ class CreateTermsTable extends Migration
             $table->bigIncrements('id');
             $table->string('name', 191);
             $table->string('slug', 191);
-            $table->unsignedBigInteger('group_id');
+            $table->unsignedBigInteger('group_id')->nullable();
 
             $table->foreign('group_id')->references('id')->on('terms');
         });
