@@ -6,19 +6,17 @@
 @section('pageheader')
 <div class="page-header-content">
     <div class="page-title">
-        <h4><i class="icon-arrow-left52 position-left"></i> <span class="text-semibold">Starters</span> - 2 Columns</h4>
+        <h4><i class="icon-arrow-left52 position-left"></i> <span class="text-semibold">Content Metas</span></h4>
     </div>
 
     <div class="heading-elements">
-        <a href="#" class="btn btn-labeled btn-labeled-right bg-blue heading-btn">Button <b><i class="icon-menu7"></i></b></a>
     </div>
 </div>
 
 <div class="breadcrumb-line">
     <ul class="breadcrumb">
         <li><a href="index.html"><i class="icon-home2 position-left"></i> Home</a></li>
-        <li><a href="2_col.html">Starters</a></li>
-        <li class="active">2 columns</li>
+        <li class="active">Content Metas</li>
     </ul>
 
     <ul class="breadcrumb-elements">
@@ -46,7 +44,7 @@
 @section('content')
 
 <div class="text-right" style="padding-bottom: 5px">
-    <a href="{{ route('admin.pages.create') }}" class="btn btn-primary">Create Pages</a>
+    <a href="{{ route('admin.contents.create') }}" class="btn btn-primary">Create Pages</a>
 </div>
 
 <div class="panel panel-flat">
@@ -85,7 +83,7 @@
             </div>
 
             <div class="modal-body">
-                <p>Are you sure you want to delete this page?</p>
+                <p>Are you sure you want to delete this content?</p>
             </div>
 
             <div class="modal-footer">
@@ -105,8 +103,8 @@
 
 @section('script')
 <script>
-    window.delete_page = function(id) {
-        $("#delete_form").attr('action', '/admin/pages/'+id);
+    window.delete_content = function(id) {
+        $("#delete_form").attr('action', '/admin/contents/'+id);
     }
 
     setTimeout(function(){ document.getElementById("timer").remove() }, 10000);

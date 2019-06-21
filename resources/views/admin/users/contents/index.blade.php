@@ -79,7 +79,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($user->contents as $content)
+                                @foreach($user->contents->where('type', Session::get('type')) as $content)
                                 <tr>
                                     <td>{{ $content->id }}</td>
                                     <td>{{ $content->title }}</td>

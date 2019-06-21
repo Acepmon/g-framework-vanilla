@@ -6,19 +6,18 @@
 @section('pageheader')
 <div class="page-header-content">
     <div class="page-title">
-        <h4><i class="icon-arrow-left52 position-left"></i> <span class="text-semibold">Starters</span> - 2 Columns</h4>
+        <h4><i class="icon-arrow-left52 position-left"></i> <span class="text-semibold">{{ ucfirst(Request::get('type')) }}s</span></h4>
     </div>
 
     <div class="heading-elements">
-        <a href="#" class="btn btn-labeled btn-labeled-right bg-blue heading-btn">Button <b><i class="icon-menu7"></i></b></a>
+        <a href="{{ route('admin.contents.create', ['type' => Request::get('type')]) }}" class="btn btn-primary">Create New {{ ucfirst(Request::get('type')) }}</a>
     </div>
 </div>
 
 <div class="breadcrumb-line">
     <ul class="breadcrumb">
         <li><a href="index.html"><i class="icon-home2 position-left"></i> Home</a></li>
-        <li><a href="2_col.html">Starters</a></li>
-        <li class="active">2 columns</li>
+        <li class="active">{{ ucfirst(Request::get('type')) }}s</li>
     </ul>
 
     <ul class="breadcrumb-elements">
@@ -44,10 +43,6 @@
 @endsection
 
 @section('content')
-
-<div class="text-right" style="padding-bottom: 5px">
-    <a href="{{ route('admin.contents.create') }}" class="btn btn-primary">Create Contents</a>
-</div>
 
 <div class="panel panel-flat">
     @if (session('status'))
@@ -128,7 +123,7 @@
 @section('script')
 <script>
     window.delete_content = function(id) {
-        $("#delete_form").attr('action', '/admin/contents/'+id);
+        $("#delete_form").attr('action', '/admin/contents/'+id+'?type={{ Request::get('type') }}');
     }
 
     setTimeout(function(){ document.getElementById("timer").remove() }, 10000);

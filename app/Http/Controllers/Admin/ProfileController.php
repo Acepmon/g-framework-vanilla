@@ -6,6 +6,7 @@ use Auth;
 use App\Group;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Input;
 use Illuminate\Validation\Rule;
 
 class ProfileController extends Controller
@@ -96,6 +97,11 @@ class ProfileController extends Controller
     public function contents()
     {
         $user = Auth::user();
+        $type = Input::get('type', '');
+        if ($type == '') {
+            $type = session('type');
+        }
+        session(['type' => $type]);
 
         return view('admin.profile.contents.index', ['user' => $user]);
     }
