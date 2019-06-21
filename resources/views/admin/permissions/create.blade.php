@@ -14,8 +14,6 @@
     </div>
 
     <div class="heading-elements">
-        <a href="#" class="btn btn-labeled btn-labeled-right bg-blue heading-btn">Button <b><i
-                    class="icon-menu7"></i></b></a>
     </div>
 </div>
 

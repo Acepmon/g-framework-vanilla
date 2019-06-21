@@ -11,8 +11,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        $this->call(ConfigsTableSeeder::class);
         $this->call(GroupsTableSeeder::class);
         $this->call(MenusTableSeeder::class);
         $this->call(AdminUsersSeeder::class);
+        $this->call(TermTaxonomyTableSeeder::class);
     }
 }

@@ -99,87 +99,15 @@
                         <div class="form-group">
                             <label class="control-label col-lg-2">Group ID <span class="text-danger">*</span></label>
                             <div class="col-lg-10">
-                                <input type="text" class="form-control" placeholder="Menu ID" name="parent_id">{{$group_menu->group_id}}</input>
+                                <input type="text" class="form-control" placeholder="Menu ID" name="parent_id">{{$group->group_id}}</input>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-lg-2">Menu ID</label>
                             <div class="col-lg-10">
-                                <input type="text" class="form-control" placeholder="Menu ID" name="parent_id">{{$group_menu->menu_id}}</input>
+                                <input type="text" class="form-control" placeholder="Menu ID" name="parent_id">{{$group->menu_id}}</input>
                             </div>
                         </div>
-                        <div class="text-right">
-                            <a href="javascript:history.back()" class="btn btn-default">Back</a>
-                            <button type="submit" class="btn btn-primary">Save</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-            <!-- /horizotal form -->
-
-        </div>
-    </div>
-    <div class="col-md-12">
-        <div class="col-md-6">
-
-            <!-- Horizontal form -->
-            <div class="panel panel-flat">
-                <div class="panel-body">
-                    <form class="form-horizontal" action="{{ route('admin.groups.update', ['id' => $group->id]) }}" method="POST">
-                        @method('PUT')
-                        @csrf
-                        <div class="form-group">
-                            <label class="control-label col-lg-2">Group ID <span class="text-danger">*</span></label>
-                            <div class="col-lg-10">
-                                <input type="text" class="form-control" name="Group" placeholder="Group ID" required="required" aria-required="true" invalid="true">{{$group_permission->group_id}}</input>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-lg-2">Permission ID</label>
-                            <div class="col-lg-10">
-                                <input type="text" class="form-control" placeholder="Permission ID" name="Permission ID">{{$group_permission->parent_id}}</input>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="control-label col-lg-2">Is Granted</label>
-                            <div class="col-lg-10">
-                                <input type="text" class="form-control" placeholder="Permission ID" name="Permission ID">{{$group_permission->is_granted}}</input>
-                            </div>
-                        </div>
-                        <div class="text-right">
-                            <a href="javascript:history.back()" class="btn btn-default">Back</a>
-                            <button type="submit" class="btn btn-primary">Save</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-            <!-- /horizotal form -->
-
-        </div>
-
-        <div class="col-md-6">
-
-            <!-- Horizontal form -->
-            <div class="panel panel-flat">
-                <div class="panel-body">
-                    <form class="form-horizontal" action="{{ route('admin.groups.update', ['id' => $group->id]) }}" method="POST">
-                        @method('PUT')
-                        @csrf
-                        <div class="form-group">
-                            <label class="control-label col-lg-2">User ID <span class="text-danger">*</span></label>
-                            <div class="col-lg-10">
-                                <input type="text" class="form-control" placeholder="GroupID" name="GroupID">{{$user_group->user_id}}</input>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="control-label col-lg-2">Group ID <span class="text-danger">*</span></label>
-                            <div class="col-lg-10">
-                                <input type="text" class="form-control" placeholder="GroupID" name="GroupID">{{$user_group->group_id}}</input>
-                            </div>
-                        </div>
-
                         <div class="text-right">
                             <a href="javascript:history.back()" class="btn btn-default">Back</a>
                             <button type="submit" class="btn btn-primary">Save</button>

@@ -23,10 +23,11 @@
                 <div class="panel no-border-top no-border-radius-top">
                     <ul class="navigation">
                         <li class="navigation-header">Navigation</li>
-                        <li><a href="{{ route('admin.users.show', ['id' => $user->id]) }}"><i class="icon-files-empty"></i> Profile</a></li>
-                        <li><a href="{{ route('admin.users.contents.index', ['id' => $user->id]) }}"><i class="icon-files-empty"></i> Contents</a></li>
-                        <li><a href="{{ route('admin.users.permissions.index', ['id' => $user->id]) }}"><i class="icon-files-empty"></i> Permissions</a></li>
-                        <li><a href="{{ route('admin.users.settings.index', ['id' => $user->id]) }}"><i class="icon-files-empty"></i> Settings</a></li>
+                        <li><a href="{{ route('admin.users.show', ['id' => $user->id]) }}"><i class="icon-user"></i> Profile</a></li>
+                        <li><a href="{{ route('admin.users.contents.index', ['id' => $user->id, 'type' => 'page']) }}"><i class="icon-files-empty2"></i> <span>Pages</span></a></li>
+                        <li><a href="{{ route('admin.users.contents.index', ['id' => $user->id, 'type' => 'post']) }}"><i class="icon-blog"></i> <span>Blog Posts</span></a></li>
+                        <li><a href="{{ route('admin.users.permissions.index', ['id' => $user->id]) }}"><i class="icon-key"></i> Permissions</a></li>
+                        <li><a href="{{ route('admin.users.settings.index', ['id' => $user->id]) }}"><i class="icon-gear"></i> Settings</a></li>
                     </ul>
                 </div>
             </div>

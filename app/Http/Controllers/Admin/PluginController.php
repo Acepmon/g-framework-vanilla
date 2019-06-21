@@ -136,11 +136,13 @@ class PluginController extends Controller
     {
         //ini_set('max_execution_time', 3000);
         $plugin = Plugin::findOrFail($request->id);
+        $plugin->status = Plugin::DOWNLOADING;
+        $plugin->save();
+
         $url = $plugin->repository;
         if(!Storage::disk('plugins')->has($plugin->title)){
            Storage::disk('plugins')->makeDirectory($plugin->title);
         }
-//        $pathZip= Storage::disk('plugins')->getDriver()->getAdapter()->getPathPrefix();
         $pluginsPath = "../plugins/";
         $pathZip = $pluginsPath . $plugin->title.".zip";
         echo $pathZip;
@@ -164,13 +166,16 @@ class PluginController extends Controller
         }
         curl_close($ch);
 
-        $this->extract($pathZip, $pluginsPath . $plugin->title);
+        $this->extract($pathZip, $pluginsPath . $plugin->title, $plugin->id);
     }
-    public function extract($path, $title)
+    public function extract($path, $title, $id)
     {
         ini_set('max_execution_time', 3000);
         //$Path = public_path('test.zip');
         \Zipper::make($path)->extractTo($title);
+        $plugin = Plugin::findOrFail($id);
+        $plugin->status = Plugin::DEACTIVATED;
+        $plugin->save();
     }
 
 }

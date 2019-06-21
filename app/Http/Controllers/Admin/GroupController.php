@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Group;
+use App\Menu;
 use App\GroupMenu;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -31,6 +32,36 @@ class GroupController extends Controller
     public function create()
     {
         return view('admin.groups.create');
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showMenuGroup($id)
+    {
+        $group = Group::findOrFail($id);
+        $menus = Menu::all();
+        return view('admin.groups.menus.create', ['group' => $group, 'menus' => $menus]);
+    }
+
+    public function createMenu($groupid, $menuid)
+    {
+        $group = Group::findOrFail($groupid);
+        $group->menus()->attach($menuid);
+
+
+        return back()->with('status', 'Menu added.');
+    }
+
+    public function removeMenu($groupid, $menuid)
+    {
+        $group = Group::findOrFail($groupid);
+        $group->menus()->detach($menuid);
+
+
+        return back()->with('status', 'Menu removed.');
     }
 
     /**

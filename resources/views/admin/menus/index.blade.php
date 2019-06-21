@@ -17,8 +17,7 @@
         <h4><i class="icon-arrow-left52 position-left"></i> <span class="text-semibold">Menu</span> Index Page</h4>
     </div>
 
-    <div class="heading-elements">
-        <a href="#" class="btn btn-labeled btn-labeled-right bg-blue heading-btn">Button <b><i class="icon-menu7"></i></b></a>
+    <div class="heading-elements"><a href="{{ route('admin.menus.create') }}" class="btn btn-primary" style="color: #ffffff">Create menu<i class="icon-arrow-right14 position-right"></i></a>
     </div>
 </div>
 
@@ -57,13 +56,6 @@
 <div class="panel panel-flat">
     <div class="panel-heading">
         <h6 class="panel-title">Menus</h6>
-        <div class="heading-elements">
-            <ul class="icons-list">
-                <!-- <li><a data-action="collapse"></a></li>
-                <li><a data-action="reload"></a></li> -->
-                <li><a href="{{ route('admin.menus.create') }}" class="btn btn-primary" style="color: #ffffff">Create menu<i class="icon-arrow-right14 position-right"></i></a></li>
-            </ul>
-        </div>
     </div>
 
     @if (session('status'))

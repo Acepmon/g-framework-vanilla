@@ -12,7 +12,7 @@
     </div>
 
     <div class="heading-elements">
-        <a href="#" class="btn btn-labeled btn-labeled-right bg-blue heading-btn">Button <b><i class="icon-menu7"></i></b></a>
+        <a href="{{ route('admin.users.create') }}" class="text-white btn btn-primary">Register New <i class="icon-add position-right"></i></a>
     </div>
 </div>
 
@@ -53,8 +53,6 @@
         <h5 class="panel-title">Users datatable</h5>
         <div class="heading-elements">
             <ul class="icons-list">
-                <li><a href="{{ route('admin.users.create') }}" class="text-white btn btn-primary">Register New <i class="icon-add position-right"></i></a></li>
-                <li> </li>
                 <li><a data-action="collapse"></a></li>
                 <li><a data-action="reload"></a></li>
                 <li><a data-action="close"></a></li>
