@@ -16,7 +16,7 @@ class Content extends Model
 
     const STATUS_DRAFT = 'draft';
     const STATUS_PUBLISHED = 'published';
-    const STATUS_PENDING = 'pending review';
+    const STATUS_PENDING = 'pending';
 
     const STATUS_ARRAY = [
         self::STATUS_DRAFT,

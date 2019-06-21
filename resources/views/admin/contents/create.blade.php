@@ -21,7 +21,7 @@
 <div class="breadcrumb-line">
     <ul class="breadcrumb">
         <li><a href="index.html"><i class="icon-home2 position-left"></i> Home</a></li>
-        <li><a href="{{ route('admin.contents.index') }}">{{ ucfirst(Request::get('type')) }}s</a></li>
+        <li><a href="{{ route('admin.contents.index', ['type' => Request::get('type')]) }}">{{ ucfirst(Request::get('type')) }}s</a></li>
         <li class="active">Create</li>
     </ul>
 

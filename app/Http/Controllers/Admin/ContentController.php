@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Artisan;
 use App\Content;
 use App\User;
 use Illuminate\Http\Request;
@@ -47,7 +48,7 @@ class ContentController extends Controller
     {
         $request->validate([
             'title' => 'required|max:191',
-            'slug' => 'required|max:255',
+            'slug' => 'required|max:255|unique:contents,slug',
             'content' => 'nullable',
             'status' => 'required|max:50',
             'visibility' => 'required|max:50',
@@ -69,8 +70,15 @@ class ContentController extends Controller
             $content->terms()->sync($request->input('tags'));
             $content->terms()->attach($request->input('category'));
 
+            // Create View
+            Artisan::call("make:view", [
+                'name' => 'admin.contents.' . $content->type . 's.' . $content->slug,
+                '--extension' => $content->status . '.blade.php',
+                '--extends' => 'layous.admin',
+                '--with-yields']);
+
             DB::commit();
-            return redirect()->route('admin.contents.index');
+            return redirect()->route('admin.contents.index', ['type' => $content->type]);
         } catch (\Exception $e) {
             DB::rollBack();
             return redirect()->route('admin.contents.create')->with('error', $e->getMessage());
@@ -142,7 +150,7 @@ class ContentController extends Controller
             $content->terms()->attach($request->input('category'));
 
             DB::commit();
-            return redirect()->route('admin.contents.index');
+            return redirect()->route('admin.contents.index', ['type' => $content->type]);
     } catch (\Exception $e) {
         DB::rollBack();
         return redirect()->route('admin.contents.create')->with('error', $e->getMessage());
