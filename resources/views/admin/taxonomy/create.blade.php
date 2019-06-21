@@ -6,7 +6,7 @@
 @section('pageheader')
 <div class="page-header-content">
     <div class="page-title">
-        <h4><i class="icon-arrow-left52 position-left"></i> <span class="text-semibold">Create {{ ucfirst(Session::get('taxonomy')) }}</h4>
+        <h4><i class="icon-arrow-left52 position-left"></i> <span class="text-semibold">Create {{ ucfirst(Request::get('taxonomy')) }}</h4>
     </div>
 
     <div class="heading-elements">
@@ -17,7 +17,7 @@
 <div class="breadcrumb-line">
     <ul class="breadcrumb">
         <li><a href="index.html"><i class="icon-home2 position-left"></i> Home</a></li>
-        <li><a href="{{ route('admin.taxonomy.index') }}">{{ ucfirst(Session::get('taxonomy')) }} List</a></li>
+        <li><a href="{{ route('admin.taxonomy.index', ['taxonomy' => Request::get('taxonomy')]) }}">{{ ucfirst(Request::get('taxonomy')) }} List</a></li>
         <li class="active">Create</li>
     </ul>
 
@@ -98,7 +98,7 @@
                         </div>
                     </div>
 
-                    @if(Session::get('taxonomy') != 'tag')
+                    @if(Request::get('taxonomy') != 'tag')
                     <div class="form-group">
                         <label class="control-label col-lg-2">Parent</label>
                         <div class="col-lg-10">

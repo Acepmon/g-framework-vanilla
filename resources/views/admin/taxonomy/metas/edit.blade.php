@@ -6,7 +6,7 @@
 @section('pageheader')
 <div class="page-header-content">
     <div class="page-title">
-        <h4><i class="icon-arrow-left52 position-left"></i> <span class="text-semibold">Edit {{ ucfirst(Session::get('taxonomy')) }} Meta Details</span></h4>
+        <h4><i class="icon-arrow-left52 position-left"></i> <span class="text-semibold">Edit {{ ucfirst($term_taxonomy->taxonomy) }} Meta Details</span></h4>
     </div>
 
     <div class="heading-elements">
@@ -17,7 +17,7 @@
 <div class="breadcrumb-line">
     <ul class="breadcrumb">
         <li><a href="index.html"><i class="icon-home2 position-left"></i> Home</a></li>
-        <li><a href="{{ route('admin.taxonomy.index') }}">{{ ucfirst(Session::get('taxonomy')) }} List</a></li>
+        <li><a href="{{ route('admin.taxonomy.index', ['taxonomy' => $term_taxonomy->taxonomy]) }}">{{ ucfirst($term_taxonomy->taxonomy) }} List</a></li>
         <li><a href="{{ route('admin.taxonomy.show', ['id' => $taxonomy->id]) }}">Detail</a></li>
         <li class="active">Edit Meta</li>
     </ul>

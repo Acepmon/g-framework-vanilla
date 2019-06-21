@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Validation\Rule;
 
 class ContentController extends Controller
@@ -19,11 +20,8 @@ class ContentController extends Controller
      */
     public function index()
     {
-        $type = Input::get('type', '');
-        if ($type == '') {
-            $type = session('type');
-        }
-        session(['type' => $type]);
+        $type = Input::get('type', 'post');
+        Session::flash('type', $type);
         $contents = Content::where('type', $type)->get();
         return view('admin.contents.index', ['contents' => $contents]);
     }

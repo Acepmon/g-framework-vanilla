@@ -6,7 +6,7 @@
 @section('pageheader')
 <div class="page-header-content">
     <div class="page-title">
-        <h4><i class="icon-arrow-left52 position-left"></i> <span class="text-semibold">{{ ucfirst(Session::get('type')) }}s</span></h4>
+        <h4><i class="icon-arrow-left52 position-left"></i> <span class="text-semibold">{{ ucfirst(Request::get('type')) }}s</span></h4>
     </div>
 
     <div class="heading-elements">
@@ -17,7 +17,7 @@
 <div class="breadcrumb-line">
     <ul class="breadcrumb">
         <li><a href="index.html"><i class="icon-home2 position-left"></i> Home</a></li>
-        <li class="active">{{ ucfirst(Session::get('type')) }}s</li>
+        <li class="active">{{ ucfirst(Request::get('type')) }}s</li>
     </ul>
 
     <ul class="breadcrumb-elements">
@@ -45,7 +45,7 @@
 @section('content')
 
 <div class="text-right" style="padding-bottom: 5px">
-    <a href="{{ route('admin.contents.create') }}" class="btn btn-primary">Create New {{ ucfirst(Session::get('type')) }}</a>
+    <a href="{{ route('admin.contents.create', ['type' => Request::get('type')]) }}" class="btn btn-primary">Create New {{ ucfirst(Request::get('type')) }}</a>
 </div>
 
 <div class="panel panel-flat">

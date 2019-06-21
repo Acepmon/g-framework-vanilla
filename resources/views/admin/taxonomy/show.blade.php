@@ -6,7 +6,7 @@
 @section('pageheader')
 <div class="page-header-content">
     <div class="page-title">
-        <h4><i class="icon-arrow-left52 position-left"></i> <span class="text-semibold">{{ ucfirst(Session::get('taxonomy')) }} Detail</span></h4>
+        <h4><i class="icon-arrow-left52 position-left"></i> <span class="text-semibold">{{ ucfirst($term_taxonomy->taxonomy) }} Detail</span></h4>
     </div>
 
     <div class="heading-elements">
@@ -17,7 +17,7 @@
 <div class="breadcrumb-line">
     <ul class="breadcrumb">
         <li><a href="index.html"><i class="icon-home2 position-left"></i> Home</a></li>
-        <li><a href="{{ route('admin.taxonomy.index') }}">{{ ucfirst(Session::get('taxonomy')) }} List</a></li>
+        <li><a href="{{ route('admin.taxonomy.index', ['taxonomy' => $term_taxonomy->taxonomy]) }}">{{ ucfirst($term_taxonomy->taxonomy) }} List</a></li>
         <li class="active">Detail</li>
     </ul>
 
@@ -84,7 +84,7 @@
                     </div>
                 </div>
                 <div class="text-right" style="padding-bottom: 5px">
-                    <a href="{{ route('admin.taxonomy.index') }}" class="btn btn-default">Back</a>
+                    <a href="{{ route('admin.taxonomy.index', ['taxonomy' => $term_taxonomy->taxonomy]) }}" class="btn btn-default">Back</a>
                     <a href="{{ route('admin.taxonomy.edit', ['id' => $term_taxonomy->id]) }}" class="btn btn-default">Edit</a>
                 </div>
             </div>
@@ -94,7 +94,7 @@
     
     <div class="col-sm-5">
         <div class="text-right" style="padding-bottom: 5px">
-            <a href="{{ route('admin.taxonomy.metas.create', ['id' => $term_taxonomy->id]) }}" class="btn btn-primary">Create {{ ucfirst(Session::get('taxonomy')) }} Metas</a>
+            <a href="{{ route('admin.taxonomy.metas.create', ['id' => $term_taxonomy->id, 'taxonomy_type' => $term_taxonomy->taxonomy ]) }}" class="btn btn-primary">Create {{ ucfirst($term_taxonomy->taxonomy) }} Metas</a>
         </div>
         <div class="panel panel-flat">
             <div class="table-responsive">
@@ -115,7 +115,7 @@
                             <td>{{$meta->value}}</td>
                             <td width="250px">
                                 <div class="btn-group">
-                                    <form action="{{ route('admin.taxonomy.metas.edit', ['taxonomy' => $term_taxonomy->id, 'meta' => $meta->id]) }}" method="GET" style="float: left; margin-right: 5px">
+                                    <form action="{{ route('admin.taxonomy.metas.edit', ['taxonomy' => $term_taxonomy->id, 'meta' => $meta->id, 'taxonomy_type' => $term_taxonomy->taxonomy]) }}" method="GET" style="float: left; margin-right: 5px">
                                         <button type="submit" class="btn btn-default">Edit</button>
                                     </form>
                                     <button data-toggle="modal" data-target="#modal_theme_danger" class="btn btn-default" onclick="delete_meta( {{$meta->id}} , {{$term_taxonomy->id}})">Delete</button>
@@ -142,7 +142,7 @@
             </div>
 
             <div class="modal-body">
-                <p>Are you sure you want to delete this {{ Session::get('taxonomy') }} meta?</p>
+                <p>Are you sure you want to delete this {{ $term_taxonomy->taxonomy }} meta?</p>
             </div>
 
             <div class="modal-footer">

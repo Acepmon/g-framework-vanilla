@@ -11,7 +11,7 @@
 @section('pageheader')
 <div class="page-header-content">
     <div class="page-title">
-        <h4><i class="icon-arrow-left52 position-left"></i> <span class="text-semibold">Create {{ ucfirst(Session::get('type')) }}</h4>
+        <h4><i class="icon-arrow-left52 position-left"></i> <span class="text-semibold">Create {{ ucfirst(Request::get('type')) }}</h4>
     </div>
 
     <div class="heading-elements">
@@ -22,7 +22,7 @@
 <div class="breadcrumb-line">
     <ul class="breadcrumb">
         <li><a href="index.html"><i class="icon-home2 position-left"></i> Home</a></li>
-        <li><a href="{{ route('admin.contents.index') }}">{{ ucfirst(Session::get('type')) }}s</a></li>
+        <li><a href="{{ route('admin.contents.index') }}">{{ ucfirst(Request::get('type')) }}s</a></li>
         <li class="active">Create</li>
     </ul>
 
@@ -96,7 +96,7 @@
                         <div class="col-lg-10">
                             <select id="type" name="type" required="required" class="form-control">
                                 @foreach(App\Content::TYPE_ARRAY as $value)
-                                <option value="{{ $value }}" {{ ($value === Session::get('type'))?'selected':'' }} >{{ $value }}</option>
+                                <option value="{{ $value }}" {{ ($value === Request::get('type'))?'selected':'' }} >{{ $value }}</option>
                                 @endforeach
                             </select>
                         </div>

@@ -20,10 +20,6 @@ class TaxonomyController extends Controller
     {
         //
         $taxonomy = Input::get('taxonomy', '');
-        if ($taxonomy == '') {
-            $taxonomy = session('taxonomy');
-        }
-        session(['taxonomy' => $taxonomy]);
         $term_taxonomies = TermTaxonomy::where('taxonomy', $taxonomy)->get();
         return view('admin.taxonomy.index', ['term_taxonomies' => $term_taxonomies]);
     }

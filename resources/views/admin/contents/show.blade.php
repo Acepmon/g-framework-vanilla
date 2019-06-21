@@ -17,7 +17,7 @@
 <div class="breadcrumb-line">
     <ul class="breadcrumb">
         <li><a href="index.html"><i class="icon-home2 position-left"></i> Home</a></li>
-        <li><a href="{{ route('admin.contents.index') }}">{{ ucfirst($content->type) }}s</a></li>
+        <li><a href="{{ route('admin.contents.index', ['type' => $content->type]) }}">{{ ucfirst($content->type) }}s</a></li>
         <li class="active">Detail</li>
     </ul>
 
@@ -110,7 +110,7 @@
                     </div>
                 </div>
                 <div class="text-right" style="padding-bottom: 5px">
-                    <a href="{{ route('admin.contents.index') }}" class="btn btn-default">Back</a>
+                    <a href="{{ route('admin.contents.index', ['type' => $content->type]) }}" class="btn btn-default">Back</a>
                     <a href="{{ route('admin.contents.edit', ['id' => $content->id]) }}" class="btn btn-default">Edit</a>
                 </div>
             </div>

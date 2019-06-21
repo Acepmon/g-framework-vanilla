@@ -141,7 +141,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="control-label col-lg-2">Parent ID <span class="text-danger">*</span></label>
+                        <label class="control-label col-lg-2">Parent ID</label>
                         <div class="col-lg-10">
                             <input type="text" class="form-control" name="parent_id" placeholder="Enter parent id..."  aria-required="true" invalid="true">
                         </div>
