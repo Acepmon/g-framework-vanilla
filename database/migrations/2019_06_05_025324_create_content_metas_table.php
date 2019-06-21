@@ -31,6 +31,6 @@ class CreateContentMetasTable extends Migration
     public function down()
     {
         Schema::dropIfExists('content_metas');
-        // Schema::dropIfExists('page_metas');
+        Schema::dropIfExists('page_metas');
     }
 }

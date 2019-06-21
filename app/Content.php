@@ -43,4 +43,9 @@ class Content extends Model
     {
         return $this->morphMany('App\Comment', 'commentable');
     }
+    
+    public function terms()
+    {
+        return $this->belongsToMany('App\TermTaxonomy', 'term_relationships');
+    }
 }

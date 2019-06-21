@@ -1,12 +1,17 @@
 @extends('layouts.admin')
 
 @section('load')
+<script type="text/javascript" src="/assets/js/plugins/forms/selects/bootstrap_multiselect.js"></script>
+<script type="text/javascript" src="/assets/js/plugins/forms/inputs/touchspin.min.js"></script>
+<script type="text/javascript" src="/assets/js/plugins/forms/selects/select2.min.js"></script>
+<script type="text/javascript" src="/assets/js/plugins/forms/styling/switch.min.js"></script>
+<script type="text/javascript" src="/assets/js/pages/form_validation.js"></script>
 @endsection
 
 @section('pageheader')
 <div class="page-header-content">
     <div class="page-title">
-        <h4><i class="icon-arrow-left52 position-left"></i> <span class="text-semibold">Edit {{ ucfirst(Session::get('type')) }} Detail</span></h4>
+        <h4><i class="icon-arrow-left52 position-left"></i> <span class="text-semibold">Edit {{ ucfirst($content->type) }} Detail</span></h4>
     </div>
 
     <div class="heading-elements">
@@ -17,7 +22,7 @@
 <div class="breadcrumb-line">
     <ul class="breadcrumb">
         <li><a href="index.html"><i class="icon-home2 position-left"></i> Home</a></li>
-        <li><a href="{{ route('admin.contents.index') }}">{{ ucfirst(Session::get('type')) }}s</a></li>
+        <li><a href="{{ route('admin.contents.index') }}">{{ ucfirst($content->type) }}s</a></li>
         <li><a href="{{ route('admin.contents.show', ['id' => $content->id]) }}">Detail</a></li>
         <li class="active">Edit</li>
     </ul>
@@ -118,6 +123,32 @@
                             <select name="author_id" type="text" id="author_id" class="form-control">
                                 @foreach($users as $user)
                                 <option {{$content->author_id == $user->id?'selected':''}} value="{{$user->id}}">{{$user->username}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-lg-2">Category</label>
+                        <div class="col-lg-10">
+                            <select name="category" type="text" class="form-control">
+                                @foreach(App\TermTaxonomy::where('taxonomy', 'category')->get() as $taxonomy)
+                                    <option value="{{$taxonomy->id}}" {{ count($content->terms->where('term_taxonomy_id', $taxonomy->id))>0?'selected':'' }}>{{$taxonomy->term->name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-lg-2">Tags</label>
+                        <div class="col-lg-10">
+                            <select name="tags[]" id="tags" data-placeholder="Select Tags..." multiple="multiple" class="select">
+                                @foreach(App\TermTaxonomy::where('taxonomy', 'tag')->get() as $tag)
+                                    @php $selected = False @endphp
+                                    @foreach($content->terms as $term)
+                                        @php $selected = ($selected || $term->id == $tag->id) @endphp
+                                    @endforeach
+                                    <option value="{{ $tag->id }}" {{ $selected?'selected':'' }}>{{ $tag->term->name }}</option>
                                 @endforeach
                             </select>
                         </div>

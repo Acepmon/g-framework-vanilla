@@ -21,6 +21,37 @@ class MenuController extends Controller
         return view('admin.menus.index', ['menus' => $menus]);
     }
 
+    public function subtree($id)
+    {
+        $output = [];
+        $menus = Menu::where('parent_id', $id)->orderBy('order', 'asc')->get();
+        foreach($menus as $key => $value)
+        {
+            $menu = (object)[];
+            $menu->id = $value["id"];
+            $menu->title = $value["title"];
+            $menu->type = $value["type"];
+            $menu->subtitle = $value["subtitle"];
+            $menu->link = $value["link"];
+            $menu->icon = $value["icon"];
+            $menu->status = $value["status"];
+            $menu->visibility = $value["visibility"];
+            $menu->statusClass = $value->statusClass();
+            $menu->visibilityIcon = $value->visibilityIcon();
+
+            $menu->children = $this->subtree($value["id"]);
+
+            $output[$key] = $menu;
+        }
+        return $output;
+    }
+
+    public function tree()
+    {
+        $output = $this->subtree(NULL);
+        return response()->json($output);
+    }
+
     /**
      * Show the form for creating a new resource.
      *

@@ -63,8 +63,8 @@
                     <th width="30%">Author</th>
                     <th width="30%">Content</th>
                     <th>Type</th>
-                    <th>Commentable</th>
-                    <th>Parent</th>
+                    <th>Comment Of</th>
+                    <th>Reply To</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -81,8 +81,12 @@
                     </td>
                     <td>{{$comment->content}}</td>
                     <td>{{$comment->type}}</td>
-                    <td>{{$comment->commentable_id}}</td>
-                    <td>{{$comment->parent_id}}</td>
+                    <td><a href="{{ route('admin.contents.show', ['id' => $comment->commentable->id, 'type' => $comment->commentable->type]) }}">{{$comment->commentable->title}}</a></td>
+                    <td>
+                        @if($comment->parent_id)
+                        <a href="{{ route('admin.comments.show', ['id' => $comment->parent_id]) }}">Comment {{$comment->parent_id}}
+                        @endif
+                    </td>
                     <td width="250px">
                         <div class="btn-group">
                             <a href="{{ route('admin.comments.show', ['id' => $comment->id]) }}" class="btn btn-default">Show</a>

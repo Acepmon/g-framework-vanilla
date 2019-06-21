@@ -6,7 +6,7 @@
 @section('pageheader')
 <div class="page-header-content">
     <div class="page-title">
-        <h4><i class="icon-arrow-left52 position-left"></i> <span class="text-semibold">{{ ucfirst(Session::get('type')) }} Detail</span></h4>
+        <h4><i class="icon-arrow-left52 position-left"></i> <span class="text-semibold">{{ ucfirst($content->type) }} Detail</span></h4>
     </div>
 
     <div class="heading-elements">
@@ -17,7 +17,7 @@
 <div class="breadcrumb-line">
     <ul class="breadcrumb">
         <li><a href="index.html"><i class="icon-home2 position-left"></i> Home</a></li>
-        <li><a href="{{ route('admin.contents.index') }}">{{ ucfirst(Session::get('type')) }}s</a></li>
+        <li><a href="{{ route('admin.contents.index') }}">{{ ucfirst($content->type) }}s</a></li>
         <li class="active">Detail</li>
     </ul>
 
@@ -87,6 +87,26 @@
                     <label class="control-label col-lg-2">Author id</label>
                     <div class="col-lg-10">
                         <label class="control-label col-lg-2">{{$content->author_id}}</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-lg-2">Cateogry</label>
+                    <div class="col-lg-10">
+                        <label class="control-label col-lg-2">
+                            @foreach($content->terms->where('taxonomy', 'category') as $rel)
+                                {{ $rel->term->name }}, 
+                            @endforeach
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-lg-2">Tags</label>
+                    <div class="col-lg-10">
+                        <label class="control-label col-lg-2">
+                            @foreach($content->terms->where('taxonomy', 'tag') as $rel)
+                                {{ $rel->term->name }}, 
+                            @endforeach
+                        </label>
                     </div>
                 </div>
                 <div class="text-right" style="padding-bottom: 5px">

@@ -2,85 +2,41 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App;
 use App\Config;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class ConfigController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function maintenance()
     {
-        return view('admin.configs.index');
+        return view('admin.configs.maintenance');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function base()
     {
-        return view('admin.configs.create');
+        $configs = config()->all();
+        return view('admin.configs.base', ['configs' => $configs]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function system()
     {
-        //
+        return view('admin.configs.system');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Config  $config
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Config $config)
+    public function themes()
     {
-        return view('admin.configs.show');
+        return view('admin.configs.themes');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Config  $config
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Config $config)
+    public function plugins()
     {
-        return view('admin.configs.edit');
+        return view('admin.configs.plugins');
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Config  $config
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Config $config)
+    public function security()
     {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Config  $config
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Config $config)
-    {
-        //
+        return view('admin.configs.security');
     }
 }

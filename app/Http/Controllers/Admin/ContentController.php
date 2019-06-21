@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Content;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Validation\Rule;
@@ -54,17 +55,28 @@ class ContentController extends Controller
             'visibility' => 'required|max:50',
             'author_id' => 'required|integer|exists:users,id'
         ]);
-        $content = new Content();
 
-        $content->title = $request->title;
-        $content->slug = $request->slug;
-        $content->type = $request->type;
-        $content->status = $request->status;
-        $content->visibility = $request->visibility;
-        $content->author_id = $request->author_id;
+        try {
+            DB::beginTransaction();
+            $content = new Content();
 
-        $content->save();
-        return redirect()->route('admin.contents.index');
+            $content->title = $request->title;
+            $content->slug = $request->slug;
+            $content->type = $request->type;
+            $content->status = $request->status;
+            $content->visibility = $request->visibility;
+            $content->author_id = $request->author_id;
+            $content->save();
+            
+            $content->terms()->sync($request->input('tags'));
+            $content->terms()->attach($request->input('category'));
+
+            DB::commit();
+            return redirect()->route('admin.contents.index');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->route('admin.contents.create')->with('error', $e->getMessage());
+        }
     }
 
     /**
@@ -75,8 +87,9 @@ class ContentController extends Controller
      */
     public function show($id)
     {
+        $type = Input::get('type', NULL);
         $content = Content::find($id);
-        return view('admin.contents.show', ['content' => $content]);
+        return view('admin.contents.show', ['content' => $content, 'type' => $type]);
     }
 
     /**
@@ -117,16 +130,25 @@ class ContentController extends Controller
             'author_id' => 'required|integer|exists:users,id'
         ]);
 
+        try {
+            DB::beginTransaction();
+            $content->title = $request->title;
+            $content->slug = $request->slug;
+            $content->type = $request->type;
+            $content->status = $request->status;
+            $content->visibility = $request->visibility;
+            $content->author_id = $request->author_id;
 
-        $content->title = $request->title;
-        $content->slug = $request->slug;
-        $content->type = $request->type;
-        $content->status = $request->status;
-        $content->visibility = $request->visibility;
-        $content->author_id = $request->author_id;
+            $content->save();
+            $content->terms()->sync($request->input('tags'));
+            $content->terms()->attach($request->input('category'));
 
-        $content->save();
-        return redirect()->route('admin.contents.index');
+            DB::commit();
+            return redirect()->route('admin.contents.index');
+    } catch (\Exception $e) {
+        DB::rollBack();
+        return redirect()->route('admin.contents.create')->with('error', $e->getMessage());
+    }
     }
 
     /**

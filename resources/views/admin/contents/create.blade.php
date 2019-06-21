@@ -1,6 +1,11 @@
 @extends('layouts.admin')
 
 @section('load')
+<script type="text/javascript" src="/assets/js/plugins/forms/selects/bootstrap_multiselect.js"></script>
+<script type="text/javascript" src="/assets/js/plugins/forms/inputs/touchspin.min.js"></script>
+<script type="text/javascript" src="/assets/js/plugins/forms/selects/select2.min.js"></script>
+<script type="text/javascript" src="/assets/js/plugins/forms/styling/switch.min.js"></script>
+<script type="text/javascript" src="/assets/js/pages/form_validation.js"></script>
 @endsection
 
 @section('pageheader')
@@ -54,6 +59,22 @@
             <div class="panel-body">
                 <form class="form-horizontal" action="{{ route('admin.contents.store') }}" method="POST">
                     @csrf
+
+                    @if(Session::has('error'))
+                    <div class="alert alert-danger no-border">
+                        <button type="button" class="close" data-dismiss="alert"><span>&times;</span><span class="sr-only">Close</span></button>
+                        {{ session('error') }}
+                    </div>
+                    @endif
+                    @if ($errors->any())
+                        @foreach ($errors->all() as $error)
+                        <div class="alert alert-danger no-border">
+                            <button type="button" class="close" data-dismiss="alert"><span>&times;</span><span class="sr-only">Close</span></button>
+                            {{ $error }}
+                        </div>
+                        @endforeach
+                    @endif
+
                     <div class="form-group">
                         <label class="control-label col-lg-2">Title <span class="text-danger">*</span></label>
                         <div class="col-lg-8">
@@ -109,6 +130,34 @@
                             <select name="author_id" type="text" id="author_id" class="form-control">
                                 @foreach($users as $user)
                                     <option value="{{$user->id}}">{{$user->username}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-lg-2">Category</label>
+                        <div class="col-lg-10">
+                            <select name="category" type="text" class="form-control">
+                                @foreach(App\TermTaxonomy::where('taxonomy', 'category')->get() as $taxonomy)
+                                    <option value="{{$taxonomy->id}}">{{$taxonomy->term->name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-lg-2">Tags</label>
+                        <div class="col-lg-10">
+                            <select name="tags[]" id="tags" data-placeholder="Select Tags..." multiple="multiple" class="select">
+                                @foreach(App\TermTaxonomy::where('taxonomy', 'tag')->get() as $tag)
+                                    @php $selected = False @endphp
+                                    @if(Request::old('tags'))
+                                        @foreach(Request::old('tags') as $tag_id)
+                                            @php $selected = ($selected || $tag_id == $tag->id) @endphp
+                                        @endforeach
+                                    @endif
+                                    <option value="{{ $tag->id }}" {{ $selected?'selected':'' }}>{{ $tag->term->name }}</option>
                                 @endforeach
                             </select>
                         </div>

@@ -16,4 +16,9 @@ class Comment extends Model
     {
         return $this->hasMany('App\CommentMeta', 'comment_id');
     }
+
+    public function commentable()
+    {
+        return $this->morphTo();
+    }
 }

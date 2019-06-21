@@ -19,6 +19,6 @@ class ConfigsTableSeeder extends Seeder
                 'value' => '',
                 'autoload' => false
             ]
-        ])
+        ]);
     }
 }
