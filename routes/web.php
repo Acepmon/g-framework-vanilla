@@ -80,6 +80,15 @@ Route::middleware(['auth'])->group(function () {
                 'update' => 'admin.plugins.update',
                 'destroy' => 'admin.plugins.destroy'
             ]);
+            Route::resource('backups', 'BackupsController')->names([
+                'index' => 'admin.backups.index',
+                'create' => 'admin.backups.create',
+                'store' => 'admin.backups.store',
+                'show' => 'admin.backups.show',
+                'edit' => 'admin.backups.edit',
+                'update' => 'admin.backups.update',
+                'destroy' => 'admin.backups.destroy'
+            ]);
             Route::resource('groups', 'GroupController')->names([
                 'index' => 'admin.groups.index',
                 'create' => 'admin.groups.create',
