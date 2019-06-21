@@ -36,8 +36,11 @@ Route::middleware(['auth'])->group(function () {
             });
 
             Route::prefix('configs')->group(function () {
+                Route::post('/', 'ConfigController@store')->name('admin.configs.store');
+                Route::get('create', 'ConfigController@create')->name('admin.configs.create');
                 Route::get('maintenance', 'ConfigController@maintenance')->name('admin.configs.maintenance');
                 Route::get('base', 'ConfigController@base')->name('admin.configs.base');
+                Route::put('base', 'ConfigController@updateBase')->name('admin.configs.base.update');
                 Route::get('system', 'ConfigController@system')->name('admin.configs.system');
                 Route::get('themes', 'ConfigController@themes')->name('admin.configs.themes');
                 Route::get('plugins', 'ConfigController@plugins')->name('admin.configs.plugins');
@@ -88,6 +91,20 @@ Route::middleware(['auth'])->group(function () {
                 'edit' => 'admin.groups.edit',
                 'update' => 'admin.groups.update',
                 'destroy' => 'admin.groups.destroy'
+            ]);
+
+            Route::get('/groups/{group}/menus/showMenuGroup', 'GroupController@showMenuGroup')->name('admin.groups.showMenuGroup');
+            Route::get('/groups/{group}/menus/createMenu/{menu}', 'GroupController@createMenu')->name('admin.groups.createMenu');
+            Route::get('/groups/{group}/menus/removeMenu/{menu}', 'GroupController@removeMenu')->name('admin.groups.removeMenu');
+
+            Route::resource('pages', 'PageController')->names([
+                'index' => 'admin.pages.index',
+                'create' => 'admin.pages.create',
+                'store' => 'admin.pages.store',
+                'show' => 'admin.pages.show',
+                'edit' => 'admin.pages.edit',
+                'update' => 'admin.pages.update',
+                'destroy' => 'admin.pages.destroy'
             ]);
             Route::resource('contents', 'ContentController')->names([
                 'index' => 'admin.contents.index',

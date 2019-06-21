@@ -3,63 +3,83 @@
 @section('title', 'Base Configuration')
 
 @section('load')
-
+<script type="text/javascript" src="/assets/js/plugins/editors/ace/ace.js"></script>
 @endsection
 
 @section('pageheader')
-<div class="page-header-content">
-    <div class="page-title">
-        <h4><i class="icon-arrow-left52 position-left"></i> <span class="text-semibold">Configurations</span> - Base Configuration</h4>
-    </div>
-
-    <div class="heading-elements">
-        <a href="#" class="btn btn-labeled btn-labeled-right bg-blue heading-btn">Button <b><i class="icon-menu7"></i></b></a>
-    </div>
-</div>
-
-<div class="breadcrumb-line">
-    <ul class="breadcrumb">
-        <li><a href="index.html"><i class="icon-home2 position-left"></i> Home</a></li>
-        <li><a href="2_col.html">Starters</a></li>
-        <li class="active">2 columns</li>
-    </ul>
-
-    <ul class="breadcrumb-elements">
-        <li><a href="#"><i class="icon-comment-discussion position-left"></i> Link</a></li>
-        <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                <i class="icon-gear position-left"></i>
-                Dropdown
-                <span class="caret"></span>
-            </a>
-
-            <ul class="dropdown-menu dropdown-menu-right">
-                <li><a href="#"><i class="icon-user-lock"></i> Account security</a></li>
-                <li><a href="#"><i class="icon-statistics"></i> Analytics</a></li>
-                <li><a href="#"><i class="icon-accessibility"></i> Accessibility</a></li>
-                <li class="divider"></li>
-                <li><a href="#"><i class="icon-gear"></i> All settings</a></li>
-            </ul>
-        </li>
-    </ul>
-</div>
+    @include('admin.configs.includes.pageheader')
 @endsection
 
 @section('content')
-    @foreach ($configs as $config => $arr)
-    <div class="panel panel-flat">
-        <div class="panel-heading">
-            <h6 class="panel-title text-capitalize">{{$config}} Configuration</h6>
-        </div>
+    <div class="row">
+        @foreach ($configs as $config)
+        <div class="col-md-12">
+            <div class="panel panel-flat">
+                <div class="panel-heading">
+                    <h5 class="panel-title">
+                        <span class="text-semibold">{{$config}}.php</span>
+                    </h5>
+                    <div class="heading-elements">
+                        <ul class="icons-list">
+                            <li><button type="button" data-target="{{$config}}" data-loading-text="<i class='icon-spinner4 spinner position-left'></i> Saving" class="btn btn-primary btn-sm btn-loading">Save Configuration</button></li>
+                        </ul>
+                    </div>
+                </div>
 
-        <table class="table table-condensed">
-            @include('admin.configs.includes.tableRow', ['arr' => $arr, 'level' => 1])
-        </table>
+                <div class="panel-body">
+                    <div class="content-group">
+                        <div id="{{$config}}_editor">
+                            {{ Storage::disk('config')->get($config . '.php') }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @endforeach
     </div>
-    @endforeach
 @endsection
 
 @section('script')
+<script>
+    $(document).ready(function () {
+        var str = '{!! json_encode($configs) !!}';
+        var list = JSON.parse(str);
+        var objects = {};
+        list.forEach(config => {
+            var php_editor = ace.edit(config + "_editor");
+                php_editor.setTheme("ace/theme/monokai");
+                php_editor.getSession().setMode("ace/mode/php");
+                php_editor.setShowPrintMargin(false);
+            objects[config] = php_editor;
+        });
 
+        // Buttons with progress/spinner
+        // ------------------------------
+
+        // Initialize on button click
+        $('.btn-loading').click(function () {
+            var btn = $(this);
+            var target = $(this).data("target");
+            var content = objects[target].getSession().getValue();
+            btn.button('loading');
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                url: '{{route("admin.configs.base.update")}}',
+                type: "PUT",
+                data: {
+                    config: target,
+                    content: content
+                },
+                success: function () {
+                    btn.button('reset');
+                }
+            });
+        });
+    });
+</script>
 @endsection
 
