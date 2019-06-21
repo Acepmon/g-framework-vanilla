@@ -36,8 +36,11 @@ Route::middleware(['auth'])->group(function () {
             });
 
             Route::prefix('configs')->group(function () {
+                Route::post('/', 'ConfigController@store')->name('admin.configs.store');
+                Route::get('create', 'ConfigController@create')->name('admin.configs.create');
                 Route::get('maintenance', 'ConfigController@maintenance')->name('admin.configs.maintenance');
                 Route::get('base', 'ConfigController@base')->name('admin.configs.base');
+                Route::put('base', 'ConfigController@updateBase')->name('admin.configs.base.update');
                 Route::get('system', 'ConfigController@system')->name('admin.configs.system');
                 Route::get('themes', 'ConfigController@themes')->name('admin.configs.themes');
                 Route::get('plugins', 'ConfigController@plugins')->name('admin.configs.plugins');
