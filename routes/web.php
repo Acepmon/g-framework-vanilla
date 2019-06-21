@@ -76,6 +76,11 @@ Route::middleware(['auth'])->group(function () {
                 'update' => 'admin.groups.update',
                 'destroy' => 'admin.groups.destroy'
             ]);
+
+            Route::get('/groups/{group}/menus/showMenuGroup', 'GroupController@showMenuGroup')->name('admin.groups.showMenuGroup');
+            Route::get('/groups/{group}/menus/createMenu/{menu}', 'GroupController@createMenu')->name('admin.groups.createMenu');
+            Route::get('/groups/{group}/menus/removeMenu/{menu}', 'GroupController@removeMenu')->name('admin.groups.removeMenu');
+
             Route::resource('pages', 'PageController')->names([
                 'index' => 'admin.pages.index',
                 'create' => 'admin.pages.create',
