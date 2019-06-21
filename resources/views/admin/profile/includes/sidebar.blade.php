@@ -24,7 +24,7 @@
                     <ul class="navigation">
                         <li class="navigation-header">Navigation</li>
                         <li><a href="{{ route('admin.profile.index') }}"><i class="icon-files-empty"></i> Profile</a></li>
-                        <li><a href="{{ route('admin.profile.pages.index') }}"><i class="icon-files-empty"></i> Pages</a></li>
+                        <li><a href="{{ route('admin.profile.contents.index') }}"><i class="icon-files-empty"></i> Contents</a></li>
                         <li><a href="{{ route('admin.profile.permissions.index') }}"><i class="icon-files-empty"></i> Permissions</a></li>
                         <li><a href="{{ route('admin.profile.settings.index') }}"><i class="icon-files-empty"></i> Settings</a></li>
                         @auth

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Plugin;
+use Illuminate\Support\Facades\Storage;
 //use App\User;
 use Illuminate\Support\Facades\Validator;
 //use phpDocumentor\Reflection\DocBlock\Tags\Uses;
@@ -120,8 +121,56 @@ class PluginController extends Controller
      */
     public function destroy($id)
     {
-        Plugin::destroy($id);
+        $plugin = Plugin::findOrFail($id);
+
+        $plugin->status = Plugin::FAILED;
+        $pluginsPath = "../plugins/";
+        Storage::disk('plugins')->deleteDirectory($plugin->title);
+
+        $plugin->save();
         return redirect()->route('admin.plugins.index');
         //
     }
+
+    public function installPlugin(Request $request)
+    {
+        //ini_set('max_execution_time', 3000);
+        $plugin = Plugin::findOrFail($request->id);
+        $url = $plugin->repository;
+        if(!Storage::disk('plugins')->has($plugin->title)){
+           Storage::disk('plugins')->makeDirectory($plugin->title);
+        }
+//        $pathZip= Storage::disk('plugins')->getDriver()->getAdapter()->getPathPrefix();
+        $pluginsPath = "../plugins/";
+        $pathZip = $pluginsPath . $plugin->title.".zip";
+        echo $pathZip;
+
+        $zipResource = fopen($pathZip, "w");
+        // Get The Zip File From Server
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_FAILONERROR, true);
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+        curl_setopt($ch, CURLOPT_AUTOREFERER, true);
+        curl_setopt($ch, CURLOPT_BINARYTRANSFER,true);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 100);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+        curl_setopt($ch, CURLOPT_FILE, $zipResource);
+        $page = curl_exec($ch);
+        if(!$page) {
+            echo "Error :- ".curl_error($ch);
+        }
+        curl_close($ch);
+
+        $this->extract($pathZip, $pluginsPath . $plugin->title);
+    }
+    public function extract($path, $title)
+    {
+        ini_set('max_execution_time', 3000);
+        //$Path = public_path('test.zip');
+        \Zipper::make($path)->extractTo($title);
+    }
+
 }

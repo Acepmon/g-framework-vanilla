@@ -24,7 +24,7 @@
                     <ul class="navigation">
                         <li class="navigation-header">Navigation</li>
                         <li><a href="{{ route('admin.users.show', ['id' => $user->id]) }}"><i class="icon-files-empty"></i> Profile</a></li>
-                        <li><a href="{{ route('admin.users.pages.index', ['id' => $user->id]) }}"><i class="icon-files-empty"></i> Pages</a></li>
+                        <li><a href="{{ route('admin.users.contents.index', ['id' => $user->id]) }}"><i class="icon-files-empty"></i> Contents</a></li>
                         <li><a href="{{ route('admin.users.permissions.index', ['id' => $user->id]) }}"><i class="icon-files-empty"></i> Permissions</a></li>
                         <li><a href="{{ route('admin.users.settings.index', ['id' => $user->id]) }}"><i class="icon-files-empty"></i> Settings</a></li>
                     </ul>
