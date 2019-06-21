@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title')
+@section('title', 'Plugin Configuration')
 
 @endsection
 
@@ -9,7 +9,7 @@
 @endsection
 
 @section('pageheader')
-
+    @include('admin.configs.includes.pageheader')
 @endsection
 
 @section('content')

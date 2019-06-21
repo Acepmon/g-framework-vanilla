@@ -109,8 +109,8 @@
                     <li><a href="/admin/comments"><i class="icon-comment"></i> <span>Comments</span></a></li>
                     <li><a href="/admin/media"><i class="icon-media"></i> <span>Media & Assets</span></a></li>
                     <li><a href="/admin/localization"><i class="icon-flag3"></i> <span>Localization</span></a></li>
-                    <li><a href="/admin/categories"><i class="icon-grid6"></i> <span>Categories</span></a></li>
-                    <li><a href="/admin/terms"><i class="icon-price-tag2"></i> <span>Tags</span></a></li>
+                    <li><a href="/admin/taxonomy?taxonomy=category"><i class="icon-grid6"></i> <span>Categories</span></a></li>
+                    <li><a href="/admin/taxonomy?taxonomy=tag"><i class="icon-price-tag2"></i> <span>Tags</span></a></li>
 
                 </ul>
             </div>

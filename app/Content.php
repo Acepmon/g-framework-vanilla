@@ -16,7 +16,7 @@ class Content extends Model
 
     const STATUS_DRAFT = 'draft';
     const STATUS_PUBLISHED = 'published';
-    const STATUS_PENDING = 'pending review';
+    const STATUS_PENDING = 'pending';
 
     const STATUS_ARRAY = [
         self::STATUS_DRAFT,
@@ -37,5 +37,15 @@ class Content extends Model
     public function metas()
     {
         return $this->hasMany('App\ContentMeta', 'content_id');
+    }
+
+    public function comments()
+    {
+        return $this->morphMany('App\Comment', 'commentable');
+    }
+    
+    public function terms()
+    {
+        return $this->belongsToMany('App\TermTaxonomy', 'term_relationships');
     }
 }

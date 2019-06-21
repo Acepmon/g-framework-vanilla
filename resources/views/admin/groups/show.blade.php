@@ -59,20 +59,12 @@
             <div class="panel-body">
                 <form class="form-horizontal" action="" method="POST">
                     <div class="form-group">
-                        <!-- <label class="control-label col-lg-2">Group name</label>
-                        <div class="col-lg-10">
-                            <label class="control-label">{{$group->title}}</label>
-                        </div> -->
                         <label class="control-label col-lg-2">Group name<span class="text-danger">*</span></label>
                         <div class="col-lg-10">
                             <input type="text" class="form-control" placeholder="Menu ID" name="parent_id" value="{{$group->title}}" disabled>
                         </div>
                     </div>
                     <div class="form-group">
-                        <!-- <label class="control-label col-lg-2">Parent ID</label>
-                        <div class="col-lg-10">
-                            <label class="control-label">{{$group->parent_id}}</label>
-                        </div> -->
                         <label class="control-label col-lg-2">Parent ID<span class="text-danger">*</span></label>
                         <div class="col-lg-10">
                             <input type="text" class="form-control" placeholder="Menu ID" name="parent_id" value="{{$group->parent_id}}" disabled>
@@ -113,7 +105,7 @@
             <div class="panel-heading">
                 <h1 class="panel-title">
                     Group menu list
-                    <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#modal_default">Add Menu to Group</button>
+                    <a type="button" class="btn btn-primary pull-right" href="{{ route('admin.groups.showMenuGroup', ['id' => $group->id]) }}" type="btn btn-primary">Add Menu to Group</a>
                 </h1>
             </div>
 
@@ -141,7 +133,7 @@
                         <td>{{$menu->visibility}}</td>
                         <td class="text-center">
                             <div class="btn-group">
-                                <button type="button" class="btn btn-default">Remove</button>
+                                <a type="button" class="btn btn-button" href="{{ route('admin.groups.removeMenu', ['group' => $group->id, 'menu' => $menu->id]) }}"  class="btn btn-default">Remove</a>
                                 <button type="button" class="btn btn-default">Details</button>
                             </div>
                         </td>
@@ -154,55 +146,7 @@
 </div>
 <!-- /grid -->
 
-<div id="modal_default" class="modal fade">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h5 class="modal-title">Basic modal</h5>
-            </div>
-            <form class="form-horizontal" action="{{ route('admin.groups.create', ['id' => $group->id]) }}" method="POST">
-                <div class="modal-body">
-                    <div class="col-md-12">
-                    <!-- Horizontal form -->
-                    <div class="panel panel-flat">
-                        <div class="panel-body">
-                                <div class="form-group">
-                                    <label class="control-label col-lg-2">Group ID <span class="text-danger">*</span></label>
-                                    <div class="col-lg-10">
-                                        <input type="text" class="form-control" placeholder="Menu ID" name="group_id" value="{{$group->title}}">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label col-lg-2">Menu ID</label>
-                                    <!-- <div class="col-lg-10">
-                                        <input type="text" class="form-control" placeholder="Menu ID" name="menu_id">
-                                    </div> -->
-                                    <ul class="col-lg-10 nav nav-tabs">
-                                        <li class="dropdown col-lg-12">
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Menu ID<span class="caret"></span></a>
-                                        <ul class="dropdown-menu dropdown-menu-right col-lg-12">
-                                            @foreach ($group->menus as $menu)
-                                            <li><a data-toggle="tab">{{$menu->id}}</a></li>
-                                            @endforeach
-                                        </ul>
-                                    </li>
-                                    </ul>
-                                </div>
-                            
-                        </div>
-                    </div>
-                    <!-- /horizotal form -->
-                </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Save</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
+
 @endsection
 
 @section('script')

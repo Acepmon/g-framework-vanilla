@@ -10,7 +10,7 @@
     </div>
 
     <div class="heading-elements">
-        <a href="#" class="btn btn-labeled btn-labeled-right bg-blue heading-btn">Button <b><i class="icon-menu7"></i></b></a>
+        <a href="{{ route('admin.permissions.create') }}" class="btn btn-primary text-white">Create permission<i class="icon-arrow-right14 position-right"></i></a>
     </div>
 </div>
 
@@ -50,11 +50,6 @@
         <h5 class="panel-title">
             Permissions
         </h5>
-        <div class="heading-elements">
-            <ul class="icons-list">
-                <li><a href="{{ route('admin.permissions.create') }}" class="btn btn-primary text-white">Create permission<i class="icon-arrow-right14 position-right"></i></a></li>
-            </ul>
-        </div>
     </div>
 
     @if (session('status'))
