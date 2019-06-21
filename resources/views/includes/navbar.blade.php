@@ -12,6 +12,14 @@
     <div class="navbar-collapse collapse" id="navbar-mobile">
         <ul class="nav navbar-nav">
             <li><a class="sidebar-control sidebar-main-toggle hidden-xs"><i class="icon-paragraph-justify3"></i></a></li>
+
+            @if (file_exists(storage_path('framework/down')))
+            <li>
+                <a href="{{ route('admin.configs.maintenance') }}">
+                    <span class="label label-inline bg-warning-400 position-right">Maintenance Mode Enabled</span>
+                </a>
+            </li>
+            @endif
         </ul>
 
         <ul class="nav navbar-nav navbar-right">
