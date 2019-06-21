@@ -10,7 +10,7 @@
     </div>
 
     <div class="heading-elements">
-        <a href="#" class="btn btn-labeled btn-labeled-right bg-blue heading-btn">Button <b><i class="icon-menu7"></i></b></a>
+        <a href="{{ route('admin.contents.create', ['type' => Request::get('type')]) }}" class="btn btn-primary">Create New {{ ucfirst(Request::get('type')) }}</a>
     </div>
 </div>
 
@@ -43,10 +43,6 @@
 @endsection
 
 @section('content')
-
-<div class="text-right" style="padding-bottom: 5px">
-    <a href="{{ route('admin.contents.create', ['type' => Request::get('type')]) }}" class="btn btn-primary">Create New {{ ucfirst(Request::get('type')) }}</a>
-</div>
 
 <div class="panel panel-flat">
     @if (session('status'))
