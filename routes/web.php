@@ -48,6 +48,11 @@ Route::middleware(['auth'])->group(function () {
                 Route::get('security', 'ConfigController@security')->name('admin.configs.security');
             });
 
+            Route::prefix('logs')->group(function () {
+                Route::get('/', 'LogController@index')->name('admin.logs.index');
+                Route::get('{log}', 'LogController@show')->name('admin.logs.show');
+            });
+
             Route::prefix('media')->group(function () {
                 Route::get('/', 'MediaController@index')->name('admin.media.index');
                 Route::get('medias', 'MediaController@medias')->name('admin.media.medias');
