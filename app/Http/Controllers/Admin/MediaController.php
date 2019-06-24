@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Storage;
 use App\User;
+use App\Content;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -24,11 +25,10 @@ class MediaController extends Controller
         $files = Storage::disk('public')->files('avatars');
         $avatars = [];
         foreach ($files as $key => $file) {
-            $user = User::where('avatar', $file)->first();
             array_push($avatars, [
                 'file' => $file,
                 'url' => url('storage/' . $file),
-                'user' => $user
+                'user' => User::where('avatar', $file)->first()
             ]);
         }
 
@@ -37,7 +37,16 @@ class MediaController extends Controller
 
     public function thumbnails()
     {
-        return view('admin.media.thumbnails');
+        $files = Storage::disk('public')->files('thumbnails');
+        $thumbnails = [];
+        foreach ($files as $key => $file) {
+            array_push($thumbnails, [
+                'file' => $file,
+                'url' => url('storage/' . $file),
+            ]);
+        }
+
+        return view('admin.media.thumbnails', ['thumbnails' => $thumbnails]);
     }
 
     public function assets()

@@ -4,6 +4,15 @@
 
 @section('load')
 <script type="text/javascript" src="/assets/js/plugins/media/fancybox.min.js"></script>
+<style>
+    .thumbnail {
+        height: 110px;
+    }
+    .thumbnail .thumb > img {
+        width: auto;
+        max-height: 100px;
+    }
+</style>
 @endsection
 
 @section('pageheader')
