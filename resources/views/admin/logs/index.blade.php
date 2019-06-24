@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', 'Error Logs')
+@section('title', $exists ? $filename : 'Error Logs')
 
 @section('load')
 
@@ -11,47 +11,52 @@
 @endsection
 
 @section('content')
-<div class="row">
-    <div class="col-md-4">
-        <div class="panel panel-flat">
-            <div class="panel-heading">
-                <h5 class="panel-title">
-                    Laravel Log Files
-                </h5>
-            </div>
+<div class="sidebar-detached">
+    <div class="sidebar sidebar-default">
+        <div class="sidebar-content">
+            <div class="sidebar-category">
+                <div class="category-title">
+                    <span>Laravel Logs</span>
+                    <ul class="icons-list">
+                        <li><a href="#" data-action="collapse"></a></li>
+                    </ul>
+                </div>
 
-            <table class="table table-sm">
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Filename</th>
-                        <th>Date</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($logs as $index => $log)
-                        <tr class="{{ $log['is_today'] ? 'bg-primary-300' : '' }}">
-                            <td>{{ $index + 1 }}</td>
-                            <td>{{ $log['filename'] }}</td>
-                            <td>{{ $log['date'] }}</td>
-                            <td>
-                                <div class="btn-group">
-                                    <a href="{{ route('admin.logs.show', ['log' => $log['filename']]) }}" class="btn btn-default btn-sm"><span class="icon-eye"></span></a>
-                                    <a href="#" class="btn btn-default btn-sm"><span class="icon-trash"></span></a>
-                                </div>
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
+                <div class="category-content no-padding">
+                    <ul class="navigation navigation-alt navigation-accordion">
+                        @foreach ($logs as $index => $log)
+                        <li class="{{ $filename == $log['filename'] ? 'active' : '' }}">
+                            <a href="{{ route('admin.logs.index', ['file' => $log['filename']]) }}">
+                                {{ $log['filename'] }}
+                                @if ($log['is_today']) <span class="label label-primary">today</span> @endif
+                            </a>
+                        </li>
+                        @endforeach
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
-    <div class="col-md-8"></div>
+</div>
+
+<div class="container-detached">
+    <div class="content-detached">
+        @if ($exists)
+            <pre><code>{!! $file_contents !!}</code></pre>
+        @else
+            <div class="alert alert-danger">
+                <p><strong>Error!</strong> Log file doesn't exist.</p>
+            </div>
+        @endif
+    </div>
 </div>
 @endsection
 
 @section('script')
-
+<script>
+    $(document).ready(function () {
+        $("body").addClass('has-detached-left');
+    });
+</script>
 @endsection
 

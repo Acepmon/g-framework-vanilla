@@ -8,33 +8,34 @@ use App\Http\Controllers\Controller;
 
 class LogController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $logs = [];
         $query = 'laravel';
+        $today = date('Y-m-d');
         foreach (scandir(storage_path('logs')) as $value) {
             if (substr($value, 0, strlen($query)) === $query) {
                 array_push($logs, [
                     'filename' => $value,
                     'date' => substr($value, 8, 10),
-                    'is_today' => date('Y-m-d') == substr($value, 8, 10)
+                    'is_today' => $today == substr($value, 8, 10)
                 ]);
             }
         }
 
         rsort($logs);
 
-        return view('admin.logs.index', ['logs' => $logs]);
-    }
+        $file = $request->input('file', 'laravel-'. $today . '.log');
+        $exists = false;
 
-    public function show($filename)
-    {
-        if (!file_exists(storage_path('logs/' . $filename))) {
-            abort(404);
+        if (file_exists(storage_path('logs/' . $file))) {
+            $exists = true;
         }
 
-        $log = file_get_contents(storage_path('logs/' . $filename));
+        $file_contents = $exists ? file_get_contents(storage_path('logs/' . $file)) : null;
 
-        return view('admin.logs.show', ['log' => $log, 'filename' => $filename]);
+        // dd($logs);
+
+        return view('admin.logs.index', ['logs' => $logs, 'file_contents' => $file_contents, 'exists' => $exists, 'filename' => $file]);
     }
 }

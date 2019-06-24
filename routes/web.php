@@ -50,7 +50,6 @@ Route::middleware(['auth'])->group(function () {
 
             Route::prefix('logs')->group(function () {
                 Route::get('/', 'LogController@index')->name('admin.logs.index');
-                Route::get('{log}', 'LogController@show')->name('admin.logs.show');
             });
 
             Route::prefix('media')->group(function () {
