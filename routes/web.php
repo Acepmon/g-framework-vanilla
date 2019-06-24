@@ -52,6 +52,7 @@ Route::middleware(['auth'])->group(function () {
                 Route::get('/', 'MediaController@index')->name('admin.media.index');
                 Route::get('medias', 'MediaController@medias')->name('admin.media.medias');
                 Route::get('avatars', 'MediaController@avatars')->name('admin.media.avatars');
+                Route::delete('delete', 'MediaController@delete')->name('admin.media.delete');
                 Route::get('thumbnails', 'MediaController@thumbnails')->name('admin.media.thumbnails');
                 Route::get('assets', 'MediaController@assets')->name('admin.media.assets');
                 Route::get('upload', 'MediaController@upload')->name('admin.media.upload');
