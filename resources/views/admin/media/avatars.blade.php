@@ -14,7 +14,7 @@
 <!-- Image grid -->
 <h6 class="content-group text-semibold">
     Users Avatars
-    <small class="display-block">Avatar currently being used will not have remove button</small>
+    <small class="display-block">There are about <strong>{{ number_format(count($avatars)) }}</strong> avatar files stored.</small>
 </h6>
 
 <div class="row">
