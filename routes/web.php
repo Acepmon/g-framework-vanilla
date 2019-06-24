@@ -99,6 +99,8 @@ Route::middleware(['auth'])->group(function () {
                 'update' => 'admin.plugins.update',
                 'destroy' => 'admin.plugins.destroy'
             ]);
+            Route::post('plugins/{plugin}/activate', 'PluginController@activate')->name('admin.plugins.activate');
+            Route::post('plugins/{plugin}/deactivate', 'PluginController@deactivate')->name('admin.plugins.deactivate');
             Route::resource('backups', 'BackupsController')->names([
                 'index' => 'admin.backups.index',
                 'create' => 'admin.backups.create',

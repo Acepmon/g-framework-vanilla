@@ -35,8 +35,7 @@
 
                     @if(false)
                         @each('includes.sidemenus', Auth::user()->menus->where('parent_id', NULL), 'menu')
-                    @endif
-
+                    @else
                     <li class="navigation-header"><span>Overview</span> <i class="icon-menu" title="Overview"></i></li>
                     <li><a href="/admin/dashboard"><i class="icon-home4"></i> <span>Dashboard</span></a></li>
                     <li><a href="/admin/changelog"><i class="icon-list-unordered"></i> <span>Changelog</span></a></li>
@@ -111,7 +110,8 @@
                     <li><a href="/admin/localization"><i class="icon-flag3"></i> <span>Localization</span></a></li>
                     <li><a href="/admin/taxonomy?taxonomy=category"><i class="icon-grid6"></i> <span>Categories</span></a></li>
                     <li><a href="/admin/taxonomy?taxonomy=tag"><i class="icon-price-tag2"></i> <span>Tags</span></a></li>
-
+                    
+                    @endif
                 </ul>
             </div>
         </div>
