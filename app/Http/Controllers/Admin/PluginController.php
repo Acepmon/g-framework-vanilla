@@ -132,6 +132,36 @@ class PluginController extends Controller
         //
     }
 
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function activate(Request $request, Plugin $plugin)
+    {
+        $plugin->status = Plugin::ACTIVATED;
+        $plugin->save();
+
+        return response()->json(['status' => 'Success']);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function deactivate(Request $request, Plugin $plugin)
+    {
+        $plugin->status = Plugin::DEACTIVATED;
+        $plugin->save();
+
+        return response()->json(['status' => 'Success']);
+    }
+
     public function installPlugin(Request $request)
     {
         //ini_set('max_execution_time', 3000);

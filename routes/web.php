@@ -48,6 +48,16 @@ Route::middleware(['auth'])->group(function () {
                 Route::get('security', 'ConfigController@security')->name('admin.configs.security');
             });
 
+            Route::prefix('media')->group(function () {
+                Route::get('/', 'MediaController@index')->name('admin.media.index');
+                Route::get('medias', 'MediaController@medias')->name('admin.media.medias');
+                Route::get('avatars', 'MediaController@avatars')->name('admin.media.avatars');
+                Route::delete('delete', 'MediaController@delete')->name('admin.media.delete');
+                Route::get('thumbnails', 'MediaController@thumbnails')->name('admin.media.thumbnails');
+                Route::get('assets', 'MediaController@assets')->name('admin.media.assets');
+                Route::get('upload', 'MediaController@upload')->name('admin.media.upload');
+            });
+
             Route::resource('menus', 'MenuController')->names([
                 'index' => 'admin.menus.index',
                 'create' => 'admin.menus.create',
@@ -84,6 +94,8 @@ Route::middleware(['auth'])->group(function () {
                 'update' => 'admin.plugins.update',
                 'destroy' => 'admin.plugins.destroy'
             ]);
+            Route::post('plugins/{plugin}/activate', 'PluginController@activate')->name('admin.plugins.activate');
+            Route::post('plugins/{plugin}/deactivate', 'PluginController@deactivate')->name('admin.plugins.deactivate');
             Route::resource('backups', 'BackupsController')->names([
                 'index' => 'admin.backups.index',
                 'create' => 'admin.backups.create',

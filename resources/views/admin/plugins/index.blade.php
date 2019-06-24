@@ -70,6 +70,7 @@
     @endif
 
     <div class="table-responsive">
+        <div style="display: none">{{$i=1}}</div>
         <table class="table">
             <thead>
                 <tr>
@@ -85,25 +86,31 @@
                 </tr>
             </thead>
             <tbody>
-            <div style="display: none">{{$i=1}}</div>
                 @foreach($plugins as $data)
                 <tr>
-                    <td>{{ $i++ }}</td>
+                    <td>{{$i++}}</td>
                     <td>{{ $data->title}}</td>
                     <td>{{ $data->description}}</td>
                     <td>{{ $data->version }}</td>
+                    @if($data->status=='available')
                     <td><button data-target="{{ $data->id  }}" data-loading-text="<i class='icon-spinner4 spinner'></i> Downloading..." class="btn btn-default plugin-install">Install</button></td>
+
+                    @else
+                    <td><button data-target="{{ $data->id  }}" data-loading-text="<i class='icon-spinner4 spinner'></i> Downloading..." disabled class="btn btn-default plugin-install">Install</button></td>
+
+                    @endif
+
                     <td>{{ $data->status }}</td>
                     @if($data->status =='deactivated')
-                        {
-                        <td><button type="button" class="btn btn-success">Activate</button></td>
-                        }
-                    @elseif($data->status =='activated'){
-                    <td><button type="button" class="btn">Activate</button></td>
-                    }
+
+                        <td><button type="button" data-target="{{ $data->id  }}" class="btn btn-success plugin-activate">Activate</button></td>
+
+                    @elseif($data->status =='activated')
+                    <td><button type="button" data-target="{{ $data->id  }}" class="btn btn-danger plugin-deactivate">Deactivate</button></td>
+
                     @else{
                     <td></td>
-                    }
+
                     @endif
                     <td><a href='{{ route('admin.plugins.edit', ['id' => $data->id]) }}' type="btn btn-default">Edit</a></td>
                     <td>
@@ -169,6 +176,33 @@
             success: function (data) {
                 alert(data.success);
                 btn.button('reset');
+            }
+        });
+    });
+
+
+    $(".plugin-activate").click(function () {
+        var id = $(this).data('target');
+        $.ajax({
+            type: 'POST',
+            url: '/admin/plugins/' + id + '/activate',
+            success: function (data) {
+                if (data.status === 'Success') {
+                    window.location.reload();
+                }
+            }
+        });
+    });
+
+    $(".plugin-deactivate").click(function () {
+        var id = $(this).data('target');
+        $.ajax({
+            type: 'POST',
+            url: '/admin/plugins/' + id + '/deactivate',
+            success: function (data) {
+                if (data.status === 'Success') {
+                    window.location.reload();
+                }
             }
         });
     });
