@@ -38,4 +38,14 @@ class LogController extends Controller
 
         return view('admin.logs.index', ['logs' => $logs, 'file_contents' => $file_contents, 'exists' => $exists, 'filename' => $file]);
     }
+
+    public function delete(Request $request, $filename)
+    {
+        if (file_exists(storage_path('logs/' . $filename))) {
+            unlink(storage_path('logs/' . $filename));
+            return redirect()->route('admin.logs.index');
+        } else {
+            abort(404);
+        }
+    }
 }

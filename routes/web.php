@@ -50,6 +50,7 @@ Route::middleware(['auth'])->group(function () {
 
             Route::prefix('logs')->group(function () {
                 Route::get('/', 'LogController@index')->name('admin.logs.index');
+                Route::delete('{log}', 'LogController@delete')->name('admin.logs.delete');
             });
 
             Route::prefix('media')->group(function () {
