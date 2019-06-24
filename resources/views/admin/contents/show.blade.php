@@ -1,6 +1,7 @@
 @extends('layouts.admin')
 
 @section('load')
+<script type="text/javascript" src="/assets/js/pages/sidebar_detached_sticky_native.js"></script>
 @endsection
 
 @section('pageheader')
@@ -45,131 +46,167 @@
 @section('content')
 
 <!-- Grid -->
-<div class="row">
-    <div class="col-md-7">
 
-        <!-- Horizontal form -->
-        <div class="panel panel-flat">
-            <div class="panel-body">
-                <div class="form-group">
-                    <label class="control-label col-lg-2">Title</label>
-                    <div class="col-lg-10">
-                        <label class="control-label col-lg-2">{{$content->title}}</label>
-                    </div>
+<div class="has-detached-right">
+    <div class="container-detached">
+        <div class="content-detached">
+            <div class="panel panel-flat" id="detail">
+                <div class="panel-heading">
+                    <h5 class="panel-title">Details</h5>
                 </div>
+                
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label class="control-label col-lg-2">Title</label>
+                        <div class="col-lg-10">
+                            <label class="control-label col-lg-2">{{$content->title}}</label>
+                        </div>
+                    </div>
 
-                <div class="form-group">
-                    <label class="control-label col-lg-2">Slug</label>
-                    <div class="col-lg-10">
-                        <label class="control-label col-lg-2">{{$content->slug}}</label>
+                    <div class="form-group">
+                        <label class="control-label col-lg-2">Slug</label>
+                        <div class="col-lg-10">
+                            <label class="control-label col-lg-2">{{$content->slug}}</label>
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-lg-2">Type</label>
-                    <div class="col-lg-10">
-                        <label class="control-label col-lg-2">{{$content->type}}</label>
+                    <div class="form-group">
+                        <label class="control-label col-lg-2">Type</label>
+                        <div class="col-lg-10">
+                            <label class="control-label col-lg-2">{{$content->type}}</label>
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-lg-2">Status</label>
-                    <div class="col-lg-10">
-                        <label class="control-label col-lg-2">{{$content->status}}</label>
+                    <div class="form-group">
+                        <label class="control-label col-lg-2">Status</label>
+                        <div class="col-lg-10">
+                            <label class="control-label col-lg-2">{{$content->status}}</label>
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-lg-2">Visibility</label>
-                    <div class="col-lg-10">
-                        <label class="control-label col-lg-2">{{$content->visibility}}</label>
+                    <div class="form-group">
+                        <label class="control-label col-lg-2">Visibility</label>
+                        <div class="col-lg-10">
+                            <label class="control-label col-lg-2">{{$content->visibility}}</label>
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-lg-2">Author id</label>
-                    <div class="col-lg-10">
-                        <label class="control-label col-lg-2">{{$content->author_id}}</label>
+                    <div class="form-group">
+                        <label class="control-label col-lg-2">Author id</label>
+                        <div class="col-lg-10">
+                            <label class="control-label col-lg-2">{{$content->author_id}}</label>
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-lg-2">Cateogry</label>
-                    <div class="col-lg-10">
-                        <label class="control-label col-lg-2">
-                            @foreach($content->terms->where('taxonomy', 'category') as $rel)
-                                {{ $rel->term->name }}, 
-                            @endforeach
-                        </label>
+                    <div class="form-group">
+                        <label class="control-label col-lg-2">Cateogry</label>
+                        <div class="col-lg-10">
+                            <label class="control-label col-lg-2">
+                                @foreach($content->terms->where('taxonomy', 'category') as $rel)
+                                    {{ $rel->term->name }}, 
+                                @endforeach
+                            </label>
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-lg-2">Tags</label>
-                    <div class="col-lg-10">
-                        <label class="control-label col-lg-2">
-                            @foreach($content->terms->where('taxonomy', 'tag') as $rel)
-                                {{ $rel->term->name }}, 
-                            @endforeach
-                        </label>
+                    <div class="form-group">
+                        <label class="control-label col-lg-2">Tags</label>
+                        <div class="col-lg-10">
+                            <label class="control-label col-lg-2">
+                                @foreach($content->terms->where('taxonomy', 'tag') as $rel)
+                                    {{ $rel->term->name }}, 
+                                @endforeach
+                            </label>
+                        </div>
                     </div>
-                </div>
-                <div class="text-right" style="padding-bottom: 5px">
-                    <a href="{{ route('admin.contents.index', ['type' => $content->type]) }}" class="btn btn-default">Back</a>
-                    <a href="{{ route('admin.contents.edit', ['id' => $content->id]) }}" class="btn btn-default">Edit</a>
+                    <div class="text-right" style="padding-bottom: 5px">
+                        <a href="{{ route('admin.contents.index', ['type' => $content->type]) }}" class="btn btn-default">Back</a>
+                        <a href="{{ route('admin.contents.edit', ['id' => $content->id]) }}" class="btn btn-default">Edit</a>
+                    </div>
                 </div>
             </div>
-        </div>
-        <!-- /horizotal form -->
 
-        <div class="panel panel-flat">
-            <div class="panel-heading">
-                <h6 class="panel-title text-semiold">Comments</h6>
-                <div class="heading-elements">
-                    <ul class="list-inline list-inline-separate heading-text text-muted">
-                        <li>{{ count($content->comments) }} comments</li>
+            <div class="panel panel-flat" id="comments">
+                <div class="panel-heading">
+                    <h6 class="panel-title text-semiold">Comments</h6>
+                    <div class="heading-elements">
+                        <ul class="list-inline list-inline-separate heading-text text-muted">
+                            <li>{{ count($content->comments) }} comments</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="panel-body">
+                    <ul class="media-list stack-media-on-mobile">
+                        @foreach($content->comments->where('parent_id', NULL) as $comment)
+                        <li class="media">
+                            @include('admin.comments.includes.comment', ['comment' => $comment])
+                        </li>
+                        @endforeach()
                     </ul>
                 </div>
             </div>
 
-            <div class="panel-body">
-                <ul class="media-list stack-media-on-mobile">
-                    @foreach($content->comments->where('parent_id', NULL) as $comment)
-                    <li class="media">
-                        @include('admin.comments.includes.comment', ['comment' => $comment])
-                    </li>
-                    @endforeach()
-                </ul>
+            <!-- Revisions -->
+            @foreach($content->metas->where('key', 'revision')->sortByDesc('id') as $revision)
+            <div class="panel panel-flat" id="v_{{ $revision->id }}">
+                <div class="panel-heading">
+                    <h5 class="panel-title">Revision {{ $revision->id }}</h5>
+                    <div class="heading-elements">
+                        <span class="text-muted heading-text"></span>
+                        <span class="label bg-blue heading-text">{{ date('Y-m-d H:i:s', json_decode($revision->value)->datetime) }}</span>
+                    </div>
+                </div>
+
+                <div class="panel-body">
+                    <pre class="language-javascript"><code>{{ var_dump(json_decode($revision->value)) }}</code></pre>
+                </div>
             </div>
+            @endforeach
         </div>
     </div>
-    <div class="col-sm-5">
-        <div class="text-right" style="padding-bottom: 5px">
-            <a href="{{ route('admin.contents.metas.create', ['id' => $content->id]) }}" class="btn btn-primary">Create Content Metas</a>
-        </div>
-        <div class="panel panel-flat">
-            <div class="table-responsive">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Key</th>
-                            <th>Value</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    @foreach($content->metas as $meta)
-                        <tr>
-                            <td>{{$meta->id}}</td>
-                            <td>{{$meta->key}}</td>
-                            <td>{{$meta->value}}</td>
-                            <td width="250px">
-                                <div class="btn-group">
-                                    <form action="{{ route('admin.contents.metas.edit', ['content' => $content->id, 'meta' => $meta->id]) }}" method="GET" style="float: left; margin-right: 5px">
-                                        <button type="submit" class="btn btn-default">Edit</button>
-                                    </form>
-                                    <button data-toggle="modal" data-target="#modal_theme_danger" class="btn btn-default" onclick="delete_meta( {{$meta->id}} , {{$content->id}})">Delete</button>
-                                </div>
-                            </td>
-                        </tr>
-                    @endforeach
-                    </tbody>
-                </table>
+
+
+    <div class="sidebar-detached">
+        <div class="sidebar sidebar-default">
+            <div class="sidebar-content">
+
+                <!-- Support -->
+                <div class="sidebar-category no-margin">
+                    <div class="category-title">
+                        <span>Sidebar</span>
+                        <i class="icon-menu7 pull-right"></i>
+                    </div>
+
+                    <div class="category-content">
+                        <a href="http://kopyov.ticksy.com" class="btn bg-danger-400 btn-block" target="_blank"><i class="icon-lifebuoy position-left"></i> Item support</a>
+                    </div>
+                </div>
+                <!-- /support -->
+
+                
+                <!-- Navigation -->
+                <div class="sidebar-category">
+                    <div class="category-content no-padding">
+                        <ul class="nav navigation">
+                            <li class="navigation-divider no-margin-top"></li>
+                            <li class="navigation-header"><i class="icon-history pull-right"></i> Detail</li>
+                            <li><a href="#detail">Detail</a></li>
+                            <li><a href="#comments">Comments <span class="text-muted text-regular pull-right">{{ count($content->comments) }} comments</span></a></li>
+                            
+                            <!-- Navigation History -->
+                            <li class="navigation-header"><i class="icon-history pull-right"></i> Revision history</li>
+                            @foreach($content->metas->where('key', 'revision')->sortByDesc('id') as $revision)
+                            <li><a href="#v_{{ $revision->id }}">Revision {{ $revision->id }} 
+                                <span class="text-muted text-regular pull-right">{{ date('Y-m-d', json_decode($revision->value)->datetime) }}</span>
+                            </a></li>
+                            @endforeach
+                            <li><a href="#release">Initial <span class="text-muted text-regular pull-right">01.10.2015</span></a></li>
+                            
+                            <li class="navigation-divider"></li>
+                            <li class="navigation-header"><i class="icon-gear pull-right"></i> Extras</li>
+                            <li><a href="http://themeforest.net/user/kopyov" target="_blank"><i class="icon-bubbles4 text-slate-400"></i> Contact me</a></li>
+                            <li><a href="http://kopyov.ticksy.com" target="_blank"><i class="icon-lifebuoy text-slate-400"></i> Support</a></li>
+                            <li><a href="http://themeforest.net/user/kopyov/portfolio?ref=Kopyov" target="_blank"><i class="icon-rocket text-slate-400"></i> Other templates</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- /navigation -->
+
             </div>
         </div>
     </div>

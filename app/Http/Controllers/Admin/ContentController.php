@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use Artisan;
+use Auth;
 use App\Content;
+use App\ContentMeta;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -139,6 +141,7 @@ class ContentController extends Controller
         try {
             DB::beginTransaction();
             $content->title = $request->title;
+            $old_slug = $content->slug;
             $content->slug = $request->slug;
             $content->type = $request->type;
             $content->status = $request->status;
@@ -148,6 +151,25 @@ class ContentController extends Controller
             $content->save();
             $content->terms()->sync($request->input('tags'));
             $content->terms()->attach($request->input('category'));
+
+            $value = new \stdClass;
+            $value->datetime = time();
+            $value->filename_changed = ($old_slug != $content->slug);
+            $value->before = $old_slug;
+            $value->after = $content->slug;
+            $value->user = Auth::user();
+
+            $content_meta = new ContentMeta();
+            $content_meta->content_id = $content->id;
+            $content_meta->key = 'revision';
+            $content_meta->value = json_encode($value);
+            $content_meta->save();
+
+            Artisan::call("make:view", [
+                'name' => 'admin.contents.' . $content->type . 's.' . $content->slug,
+                '--extension' => $content->status . '.' . time() . '.blade.php',
+                '--extends' => 'layous.admin',
+                '--with-yields']);
 
             DB::commit();
             return redirect()->route('admin.contents.index', ['type' => $content->type]);
