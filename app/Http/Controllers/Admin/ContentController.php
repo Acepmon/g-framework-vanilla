@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Validation\Rule;
 
@@ -72,10 +73,23 @@ class ContentController extends Controller
             $content->terms()->sync($request->input('tags'));
             $content->terms()->attach($request->input('category'));
 
+            $value = new \stdClass;
+            $value->datetime = time();
+            $value->filename_changed = true;
+            $value->before = $content->slug;
+            $value->after = $content->slug;
+            $value->user = Auth::user();
+            
+            $content_meta = new ContentMeta();
+            $content_meta->content_id = $content->id;
+            $content_meta->key = 'initial';
+            $content_meta->value = json_encode($value);
+            $content_meta->save();
+
             // Create View
             Artisan::call("make:view", [
                 'name' => 'admin.contents.' . $content->type . 's.' . $content->slug,
-                '--extension' => $content->status . '.blade.php',
+                '--extension' => $content->status . '.' . time() . '.blade.php',
                 '--extends' => 'layous.admin',
                 '--with-yields']);
 
@@ -173,10 +187,10 @@ class ContentController extends Controller
 
             DB::commit();
             return redirect()->route('admin.contents.index', ['type' => $content->type]);
-    } catch (\Exception $e) {
-        DB::rollBack();
-        return redirect()->route('admin.contents.create')->with('error', $e->getMessage());
-    }
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->route('admin.contents.create')->with('error', $e->getMessage());
+        }
     }
 
     /**
@@ -189,5 +203,57 @@ class ContentController extends Controller
     {
         Content::destroy($id);
         return redirect()->route('admin.contents.index');
+    }
+
+    public function revert($id)
+    {
+        $content = Content::findOrFail($id);
+        $revision_id = Route::current()->parameter('revision_id');
+
+        try {
+            DB::beginTransaction();
+
+            $revision = ContentMeta::findOrFail($revision_id);
+            $revision_value = json_decode($revision->value);
+            $slug = $revision_value->after;
+
+            $value = new \stdClass;
+            $value->datetime = time();
+            $value->filename_changed = ($slug != $content->slug);
+            $value->before = $content->slug;
+            $value->after = $slug;
+            $value->user = Auth::user();
+
+            $content_meta = new ContentMeta();
+            $content_meta->content_id = $content->id;
+            $content_meta->key = 'revert';
+            $content_meta->value = json_encode($revision_value);
+            $content_meta->save();
+
+            $filename = 'views/admin/contents/' . $revision->content->type . 's/' . $slug . '.' . $revision->content->status . '.' . $revision_value->datetime . '.blade.php';
+            $newname = 'views/admin/contents/' . $revision->content->type . 's/' . $slug . '.' . $revision->content->status . '.' . time() . '.blade.php';
+            copy(resource_path($filename), resource_path($newname));
+            // Artisan::call("make:view", [
+            //     'name' => 'admin.contents.' . $content->type . 's.' . $content->slug,
+            //     '--extension' => $content->status . '.' . time() . '.blade.php',
+            //     '--extends' => 'layous.admin',
+            //     '--with-yields']);
+
+            DB::commit();
+            return redirect()->route('admin.contents.show', ['id' => $content->id]);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->route('admin.contents.show', ['id' => $content->id])->with('error', $e->getMessage());
+        }
+    }
+
+    public function viewRevision($id)
+    {
+        $content = Content::findOrFail($id);
+        $revision = ContentMeta::findOrFail(Route::current()->parameter('revision'));
+
+        $revision_value = json_decode($revision->value);
+        $revision_path = 'views/admin/contents/' . $revision->content->type . 's/' . $revision_value->after . '.' . $revision->content->status . '.' . $revision_value->datetime . '.blade.php';
+        return view('admin.contents.revisions.show', ['content' => $content, 'revision' => $revision, 'revision_path' => $revision_path]);
     }
 }

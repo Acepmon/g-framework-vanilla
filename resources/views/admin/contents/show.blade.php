@@ -50,6 +50,13 @@
 <div class="has-detached-right">
     <div class="container-detached">
         <div class="content-detached">
+            @if(Session::has('error'))
+            <div class="alert alert-danger no-border">
+                <button type="button" class="close" data-dismiss="alert"><span>&times;</span><span class="sr-only">Close</span></button>
+                {{ session('error') }}
+            </div>
+            @endif
+            
             <div class="panel panel-flat" id="detail">
                 <div class="panel-heading">
                     <h5 class="panel-title">Details</h5>
@@ -142,13 +149,14 @@
             </div>
 
             <!-- Revisions -->
-            @foreach($content->metas->where('key', 'revision')->sortByDesc('id') as $revision)
+            @foreach($content->metas->whereIn('key', ['initial', 'revision', 'revert'])->sortByDesc('id') as $key=>$revision)
             <div class="panel panel-flat" id="v_{{ $revision->id }}">
                 <div class="panel-heading">
-                    <h5 class="panel-title">Revision {{ $revision->id }}</h5>
+                    <h5 class="panel-title">{{ $key+1 }}. {{ ucfirst($revision->key) }}</h5>
+                    <span class="label bg-blue heading-text">{{ date('Y-m-d H:i:s', json_decode($revision->value)->datetime) }}</span>
                     <div class="heading-elements">
-                        <span class="text-muted heading-text"></span>
-                        <span class="label bg-blue heading-text">{{ date('Y-m-d H:i:s', json_decode($revision->value)->datetime) }}</span>
+                        <a href="{{ route('admin.contents.revisions.show', ['id' => $content->id, 'revision_id' => $revision->id]) }}" class="btn btn-default"><i class="icon-eye position-left"></i> View in Editor</a>
+                        <a href="{{ route('admin.contents.revisions.revert', ['id' => $content->id, 'revision_id' => $revision->id]) }}" class="btn btn-default"><i class="icon-reload-alt position-left"></i> Revert</a>
                     </div>
                 </div>
 
@@ -173,7 +181,7 @@
                     </div>
 
                     <div class="category-content">
-                        <a href="http://kopyov.ticksy.com" class="btn bg-danger-400 btn-block" target="_blank"><i class="icon-lifebuoy position-left"></i> Item support</a>
+                        <a href="#" class="btn bg-danger-400 btn-block" target="_blank"><i class="icon-lifebuoy position-left"></i> Item support</a>
                     </div>
                 </div>
                 <!-- /support -->
@@ -190,12 +198,11 @@
                             
                             <!-- Navigation History -->
                             <li class="navigation-header"><i class="icon-history pull-right"></i> Revision history</li>
-                            @foreach($content->metas->where('key', 'revision')->sortByDesc('id') as $revision)
-                            <li><a href="#v_{{ $revision->id }}">Revision {{ $revision->id }} 
+                            @foreach($content->metas->whereIn('key', ['initial', 'revision', 'revert'])->sortByDesc('id') as $key=>$revision)
+                            <li><a href="#v_{{ $revision->id }}">{{ $key+1 }}. {{ ucfirst($revision->key) }} 
                                 <span class="text-muted text-regular pull-right">{{ date('Y-m-d', json_decode($revision->value)->datetime) }}</span>
                             </a></li>
                             @endforeach
-                            <li><a href="#release">Initial <span class="text-muted text-regular pull-right">01.10.2015</span></a></li>
                             
                             <li class="navigation-divider"></li>
                             <li class="navigation-header"><i class="icon-gear pull-right"></i> Extras</li>
