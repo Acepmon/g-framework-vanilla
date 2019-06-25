@@ -1,6 +1,10 @@
 @extends('layouts.admin')
 
 @section('load')
+    <script type="text/javascript" src="/assets/js/plugins/velocity/velocity.min.js"></script>
+    <script type="text/javascript" src="/assets/js/plugins/velocity/velocity.ui.min.js"></script>
+    <script type="text/javascript" src="/assets/js/plugins/buttons/spin.min.js"></script>
+    <script type="text/javascript" src="/assets/js/plugins/buttons/ladda.min.js"></script>
 @endsection
 
 @section('pageheader')
@@ -66,28 +70,52 @@
     @endif
 
     <div class="table-responsive">
+        <div style="display: none">{{$i=1}}</div>
         <table class="table">
             <thead>
                 <tr>
                     <th>#</th>
                     <th>Title</th>
                     <th>Description</th>
+                    <th>Version</th>
                     <th>install/update</th>
+                    <th>Status</th>
+                    <th>Activate</th>
                     <th>Edit</th>
                     <th>Delete</th>
                 </tr>
             </thead>
             <tbody>
-            <div style="display: none">{{$i=1}}</div>
                 @foreach($plugins as $data)
                 <tr>
-                    <td>{{ $i++ }}</td>
+                    <td>{{$i++}}</td>
                     <td>{{ $data->title}}</td>
                     <td>{{ $data->description}}</td>
-                    <td><a href="{{ route('admin.plugins.install', ['id' => $data-> id] ) }}" type="btn btn-default">Install</a></td>
+                    <td>{{ $data->version }}</td>
+                    @if($data->status=='available')
+                    <td><button data-target="{{ $data->id  }}" data-loading-text="<i class='icon-spinner4 spinner'></i> Downloading..." class="btn btn-default plugin-install">Install</button></td>
+
+                    @else
+                    <td><button data-target="{{ $data->id  }}" data-loading-text="<i class='icon-spinner4 spinner'></i> Downloading..." disabled class="btn btn-default plugin-install">Install</button></td>
+
+                    @endif
+
+                    <td>{{ $data->status }}</td>
+                    @if($data->status =='deactivated')
+
+                        <td><button type="button" data-target="{{ $data->id  }}" class="btn btn-success plugin-activate">Activate</button></td>
+
+                    @elseif($data->status =='activated')
+                    <td><button type="button" data-target="{{ $data->id  }}" class="btn btn-danger plugin-deactivate">Deactivate</button></td>
+
+                    @else{
+                    <td></td>
+
+                    @endif
                     <td><a href='{{ route('admin.plugins.edit', ['id' => $data->id]) }}' type="btn btn-default">Edit</a></td>
                     <td>
                         <a href="#" data-toggle="modal" data-target="#modal_theme_danger" onclick="delete_confirm({{ $data->id }})"><i class="icon-trash"></i> Delete</a>
+
                     </td>
                 </tr>
                 @endforeach
@@ -131,15 +159,53 @@
         $("#delete_form").attr('action', '/admin/plugins/'+id);
     }
 </script>
-<script>
-    window.insUpdPlugin = (function(url){
+<script type="text/javascript">
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    $(".plugin-install").click(function () {
+        var id = $(this).data('target');
+        var btn = $(this);
+        btn.button('loading');
         $.ajax({
-            url: url,
-            type: 'post',
-            success: function(response){
-                window.location = response;
+            type: 'GET',
+            url: '/admin/install',
+            data: {id: id},
+            success: function (data) {
+                alert(data.success);
+                btn.button('reset');
             }
         });
     });
+
+
+    $(".plugin-activate").click(function () {
+        var id = $(this).data('target');
+        $.ajax({
+            type: 'POST',
+            url: '/admin/plugins/' + id + '/activate',
+            success: function (data) {
+                if (data.status === 'Success') {
+                    window.location.reload();
+                }
+            }
+        });
+    });
+
+    $(".plugin-deactivate").click(function () {
+        var id = $(this).data('target');
+        $.ajax({
+            type: 'POST',
+            url: '/admin/plugins/' + id + '/deactivate',
+            success: function (data) {
+                if (data.status === 'Success') {
+                    window.location.reload();
+                }
+            }
+        });
+    });
+
 </script>
 @endsection

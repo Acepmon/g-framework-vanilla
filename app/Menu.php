@@ -55,5 +55,14 @@ class Menu extends Model
             default: return 'icon-eye';
         }
     }
+
+    public function getType()
+    {
+        return self::STATUS_ARRAY;
+    }
     
+    public function groups()
+    {
+        return $this->belongsToMany('App\Group', 'group_menu');
+    }
 }

@@ -36,12 +36,31 @@ Route::middleware(['auth'])->group(function () {
             });
 
             Route::prefix('configs')->group(function () {
+                Route::post('/', 'ConfigController@store')->name('admin.configs.store');
+                Route::get('create', 'ConfigController@create')->name('admin.configs.create');
                 Route::get('maintenance', 'ConfigController@maintenance')->name('admin.configs.maintenance');
+                Route::put('maintenance', 'ConfigController@setMaintenance')->name('admin.configs.maintenance.set');
                 Route::get('base', 'ConfigController@base')->name('admin.configs.base');
+                Route::put('base', 'ConfigController@updateBase')->name('admin.configs.base.update');
                 Route::get('system', 'ConfigController@system')->name('admin.configs.system');
                 Route::get('themes', 'ConfigController@themes')->name('admin.configs.themes');
                 Route::get('plugins', 'ConfigController@plugins')->name('admin.configs.plugins');
                 Route::get('security', 'ConfigController@security')->name('admin.configs.security');
+            });
+
+            Route::prefix('logs')->group(function () {
+                Route::get('/', 'LogController@index')->name('admin.logs.index');
+                Route::delete('{log}', 'LogController@delete')->name('admin.logs.delete');
+            });
+
+            Route::prefix('media')->group(function () {
+                Route::get('/', 'MediaController@index')->name('admin.media.index');
+                Route::get('medias', 'MediaController@medias')->name('admin.media.medias');
+                Route::get('avatars', 'MediaController@avatars')->name('admin.media.avatars');
+                Route::delete('delete', 'MediaController@delete')->name('admin.media.delete');
+                Route::get('thumbnails', 'MediaController@thumbnails')->name('admin.media.thumbnails');
+                Route::get('assets', 'MediaController@assets')->name('admin.media.assets');
+                Route::get('upload', 'MediaController@upload')->name('admin.media.upload');
             });
 
             Route::resource('menus', 'MenuController')->names([
@@ -51,7 +70,7 @@ Route::middleware(['auth'])->group(function () {
                 'show' => 'admin.menus.show',
                 'edit' => 'admin.menus.edit',
                 'update' => 'admin.menus.update',
-                'destroy' => 'admin.menus.destroy'
+                'destroy' => 'admin.menus.destroy',
             ]);
             Route::resource('users', 'UserController')->names([
                 'index' => 'admin.users.index',
@@ -79,6 +98,17 @@ Route::middleware(['auth'])->group(function () {
                 'edit' => 'admin.plugins.edit',
                 'update' => 'admin.plugins.update',
                 'destroy' => 'admin.plugins.destroy'
+            ]);
+            Route::post('plugins/{plugin}/activate', 'PluginController@activate')->name('admin.plugins.activate');
+            Route::post('plugins/{plugin}/deactivate', 'PluginController@deactivate')->name('admin.plugins.deactivate');
+            Route::resource('backups', 'BackupsController')->names([
+                'index' => 'admin.backups.index',
+                'create' => 'admin.backups.create',
+                'store' => 'admin.backups.store',
+                'show' => 'admin.backups.show',
+                'edit' => 'admin.backups.edit',
+                'update' => 'admin.backups.update',
+                'destroy' => 'admin.backups.destroy'
             ]);
             Route::resource('groups', 'GroupController')->names([
                 'index' => 'admin.groups.index',
@@ -138,14 +168,14 @@ Route::middleware(['auth'])->group(function () {
                 'update' => 'admin.comments.update',
                 'destroy' => 'admin.comments.destroy'
             ]);
-            Route::resource('terms', 'TermController')->names([
-                'index' => 'admin.terms.index',
-                'create' => 'admin.terms.create',
-                'store' => 'admin.terms.store',
-                'show' => 'admin.terms.show',
-                'edit' => 'admin.terms.edit',
-                'update' => 'admin.terms.update',
-                'destroy' => 'admin.terms.destroy'
+            Route::resource('taxonomy', 'TaxonomyController')->names([
+                'index' => 'admin.taxonomy.index',
+                'create' => 'admin.taxonomy.create',
+                'store' => 'admin.taxonomy.store',
+                'show' => 'admin.taxonomy.show',
+                'edit' => 'admin.taxonomy.edit',
+                'update' => 'admin.taxonomy.update',
+                'destroy' => 'admin.taxonomy.destroy'
             ]);
 
             Route::get('/users/{user}/settings', 'UserSettingController@index')->name('admin.users.settings.index');
@@ -162,6 +192,19 @@ Route::middleware(['auth'])->group(function () {
             Route::put('/contents/{content}/metas/{meta}', 'ContentMetaController@update')->name('admin.contents.metas.update');
             Route::delete('/contents/{content}/metas/{meta}', 'ContentMetaController@destroy')->name('admin.contents.metas.destroy');
 
+            Route::get('/comments/{comment}/metas', 'CommentMetaController@index')->name('admin.comments.metas.index');
+            Route::get('/comments/{comment}/metas/create', 'CommentMetaController@create')->name('admin.comments.metas.create');
+            Route::post('/comments/{comment}/metas', 'CommentMetaController@store')->name('admin.comments.metas.store');
+            Route::get('/comments/{comment}/metas/{meta}/edit', 'CommentMetaController@edit')->name('admin.comments.metas.edit');
+            Route::put('/comments/{comment}/metas/{meta}', 'CommentMetaController@update')->name('admin.comments.metas.update');
+            Route::delete('/comments/{comment}/metas/{meta}', 'CommentMetaController@destroy')->name('admin.comments.metas.destroy');
+
+            Route::get('/taxonomy/{taxonomy}/metas', 'TermMetaController@index')->name('admin.taxonomy.metas.index');
+            Route::get('/taxonomy/{taxonomy}/metas/create', 'TermMetaController@create')->name('admin.taxonomy.metas.create');
+            Route::post('/taxonomy/{taxonomy}/metas', 'TermMetaController@store')->name('admin.taxonomy.metas.store');
+            Route::get('/taxonomy/{taxonomy}/metas/{meta}/edit', 'TermMetaController@edit')->name('admin.taxonomy.metas.edit');
+            Route::put('/taxonomy/{taxonomy}/metas/{meta}', 'TermMetaController@update')->name('admin.taxonomy.metas.update');
+            Route::delete('/taxonomy/{taxonomy}/metas/{meta}', 'TermMetaController@destroy')->name('admin.taxonomy.metas.destroy');
 
             Route::get('/users/{user}/permissions', 'UserPermissionController@index')->name('admin.users.permissions.index');
             Route::get('/users/{user}/permissions/create', 'UserPermissionController@create')->name('admin.users.permissions.create');
@@ -175,6 +218,10 @@ Route::middleware(['auth'])->group(function () {
 
             Route::get('/users/{user}/contents', 'UserContentController@index')->name('admin.users.contents.index');
             Route::get('/users/{user}/contents/{content}', 'UserContentController@show')->name('admin.users.contents.show');
+            
+            Route::delete('/menus/{menu}/groups/{group}', 'MenuController@destroyGroup')->name('admin.menus.groups.destroy');
+            Route::get('/menus/{menu}/groups/create', 'MenuController@createGroup')->name('admin.menus.groups.create');
+            Route::post('/menus/{menu}/groups', 'MenuController@storeGroup')->name('admin.menus.groups.store');
         });
     });
 

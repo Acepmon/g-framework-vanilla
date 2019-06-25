@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Artisan;
 use App\Content;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Validation\Rule;
 
 class ContentController extends Controller
@@ -17,7 +21,9 @@ class ContentController extends Controller
      */
     public function index()
     {
-        $contents = Content::all();
+        $type = Input::get('type', 'post');
+        Session::flash('type', $type);
+        $contents = Content::where('type', $type)->get();
         return view('admin.contents.index', ['contents' => $contents]);
     }
 
@@ -42,23 +48,41 @@ class ContentController extends Controller
     {
         $request->validate([
             'title' => 'required|max:191',
-            'slug' => 'required|max:255',
+            'slug' => 'required|max:255|unique:contents,slug',
             'content' => 'nullable',
             'status' => 'required|max:50',
             'visibility' => 'required|max:50',
             'author_id' => 'required|integer|exists:users,id'
         ]);
-        $content = new Content();
 
-        $content->title = $request->title;
-        $content->slug = $request->slug;
-        $content->type = $request->type;
-        $content->status = $request->status;
-        $content->visibility = $request->visibility;
-        $content->author_id = $request->author_id;
+        try {
+            DB::beginTransaction();
+            $content = new Content();
 
-        $content->save();
-        return redirect()->route('admin.contents.index');
+            $content->title = $request->title;
+            $content->slug = $request->slug;
+            $content->type = $request->type;
+            $content->status = $request->status;
+            $content->visibility = $request->visibility;
+            $content->author_id = $request->author_id;
+            $content->save();
+            
+            $content->terms()->sync($request->input('tags'));
+            $content->terms()->attach($request->input('category'));
+
+            // Create View
+            Artisan::call("make:view", [
+                'name' => 'admin.contents.' . $content->type . 's.' . $content->slug,
+                '--extension' => $content->status . '.blade.php',
+                '--extends' => 'layous.admin',
+                '--with-yields']);
+
+            DB::commit();
+            return redirect()->route('admin.contents.index', ['type' => $content->type]);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->route('admin.contents.create')->with('error', $e->getMessage());
+        }
     }
 
     /**
@@ -69,8 +93,9 @@ class ContentController extends Controller
      */
     public function show($id)
     {
+        $type = Input::get('type', NULL);
         $content = Content::find($id);
-        return view('admin.contents.show', ['content' => $content]);
+        return view('admin.contents.show', ['content' => $content, 'type' => $type]);
     }
 
     /**
@@ -111,16 +136,25 @@ class ContentController extends Controller
             'author_id' => 'required|integer|exists:users,id'
         ]);
 
+        try {
+            DB::beginTransaction();
+            $content->title = $request->title;
+            $content->slug = $request->slug;
+            $content->type = $request->type;
+            $content->status = $request->status;
+            $content->visibility = $request->visibility;
+            $content->author_id = $request->author_id;
 
-        $content->title = $request->title;
-        $content->slug = $request->slug;
-        $content->type = $request->type;
-        $content->status = $request->status;
-        $content->visibility = $request->visibility;
-        $content->author_id = $request->author_id;
+            $content->save();
+            $content->terms()->sync($request->input('tags'));
+            $content->terms()->attach($request->input('category'));
 
-        $content->save();
-        return redirect()->route('admin.contents.index');
+            DB::commit();
+            return redirect()->route('admin.contents.index', ['type' => $content->type]);
+    } catch (\Exception $e) {
+        DB::rollBack();
+        return redirect()->route('admin.contents.create')->with('error', $e->getMessage());
+    }
     }
 
     /**

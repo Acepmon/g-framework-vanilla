@@ -23,13 +23,14 @@
                 <div class="panel no-border-top no-border-radius-top">
                     <ul class="navigation">
                         <li class="navigation-header">Navigation</li>
-                        <li><a href="{{ route('admin.profile.index') }}"><i class="icon-files-empty"></i> Profile</a></li>
-                        <li><a href="{{ route('admin.profile.contents.index') }}"><i class="icon-files-empty"></i> Contents</a></li>
-                        <li><a href="{{ route('admin.profile.permissions.index') }}"><i class="icon-files-empty"></i> Permissions</a></li>
-                        <li><a href="{{ route('admin.profile.settings.index') }}"><i class="icon-files-empty"></i> Settings</a></li>
+                        <li><a href="{{ route('admin.profile.index') }}"><i class="icon-user"></i> Profile</a></li>
+                        <li><a href="{{ route('admin.profile.contents.index', ['type' => 'page']) }}"><i class="icon-files-empty2"></i> <span>Pages</span></a></li>
+                        <li><a href="{{ route('admin.profile.contents.index', ['type' => 'post']) }}"><i class="icon-blog"></i> <span>Blog Posts</span></a></li>
+                        <li><a href="{{ route('admin.profile.permissions.index') }}"><i class="icon-key"></i> Permissions</a></li>
+                        <li><a href="{{ route('admin.profile.settings.index') }}"><i class="icon-gear"></i> Settings</a></li>
                         @auth
                         <li>
-                            <a href="{{ route('admin.profile.notifications.index') }}"><i class="icon-files-empty"></i> Notifications
+                            <a href="{{ route('admin.profile.notifications.index') }}"><i class="icon-bell2"></i> Notifications
                                 @if (Auth::user()->unreadNotifications->count() > 0)
                                 <span id="notificationsCount" class="badge bg-warning-400">{{ Auth::user()->unreadNotifications->count() }}</span>
                                 @endif
