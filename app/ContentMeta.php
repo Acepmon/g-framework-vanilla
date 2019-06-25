@@ -14,4 +14,9 @@ class ContentMeta extends Model
     protected $table = 'content_metas';
 
     public $timestamps = false;
+
+    public function content()
+    {
+        return $this->belongsTo('App\Content', 'content_id');
+    }
 }
