@@ -97,7 +97,8 @@
     </div>
 
     <div class="col-md-12">
-        <div class="panel panel-flat">                <table class="table datatable-basic">
+        <div class="panel panel-flat">                
+                <table class="table datatable-basic">
                     <thead>
                         <tr>
                             <th>#</th>

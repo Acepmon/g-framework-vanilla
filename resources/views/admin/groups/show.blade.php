@@ -134,7 +134,6 @@
                             <td class="text-center">
                                 <div class="btn-group">
                                     <a type="button" class="btn btn-button" href="{{ route('admin.groups.removeMenu', ['group' => $group->id, 'menu' => $menu->id]) }}"  class="btn btn-default">Remove</a>
-                                    <button type="button" class="btn btn-default">Details</button>
                                 </div>
                             </td>
                         </tr>
@@ -177,7 +176,6 @@
                             <td class="text-center">
                                 <div class="btn-group">
                                     <a type="button" class="btn btn-button" href="{{ route('admin.groups.removeUser', ['group' => $group->id, 'user' => $user->id]) }}"  class="btn btn-default">Remove</a>
-                                    <button type="button" class="btn btn-default">Details</button>
                                 </div>
                             </td>
                         </tr>
@@ -205,7 +203,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($permissions as $permission)
+                    @foreach ($group->permissions as $permission)
                         <tr>
                             <td>{{$permission->id}}</td>
                             <td>
@@ -215,7 +213,6 @@
                             <td class="text-center">
                                 <div class="btn-group">
                                     <a type="button" class="btn btn-button" href="{{ route('admin.groups.removePermission', ['group' => $group->id, 'permission' => $permission->id]) }}"  class="btn btn-default">Remove</a>
-                                    <button type="button" class="btn btn-default">Details</button>
                                 </div>
                             </td>
                         </tr>
