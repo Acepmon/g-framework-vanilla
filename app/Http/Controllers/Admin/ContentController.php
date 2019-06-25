@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Artisan;
 use Auth;
+use Storage;
 use App\Content;
 use App\ContentMeta;
 use App\User;
@@ -255,5 +256,23 @@ class ContentController extends Controller
         $revision_value = json_decode($revision->value);
         $revision_path = 'views/admin/contents/' . $revision->content->type . 's/' . $revision_value->after . '.' . $revision->content->status . '.' . $revision_value->datetime . '.blade.php';
         return view('admin.contents.revisions.show', ['content' => $content, 'revision' => $revision, 'revision_path' => $revision_path]);
+    }
+
+    public function updateRevision(Request $request)
+    {
+        $request->validate([
+            'revision_path' => 'required',
+            'content' => 'required'
+        ]);
+
+        try {
+            $revision_path = $request->input('revision_path');
+            $content = $request->input('content');
+            echo $revision_path;
+            Storage::disk('resource')->put($revision_path, $content);
+            return response()->json(["result" => "success"]);
+        } catch (\Exception $e) {
+            abort(400);
+        }
     }
 }

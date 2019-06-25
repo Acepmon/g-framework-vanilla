@@ -54,13 +54,24 @@
         </div>
     @endif
     
-    
-    <div class="panel-body">
-        <div class="content-group">
-            <p><span class="text-semibold">{{ $content->title }}</span></p>
+    <form action="route('admin.contents.revisions.update')">
+        @method('PUT')
+        @csrf
+        <div class="panel-heading">
+            <h5 class="panel-title">
+                <span class="text-semibold">{{ $content->title }}</span>
+            </h5>
+            <div class="heading-elements">
+                <ul class="icons-list">
+                    <li><button type="button" data-target="{{ $revision_path }}" data-loading-text="<i class='icon-spinner4 spinner position-left'></i> Saving" class="btn btn-primary btn-sm btn-loading">Update</button></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="panel-body">
             <div id="php_editor">{{ Storage::disk('resource')->get($revision_path) }}</div>
         </div>
-    </div>
+    </form>
 </div>
 
 @endsection
@@ -72,6 +83,29 @@
             php_editor.setTheme("ace/theme/monokai");
             php_editor.getSession().setMode("ace/mode/php");
             php_editor.setShowPrintMargin(false);
+
+        $('.btn-loading').click(function () {
+            var btn = $(this);
+            var target = $(this).data("target");
+            var content = php_editor.getSession().getValue();
+            btn.button('loading');
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                url: '{{ route("admin.contents.revisions.update", ['id' => $content->id, 'revision' => $revision->id]) }}',
+                type: "PUT",
+                data: {
+                    revision_path: target,
+                    content: content
+                },
+                success: function () {
+                    btn.button('reset');
+                }
+            });
+        });
     });
 </script>
 @endsection
