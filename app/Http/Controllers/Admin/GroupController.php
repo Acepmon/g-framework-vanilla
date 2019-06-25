@@ -4,7 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Group;
 use App\Menu;
-use App\GroupMenu;
+use App\User;
+use App\Permission;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -31,7 +32,8 @@ class GroupController extends Controller
      */
     public function create()
     {
-        return view('admin.groups.create');
+        $groups = Group::all();
+        return view('admin.groups.create', ['groups' => $groups]);
     }
 
     /**
@@ -50,9 +52,13 @@ class GroupController extends Controller
     {
         $group = Group::findOrFail($groupid);
         $group->menus()->attach($menuid);
-
-
         return back()->with('status', 'Menu added.');
+
+        // if (! $group->menus->contains($menuid->id)) {
+        //     $group->menus()->attach($menuid);
+        //     return back()->with('status', 'Menu added.');
+        // }
+        
     }
 
     public function removeMenu($groupid, $menuid)
@@ -60,8 +66,57 @@ class GroupController extends Controller
         $group = Group::findOrFail($groupid);
         $group->menus()->detach($menuid);
 
-
         return back()->with('status', 'Menu removed.');
+    }
+
+    public function showUserGroup($id)
+    {
+        $group = Group::findOrFail($id);
+        $users = User::all();
+        
+        return view('admin.groups.users.create', ['group' => $group, 'users' => $users]);
+    }
+
+    public function createUser($groupid, $userid)
+    {
+        $group = Group::findOrFail($groupid);
+        $group->users()->attach($userid);
+        return back()->with('status', 'User added.');
+
+        
+    }
+
+    public function removeUser($groupid, $userid)
+    {
+        $group = Group::findOrFail($groupid);
+        $group->users()->detach($userid);
+
+        return back()->with('status', 'User removed.');
+    }
+
+    public function showPermissionGroup($id)
+    {
+        $group = Group::findOrFail($id);
+        $permissions = Permission::all();
+        
+        return view('admin.groups.permissions.create', ['group' => $group, 'permissions' => $permissions]);
+    }
+
+    public function createPermission($groupid, $permissionid)
+    {
+        $group = Group::findOrFail($groupid);
+        $group->permissions()->attach($permissionid);
+        return back()->with('status', 'Permissions added.');
+
+        
+    }
+
+    public function removePermission($groupid, $permissionid)
+    {
+        $group = Group::findOrFail($groupid);
+        $group->permissions()->detach($permissionid);
+
+        return back()->with('status', 'Permissions removed.');
     }
 
     /**
@@ -96,7 +151,9 @@ class GroupController extends Controller
     public function show($id)
     {
         $group = Group::findOrFail($id);
-        return view('admin.groups.show', ['group' => $group]);
+        $users = User::all();
+        $permissions = Permission::all();
+        return view('admin.groups.show', ['group' => $group, 'users' => $users, 'permissions' => $permissions]);
     }
 
     /**

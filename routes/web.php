@@ -70,7 +70,7 @@ Route::middleware(['auth'])->group(function () {
                 'show' => 'admin.menus.show',
                 'edit' => 'admin.menus.edit',
                 'update' => 'admin.menus.update',
-                'destroy' => 'admin.menus.destroy'
+                'destroy' => 'admin.menus.destroy',
             ]);
             Route::resource('users', 'UserController')->names([
                 'index' => 'admin.users.index',
@@ -123,6 +123,14 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/groups/{group}/menus/showMenuGroup', 'GroupController@showMenuGroup')->name('admin.groups.showMenuGroup');
             Route::get('/groups/{group}/menus/createMenu/{menu}', 'GroupController@createMenu')->name('admin.groups.createMenu');
             Route::get('/groups/{group}/menus/removeMenu/{menu}', 'GroupController@removeMenu')->name('admin.groups.removeMenu');
+
+            Route::get('/groups/{group}/users/showUserGroup', 'GroupController@showUserGroup')->name('admin.groups.showUserGroup');
+            Route::get('/groups/{group}/users/createUser/{user}', 'GroupController@createUser')->name('admin.groups.createUser');
+            Route::get('/groups/{group}/users/removeUser/{user}', 'GroupController@removeUser')->name('admin.groups.removeUser');
+
+            Route::get('/groups/{group}/permissions/showPermissionGroup', 'GroupController@showPermissionGroup')->name('admin.groups.showPermissionGroup');
+            Route::get('/groups/{group}/permissions/createPermission/{permission}', 'GroupController@createPermission')->name('admin.groups.createPermission');
+            Route::get('/groups/{group}/permissions/removePermission/{permission}', 'GroupController@removePermission')->name('admin.groups.removePermission');
 
             Route::resource('pages', 'PageController')->names([
                 'index' => 'admin.pages.index',
@@ -213,6 +221,10 @@ Route::middleware(['auth'])->group(function () {
 
             Route::get('/users/{user}/contents', 'UserContentController@index')->name('admin.users.contents.index');
             Route::get('/users/{user}/contents/{content}', 'UserContentController@show')->name('admin.users.contents.show');
+            
+            Route::delete('/menus/{menu}/groups/{group}', 'MenuController@destroyGroup')->name('admin.menus.groups.destroy');
+            Route::get('/menus/{menu}/groups/create', 'MenuController@createGroup')->name('admin.menus.groups.create');
+            Route::post('/menus/{menu}/groups', 'MenuController@storeGroup')->name('admin.menus.groups.store');
         });
     });
 
