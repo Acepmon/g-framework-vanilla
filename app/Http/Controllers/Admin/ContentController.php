@@ -209,12 +209,12 @@ class ContentController extends Controller
     public function revert($id)
     {
         $content = Content::findOrFail($id);
-        $revision_id = Route::current()->parameter('revision_id');
+        $revision = Route::current()->parameter('revision');
 
         try {
             DB::beginTransaction();
 
-            $revision = ContentMeta::findOrFail($revision_id);
+            $revision = ContentMeta::findOrFail($revision);
             $revision_value = json_decode($revision->value);
             $slug = $revision_value->after;
 
@@ -270,7 +270,8 @@ class ContentController extends Controller
             $content = $request->input('content');
             echo $revision_path;
             Storage::disk('resource')->put($revision_path, $content);
-            return response()->json(["result" => "success"]);
+            // return response()->json(["result" => "success"]);
+            return redirect()->route('admin.contents.show', ['id' => $content->id]);
         } catch (\Exception $e) {
             abort(400);
         }
