@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Route;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Menu;
+use App\Group;
 use Illuminate\Support\Facades\Validator;
 use phpDocumentor\Reflection\DocBlock\Tags\Uses;
 
@@ -188,5 +190,28 @@ class MenuController extends Controller
 //        return redirect()->route('admin.menus.index')->with('status', 'Success');
         return redirect()->route('admin.menus.index');
         //
+    }
+
+    public function destroyGroup($id){
+        $groupId = Route::current()->parameter('group');
+        $menus = Menu::all();
+        $menu = Menu::findOrFail($id);
+
+        $menu->groups()->detach($groupId);
+        return view('admin.menus.edit', ['menu' => $menu, 'menus' => $menus]);
+    }
+
+    public function createGroup(){
+        $menu = Route::current()->parameter('menu');
+        $groups = Group::all();
+        return view('admin.menus.groups.create', ['groups' => $groups, 'menu' => $menu]);
+    }
+
+    public function storeGroup(Request $request){
+        $menus = Menu::all();
+        $menu = Menu::findOrFail(Route::current()->parameter('menu'));
+
+        $menu->groups()->attach($request->group);
+        return redirect()->route('admin.menus.edit', ['menu' => $menu, 'menus' => $menus]);
     }
 }
