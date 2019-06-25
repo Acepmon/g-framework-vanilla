@@ -122,22 +122,100 @@
                 </thead>
                 <tbody>
                     @foreach ($group->menus as $menu)
+                        <tr>
+                            <td>{{$menu->id}}</td>
+                            <td>
+                                <div class="text-semibold"><a href="menu_link">{{$menu->title}}</a></div>
+                                <div class="text-muted">{{$menu->subtitle}}</div>
+                            </td>
+                            <td>{{$menu->link}}</td>
+                            <td><span class="label label-success">{{$menu->status}}</span></td>
+                            <td>{{$menu->visibility}}</td>
+                            <td class="text-center">
+                                <div class="btn-group">
+                                    <a type="button" class="btn btn-button" href="{{ route('admin.groups.removeMenu', ['group' => $group->id, 'menu' => $menu->id]) }}"  class="btn btn-default">Remove</a>
+                                </div>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="col-md-12">
+        <div class="panel panel-flat">
+            <div class="panel-heading">
+                <h1 class="panel-title">
+                    Group user list
+                    <a type="button" class="btn btn-primary pull-right" href="{{ route('admin.groups.showUserGroup', ['id' => $group->id]) }}" type="btn btn-primary">Add User to Group</a>
+                </h1>
+            </div>
+
+            <table class="table datatable-basic">
+                <thead>
                     <tr>
-                        <td>{{$menu->id}}</td>
-                        <td>
-                            <div class="text-semibold"><a href="menu_link">{{$menu->title}}</a></div>
-                            <div class="text-muted">{{$menu->subtitle}}</div>
-                        </td>
-                        <td>{{$menu->link}}</td>
-                        <td><span class="label label-success">{{$menu->status}}</span></td>
-                        <td>{{$menu->visibility}}</td>
-                        <td class="text-center">
-                            <div class="btn-group">
-                                <a type="button" class="btn btn-button" href="{{ route('admin.groups.removeMenu', ['group' => $group->id, 'menu' => $menu->id]) }}"  class="btn btn-default">Remove</a>
-                                <button type="button" class="btn btn-default">Details</button>
-                            </div>
-                        </td>
+                        <th>#</th>
+                        <th>Username</th>
+                        <th>E-mail</th>
+                        <th>Name</th>
+                        <th>Language</th>
+                        <th class="text-center">Actions</th>
                     </tr>
+                </thead>
+                <tbody>
+                    @foreach ($group->users as $user)
+                        <tr>
+                            <td>{{$user->id}}</td>
+                            <td>
+                                <div class="text-semibold"><a href="menu_link">{{$user->username}}</a></div>
+                            </td>
+                            <td>{{$user->email}}</td>
+                            <td><span class="label label-success">{{$user->name}}</span></td>
+                            <td>{{$user->language}}</td>
+                            <td class="text-center">
+                                <div class="btn-group">
+                                    <a type="button" class="btn btn-button" href="{{ route('admin.groups.removeUser', ['group' => $group->id, 'user' => $user->id]) }}"  class="btn btn-default">Remove</a>
+                                </div>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="panel panel-flat">
+            <div class="panel-heading">
+                <h1 class="panel-title">
+                    Group permission list
+                    <a type="button" class="btn btn-primary pull-right" href="{{ route('admin.groups.showPermissionGroup', ['id' => $group->id]) }}" type="btn btn-primary">Add Permission to Group</a>
+                </h1>
+            </div>
+
+            <table class="table datatable-basic">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th class="text-center">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($group->permissions as $permission)
+                        <tr>
+                            <td>{{$permission->id}}</td>
+                            <td>
+                                <div class="text-semibold"><a href="menu_link">{{$permission->title}}</a></div>
+                            </td>
+                            <td>{{$permission->description}}</td>
+                            <td class="text-center">
+                                <div class="btn-group">
+                                    <a type="button" class="btn btn-button" href="{{ route('admin.groups.removePermission', ['group' => $group->id, 'permission' => $permission->id]) }}"  class="btn btn-default">Remove</a>
+                                </div>
+                            </td>
+                        </tr>
                     @endforeach
                 </tbody>
             </table>

@@ -203,6 +203,9 @@
     </div>
     </div>
     <div class="col-md-6">
+        <div class="text-right" style="padding-bottom: 5px">
+            <a href="{{ route('admin.menus.groups.create', ['menu' => $menu->id]) }}" class="btn btn-primary" style="color: #ffffff">Add group<i class="icon-arrow-right14 position-right"></i></a>
+        </div>
         <div class="panel panel-flat">
             <div class="table-responsive">
                 <table class="table">
@@ -211,6 +214,7 @@
                             <th>#</th>
                             <th>Title</th>
                             <th>Description</th>
+                            <th width="80px">Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -220,6 +224,9 @@
                             <td>{{ $data->id}}</td>
                             <td>{{ $data->title}}</td>
                             <td>{{ $data->description}}</td>
+                            <td>
+                                <a href='#' data-toggle='modal' data-target='#modal_theme_danger' onclick="delete_confirm({{$data->id}})" class='btn btn-default'><span class='icon-trash'></span></a>
+                            </td>
                         </tr>
                         @endforeach
                     </tbody>
@@ -233,7 +240,41 @@
 <!-- /grid -->
 
 
+
+<!-- Danger modal -->
+<div id="modal_theme_danger" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-danger">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h6 class="modal-title">Delete?</h6>
+            </div>
+
+            <div class="modal-body">
+                <p>Are you sure you want to delete this record?</p>
+            </div>
+
+            <div class="modal-footer">
+                <form method="post" id="delete_form" action="/admin/menus/0">
+                    {{ method_field('DELETE') }}
+                    {{ csrf_field() }}
+
+                    <button type="button" class="btn btn-link" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /default modal -->
+
+
 @endsection
 
 @section('script')
+<script>
+    window.delete_confirm = function(id) {
+        $("#delete_form").attr('action', '/admin/menus/{{$menu->id}}/groups/'+id);
+    }
+</script>
 @endsection
