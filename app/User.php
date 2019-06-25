@@ -14,6 +14,14 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
 {
     use HasApiTokens, Notifiable;
 
+    const LANG_EN = 'en';
+    const LANG_MN = 'mn';
+
+    const LANG_ARRAY = [
+        self::LANG_EN,
+        self::LANG_MN
+    ];
+
     /**
      * The attributes that are mass assignable.
      *

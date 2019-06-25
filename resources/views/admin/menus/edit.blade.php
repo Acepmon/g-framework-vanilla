@@ -68,6 +68,7 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                             @enderror
+                        </div>
                     </div>
 
                     <div class="form-group">
@@ -200,7 +201,6 @@
             </div>
         </div>
         <!-- /horizotal form -->
-    </div>
     </div>
     <div class="col-md-6">
         <div class="text-right" style="padding-bottom: 5px">
