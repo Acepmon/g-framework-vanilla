@@ -21,6 +21,7 @@ Route::middleware(['auth'])->group(function () {
             Route::get('changelog', 'ChangelogController@index')->name('admin.changelog.index');
 
             Route::get('install','PluginController@installPlugin')->name('admin.plugins.install');
+            Route::get('installTheme','ThemeController@installTheme')->name('admin.themes.install');
 
             Route::get('/menus/tree', 'MenuController@tree')->name('admin.menus.tree');
 
@@ -99,8 +100,19 @@ Route::middleware(['auth'])->group(function () {
                 'update' => 'admin.plugins.update',
                 'destroy' => 'admin.plugins.destroy'
             ]);
+            Route::resource('themes', 'ThemeController')->names([
+                'index' => 'admin.themes.index',
+                'create' => 'admin.themes.create',
+                'store' => 'admin.themes.store',
+                'show' => 'admin.themes.show',
+                'edit' => 'admin.themes.edit',
+                'update' => 'admin.themes.update',
+                'destroy' => 'admin.themes.destroy'
+            ]);
             Route::post('plugins/{plugin}/activate', 'PluginController@activate')->name('admin.plugins.activate');
             Route::post('plugins/{plugin}/deactivate', 'PluginController@deactivate')->name('admin.plugins.deactivate');
+            Route::post('themes/{theme}/activate', 'ThemeController@activate')->name('admin.themes.activate');
+            Route::post('themes/{theme}/deactivate', 'ThemeController@deactivate')->name('admin.themes.deactivate');
             Route::resource('backups', 'BackupsController')->names([
                 'index' => 'admin.backups.index',
                 'create' => 'admin.backups.create',

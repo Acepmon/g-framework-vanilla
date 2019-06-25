@@ -51,6 +51,10 @@ return [
             'driver' => 'local',
             'root' => base_path('plugins'),
         ],
+        'themes' => [
+            'driver' => 'local',
+            'root' => base_path('themes'),
+        ],
         'config' => [
             'driver' => 'local',
             'root' => config_path(),
