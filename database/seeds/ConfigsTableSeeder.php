@@ -13,11 +13,25 @@ class ConfigsTableSeeder extends Seeder
     {
         DB::table('configs')->insert([
             [
-                'title' => '',
+                'title' => 'Plugin Development Path',
                 'description' => '',
-                'key' => '',
-                'value' => '',
-                'autoload' => false
+                'key' => 'system.plugins.developmentPath',
+                'value' => '/storage/app/plugins',
+                'autoload' => true
+            ],
+            [
+                'title' => 'Plugin Download Path',
+                'description' => '',
+                'key' => 'system.plugins.storagePath',
+                'value' => '/storage/app/plugins',
+                'autoload' => true
+            ],
+            [
+                'title' => 'Plugin Install Path',
+                'description' => '',
+                'key' => 'system.plugins.installPath',
+                'value' => '/plugins',
+                'autoload' => true
             ]
         ]);
     }
