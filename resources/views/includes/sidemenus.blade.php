@@ -5,7 +5,7 @@
         <i class="{{ $menu->icon}}"></i>
         <span>{{ $menu->title }}</span>
     </a>
-    
+
     @if(count(Auth::user()->menus->where('parent_id', $menu->id))>0)
     <ul>
         @each('includes.sidemenus', Auth::user()->menus->where('parent_id', $menu->id), 'menu')
