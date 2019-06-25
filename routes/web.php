@@ -94,6 +94,14 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/groups/{group}/menus/createMenu/{menu}', 'GroupController@createMenu')->name('admin.groups.createMenu');
             Route::get('/groups/{group}/menus/removeMenu/{menu}', 'GroupController@removeMenu')->name('admin.groups.removeMenu');
 
+            Route::get('/groups/{group}/users/showUserGroup', 'GroupController@showUserGroup')->name('admin.groups.showUserGroup');
+            Route::get('/groups/{group}/users/createUser/{user}', 'GroupController@createUser')->name('admin.groups.createUser');
+            Route::get('/groups/{group}/users/removeUser/{user}', 'GroupController@removeUser')->name('admin.groups.removeUser');
+
+            Route::get('/groups/{group}/permissions/showPermissionGroup', 'GroupController@showPermissionGroup')->name('admin.groups.showPermissionGroup');
+            Route::get('/groups/{group}/permissions/createPermission/{permission}', 'GroupController@createPermission')->name('admin.groups.createPermission');
+            Route::get('/groups/{group}/permissions/removePermission/{permission}', 'GroupController@removePermission')->name('admin.groups.removePermission');
+
             Route::resource('pages', 'PageController')->names([
                 'index' => 'admin.pages.index',
                 'create' => 'admin.pages.create',

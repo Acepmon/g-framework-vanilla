@@ -23,6 +23,16 @@ class Group extends Model
         return $this->belongsToMany('App\Menu', 'group_menu');
     }
 
+    public function users()
+    {
+        return $this->belongsToMany('App\User', 'user_group');
+    }
+
+    public function permissions()
+    {
+        return $this->belongsToMany('App\Permission', 'group_permission');
+    }
+
     public function typeClass()
     {
         switch ($this->type) {
