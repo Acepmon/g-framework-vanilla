@@ -56,12 +56,12 @@
                 {{ session('error') }}
             </div>
             @endif
-            
+
             <div class="panel panel-flat" id="detail">
                 <div class="panel-heading">
                     <h5 class="panel-title">Details</h5>
                 </div>
-                
+
                 <div class="panel-body">
                     <div class="form-group">
                         <label class="control-label col-lg-2">Title</label>
@@ -73,7 +73,7 @@
                     <div class="form-group">
                         <label class="control-label col-lg-2">Slug</label>
                         <div class="col-lg-10">
-                            <label class="control-label col-lg-2">{{$content->slug}}</label>
+                            <label class="control-label col-lg-2"><a href="{{url($content->slug)}}" target="_blank">{{$content->slug}}</a></label>
                         </div>
                     </div>
                     <div class="form-group">
@@ -105,7 +105,7 @@
                         <div class="col-lg-10">
                             <label class="control-label col-lg-2">
                                 @foreach($content->terms->where('taxonomy', 'category') as $rel)
-                                    {{ $rel->term->name }}, 
+                                    {{ $rel->term->name }},
                                 @endforeach
                             </label>
                         </div>
@@ -115,7 +115,7 @@
                         <div class="col-lg-10">
                             <label class="control-label col-lg-2">
                                 @foreach($content->terms->where('taxonomy', 'tag') as $rel)
-                                    {{ $rel->term->name }}, 
+                                    {{ $rel->term->name }},
                                 @endforeach
                             </label>
                         </div>
@@ -190,7 +190,7 @@
                 </div>
                 <!-- /support -->
 
-                
+
                 <!-- Navigation -->
                 <div class="sidebar-category">
                     <div class="category-content no-padding">
@@ -199,15 +199,15 @@
                             <li class="navigation-header"><i class="icon-history pull-right"></i> Detail</li>
                             <li><a href="#detail">Detail</a></li>
                             <li><a href="#comments">Comments <span class="text-muted text-regular pull-right">{{ count($content->comments) }} comments</span></a></li>
-                            
+
                             <!-- Navigation History -->
                             <li class="navigation-header"><i class="icon-history pull-right"></i> Revision history</li>
                             @foreach($content->metas->whereIn('key', ['initial', 'revision', 'revert'])->sortByDesc('id') as $key=>$revision)
-                            <li><a href="#v_{{ $revision->id }}">{{ $key+1 }}. {{ ucfirst($revision->key) }} 
+                            <li><a href="#v_{{ $revision->id }}">{{ $key+1 }}. {{ ucfirst($revision->key) }}
                                 <span class="text-muted text-regular pull-right">{{ date('Y-m-d', json_decode($revision->value)->datetime) }}</span>
                             </a></li>
                             @endforeach
-                            
+
                             <li class="navigation-divider"></li>
                             <li class="navigation-header"><i class="icon-gear pull-right"></i> Extras</li>
                             <li><a href="http://themeforest.net/user/kopyov" target="_blank"><i class="icon-bubbles4 text-slate-400"></i> Contact me</a></li>

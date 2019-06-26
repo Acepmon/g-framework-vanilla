@@ -15,8 +15,16 @@ class ContentMeta extends Model
 
     public $timestamps = false;
 
+    const NAMING_CONVENTION = \App\Content::NAMING_CONVENTION;
+
     public function content()
     {
         return $this->belongsTo('App\Content', 'content_id');
+    }
+
+    public function revisionView()
+    {
+        $revision_value = json_decode($this->value);
+        return $revision_value->after . self::NAMING_CONVENTION . $this->content->status . self::NAMING_CONVENTION . $revision_value->datetime;
     }
 }

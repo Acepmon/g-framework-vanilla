@@ -53,7 +53,7 @@
             {{ session('status') }}
         </div>
     @endif
-    
+
     <form action="route('admin.contents.revisions.update')">
         @method('PUT')
         @csrf
@@ -69,7 +69,7 @@
         </div>
 
         <div class="panel-body">
-            <div id="php_editor">{{ Storage::disk('resource')->get($revision_path) }}</div>
+            <div id="php_editor">{{ file_get_contents(base_path($revision_path)) }}</div>
         </div>
     </form>
 </div>

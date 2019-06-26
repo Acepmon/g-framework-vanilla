@@ -47,24 +47,24 @@ class UpdateMetasTable extends Migration
     {
         //
         Schema::table('content_metas', function(Blueprint $table) {
-            $table->unique('key');
-            $table->string('value', 255)->change();
+            // $table->unique('key');
+            // $table->string('value', 255)->change();
         });
         Schema::table('term_metas', function(Blueprint $table) {
-            $table->unique('key');
-            $table->string('value', 255)->change();
+            // $table->unique('key');
+            // $table->string('value', 255)->change();
         });
         Schema::table('group_metas', function(Blueprint $table) {
             // $table->unique('key');
-            $table->string('value', 255)->change();
+            // $table->string('value', 255)->change();
         });
         Schema::table('comment_metas', function(Blueprint $table) {
-            $table->unique('key');
-            $table->string('value', 255)->change();
+            // $table->unique('key');
+            // $table->string('value', 255)->change();
         });
         Schema::table('settings', function(Blueprint $table) {
-            $table->unique('key');
-            $table->string('value', 255)->change();
+            // $table->unique('key');
+            // $table->string('value', 255)->change();
         });
     }
 }
