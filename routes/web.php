@@ -91,6 +91,15 @@ Route::middleware(['auth'])->group(function () {
                 'update' => 'admin.permissions.update',
                 'destroy' => 'admin.permissions.destroy'
             ]);
+            Route::resource('backups', 'BackupController')->names([
+                'index' => 'admin.backups.index',
+                'create' => 'admin.backups.create',
+                'store' => 'admin.backups.store',
+                'show' => 'admin.backups.show',
+                'edit' => 'admin.backups.edit',
+                'update' => 'admin.backups.update',
+                'destroy' => 'admin.backups.destroy'
+            ]);
             Route::resource('plugins', 'PluginController')->names([
                 'index' => 'admin.plugins.index',
                 'create' => 'admin.plugins.create',
@@ -113,15 +122,6 @@ Route::middleware(['auth'])->group(function () {
             Route::post('plugins/{plugin}/deactivate', 'PluginController@deactivate')->name('admin.plugins.deactivate');
             Route::post('themes/{theme}/activate', 'ThemeController@activate')->name('admin.themes.activate');
             Route::post('themes/{theme}/deactivate', 'ThemeController@deactivate')->name('admin.themes.deactivate');
-            Route::resource('backups', 'BackupsController')->names([
-                'index' => 'admin.backups.index',
-                'create' => 'admin.backups.create',
-                'store' => 'admin.backups.store',
-                'show' => 'admin.backups.show',
-                'edit' => 'admin.backups.edit',
-                'update' => 'admin.backups.update',
-                'destroy' => 'admin.backups.destroy'
-            ]);
             Route::resource('groups', 'GroupController')->names([
                 'index' => 'admin.groups.index',
                 'create' => 'admin.groups.create',
