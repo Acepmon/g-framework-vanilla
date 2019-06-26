@@ -17,5 +17,6 @@ class DatabaseSeeder extends Seeder
         $this->call(AdminUsersSeeder::class);
         $this->call(TermTaxonomyTableSeeder::class);
         $this->call(AdministratorMenusSeeder::class);
+        $this->call(ThemesTableSeeder::class);
     }
 }
