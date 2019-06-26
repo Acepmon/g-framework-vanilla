@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Backup;
+
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Backup;
+use Illuminate\Support\Facades\Validator;
 
-class BackupsController extends Controller
+class BackupController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,7 +18,7 @@ class BackupsController extends Controller
     public function index()
     {
         $backups = Backup::all();
-        return view('admin.backups.index', ['$backups' => $backups]);
+        return view('admin.backups.index', ['backups' => $backups]);
     }
 
     /**
@@ -37,16 +39,17 @@ class BackupsController extends Controller
      */
     public function store(Request $request)
     {
-        // $validatedData = $request->validate([
-        //     'name' => 'required|max:100',
-        //     'description' => 'nullable|max:250',
-        // ]);
+         $validatedData = $request->validate([
+             'title' => 'required|max:191'
+         ]);
 
         $backups = new Backup;
-        $backups->parent_id = $request->parent_id;
         $backups->title = $request->title;
         $backups->description = $request->description;
-        $backups->type = Backup::TYPE_STATIC;
+        $backups->filepath = '1';
+        $backups->filename = '2';
+        $backups->filetype = '3';
+        $backups->status = Backup::COMPLETED;
         $backups->save();
 
         return redirect()->route('admin.backups.index')->with('status', 'Backup created!');
@@ -61,7 +64,7 @@ class BackupsController extends Controller
     public function show($id)
     {
         $backups = Backup::findOrFail($id);
-        return view('admin.backups.show', ['backups' => $backups]);
+        return view('admin.backups.show', ['backup' => $backups]);
     }
 
     /**
@@ -73,7 +76,7 @@ class BackupsController extends Controller
     public function edit($id)
     {
         $backups = Backup::findOrFail($id);
-        return view('admin.backups.edit', ['backups' => $backups]);
+        return view('admin.backups.edit', ['backup' => $backups]);
     }
 
     /**
@@ -85,15 +88,17 @@ class BackupsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // $validatedData = $request->validate([
-        //     'name' => 'required|max:100',
-        //     'description' => 'nullable|max:250',
-        // ]);
+        $validatedData = $request->validate([
+            'title' => 'required|max:191'
+        ]);
 
         $backups = Backup::findOrFail($id);
-        $backups->parent_id = $request->parent_id;
         $backups->title = $request->title;
         $backups->description = $request->description;
+        $backups->filepath = '1';
+        $backups->filename = '2';
+        $backups->filetype = '3';
+        $backups->status = Backup::COMPLETED;
         $backups->save();
         return redirect()->route('admin.backups.index')->with('status', 'Backup edited');
     }
@@ -108,11 +113,14 @@ class BackupsController extends Controller
     {
         $backups = Backup::findOrFail($id);
 
-        if ($backups->type == Backup::TYPE_SYSTEM) {
-            return redirect()->route('admin.backups.index')->with('status', 'System backup cannot be deleted!');
-        } else {
-            $backups->delete();
-            return redirect()->route('admin.backups.index')->with('status', 'Backup deleted');
-        }
+        $backups->delete();
+        return redirect()->route('admin.backups.index')->with('status', 'Backup deleted');
+
+//        if ($backups->type == Backup::TYPE_SYSTEM) {
+//            return redirect()->route('admin.backups.index')->with('status', 'System backup cannot be deleted!');
+//        } else {
+//            $backups->delete();
+//            return redirect()->route('admin.backups.index')->with('status', 'Backup deleted');
+//        }
     }
 }
