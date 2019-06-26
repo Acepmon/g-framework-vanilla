@@ -47,6 +47,7 @@ Route::middleware(['auth'])->group(function () {
                 Route::get('themes', 'ConfigController@themes')->name('admin.configs.themes');
                 Route::get('plugins', 'ConfigController@plugins')->name('admin.configs.plugins');
                 Route::get('security', 'ConfigController@security')->name('admin.configs.security');
+                Route::get('contents', 'ConfigController@contents')->name('admin.configs.contents');
             });
 
             Route::prefix('logs')->group(function () {
@@ -248,4 +249,4 @@ Route::get('/', function () {
 
 Auth::routes(['verify' => true]);
 
-Route::get('/{slug}', 'HomeController@content')->name('content');
+Route::get('/{any}', 'HomeController@content')->where('any', '.*');

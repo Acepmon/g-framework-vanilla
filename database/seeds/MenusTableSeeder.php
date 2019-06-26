@@ -365,6 +365,18 @@ class MenusTableSeeder extends Seeder
                 'parent_id' => 4,
             ],
             [
+                'title' => 'Content Configurations',
+                'link' => '/admin/configs/contents',
+                'icon' => '',
+                'type' => App\Menu::TYPE_MENU,
+                'status' => App\Menu::STATUS_PUBLISH,
+                'visibility' => App\Menu::VISIBILITY_PUBLIC,
+                'order' => 7,
+                'sublevel' => 2,
+                'group' => 'system',
+                'parent_id' => 4,
+            ],
+            [
                 'title' => 'Installed Plugins',
                 'link' => '/admin/plugins',
                 'icon' => '',

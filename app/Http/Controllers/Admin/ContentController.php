@@ -8,6 +8,7 @@ use Storage;
 use App\Content;
 use App\ContentMeta;
 use App\User;
+use App\Config;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
@@ -70,7 +71,7 @@ class ContentController extends Controller
             $content->visibility = $request->visibility;
             $content->author_id = $request->author_id;
             $content->save();
-            
+
             $content->terms()->sync($request->input('tags'));
             $content->terms()->attach($request->input('category'));
 
@@ -80,18 +81,22 @@ class ContentController extends Controller
             $value->before = $content->slug;
             $value->after = $content->slug;
             $value->user = Auth::user();
-            
+
             $content_meta = new ContentMeta();
             $content_meta->content_id = $content->id;
             $content_meta->key = 'initial';
             $content_meta->value = json_encode($value);
             $content_meta->save();
 
+            $viewPath = Config::where('key', 'content.'.$content->type.'s.viewPath')->first()->value;
+            $name = $viewPath . '.' . $content->slug . Content::NAMING_CONVENTION . $content->status . Content::NAMING_CONVENTION . strtotime($content->updated_at);
+            $extension =  'blade.php';
+
             // Create View
             Artisan::call("make:view", [
-                'name' => 'admin.contents.' . $content->type . 's.' . $content->slug,
-                '--extension' => $content->status . '.' . time() . '.blade.php',
-                '--extends' => 'layous.admin',
+                'name' => $name,
+                '--extension' => $extension,
+                '--extends' => 'layouts.app',
                 '--with-yields']);
 
             DB::commit();
@@ -180,10 +185,14 @@ class ContentController extends Controller
             $content_meta->value = json_encode($value);
             $content_meta->save();
 
+            $viewPath = Config::where('key', 'content.'.$content->type.'s.viewPath')->first()->value;
+            $name = $viewPath . '.' . $content->slug . Content::NAMING_CONVENTION . $content->status . Content::NAMING_CONVENTION . strtotime($content->updated_at);
+            $extension =  'blade.php';
+
             Artisan::call("make:view", [
-                'name' => 'admin.contents.' . $content->type . 's.' . $content->slug,
-                '--extension' => $content->status . '.' . time() . '.blade.php',
-                '--extends' => 'layous.admin',
+                'name' => $name,
+                '--extension' => $extension,
+                '--extends' => 'layouts.app',
                 '--with-yields']);
 
             DB::commit();
@@ -253,12 +262,15 @@ class ContentController extends Controller
         $content = Content::findOrFail($id);
         $revision = ContentMeta::findOrFail(Route::current()->parameter('revision'));
 
+        $viewPath = Config::where('key', 'content.'.$content->type.'s.rootPath')->first()->value;
+        $path = $viewPath . DIRECTORY_SEPARATOR . $revision->revisionView();
+
         $revision_value = json_decode($revision->value);
-        $revision_path = 'views/admin/contents/' . $revision->content->type . 's/' . $revision_value->after . '.' . $revision->content->status . '.' . $revision_value->datetime . '.blade.php';
+        $revision_path = $path . '.blade.php';
         return view('admin.contents.revisions.show', ['content' => $content, 'revision' => $revision, 'revision_path' => $revision_path]);
     }
 
-    public function updateRevision(Request $request)
+    public function updateRevision(Request $request, $id)
     {
         $request->validate([
             'revision_path' => 'required',
@@ -268,10 +280,9 @@ class ContentController extends Controller
         try {
             $revision_path = $request->input('revision_path');
             $content = $request->input('content');
-            echo $revision_path;
-            Storage::disk('resource')->put($revision_path, $content);
-            // return response()->json(["result" => "success"]);
-            return redirect()->route('admin.contents.show', ['id' => $content->id]);
+            file_put_contents(base_path($revision_path), $content);
+            return response()->json(["result" => "success"]);
+            // return redirect()->route('admin.contents.show', ['id' => $content->id]);
         } catch (\Exception $e) {
             abort(400);
         }

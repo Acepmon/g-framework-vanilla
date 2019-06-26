@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', 'Plugins Configuration')
+@section('title', 'Contents Configuration')
 
 @section('load')
 

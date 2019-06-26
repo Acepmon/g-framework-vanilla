@@ -151,21 +151,31 @@ class ConfigController extends Controller
 
     public function system()
     {
-        return view('admin.configs.system');
+        $configs = Config::where('key', 'LIKE', 'system.%')->get();
+        return view('admin.configs.system', ['configs' => $configs]);
     }
 
     public function themes()
     {
-        return view('admin.configs.themes');
+        $configs = Config::where('key', 'LIKE', 'themes.%')->get();
+        return view('admin.configs.themes', ['configs' => $configs]);
     }
 
     public function plugins()
     {
-        return view('admin.configs.plugins');
+        $configs = Config::where('key', 'LIKE', 'plugins.%')->get();
+        return view('admin.configs.plugins', ['configs' => $configs]);
     }
 
     public function security()
     {
-        return view('admin.configs.security');
+        $configs = Config::where('key', 'LIKE', 'security.%')->get();
+        return view('admin.configs.security', ['configs' => $configs]);
+    }
+
+    public function contents()
+    {
+        $configs = Config::where('key', 'LIKE', 'content.%')->get();
+        return view('admin.configs.contents', ['configs' => $configs]);
     }
 }

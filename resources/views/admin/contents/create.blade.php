@@ -51,7 +51,7 @@
 
 <!-- Grid -->
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-12">
 
         <!-- Horizontal form -->
         <div class="panel panel-flat">
@@ -80,7 +80,7 @@
                             <input id="title" type="text" class="form-control" name="title" placeholder="Enter content title..." required="required" aria-required="true" invalid="true">
                         </div>
                         <div class="col-lg-2">
-                            <button type="button" class="btn btn-default" onclick="create_slug()">Create Slug</button>
+                            <button type="button" class="btn btn-default btn-block" onclick="create_slug()">Create Slug</button>
                         </div>
                     </div>
                     <div class="form-group">
@@ -191,7 +191,7 @@
         document.getElementById("slug").value = title;
 
     }
-    
+
     $( "#slug" ).keyup(function( event ) {
             console.log(event.which);
         if ( event.which == 32) {

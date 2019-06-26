@@ -34,6 +34,8 @@ class Content extends Model
         self::VISIBILITY_AUTH
     ];
 
+    const NAMING_CONVENTION = '_';
+
     public function metas()
     {
         return $this->hasMany('App\ContentMeta', 'content_id');
@@ -43,9 +45,14 @@ class Content extends Model
     {
         return $this->morphMany('App\Comment', 'commentable');
     }
-    
+
     public function terms()
     {
         return $this->belongsToMany('App\TermTaxonomy', 'term_relationships');
+    }
+
+    public function currentView()
+    {
+        return $this->slug . self::NAMING_CONVENTION . $this->status . self::NAMING_CONVENTION . strtotime($this->updated_at);
     }
 }
