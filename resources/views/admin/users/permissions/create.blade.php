@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('admin.layouts.default')
 
 @section('load')
 <!-- Theme JS files -->
@@ -58,7 +58,7 @@
 
 @section('content')
 <div class="has-detached-left">
-    @include('admin.users.includes.sidebar')
+    @include('admin.users.admin.includes.sidebar')
 
     <!-- Detached content -->
     <div class="container-detached">
@@ -68,7 +68,7 @@
             <div class="tab-content">
 
                 <div class="tab-pane fade in active" id="permissions">
-                    
+
 					<!-- Form horizontal -->
 					<div class="panel panel-flat">
 						<div class="panel-heading">
@@ -99,7 +99,7 @@
                                         <input name="title" type="text" class="form-control" required="true" placeholder="Permission Title...">
                                     </div>
                                 </div>
-                                
+
                                 <div class="form-group">
                                     <label class="control-label col-lg-2">Description</label>
                                     <div class="col-lg-10">

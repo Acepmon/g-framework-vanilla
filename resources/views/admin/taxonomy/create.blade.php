@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('admin.layouts.default')
 
 @section('load')
 @endsection
@@ -140,7 +140,7 @@
         document.getElementById("slug").value = title;
 
     }
-    
+
     $( "#slug" ).keyup(function( event ) {
             console.log(event.which);
         if ( event.which == 32) {

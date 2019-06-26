@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('admin.layouts.default')
 
 @section('load')
 <!-- Theme JS files -->
@@ -51,7 +51,7 @@
 
 @section('content')
 <div class="has-detached-left">
-    @include('admin.users.includes.sidebar')
+    @include('admin.users.admin.includes.sidebar')
 
     <!-- Detached content -->
     <div class="container-detached">
@@ -170,7 +170,7 @@
                 <form method="post" id="delete_form" action="{{ route('admin.users.index') }}">
                     {{ method_field('DELETE') }}
                     {{ csrf_field() }}
-                    
+
                     <button type="button" class="btn btn-link" data-dismiss="modal">Cancel</button>
                     <button type="submit" class="btn btn-danger">Delete</button>
                 </form>

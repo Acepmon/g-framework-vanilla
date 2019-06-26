@@ -34,7 +34,7 @@
                 <ul class="navigation navigation-alt navigation-accordion">
 
                     @if(true)
-                        @each('includes.sidemenus', Auth::user()->menus->where('parent_id', NULL), 'menu')
+                        @each('admin.includes.sidemenus', Auth::user()->menus->where('parent_id', NULL), 'menu')
                     @else
                     <li class="navigation-header"><span>Overview</span> <i class="icon-menu" title="Overview"></i></li>
                     <li><a href="/admin/dashboard"><i class="icon-home4"></i> <span>Dashboard</span></a></li>

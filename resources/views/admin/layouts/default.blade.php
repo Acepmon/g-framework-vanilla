@@ -36,14 +36,14 @@
 
 <body>
 
-    @include('includes.navbar')
+    @include('admin.includes.navbar')
     <!-- Page container -->
     <div class="page-container">
 
         <!-- Page content -->
         <div class="page-content" id="app">
 
-            @include('includes.sidebar')
+            @include('admin.includes.sidebar')
 
             <!-- Main content -->
             <div class="content-wrapper">
@@ -59,7 +59,7 @@
 
                     @yield('content')
 
-                    @include('includes.footer')
+                    @include('admin.includes.footer')
 
                 </div>
                 <!-- /content area -->

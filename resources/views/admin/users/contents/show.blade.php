@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('admin.layouts.default')
 
 @section('load')
 <!-- Theme JS files -->
@@ -51,7 +51,7 @@
 
 @section('content')
 <div class="has-detached-left">
-    @include('admin.users.includes.sidebar')
+    @include('admin.users.admin.includes.sidebar')
 
     <!-- Detached content -->
     <div class="container-detached">
@@ -100,28 +100,28 @@
                                     <label>{{ $content->content }}</label>
                                 </div>
                             </div>
-                            
+
                             <div class="form-group">
                                 <b class="control-label col-lg-1 text-right">Status</b>
                                 <div class="col-lg-11">
                                     <label>{{ $content->status }}</label>
                                 </div>
                             </div>
-                            
+
                             <div class="form-group">
                                 <b class="control-label col-lg-1 text-right">Visibility</b>
                                 <div class="col-lg-11">
                                     <label>{{ $content->visibility }}</label>
                                 </div>
                             </div>
-                            
+
                             <div class="form-group">
                                 <b class="control-label col-lg-1 text-right">Created At</b>
                                 <div class="col-lg-11">
                                     <label>{{ $content->created_at }}</label>
                                 </div>
                             </div>
-                            
+
                             <div class="form-group">
                                 <b class="control-label col-lg-1 text-right">Updated At</b>
                                 <div class="col-lg-11">
@@ -160,7 +160,7 @@
                 <form method="post" id="delete_form" action="{{ route('admin.users.index') }}">
                     {{ method_field('DELETE') }}
                     {{ csrf_field() }}
-                    
+
                     <button type="button" class="btn btn-link" data-dismiss="modal">Cancel</button>
                     <button type="submit" class="btn btn-danger">Delete</button>
                 </form>

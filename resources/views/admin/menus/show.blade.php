@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('admin.layouts.default')
 
 @section('load')
 <script type="text/javascript" src="/assets/js/core/libraries/jquery_ui/core.min.js"></script>
@@ -76,35 +76,35 @@
                             {{$menu->link}}
                         </div>
                     </div>
-                    
+
                     <div class="form-group">
                         <label class="control-label col-lg-2">Icon</label>
                         <div class="col-lg-10">
                             {{$menu->icon}}
                         </div>
                     </div>
-                    
+
                     <div class="form-group">
                         <label class="control-label col-lg-2">Status</label>
                         <div class="col-lg-10">
                             {{$menu->status}}
                         </div>
                     </div>
-                    
+
                     <div class="form-group">
                         <label class="control-label col-lg-2">Visibility</label>
                         <div class="col-lg-10">
                             {{$menu->visibility}}
                         </div>
                     </div>
-                    
+
                     <div class="form-group">
                         <label class="control-label col-lg-2">Order</label>
                         <div class="col-lg-10">
                             {{$menu->order}}
                         </div>
                     </div>
-                    
+
                     <div class="form-group">
                         <label class="control-label col-lg-2">Sublevel</label>
                         <div class="col-lg-10">
@@ -123,7 +123,7 @@
 
                     <div class="text-right">
                         <a type="button" href="javascript:history.back()" class="btn btn-default" ><i class="icon-arrow-left13 position-left"></i> Back</a>
-                        
+
                         <!-- <a type="submit" class="btn btn-danger">Delete form </i></a> -->
                         <a type="button" href="{{ route('admin.menus.edit', ['id' => $menu->id]) }}" class="btn btn-primary">Edit</i> <i class="icon-arrow-right14 position-left"></i> </a>
                     </div>
@@ -211,8 +211,8 @@
             },
             source: {
                 url: "/admin/menus/tree?parent_id={{$menu->id}}"
-                
-            }, 
+
+            },
             lazyLoad: function(event, data) {
                 data.result = {url: "ajax-sub2.json"}
             },
@@ -228,7 +228,7 @@
                 $tdList.eq(2).addClass('text-left').html("<a href='" + node.data.link + "' style='display: block;max-width: 150px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden;'>" + node.data.link + "</a>");
                 $tdList.eq(3).addClass('text-left').html("<span class='label label-" + node.data.statusClass + "'>" + node.data.status + "</a>");
                 $tdList.eq(4).addClass('text-center').html("<span class='" + node.data.visibilityIcon + "'></a>");
-                
+
                 // Style checkboxes
                 $(".styled").uniform({radioClass: 'choice'});
             }

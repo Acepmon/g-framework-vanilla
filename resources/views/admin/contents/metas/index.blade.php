@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('admin.layouts.default')
 
 @section('load')
 @endsection
@@ -25,7 +25,7 @@
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 <i class="icon-gear position-left"></i>
                 Dropdown
-                <span class="caret"></span> 
+                <span class="caret"></span>
             </a>
 
             <ul class="dropdown-menu dropdown-menu-right">
@@ -63,7 +63,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>                    
+                <tr>
                     <td>1</td>
                     <td>key</td>
                     <td>value</td>
@@ -90,7 +90,7 @@
                 <form method="POST" id="delete_form">
                     {{ method_field('DELETE') }}
                     {{ csrf_field() }}
-                    
+
                     <button type="button" class="btn btn-link" data-dismiss="modal">Cancel</button>
                     <button type="submit" class="btn btn-danger">Delete</button>
                 </form>

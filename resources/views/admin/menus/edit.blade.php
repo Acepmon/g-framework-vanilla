@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('admin.layouts.default')
 
 @section('load')
 
@@ -94,7 +94,7 @@
                             @enderror
                         </div>
                     </div>
-                    
+
                     <div class="form-group">
                         <label class="control-label col-lg-2">Link</label>
                         <div class="col-lg-10">
@@ -106,7 +106,7 @@
                             @enderror
                         </div>
                     </div>
-                    
+
                     <div class="form-group">
                         <label class="control-label col-lg-2">Icon</label>
                         <div class="col-lg-10">
@@ -118,7 +118,7 @@
                             @enderror
                         </div>
                     </div>
-                    
+
                     <div class="form-group">
                         <label class="control-label col-lg-2">Status</label>
                         <div class="col-lg-10">
@@ -134,7 +134,7 @@
                             @enderror
                         </div>
                     </div>
-                    
+
                     <div class="form-group">
                         <label class="control-label col-lg-2">Visibility</label>
                         <div class="col-lg-10">
@@ -150,7 +150,7 @@
                             @enderror
                         </div>
                     </div>
-                    
+
                     <div class="form-group">
                         <label class="control-label col-lg-2">Order</label>
                         <div class="col-lg-10">
@@ -162,7 +162,7 @@
                             @enderror
                         </div>
                     </div>
-                    
+
                     <div class="form-group">
                         <label class="control-label col-lg-2">Sublevel</label>
                         <div class="col-lg-10">
@@ -234,8 +234,8 @@
             </div>
         </div>
     </div>
-    
-    
+
+
 </div>
 <!-- /grid -->
 
