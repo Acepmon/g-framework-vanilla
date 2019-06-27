@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('admin.layouts.default')
 
 @section('load')
 @endsection
@@ -55,7 +55,7 @@
                 <form class="form-horizontal" action="{{ route('admin.taxonomy.update', ['id' => $term_taxonomy->id]) }}" method="POST">
                     @method('PUT')
                     @csrf
-                    
+
                     @if(Session::has('success'))
                     <div class="alert alert-success no-border">
                         <button type="button" class="close" data-dismiss="alert"><span>&times;</span><span class="sr-only">Close</span></button>
@@ -178,7 +178,7 @@
                 <form method="POST" id="delete_form">
                     {{ method_field('DELETE') }}
                     {{ csrf_field() }}
-                    
+
                     <button type="button" class="btn btn-link" data-dismiss="modal">Cancel</button>
                     <button type="submit" class="btn btn-danger">Delete</button>
                 </form>

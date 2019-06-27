@@ -1,4 +1,4 @@
-@extends('layouts.login')
+@extends('admin.layouts.login')
 
 @section('load')
 @section('content')
@@ -53,7 +53,7 @@
     </form>
     <!-- /simple login form -->
     <!-- Footer -->
-    @include('includes.footer')
+    @include('admin.includes.footer')
     <!-- /footer -->
 
 </div>

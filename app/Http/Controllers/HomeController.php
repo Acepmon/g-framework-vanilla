@@ -29,7 +29,7 @@ class HomeController extends Controller
         return view('home');
     }
 
-    public function content($slug) {
+    public function content($slug = '/') {
         $content = Content::where('slug', $slug)->where('status', Content::STATUS_PUBLISHED)->where('visibility', Content::VISIBILITY_PUBLIC)->first();
 
         if ($content === null) {

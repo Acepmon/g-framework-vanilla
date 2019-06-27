@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('admin.layouts.default')
 
 @section('load')
 <script type="text/javascript" src="/assets/js/pages/sidebar_detached_sticky_native.js"></script>

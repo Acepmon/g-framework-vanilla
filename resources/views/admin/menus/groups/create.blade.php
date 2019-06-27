@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('admin.layouts.default')
 
 @section('load')
 <script type="text/javascript" src="/assets/js/core/libraries/jquery_ui/core.min.js"></script>

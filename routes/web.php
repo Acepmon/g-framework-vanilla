@@ -243,10 +243,6 @@ Route::middleware(['auth'])->group(function () {
 
 });
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Auth::routes(['verify' => true]);
 
 Route::get('/{any}', 'HomeController@content')->where('any', '.*');

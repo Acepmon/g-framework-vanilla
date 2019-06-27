@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('admin.layouts.default')
 
 @section('load')
 @endsection
@@ -58,7 +58,7 @@
                     </div>
                     <div class="text-right">
                         <a href="javascript:history.back()" class="btn btn-primary" ><i class="icon-arrow-left13 position-left"></i> Back</a>
-                        
+
                         <!-- <a type="submit" class="btn btn-danger">Delete form </i></a> -->
                         <a type="button" href="{{ route('admin.plugins.edit', ['id' => $theme->id]) }}" class="btn btn-warning">Edit</i> <i class="icon-arrow-right14 position-left"></i> </a>
                     </div>

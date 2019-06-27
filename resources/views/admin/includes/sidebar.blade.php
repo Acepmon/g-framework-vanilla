@@ -36,7 +36,7 @@
                     @if(true)
                         @foreach(Auth::user()->menus->where('parent_id', NULL)->groupBy('group') as $key=>$group)
                             <li class="navigation-header"><span>{{ $key }}</span> <i class="icon-menu" title="{{ $key }}"></i></li>
-                            @each('includes.sidemenus', Auth::user()->menus->where('group', $key)->where('parent_id', NULL), 'menu')
+                            @each('admin.includes.sidemenus', Auth::user()->menus->where('group', $key)->where('parent_id', NULL), 'menu')
                         @endforeach
                     @else
                     <li class="navigation-header"><span>Overview</span> <i class="icon-menu" title="Overview"></i></li>

@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('admin.layouts.default')
 
 @section('title', $exists ? $filename : 'Error Logs')
 

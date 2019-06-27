@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('admin.layouts.default')
 
 @section('load')
 <script type="text/javascript" src="/assets/js/plugins/tables/datatables/datatables.min.js"></script>
@@ -85,7 +85,7 @@
                 <td>{{ $user->email }}</td>
                 <td>
                     @foreach($user->groups as $group)
-                        {{ $group->title }}, 
+                        {{ $group->title }},
                     @endforeach
                 </td>
                 <td>{{ $user->created_at }}</td>
@@ -128,7 +128,7 @@
                 <form method="post" id="delete_form" action="/users/0">
                     {{ method_field('DELETE') }}
                     {{ csrf_field() }}
-                    
+
                     <button type="button" class="btn btn-link" data-dismiss="modal">Cancel</button>
                     <button type="submit" class="btn btn-danger">Delete</button>
                 </form>

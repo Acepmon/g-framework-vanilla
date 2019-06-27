@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('admin.layouts.default')
 
 @section('load')
 @endsection
@@ -90,7 +90,7 @@
         </div>
         <!-- /horizotal form -->
     </div>
-    
+
     <div class="col-sm-5">
         <div class="text-right" style="padding-bottom: 5px">
             <a href="{{ route('admin.taxonomy.metas.create', ['id' => $term_taxonomy->id, 'taxonomy_type' => $term_taxonomy->taxonomy ]) }}" class="btn btn-primary">Create {{ ucfirst($term_taxonomy->taxonomy) }} Metas</a>
@@ -148,7 +148,7 @@
                 <form method="POST" id="delete_form">
                     {{ method_field('DELETE') }}
                     {{ csrf_field() }}
-                    
+
                     <button type="button" class="btn btn-link" data-dismiss="modal">Cancel</button>
                     <button type="submit" class="btn btn-danger">Delete</button>
                 </form>
