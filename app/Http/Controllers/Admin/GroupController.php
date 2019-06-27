@@ -41,10 +41,44 @@ class GroupController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function showMenuGroup($id)
+    public function showMenuGroup(Request $request, $id)
     {
         $group = Group::findOrFail($id);
         $menus = Menu::all();
+
+        if (empty($request->input('search')) && empty($request->input('status')) && empty($request->input('visibility'))) {
+            $menus = Menu::all();
+        } else {
+            if (empty($request->input('search'))) {
+                if (empty($request->input('visibility'))) {
+                    $menus = Menu::where('status', $request->input('status'))->get();
+                } else if (empty($request->input('status'))) {
+                    $menus = Menu::where('visibility', $request->input('visibility'))->get();
+                } else {
+                    $menus = Menu::where('visibility', $request->input('visibility'))
+                    ->where('status', $request->input("status"))->get();
+                }
+            } else {
+                if (empty($request->input('status'))) {
+                    if (empty($request->input('visibility'))) {
+                        $menus = Menu::where($request->input('type'), 'LIKE', '%' . $request->input('search') . '%')->get();
+                    }else{
+                        $menus = Menu::where($request->input('type'), 'LIKE', '%' . $request->input('search') . '%')
+                        ->where('visibility', $request->input('visibility'))->get();
+                    }
+                } else {
+                    if (empty($request->input('visibility'))) {
+                        $menus = Menu::where($request->input('type'), 'LIKE', '%' . $request->input('search') . '%')
+                        ->where('status', $request->input('status'))->get();
+                    }else{
+                        $menus = Menu::where($request->input('type'), 'LIKE', '%' . $request->input('search') . '%')
+                        ->where('visibility', $request->input('visibility'))
+                        ->where('status', $request->input('status'))->get();
+                    }
+                }
+            }
+        }
+
         return view('admin.groups.menus.create', ['group' => $group, 'menus' => $menus]);
     }
 

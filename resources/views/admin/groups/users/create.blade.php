@@ -1,6 +1,6 @@
 
 
-@extends('admin.layouts.default')
+@extends('layouts.admin')
 
 @section('load')
 <script type="text/javascript" src="assets/js/plugins/tables/datatables/datatables.min.js"></script>
@@ -127,7 +127,7 @@
     </div>
 </div>
 
-<div class="panel panel-flat">
+<div class="panel panel-flat">                
     <table class="table datatable-basic">
         <thead>
             <tr>
