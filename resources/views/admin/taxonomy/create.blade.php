@@ -74,6 +74,8 @@
                         </div>
                         @endforeach
                     @endif
+
+                    <input type="hidden" name="taxonomy" value="{{ Request::get('taxonomy') }}" />
                     <div class="form-group">
                         <label class="control-label col-lg-2">Name <span class="text-danger">*</span></label>
                         <div class="col-lg-8">

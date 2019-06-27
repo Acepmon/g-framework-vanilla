@@ -165,7 +165,7 @@ Route::middleware(['auth'])->group(function () {
             ]);
             Route::get('/contents/{id}/revisions/{revision}/revert', 'ContentController@revert')->name('admin.contents.revisions.revert');
             Route::get('/contents/{id}/revisions/{revision}', 'ContentController@viewRevision')->name('admin.contents.revisions.show');
-            Route::put('/contents/{id}/revisions/{revision}', 'ContentController@updateRevision')->name('admin.contents.revisions.update');
+            Route::put('/contents/{id}/revisions', 'ContentController@updateRevision')->name('admin.contents.revisions.update');
             Route::resource('configs', 'ConfigController')->names([
                 'index' => 'admin.configs.index',
                 'create' => 'admin.configs.create',

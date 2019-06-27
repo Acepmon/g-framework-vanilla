@@ -59,14 +59,14 @@ class TaxonomyController extends Controller
 
             $term_taxonomy = new TermTaxonomy();
             $term_taxonomy->term_id = $term->id;
-            $term_taxonomy->taxonomy = session('taxonomy');
+            $term_taxonomy->taxonomy = $request->input('taxonomy');
             $term_taxonomy->description = $request->input('description');
             $term_taxonomy->parent_id = $request->input('parent_id');
             $term_taxonomy->count = 0;
             $term_taxonomy->save();
 
             DB::commit();
-            return redirect()->route('admin.taxonomy.create')->with('success', 'Successfully registered!');
+            return redirect()->route('admin.taxonomy.create', ['taxonomy' => $term_taxonomy->taxonomy])->with('success', 'Successfully registered!');
         } catch (\Exception $e) {
             DB::rollBack();
             return redirect()->route('admin.taxonomy.create')->with('error', $e->getMessage());
