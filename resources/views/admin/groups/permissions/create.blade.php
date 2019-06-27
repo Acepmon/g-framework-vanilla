@@ -93,8 +93,36 @@
             </div>
         </div>
         <!-- /horizotal form -->
-
     </div>
+    </div>
+
+    
+
+<div class="panel panel-flat">
+    <div class="panel-body">
+        <form class="form-horizontal" action="" method="GET">
+            <div class="form-group">
+                <label class="control-label col-lg-1">Search type</label>
+                <div class="col-lg-11">
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <select class="form-control" id="type" name="type" type="text">
+                                <option value="title">Title</option>
+                                <option value="description">Description</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-3">
+                            <input type="text" class="form-control" placeholder="Please search value here" name="search">
+                        </div>
+                        <div class="col-lg-2">
+                            <button type="submit" class="btn btn-primary">Search</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
 
     <div class="col-md-12">
         <div class="panel panel-flat">
@@ -102,7 +130,7 @@
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>Name</th>
+                            <th>Title</th>
                             <th>Description</th>
                             <th class="text-center">Actions</th>
                         </tr>

@@ -142,10 +142,15 @@ class GroupController extends Controller
         return back()->with('status', 'User removed.');
     }
 
-    public function showPermissionGroup($id)
+    public function showPermissionGroup(Request $request, $id)
     {
         $group = Group::findOrFail($id);
-        $permissions = Permission::all();
+
+        if (empty($request->input('search'))) {
+            $permissions = Permission::all();
+        } else {
+            $permissions = Permission::where($request->input('type'), 'LIKE', '%' . $request->input('search') . '%')->get();
+        }
 
         return view('admin.groups.permissions.create', ['group' => $group, 'permissions' => $permissions]);
     }
