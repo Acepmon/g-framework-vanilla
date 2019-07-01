@@ -103,7 +103,7 @@
             </table>
             <table class="table">
                 <tr>
-                    <th colspan="4" class="active">Dynamic Groups ({{$dynamicGroups->count()}})</th>
+                    <th colspan="6" class="active">Dynamic Groups ({{$dynamicGroups->count()}})</th>
                 </tr>
                 <tr>
                     <th style="width: 50px">#</th>
@@ -111,6 +111,7 @@
                     <th style="width: 150px">Title</th>
                     <th>Description</th>
                     <th style="width: 100px">Type</th>
+                    <th style="width: 100px">Show</th>
                 </tr>
                 @foreach($dynamicGroups as $group)
                     <tr>
@@ -122,12 +123,13 @@
                         <td>
                             <span class="label label-{{ $group->typeClass() }}">{{$group->type}}</span>
                         </td>
+                        <td><a href='{{ route('admin.groups.show', ['id' => $group->id]) }}' type="btn btn-primary">Show</a> </td>
                     </tr>
                 @endforeach
             </table>
             <table class="table">
                 <tr>
-                    <th colspan="5" class="active">
+                    <th colspan="7" class="active">
                         Static Groups ({{$staticGroups->count()}})
                     </th>
                 </tr>
@@ -150,7 +152,9 @@
                         </td>
                         <td><a href='{{ route('admin.groups.show', ['id' => $group->id]) }}' type="btn btn-primary">Show</a> </td>
                         <td><a href='{{ route('admin.groups.edit', ['id' => $group->id]) }}' type="btn btn-primary">Edit</a> </td>
-                        <td><a href='{{ route('admin.groups.edit', ['id' => $group->id]) }}' type="btn btn-primary">Edit</a> </td>
+                        <td>
+                            <button data-toggle="modal" data-target="#modal_theme_danger" class="btn btn-danger" onclick="choose_group({{ $group->id }})">Delete</button>
+                        </td>
                     </tr>
                 @endforeach
             </table>
@@ -159,6 +163,31 @@
 </div>
 
 
+<!-- Danger modal -->
+<div id="modal_theme_danger" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-danger">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h6 class="modal-title">Delete?</h6>
+            </div>
+
+            <div class="modal-body">
+                <p>Are you sure you want to delete this group?</p>
+            </div>
+
+            <div class="modal-footer">
+                <form method="POST" id="delete_form">
+                    {{ method_field('DELETE') }}
+                    {{ csrf_field() }}
+
+                    <button type="button" class="btn btn-link" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 <!-- Danger modal -->
 <div id="modal_theme_danger" class="modal fade">
     <div class="modal-dialog">
