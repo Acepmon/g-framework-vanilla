@@ -61,11 +61,6 @@
             <h5 class="panel-title">
                 <span class="text-semibold">{{ $content->title }}</span>
             </h5>
-            <div class="heading-elements">
-                <ul class="icons-list">
-                    <li><button type="button" data-target="{{ $revision_path }}" data-loading-text="<i class='icon-spinner4 spinner position-left'></i> Saving" class="btn btn-primary btn-sm btn-loading">Update</button></li>
-                </ul>
-            </div>
         </div>
 
         <div class="panel-body">
@@ -83,6 +78,7 @@
             php_editor.setTheme("ace/theme/monokai");
             php_editor.getSession().setMode("ace/mode/php");
             php_editor.setShowPrintMargin(false);
+            php_editor.setReadOnly(true);
 
         $('.btn-loading').click(function () {
             var btn = $(this);

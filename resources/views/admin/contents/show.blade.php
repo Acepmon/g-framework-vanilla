@@ -59,7 +59,7 @@
 
             <div class="panel panel-flat" id="detail">
                 <div class="panel-heading">
-                    <h5 class="panel-title">Details</h5>
+                    <h5 class="panel-title">Detail</h5>
                 </div>
 
                 <div class="panel-body">
@@ -154,14 +154,12 @@
                 <div class="panel-heading">
                     <h5 class="panel-title">{{ $key+1 }}. {{ ucfirst($revision->key) }}</h5>
                     <span class="label bg-blue heading-text">{{ date('Y-m-d H:i:s', json_decode($revision->value)->datetime) }}</span>
-                    @if($revision->key != 'revert')
                     <div class="heading-elements">
                         @if($key < count($content->metas->whereIn('key', ['initial', 'revision', 'revert']))-1)
                         <a href="{{ route('admin.contents.revisions.revert', ['id' => $content->id, 'revision' => $revision->id]) }}" class="btn btn-default"><i class="icon-reload-alt position-left"></i> Revert</a>
                         @endif
                         <a href="{{ route('admin.contents.revisions.show', ['id' => $content->id, 'revision' => $revision->id]) }}" class="btn btn-default"><i class="icon-eye position-left"></i> View in Editor</a>
                     </div>
-                    @endif
                 </div>
 
                 <div class="panel-body">

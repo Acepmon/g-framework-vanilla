@@ -78,8 +78,8 @@ class ContentController extends Controller
             $value = new \stdClass;
             $value->datetime = time();
             $value->filename_changed = true;
-            $value->before = $content->slug;
-            $value->after = $content->slug;
+            $value->before = $content;
+            $value->after = $content;
             $value->user = Auth::user();
 
             $content_meta = new ContentMeta();
@@ -88,8 +88,9 @@ class ContentController extends Controller
             $content_meta->value = json_encode($value);
             $content_meta->save();
 
+            $time = time();
             $viewPath = Config::where('key', 'content.'.$content->type.'s.viewPath')->first()->value;
-            $name = $viewPath . '.' . $content->slug . Content::NAMING_CONVENTION . $content->status . Content::NAMING_CONVENTION . strtotime($content->updated_at);
+            $name = $viewPath . '.' . $content->slug . Content::NAMING_CONVENTION . $content->status . Content::NAMING_CONVENTION . $time;
             $extension =  'blade.php';
 
             // Create View
@@ -131,7 +132,12 @@ class ContentController extends Controller
         $content = Content::findOrFail($id);
         $users = User::all();
         $metas = $content->metas;
-        return view('admin.contents.edit', ['content' => $content, 'users' => $users, 'metas' => $metas]);
+
+        $revision = $content->metas->whereIn('key', ['initial', 'revision'])->sortByDesc('id')->first();
+        $viewPath = Config::where('key', 'content.'.$content->type.'s.rootPath')->first()->value;
+        $path = $viewPath . DIRECTORY_SEPARATOR . $revision->revisionView();
+        $revision_path = $path . '.blade.php';
+        return view('admin.contents.edit', ['content' => $content, 'users' => $users, 'metas' => $metas, 'revision_path' => $revision_path]);
     }
 
     /**
@@ -144,6 +150,7 @@ class ContentController extends Controller
     public function update(Request $request, $id)
     {
         $content = Content::findOrFail($id);
+        $old_content = $content;
 
         $request->validate([
             'title' => 'required|max:191',
@@ -168,38 +175,45 @@ class ContentController extends Controller
             $content->visibility = $request->visibility;
             $content->author_id = $request->author_id;
 
+            $updated_at = $content->updated_at;
+            $old_terms = $content->terms;
             $content->save();
             $content->terms()->sync($request->input('tags'));
             $content->terms()->attach($request->input('category'));
 
-            $value = new \stdClass;
-            $value->datetime = time();
-            $value->filename_changed = ($old_slug != $content->slug);
-            $value->before = $old_slug;
-            $value->after = $content->slug;
-            $value->user = Auth::user();
-
-            $content_meta = new ContentMeta();
-            $content_meta->content_id = $content->id;
-            $content_meta->key = 'revision';
-            $content_meta->value = json_encode($value);
-            $content_meta->save();
-
-            $viewPath = Config::where('key', 'content.'.$content->type.'s.viewPath')->first()->value;
-            $name = $viewPath . '.' . $content->slug . Content::NAMING_CONVENTION . $content->status . Content::NAMING_CONVENTION . strtotime($content->updated_at);
-            $extension =  'blade.php';
-
-            Artisan::call("make:view", [
-                'name' => $name,
-                '--extension' => $extension,
-                '--extends' => 'layouts.app',
-                '--with-yields']);
+            $updated = $updated_at != $content->updated_at || $content->terms != $old_terms;
+            if ($updated)
+            {
+                $value = new \stdClass;
+                $time = time();
+                $value->datetime = $time;
+                $value->filename_changed = ($old_slug != $content->slug);
+                $value->before = $old_content;
+                $value->after = $content;
+                $value->user = Auth::user();
+    
+                $content_meta = new ContentMeta();
+                $content_meta->content_id = $content->id;
+                $content_meta->key = 'revision';
+                $content_meta->value = json_encode($value);
+                $content_meta->save();
+    
+                $viewPath = Config::where('key', 'content.'.$content->type.'s.viewPath')->first()->value;
+                $name = $viewPath . '.' . $content->slug . Content::NAMING_CONVENTION . $content->status . Content::NAMING_CONVENTION . $time;
+                $extension =  'blade.php';
+    
+                Artisan::call("make:view", [
+                    'name' => $name,
+                    '--extension' => $extension,
+                    '--extends' => 'layouts.app',
+                    '--with-yields']);
+            }
 
             DB::commit();
             return redirect()->route('admin.contents.index', ['type' => $content->type]);
         } catch (\Exception $e) {
             DB::rollBack();
-            return redirect()->route('admin.contents.create')->with('error', $e->getMessage());
+            return redirect()->route('admin.contents.edit', ['content' => $content, 'metas' => $content->metas])->with('error', $e->getMessage());
         }
     }
 
@@ -211,8 +225,9 @@ class ContentController extends Controller
      */
     public function destroy($id)
     {
+        $type = Content::findORFail($id)->type;
         Content::destroy($id);
-        return redirect()->route('admin.contents.index');
+        return redirect()->route('admin.contents.index', ['type' => $type]);
     }
 
     public function revert($id)
@@ -225,13 +240,13 @@ class ContentController extends Controller
 
             $revision = ContentMeta::findOrFail($revision);
             $revision_value = json_decode($revision->value);
-            $slug = $revision_value->after;
 
+            $time = time();
             $value = new \stdClass;
-            $value->datetime = time();
-            $value->filename_changed = ($slug != $content->slug);
-            $value->before = $content->slug;
-            $value->after = $slug;
+            $value->datetime = $time;
+            $value->filename_changed = ($revision_value->after->slug != $content->slug);
+            $value->before = $content;
+            $value->after = $revision_value->after;
             $value->user = Auth::user();
 
             $content_meta = new ContentMeta();
@@ -240,8 +255,9 @@ class ContentController extends Controller
             $content_meta->value = json_encode($revision_value);
             $content_meta->save();
 
-            $filename = 'views/admin/contents/' . $revision->content->type . 's/' . $slug . '.' . $revision->content->status . '.' . $revision_value->datetime . '.blade.php';
-            $newname = 'views/admin/contents/' . $revision->content->type . 's/' . $slug . '.' . $revision->content->status . '.' . time() . '.blade.php';
+            $viewPath = str_replace('.', '/', 'views.' . Config::where('key', 'content.'.$revision->content->type.'s.viewPath')->first()->value);
+            $filename = $viewPath . '/' . $revision->content->slug . Content::NAMING_CONVENTION . $revision->content->status . Content::NAMING_CONVENTION . $revision_value->datetime . '.blade.php';
+            $newname = $viewPath . '/' . $revision->content->slug . Content::NAMING_CONVENTION . $revision->content->status . Content::NAMING_CONVENTION . $time . '.blade.php';
             copy(resource_path($filename), resource_path($newname));
             // Artisan::call("make:view", [
             //     'name' => 'admin.contents.' . $content->type . 's.' . $content->slug,
@@ -281,6 +297,32 @@ class ContentController extends Controller
             $revision_path = $request->input('revision_path');
             $content = $request->input('content');
             file_put_contents(base_path($revision_path), $content);
+
+            $content = Content::findOrFail(Route::current()->parameter('id'));
+            $time = time();
+            $value = new \stdClass;
+            $value->datetime = $time;
+            $value->filename_changed = False;
+            $value->before = $content;
+            $value->after = $content;
+            $value->user = Auth::user();
+
+            $content_meta = new ContentMeta();
+            $content_meta->content_id = $content->id;
+            $content_meta->key = 'revision';
+            $content_meta->value = json_encode($value);
+            $content_meta->save();
+
+            $viewPath = Config::where('key', 'content.'.$content->type.'s.viewPath')->first()->value;
+            $name = $viewPath . '.' . $content->slug . Content::NAMING_CONVENTION . $content->status . Content::NAMING_CONVENTION . $time;
+            $extension =  'blade.php';
+
+            Artisan::call("make:view", [
+                'name' => $name,
+                '--extension' => $extension,
+                '--extends' => 'layouts.app',
+                '--with-yields']);
+
             return response()->json(["result" => "success"]);
             // return redirect()->route('admin.contents.show', ['id' => $content->id]);
         } catch (\Exception $e) {

@@ -25,6 +25,6 @@ class ContentMeta extends Model
     public function revisionView()
     {
         $revision_value = json_decode($this->value);
-        return $revision_value->after . self::NAMING_CONVENTION . $this->content->status . self::NAMING_CONVENTION . $revision_value->datetime;
+        return $revision_value->after->slug . self::NAMING_CONVENTION . $this->content->status . self::NAMING_CONVENTION . $revision_value->datetime;
     }
 }

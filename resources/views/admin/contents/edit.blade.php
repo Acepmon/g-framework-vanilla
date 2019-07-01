@@ -5,7 +5,9 @@
 <script type="text/javascript" src="/assets/js/plugins/forms/inputs/touchspin.min.js"></script>
 <script type="text/javascript" src="/assets/js/plugins/forms/selects/select2.min.js"></script>
 <script type="text/javascript" src="/assets/js/plugins/forms/styling/switch.min.js"></script>
-<script type="text/javascript" src="/assets/js/pages/form_validation.js"></script>
+<script type="text/javascript" src="/assets/js/plugins/editors/ace/ace.js"></script>
+<script>
+</script>
 @endsection
 
 @section('pageheader')
@@ -54,12 +56,17 @@
 <div class="row">
     <div class="col-sm-7">
 
-        <!-- Horizontal form -->
         <div class="panel panel-flat">
             <div class="panel-body">
-                <form class="form-horizontal" action="{{ route('admin.contents.update', ['id' => $content->id]) }}" method="POST">
+                <form class="form-horizontal form-validate-jquery" action="{{ route('admin.contents.update', ['id' => $content->id]) }}" method="POST">
                     @method('PUT')
                     @csrf
+                    @if(Session::has('error'))
+                    <div class="alert alert-danger no-border">
+                        <button type="button" class="close" data-dismiss="alert"><span>&times;</span><span class="sr-only">Close</span></button>
+                        {{ session('error') }}
+                    </div>
+                    @endif
                     @if ($errors->any())
                         @foreach ($errors->all() as $error)
                         <div class="alert alert-danger no-border">
@@ -132,7 +139,7 @@
                         <div class="col-lg-10">
                             <select name="category" type="text" class="form-control">
                                 @foreach(App\TermTaxonomy::where('taxonomy', 'category')->get() as $taxonomy)
-                                    <option value="{{$taxonomy->id}}" {{ count($content->terms->where('term_taxonomy_id', $taxonomy->id))>0?'selected':'' }}>{{$taxonomy->term->name}}</option>
+                                    <option value="{{$taxonomy->id}}" {{ count($content->terms->where('id', $taxonomy->id))>0?'selected':'' }}>{{$taxonomy->term->name}}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -160,7 +167,33 @@
                 </form>
             </div>
         </div>
-        <!-- /horizotal form -->
+
+        <div class="panel panel-flat">
+            @if (session('status'))
+                <div id="timer" class="alert alert-success">
+                    {{ session('status') }}
+                </div>
+            @endif
+
+            <form action="route('admin.contents.revisions.update')">
+                @method('PUT')
+                @csrf
+                <div class="panel-heading">
+                    <h5 class="panel-title">
+                        <span class="text-semibold">Edit content</span>
+                    </h5>
+                    <div class="heading-elements">
+                        <ul class="icons-list">
+                            <li><button type="button" data-target="{{ $revision_path }}" data-loading-text="<i class='icon-spinner4 spinner position-left'></i> Saving" class="btn btn-primary btn-sm btn-loading">Update</button></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="panel-body">
+                    <div id="php_editor">{{ file_get_contents(base_path($revision_path)) }}</div>
+                </div>
+            </form>
+        </div>
     </div>
     <div class="col-sm-5">
         <div class="text-right" style="padding-bottom: 5px">
@@ -236,8 +269,6 @@
         $("#delete_form").attr('action', '/admin/contents/' + contentId + '/metas/'+id);
     }
 
-    setTimeout(function(){ document.getElementById("timer").remove() }, 10000);
-
     function create_slug() {
         var title = document.getElementById("title").value;
         title = title.toString().toLowerCase()
@@ -258,5 +289,48 @@
             document.getElementById("slug").value = slug;
         }
     });
+
+    $(document).ready(function () {
+        var php_editor = ace.edit("php_editor");
+            php_editor.setTheme("ace/theme/monokai");
+            php_editor.getSession().setMode("ace/mode/php");
+            php_editor.setShowPrintMargin(false);
+
+        $('.btn-loading').click(function () {
+            var btn = $(this);
+            var target = $(this).data("target");
+            var content = php_editor.getSession().getValue();
+            btn.button('loading');
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                url: '{{ route("admin.contents.revisions.update", ['id' => $content->id]) }}',
+                type: "PUT",
+                data: {
+                    revision_path: target,
+                    content: content
+                },
+                success: function () {
+                    btn.button('reset');
+                }
+            });
+        });
+    });
+</script>
+
+<script>
+    // Taken from assets/js/pages/form_validation.js
+    $('.multiselect').multiselect({
+        checkboxName: 'vali'
+    });
+
+    $('.select').select2({
+        minimumResultsForSearch: Infinity
+    });
+    
+    $(".styled, .multiselect-container input").uniform({ radioClass: 'choice' });
 </script>
 @endsection

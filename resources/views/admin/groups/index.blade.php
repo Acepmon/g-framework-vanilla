@@ -107,6 +107,7 @@
                 </tr>
                 <tr>
                     <th style="width: 50px">#</th>
+                    <th style="width: 150px">Parent ID</th>
                     <th style="width: 150px">Title</th>
                     <th>Description</th>
                     <th style="width: 100px">Type</th>
@@ -135,6 +136,7 @@
                     <th style="width: 150px">Title</th>
                     <th>Description</th>
                     <th style="width: 100px">Type</th>
+                    <th style="width: 100px">Show</th>
                     <th style="width: 100px">Edit</th>
                     <th style="width: 100px">Delete</th>
                 </tr>
@@ -147,6 +149,7 @@
                             <span class="label label-{{ $group->typeClass() }}">{{$group->type}}</span>
                         </td>
                         <td><a href='{{ route('admin.groups.show', ['id' => $group->id]) }}' type="btn btn-primary">Show</a> </td>
+                        <td><a href='{{ route('admin.groups.edit', ['id' => $group->id]) }}' type="btn btn-primary">Edit</a> </td>
                         <td><a href='{{ route('admin.groups.edit', ['id' => $group->id]) }}' type="btn btn-primary">Edit</a> </td>
                     </tr>
                 @endforeach
