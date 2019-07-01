@@ -1,6 +1,17 @@
 @extends('admin.layouts.default')
 
 @section('load')
+
+<script type="text/javascript" src="assets/js/plugins/tables/datatables/datatables.min.js"></script>
+<script type="text/javascript" src="assets/js/plugins/forms/selects/select2.min.js"></script>
+
+<script type="text/javascript" src="assets/js/core/app.js"></script>
+<script type="text/javascript" src="assets/js/pages/datatables_basic.js"></script>
+<script type="text/javascript" src="assets/js/plugins/velocity/velocity.min.js"></script>
+<script type="text/javascript" src="/assets/js/plugins/velocity/velocity.ui.min.js"></script>
+<script type="text/javascript" src="/assets/js/plugins/buttons/spin.min.js"></script>
+<script type="text/javascript" src="/assets/js/plugins/buttons/ladda.min.js"></script>
+
 <script type="text/javascript" src="/assets/js/plugins/tables/datatables/datatables.min.js"></script>
 <script type="text/javascript" src="/assets/js/plugins/forms/selects/select2.min.js"></script>
 <script type="text/javascript" src="/assets/js/pages/datatables_basic.js"></script>
@@ -156,22 +167,38 @@
             </div>
         </div>
 
-        <div class="tab-pane" id="permission-tab">
-            <div class="panel panel-flat">
-                <div class="panel-heading">
-                    <h5 class="panel-title">
-                        Group permission list
-                        <a type="button" class="btn btn-primary pull-right" href="{{ route('admin.groups.showPermissionGroup', ['id' => $group->id]) }}" style="color: white">Add Permission to Group</a>
-                    </h5>
-                </div>
-
-                <table class="table datatable-basic">
-                    <thead>
+            <table class="table datatable-basic">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th colspan="5">Description</th>
+                        <th class="text-center">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($group->permissions as $permission)
                         <tr>
-                            <th>#</th>
-                            <th>Name</th>
-                            <th>Description</th>
-                            <th class="text-center">Actions</th>
+                            <td>{{$permission->id}}</td>
+                            <td>
+                                <div class="text-semibold"><a href="menu_link">{{$permission->title}}</a></div>
+                            </td>
+                            <td colspan="5">{{$permission->description}}</td>
+                            <td class="text-center">
+                                <div>
+                                    <div class="panel panel-body border-top-primary text-center">
+                                        <div class="btn-group">
+                                            <button type="button" class="btn bg-slate btn-icon"><i class="icon-grid-alt"></i></button>
+                                            <button type="button" class="btn bg-slate dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+                                            <ul class="dropdown-menu dropdown-menu-right">
+                                                <li><a href="{{ route('admin.groups.removePermission', ['group' => $group->id, 'permission' => $permission->id]) }}"> Remove</a></li>
+                                                <li><a href="{{ route('admin.groups.removePermission', ['group' => $group->id, 'permission' => $permission->id]) }}"> Revoke</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+
                         </tr>
                     </thead>
                     <tbody>
@@ -201,4 +228,9 @@
 @endsection
 
 @section('script')
+<script type="text/javascript">
+    $(".styled, .multiselect-container input").uniform({
+        radioClass: 'choice'
+    });
+</script>
 @endsection
