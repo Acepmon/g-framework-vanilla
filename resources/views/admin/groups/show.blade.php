@@ -6,6 +6,10 @@
 
 <script type="text/javascript" src="assets/js/core/app.js"></script>
 <script type="text/javascript" src="assets/js/pages/datatables_basic.js"></script>
+<script type="text/javascript" src="assets/js/plugins/velocity/velocity.min.js"></script>
+<script type="text/javascript" src="/assets/js/plugins/velocity/velocity.ui.min.js"></script>
+<script type="text/javascript" src="/assets/js/plugins/buttons/spin.min.js"></script>
+<script type="text/javascript" src="/assets/js/plugins/buttons/ladda.min.js"></script>
 @endsection
 
 @section('pageheader')
@@ -198,7 +202,7 @@
                     <tr>
                         <th>#</th>
                         <th>Name</th>
-                        <th>Description</th>
+                        <th colspan="5">Description</th>
                         <th class="text-center">Actions</th>
                     </tr>
                 </thead>
@@ -209,10 +213,19 @@
                             <td>
                                 <div class="text-semibold"><a href="menu_link">{{$permission->title}}</a></div>
                             </td>
-                            <td>{{$permission->description}}</td>
+                            <td colspan="5">{{$permission->description}}</td>
                             <td class="text-center">
-                                <div class="btn-group">
-                                    <a type="button" class="btn btn-button" href="{{ route('admin.groups.removePermission', ['group' => $group->id, 'permission' => $permission->id]) }}"  class="btn btn-default">Remove</a>
+                                <div>
+                                    <div class="panel panel-body border-top-primary text-center">
+                                        <div class="btn-group">
+                                            <button type="button" class="btn bg-slate btn-icon"><i class="icon-grid-alt"></i></button>
+                                            <button type="button" class="btn bg-slate dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+                                            <ul class="dropdown-menu dropdown-menu-right">
+                                                <li><a href="{{ route('admin.groups.removePermission', ['group' => $group->id, 'permission' => $permission->id]) }}"> Remove</a></li>
+                                                <li><a href="{{ route('admin.groups.removePermission', ['group' => $group->id, 'permission' => $permission->id]) }}"> Revoke</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
                                 </div>
                             </td>
                         </tr>
@@ -228,4 +241,9 @@
 @endsection
 
 @section('script')
+<script type="text/javascript">
+    $(".styled, .multiselect-container input").uniform({
+        radioClass: 'choice'
+    });
+</script>
 @endsection
