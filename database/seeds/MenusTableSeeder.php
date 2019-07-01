@@ -21,6 +21,7 @@ class MenusTableSeeder extends Seeder
                 'visibility' => App\Menu::VISIBILITY_PUBLIC,
                 'order' => 1,
                 'sublevel' => 1,
+                'group' => 'overview',
             ],
             [
                 'title' => 'Changelog',
@@ -31,6 +32,7 @@ class MenusTableSeeder extends Seeder
                 'visibility' => App\Menu::VISIBILITY_PUBLIC,
                 'order' => 2,
                 'sublevel' => 1,
+                'group' => 'overview',
             ],
             [
                 'title' => 'System Users',
@@ -41,6 +43,7 @@ class MenusTableSeeder extends Seeder
                 'visibility' => App\Menu::VISIBILITY_PUBLIC,
                 'order' => 3,
                 'sublevel' => 1,
+                'group' => 'system',
             ],
             [
                 'title' => 'Configurations',
@@ -51,6 +54,7 @@ class MenusTableSeeder extends Seeder
                 'visibility' => App\Menu::VISIBILITY_PUBLIC,
                 'order' => 4,
                 'sublevel' => 1,
+                'group' => 'system',
             ],
             [
                 'title' => 'Plugins',
@@ -61,6 +65,7 @@ class MenusTableSeeder extends Seeder
                 'visibility' => App\Menu::VISIBILITY_PUBLIC,
                 'order' => 5,
                 'sublevel' => 1,
+                'group' => 'system',
             ],
             [
                 'title' => 'Themes',
@@ -71,6 +76,7 @@ class MenusTableSeeder extends Seeder
                 'visibility' => App\Menu::VISIBILITY_PUBLIC,
                 'order' => 6,
                 'sublevel' => 1,
+                'group' => 'system',
             ],
             [
                 'title' => 'Notifications',
@@ -81,6 +87,7 @@ class MenusTableSeeder extends Seeder
                 'visibility' => App\Menu::VISIBILITY_PUBLIC,
                 'order' => 7,
                 'sublevel' => 1,
+                'group' => 'system',
             ],
             [
                 'title' => 'Backups',
@@ -91,6 +98,7 @@ class MenusTableSeeder extends Seeder
                 'visibility' => App\Menu::VISIBILITY_PUBLIC,
                 'order' => 8,
                 'sublevel' => 1,
+                'group' => 'system',
             ],
             [
                 'title' => 'Logs',
@@ -101,6 +109,7 @@ class MenusTableSeeder extends Seeder
                 'visibility' => App\Menu::VISIBILITY_PUBLIC,
                 'order' => 9,
                 'sublevel' => 1,
+                'group' => 'system',
             ],
             [
                 'title' => 'Users',
@@ -111,6 +120,7 @@ class MenusTableSeeder extends Seeder
                 'visibility' => App\Menu::VISIBILITY_PUBLIC,
                 'order' => 10,
                 'sublevel' => 1,
+                'group' => 'users',
             ],
             [
                 'title' => 'Permissions',
@@ -121,6 +131,7 @@ class MenusTableSeeder extends Seeder
                 'visibility' => App\Menu::VISIBILITY_PUBLIC,
                 'order' => 11,
                 'sublevel' => 1,
+                'group' => 'users',
             ],
             [
                 'title' => 'Groups',
@@ -131,6 +142,7 @@ class MenusTableSeeder extends Seeder
                 'visibility' => App\Menu::VISIBILITY_PUBLIC,
                 'order' => 12,
                 'sublevel' => 1,
+                'group' => 'users',
             ],
             [
                 'title' => 'Auctions',
@@ -141,6 +153,7 @@ class MenusTableSeeder extends Seeder
                 'visibility' => App\Menu::VISIBILITY_PUBLIC,
                 'order' => 13,
                 'sublevel' => 1,
+                'group' => 'auction',
             ],
             [
                 'title' => 'Buyers / Sellers',
@@ -151,6 +164,7 @@ class MenusTableSeeder extends Seeder
                 'visibility' => App\Menu::VISIBILITY_PUBLIC,
                 'order' => 14,
                 'sublevel' => 1,
+                'group' => 'auction',
             ],
             [
                 'title' => 'Items',
@@ -161,6 +175,7 @@ class MenusTableSeeder extends Seeder
                 'visibility' => App\Menu::VISIBILITY_PUBLIC,
                 'order' => 15,
                 'sublevel' => 1,
+                'group' => 'auction',
             ],
             [
                 'title' => 'Menus',
@@ -171,6 +186,7 @@ class MenusTableSeeder extends Seeder
                 'visibility' => App\Menu::VISIBILITY_PUBLIC,
                 'order' => 16,
                 'sublevel' => 1,
+                'group' => 'content',
             ],
             [
                 'title' => 'Pages',
@@ -181,6 +197,7 @@ class MenusTableSeeder extends Seeder
                 'visibility' => App\Menu::VISIBILITY_PUBLIC,
                 'order' => 17,
                 'sublevel' => 1,
+                'group' => 'content',
             ],
             [
                 'title' => 'Blog Posts',
@@ -191,6 +208,7 @@ class MenusTableSeeder extends Seeder
                 'visibility' => App\Menu::VISIBILITY_PUBLIC,
                 'order' => 18,
                 'sublevel' => 1,
+                'group' => 'content',
             ],
             [
                 'title' => 'Comments',
@@ -201,6 +219,7 @@ class MenusTableSeeder extends Seeder
                 'visibility' => App\Menu::VISIBILITY_PUBLIC,
                 'order' => 19,
                 'sublevel' => 1,
+                'group' => 'content',
             ],
             [
                 'title' => 'Media & Assets',
@@ -211,6 +230,7 @@ class MenusTableSeeder extends Seeder
                 'visibility' => App\Menu::VISIBILITY_PUBLIC,
                 'order' => 20,
                 'sublevel' => 1,
+                'group' => 'content',
             ],
             [
                 'title' => 'Localization',
@@ -221,6 +241,7 @@ class MenusTableSeeder extends Seeder
                 'visibility' => App\Menu::VISIBILITY_PUBLIC,
                 'order' => 21,
                 'sublevel' => 1,
+                'group' => 'content',
             ],
             [
                 'title' => 'Categories',
@@ -231,6 +252,7 @@ class MenusTableSeeder extends Seeder
                 'visibility' => App\Menu::VISIBILITY_PUBLIC,
                 'order' => 22,
                 'sublevel' => 1,
+                'group' => 'content',
             ],
             [
                 'title' => 'Tags',
@@ -241,6 +263,7 @@ class MenusTableSeeder extends Seeder
                 'visibility' => App\Menu::VISIBILITY_PUBLIC,
                 'order' => 23,
                 'sublevel' => 1,
+                'group' => 'content',
             ]
         ]);
 
@@ -254,6 +277,7 @@ class MenusTableSeeder extends Seeder
                 'visibility' => App\Menu::VISIBILITY_PUBLIC,
                 'order' => 1,
                 'sublevel' => 2,
+                'group' => 'system',
                 'parent_id' => 3,
             ],
             [
@@ -265,6 +289,7 @@ class MenusTableSeeder extends Seeder
                 'visibility' => App\Menu::VISIBILITY_PUBLIC,
                 'order' => 2,
                 'sublevel' => 2,
+                'group' => 'system',
                 'parent_id' => 3,
             ],
             [
@@ -276,6 +301,7 @@ class MenusTableSeeder extends Seeder
                 'visibility' => App\Menu::VISIBILITY_PUBLIC,
                 'order' => 1,
                 'sublevel' => 2,
+                'group' => 'system',
                 'parent_id' => 4,
             ],
             [
@@ -287,6 +313,7 @@ class MenusTableSeeder extends Seeder
                 'visibility' => App\Menu::VISIBILITY_PUBLIC,
                 'order' => 2,
                 'sublevel' => 2,
+                'group' => 'system',
                 'parent_id' => 4,
             ],
             [
@@ -298,7 +325,8 @@ class MenusTableSeeder extends Seeder
                 'visibility' => App\Menu::VISIBILITY_PUBLIC,
                 'order' => 3,
                 'sublevel' => 2,
-                'parent_id' => 4, 
+                'group' => 'system',
+                'parent_id' => 4,
             ],
             [
                 'title' => 'Themes Configurations',
@@ -309,6 +337,7 @@ class MenusTableSeeder extends Seeder
                 'visibility' => App\Menu::VISIBILITY_PUBLIC,
                 'order' => 4,
                 'sublevel' => 2,
+                'group' => 'system',
                 'parent_id' => 4,
             ],
             [
@@ -320,6 +349,7 @@ class MenusTableSeeder extends Seeder
                 'visibility' => App\Menu::VISIBILITY_PUBLIC,
                 'order' => 5,
                 'sublevel' => 2,
+                'group' => 'system',
                 'parent_id' => 4,
             ],
             [
@@ -331,6 +361,19 @@ class MenusTableSeeder extends Seeder
                 'visibility' => App\Menu::VISIBILITY_PUBLIC,
                 'order' => 6,
                 'sublevel' => 2,
+                'group' => 'system',
+                'parent_id' => 4,
+            ],
+            [
+                'title' => 'Content Configurations',
+                'link' => '/admin/configs/contents',
+                'icon' => '',
+                'type' => App\Menu::TYPE_MENU,
+                'status' => App\Menu::STATUS_PUBLISH,
+                'visibility' => App\Menu::VISIBILITY_PUBLIC,
+                'order' => 7,
+                'sublevel' => 2,
+                'group' => 'system',
                 'parent_id' => 4,
             ],
             [
@@ -342,6 +385,7 @@ class MenusTableSeeder extends Seeder
                 'visibility' => App\Menu::VISIBILITY_PUBLIC,
                 'order' => 1,
                 'sublevel' => 2,
+                'group' => 'system',
                 'parent_id' => 5,
             ],
             [
@@ -353,6 +397,7 @@ class MenusTableSeeder extends Seeder
                 'visibility' => App\Menu::VISIBILITY_PUBLIC,
                 'order' => 2,
                 'sublevel' => 2,
+                'group' => 'system',
                 'parent_id' => 5,
             ],
             [
@@ -364,6 +409,7 @@ class MenusTableSeeder extends Seeder
                 'visibility' => App\Menu::VISIBILITY_PUBLIC,
                 'order' => 1,
                 'sublevel' => 2,
+                'group' => 'system',
                 'parent_id' => 6,
             ],
             [
@@ -375,6 +421,7 @@ class MenusTableSeeder extends Seeder
                 'visibility' => App\Menu::VISIBILITY_PUBLIC,
                 'order' => 2,
                 'sublevel' => 2,
+                'group' => 'system',
                 'parent_id' => 6,
             ],
             [
@@ -386,6 +433,7 @@ class MenusTableSeeder extends Seeder
                 'visibility' => App\Menu::VISIBILITY_PUBLIC,
                 'order' => 3,
                 'sublevel' => 2,
+                'group' => 'system',
                 'parent_id' => 6,
             ],
             [
@@ -397,6 +445,7 @@ class MenusTableSeeder extends Seeder
                 'visibility' => App\Menu::VISIBILITY_PUBLIC,
                 'order' => 4,
                 'sublevel' => 2,
+                'group' => 'system',
                 'parent_id' => 6,
             ],
             [
@@ -408,6 +457,7 @@ class MenusTableSeeder extends Seeder
                 'visibility' => App\Menu::VISIBILITY_PUBLIC,
                 'order' => 1,
                 'sublevel' => 2,
+                'group' => 'system',
                 'parent_id' => 7,
             ],
             [
@@ -419,6 +469,7 @@ class MenusTableSeeder extends Seeder
                 'visibility' => App\Menu::VISIBILITY_PUBLIC,
                 'order' => 2,
                 'sublevel' => 2,
+                'group' => 'system',
                 'parent_id' => 7,
             ],
             [
@@ -430,6 +481,7 @@ class MenusTableSeeder extends Seeder
                 'visibility' => App\Menu::VISIBILITY_PUBLIC,
                 'order' => 3,
                 'sublevel' => 2,
+                'group' => 'system',
                 'parent_id' => 7,
             ],
             [
@@ -441,6 +493,7 @@ class MenusTableSeeder extends Seeder
                 'visibility' => App\Menu::VISIBILITY_PUBLIC,
                 'order' => 4,
                 'sublevel' => 2,
+                'group' => 'system',
                 'parent_id' => 7,
             ],
             [
@@ -452,6 +505,7 @@ class MenusTableSeeder extends Seeder
                 'visibility' => App\Menu::VISIBILITY_PUBLIC,
                 'order' => 5,
                 'sublevel' => 2,
+                'group' => 'system',
                 'parent_id' => 7,
             ],
             [
@@ -463,6 +517,7 @@ class MenusTableSeeder extends Seeder
                 'visibility' => App\Menu::VISIBILITY_PUBLIC,
                 'order' => 6,
                 'sublevel' => 2,
+                'group' => 'system',
                 'parent_id' => 7,
             ],
             [
@@ -474,6 +529,7 @@ class MenusTableSeeder extends Seeder
                 'visibility' => App\Menu::VISIBILITY_PUBLIC,
                 'order' => 7,
                 'sublevel' => 2,
+                'group' => 'system',
                 'parent_id' => 7,
             ]
         ]);

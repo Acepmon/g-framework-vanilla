@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('admin.layouts.default')
 
 @section('load')
 @endsection
@@ -69,7 +69,9 @@
                 <tr>
                     <td>{{$content->id}}</td>
                     <td>{{$content->title}}</td>
-                    <td>{{$content->slug}}</td>
+                    <td>
+                        <a href="{{url($content->slug)}}" target="_blank">{{$content->slug}}</a>
+                    </td>
                     <td>{{$content->type}}</td>
                     <td>{{$content->status}}</td>
                     <td>{{$content->visibility}}</td>

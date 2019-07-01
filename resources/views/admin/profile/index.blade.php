@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('admin.layouts.default')
 
 @section('load')
 	<!-- Theme JS files -->
@@ -60,7 +60,7 @@
 
 @section('content')
 <div class="has-detached-left">
-    @include('admin.profile.includes.sidebar')
+    @include('admin.profile.admin.includes.sidebar')
 
     <!-- Detached content -->
     <div class="container-detached">

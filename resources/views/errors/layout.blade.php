@@ -62,7 +62,7 @@
                     </div>
                     <!-- /error wrapper -->
 
-                    @include('includes.footer')
+                    @include('admin.includes.footer')
                 </div>
                 <!-- /content area -->
 

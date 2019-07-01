@@ -60,7 +60,7 @@ class Menu extends Model
     {
         return self::STATUS_ARRAY;
     }
-    
+
     public function groups()
     {
         return $this->belongsToMany('App\Group', 'group_menu');

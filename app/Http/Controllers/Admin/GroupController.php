@@ -41,10 +41,44 @@ class GroupController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function showMenuGroup($id)
+    public function showMenuGroup(Request $request, $id)
     {
         $group = Group::findOrFail($id);
         $menus = Menu::all();
+
+        if (empty($request->input('search')) && empty($request->input('status')) && empty($request->input('visibility'))) {
+            $menus = Menu::all();
+        } else {
+            if (empty($request->input('search'))) {
+                if (empty($request->input('visibility'))) {
+                    $menus = Menu::where('status', $request->input('status'))->get();
+                } else if (empty($request->input('status'))) {
+                    $menus = Menu::where('visibility', $request->input('visibility'))->get();
+                } else {
+                    $menus = Menu::where('visibility', $request->input('visibility'))
+                    ->where('status', $request->input("status"))->get();
+                }
+            } else {
+                if (empty($request->input('status'))) {
+                    if (empty($request->input('visibility'))) {
+                        $menus = Menu::where($request->input('type'), 'LIKE', '%' . $request->input('search') . '%')->get();
+                    }else{
+                        $menus = Menu::where($request->input('type'), 'LIKE', '%' . $request->input('search') . '%')
+                        ->where('visibility', $request->input('visibility'))->get();
+                    }
+                } else {
+                    if (empty($request->input('visibility'))) {
+                        $menus = Menu::where($request->input('type'), 'LIKE', '%' . $request->input('search') . '%')
+                        ->where('status', $request->input('status'))->get();
+                    }else{
+                        $menus = Menu::where($request->input('type'), 'LIKE', '%' . $request->input('search') . '%')
+                        ->where('visibility', $request->input('visibility'))
+                        ->where('status', $request->input('status'))->get();
+                    }
+                }
+            }
+        }
+
         return view('admin.groups.menus.create', ['group' => $group, 'menus' => $menus]);
     }
 
@@ -58,7 +92,7 @@ class GroupController extends Controller
         //     $group->menus()->attach($menuid);
         //     return back()->with('status', 'Menu added.');
         // }
-        
+
     }
 
     public function removeMenu($groupid, $menuid)
@@ -69,11 +103,25 @@ class GroupController extends Controller
         return back()->with('status', 'Menu removed.');
     }
 
-    public function showUserGroup($id)
+    public function showUserGroup(Request $request, $id)
     {
         $group = Group::findOrFail($id);
-        $users = User::all();
-        
+
+        if (empty($request->input('search')) && empty($request->input('lang'))) {
+            $users = User::all();
+        } else {
+            if (empty($request->input('search'))) {
+                $users = User::where('language', $request->input('lang'))->get();
+            } else {
+                if (empty($request->input('lang'))) {
+                    $users = User::where($request->input('type'), 'LIKE', '%' . $request->input('search') . '%')->get();
+                } else {
+                    $users = User::where($request->input('type'), 'LIKE', '%' . $request->input('search') . '%')
+                    ->where('language', $request->input('lang'))->get();
+                }
+            }
+        }
+
         return view('admin.groups.users.create', ['group' => $group, 'users' => $users]);
     }
 
@@ -83,7 +131,7 @@ class GroupController extends Controller
         $group->users()->attach($userid);
         return back()->with('status', 'User added.');
 
-        
+
     }
 
     public function removeUser($groupid, $userid)
@@ -94,11 +142,16 @@ class GroupController extends Controller
         return back()->with('status', 'User removed.');
     }
 
-    public function showPermissionGroup($id)
+    public function showPermissionGroup(Request $request, $id)
     {
         $group = Group::findOrFail($id);
-        $permissions = Permission::all();
-        
+
+        if (empty($request->input('search'))) {
+            $permissions = Permission::all();
+        } else {
+            $permissions = Permission::where($request->input('type'), 'LIKE', '%' . $request->input('search') . '%')->get();
+        }
+
         return view('admin.groups.permissions.create', ['group' => $group, 'permissions' => $permissions]);
     }
 
@@ -108,7 +161,7 @@ class GroupController extends Controller
         $group->permissions()->attach($permissionid);
         return back()->with('status', 'Permissions added.');
 
-        
+
     }
 
     public function removePermission($groupid, $permissionid)

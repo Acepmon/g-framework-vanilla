@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('admin.layouts.default')
 
 @section('load')
 <script type="text/javascript" src="/assets/js/core/libraries/jquery_ui/core.min.js"></script>
@@ -64,16 +64,15 @@
             </div>
         @endif
     <div class="table-responsive">
-        <table class="table table-bordered tree-table">
+        <table class="table table-condensed table-bordered tree-table">
             <thead>
                 <tr>
-                    <th style="width: 46px;"></th>
-                    <th style="width: 80px;">#</th>
+                    <th style="width: 5px;"></th>
+                    <th style="width: 30px;">#</th>
                     <th>Title</th>
-                    <th style="width: 100px;">Link</th>
-                    <th style="width: 50px;">Status</th>
-                    <th style="width: 50px;">Visibility</th>
-                    <th style="width: 180px;">Actions</th>
+                    <th style="width: 40px;">Status</th>
+                    <th style="width: 40px;">Visibility</th>
+                    <th style="width: 200px;">Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -126,7 +125,7 @@
 
         $(".tree-table").fancytree({
             extensions: ["table", "dnd"],
-            checkbox: true,
+            checkbox: false,
             table: {
                 indentation: 20,      // indent 20px per node level
                 nodeColumnIdx: 2,     // render the node title into the 2nd column
@@ -134,25 +133,29 @@
             },
             source: {
                 url: "/admin/menus/tree"
-                
-            }, 
+
+            },
             lazyLoad: function(event, data) {
-                data.result = {url: "ajax-sub2.json"}
+                data.result = {url: "/admin/menus/tree"}
             },
             renderColumns: function(event, data) {
                 var node = data.node;
-
-                console.log(node);
 
                 $tdList = $(node.tr).find(">td");
 
                 // (index #0 is rendered by fancytree by adding the checkbox)
                 $tdList.eq(1).text(node.getIndexHier()).addClass("alignRight");
 
-                $tdList.eq(3).addClass('text-left').html("<a href='" + node.data.link + "' style='display: block;max-width: 150px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden;'>" + node.data.link + "</a>");
-                $tdList.eq(4).addClass('text-left').html("<span class='label label-" + node.data.statusClass + "'>" + node.data.status + "</a>");
-                $tdList.eq(5).addClass('text-center').html("<span class='" + node.data.visibilityIcon + "'></a>");
-                $tdList.eq(6).addClass('text-center').html("<div class='btn-group'><a href='/admin/menus/" + node.data.id + "' class='btn btn-default'><span class='icon-file-empty2'></span></a> <a href='/admin/menus/" + node.data.id + "/edit' class='btn btn-default'><span class='icon-pencil'></span></a> <a href='#' data-toggle='modal' data-target='#modal_theme_danger' onclick='delete_confirm(" + node.data.id + ")' class='btn btn-default'><span class='icon-trash'></span></a></div>");
+                // $tdList.eq(3).addClass('text-left').html("<a href='" + node.data.link + "' style='display: block;max-width: 150px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden;'>" + node.data.link + "</a>");
+                $tdList.eq(3).addClass('text-left').html("<span class='label label-" + node.data.statusClass + "'>" + node.data.status + "</a>");
+                $tdList.eq(4).addClass('text-center').html("<span class='" + node.data.visibilityIcon + "'></a>");
+                $tdList.eq(5).addClass('text-center').html(`
+                    <div class='btn-group'>
+                    <a href='/admin/menus/` + node.data.id + `' class='btn btn-default btn-xs'><span class='icon-file-empty2'></span></a>
+                    <a href='/admin/menus/` + node.data.id + `/edit' class='btn btn-default btn-xs'><span class='icon-pencil'></span></a>
+                    <a href='#' data-toggle='modal' data-target='#modal_theme_danger' onclick='delete_confirm(` + node.data.id + `)' class='btn btn-default btn-xs'><span class='icon-trash'></span></a>
+                    <a href='` + node.data.link + `' class='btn btn-default btn-xs'><span class='icon-link'></span></a>
+                    </div>`);
 
                 // Style checkboxes
                 $(".styled").uniform({radioClass: 'choice'});

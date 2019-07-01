@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('admin.layouts.default')
 
 @section('load')
 
@@ -68,6 +68,7 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                             @enderror
+                        </div>
                     </div>
 
                     <div class="form-group">
@@ -93,7 +94,7 @@
                             @enderror
                         </div>
                     </div>
-                    
+
                     <div class="form-group">
                         <label class="control-label col-lg-2">Link</label>
                         <div class="col-lg-10">
@@ -105,7 +106,7 @@
                             @enderror
                         </div>
                     </div>
-                    
+
                     <div class="form-group">
                         <label class="control-label col-lg-2">Icon</label>
                         <div class="col-lg-10">
@@ -117,7 +118,7 @@
                             @enderror
                         </div>
                     </div>
-                    
+
                     <div class="form-group">
                         <label class="control-label col-lg-2">Status</label>
                         <div class="col-lg-10">
@@ -133,7 +134,7 @@
                             @enderror
                         </div>
                     </div>
-                    
+
                     <div class="form-group">
                         <label class="control-label col-lg-2">Visibility</label>
                         <div class="col-lg-10">
@@ -149,7 +150,7 @@
                             @enderror
                         </div>
                     </div>
-                    
+
                     <div class="form-group">
                         <label class="control-label col-lg-2">Order</label>
                         <div class="col-lg-10">
@@ -161,7 +162,7 @@
                             @enderror
                         </div>
                     </div>
-                    
+
                     <div class="form-group">
                         <label class="control-label col-lg-2">Sublevel</label>
                         <div class="col-lg-10">
@@ -201,7 +202,6 @@
         </div>
         <!-- /horizotal form -->
     </div>
-    </div>
     <div class="col-md-6">
         <div class="text-right" style="padding-bottom: 5px">
             <a href="{{ route('admin.menus.groups.create', ['menu' => $menu->id]) }}" class="btn btn-primary" style="color: #ffffff">Add group<i class="icon-arrow-right14 position-right"></i></a>
@@ -234,8 +234,8 @@
             </div>
         </div>
     </div>
-    
-    
+
+
 </div>
 <!-- /grid -->
 

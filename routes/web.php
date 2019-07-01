@@ -21,6 +21,7 @@ Route::middleware(['auth'])->group(function () {
             Route::get('changelog', 'ChangelogController@index')->name('admin.changelog.index');
 
             Route::get('install','PluginController@installPlugin')->name('admin.plugins.install');
+            Route::get('installTheme','ThemeController@installTheme')->name('admin.themes.install');
 
             Route::get('/menus/tree', 'MenuController@tree')->name('admin.menus.tree');
 
@@ -46,6 +47,7 @@ Route::middleware(['auth'])->group(function () {
                 Route::get('themes', 'ConfigController@themes')->name('admin.configs.themes');
                 Route::get('plugins', 'ConfigController@plugins')->name('admin.configs.plugins');
                 Route::get('security', 'ConfigController@security')->name('admin.configs.security');
+                Route::get('contents', 'ConfigController@contents')->name('admin.configs.contents');
             });
 
             Route::prefix('logs')->group(function () {
@@ -90,6 +92,15 @@ Route::middleware(['auth'])->group(function () {
                 'update' => 'admin.permissions.update',
                 'destroy' => 'admin.permissions.destroy'
             ]);
+            Route::resource('backups', 'BackupController')->names([
+                'index' => 'admin.backups.index',
+                'create' => 'admin.backups.create',
+                'store' => 'admin.backups.store',
+                'show' => 'admin.backups.show',
+                'edit' => 'admin.backups.edit',
+                'update' => 'admin.backups.update',
+                'destroy' => 'admin.backups.destroy'
+            ]);
             Route::resource('plugins', 'PluginController')->names([
                 'index' => 'admin.plugins.index',
                 'create' => 'admin.plugins.create',
@@ -99,17 +110,19 @@ Route::middleware(['auth'])->group(function () {
                 'update' => 'admin.plugins.update',
                 'destroy' => 'admin.plugins.destroy'
             ]);
+            Route::resource('themes', 'ThemeController')->names([
+                'index' => 'admin.themes.index',
+                'create' => 'admin.themes.create',
+                'store' => 'admin.themes.store',
+                'show' => 'admin.themes.show',
+                'edit' => 'admin.themes.edit',
+                'update' => 'admin.themes.update',
+                'destroy' => 'admin.themes.destroy'
+            ]);
             Route::post('plugins/{plugin}/activate', 'PluginController@activate')->name('admin.plugins.activate');
             Route::post('plugins/{plugin}/deactivate', 'PluginController@deactivate')->name('admin.plugins.deactivate');
-            Route::resource('backups', 'BackupsController')->names([
-                'index' => 'admin.backups.index',
-                'create' => 'admin.backups.create',
-                'store' => 'admin.backups.store',
-                'show' => 'admin.backups.show',
-                'edit' => 'admin.backups.edit',
-                'update' => 'admin.backups.update',
-                'destroy' => 'admin.backups.destroy'
-            ]);
+            Route::post('themes/{theme}/activate', 'ThemeController@activate')->name('admin.themes.activate');
+            Route::post('themes/{theme}/deactivate', 'ThemeController@deactivate')->name('admin.themes.deactivate');
             Route::resource('groups', 'GroupController')->names([
                 'index' => 'admin.groups.index',
                 'create' => 'admin.groups.create',
@@ -150,6 +163,9 @@ Route::middleware(['auth'])->group(function () {
                 'update' => 'admin.contents.update',
                 'destroy' => 'admin.contents.destroy'
             ]);
+            Route::get('/contents/{id}/revisions/{revision}/revert', 'ContentController@revert')->name('admin.contents.revisions.revert');
+            Route::get('/contents/{id}/revisions/{revision}', 'ContentController@viewRevision')->name('admin.contents.revisions.show');
+            Route::put('/contents/{id}/revisions', 'ContentController@updateRevision')->name('admin.contents.revisions.update');
             Route::resource('configs', 'ConfigController')->names([
                 'index' => 'admin.configs.index',
                 'create' => 'admin.configs.create',
@@ -218,7 +234,7 @@ Route::middleware(['auth'])->group(function () {
 
             Route::get('/users/{user}/contents', 'UserContentController@index')->name('admin.users.contents.index');
             Route::get('/users/{user}/contents/{content}', 'UserContentController@show')->name('admin.users.contents.show');
-            
+
             Route::delete('/menus/{menu}/groups/{group}', 'MenuController@destroyGroup')->name('admin.menus.groups.destroy');
             Route::get('/menus/{menu}/groups/create', 'MenuController@createGroup')->name('admin.menus.groups.create');
             Route::post('/menus/{menu}/groups', 'MenuController@storeGroup')->name('admin.menus.groups.store');
@@ -227,10 +243,6 @@ Route::middleware(['auth'])->group(function () {
 
 });
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Auth::routes(['verify' => true]);
 
-Route::get('/{slug}', 'HomeController@content')->name('content');
+Route::get('/{any}', 'HomeController@content')->where('any', '.*');

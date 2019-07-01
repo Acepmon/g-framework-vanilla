@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('admin.layouts.default')
 
 @section('load')
 @endsection
@@ -158,7 +158,7 @@
                 <form method="POST" id="delete_form">
                     {{ method_field('DELETE') }}
                     {{ csrf_field() }}
-                    
+
                     <button type="button" class="btn btn-link" data-dismiss="modal">Cancel</button>
                     <button type="submit" class="btn btn-danger">Delete</button>
                 </form>

@@ -1,4 +1,4 @@
-@extends('layouts.login')
+@extends('admin.layouts.login')
 @section('load')
 	<script type="text/javascript" src="/assets/js/plugins/forms/validation/validate.min.js"></script>
 	<script type="text/javascript" src="/assets/js/plugins/forms/selects/bootstrap_multiselect.js"></script>
@@ -120,7 +120,7 @@
 
 
     <!-- Footer -->
-    @include('includes.footer')
+    @include('admin.includes.footer')
     <!-- /footer -->
 
 </div>
