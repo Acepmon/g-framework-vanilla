@@ -167,38 +167,21 @@
             </div>
         </div>
 
-            <table class="table datatable-basic">
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Name</th>
-                        <th colspan="5">Description</th>
-                        <th class="text-center">Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($group->permissions as $permission)
+        <div class="tab-pane" id="permission-tab">
+            <div class="panel panel-flat">
+                <div class="panel-heading">
+                    <h5 class="panel-title">
+                        Group permission list
+                        <a type="button" class="btn btn-primary pull-right" href="{{ route('admin.groups.showPermissionGroup', ['id' => $group->id]) }}" style="color: white">Add Permission to Group</a>
+                    </h5>
+                </div>
+                <table class="table datatable-basic">
+                    <thead>
                         <tr>
-                            <td>{{$permission->id}}</td>
-                            <td>
-                                <div class="text-semibold"><a href="menu_link">{{$permission->title}}</a></div>
-                            </td>
-                            <td colspan="5">{{$permission->description}}</td>
-                            <td class="text-center">
-                                <div>
-                                    <div class="panel panel-body border-top-primary text-center">
-                                        <div class="btn-group">
-                                            <button type="button" class="btn bg-slate btn-icon"><i class="icon-grid-alt"></i></button>
-                                            <button type="button" class="btn bg-slate dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
-                                            <ul class="dropdown-menu dropdown-menu-right">
-                                                <li><a href="{{ route('admin.groups.removePermission', ['group' => $group->id, 'permission' => $permission->id]) }}"> Remove</a></li>
-                                                <li><a href="{{ route('admin.groups.removePermission', ['group' => $group->id, 'permission' => $permission->id]) }}"> Revoke</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
-
+                            <th>#</th>
+                            <th>Name</th>
+                            <th colspan="5">Description</th>
+                            <th class="text-center">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -208,16 +191,27 @@
                                 <td>
                                     <div class="text-semibold"><a href="menu_link">{{$permission->title}}</a></div>
                                 </td>
-                                <td>{{$permission->description}}</td>
+                                <td colspan="5">{{$permission->description}}</td>
                                 <td class="text-center">
-                                    <div class="btn-group">
-                                        <a type="button" class="btn btn-button" href="{{ route('admin.groups.removePermission', ['group' => $group->id, 'permission' => $permission->id]) }}"  class="btn btn-default">Remove</a>
+                                    <div>
+                                        <div class="panel panel-body border-top-primary text-center">
+                                            <div class="btn-group">
+                                                <button type="button" class="btn bg-slate btn-icon"><i class="icon-grid-alt"></i></button>
+                                                <button type="button" class="btn bg-slate dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+                                                <ul class="dropdown-menu dropdown-menu-right">
+                                                    <li><a href="{{ route('admin.groups.removePermission', ['group' => $group->id, 'permission' => $permission->id]) }}"> Remove</a></li>
+                                                    <li><a href="{{ route('admin.groups.removePermission', ['group' => $group->id, 'permission' => $permission->id]) }}"> Revoke</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
                                     </div>
                                 </td>
+
                             </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
