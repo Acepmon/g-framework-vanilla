@@ -1,9 +1,9 @@
-@extends('admin.layouts.default')
+@extends('themes.limitless.layouts.default')
 
 @section('title', 'User Avatars')
 
 @section('load')
-<script type="text/javascript" src="/assets/js/plugins/media/fancybox.min.js"></script>
+<script type="text/javascript" src="{{ admin_asset('js/plugins/media/fancybox.min.js') }}"></script>
 <style>
     .thumbnail {
         height: 110px;

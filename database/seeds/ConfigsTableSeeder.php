@@ -61,6 +61,13 @@ class ConfigsTableSeeder extends Seeder
                 'value' => 'admin.contents.pages',
                 'autoload' => true
             ],
+            [
+                'title' => 'Current Admin Panel Theme',
+                'description' => '',
+                'key' => 'admin.theme.current',
+                'value' => 'limitless',
+                'autoload' => true
+            ]
         ]);
     }
 }

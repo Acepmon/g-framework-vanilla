@@ -1,4 +1,4 @@
-@extends('admin.layouts.default')
+@extends('themes.limitless.layouts.default')
 
 @section('title', 'Assets Management')
 

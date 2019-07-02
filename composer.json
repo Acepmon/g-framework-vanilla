@@ -16,7 +16,9 @@
         "laravel/framework": "5.8.*",
         "laravel/passport": "^7.3",
         "laravel/tinker": "^1.0",
-        "nesbot/carbon": "^2.20"
+        "nesbot/carbon": "^2.20",
+        "pusher/pusher-php-server": "^4.0",
+        "rachidlaasri/laravel-installer": "^4.0"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",
@@ -44,6 +46,9 @@
         "classmap": [
             "database/seeds",
             "database/factories"
+        ],
+        "files": [
+            "app/Helpers/Helper.php"
         ]
     },
     "autoload-dev": {

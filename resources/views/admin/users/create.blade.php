@@ -1,21 +1,15 @@
-@extends('admin.layouts.default')
+@extends('themes.limitless.layouts.default')
 
 @section('load')
-	<link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
-	<link href="/assets/css/icons/icomoon/styles.css" rel="stylesheet" type="text/css">
-	<link href="/assets/css/bootstrap.css" rel="stylesheet" type="text/css">
-	<link href="/assets/css/core.css" rel="stylesheet" type="text/css">
-	<link href="/assets/css/components.css" rel="stylesheet" type="text/css">
-	<link href="/assets/css/colors.css" rel="stylesheet" type="text/css">
-	<script type="text/javascript" src="/assets/js/plugins/forms/validation/validate.min.js"></script>
-	<script type="text/javascript" src="/assets/js/plugins/forms/selects/bootstrap_multiselect.js"></script>
-	<script type="text/javascript" src="/assets/js/plugins/forms/inputs/touchspin.min.js"></script>
-	<script type="text/javascript" src="/assets/js/plugins/forms/selects/select2.min.js"></script>
-	<script type="text/javascript" src="/assets/js/plugins/forms/styling/switch.min.js"></script>
-	<script type="text/javascript" src="/assets/js/plugins/forms/styling/switchery.min.js"></script>
-	<script type="text/javascript" src="/assets/js/plugins/forms/styling/uniform.min.js"></script>
+	<script type="text/javascript" src="{{ admin_asset('js/plugins/forms/validation/validate.min.js') }}"></script>
+	<script type="text/javascript" src="{{ admin_asset('js/plugins/forms/selects/bootstrap_multiselect.js') }}"></script>
+	<script type="text/javascript" src="{{ admin_asset('js/plugins/forms/inputs/touchspin.min.js') }}"></script>
+	<script type="text/javascript" src="{{ admin_asset('js/plugins/forms/selects/select2.min.js') }}"></script>
+	<script type="text/javascript" src="{{ admin_asset('js/plugins/forms/styling/switch.min.js') }}"></script>
+	<script type="text/javascript" src="{{ admin_asset('js/plugins/forms/styling/switchery.min.js') }}"></script>
+	<script type="text/javascript" src="{{ admin_asset('js/plugins/forms/styling/uniform.min.js') }}"></script>
 
-	<script type="text/javascript" src="/assets/js/pages/form_validation.js"></script>
+	<script type="text/javascript" src="{{ admin_asset('js/pages/form_validation.js') }}"></script>
 @endsection
 
 @section('pageheader')

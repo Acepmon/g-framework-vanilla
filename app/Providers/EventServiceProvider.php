@@ -20,6 +20,8 @@ class EventServiceProvider extends ServiceProvider
         ],
         'Illuminate\Auth\Events\PasswordReset' => [
             'App\Listeners\ResetPasswordListener'
+        ],
+        'App\Events\MyEvent' => [
         ]
     ];
 

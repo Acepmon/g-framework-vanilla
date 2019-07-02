@@ -1,11 +1,11 @@
-@extends('admin.layouts.default')
+@extends('themes.limitless.layouts.default')
 
 @section('load')
 
-<script type="text/javascript" src="/assets/js/core/libraries/jquery_ui/core.min.js"></script>
-<script type="text/javascript" src="/assets/js/plugins/forms/selects/selectboxit.min.js"></script>
+<script type="text/javascript" src="{{ admin_asset('js/core/libraries/jquery_ui/core.min.js') }}"></script>
+<script type="text/javascript" src="{{ admin_asset('js/plugins/forms/selects/selectboxit.min.js') }}"></script>
 
-<script type="text/javascript" src="/assets/js/pages/form_selectbox.js"></script>
+<script type="text/javascript" src="{{ admin_asset('js/pages/form_selectbox.js') }}"></script>
 @endsection
 
 @section('pageheader')

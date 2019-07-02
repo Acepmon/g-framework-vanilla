@@ -1,11 +1,11 @@
-@extends('admin.layouts.login')
+@extends('themes.limitless.layouts.login')
 @section('load')
-	<script type="text/javascript" src="/assets/js/plugins/forms/validation/validate.min.js"></script>
-	<script type="text/javascript" src="/assets/js/plugins/forms/selects/bootstrap_multiselect.js"></script>
-	<script type="text/javascript" src="/assets/js/plugins/forms/inputs/touchspin.min.js"></script>
-	<script type="text/javascript" src="/assets/js/plugins/forms/selects/select2.min.js"></script>
-	<script type="text/javascript" src="/assets/js/plugins/forms/styling/switch.min.js"></script>
-	<script type="text/javascript" src="/assets/js/pages/form_validation.js"></script>
+	<script type="text/javascript" src="{{ admin_asset('js/plugins/forms/validation/validate.min.js') }}"></script>
+	<script type="text/javascript" src="{{ admin_asset('js/plugins/forms/selects/bootstrap_multiselect.js') }}"></script>
+	<script type="text/javascript" src="{{ admin_asset('js/plugins/forms/inputs/touchspin.min.js') }}"></script>
+	<script type="text/javascript" src="{{ admin_asset('js/plugins/forms/selects/select2.min.js') }}"></script>
+	<script type="text/javascript" src="{{ admin_asset('js/plugins/forms/styling/switch.min.js') }}"></script>
+	<script type="text/javascript" src="{{ admin_asset('js/pages/form_validation.js') }}"></script>
 @endsection
 @section('content')
 
@@ -120,7 +120,7 @@
 
 
     <!-- Footer -->
-    @include('admin.includes.footer')
+    @include('themes.limitless.includes.footer')
     <!-- /footer -->
 
 </div>

@@ -1,20 +1,20 @@
-@extends('admin.layouts.default')
+@extends('themes.limitless.layouts.default')
 
 @section('load')
 
-<script type="text/javascript" src="assets/js/plugins/tables/datatables/datatables.min.js"></script>
-<script type="text/javascript" src="assets/js/plugins/forms/selects/select2.min.js"></script>
+<script type="text/javascript" src="{{ admin_asset('js/plugins/tables/datatables/datatables.min.js') }}"></script>
+<script type="text/javascript" src="{{ admin_asset('js/plugins/forms/selects/select2.min.js') }}"></script>
 
-<script type="text/javascript" src="assets/js/core/app.js"></script>
-<script type="text/javascript" src="assets/js/pages/datatables_basic.js"></script>
-<script type="text/javascript" src="assets/js/plugins/velocity/velocity.min.js"></script>
-<script type="text/javascript" src="/assets/js/plugins/velocity/velocity.ui.min.js"></script>
-<script type="text/javascript" src="/assets/js/plugins/buttons/spin.min.js"></script>
-<script type="text/javascript" src="/assets/js/plugins/buttons/ladda.min.js"></script>
+<script type="text/javascript" src="{{ admin_asset('js/core/app.js') }}"></script>
+<script type="text/javascript" src="{{ admin_asset('js/pages/datatables_basic.js') }}"></script>
+<script type="text/javascript" src="{{ admin_asset('js/plugins/velocity/velocity.min.js') }}"></script>
+<script type="text/javascript" src="{{ admin_asset('js/plugins/velocity/velocity.ui.min.js') }}"></script>
+<script type="text/javascript" src="{{ admin_asset('js/plugins/buttons/spin.min.js') }}"></script>
+<script type="text/javascript" src="{{ admin_asset('js/plugins/buttons/ladda.min.js') }}"></script>
 
-<script type="text/javascript" src="/assets/js/plugins/tables/datatables/datatables.min.js"></script>
-<script type="text/javascript" src="/assets/js/plugins/forms/selects/select2.min.js"></script>
-<script type="text/javascript" src="/assets/js/pages/datatables_basic.js"></script>
+<script type="text/javascript" src="{{ admin_asset('js/plugins/tables/datatables/datatables.min.js') }}"></script>
+<script type="text/javascript" src="{{ admin_asset('js/plugins/forms/selects/select2.min.js') }}"></script>
+<script type="text/javascript" src="{{ admin_asset('js/pages/datatables_basic.js') }}"></script>
 @endsection
 
 @section('pageheader')

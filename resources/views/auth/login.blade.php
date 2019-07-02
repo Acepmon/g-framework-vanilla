@@ -1,4 +1,4 @@
-@extends('admin.layouts.login')
+@extends('themes.limitless.layouts.login')
 
 @section('load')
 @section('content')
@@ -53,7 +53,7 @@
     </form>
     <!-- /simple login form -->
     <!-- Footer -->
-    @include('admin.includes.footer')
+    @include('themes.limitless.includes.footer')
     <!-- /footer -->
 
 </div>

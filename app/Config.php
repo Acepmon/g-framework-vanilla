@@ -12,4 +12,14 @@ class Config extends Model
      * @var bool
      */
     public $timestamps = false;
+
+    public static function get($key)
+    {
+        return self::where('key', $key)->first();
+    }
+
+    public static function getValue($key)
+    {
+        return self::get($key)->value;
+    }
 }

@@ -62,7 +62,7 @@
                     </div>
                     <!-- /error wrapper -->
 
-                    @include('admin.includes.footer')
+                    @include('themes.limitless.includes.footer')
                 </div>
                 <!-- /content area -->
 

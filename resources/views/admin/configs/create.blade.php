@@ -1,11 +1,11 @@
-@extends('admin.layouts.default')
+@extends('themes.limitless.layouts.default')
 
 @section('title', 'Register New Configuration')
 
 @section('load')
-<script type="text/javascript" src="/assets/js/plugins/forms/styling/uniform.min.js"></script>
-<script type="text/javascript" src="/assets/js/plugins/forms/styling/switchery.min.js"></script>
-<script type="text/javascript" src="/assets/js/plugins/forms/styling/switch.min.js"></script>
+<script type="text/javascript" src="{{ admin_asset('js/plugins/forms/styling/uniform.min.js') }}"></script>
+<script type="text/javascript" src="{{ admin_asset('js/plugins/forms/styling/switchery.min.js') }}"></script>
+<script type="text/javascript" src="{{ admin_asset('js/plugins/forms/styling/switch.min.js') }}"></script>
 @endsection
 
 @section('pageheader')

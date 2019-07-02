@@ -1,9 +1,9 @@
-@extends('admin.layouts.default')
+@extends('themes.limitless.layouts.default')
 
 @section('title', 'Base Configuration')
 
 @section('load')
-<script type="text/javascript" src="/assets/js/plugins/editors/ace/ace.js"></script>
+<script type="text/javascript" src="{{ admin_asset('js/plugins/editors/ace/ace.js') }}"></script>
 @endsection
 
 @section('pageheader')
