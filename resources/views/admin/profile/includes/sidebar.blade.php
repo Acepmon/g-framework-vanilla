@@ -37,7 +37,13 @@
                             </a>
                         </li>
                         <li class="navigation-divider"></li>
-                        <li><a href="{{ route('logout') }}"><i class="icon-switch2"></i> Log out</a></li>
+                        <li>
+                            
+                            <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="icon-switch2"></i> Logout</a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                @csrf
+                            </form>
+                        </li>
                         @endauth
                     </ul>
                 </div>
