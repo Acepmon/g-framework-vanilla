@@ -51,8 +51,8 @@
 
 @section('content')
 <div class="has-detached-left">
-    @include('admin.profile.admin.includes.sidebar')
-
+    @include('admin.profile.includes.sidebar')
+ 
     <!-- Detached content -->
     <div class="container-detached">
         <div class="content-detached">
