@@ -14,8 +14,8 @@
                             <span class="display-block">{{ '@'.$user->username }}</span>
                         </div>
 
-                        <a href="{{ ($user->avatar)?'/storage/'.$user->avatar:'/assets/images/placeholder.jpg'}}" target="_blank" class="display-inline-block content-group-sm">
-                            <img src="{{ ($user->avatar)?'/storage/'.$user->avatar:'/assets/images/placeholder.jpg'}}" class="img-circle img-responsive" alt="" style="width: 110px; height: 110px;">
+                        <a href="{{ ($user->avatar)?'/storage/'.$user->avatar:admin_asset('images/placeholder.jpg')}}" target="_blank" class="display-inline-block content-group-sm">
+                            <img src="{{ ($user->avatar)?'/storage/'.$user->avatar:admin_asset('images/placeholder.jpg')}}" class="img-circle img-responsive" alt="" style="width: 110px; height: 110px;">
                         </a>
                     </div>
                 </div>

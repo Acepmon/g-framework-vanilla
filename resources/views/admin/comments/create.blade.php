@@ -107,7 +107,7 @@
                     <div class="form-group">
                         <label class="control-label col-lg-2">Author Avatar <span class="text-danger">*</span></label>
                         <div class="col-lg-10">
-                            <input type="text" class="form-control" name="author_avatar" placeholder="Enter author avatar..." required="required" aria-required="true" invalid="true" value="/assets/images/placeholder.jpg">
+                            <input type="text" class="form-control" name="author_avatar" placeholder="Enter author avatar..." required="required" aria-required="true" invalid="true" value="{{ admin_asset('images/placeholder.jpg') }}">
                         </div>
                     </div>
 

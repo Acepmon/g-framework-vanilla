@@ -72,7 +72,7 @@
                 <tr>
                     <td>{{$comment->id}}</td>
                     <td>
-                        <a href="#" class="media-left"><img src="{{ ($comment->author_avatar)?$comment->author_avatar:'/assets/images/placeholder.jpg'}}" class="img-sm img-circle" alt=""></a>
+                        <a href="#" class="media-left"><img src="{{ ($comment->author_avatar)?$comment->author_avatar:'{{ admin_asset('images/placeholder.jpg') }}'}}" class="img-sm img-circle" alt=""></a>
                         <div class="media-body">
                             <span class="media-heading text-semibold">{{ $comment->author_name }}</span>
                             <span class="text-size-mini text-muted display-block">{{ $comment->author_id?'@'.$comment->author_id:$comment->author_email }}</span>

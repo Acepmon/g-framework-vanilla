@@ -84,7 +84,7 @@
             {{-- <div class="form-group has-feedback has-feedback-left">
                 <div class="row">
                     <div class="col-lg-2">
-                        <img id="avatar_view" src="/assets/images/placeholder.jpg" class="img-circle img-md"/>
+                        <img id="avatar_view" src="{{ admin_asset('images/placeholder.jpg') }}" class="img-circle img-md"/>
                     </div>
                     <div class="col-lg-10">
                         <input type="file" name="avatar" class="file-styled form-control" onchange="readURL(this);" value="{{Request::old('avatar')}}">

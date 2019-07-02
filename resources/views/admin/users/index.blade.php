@@ -76,7 +76,7 @@
             <tr>
                 <td>{{ $user->id }}</td>
                 <td>
-                    <a href="#" class="media-left"><img src="{{ ($user->avatar)?'/storage/'.$user->avatar:'/assets/images/placeholder.jpg'}}" class="img-sm img-circle" alt=""></a>
+                    <a href="#" class="media-left"><img src="{{ ($user->avatar)?'/storage/'.$user->avatar:'{{ admin_asset('images/placeholder.jpg') }}'}}" class="img-sm img-circle" alt=""></a>
                     <div class="media-body">
                         <span class="media-heading text-semibold">{{ $user->name }}</span>
                         <span class="text-size-mini text-muted display-block">{{ '@'.$user->username }}</span>
