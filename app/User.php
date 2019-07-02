@@ -84,4 +84,24 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
     {
         $this->notify(new ResetPasswordNotification($token));
     }
+
+    public function is_admin()
+    {
+        return $this->groups->contains(Group::find(1));
+    }
+
+    public function is_operator()
+    {
+        return $this->groups->contains(Group::find(2));
+    }
+
+    public function is_member()
+    {
+        return $this->groups->contains(Group::find(3));
+    }
+
+    public function is_guest()
+    {
+        return $this->groups->contains(Group::find(4));
+    }
 }

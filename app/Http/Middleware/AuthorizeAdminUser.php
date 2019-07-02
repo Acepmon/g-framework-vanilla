@@ -22,7 +22,7 @@ class AuthorizeAdminUser
             return redirect('/login');
         }
 
-        if (!Auth::user()->groups->contains(Group::find(1))) {
+        if (!Auth::user()->is_admin()) {
             abort(404);
         }
 

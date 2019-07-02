@@ -91,11 +91,11 @@ class RegisterController extends Controller
     {
         $path = '/home';
 
-        if (Auth::user()->groups->contains(Group::find(1))) {
+        if (Auth::user()->is_admin()) {
             $path = Config::getValue('system.auth.adminRedirectPath');
-        } else if (Auth::user()->groups->contains(Group::find(2))) {
+        } else if (Auth::user()->is_operator()) {
             $path = Config::getValue('system.auth.operatorRedirectPath');
-        } else if (Auth::user()->groups->contains(Group::find(3))) {
+        } else if (Auth::user()->is_member()) {
             $path = Config::getValue('system.auth.memberRedirectPath');
         } else {
             $path = Config::getValue('system.auth.guestRedirectPath');
