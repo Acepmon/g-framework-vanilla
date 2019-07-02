@@ -80,6 +80,7 @@
                     <th>filename</th>
                     <th>filetype</th>
                     <th>Status</th>
+                    <th>Restore</th>
                     {{--<th>Activate</th>--}}
                     <th>Edit</th>
                     <th>Delete</th>
@@ -93,15 +94,16 @@
                     <td>{{ $data->description}}</td>
                     <td>{{ $data->filename }}</td>
                     <td>{{ $data->filetype }}</td>
-                    {{--@if($data->status=='available')--}}
-                    {{--<td><button data-target="{{ $data->id  }}" data-loading-text="<i class='icon-spinner4 spinner'></i> Downloading..." class="btn btn-default backup-install">Install</button></td>--}}
-
-                    {{--@else--}}
-                    {{--<td><button data-target="{{ $data->id  }}" data-loading-text="<i class='icon-spinner4 spinner'></i> Downloading..." disabled class="btn btn-default backup-install">Install</button></td>--}}
-
-                    {{--@endif--}}
-
                     <td>{{ $data->status }}</td>
+                    @if($data->status=='completed')
+                    <td><button data-target="{{ $data->id  }}" data-loading-text="<i class='icon-spinner4 spinner'></i> Restoring..." class="btn btn-primary db-restore">Restore</button></td>
+
+                    @else
+                    <td><button data-target="{{ $data->id  }}" data-loading-text="<i class='icon-spinner4 spinner'></i> Restoring..." disabled class="btn btn-default">Restore</button></td>
+
+                    @endif
+
+
                     {{--@if($data->status =='deactivated')--}}
 
                         {{--<td><button type="button" data-target="{{ $data->id  }}" class="btn btn-success backup-activate">Activate</button></td>--}}
@@ -160,53 +162,26 @@
         $("#delete_form").attr('action', '/admin/backups/'+id);
     }
 </script>
-{{--<script type="text/javascript">--}}
-    {{--$.ajaxSetup({--}}
-        {{--headers: {--}}
-            {{--'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')--}}
-        {{--}--}}
-    {{--});--}}
-    {{--$(".backup-install").click(function () {--}}
-        {{--var id = $(this).data('target');--}}
-        {{--var btn = $(this);--}}
-        {{--btn.button('loading');--}}
-        {{--$.ajax({--}}
-            {{--type: 'GET',--}}
-            {{--url: '/admin/installTheme',--}}
-            {{--data: {id: id},--}}
-            {{--success: function (data) {--}}
-                {{--btn.button('reset');--}}
-                {{--window.location.reload();--}}
-            {{--}--}}
-        {{--});--}}
-    {{--});--}}
+<script type="text/javascript">
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    $(".db-restore").click(function () {
+        var id = $(this).data('target');
+        var btn = $(this);
+        btn.button('loading');
+        $.ajax({
+            type: 'GET',
+            url: '/admin/databaseRestore',
+            data: {id: id},
+            success: function (data) {
+                btn.button('reset');
+                window.location.reload();
+            }
+        });
+    });
 
-
-    {{--$(".backup-activate").click(function () {--}}
-        {{--var id = $(this).data('target');--}}
-        {{--$.ajax({--}}
-            {{--type: 'POST',--}}
-            {{--url: '/admin/backups/' + id + '/activate',--}}
-            {{--success: function (data) {--}}
-                {{--if (data.status === 'Success') {--}}
-                    {{--window.location.reload();--}}
-                {{--}--}}
-            {{--}--}}
-        {{--});--}}
-    {{--});--}}
-
-    {{--$(".backup-deactivate").click(function () {--}}
-        {{--var id = $(this).data('target');--}}
-        {{--$.ajax({--}}
-            {{--type: 'POST',--}}
-            {{--url: '/admin/backups/' + id + '/deactivate',--}}
-            {{--success: function (data) {--}}
-                {{--if (data.status === 'Success') {--}}
-                    {{--window.location.reload();--}}
-                {{--}--}}
-            {{--}--}}
-        {{--});--}}
-    {{--});--}}
-
-{{--</script>--}}
+</script>
 @endsection

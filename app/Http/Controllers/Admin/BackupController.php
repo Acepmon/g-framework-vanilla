@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
-
+use Storage;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Backup;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Validator;
+use Spatie\Backup\BackupDestination\BackupDestination;
 
 class BackupController extends Controller
 {
@@ -32,6 +34,17 @@ class BackupController extends Controller
     }
 
     /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+//    public function createDbBackup()
+//    {
+//        echo "wwww";
+//        //return view('admin.backups.create');
+//    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -46,11 +59,19 @@ class BackupController extends Controller
         $backups = new Backup;
         $backups->title = $request->title;
         $backups->description = $request->description;
-        $backups->filepath = '1';
-        $backups->filename = '2';
-        $backups->filetype = '3';
-        $backups->status = Backup::COMPLETED;
+        $backups->status = Backup::IN_PROGRESS;
         $backups->save();
+
+        $type = 'database';
+        $id = $backups->id;
+        $datetime = \Carbon\Carbon::parse($backups->created_at)->format('Y-m-d-H-i-s');
+
+        $filename = $type . '-' . $id . '-' . $datetime  . '.zip';
+
+        Artisan::call('backup:run', [
+            '--only-db' => 1,
+            '--filename' => $filename,
+        ]);
 
         return redirect()->route('admin.backups.index')->with('status', 'Backup created!');
     }

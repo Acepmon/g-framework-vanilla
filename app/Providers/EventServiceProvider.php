@@ -20,7 +20,10 @@ class EventServiceProvider extends ServiceProvider
         ],
         'Illuminate\Auth\Events\PasswordReset' => [
             'App\Listeners\ResetPasswordListener'
-        ]
+        ],
+        'Spatie\Backup\Events\BackupWasSuccessful' => [
+            'App\Listeners\BackupSuccessListener'
+        ],
     ];
 
     /**
