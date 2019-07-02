@@ -18,5 +18,6 @@ class DatabaseSeeder extends Seeder
         $this->call(TermTaxonomyTableSeeder::class);
         $this->call(AdministratorMenusSeeder::class);
         $this->call(ThemesTableSeeder::class);
+        $this->call(PagesSeeder::class);
     }
 }

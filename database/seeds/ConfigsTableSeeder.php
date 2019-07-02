@@ -14,59 +14,81 @@ class ConfigsTableSeeder extends Seeder
         DB::table('configs')->insert([
             [
                 'title' => 'Plugin Development Path',
-                'description' => '',
                 'key' => 'plugins.development.path',
                 'value' => '' . DIRECTORY_SEPARATOR . 'storage' . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR . 'plugins',
                 'autoload' => true
             ],
             [
                 'title' => 'Plugin Download Path',
-                'description' => '',
                 'key' => 'plugins.storage.path',
                 'value' => '' . DIRECTORY_SEPARATOR . 'storage' . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR . 'plugins',
                 'autoload' => true
             ],
             [
                 'title' => 'Plugin Install Path',
-                'description' => '',
                 'key' => 'plugins.install.path',
                 'value' => '' . DIRECTORY_SEPARATOR . 'plugins',
                 'autoload' => true
             ],
             [
                 'title' => 'Content posts root path',
-                'description' => '',
                 'key' => 'content.posts.rootPath',
-                'value' => '' . DIRECTORY_SEPARATOR . 'resources' . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'admin' . DIRECTORY_SEPARATOR . 'contents' . DIRECTORY_SEPARATOR . 'posts',
+                'value' => '' . DIRECTORY_SEPARATOR . 'resources' . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'posts',
                 'autoload' => true
             ],
             [
                 'title' => 'Content posts view path',
-                'description' => '',
                 'key' => 'content.posts.viewPath',
-                'value' => 'admin.contents.posts',
+                'value' => 'posts',
                 'autoload' => true
             ],
             [
                 'title' => 'Content pages root path',
-                'description' => '',
                 'key' => 'content.pages.rootPath',
-                'value' => '' . DIRECTORY_SEPARATOR . 'resources' . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'admin' . DIRECTORY_SEPARATOR . 'contents' . DIRECTORY_SEPARATOR . 'pages',
+                'value' => '' . DIRECTORY_SEPARATOR . 'resources' . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'pages',
                 'autoload' => true
             ],
             [
                 'title' => 'Content pages view path',
-                'description' => '',
                 'key' => 'content.pages.viewPath',
-                'value' => 'admin.contents.pages',
+                'value' => 'pages',
                 'autoload' => true
             ],
             [
                 'title' => 'Current Admin Panel Theme',
-                'description' => '',
                 'key' => 'admin.theme.current',
                 'value' => 'limitless',
                 'autoload' => true
+            ],
+            [
+                'title' => 'Default Group for newly registered Users',
+                'key' => 'system.register.defaultGroup',
+                'value' => '3',
+                'autoload' => false
+            ],
+            [
+                'title' => 'Redirect path for Administrator group after authentication',
+                'key' => 'system.auth.adminRedirectPath',
+                'value' => '/admin',
+                'autoload' => false
+            ],
+            [
+                'title' => 'Redirect path for Operator group after authentication',
+                'key' => 'system.auth.operatorRedirectPath',
+                'value' => '/admin',
+                'autoload' => false
+            ],
+            [
+                'title' => 'Redirect path for Member group after authentication',
+                'key' => 'system.auth.memberRedirectPath',
+                'value' => '/home',
+                'autoload' => false
+            ],
+            [
+                'title' => 'Redirect path for Guest group after authentication',
+                'key' => 'system.auth.guestRedirectPath',
+                'value' => '/home',
+                'autoload' => false
             ]
         ]);
     }

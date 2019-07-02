@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\User;
+use App\Group;
+use App\Config;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\VerifiesEmails;
 
@@ -25,7 +28,7 @@ class VerificationController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/admin';
+    // protected $redirectTo = '/home';
 
     /**
      * Create a new controller instance.
@@ -37,5 +40,22 @@ class VerificationController extends Controller
         $this->middleware('auth');
         $this->middleware('signed')->only('verify');
         $this->middleware('throttle:6,1')->only('verify', 'resend');
+    }
+
+    protected function redirectTo()
+    {
+        $path = '/home';
+
+        if (Auth::user()->groups->contains(Group::find(1))) {
+            $path = Config::getValue('system.auth.adminRedirectPath');
+        } else if (Auth::user()->groups->contains(Group::find(2))) {
+            $path = Config::getValue('system.auth.operatorRedirectPath');
+        } else if (Auth::user()->groups->contains(Group::find(3))) {
+            $path = Config::getValue('system.auth.memberRedirectPath');
+        } else {
+            $path = Config::getValue('system.auth.guestRedirectPath');
+        }
+
+        return $path;
     }
 }

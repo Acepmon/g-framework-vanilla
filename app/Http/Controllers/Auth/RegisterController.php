@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
+use App\Group;
+use App\Config;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -28,7 +30,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/admin';
+    // protected $redirectTo = '/home';
 
     /**
      * Create a new controller instance.
@@ -67,7 +69,7 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        $user = User::create([
             'username' => $data['username'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
@@ -76,5 +78,29 @@ class RegisterController extends Controller
             // 'language' => $data['language'],
             'language' => 'en'
         ]);
+
+        $groupId = Config::getValue('system.register.defaultGroup');
+        if (!empty($groupId)) {
+            $user->groups()->attach($groupId);
+        }
+
+        return $user;
+    }
+
+    protected function redirectTo()
+    {
+        $path = '/home';
+
+        if (Auth::user()->groups->contains(Group::find(1))) {
+            $path = Config::getValue('system.auth.adminRedirectPath');
+        } else if (Auth::user()->groups->contains(Group::find(2))) {
+            $path = Config::getValue('system.auth.operatorRedirectPath');
+        } else if (Auth::user()->groups->contains(Group::find(3))) {
+            $path = Config::getValue('system.auth.memberRedirectPath');
+        } else {
+            $path = Config::getValue('system.auth.guestRedirectPath');
+        }
+
+        return $path;
     }
 }

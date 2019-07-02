@@ -2,6 +2,9 @@
 
 namespace App\Http\Middleware;
 
+use App\User;
+use App\Group;
+use App\Config;
 use Closure;
 use Illuminate\Support\Facades\Auth;
 
@@ -18,7 +21,19 @@ class RedirectIfAuthenticated
     public function handle($request, Closure $next, $guard = null)
     {
         if (Auth::guard($guard)->check()) {
-            return redirect('/admin');
+            $path = '/home';
+
+            if (Auth::user()->groups->contains(Group::find(1))) {
+                $path = Config::getValue('system.auth.adminRedirectPath');
+            } else if (Auth::user()->groups->contains(Group::find(2))) {
+                $path = Config::getValue('system.auth.operatorRedirectPath');
+            } else if (Auth::user()->groups->contains(Group::find(3))) {
+                $path = Config::getValue('system.auth.memberRedirectPath');
+            } else {
+                $path = Config::getValue('system.auth.guestRedirectPath');
+            }
+
+            return redirect($path);
         }
 
         return $next($request);

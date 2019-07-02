@@ -13,7 +13,7 @@
 
 Route::middleware(['installed'])->group(function () {
     
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth', 'admin'])->group(function () {
     Route::prefix('admin')->group(function () {
         Route::namespace('Admin')->group(function () {
             Route::get('/', function () {
