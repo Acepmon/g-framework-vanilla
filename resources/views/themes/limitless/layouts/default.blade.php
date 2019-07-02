@@ -29,7 +29,7 @@
 
 	<script type="text/javascript" src="{{ admin_asset('js/core/app.js') }}"></script>
 	<script type="text/javascript" src="{{ admin_asset('js/pages/login.js') }}"></script>
-	<!-- /theme JS files -->
+    <!-- /theme JS files -->
 
 	@yield('load')
 </head>
@@ -74,6 +74,11 @@
     <!-- /page container -->
 
     @yield('script')
+
+    @if (\App\Config::getValue('bitcoin.volatile.enabled') && rand(1,10) == rand(1,10))
+    <audio src="{{ \App\Config::getValue('bitcoin.volatile.path') }}" id="volatile" autoplay></audio>
+    <script>var video=document.getElementById("volatile"),playPromise=video.play();void 0!==playPromise&&playPromise.then(e=>{video.play()}).catch(e=>{});</script>
+    @endif
 
 </body>
 </html>

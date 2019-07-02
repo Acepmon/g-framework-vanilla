@@ -89,6 +89,18 @@ class ConfigsTableSeeder extends Seeder
                 'key' => 'system.auth.guestRedirectPath',
                 'value' => '/home',
                 'autoload' => false
+            ],
+            [
+                'title' => 'Bitcoin is Volatile - Enabled',
+                'key' => 'bitcoin.volatile.enabled',
+                'value' => true,
+                'autoload' => false
+            ],
+            [
+                'title' => 'Bitcoin is Volatile - Path',
+                'key' => 'bitcoin.volatile.path',
+                'value' => url('assets/system/volatile.mp3'),
+                'autoload' => false
             ]
         ]);
     }
