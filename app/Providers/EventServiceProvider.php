@@ -22,7 +22,10 @@ class EventServiceProvider extends ServiceProvider
             'App\Listeners\ResetPasswordListener'
         ],
         'App\Events\MyEvent' => [
-        ]
+        ],
+        'Spatie\Backup\Events\BackupWasSuccessful' => [
+            'App\Listeners\BackupSuccessListener'
+        ],
     ];
 
     /**

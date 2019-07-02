@@ -25,6 +25,8 @@ Route::middleware(['auth'])->group(function () {
             Route::get('install','PluginController@installPlugin')->name('admin.plugins.install');
             Route::get('installTheme','ThemeController@installTheme')->name('admin.themes.install');
 
+            Route::get('databaseRestore','backupController@databaseRestore')->name('admin.backups.databaseRestore');
+
             Route::get('/menus/tree', 'MenuController@tree')->name('admin.menus.tree');
 
             Route::prefix('profile')->group(function () {
@@ -147,15 +149,6 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/groups/{group}/permissions/createPermission/{permission}', 'GroupController@createPermission')->name('admin.groups.createPermission');
             Route::get('/groups/{group}/permissions/removePermission/{permission}', 'GroupController@removePermission')->name('admin.groups.removePermission');
 
-            Route::resource('pages', 'PageController')->names([
-                'index' => 'admin.pages.index',
-                'create' => 'admin.pages.create',
-                'store' => 'admin.pages.store',
-                'show' => 'admin.pages.show',
-                'edit' => 'admin.pages.edit',
-                'update' => 'admin.pages.update',
-                'destroy' => 'admin.pages.destroy'
-            ]);
             Route::resource('contents', 'ContentController')->names([
                 'index' => 'admin.contents.index',
                 'create' => 'admin.contents.create',
@@ -230,9 +223,6 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/users/{user}/permissions/{permission}/edit', 'UserPermissionController@edit')->name('admin.users.permissions.edit');
             Route::put('/users/{user}/permissions/{permission}', 'UserPermissionController@update')->name('admin.users.permissions.update');
             Route::delete('/users/{user}/permissions/{permission}', 'UserPermissionController@destroy')->name('admin.users.permissions.destroy');
-
-            Route::get('/users/{user}/pages', 'UserPageController@index')->name('admin.users.pages.index');
-            Route::get('/users/{user}/pages/{page}', 'UserPageController@show')->name('admin.users.pages.show');
 
             Route::get('/users/{user}/contents', 'UserContentController@index')->name('admin.users.contents.index');
             Route::get('/users/{user}/contents/{content}', 'UserContentController@show')->name('admin.users.contents.show');
