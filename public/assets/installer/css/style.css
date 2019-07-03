@@ -2336,9 +2336,9 @@ html {
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
   font-family: Roboto, Helvetica Neue, Helvetica, Arial, sans-serif;
-  font-weight: 300;
+  font-weight: normal;
   color: #666;
-  font-size: 12px;
+  font-size: 14px;
   line-height: 1.75em; }
   html input[type=button] {
     -webkit-appearance: button;
@@ -2543,14 +2543,18 @@ button {
   cursor: pointer;
   display: block;
   cursor: pointer;
-  font-size: 12px;
+  font-size: 14px;
   padding: .4375em 1.75em;
   margin-bottom: 1.18125em; }
 
 input {
-  line-height: normal; }
-  input:focus {
-    background: #ffff00; }
+  line-height: normal;
+  border: 1px solid #ced4da;
+  border-radius: .25rem;
+}
+input:focus {
+  background: rgba(255, 255, 156, 0.5);
+}
 
 optgroup {
   font-weight: 700; }
@@ -2564,14 +2568,15 @@ select {
   width: calc(100% - 24px);
   margin: 0 auto 1em;
   width: 100%;
-  height: 35px; }
+  /* height: 35px; */
+}
 
 textarea {
   overflow: auto;
   display: block;
   max-width: 100%;
   padding: .4375em;
-  font-size: 12px;
+  font-size: 14px;
   margin-bottom: 1.18125em;
   outline: none;
   border: 1px solid #dddddd;
@@ -2589,7 +2594,7 @@ input[type=submit] {
   cursor: pointer;
   display: block;
   cursor: pointer;
-  font-size: 12px;
+  font-size: 14px;
   padding: .4375em 1.75em;
   margin-bottom: 1.18125em; }
 
@@ -2680,7 +2685,7 @@ th {
 
 @media (min-width: 600px) {
   html {
-    font-size: 12px; }
+    font-size: 14px; }
 
   h1 {
     font-size: calc(27.85438995234061px +18.56959 *((100vw - 600px) / 540)); }
@@ -2825,7 +2830,7 @@ h6 {
   font-weight: 500;
   color: #111;
   clear: both;
-  font-size: 12px;
+  font-size: 14px;
   margin-top: 2.1875em;
   line-height: 2.625em;
   margin-bottom: .619791666666667em; }
@@ -2844,7 +2849,7 @@ label {
   display: block;
   padding-bottom: .21875em;
   margin-bottom: -.21875em;
-  cursor: pointer; }
+}
 
 li {
   margin: 0;
@@ -2965,7 +2970,7 @@ var {
     margin-bottom: .5140625em; }
 
   button {
-    font-size: 20px;
+    /* font-size: 20px; */
     margin-bottom: 1.3125em; }
 
   input[type=submit] {
@@ -2984,27 +2989,28 @@ input[type=email] {
   display: block;
   max-width: 100%;
   padding: .4375em;
-  font-size: 12px;
+  font-size: 14px;
   margin-bottom: 1.18125em; }
 
 input[type=password] {
   display: block;
   max-width: 100%;
   padding: .4375em;
-  font-size: 12px;
+  font-size: 14px;
   margin-bottom: 1.18125em; }
 
 input[type=text] {
   display: block;
   max-width: 100%;
   padding: .4375em;
-  font-size: 12px;
+  font-size: 14px;
   margin-bottom: 1.18125em; }
 
 .master {
-  background-image: url("../img/background.png");
-  background-size: cover;
-  background-position: top;
+  /* background-image: url("../img/pattern.png"); */
+  /* background-size: cover; */
+  /* background-position: top; */
+  background-color: #F1F1F1;
   min-height: 100vh;
   display: -ms-flexbox;
   display: -webkit-box;
@@ -3323,7 +3329,7 @@ input[type='number'] {
       background-color: #fff;
       color: #333; }
   .tabs .tab-label {
-    color: #ddd;
+    color: rgba(200, 200, 200, 1);
     cursor: pointer;
     float: left;
     padding: 1em;
@@ -3484,7 +3490,9 @@ svg:not(:root) {
 .step__item.active .step__icon:hover,
 .step__item.active ~ .step__item .step__icon:hover {
   background-color: #3d657b; }
-
+.form-group {
+  margin-bottom: 1rem;
+}
 .form-group.has-error select {
   border-color: #ff0000; }
 .form-group.has-error textarea {
@@ -3504,6 +3512,9 @@ svg:not(:root) {
   font-size: .9em;
   color: #ff0000;
   font-weight: 500; }
+.form-group > label {
+  font-weight: 500;
+}
 
 .tabs-full .tab-label {
   display: table-cell;

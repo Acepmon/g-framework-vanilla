@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Illuminate\Support\Str;
 
 class CheckSystemInstallation
 {
@@ -20,11 +21,10 @@ class CheckSystemInstallation
      */
     public function handle($request, Closure $next)
     {
-        $installPrefix = 'install';
-        $updatePrefix = 'update';
-
-        if (!file_exists(storage_path('installed')) && substr($request->path(), 0, strlen($installPrefix)) === $installPrefix && substr($request->path(), 0, strlen($updatePrefix)) === $updatePrefix) {
-            return redirect('install');
+        if (!file_exists(storage_path('installed'))) {
+            if (!Str::startsWith($request->path(), 'install') && !Str::startsWith($request->path(), 'update')) {
+                return redirect('install');
+            }
         }
 
         return $next($request);
