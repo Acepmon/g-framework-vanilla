@@ -58,7 +58,7 @@
                 <form class="form-horizontal" method="POST" action="{{ route('admin.themes.update', $plugin->id) }}">
                     @csrf
                     @method ('PUT')
-                    <div class="col-lg-9">
+                    <div class="col-lg-12">
                         <div class="form-group">
                             <label class="control-label col-lg-2">Title</label>
                             <div class="col-lg-10">
@@ -87,35 +87,6 @@
                         </div>
                     </div>
                 </form>
-                <div class="col-lg-3">
-                    <div class="form-group">
-                        <table class="table">
-                            <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Username</th>
-                                <th>Check</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <div style="display: none">{{$i=1}}</div>
-                            @foreach($users as $data)
-                                <tr>
-                                    <td>{{ $i++}}</td>
-                                    <td>{{ $data->username}}</td>
-                                    <td>
-                                        <div class="checkbox checkbox-switch">
-                                            <label>
-                                                <input type="checkbox" data-off-color="danger" name="is_granted" data-on-text="Yes" data-off-text="No" class="switch" {{$data -> is_granted == 1 ? 'checked':''}}>
-                                            </label>
-                                        </div>{{ $data->is_granted }}
-                                    </td>
-                                </tr>
-                            @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
             </div>
         </div>
         <!-- /horizotal form -->

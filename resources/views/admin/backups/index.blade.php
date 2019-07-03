@@ -178,6 +178,7 @@
             data: {id: id},
             success: function (data) {
                 btn.button('reset');
+                //console.log(data);
                 window.location.reload();
             }
         });

@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Theme;
 use Illuminate\Support\Facades\Storage;
-//use App\User;
 use Illuminate\Support\Facades\Validator;
 //use phpDocumentor\Reflection\DocBlock\Tags\Uses;
 
@@ -86,8 +85,7 @@ class ThemeController extends Controller
         $themes = Theme::all();
 
         $theme = Theme::find($id);
-        $users = User::all();
-        return view('admin.themes.edit', ['plugin' => $theme, 'themes' => $themes, 'users' => $users]);
+        return view('admin.themes.edit', ['plugin' => $theme, 'themes' => $themes]);
     }
 
     /**
@@ -169,7 +167,6 @@ class ThemeController extends Controller
         $url = $theme->repository;
         $themesPath = "../themes/";
         $pathZip = $themesPath . $theme->title.".zip";
-        echo $pathZip;
 
         $zipResource = fopen($pathZip, "w");
         // Get The Zip File From Server
