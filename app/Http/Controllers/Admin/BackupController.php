@@ -6,6 +6,7 @@ use Storage;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Backup;
+use DB;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Validator;
 use Spatie\Backup\BackupDestination\BackupDestination;
@@ -61,17 +62,20 @@ class BackupController extends Controller
         $backups->description = $request->description;
         $backups->status = Backup::IN_PROGRESS;
         $backups->save();
-
         $type = 'database';
         $id = $backups->id;
         $datetime = \Carbon\Carbon::parse($backups->created_at)->format('Y-m-d-H-i-s');
 
         $filename = $type . '-' . $id . '-' . $datetime  . '.zip';
+        $backups->filename = "backup-".$filename;
+        $backups->save();
 
         Artisan::call('backup:run', [
             '--only-db' => 1,
             '--filename' => $filename,
         ]);
+
+        //dd(Artisan::output());
 
         return redirect()->route('admin.backups.index')->with('status', 'Backup created!');
     }
@@ -116,12 +120,42 @@ class BackupController extends Controller
         $backups = Backup::findOrFail($id);
         $backups->title = $request->title;
         $backups->description = $request->description;
-        $backups->filepath = '1';
-        $backups->filename = '2';
-        $backups->filetype = '3';
+
         $backups->status = Backup::COMPLETED;
         $backups->save();
         return redirect()->route('admin.backups.index')->with('status', 'Backup edited');
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function databaseRestore(Request $request, Backup $backup)
+    {
+        $backups = Backup::findOrFail($request->id);
+        $backupPath = storage_path('app\sss');
+//        /echo $backupPath;
+        $pathZip = $backupPath . DIRECTORY_SEPARATOR . $backups->filename;
+
+        $ret = $this->extract($pathZip, $backups->filename, $backups->id, $backupPath);
+        //$backups->save();
+        return $ret;
+    }
+
+    public function extract($pathZip, $filename, $id, $backupPath)
+    {
+        ini_set('max_execution_time', 3000);
+        \Zipper::make($pathZip)->extractTo($backupPath);
+        DB::unprepared(file_get_contents($backupPath .DIRECTORY_SEPARATOR. "db-dumps". DIRECTORY_SEPARATOR ."mysql-gframe.sql"));
+        $backups = Backup::findOrFail($id);
+        $backups->status = Backup::RESTORED;
+        $backups->save();
+        //Storage::disk('themes')->deleteDirectory("db-dumps");
+        //Storage::local('app')->deleteDirectory("sss/db-dumps");
+        return response()->json(['status' => 'Success']);
     }
 
     /**
@@ -133,7 +167,7 @@ class BackupController extends Controller
     public function destroy($id)
     {
         $backups = Backup::findOrFail($id);
-
+        Storage::disk('themes')->deleteDirectory("db-dumps");
         $backups->delete();
         return redirect()->route('admin.backups.index')->with('status', 'Backup deleted');
 

@@ -13,21 +13,39 @@ class ConfigsTableSeeder extends Seeder
     {
         DB::table('configs')->insert([
             [
-                'title' => 'Plugin Development Path',
-                'key' => 'plugins.development.path',
-                'value' => '' . DIRECTORY_SEPARATOR . 'storage' . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR . 'plugins',
+                'title' => 'Plugin Storage Path',
+                'key' => 'plugins.install.storagePath',
+                'value' => storage_path('app' . DIRECTORY_SEPARATOR . 'plugins'),
                 'autoload' => true
             ],
             [
-                'title' => 'Plugin Download Path',
-                'key' => 'plugins.storage.path',
-                'value' => '' . DIRECTORY_SEPARATOR . 'storage' . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR . 'plugins',
+                'title' => 'Plugin Apps Install Path',
+                'key' => 'plugins.install.appPath',
+                'value' => app_path('Plugins'),
                 'autoload' => true
             ],
             [
-                'title' => 'Plugin Install Path',
-                'key' => 'plugins.install.path',
-                'value' => '' . DIRECTORY_SEPARATOR . 'plugins',
+                'title' => 'Plugin Databases Install Path',
+                'key' => 'plugins.install.databasePath',
+                'value' => database_path(),
+                'autoload' => true
+            ],
+            [
+                'title' => 'Theme Storage Path',
+                'key' => 'themes.install.storagePath',
+                'value' => storage_path('app' . DIRECTORY_SEPARATOR . 'themes'),
+                'autoload' => true
+            ],
+            [
+                'title' => 'Theme Assets Install Path',
+                'key' => 'themes.install.assetPath',
+                'value' => public_path(config('app.asset_url')),
+                'autoload' => true
+            ],
+            [
+                'title' => 'Theme Views Install Path',
+                'key' => 'themes.install.viewPath',
+                'value' => resource_path('views' . DIRECTORY_SEPARATOR . 'themes'),
                 'autoload' => true
             ],
             [

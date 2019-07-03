@@ -40,7 +40,7 @@
                 <td>{{ $config->value }}</td>
                 <td>
                     <div class="btn-group">
-                        <button class="btn btn-default btn-xs" title="Edit Configuration"><span class="icon-pencil"></span></button>
+                        <a href="{{ route('admin.configs.edit', ['id' => $config->id]) }}" class="btn btn-default btn-xs" title="Edit Configuration"><span class="icon-pencil"></span></a>
                     </div>
                 </td>
             </tr>
