@@ -1,14 +1,14 @@
 @extends('themes.limitless.layouts.default')
 
 @section('load')
-<script type="text/javascript" src="{{ admin_asset('js/core/libraries/jquery_ui/core.min.js') }}"></script>
-<script type="text/javascript" src="{{ admin_asset('js/core/libraries/jquery_ui/effects.min.js') }}"></script>
-<script type="text/javascript" src="{{ admin_asset('js/core/libraries/jquery_ui/interactions.min.js') }}"></script>
-<script type="text/javascript" src="{{ admin_asset('js/plugins/extensions/cookie.js') }}"></script>
-<script type="text/javascript" src="{{ admin_asset('js/plugins/forms/styling/switchery.min.js') }}"></script>
-<script type="text/javascript" src="{{ admin_asset('js/plugins/forms/styling/uniform.min.js') }}"></script>
-<script type="text/javascript" src="{{ admin_asset('js/plugins/trees/fancytree_all.min.js') }}"></script>
-<script type="text/javascript" src="{{ admin_asset('js/plugins/trees/fancytree_childcounter.js') }}"></script>
+<script type="text/javascript" src="{{ asset('limitless/js/core/libraries/jquery_ui/core.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('limitless/js/core/libraries/jquery_ui/effects.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('limitless/js/core/libraries/jquery_ui/interactions.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('limitless/js/plugins/extensions/cookie.js') }}"></script>
+<script type="text/javascript" src="{{ asset('limitless/js/plugins/forms/styling/switchery.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('limitless/js/plugins/forms/styling/uniform.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('limitless/js/plugins/trees/fancytree_all.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('limitless/js/plugins/trees/fancytree_childcounter.js') }}"></script>
 @endsection
 
 @section('pageheader')

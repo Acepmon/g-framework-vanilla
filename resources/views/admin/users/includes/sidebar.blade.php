@@ -7,8 +7,8 @@
                 <div class="panel">
                     <div class="panel-body border-radius-top">
                         <div class="media">
-                            <a href="{{ ($user->avatar)?'/storage/'.$user->avatar:admin_asset('images/placeholder.jpg')}}" target="_blank" class="media-left">
-                                <img src="{{ ($user->avatar)?'/storage/'.$user->avatar:admin_asset('images/placeholder.jpg')}}" class="img-circle img-sm" alt="">
+                            <a href="{{ ($user->avatar)?'/storage/'.$user->avatar:asset('limitless/images/placeholder.jpg')}}" target="_blank" class="media-left">
+                                <img src="{{ ($user->avatar)?'/storage/'.$user->avatar:asset('limitless/images/placeholder.jpg')}}" class="img-circle img-sm" alt="">
                             </a>
                             <div class="media-body">
                                 <span class="media-heading text-semibold">{{ $user->name }}</span>

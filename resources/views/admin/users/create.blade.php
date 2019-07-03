@@ -1,15 +1,15 @@
 @extends('themes.limitless.layouts.default')
 
 @section('load')
-	<script type="text/javascript" src="{{ admin_asset('js/plugins/forms/validation/validate.min.js') }}"></script>
-	<script type="text/javascript" src="{{ admin_asset('js/plugins/forms/selects/bootstrap_multiselect.js') }}"></script>
-	<script type="text/javascript" src="{{ admin_asset('js/plugins/forms/inputs/touchspin.min.js') }}"></script>
-	<script type="text/javascript" src="{{ admin_asset('js/plugins/forms/selects/select2.min.js') }}"></script>
-	<script type="text/javascript" src="{{ admin_asset('js/plugins/forms/styling/switch.min.js') }}"></script>
-	<script type="text/javascript" src="{{ admin_asset('js/plugins/forms/styling/switchery.min.js') }}"></script>
-	<script type="text/javascript" src="{{ admin_asset('js/plugins/forms/styling/uniform.min.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('limitless/js/plugins/forms/validation/validate.min.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('limitless/js/plugins/forms/selects/bootstrap_multiselect.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('limitless/js/plugins/forms/inputs/touchspin.min.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('limitless/js/plugins/forms/selects/select2.min.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('limitless/js/plugins/forms/styling/switch.min.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('limitless/js/plugins/forms/styling/switchery.min.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('limitless/js/plugins/forms/styling/uniform.min.js') }}"></script>
 
-	<script type="text/javascript" src="{{ admin_asset('js/pages/form_validation.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('limitless/js/pages/form_validation.js') }}"></script>
 @endsection
 
 @section('pageheader')
@@ -134,7 +134,7 @@
                         <label class="control-label col-lg-2">Avatar</label>
                         <div class="col-lg-10">
                             <div class="media-left">
-                                <img id="avatar" src="{{ admin_asset('images/placeholder.jpg') }}" class="img-circle img-md"/>
+                                <img id="avatar" src="{{ asset('limitless/images/placeholder.jpg') }}" class="img-circle img-md"/>
                             </div>
                             <div class="media-body">
                                 <input type="file" name="avatar" class="file-styled form-control" onchange="readURL(this);" value="{{Request::old('avatar')}}">

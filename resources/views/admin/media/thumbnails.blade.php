@@ -3,7 +3,7 @@
 @section('title', 'Content Thumbnails')
 
 @section('load')
-<script type="text/javascript" src="{{ admin_asset('js/plugins/media/fancybox.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('limitless/js/plugins/media/fancybox.min.js') }}"></script>
 <style>
     .thumbnail {
         height: 110px;

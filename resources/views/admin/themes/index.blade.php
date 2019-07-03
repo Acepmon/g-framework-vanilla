@@ -1,10 +1,10 @@
 @extends('themes.limitless.layouts.default')
 
 @section('load')
-    <script type="text/javascript" src="{{ admin_asset('js/plugins/velocity/velocity.min.js') }}"></script>
-    <script type="text/javascript" src="{{ admin_asset('js/plugins/velocity/velocity.ui.min.js') }}"></script>
-    <script type="text/javascript" src="{{ admin_asset('js/plugins/buttons/spin.min.js') }}"></script>
-    <script type="text/javascript" src="{{ admin_asset('js/plugins/buttons/ladda.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('limitless/js/plugins/velocity/velocity.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('limitless/js/plugins/velocity/velocity.ui.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('limitless/js/plugins/buttons/spin.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('limitless/js/plugins/buttons/ladda.min.js') }}"></script>
 @endsection
 
 @section('pageheader')

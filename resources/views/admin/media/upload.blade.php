@@ -3,7 +3,7 @@
 @section('title', 'Upload File')
 
 @section('load')
-<script type="text/javascript" src="{{ admin_asset('js/plugins/uploaders/dropzone.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('limitless/js/plugins/uploaders/dropzone.min.js') }}"></script>
 @endsection
 
 @section('pageheader')

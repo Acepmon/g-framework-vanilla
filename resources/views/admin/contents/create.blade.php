@@ -1,11 +1,11 @@
 @extends('themes.limitless.layouts.default')
 
 @section('load')
-<script type="text/javascript" src="{{ admin_asset('js/plugins/forms/selects/bootstrap_multiselect.js') }}"></script>
-<script type="text/javascript" src="{{ admin_asset('js/plugins/forms/inputs/touchspin.min.js') }}"></script>
-<script type="text/javascript" src="{{ admin_asset('js/plugins/forms/selects/select2.min.js') }}"></script>
-<script type="text/javascript" src="{{ admin_asset('js/plugins/forms/styling/switch.min.js') }}"></script>
-<script type="text/javascript" src="{{ admin_asset('js/pages/form_validation.js') }}"></script>
+<script type="text/javascript" src="{{ asset('limitless/js/plugins/forms/selects/bootstrap_multiselect.js') }}"></script>
+<script type="text/javascript" src="{{ asset('limitless/js/plugins/forms/inputs/touchspin.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('limitless/js/plugins/forms/selects/select2.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('limitless/js/plugins/forms/styling/switch.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('limitless/js/pages/form_validation.js') }}"></script>
 @endsection
 
 @section('pageheader')

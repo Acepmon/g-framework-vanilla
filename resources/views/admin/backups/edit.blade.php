@@ -2,10 +2,10 @@
 
 @section('load')
 {{--<!-- Theme JS files -->--}}
-<script type="text/javascript" src="{{ admin_asset('js/plugins/forms/styling/uniform.min.js') }}"></script>
-<script type="text/javascript" src="{{ admin_asset('js/plugins/forms/styling/switchery.min.js') }}"></script>
-<script type="text/javascript" src="{{ admin_asset('js/plugins/forms/styling/switch.min.js') }}"></script>
-<script type="text/javascript" src="{{ admin_asset('js/pages/form_checkboxes_radios.js') }}"></script>
+<script type="text/javascript" src="{{ asset('limitless/js/plugins/forms/styling/uniform.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('limitless/js/plugins/forms/styling/switchery.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('limitless/js/plugins/forms/styling/switch.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('limitless/js/pages/form_checkboxes_radios.js') }}"></script>
 <!-- /theme JS files -->
 @endsection
 
