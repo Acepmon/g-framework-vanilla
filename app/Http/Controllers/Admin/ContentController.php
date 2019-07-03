@@ -9,6 +9,7 @@ use App\Content;
 use App\ContentMeta;
 use App\User;
 use App\Config;
+use App\Theme;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
@@ -40,7 +41,8 @@ class ContentController extends Controller
     public function create()
     {
         $users = User::all();
-        return view('admin.contents.create', ['users' => $users]);
+        $themes = Theme::all();
+        return view('admin.contents.create', ['users' => $users, 'themes' => $themes]);
     }
 
     /**
@@ -191,17 +193,17 @@ class ContentController extends Controller
                 $value->before = $old_content;
                 $value->after = $content;
                 $value->user = Auth::user();
-    
+
                 $content_meta = new ContentMeta();
                 $content_meta->content_id = $content->id;
                 $content_meta->key = 'revision';
                 $content_meta->value = json_encode($value);
                 $content_meta->save();
-    
+
                 $viewPath = Config::where('key', 'content.'.$content->type.'s.viewPath')->first()->value;
                 $name = $viewPath . '.' . $content->slug . Content::NAMING_CONVENTION . $content->status . Content::NAMING_CONVENTION . $time;
                 $extension =  'blade.php';
-    
+
                 Artisan::call("make:view", [
                     'name' => $name,
                     '--extension' => $extension,

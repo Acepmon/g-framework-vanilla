@@ -13,13 +13,15 @@ class ThemesTableSeeder extends Seeder
     {
         DB::table('themes')->insert([
             [
+                'package' => 'limitless',
                 'title' => 'Limitless',
                 'description' => 'Responsive Web Application Kit',
                 'repository' => 'https://github.com/acepmon/g-framework-limitless/archive/master.zip',
                 'version' => '2.2',
-                'status' => \App\Theme::AVAILABLE
+                'status' => \App\Theme::INSTALLED
             ],
             [
+                'package' => 'canvas',
                 'title' => 'Canvas',
                 'description' => 'The Multi-Purpose HTML5 Template',
                 'repository' => 'https://github.com/acepmon/g-framework-canvas/archive/master.zip',
@@ -27,6 +29,7 @@ class ThemesTableSeeder extends Seeder
                 'status' => \App\Theme::AVAILABLE
             ],
             [
+                'package' => 'future-imperfect',
                 'title' => 'Future Imperfect',
                 'description' => 'Another Fine Responsive Site Template by HTML5 UP',
                 'repository' => 'https://github.com/acepmon/g-framework-future-imperfect/archive/master.zip',
