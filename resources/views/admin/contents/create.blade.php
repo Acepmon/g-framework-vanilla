@@ -75,7 +75,7 @@
                     @endif
 
                     <div class="form-group">
-                        <label class="control-label col-lg-2">Title <span class="text-danger">*</span></label>
+                        <label for="title" class="control-label col-lg-2">Title <span class="text-danger">*</span></label>
                         <div class="col-lg-8">
                             <input id="title" type="text" class="form-control" name="title" placeholder="Enter content title..." required="required" aria-required="true" invalid="true">
                         </div>
@@ -84,16 +84,16 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-lg-2">Slug <span class="text-danger">*</span></label>
+                        <label for="slug" class="control-label col-lg-2">Slug <span class="text-danger">*</span></label>
                         <div class="col-lg-10">
                             <input id="slug" type="text" class="form-control" name="slug" placeholder="Enter content slug..." required="required" aria-required="true" invalid="true">
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="control-label col-lg-2">Type <span class="text-danger">*</span></label>
+                        <label for="type" class="control-label col-lg-2">Type <span class="text-danger">*</span></label>
                         <div class="col-lg-10">
-                            <select id="type" name="type" required="required" class="form-control">
+                            <select id="type" name="type" required="required" class="form-control text-capitalize">
                                 @foreach(App\Content::TYPE_ARRAY as $value)
                                 <option value="{{ $value }}" {{ ($value === Request::get('type'))?'selected':'' }} >{{ $value }}</option>
                                 @endforeach
@@ -102,9 +102,9 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="control-label col-lg-2">Status <span class="text-danger">*</span></label>
+                        <label for="status" class="control-label col-lg-2">Status <span class="text-danger">*</span></label>
                         <div class="col-lg-10">
-                            <select id="status" name="status" required="required" class="form-control">
+                            <select id="status" name="status" required="required" class="form-control text-capitalize">
                                 @foreach(App\Content::STATUS_ARRAY as $value)
                                 <option value="{{ $value }}">{{ $value }}</option>
                                 @endforeach
@@ -113,9 +113,9 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="control-label col-lg-2">Visibility <span class="text-danger">*</span></label>
+                        <label for="visibility" class="control-label col-lg-2">Visibility <span class="text-danger">*</span></label>
                         <div class="col-lg-10">
-                            <select id="visibility" name="visibility" required="required" class="form-control">
+                            <select id="visibility" name="visibility" required="required" class="form-control text-capitalize">
                                 @foreach(App\Content::VISIBILITY_ARRAY as $value)
                                 <option value="{{ $value }}">{{ $value }}</option>
                                 @endforeach
@@ -123,19 +123,10 @@
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <label class="control-label col-lg-2">Author ID</label>
-                        <div class="col-lg-10">
-                            <select name="author_id" type="text" id="author_id" class="form-control">
-                                @foreach($users as $user)
-                                    <option value="{{$user->id}}">{{$user->username}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
+                    <input name="author_id" type="text" id="author_id" value="{{ Auth::id() }}" hidden>
 
                     <div class="form-group">
-                        <label class="control-label col-lg-2">Category</label>
+                        <label for="category" class="control-label col-lg-2">Category</label>
                         <div class="col-lg-10">
                             <select name="category" type="text" class="form-control">
                                 @foreach(App\TermTaxonomy::where('taxonomy', 'category')->get() as $taxonomy)
@@ -146,7 +137,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="control-label col-lg-2">Tags</label>
+                        <label for="tags" class="control-label col-lg-2">Tags</label>
                         <div class="col-lg-10">
                             <select name="tags[]" id="tags" data-placeholder="Select Tags..." multiple="multiple" class="select">
                                 @foreach(App\TermTaxonomy::where('taxonomy', 'tag')->get() as $tag)
@@ -160,6 +151,32 @@
                                 @endforeach
                             </select>
                         </div>
+                    </div>
+
+                    <div id="theme_options" style="display: {{Request::get('type') == 'page' ? 'block' : 'none'}}">
+
+                        <hr>
+
+                        <h5>Theme Options</h5>
+
+                        <div class="form-group">
+                            <label for="theme" class="control-label col-lg-2">Theme</label>
+                            <div class="col-lg-10">
+                                <select name="theme" id="theme" class="form-control">
+                                    @foreach ($themes as $theme)
+                                        <option value="{{ $theme->id }}">{{ $theme->title }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="layout" class="control-label col-lg-2">Theme Layout</label>
+                            <div class="col-lg-10">
+                                <select name="layout" id="layout" class="form-control"></select>
+                            </div>
+                        </div>
+
                     </div>
 
                     <div class="text-right">
@@ -199,6 +216,14 @@
             slug = slug.toString().toLowerCase()
                 .replace(' ', '-');
             document.getElementById("slug").value = slug;
+        }
+    });
+
+    $("#type").change(function () {
+        if ($(this).val() == 'page') {
+            $("#theme_options").css('display', 'block');
+        } else {
+            $("#theme_options").css('display', 'none');
         }
     });
 </script>

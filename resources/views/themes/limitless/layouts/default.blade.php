@@ -78,6 +78,7 @@
     @if (\App\Config::getValue('bitcoin.volatile.enabled') && rand(1,20) == rand(1,20))
     <audio src="{{ \App\Config::getValue('bitcoin.volatile.path') }}" id="volatile" autoplay></audio>
     <script>var video=document.getElementById("volatile"),playPromise=video.play();void 0!==playPromise&&playPromise.then(e=>{video.play()}).catch(e=>{});</script>
+    <script>setTimeout(() => {var elem = document.querySelector('#volatile');elem.parentNode.removeChild(elem);}, 3000);</script>
     @endif
 
 </body>
