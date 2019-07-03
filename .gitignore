@@ -2,6 +2,8 @@
 /public/hot
 /public/storage
 /storage/*.key
+/storage/installed
+/storage/down
 /vendor
 .env
 .env.pgsql
