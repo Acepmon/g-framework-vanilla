@@ -19,6 +19,13 @@ Route::middleware(['installed'])->group(function () {
                 Route::get('/', function () {
                     return redirect()->route('admin.dashboard');
                 });
+
+                Route::get('ajax/{ajax}', 'AjaxController@get')->name('admin.ajax.get');
+                Route::post('ajax/{ajax}', 'AjaxController@post')->name('admin.ajax.post');
+                Route::put('ajax/{ajax}', 'AjaxController@put')->name('admin.ajax.put');
+                Route::patch('ajax/{ajax}', 'AjaxController@patch')->name('admin.ajax.patch');
+                Route::delete('ajax/{ajax}', 'AjaxController@delete')->name('admin.ajax.get');
+
                 Route::get('dashboard', 'AdminController@dashboard')->name('admin.dashboard');
                 Route::get('changelog', 'ChangelogController@index')->name('admin.changelog.index');
 
