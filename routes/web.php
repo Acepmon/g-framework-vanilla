@@ -78,6 +78,14 @@ Route::middleware(['installed'])->group(function () {
                     Route::get('upload', 'MediaController@upload')->name('admin.media.upload');
                 });
 
+                Route::prefix('notifications')->group(function () {
+                    Route::get('/', function () { return redirect()->route('admin.notifications.channels'); });
+                    Route::get('channels', 'NotificationController@channels')->name('admin.notifications.channels');
+                    Route::get('triggers', 'NotificationController@triggers')->name('admin.notifications.triggers');
+                    Route::get('events', 'NotificationController@events')->name('admin.notifications.events');
+                    Route::get('templates', 'NotificationController@templates')->name('admin.notifications.templates');
+                });
+
                 Route::resource('menus', 'MenuController')->names([
                     'index' => 'admin.menus.index',
                     'create' => 'admin.menus.create',
