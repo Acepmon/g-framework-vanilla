@@ -196,10 +196,10 @@
                 </div>
                 @elseif($content->type=='post')
                 <div class="panel-body">
-                    <div >
-									<textarea name="editor-full" id="editor-full" rows="4" cols="4">
+                    <div class="content-group">
+                        <textarea name="editor-full" id="editor1" rows="4" cols="4">
                         {{ file_get_contents(base_path($revision_path)) }}
-									</textarea>
+                        </textarea>
                     </div>
                 </div>
                 @endif
