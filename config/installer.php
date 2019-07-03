@@ -93,7 +93,6 @@ return [
                 'pusher_app_id'         => 'max:50',
                 'pusher_app_key'        => 'max:50',
                 'pusher_app_secret'     => 'max:50',
-                'asset_url'             => 'max:50',
             ],
         ],
     ],
