@@ -12,7 +12,7 @@
 */
 
 Route::middleware(['installed'])->group(function () {
-    
+
     Route::middleware(['auth', 'admin'])->group(function () {
         Route::prefix('admin')->group(function () {
             Route::namespace('Admin')->group(function () {
@@ -233,18 +233,6 @@ Route::middleware(['installed'])->group(function () {
             });
         });
 
-    });
-
-    Route::prefix('tests')->group(function () {
-        Route::get('push', function () {
-            event(new \App\Events\MyEvent('hello acep'));
-        });
-        Route::get('pusher', function () {
-            return view('tests.pusher');
-        });
-        Route::get('notification', function () {
-            return view('tests.notification');
-        });
     });
 
     Auth::routes(['verify' => true]);
