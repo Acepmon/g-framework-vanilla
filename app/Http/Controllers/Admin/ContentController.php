@@ -197,6 +197,7 @@ class ContentController extends Controller
                 $content_meta->value = json_encode($value);
                 $content_meta->save();
 
+                $viewPath = Config::where('key', 'content.'.$content->type.'s.viewPath')->first()->value;
                 $viewPath = str_replace('.', '/', 'views.' . $viewPath);
                 $name = $content->slug . Content::NAMING_CONVENTION . $content->status . Content::NAMING_CONVENTION . $time;
                 $filename = $viewPath . '/' . $old_name . '.blade.php';
