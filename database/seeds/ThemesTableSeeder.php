@@ -34,7 +34,7 @@ class ThemesTableSeeder extends Seeder
                 'description' => 'Another Fine Responsive Site Template by HTML5 UP',
                 'repository' => 'https://github.com/acepmon/g-framework-future-imperfect/archive/master.zip',
                 'version' => '1.0',
-                'status' => \App\Theme::AVAILABLE
+                'status' => \App\Theme::INSTALLED
             ]
         ]);
     }

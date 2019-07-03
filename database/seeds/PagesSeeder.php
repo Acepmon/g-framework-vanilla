@@ -25,6 +25,8 @@ class PagesSeeder extends Seeder
             }
         }
 
+        // ---------------------------
+
         $content = new \App\Content;;
         $content->title = 'Welcome Page';
         $content->slug = '/';
