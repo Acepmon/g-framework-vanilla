@@ -175,6 +175,7 @@ class ContentController extends Controller
 
             $updated_at = $content->updated_at;
             $old_terms = $content->terms;
+            $old_name = $content->metas->last()->revisionView();
             $content->save();
             $content->terms()->sync($request->input('tags'));
             $content->terms()->attach($request->input('category'));
@@ -196,11 +197,11 @@ class ContentController extends Controller
                 $content_meta->value = json_encode($value);
                 $content_meta->save();
 
-                $viewPath = Config::where('key', 'content.'.$content->type.'s.viewPath')->first()->value;
-                $name = $viewPath . '.' . $content->slug . Content::NAMING_CONVENTION . $content->status . Content::NAMING_CONVENTION . $time;
-                $extension =  'blade.php';
-
-                $this->create_view($content->type, $name, $extension);
+                $viewPath = str_replace('.', '/', 'views.' . $viewPath);
+                $name = $content->slug . Content::NAMING_CONVENTION . $content->status . Content::NAMING_CONVENTION . $time;
+                $filename = $viewPath . '/' . $old_name . '.blade.php';
+                $newname = $viewPath . '/' . $name . '.blade.php';
+                copy(resource_path($filename), resource_path($newname));
             }
 
             DB::commit();
