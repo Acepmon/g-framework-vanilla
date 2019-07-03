@@ -11,6 +11,20 @@ class PagesSeeder extends Seeder
      */
     public function run()
     {
+        $time = time();
+        $rootPath = \App\Config::where('key', 'content.pages.rootPath')->first()->value;
+
+        if (!file_exists(base_path($rootPath))) {
+            mkdir(base_path($rootPath));
+        } else {
+            $files = glob(base_path($rootPath) . DIRECTORY_SEPARATOR . '*'); // get all file names
+            foreach($files as $file){ // iterate files
+                if(is_file($file)) {
+                    unlink($file); // delete file
+                }
+            }
+        }
+
         $content = new \App\Content;;
         $content->title = 'Welcome Page';
         $content->slug = '/';
@@ -21,7 +35,7 @@ class PagesSeeder extends Seeder
         $content->save();
 
         $value = new \stdClass;
-        $value->datetime = 1562054752;
+        $value->datetime = $time;
         $value->filename_changed = true;
         $value->before = $content;
         $value->after = $content;
@@ -32,6 +46,14 @@ class PagesSeeder extends Seeder
         $content_meta->key = 'initial';
         $content_meta->value = json_encode($value);
         $content_meta->save();
+
+        $file_content = file_get_contents(resource_path('stubs/root.stub'));
+
+        $file_name = $rootPath . DIRECTORY_SEPARATOR . 'root' . \App\Content::NAMING_CONVENTION . $content->status . \App\Content::NAMING_CONVENTION . $time;
+        $file_ext =  'blade.php';
+        $file_path = $file_name . '.' . $file_ext;
+
+        file_put_contents(base_path($file_path), $file_content);
 
         // ---------------------------
 
@@ -45,7 +67,7 @@ class PagesSeeder extends Seeder
         $content->save();
 
         $value = new \stdClass;
-        $value->datetime = 1562054752;
+        $value->datetime = $time;
         $value->filename_changed = true;
         $value->before = $content;
         $value->after = $content;
@@ -56,5 +78,12 @@ class PagesSeeder extends Seeder
         $content_meta->key = 'initial';
         $content_meta->value = json_encode($value);
         $content_meta->save();
+
+        $file_content = file_get_contents(resource_path('stubs/home.stub'));
+        $file_name = $rootPath . DIRECTORY_SEPARATOR . 'home' . \App\Content::NAMING_CONVENTION . $content->status . \App\Content::NAMING_CONVENTION . $time;
+        $file_ext =  'blade.php';
+        $file_path = $file_name . '.' . $file_ext;
+
+        file_put_contents(base_path($file_path), $file_content);
     }
 }
