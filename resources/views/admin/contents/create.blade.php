@@ -1,6 +1,7 @@
 @extends('themes.limitless.layouts.default')
 
 @section('load')
+<script type="text/javascript" src="{{ asset('limitless/js/plugins/forms/validation/validate.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('limitless/js/plugins/forms/selects/bootstrap_multiselect.js') }}"></script>
 <script type="text/javascript" src="{{ asset('limitless/js/plugins/forms/inputs/touchspin.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('limitless/js/plugins/forms/selects/select2.min.js') }}"></script>
@@ -163,6 +164,7 @@
                             <label for="theme" class="control-label col-lg-2">Theme</label>
                             <div class="col-lg-10">
                                 <select name="theme" id="theme" class="form-control">
+                                    <option value="0">Default</option>
                                     @foreach ($themes as $theme)
                                         <option value="{{ $theme->id }}">{{ $theme->title }}</option>
                                     @endforeach
@@ -197,6 +199,36 @@
 
 @section('script')
 <script>
+    $(document).ready(function(){
+        var theme_layouts = [{
+            "text": "default",
+            "theme_id": "0",
+            "value": "layous.path"
+        }];
+        @foreach ($themes as $theme)
+            @if(File::exists(resource_path('views/themes/'.$theme->package.'/layouts')))
+            @foreach(File::files(resource_path('views/themes/'.$theme->package.'/layouts')) as $path)
+                theme_layouts.push({
+                    "text": "{{ str_replace('.blade.php', '', $path->getFilename()) }}",
+                    "theme_id": "{{ $theme->id }}",
+                    "value": "{{ 'themes.' . $theme->package . '.layouts.' . str_replace('.blade.php', '', $path->getFilename()) }}"
+                });
+            @endforeach
+            @endif
+        @endforeach
+        
+        $("#theme").change(function() {
+            $("#layout").children().remove();
+            var selected_value = $(this).val();
+            $.each(theme_layouts, function(index, option) {
+                if (selected_value === option.theme_id) {
+                    $("#layout").append(new Option(option.text, option.value));
+                }
+            });
+        });
+        $("#theme").prop('selectedIndex', 0).trigger('change');
+    });
+
     function create_slug() {
         var title = document.getElementById("title").value;
         title = title.toString().toLowerCase()
@@ -210,7 +242,6 @@
     }
 
     $( "#slug" ).keyup(function( event ) {
-            console.log(event.which);
         if ( event.which == 32) {
             var slug = document.getElementById("slug").value;
             slug = slug.toString().toLowerCase()

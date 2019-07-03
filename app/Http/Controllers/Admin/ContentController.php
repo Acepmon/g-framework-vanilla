@@ -95,7 +95,8 @@ class ContentController extends Controller
             $name = $viewPath . '.' . $content->slug . Content::NAMING_CONVENTION . $content->status . Content::NAMING_CONVENTION . $time;
             $extension =  'blade.php';
 
-            $this->create_view($content->type, $name, $extension);
+            $extends = $request->layout;
+            $this->create_view($content->type, $name, $extension, $extends);
 
             DB::commit();
             return redirect()->route('admin.contents.index', ['type' => $content->type]);
@@ -318,7 +319,7 @@ class ContentController extends Controller
         }
     }
 
-    public function create_view($type, $name, $extension)
+    public function create_view($type, $name, $extension, $extends='layouts.app')
     {
         // Create View
         if ($type == 'page')
@@ -326,7 +327,7 @@ class ContentController extends Controller
             Artisan::call("make:view", [
                 'name' => $name,
                 '--extension' => $extension,
-                '--extends' => 'layouts.app',
+                '--extends' => $extends,
                 '--with-yields' => true]);
         } else if ($type == 'post')
         {
