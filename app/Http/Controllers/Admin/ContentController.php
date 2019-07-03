@@ -93,12 +93,7 @@ class ContentController extends Controller
             $name = $viewPath . '.' . $content->slug . Content::NAMING_CONVENTION . $content->status . Content::NAMING_CONVENTION . $time;
             $extension =  'blade.php';
 
-            // Create View
-            Artisan::call("make:view", [
-                'name' => $name,
-                '--extension' => $extension,
-                '--extends' => 'layouts.app',
-                '--with-yields']);
+            $this->create_view($content->type, $name, $extension);
 
             DB::commit();
             return redirect()->route('admin.contents.index', ['type' => $content->type]);
@@ -202,11 +197,7 @@ class ContentController extends Controller
                 $name = $viewPath . '.' . $content->slug . Content::NAMING_CONVENTION . $content->status . Content::NAMING_CONVENTION . $time;
                 $extension =  'blade.php';
     
-                Artisan::call("make:view", [
-                    'name' => $name,
-                    '--extension' => $extension,
-                    '--extends' => 'layouts.app',
-                    '--with-yields']);
+                $this->create_view($content->type, $name, $extension);
             }
 
             DB::commit();
@@ -259,11 +250,6 @@ class ContentController extends Controller
             $filename = $viewPath . '/' . $revision->content->slug . Content::NAMING_CONVENTION . $revision->content->status . Content::NAMING_CONVENTION . $revision_value->datetime . '.blade.php';
             $newname = $viewPath . '/' . $revision->content->slug . Content::NAMING_CONVENTION . $revision->content->status . Content::NAMING_CONVENTION . $time . '.blade.php';
             copy(resource_path($filename), resource_path($newname));
-            // Artisan::call("make:view", [
-            //     'name' => 'admin.contents.' . $content->type . 's.' . $content->slug,
-            //     '--extension' => $content->status . '.' . time() . '.blade.php',
-            //     '--extends' => 'layous.admin',
-            //     '--with-yields']);
 
             DB::commit();
             return redirect()->route('admin.contents.show', ['id' => $content->id]);
@@ -317,16 +303,30 @@ class ContentController extends Controller
             $name = $viewPath . '.' . $content->slug . Content::NAMING_CONVENTION . $content->status . Content::NAMING_CONVENTION . $time;
             $extension =  'blade.php';
 
-            Artisan::call("make:view", [
-                'name' => $name,
-                '--extension' => $extension,
-                '--extends' => 'layouts.app',
-                '--with-yields']);
+            $this->create_view($content, $name, $extension);
 
             return response()->json(["result" => "success"]);
             // return redirect()->route('admin.contents.show', ['id' => $content->id]);
         } catch (\Exception $e) {
             abort(400);
+        }
+    }
+
+    public function create_view($type, $name, $extension)
+    {
+        // Create View
+        if ($type == 'page')
+        {
+            Artisan::call("make:view", [
+                'name' => $name,
+                '--extension' => $extension,
+                '--extends' => 'layouts.app',
+                '--with-yields' => true]);
+        } else if ($type == 'post')
+        {
+            Artisan::call("make:view", [
+                'name' => $name,
+                '--extension' => $extension]);
         }
     }
 }
