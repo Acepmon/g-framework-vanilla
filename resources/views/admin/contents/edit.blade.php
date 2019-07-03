@@ -6,6 +6,7 @@
 <script type="text/javascript" src="{{ asset('limitless/js/plugins/forms/selects/select2.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('limitless/js/plugins/forms/styling/switch.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('limitless/js/plugins/editors/ace/ace.js') }}"></script>
+<script type="text/javascript" src="{{ asset('ckeditor/ckeditor.js') }}"></script>
 <script>
 </script>
 @endsection
@@ -23,7 +24,7 @@
 <div class="breadcrumb-line">
     <ul class="breadcrumb">
         <li><a href="index.html"><i class="icon-home2 position-left"></i> Home</a></li>
-        <li><a href="{{ route('admin.contents.index') }}">{{ ucfirst($content->type) }}s</a></li>
+        <li><a href="{{ route('admin.contents.index', ['type' => $content->type]) }}">{{ ucfirst($content->type) }}s</a></li>
         <li><a href="{{ route('admin.contents.show', ['id' => $content->id]) }}">Detail</a></li>
         <li class="active">Edit</li>
     </ul>
@@ -184,14 +185,24 @@
                     </h5>
                     <div class="heading-elements">
                         <ul class="icons-list">
-                            <li><button type="button" data-target="{{ $revision_path }}" data-loading-text="<i class='icon-spinner4 spinner position-left'></i> Saving" class="btn btn-primary btn-sm btn-loading">Update</button></li>
+                            <li><button type="button" id="save-page" data-target="{{ $revision_path }}" data-loading-text="<i class='icon-spinner4 spinner position-left'></i> Saving" class="btn btn-primary btn-sm btn-loading">Update</button></li>
                         </ul>
                     </div>
                 </div>
 
+                @if($content->type=='page')
                 <div class="panel-body">
                     <div id="php_editor">{{ file_get_contents(base_path($revision_path)) }}</div>
                 </div>
+                @elseif($content->type=='post')
+                <div class="panel-body">
+                    <div class="content-group">
+                        <textarea name="editor-full" id="editor1" rows="4" cols="4">
+                        {{ file_get_contents(base_path($revision_path)) }}
+                        </textarea>
+                    </div>
+                </div>
+                @endif
             </form>
         </div>
     </div>
@@ -291,15 +302,20 @@
     });
 
     $(document).ready(function () {
+        @if($content->type=='page')
         var php_editor = ace.edit("php_editor");
             php_editor.setTheme("ace/theme/monokai");
             php_editor.getSession().setMode("ace/mode/php");
             php_editor.setShowPrintMargin(false);
+        @elseif($content->type=='post')
+            CKEDITOR.replace('editor-full');
+        @endif
 
-        $('.btn-loading').click(function () {
+        $('#save-page').click(function () {
             var btn = $(this);
             var target = $(this).data("target");
-            var content = php_editor.getSession().getValue();
+            var content = {{ ($content->type=='page')?'php_editor.getSession().getValue()':'CKEDITOR.instances.editor1.getData()' }};
+            console.log(content);
             btn.button('loading');
             $.ajaxSetup({
                 headers: {

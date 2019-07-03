@@ -283,8 +283,8 @@ class ContentController extends Controller
 
         try {
             $revision_path = $request->input('revision_path');
-            $content = $request->input('content');
-            file_put_contents(base_path($revision_path), $content);
+            $revision_content = $request->input('content');
+            // file_put_contents(base_path($revision_path), $content);
 
             $content = Content::findOrFail(Route::current()->parameter('id'));
             $time = time();
@@ -302,14 +302,18 @@ class ContentController extends Controller
             $content_meta->save();
 
             $viewPath = Config::where('key', 'content.'.$content->type.'s.viewPath')->first()->value;
-            $name = $viewPath . '.' . $content->slug . Content::NAMING_CONVENTION . $content->status . Content::NAMING_CONVENTION . $time;
+            $name = $content->slug . Content::NAMING_CONVENTION . $content->status . Content::NAMING_CONVENTION . $time;
             $extension =  'blade.php';
+            $this->create_view($content->type, $viewPath . '.' . $name, $extension);
 
-            $this->create_view($content, $name, $extension);
+            $viewPath = Config::where('key', 'content.'.$content->type.'s.rootPath')->first()->value;
+            $revision_path = $viewPath . DIRECTORY_SEPARATOR . $name . '.' . $extension;
+            file_put_contents(base_path($revision_path), $revision_content);
 
             return response()->json(["result" => "success"]);
             // return redirect()->route('admin.contents.show', ['id' => $content->id]);
         } catch (\Exception $e) {
+            echo $e;
             abort(400);
         }
     }
