@@ -50,6 +50,8 @@ Route::middleware(['installed'])->group(function () {
                 Route::prefix('configs')->group(function () {
                     Route::post('/', 'ConfigController@store')->name('admin.configs.store');
                     Route::get('create', 'ConfigController@create')->name('admin.configs.create');
+                    Route::get('{id}/edit', 'ConfigController@edit')->name('admin.configs.edit');
+                    Route::put('{id}', 'ConfigController@update')->name('admin.configs.update');
                     Route::get('maintenance', 'ConfigController@maintenance')->name('admin.configs.maintenance');
                     Route::put('maintenance', 'ConfigController@setMaintenance')->name('admin.configs.maintenance.set');
                     Route::get('base', 'ConfigController@base')->name('admin.configs.base');
