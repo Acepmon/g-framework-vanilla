@@ -1,8 +1,8 @@
 @extends('themes.limitless.layouts.default')
 
 @section('load')
-<script type="text/javascript" src="{{ admin_asset('js/plugins/tables/datatables/datatables.min.js') }}"></script>
-<script type="text/javascript" src="{{ admin_asset('js/pages/datatables_basic.js') }}"></script>
+<script type="text/javascript" src="{{ asset('limitless/js/plugins/tables/datatables/datatables.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('limitless/js/pages/datatables_basic.js') }}"></script>
 @endsection
 
 @section('pageheader')
@@ -72,7 +72,7 @@
                 <tr>
                     <td>{{$comment->id}}</td>
                     <td>
-                        <a href="#" class="media-left"><img src="{{ ($comment->author_avatar)?$comment->author_avatar:'/assets/images/placeholder.jpg'}}" class="img-sm img-circle" alt=""></a>
+                        <a href="#" class="media-left"><img src="{{ ($comment->author_avatar)?$comment->author_avatar:asset('limitless/images/placeholder.jpg')}}" class="img-sm img-circle" alt=""></a>
                         <div class="media-body">
                             <span class="media-heading text-semibold">{{ $comment->author_name }}</span>
                             <span class="text-size-mini text-muted display-block">{{ $comment->author_id?'@'.$comment->author_id:$comment->author_email }}</span>

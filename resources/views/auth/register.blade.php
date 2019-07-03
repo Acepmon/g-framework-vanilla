@@ -1,11 +1,11 @@
 @extends('themes.limitless.layouts.login')
 @section('load')
-	<script type="text/javascript" src="{{ admin_asset('js/plugins/forms/validation/validate.min.js') }}"></script>
-	<script type="text/javascript" src="{{ admin_asset('js/plugins/forms/selects/bootstrap_multiselect.js') }}"></script>
-	<script type="text/javascript" src="{{ admin_asset('js/plugins/forms/inputs/touchspin.min.js') }}"></script>
-	<script type="text/javascript" src="{{ admin_asset('js/plugins/forms/selects/select2.min.js') }}"></script>
-	<script type="text/javascript" src="{{ admin_asset('js/plugins/forms/styling/switch.min.js') }}"></script>
-	<script type="text/javascript" src="{{ admin_asset('js/pages/form_validation.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('limitless/js/plugins/forms/validation/validate.min.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('limitless/js/plugins/forms/selects/bootstrap_multiselect.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('limitless/js/plugins/forms/inputs/touchspin.min.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('limitless/js/plugins/forms/selects/select2.min.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('limitless/js/plugins/forms/styling/switch.min.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('limitless/js/pages/form_validation.js') }}"></script>
 @endsection
 @section('content')
 
@@ -84,7 +84,7 @@
             {{-- <div class="form-group has-feedback has-feedback-left">
                 <div class="row">
                     <div class="col-lg-2">
-                        <img id="avatar_view" src="/assets/images/placeholder.jpg" class="img-circle img-md"/>
+                        <img id="avatar_view" src="{{ asset('limitless/images/placeholder.jpg') }}" class="img-circle img-md"/>
                     </div>
                     <div class="col-lg-10">
                         <input type="file" name="avatar" class="file-styled form-control" onchange="readURL(this);" value="{{Request::old('avatar')}}">

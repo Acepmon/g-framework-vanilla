@@ -3,11 +3,11 @@
 @extends('themes.limitless.layouts.default')
 
 @section('load')
-<script type="text/javascript" src="{{ admin_asset('js/plugins/tables/datatables/datatables.min.js') }}"></script>
-<script type="text/javascript" src="{{ admin_asset('js/plugins/forms/selects/select2.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('limitless/js/plugins/tables/datatables/datatables.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('limitless/js/plugins/forms/selects/select2.min.js') }}"></script>
 
-<script type="text/javascript" src="{{ admin_asset('js/core/app.js') }}"></script>
-<script type="text/javascript" src="{{ admin_asset('js/pages/datatables_basic.js') }}"></script>
+<script type="text/javascript" src="{{ asset('limitless/js/core/app.js') }}"></script>
+<script type="text/javascript" src="{{ asset('limitless/js/pages/datatables_basic.js') }}"></script>
 @endsection
 
 @section('pageheader')
@@ -96,7 +96,7 @@
     </div>
     </div>
 
-    
+
 
 <div class="panel panel-flat">
     <div class="panel-body">

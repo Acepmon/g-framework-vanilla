@@ -1,7 +1,7 @@
 @extends('themes.limitless.layouts.default')
 
 @section('load')
-<script type="text/javascript" src="{{ admin_asset('js/plugins/editors/ace/ace.js') }}"></script>
+<script type="text/javascript" src="{{ asset('limitless/js/plugins/editors/ace/ace.js') }}"></script>
 @endsection
 
 @section('pageheader')

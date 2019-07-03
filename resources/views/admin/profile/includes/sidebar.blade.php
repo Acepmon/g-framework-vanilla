@@ -14,8 +14,8 @@
                             <span class="display-block">{{ '@'.$user->username }}</span>
                         </div>
 
-                        <a href="{{ ($user->avatar)?'/storage/'.$user->avatar:'/assets/images/placeholder.jpg'}}" target="_blank" class="display-inline-block content-group-sm">
-                            <img src="{{ ($user->avatar)?'/storage/'.$user->avatar:'/assets/images/placeholder.jpg'}}" class="img-circle img-responsive" alt="" style="width: 110px; height: 110px;">
+                        <a href="{{ ($user->avatar)?'/storage/'.$user->avatar:asset('limitless/images/placeholder.jpg')}}" target="_blank" class="display-inline-block content-group-sm">
+                            <img src="{{ ($user->avatar)?'/storage/'.$user->avatar:asset('limitless/images/placeholder.jpg')}}" class="img-circle img-responsive" alt="" style="width: 110px; height: 110px;">
                         </a>
                     </div>
                 </div>
@@ -37,7 +37,13 @@
                             </a>
                         </li>
                         <li class="navigation-divider"></li>
-                        <li><a href="{{ route('logout') }}"><i class="icon-switch2"></i> Log out</a></li>
+                        <li>
+
+                            <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="icon-switch2"></i> Logout</a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                @csrf
+                            </form>
+                        </li>
                         @endauth
                     </ul>
                 </div>

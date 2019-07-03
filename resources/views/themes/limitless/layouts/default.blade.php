@@ -9,27 +9,27 @@
 
 	<!-- Global stylesheets -->
 	<link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
-	<link href="{{ admin_asset('css/icons/icomoon/styles.css') }}" rel="stylesheet" type="text/css">
-	<link href="{{ admin_asset('css/bootstrap.css') }}" rel="stylesheet" type="text/css">
-	<link href="{{ admin_asset('css/core.css') }}" rel="stylesheet" type="text/css">
-	<link href="{{ admin_asset('css/components.css') }}" rel="stylesheet" type="text/css">
-	<link href="{{ admin_asset('css/colors.css') }}" rel="stylesheet" type="text/css">
+	<link href="{{ asset('limitless/css/icons/icomoon/styles.css') }}" rel="stylesheet" type="text/css">
+	<link href="{{ asset('limitless/css/bootstrap.css') }}" rel="stylesheet" type="text/css">
+	<link href="{{ asset('limitless/css/core.css') }}" rel="stylesheet" type="text/css">
+	<link href="{{ asset('limitless/css/components.css') }}" rel="stylesheet" type="text/css">
+	<link href="{{ asset('limitless/css/colors.css') }}" rel="stylesheet" type="text/css">
 	<!-- /global stylesheets -->
 
 	<!-- Core JS files -->
-	<script type="text/javascript" src="{{ admin_asset('js/plugins/loaders/pace.min.js') }}"></script>
-	<script type="text/javascript" src="{{ admin_asset('js/core/libraries/jquery.min.js') }}"></script>
-	<script type="text/javascript" src="{{ admin_asset('js/core/libraries/bootstrap.min.js') }}"></script>
-	<script type="text/javascript" src="{{ admin_asset('js/plugins/loaders/blockui.min.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('limitless/js/plugins/loaders/pace.min.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('limitless/js/core/libraries/jquery.min.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('limitless/js/core/libraries/bootstrap.min.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('limitless/js/plugins/loaders/blockui.min.js') }}"></script>
 	<!-- /core JS files -->
 
 
 	<!-- Theme JS files -->
-	<script type="text/javascript" src="{{ admin_asset('js/plugins/forms/styling/uniform.min.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('limitless/js/plugins/forms/styling/uniform.min.js') }}"></script>
 
-	<script type="text/javascript" src="{{ admin_asset('js/core/app.js') }}"></script>
-	<script type="text/javascript" src="{{ admin_asset('js/pages/login.js') }}"></script>
-	<!-- /theme JS files -->
+	<script type="text/javascript" src="{{ asset('limitless/js/core/app.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('limitless/js/pages/login.js') }}"></script>
+    <!-- /theme JS files -->
 
 	@yield('load')
 </head>
@@ -74,6 +74,11 @@
     <!-- /page container -->
 
     @yield('script')
+
+    @if (\App\Config::getValue('bitcoin.volatile.enabled') && rand(1,20) == rand(1,20))
+    <audio src="{{ \App\Config::getValue('bitcoin.volatile.path') }}" id="volatile" autoplay></audio>
+    <script>var video=document.getElementById("volatile"),playPromise=video.play();void 0!==playPromise&&playPromise.then(e=>{video.play()}).catch(e=>{});</script>
+    @endif
 
 </body>
 </html>
