@@ -83,7 +83,7 @@
                             </div>
                         </div>
                         <div class="text-right">
-                            <button type="submit" class="btn btn-primary">Edit menu<i class="icon-arrow-right14 position-right"></i></button>
+                            <button type="submit" class="btn btn-primary">Edit Theme<i class="icon-arrow-right14 position-right"></i></button>
                         </div>
                     </div>
                 </form>
