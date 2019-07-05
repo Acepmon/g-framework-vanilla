@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Plugin;
 use Illuminate\Support\Facades\Storage;
-//use App\User;
 use Illuminate\Support\Facades\Validator;
 //use phpDocumentor\Reflection\DocBlock\Tags\Uses;
 
@@ -86,8 +85,7 @@ class PluginController extends Controller
         $plugins = Plugin::all();
 
         $plugin = Plugin::find($id);
-        $users = User::all();
-        return view('admin.plugins.edit', ['plugin' => $plugin, 'plugins' => $plugins, 'users' => $users]);
+        return view('admin.plugins.edit', ['plugin' => $plugin, 'plugins' => $plugins]);
     }
 
     /**
@@ -110,7 +108,7 @@ class PluginController extends Controller
         $plugin->description = $request->description;
         $plugin->save();
 
-        return redirect()->route('admin.plugins.edit', ['id' => $plugin->id])->with('status', 'Success');
+        return redirect()->route('admin.plugins.index', ['id' => $plugin->id])->with('status', 'Success');
     }
 
     /**
@@ -124,7 +122,6 @@ class PluginController extends Controller
         $plugin = Plugin::findOrFail($id);
 
         $plugin->status = Plugin::FAILED;
-        $pluginsPath = "../plugins/";
         Storage::disk('plugins')->deleteDirectory($plugin->title);
 
         $plugin->save();

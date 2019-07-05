@@ -108,7 +108,7 @@ class ThemeController extends Controller
         $theme->description = $request->description;
         $theme->save();
 
-        return redirect()->route('admin.themes.edit', ['id' => $theme->id])->with('status', 'Success');
+        return redirect()->route('admin.themes.index', ['id' => $theme->id])->with('status', 'Success');
     }
 
     /**

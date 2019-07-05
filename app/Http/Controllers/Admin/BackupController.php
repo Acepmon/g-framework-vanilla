@@ -137,11 +137,9 @@ class BackupController extends Controller
     {
         $backups = Backup::findOrFail($request->id);
         $backupPath = storage_path('app\sss');
-//        /echo $backupPath;
         $pathZip = $backupPath . DIRECTORY_SEPARATOR . $backups->filename;
 
         $ret = $this->extract($pathZip, $backups->filename, $backups->id, $backupPath);
-        //$backups->save();
         return $ret;
     }
 
@@ -153,8 +151,7 @@ class BackupController extends Controller
         $backups = Backup::findOrFail($id);
         $backups->status = Backup::RESTORED;
         $backups->save();
-        //Storage::disk('themes')->deleteDirectory("db-dumps");
-        //Storage::local('app')->deleteDirectory("sss/db-dumps");
+        Storage::disk('local')->deleteDirectory("sss/db-dumps");
         return response()->json(['status' => 'Success']);
     }
 
@@ -167,15 +164,8 @@ class BackupController extends Controller
     public function destroy($id)
     {
         $backups = Backup::findOrFail($id);
-        Storage::disk('themes')->deleteDirectory("db-dumps");
+        Storage::disk('local')->delete('sss/'.$backups->filename);
         $backups->delete();
         return redirect()->route('admin.backups.index')->with('status', 'Backup deleted');
-
-//        if ($backups->type == Backup::TYPE_SYSTEM) {
-//            return redirect()->route('admin.backups.index')->with('status', 'System backup cannot be deleted!');
-//        } else {
-//            $backups->delete();
-//            return redirect()->route('admin.backups.index')->with('status', 'Backup deleted');
-//        }
     }
 }
