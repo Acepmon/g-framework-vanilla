@@ -85,7 +85,7 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
             */
             // return $permission->pluck('pivot.is_granted')->contains(true);
         }
-        return true;
+        return false;
     }
 
     public function settings()

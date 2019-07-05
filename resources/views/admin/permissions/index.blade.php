@@ -1,6 +1,8 @@
 @extends('themes.limitless.layouts.default')
 
 @section('load')
+<script type="text/javascript" src="{{ asset('limitless/js/plugins/tables/datatables/datatables.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('limitless/js/pages/datatables_basic.js') }}"></script>
 @endsection
 
 @section('pageheader')
@@ -61,7 +63,7 @@
     @endif
 
     <div class="table-responsive">
-        <table class="table">
+        <table class="table datatable-basic">
             <thead>
                 <tr>
                     <th>#</th>

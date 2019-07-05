@@ -32,7 +32,6 @@ class CheckPermissions
             $id = array_pop($id);
             if ($id) {
                 // $permission_title = $permission_title . '_' . $id;
-                // return abort('403', $permission_title . '_' . $id);
                 if ($user->hasPermission($permission_title . '_' . $id))
                 {
                     return $next($request);
@@ -41,11 +40,11 @@ class CheckPermissions
         }
 
         // Handle permission
-        if (!$user->hasPermission($permission_title))
+        if ($user->hasPermission($permission_title))
         {
-            return abort('403', 'Requested permission `' . $permission_title . '` is not granted on this user.');
-        }        
-        return $next($request);
+            return $next($request);
+        }
+        return abort('403', 'Requested permission `' . $permission_title . '` is not granted on this user.');
     }
 
     public function generatePermissionTitle($input)
