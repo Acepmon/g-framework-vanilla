@@ -82,7 +82,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($user->permissions as $permission)
+                                @foreach($user->allPermissions as $permission)
                                 <tr>
                                     <td>{{ $permission->id }}</td>
                                     <td>{{ $permission->title }}</td>

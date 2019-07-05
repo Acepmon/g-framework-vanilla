@@ -30,7 +30,7 @@ class Group extends Model
 
     public function permissions()
     {
-        return $this->belongsToMany('App\Permission', 'group_permission');
+        return $this->belongsToMany('App\Permission', 'group_permission')->withPivot('is_granted');
     }
 
     public function typeClass()
