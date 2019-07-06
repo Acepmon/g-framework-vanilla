@@ -61,7 +61,31 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
 
     public function permissions()
     {
-        return $this->belongsToMany('App\Permission', 'user_permission');
+        return $this->belongsToMany('App\Permission', 'user_permission')->withPivot('is_granted');
+    }
+
+    public function getAllPermissionsAttribute()
+    {
+        $group_permissions = $this->groups->pluck('permissions');
+        return $group_permissions->prepend($this->permissions)->collapse();
+    }
+
+    public function hasPermission($permission_title)
+    {
+        $permission = $this->allPermissions->where('title', '=', $permission_title);
+        if ($permission && $permission->first())
+        {
+            /*
+            Prioritizes user permission rather than group permission
+            */
+            return $permission->first()->pivot->is_granted;
+
+            /*
+            Checks if user has permission either in user or in group.
+            */
+            // return $permission->pluck('pivot.is_granted')->contains(true);
+        }
+        return false;
     }
 
     public function settings()
