@@ -11,6 +11,10 @@
 |
 */
 
+if (!file_exists(base_path('.env'))) {
+    \Artisan::call('env:install');
+}
+
 Route::middleware(['installed'])->group(function () {
 
     Route::middleware(['auth', 'admin'])->group(function () {
