@@ -50,6 +50,12 @@
                     </div>
 
                     <div class="form-group">
+                        <label class="control-label col-lg-2">Type</label>
+                        <div class="col-lg-10">
+                            {{$permission->type}}
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <label class="control-label col-lg-2">Description</label>
                         <div class="col-lg-10">
                             {{$permission->description}}
