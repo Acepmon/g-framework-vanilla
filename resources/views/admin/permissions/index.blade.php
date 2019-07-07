@@ -68,6 +68,7 @@
                 <tr>
                     <th>#</th>
                     <th>Title</th>
+                    <th>Type</th>
                     <th>Description</th>
                     <th>Show</th>
                     <th>Edit</th>
@@ -80,6 +81,7 @@
                 <tr>
                     <td>{{ $i++ }}</td>
                     <td>{{ $data->title}}</td>
+                    <td>{{ $data->type}}</td>
                     <td>{{ $data->description}}</td>
                     <td><a href='{{ route('admin.permissions.show', ['id' => $data->id]) }}' type="btn btn-default">Show</a></td>
                     <td><a href='{{ route('admin.permissions.edit', ['id' => $data->id]) }}' type="btn btn-default">Edit</a></td>

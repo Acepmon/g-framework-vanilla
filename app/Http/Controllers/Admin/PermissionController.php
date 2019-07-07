@@ -98,12 +98,14 @@ class PermissionController extends Controller
     {
         $request->validate([
             'title' => 'required|max:191',
+            'type' => 'max:50',
             'description' => 'required|max:255',
         ]);
 
         $permission = Permission::findOrFail($id);
 
         $permission->title = $request->title;
+        $permission->type = $request->type;
         $permission->description = $request->description;
         $permission->save();
 
