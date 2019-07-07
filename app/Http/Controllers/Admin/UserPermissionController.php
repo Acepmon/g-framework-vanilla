@@ -36,11 +36,13 @@ class UserPermissionController extends Controller
         }
         $validatedData = $request->validate([
             'title' => 'required|max:191',
+            'type' => 'max:50',
             'description' => 'max:255'
         ]);
         try {
             $permission = new Permission();
             $permission->title = $request->input('title');
+            $permission->type = $request->input('type');
             $permission->description = $request->input('description');
             $permission->save();
             $user->permissions()->attach($permission, ['is_granted' => $request->input('is_granted', true)]);
@@ -67,12 +69,14 @@ class UserPermissionController extends Controller
     {
         $validatedData = $request->validate([
             'title' => 'required|max:191',
+            'type' => 'max:50',
             'description' => 'max:255'
         ]);
         $permission = Permission::findOrFail(Route::current()->parameter('permission'));
         $user_id = Route::current()->parameter('user');
         try{
             $permission->title = $request->input('title');
+            $permission->type = $request->input('type');
             $permission->description = $request->input('description');
             $permission->save();
             $user = User::findOrFail($user_id);

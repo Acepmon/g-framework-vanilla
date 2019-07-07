@@ -99,6 +99,17 @@
                                         <input name="title" type="text" class="form-control" required="true" placeholder="Permission Title...">
                                     </div>
                                 </div>
+                                            
+                                <div class="form-group">
+                                    <label for="type" class="control-label col-lg-2">Type</label>
+                                    <div class="col-lg-10">
+                                        <select id="type" name="type" required="required" class="form-control text-capitalize">
+                                            @foreach(App\Permission::TYPE_ARRAY as $value)
+                                            <option value="{{ $value }}">{{ $value }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
 
                                 <div class="form-group">
                                     <label class="control-label col-lg-2">Description</label>
