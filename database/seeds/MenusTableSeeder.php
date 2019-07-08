@@ -449,8 +449,8 @@ class MenusTableSeeder extends Seeder
                 'parent_id' => 6,
             ],
             [
-                'title' => 'Channels',
-                'link' => '/admin/notifications/channels',
+                'title' => 'Triggers',
+                'link' => '/admin/notifications/triggers',
                 'icon' => '',
                 'type' => App\Menu::TYPE_MENU,
                 'status' => App\Menu::STATUS_PUBLISH,
@@ -461,8 +461,8 @@ class MenusTableSeeder extends Seeder
                 'parent_id' => 7,
             ],
             [
-                'title' => 'Triggers',
-                'link' => '/admin/notifications/triggers',
+                'title' => 'Channels',
+                'link' => '/admin/notifications/channels',
                 'icon' => '',
                 'type' => App\Menu::TYPE_MENU,
                 'status' => App\Menu::STATUS_PUBLISH,
@@ -485,7 +485,7 @@ class MenusTableSeeder extends Seeder
                 'parent_id' => 7,
             ],
             [
-                'title' => 'Mail Templates',
+                'title' => 'Templates',
                 'link' => '/admin/notifications/templates',
                 'icon' => '',
                 'type' => App\Menu::TYPE_MENU,

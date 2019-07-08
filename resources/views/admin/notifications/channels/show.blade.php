@@ -1,13 +1,15 @@
 @extends('themes.limitless.layouts.default')
 
-@section('title', 'Notification Events')
+@section('title')
+
+@endsection
 
 @section('load')
 
 @endsection
 
 @section('pageheader')
-    @include('admin.notifications.includes.pageheader')
+
 @endsection
 
 @section('content')

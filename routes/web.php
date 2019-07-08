@@ -11,6 +11,10 @@
 |
 */
 
+if (!file_exists(base_path('.env'))) {
+    \Artisan::call('env:install');
+}
+
 Route::middleware(['installed'])->group(function () {
 
     Route::middleware(['auth', 'admin'])->group(function () {
@@ -79,11 +83,47 @@ Route::middleware(['installed'])->group(function () {
                 });
 
                 Route::prefix('notifications')->group(function () {
-                    Route::get('/', function () { return redirect()->route('admin.notifications.channels'); });
-                    Route::get('channels', 'NotificationController@channels')->name('admin.notifications.channels');
-                    Route::get('triggers', 'NotificationController@triggers')->name('admin.notifications.triggers');
-                    Route::get('events', 'NotificationController@events')->name('admin.notifications.events');
-                    Route::get('templates', 'NotificationController@templates')->name('admin.notifications.templates');
+                    Route::get('/', 'NotificationController@index')->name('admin.notifications.index');
+
+                    Route::resource('triggers', 'NotificationTriggerController')->names([
+                        'index' => 'admin.notifications.triggers.index',
+                        'create' => 'admin.notifications.triggers.create',
+                        'store' => 'admin.notifications.triggers.store',
+                        'show' => 'admin.notifications.triggers.show',
+                        'edit' => 'admin.notifications.triggers.edit',
+                        'update' => 'admin.notifications.triggers.update',
+                        'destroy' => 'admin.notifications.triggers.destroy',
+                    ]);
+
+                    Route::resource('channels', 'NotificationChannelController')->names([
+                        'index' => 'admin.notifications.channels.index',
+                        'create' => 'admin.notifications.channels.create',
+                        'store' => 'admin.notifications.channels.store',
+                        'show' => 'admin.notifications.channels.show',
+                        'edit' => 'admin.notifications.channels.edit',
+                        'update' => 'admin.notifications.channels.update',
+                        'destroy' => 'admin.notifications.channels.destroy',
+                    ]);
+
+                    Route::resource('events', 'NotificationEventController')->names([
+                        'index' => 'admin.notifications.events.index',
+                        'create' => 'admin.notifications.events.create',
+                        'store' => 'admin.notifications.events.store',
+                        'show' => 'admin.notifications.events.show',
+                        'edit' => 'admin.notifications.events.edit',
+                        'update' => 'admin.notifications.events.update',
+                        'destroy' => 'admin.notifications.events.destroy',
+                    ]);
+
+                    Route::resource('templates', 'NotificationTemplateController')->names([
+                        'index' => 'admin.notifications.templates.index',
+                        'create' => 'admin.notifications.templates.create',
+                        'store' => 'admin.notifications.templates.store',
+                        'show' => 'admin.notifications.templates.show',
+                        'edit' => 'admin.notifications.templates.edit',
+                        'update' => 'admin.notifications.templates.update',
+                        'destroy' => 'admin.notifications.templates.destroy',
+                    ]);
                 });
 
                 Route::resource('menus', 'MenuController')->names([

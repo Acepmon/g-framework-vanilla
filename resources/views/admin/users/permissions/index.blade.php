@@ -77,15 +77,17 @@
                                 <tr>
                                     <th>#</th>
                                     <th>Title</th>
+                                    <th>Type</th>
                                     <th>Description</th>
                                     <th class="text-center">Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($user->permissions as $permission)
+                                @foreach($user->allPermissions as $permission)
                                 <tr>
                                     <td>{{ $permission->id }}</td>
                                     <td>{{ $permission->title }}</td>
+                                    <td>{{ $permission->type }}</td>
                                     <td>{{ $permission->description }}</td>
                                     <!---->
                                     <td class="text-center">
