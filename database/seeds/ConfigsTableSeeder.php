@@ -119,6 +119,12 @@ class ConfigsTableSeeder extends Seeder
                 'key' => 'bitcoin.volatile.path',
                 'value' => url('assets/system/volatile.mp3'),
                 'autoload' => false
+            ],
+            [
+                'title' => 'Maintenance mode email notification addresses',
+                'key' => 'system.maintenance.emails',
+                'value' => '',
+                'autoload' => false
             ]
         ]);
     }

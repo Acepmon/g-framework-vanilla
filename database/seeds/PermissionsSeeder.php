@@ -171,6 +171,7 @@ class PermissionsSeeder extends Seeder
             ['title' => 'admin_dashboard', 'type' => Permission::TYPE_READ, 'description' => 'read permission for dashboard'],
             ['title' => 'admin_changelog_read', 'type' => Permission::TYPE_READ, 'description' => 'read permission for changelog_read'],
             ['title' => 'admin_configs_maintenance', 'type' => Permission::TYPE_READ, 'description' => 'read permission for configs_maintenance'],
+            ['title' => 'admin_configs_maintenance_set', 'type' => Permission::TYPE_CREATE, 'description' => 'update permission for configs_maintenance'],
             ['title' => 'admin_configs_base', 'type' => Permission::TYPE_READ, 'description' => 'read permission for configs_base'],
             ['title' => 'admin_configs_system', 'type' => Permission::TYPE_READ, 'description' => 'read permission for configs_system'],
             ['title' => 'admin_configs_themes', 'type' => Permission::TYPE_READ, 'description' => 'read permission for configs_themes'],
