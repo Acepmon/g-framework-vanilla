@@ -11,7 +11,7 @@
 |
 */
 
-if (!file_exists(base_path('.env'))) {
+if (!file_exists(base_path('.env')) && config('app.env_install')) {
     \Artisan::call('env:install');
 }
 
