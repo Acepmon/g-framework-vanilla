@@ -5,12 +5,20 @@ namespace App\Http\Controllers\Admin;
 use App;
 use Storage;
 use Artisan;
+use Notification;
 use App\Config;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Notifications\MaintenanceModeEnabled;
+use App\Notifications\MaintenanceModeDisabled;
 
 class ConfigController extends Controller
 {
+    public function index()
+    {
+        return redirect()->route('admin.configs.base');
+    }
+
     public function create()
     {
         return view('admin.configs.create');
@@ -21,7 +29,9 @@ class ConfigController extends Controller
         $request->validate([
             'title' => 'required|max:191',
             'description' => 'nullable|max:255',
-            'key' => 'required|max:100',
+            'key_module' => 'required|max:50',
+            'key_component' => 'required|max:50',
+            'key_function' => 'required|max:50',
             'value' => 'required|max:255',
             'autoload' => 'nullable|boolean'
         ]);
@@ -29,12 +39,16 @@ class ConfigController extends Controller
         $config = new Config();
         $config->title = $request->input('title');
         $config->description = $request->input('description');
-        $config->key = $request->input('key');
+        $config->key = implode('.', [
+            $request->input('key_module'),
+            $request->input('key_component'),
+            $request->input('key_function')
+        ]);
         $config->value = $request->input('value');
         $config->autoload = $request->input('autoload', false);
         $config->save();
 
-        return redirect()->route('admin.configs.show')->with('status', 'Successfuly registered new configuration');
+        return redirect()->route('admin.configs.edit', ['id' => $config->id])->with('status', 'Successfuly registered new configuration');
     }
 
     public function edit(Request $request, $id)
@@ -74,6 +88,7 @@ class ConfigController extends Controller
         $days = "";
         $hours = "";
         $minutes = "";
+        $emails = Config::getValue('system.maintenance.emails');
 
         if ($exists) {
             $content = json_decode(file_get_contents(storage_path('framework/down')), true);
@@ -95,7 +110,8 @@ class ConfigController extends Controller
             "time" => $time,
             "days" => $days,
             "hours" => $hours,
-            "minutes" => $minutes
+            "minutes" => $minutes,
+            "emails" => $emails,
         ]]);
     }
 
@@ -105,11 +121,16 @@ class ConfigController extends Controller
             'status' => 'required'
         ]);
 
+        $maintenanceEmailConfig = Config::get('system.maintenance.emails');
+        $maintenanceEmailConfig->value = $request->input('emails');
+        $maintenanceEmailConfig->save();
+
         if ($request->input('status') == 'down') {
             $command = 'down';
             $message = $request->input('message', null);
             $retry = $request->input('retry', null);
             $allowed = explode(',', $request->input('allowed', null));
+            $emails = $request->input('emails', '');
 
             if ($message != null) {
                 $command = $command . ' --message="' . $message . '"';
@@ -122,6 +143,7 @@ class ConfigController extends Controller
             if (!in_array($request->ip(), $allowed)) {
                 array_push($allowed, $request->ip());
             }
+
             foreach ($allowed as $key => $allow) {
                 if (!empty($allow)) {
                     $command = $command . ' --allow=' . trim($allow);
@@ -130,9 +152,22 @@ class ConfigController extends Controller
 
             Artisan::call($command);
 
+            foreach (explode(',', $emails) as $email) {
+                Notification::route('mail', trim($email))
+                            ->notify(new MaintenanceModeEnabled($message));
+            }
+
             return redirect()->route('admin.configs.maintenance')->with('status', 'Successfully enabled maintenance mode!');
         } else {
+            $emails = $request->input('emails', '');
+
             Artisan::call('up');
+
+            foreach (explode(',', $emails) as $email) {
+                Notification::route('mail', trim($email))
+                            ->notify(new MaintenanceModeDisabled());
+            }
+
             return redirect()->route('admin.configs.maintenance')->with('status', 'Successfully disabled maintenance mode!');
         }
     }

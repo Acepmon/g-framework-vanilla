@@ -231,4 +231,16 @@ return [
 
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Check for .env
+    |--------------------------------------------------------------------------
+    |
+    | Checks for missing .env file and if it doesn't exist, then it will create
+    | it by copying contents of .env.example file.
+    |
+    */
+
+    'env_install' => true,
+
 ];

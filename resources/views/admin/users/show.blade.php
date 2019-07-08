@@ -133,7 +133,7 @@
                                     <label class="control-label col-lg-2">Avatar</label>
                                     <div class="col-lg-10">
                                         <div class=" media-left">
-                                            <img id="avatar" src="{{ ($user->avatar)?'/storage/'.$user->avatar:asset('limitless/images/placeholder.jpg')}}" class="img-circle img-md"/>
+                                            <img id="avatar" src="{{ $user->avatar_url()}}" class="img-circle img-md"/>
                                         </div>
                                         <div class="media-body">
                                             <input type="file" name="avatar" class="file-styled form-control" onchange="readURL(this);">

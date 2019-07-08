@@ -7,7 +7,7 @@
 @section('pageheader')
 <div class="page-header-content">
     <div class="page-title">
-        <h4><i class="icon-arrow-left52 position-left"></i> <span class="text-semibold">Users</span></h4>
+        <h4><i class="icon-arrow-left52 position-left"></i> <span class="text-semibold">Operators</span></h4>
     </div>
 
     <div class="heading-elements">
@@ -18,7 +18,7 @@
 <div class="breadcrumb-line">
     <ul class="breadcrumb">
         <li><a href="index.html"><i class="icon-home2 position-left"></i> Home</a></li>
-        <li class="active">Users</li>
+        <li class="active">Operators</li>
     </ul>
 
     <ul class="breadcrumb-elements">
@@ -49,7 +49,7 @@
 
 <div class="panel panel-flat">
     <div class="panel-heading">
-        <h5 class="panel-title">Users datatable</h5>
+        <h5 class="panel-title">Operators datatable</h5>
         <div class="heading-elements">
             <ul class="icons-list">
                 <li><a data-action="collapse"></a></li>

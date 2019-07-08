@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Str;
 use App\Menu;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -127,5 +128,35 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
     public function is_guest()
     {
         return $this->groups->contains(Group::find(4));
+    }
+
+    public function avatar_url()
+    {
+        if ($this->avatar) {
+            return Str::startsWith($this->avatar, 'http') ? $this->avatar : '/storage/' . $user->avatar;
+        }
+
+        return asset('limitless/images/placeholder.jpg');
+    }
+
+    public function created_at_carbon()
+    {
+        if ($this->created_at) {
+            return \Carbon\Carbon::parse($this->created_at);
+        }
+    }
+
+    public function updated_at_carbon()
+    {
+        if ($this->updated_at) {
+            return \Carbon\Carbon::parse($this->updated_at);
+        }
+    }
+
+    public function deleted_at_carbon()
+    {
+        if ($this->deleted_at) {
+            return \Carbon\Carbon::parse($this->deleted_at);
+        }
     }
 }

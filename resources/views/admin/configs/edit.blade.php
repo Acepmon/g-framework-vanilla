@@ -62,7 +62,7 @@
                     </div>
                     <div class="form-group @error('key') has-error has-feedback @enderror">
                         <label for="key">Unique keyword <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" name="key" id="key" value="{{ $config->key }}" placeholder="Unique keyword here..." disabled>
+                        <input type="text" class="form-control" name="key" id="key" value="{{ $config->key }}" placeholder="Unique keyword here..." readonly>
                         @error('key')
                             <div class="form-control-feedback">
                                 <i class="icon-notification2"></i>
