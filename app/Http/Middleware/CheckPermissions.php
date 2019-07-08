@@ -32,16 +32,17 @@ class CheckPermissions
         {
             $id = array_pop($id);
             if ($id) {
-                // $permission_title = $permission_title . '_' . $id;
                 if ($user->hasPermission($permission_title . '_' . $id))
                 {
+                    $permission_title = $permission_title . '_' . $id;
+                } else if ($user->permissionGranted($permission_title)){
                     return $next($request);
                 }
             }
         }
 
         // Handle permission
-        if ($user->hasPermission($permission_title))
+        if ($user->permissionGranted($permission_title))
         {
             return $next($request);
         }
