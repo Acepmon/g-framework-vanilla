@@ -13,6 +13,8 @@ class PermissionsSeeder extends Seeder
     public function run()
     {
         DB::table('permissions')->insert([
+            // logout
+            ['title' => 'logout', 'type' => Permission::TYPE_READ, 'description' => 'logout'],
             // user CRUD
             ['title' => 'admin_users_create', 'type' => Permission::TYPE_CREATE, 'description' => 'create permission for user'],
             ['title' => 'admin_users_read', 'type' => Permission::TYPE_READ, 'description' => 'read permission for user'],
@@ -43,6 +45,26 @@ class PermissionsSeeder extends Seeder
             ['title' => 'admin_notifications_read', 'type' => Permission::TYPE_READ, 'description' => 'read permission for notification'],
             ['title' => 'admin_notifications_update', 'type' => Permission::TYPE_UPDATE, 'description' => 'update permission for notification'],
             ['title' => 'admin_notifications_delete', 'type' => Permission::TYPE_DELETE, 'description' => 'delete permission for notification'],
+            // notification triggers CRUD
+            ['title' => 'admin_notifications_triggers_create', 'type' => Permission::TYPE_CREATE, 'description' => 'create permission for notification triggers'],
+            ['title' => 'admin_notifications_triggers_read', 'type' => Permission::TYPE_READ, 'description' => 'read permission for notification triggers'],
+            ['title' => 'admin_notifications_triggers_update', 'type' => Permission::TYPE_UPDATE, 'description' => 'update permission for notification triggers'],
+            ['title' => 'admin_notifications_triggers_delete', 'type' => Permission::TYPE_DELETE, 'description' => 'delete permission for notification triggers'],
+            // notification channels CRUD
+            ['title' => 'admin_notifications_channels_create', 'type' => Permission::TYPE_CREATE, 'description' => 'create permission for notification channels'],
+            ['title' => 'admin_notifications_channels_read', 'type' => Permission::TYPE_READ, 'description' => 'read permission for notification channels'],
+            ['title' => 'admin_notifications_channels_update', 'type' => Permission::TYPE_UPDATE, 'description' => 'update permission for notification channels'],
+            ['title' => 'admin_notifications_channels_delete', 'type' => Permission::TYPE_DELETE, 'description' => 'delete permission for notification channels'],
+            // notification events CRUD
+            ['title' => 'admin_notifications_events_create', 'type' => Permission::TYPE_CREATE, 'description' => 'create permission for notification events'],
+            ['title' => 'admin_notifications_events_read', 'type' => Permission::TYPE_READ, 'description' => 'read permission for notification events'],
+            ['title' => 'admin_notifications_events_update', 'type' => Permission::TYPE_UPDATE, 'description' => 'update permission for notification events'],
+            ['title' => 'admin_notifications_events_delete', 'type' => Permission::TYPE_DELETE, 'description' => 'delete permission for notification events'],
+            // notification templates CRUD
+            ['title' => 'admin_notifications_templates_create', 'type' => Permission::TYPE_CREATE, 'description' => 'create permission for notification templates'],
+            ['title' => 'admin_notifications_templates_read', 'type' => Permission::TYPE_READ, 'description' => 'read permission for notification templates'],
+            ['title' => 'admin_notifications_templates_update', 'type' => Permission::TYPE_UPDATE, 'description' => 'update permission for notification templates'],
+            ['title' => 'admin_notifications_templates_delete', 'type' => Permission::TYPE_DELETE, 'description' => 'delete permission for notification templates'],
             // menu CRUD
             ['title' => 'admin_menus_create', 'type' => Permission::TYPE_CREATE, 'description' => 'create permission for menu'],
             ['title' => 'admin_menus_read', 'type' => Permission::TYPE_READ, 'description' => 'read permission for menu'],
