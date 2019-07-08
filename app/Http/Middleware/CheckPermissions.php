@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Auth;
 use Closure;
+use Illuminate\Support\Facades\Log;
 
 class CheckPermissions
 {
@@ -35,7 +36,7 @@ class CheckPermissions
                 if ($user->hasPermission($permission_title . '_' . $id))
                 {
                     return $next($request);
-                }   
+                }
             }
         }
 
@@ -44,6 +45,7 @@ class CheckPermissions
         {
             return $next($request);
         }
+        Log::warning('User ' . $user->username . '[' . $user->id . '] tried to access permission `' . $permission_title . '` but was denied.');
         return abort('403', 'Requested permission `' . $permission_title . '` is not granted on this user.');
     }
 
