@@ -19,7 +19,10 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::all();
+        $users = User::whereHas('groups', function ($query) {
+            $query->where('id', '!=', 1)->where('id', '!=', 2);
+        })->get();
+
         return view('admin.users.index', ['users' => $users]);
     }
 
@@ -41,7 +44,6 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
         $validatedData = $request->validate([
             'username' => 'required|max:100',
             'email' => 'required|email|unique:users,email|max:255',
@@ -88,7 +90,6 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
         // $user = user::where('user_id', $id)->first();
         $user = User::findOrFail($id);
         return view('admin.users.show', ['user' => $user, 'groups' => Group::all()]);
@@ -116,7 +117,6 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
         $user = User::findOrFail($id);
         $validatedData = $request->validate([
             'username' => 'max:100',
@@ -191,7 +191,6 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
         User::destroy($id);
         return redirect()->route('admin.users.index');
     }

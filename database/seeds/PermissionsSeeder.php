@@ -135,6 +135,11 @@ class PermissionsSeeder extends Seeder
             ['title' => 'admin_users_permissions_read', 'type' => Permission::TYPE_READ, 'description' => 'read permission for users_permissions'],
             ['title' => 'admin_users_permissions_update', 'type' => Permission::TYPE_UPDATE, 'description' => 'update permission for users_permissions'],
             ['title' => 'admin_users_permissions_delete', 'type' => Permission::TYPE_DELETE, 'description' => 'delete permission for users_permissions'],
+            // users_groups CRUD
+            ['title' => 'admin_users_groups_create', 'type' => Permission::TYPE_CREATE, 'description' => 'create permission for users_groups'],
+            ['title' => 'admin_users_groups_read', 'type' => Permission::TYPE_READ, 'description' => 'read permission for users_groups'],
+            ['title' => 'admin_users_groups_update', 'type' => Permission::TYPE_UPDATE, 'description' => 'update permission for users_groups'],
+            ['title' => 'admin_users_groups_delete', 'type' => Permission::TYPE_DELETE, 'description' => 'delete permission for users_groups'],
             // users_contents CRUD
             ['title' => 'admin_users_contents_create', 'type' => Permission::TYPE_CREATE, 'description' => 'create permission for users_contents'],
             ['title' => 'admin_users_contents_read', 'type' => Permission::TYPE_READ, 'description' => 'read permission for users_contents'],

@@ -2,7 +2,6 @@
 
 @section('load')
 <script type="text/javascript" src="{{ asset('limitless/js/plugins/tables/datatables/datatables.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('limitless/js/pages/datatables_basic.js') }}"></script>
 @endsection
 
 @section('pageheader')
@@ -60,37 +59,36 @@
         </div>
     </div>
 
-    <table class="table datatable-basic">
+    <table class="table table-condensed table-hover datatable-basic">
         <thead>
             <tr>
-                <th>#</th>
-                <th width="50%">User</th>
-                <th>Email</th>
-                <th>Groups</th>
-                <th>Created Date</th>
-                <th class="text-center">Actions</th>
+                <th style="width: 50px;">#</th>
+                <th>User</th>
+                <th style="width: 150px;">Groups</th>
+                <th style="width: 150px;">Registered</th>
+                <th style="width: 50px;">Actions</th>
             </tr>
         </thead>
         <tbody>
-            @foreach($users as $user)
+            @foreach($users as $index => $user)
             <tr>
-                <td>{{ $user->id }}</td>
+                <td>{{ $index + 1 }}</td>
                 <td>
-                    <a href="#" class="media-left"><img src="{{ ($user->avatar)?'/storage/'.$user->avatar:asset('limitless/images/placeholder.jpg')}}" class="img-sm img-circle" alt=""></a>
-                    <div class="media-body">
-                        <span class="media-heading text-semibold">{{ $user->name }}</span>
-                        <span class="text-size-mini text-muted display-block">{{ '@'.$user->username }}</span>
-                    </div>
+                    @include('themes.limitless.includes.user-media', $user)
                 </td>
-                <td>{{ $user->email }}</td>
                 <td>
-                    @foreach($user->groups as $group)
-                        {{ $group->title }},
-                    @endforeach
+                    @if ($user->groups->count() > 1)
+                        <a href="{{ route('admin.users.groups.index', [$user->id]) }}"><strong>{{ $user->groups->count() }}</strong> groups</a>
+                    @else
+                        @foreach ($user->groups as $group)
+                            <a href="{{ route('admin.groups.show', [$group->id]) }}" class="label label-flat border-grey text-grey-600">
+                                {{ $group->title }}
+                            </a>
+                        @endforeach
+                    @endif
                 </td>
-                <td>{{ $user->created_at }}</td>
-                <!---->
-                <td class="text-center">
+                <td>{{ $user->created_at_carbon()->diffForHumans() }}</td>
+                <td>
                     <ul class="icons-list">
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -125,7 +123,7 @@
             </div>
 
             <div class="modal-footer">
-                <form method="post" id="delete_form" action="/users/0">
+                <form method="post" id="delete_form" action="/admin/users/0">
                     {{ method_field('DELETE') }}
                     {{ csrf_field() }}
 
@@ -142,7 +140,39 @@
 @section('script')
 <script>
     window.choose_user = function(id) {
-        $("#delete_form").attr('action', '/users/'+id+'/');
+        $("#delete_form").attr('action', '/admin/users/'+id+'/');
     }
+</script>
+<script>
+    $(function() {
+        // Table setup
+        // ------------------------------
+
+        // Setting datatable defaults
+        $.extend( $.fn.dataTable.defaults, {
+            autoWidth: false,
+            columnDefs: [{
+                orderable: false,
+                width: '100px'
+            }],
+            dom: '<"datatable-header"fl><"datatable-scroll"t><"datatable-footer"ip>',
+            language: {
+                search: '<span>Filter:</span> _INPUT_',
+                searchPlaceholder: 'Type to filter...',
+                lengthMenu: '<span>Show:</span> _MENU_',
+                paginate: { 'first': 'First', 'last': 'Last', 'next': '&rarr;', 'previous': '&larr;' }
+            },
+            drawCallback: function () {
+                $(this).find('tbody tr').slice(-3).find('.dropdown, .btn-group').addClass('dropup');
+            },
+            preDrawCallback: function() {
+                $(this).find('tbody tr').slice(-3).find('.dropdown, .btn-group').removeClass('dropup');
+            }
+        });
+
+
+        // Basic datatable
+        $('.datatable-basic').DataTable();
+    });
 </script>
 @endsection

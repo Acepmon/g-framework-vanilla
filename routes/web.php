@@ -281,6 +281,13 @@ Route::middleware(['installed'])->group(function () {
                 Route::put('/users/{user}/permissions/{permission}', 'UserPermissionController@update')->name('admin.users.permissions.update');
                 Route::delete('/users/{user}/permissions/{permission}', 'UserPermissionController@destroy')->name('admin.users.permissions.destroy');
 
+                Route::get('/users/{user}/groups', 'UserGroupController@index')->name('admin.users.groups.index');
+                Route::get('/users/{user}/groups/create', 'UserGroupController@create')->name('admin.users.groups.create');
+                Route::post('/users/{user}/groups', 'UserGroupController@store')->name('admin.users.groups.store');
+                Route::get('/users/{user}/groups/{group}/edit', 'UserGroupController@edit')->name('admin.users.groups.edit');
+                Route::put('/users/{user}/groups/{group}', 'UserGroupController@update')->name('admin.users.groups.update');
+                Route::delete('/users/{user}/groups/{group}', 'UserGroupController@destroy')->name('admin.users.groups.destroy');
+
                 Route::get('/users/{user}/contents', 'UserContentController@index')->name('admin.users.contents.index');
                 Route::get('/users/{user}/contents/{content}', 'UserContentController@show')->name('admin.users.contents.show');
 

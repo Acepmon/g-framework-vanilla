@@ -25,7 +25,7 @@ class NotificationTemplateController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.notifications.templates.create', ['types' => NotificationTemplate::TYPE_ARRAY]);
     }
 
     /**
@@ -36,7 +36,17 @@ class NotificationTemplateController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'title' => 'required|max:191',
+            'type' => 'required|in:' . implode(',', NotificationTemplate::TYPE_ARRAY)
+        ]);
+
+        $notificationTemplate = new NotificationTemplate();
+        $notificationTemplate->title = $request->input('title');
+        $notificationTemplate->type = $request->input('type');
+        $notificationTemplate->save();
+
+        return redirect()->route('admin.notifications.templates.index')->with('status', 'Successfully added new notification template.');
     }
 
     /**
@@ -47,7 +57,7 @@ class NotificationTemplateController extends Controller
      */
     public function show(NotificationTemplate $notificationTemplate)
     {
-        //
+        return view('admin.notifications.templates.show', ['template' => $notificationTemplate]);
     }
 
     /**
@@ -58,7 +68,7 @@ class NotificationTemplateController extends Controller
      */
     public function edit(NotificationTemplate $notificationTemplate)
     {
-        //
+        return view('admin.notifications.templates.edit', ['template' => $notificationTemplate]);
     }
 
     /**
@@ -70,7 +80,18 @@ class NotificationTemplateController extends Controller
      */
     public function update(Request $request, NotificationTemplate $notificationTemplate)
     {
-        //
+        $request->validate([
+            'title' => 'required|max:191',
+            'type' => 'required|in:' . implode(',', NotificationTemplate::TYPE_ARRAY),
+            'body' => 'nullable'
+        ]);
+
+        $notificationTemplate->title = $request->input('title');
+        $notificationTemplate->type = $request->input('type');
+        $notificationTemplate->body = $request->input('body');
+        $notificationTemplate->save();
+
+        return redirect()->route('admin.notifications.templates.index')->with('status', 'Successfully added new notification template.');
     }
 
     /**
@@ -81,6 +102,8 @@ class NotificationTemplateController extends Controller
      */
     public function destroy(NotificationTemplate $notificationTemplate)
     {
-        //
+        $notificationTemplate->delete();
+
+        return redirect()->route('admin.notifications.templates.index')->with('status', 'Removed notification template.');
     }
 }
