@@ -26,6 +26,24 @@ class UserController extends Controller
         return view('admin.users.index', ['users' => $users]);
     }
 
+    public function administrators()
+    {
+        $users = User::whereHas('groups', function ($query) {
+            $query->where('id', 1);
+        })->get();
+
+        return view('admin.users.administrators', ['users' => $users]);
+    }
+
+    public function operators()
+    {
+        $users = User::whereHas('groups', function ($query) {
+            $query->where('id', 2);
+        })->get();
+
+        return view('admin.users.operators', ['users' => $users]);
+    }
+
     /**
      * Show the form for creating a new resource.
      *

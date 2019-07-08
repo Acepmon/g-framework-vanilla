@@ -182,6 +182,8 @@ class PermissionsSeeder extends Seeder
             ['title' => 'admin_notifications_triggers', 'type' => Permission::TYPE_READ, 'description' => 'read permission for notifications_triggers'],
             ['title' => 'admin_notifications_events', 'type' => Permission::TYPE_READ, 'description' => 'read permission for notifications_events'],
             ['title' => 'admin_notifications_templates', 'type' => Permission::TYPE_READ, 'description' => 'read permission for notifications_templates'],
+            ['title' => 'admin_users_administrators', 'type' => Permission::TYPE_READ, 'description' => 'read permission for users_administrators'],
+            ['title' => 'admin_users_operators', 'type' => Permission::TYPE_READ, 'description' => 'read permission for users_operators'],
             ['title' => 'admin_users_contents_read', 'type' => Permission::TYPE_READ, 'description' => 'read permission for users_contents_read'],
             ['title' => 'admin_users_permissions_read', 'type' => Permission::TYPE_READ, 'description' => 'read permission for users_permissions_read'],
             ['title' => 'admin_profile_contents_read', 'type' => Permission::TYPE_READ, 'description' => 'read permission for profile_contents_read'],

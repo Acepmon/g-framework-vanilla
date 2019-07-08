@@ -135,6 +135,8 @@ Route::middleware(['installed'])->group(function () {
                     'update' => 'admin.menus.update',
                     'destroy' => 'admin.menus.destroy',
                 ]);
+                Route::get('/users/administrators', 'UserController@administrators')->name('admin.users.administrators');
+                Route::get('/users/operators', 'UserController@operators')->name('admin.users.operators');
                 Route::resource('users', 'UserController')->names([
                     'index' => 'admin.users.index',
                     'create' => 'admin.users.create',

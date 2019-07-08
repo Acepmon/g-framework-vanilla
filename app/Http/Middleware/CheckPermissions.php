@@ -35,7 +35,7 @@ class CheckPermissions
                 if ($user->hasPermission($permission_title . '_' . $id))
                 {
                     return $next($request);
-                }   
+                }
             }
         }
 
