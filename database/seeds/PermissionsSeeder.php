@@ -31,10 +31,14 @@ class PermissionsSeeder extends Seeder
             ['title' => 'admin_configs_update', 'type' => Permission::TYPE_UPDATE, 'description' => 'update permission for config'],
             ['title' => 'admin_configs_delete', 'type' => Permission::TYPE_DELETE, 'description' => 'delete permission for config'],
             // log CRUD
+            ['title' => 'admin_ajax_logs_list', 'type' => Permission::TYPE_READ, 'description' => 'read permission for ajax logs list'],
+            ['title' => 'admin_ajax_logs_details', 'type' => Permission::TYPE_READ, 'description' => 'read permission for ajax logs list'],
             ['title' => 'admin_logs_create', 'type' => Permission::TYPE_CREATE, 'description' => 'create permission for log'],
             ['title' => 'admin_logs_read', 'type' => Permission::TYPE_READ, 'description' => 'read permission for log'],
             ['title' => 'admin_logs_update', 'type' => Permission::TYPE_UPDATE, 'description' => 'update permission for log'],
             ['title' => 'admin_logs_delete', 'type' => Permission::TYPE_DELETE, 'description' => 'delete permission for log'],
+            ['title' => 'admin_logs_deleteAll', 'type' => Permission::TYPE_DELETE, 'description' => 'delete all permission for log'],
+            ['title' => 'admin_logs_downloadAll', 'type' => Permission::TYPE_READ, 'description' => 'download all permission for log'],
             // media CRUD
             ['title' => 'admin_media_create', 'type' => Permission::TYPE_CREATE, 'description' => 'create permission for media'],
             ['title' => 'admin_media_read', 'type' => Permission::TYPE_READ, 'description' => 'read permission for media'],

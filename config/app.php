@@ -161,12 +161,13 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
-        Laravel\Passport\PassportServiceProvider::class,
-        'Chumper\Zipper\ZipperServiceProvider',
 
         /*
-         * Package Service Providers...
-         */
+        * Package Service Providers...
+        */
+        Laravel\Passport\PassportServiceProvider::class,
+        'Chumper\Zipper\ZipperServiceProvider',
+        Jackiedo\LogReader\LogReaderServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -228,6 +229,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Zipper' => 'Chumper\Zipper\Zipper',
+        'LogReader' => Jackiedo\LogReader\Facades\LogReader::class,
 
     ],
 
