@@ -8,7 +8,7 @@
 @section('pageheader')
 <div class="page-header-content">
     <div class="page-title">
-        <h4><i class="icon-arrow-left52 position-left"></i> <span class="text-semibold">Menu</span> Index Page</h4>
+        <h4><i class="icon-arrow-left52 position-left"></i> <span class="text-semibold">Permissions</span> Index Page</h4>
     </div>
 
     <div class="heading-elements">
@@ -19,8 +19,7 @@
 <div class="breadcrumb-line">
     <ul class="breadcrumb">
         <li><a href="index.html"><i class="icon-home2 position-left"></i> Home</a></li>
-        <li><a href="2_col.html">Starters</a></li>
-        <li class="active">2 columns</li>
+        <li class="active">Permissions</li>
     </ul>
 
     <ul class="breadcrumb-elements">

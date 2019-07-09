@@ -11,19 +11,16 @@
 @section('pageheader')
 <div class="page-header-content">
     <div class="page-title">
-        <h4><i class="icon-arrow-left52 position-left"></i> <span class="text-semibold">Starters</span> - 2 Columns</h4>
-    </div>
-
-    <div class="heading-elements">
-        <a href="#" class="btn btn-labeled btn-labeled-right bg-blue heading-btn">Button <b><i class="icon-menu7"></i></b></a>
+        <h4><i class="icon-arrow-left52 position-left"></i> <span class="text-semibold">Add Menu to Group</span></h4>
     </div>
 </div>
 
 <div class="breadcrumb-line">
     <ul class="breadcrumb">
         <li><a href="index.html"><i class="icon-home2 position-left"></i> Home</a></li>
-        <li><a href="2_col.html">Starters</a></li>
-        <li class="active">2 columns</li>
+        <li><a href="{{ route('admin.groups.index') }}">Groups</a></li>
+        <li><a href="{{ route('admin.groups.show', ['id' => $group->id]) }}">Group Detail</a></li>
+        <li class="active">Add Menu to Groups</li>
     </ul>
 
     <ul class="breadcrumb-elements">
