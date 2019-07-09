@@ -203,7 +203,7 @@
         var theme_layouts = [{
             "text": "default",
             "theme_id": "0",
-            "value": "layous.path"
+            "value": "layouts.app"
         }];
         @foreach ($themes as $theme)
             @if(File::exists(resource_path('views/themes/'.$theme->package.'/layouts')))
