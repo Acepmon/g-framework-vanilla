@@ -3,7 +3,7 @@
 @section('title', $exists ? $filename : 'Error Logs')
 
 @section('load')
-
+<script type="text/javascript" src="{{ asset('limitless/js/plugins/tables/datatables/datatables.min.js') }}"></script>
 @endsection
 
 @section('pageheader')
