@@ -21,24 +21,29 @@
         </div>
     </div>
 
+    @if (session('status'))
+        <div class="panel-body">
+            <div class="alert alert-success">
+                {{ session('status') }}
+            </div>
+        </div>
+    @endif
+
     <table class="table datatable-basic">
         <thead>
             <tr>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Job Title</th>
-                <th>DOB</th>
-                <th>Status</th>
+                <th>#</th>
+                <th>Title</th>
+                <th>Type</th>
                 <th class="text-center">Actions</th>
             </tr>
         </thead>
         <tbody>
+            @foreach ($templates as $key => $template)
             <tr>
-                <td>Marth</td>
-                <td><a href="#">Enright</a></td>
-                <td>Traffic Court Referee</td>
-                <td>22 Jun 1972</td>
-                <td><span class="label label-success">Active</span></td>
+                <td>{{ $key+1 }}</td>
+                <td><a href="{{ route('admin.notifications.templates.show', ['id' => $template->id]) }}">{{ $template->title }}</a></td>
+                <td>{{ $template->type }}</td>
                 <td class="text-center">
                     <ul class="icons-list">
                         <li class="dropdown">
@@ -47,14 +52,15 @@
                             </a>
 
                             <ul class="dropdown-menu dropdown-menu-right">
-                                <li><a href="#"><i class="icon-file-pdf"></i> Export to .pdf</a></li>
-                                <li><a href="#"><i class="icon-file-excel"></i> Export to .csv</a></li>
-                                <li><a href="#"><i class="icon-file-word"></i> Export to .doc</a></li>
+                                <li><a href="{{ route('admin.notifications.templates.show', ['id' => $template->id]) }}"><i class="icon-eye"></i> View</a></li>
+                                <li><a href="{{ route('admin.notifications.templates.edit', ['id' => $template->id]) }}"><i class="icon-pencil"></i> Edit</a></li>
+                                <li><a href="#" data-toggle="modal" data-target="#modal_theme_danger" onclick="showDeleteModal({{ $template->id }})"><i class="icon-trash"></i> Delete</a></li>
                             </ul>
                         </li>
                     </ul>
                 </td>
             </tr>
+            @endforeach
         </tbody>
     </table>
 </div>

@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Str;
 use App\Menu;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -73,12 +74,22 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
     public function hasPermission($permission_title)
     {
         $permission = $this->allPermissions->where('title', '=', $permission_title);
-        if ($permission && $permission->first())
+        if ($permission)
+        {
+            return $permission->first();
+        }
+        return false;
+    }
+
+    public function permissionGranted($permission_title)
+    {
+        $permission = $this->hasPermission($permission_title);
+        if ($permission)
         {
             /*
             Prioritizes user permission rather than group permission
             */
-            return $permission->first()->pivot->is_granted;
+            return $permission->pivot->is_granted;
 
             /*
             Checks if user has permission either in user or in group.
@@ -127,5 +138,35 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
     public function is_guest()
     {
         return $this->groups->contains(Group::find(4));
+    }
+
+    public function avatar_url()
+    {
+        if ($this->avatar) {
+            return Str::startsWith($this->avatar, 'http') ? $this->avatar : '/storage/' . $user->avatar;
+        }
+
+        return asset('limitless/images/placeholder.jpg');
+    }
+
+    public function created_at_carbon()
+    {
+        if ($this->created_at) {
+            return \Carbon\Carbon::parse($this->created_at);
+        }
+    }
+
+    public function updated_at_carbon()
+    {
+        if ($this->updated_at) {
+            return \Carbon\Carbon::parse($this->updated_at);
+        }
+    }
+
+    public function deleted_at_carbon()
+    {
+        if ($this->deleted_at) {
+            return \Carbon\Carbon::parse($this->deleted_at);
+        }
     }
 }

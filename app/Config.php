@@ -6,6 +6,20 @@ use Illuminate\Database\Eloquent\Model;
 
 class Config extends Model
 {
+    const MODULE_SYSTEM = 'system';
+    const MODULE_THEMES = 'themes';
+    const MODULE_PLUGINS = 'plugins';
+    const MODULE_SECURITY = 'security';
+    const MODULE_CONTENT = 'content';
+
+    const MODULE_ARRAY = [
+        self::MODULE_SYSTEM,
+        self::MODULE_THEMES,
+        self::MODULE_PLUGINS,
+        self::MODULE_SECURITY,
+        self::MODULE_CONTENT,
+    ];
+
     /**
      * Indicates if the model should be timestamped.
      *

@@ -15,7 +15,6 @@
     <div class="col-md-6">
         <form action="{{ route('admin.configs.maintenance.set') }}" method="POST">
             @csrf
-            @method('PUT')
 
             <div class="panel panel-flat">
                 <div class="panel-heading">
@@ -34,15 +33,7 @@
 
                     @if ($maintenance['status'] == 'down')
                     <div class="alert alert-warning">
-                        @if ($maintenance['days'] > 0.9)
-                            <p><strong>Warning!</strong> Your application has been in maintenance mode for <strong>{{ $maintenance['days'] }}</strong> day{{ $maintenance['days'] > 1 ? 's' : '' }}.</p>
-                        @elseif ($maintenance['hours'] > 0.9)
-                            <p><strong>Warning!</strong> Your application has been in maintenance mode for <strong>{{ $maintenance['hours'] }}</strong> hour{{ $maintenance['hours'] > 1 ? 's' : '' }}.</p>
-                        @elseif ($maintenance['minutes'] > 0.9)
-                            <p><strong>Warning!</strong> Your application has been in maintenance mode for <strong>{{ $maintenance['minutes'] }}</strong> minute{{ $maintenance['minutes'] > 1 ? 's' : '' }}.</p>
-                        @else
-                            <p><strong>Warning!</strong> Your application is in maintenance mode.</p>
-                        @endif
+                        <p><strong>Warning!</strong> Your application has been in maintenance mode for {{ \Carbon\Carbon::parse($maintenance['time'])->longAbsoluteDiffForHumans() }}.</p>
                     </div>
                     @endif
 
@@ -61,6 +52,11 @@
                         @error('status')
                             <span class="help-block text-danger">{{ $message }}</span>
                         @enderror
+                    </div>
+                    <div class="form-group">
+                        <label for="emails">Email Notification Address</label>
+                        <input type="text" name="emails" id="emails" class="form-control" placeholder="email@example.com, another@example.com etc" value="{{ $maintenance['emails'] }}">
+                        <span class="help-block">Separate each addresses should be separated by comma. System will send email notification when maintenance mode is updated.</span>
                     </div>
                     <div id="whenDown" style="display: {{ $maintenance['status'] == 'down' ? 'block' : 'none' }};">
                         <div class="form-group">

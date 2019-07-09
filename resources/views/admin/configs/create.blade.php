@@ -54,10 +54,36 @@
                             <div class="help-block">{{ $message }}</div>
                         @enderror
                     </div>
-                    <div class="form-group @error('key') has-error has-feedback @enderror">
+                    <div class="form-group @error('key_module') has-error has-feedback @enderror @error('key_component') has-error has-feedback @enderror @error('key_function') has-error has-feedback @enderror">
                         <label for="key">Unique keyword <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" name="key" id="key" value="{{ old('key') }}" placeholder="Unique keyword here...">
-                        @error('key')
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <select name="key_module" id="key_module" class="form-control text-capitalize" required>
+                                    @foreach (\App\Config::MODULE_ARRAY as $module)
+                                        <option value="{{$module}}">{{$module}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-xs-4">
+                                <input type="text" class="form-control" name="key_component" id="key_component" value="{{ old('key_component') }}" placeholder="Key component here...">
+                            </div>
+                            <div class="col-xs-4">
+                                <input type="text" class="form-control" name="key_function" id="key_function" value="{{ old('key_function') }}" placeholder="Key function here...">
+                            </div>
+                        </div>
+                        @error('key_module')
+                            <div class="form-control-feedback">
+                                <i class="icon-notification2"></i>
+                            </div>
+                            <div class="help-block">{{ $message }}</div>
+                        @enderror
+                        @error('key_component')
+                            <div class="form-control-feedback">
+                                <i class="icon-notification2"></i>
+                            </div>
+                            <div class="help-block">{{ $message }}</div>
+                        @enderror
+                        @error('key_function')
                             <div class="form-control-feedback">
                                 <i class="icon-notification2"></i>
                             </div>

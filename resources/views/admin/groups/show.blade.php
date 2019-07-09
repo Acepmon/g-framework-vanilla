@@ -134,14 +134,11 @@
                     </h5>
                 </div>
 
-                <table class="table datatable-basic">
+                <table class="table table-condensed datatable-basic">
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>Username</th>
-                            <th>E-mail</th>
-                            <th>Name</th>
-                            <th>Language</th>
+                            <th>User</th>
                             <th class="text-center">Actions</th>
                         </tr>
                     </thead>
@@ -150,15 +147,10 @@
                             <tr>
                                 <td>{{$user->id}}</td>
                                 <td>
-                                    <div class="text-semibold"><a href="menu_link">{{$user->username}}</a></div>
+                                    @include('themes.limitless.includes.user-media', $user)
                                 </td>
-                                <td>{{$user->email}}</td>
-                                <td><span class="label label-success">{{$user->name}}</span></td>
-                                <td>{{$user->language}}</td>
                                 <td class="text-center">
-                                    <div class="btn-group">
-                                        <a type="button" class="btn btn-button" href="{{ route('admin.groups.removeUser', ['group' => $group->id, 'user' => $user->id]) }}"  class="btn btn-default">Remove</a>
-                                    </div>
+                                    <a href="{{ route('admin.groups.removeUser', ['group' => $group->id, 'user' => $user->id]) }}" class="btn btn-xs btn-link">Remove</a>
                                 </td>
                             </tr>
                         @endforeach
@@ -175,13 +167,13 @@
                         <a type="button" class="btn btn-primary pull-right" href="{{ route('admin.groups.showPermissionGroup', ['id' => $group->id]) }}" style="color: white">Add Permission to Group</a>
                     </h5>
                 </div>
-                <table class="table datatable-basic">
+                <table class="table table-condensed datatable-basic">
                     <thead>
                         <tr>
                             <th>#</th>
                             <th>Name</th>
                             <th colspan="5">Description</th>
-                            <th class="text-center">Actions</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -189,22 +181,12 @@
                             <tr>
                                 <td>{{$permission->id}}</td>
                                 <td>
-                                    <div class="text-semibold"><a href="menu_link">{{$permission->title}}</a></div>
+                                    <div class="text-semibold"><a href="{{ route('admin.permissions.show', [$permission->id]) }}">{{$permission->title}}</a></div>
                                 </td>
                                 <td colspan="5">{{$permission->description}}</td>
-                                <td class="text-center">
-                                    <div>
-                                        <div class="panel panel-body border-top-primary text-center">
-                                            <div class="btn-group">
-                                                <button type="button" class="btn bg-slate btn-icon"><i class="icon-grid-alt"></i></button>
-                                                <button type="button" class="btn bg-slate dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
-                                                <ul class="dropdown-menu dropdown-menu-right">
-                                                    <li><a href="{{ route('admin.groups.removePermission', ['group' => $group->id, 'permission' => $permission->id]) }}"> Remove</a></li>
-                                                    <li><a href="{{ route('admin.groups.removePermission', ['group' => $group->id, 'permission' => $permission->id]) }}"> Revoke</a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
+                                <td>
+                                    <a href="{{ route('admin.groups.removePermission', ['group' => $group->id, 'permission' => $permission->id]) }}" class="btn btn-link btn-xs">Remove</a>
+                                    <a href="{{ route('admin.groups.removePermission', ['group' => $group->id, 'permission' => $permission->id]) }}" class="btn btn-link btn-xs">Revoke</a>
                                 </td>
 
                             </tr>
