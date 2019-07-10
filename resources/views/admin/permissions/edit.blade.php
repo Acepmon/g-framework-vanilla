@@ -21,7 +21,10 @@
 
 <div class="breadcrumb-line">
     <ul class="breadcrumb">
-        <li><a href="/permissions/"><i class="icon-home2 position-left"></i> Home</a></li>
+        <li><a href="index.html"><i class="icon-home2 position-left"></i> Home</a></li>
+        <li><a href="{{ route('admin.permissions.index') }}">Permissions</a></li>
+        <li><a href="{{ route('admin.permissions.show', ['id' => $permission->id]) }}">Permission Detail</a></li>
+        <li class="active">Permission Edit</li>
     </ul>
 </div>
 <!-- /page header -->

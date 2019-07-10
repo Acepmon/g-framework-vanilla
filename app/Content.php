@@ -55,7 +55,7 @@ class Content extends Model
     {
         $time = $this->metas->whereIn('key', ['initial', 'revision', 'revert'])->sortByDesc('id')->first()->value;
         $time = json_decode($time)->datetime;
-        $name = $this->slug == '/' || $this->slug == '' ? 'root' : $this->slug;
+        $name = ($this->slug == '/' || $this->slug == '') ? 'root' : $this->slug;
         return $name . self::NAMING_CONVENTION . $this->status . self::NAMING_CONVENTION . $time;
     }
 }

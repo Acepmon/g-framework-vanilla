@@ -6,7 +6,7 @@
 @section('pageheader')
 <div class="page-header-content">
     <div class="page-title">
-        <h4><i class="icon-arrow-left52 position-left"></i> <span class="text-semibold">Permission</span> Show Page</h4>
+        <h4><i class="icon-arrow-left52 position-left"></i> <span class="text-semibold">Permission</span> Detail Page</h4>
     </div>
 
     <div class="heading-elements">
@@ -15,7 +15,9 @@
 
 <div class="breadcrumb-line">
     <ul class="breadcrumb">
-        <li><a href="/permissions/"><i class="icon-home2 position-left"></i> Home</a></li>
+        <li><a href="index.html"><i class="icon-home2 position-left"></i> Home</a></li>
+        <li><a href="{{ route('admin.permissions.index') }}">Permissions</a></li>
+        <li class="active">Permission Detail</li>
     </ul>
 </div>
 <!-- /page header -->

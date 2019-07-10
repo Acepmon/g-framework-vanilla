@@ -131,10 +131,8 @@ class ContentController extends Controller
         $users = User::all();
         $metas = $content->metas;
 
-        $revision = $content->metas->whereIn('key', ['initial', 'revision'])->sortByDesc('id')->first();
         $viewPath = Config::where('key', 'content.'.$content->type.'s.rootPath')->first()->value;
-        $path = $viewPath . DIRECTORY_SEPARATOR . $revision->revisionView();
-        $revision_path = $path . '.blade.php';
+        $revision_path = $viewPath . DIRECTORY_SEPARATOR . $content->currentView() . '.blade.php';
         return view('admin.contents.edit', ['content' => $content, 'users' => $users, 'metas' => $metas, 'revision_path' => $revision_path]);
     }
 
@@ -271,8 +269,6 @@ class ContentController extends Controller
 
         $viewPath = Config::where('key', 'content.'.$content->type.'s.rootPath')->first()->value;
         $path = $viewPath . DIRECTORY_SEPARATOR . $revision->revisionView();
-
-        $revision_value = json_decode($revision->value);
         $revision_path = $path . '.blade.php';
         return view('admin.contents.revisions.show', ['content' => $content, 'revision' => $revision, 'revision_path' => $revision_path]);
     }

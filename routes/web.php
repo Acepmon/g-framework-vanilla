@@ -24,11 +24,8 @@ Route::middleware(['installed'])->group(function () {
                     return redirect()->route('admin.dashboard');
                 });
 
-                Route::get('ajax/{ajax}', 'AjaxController@get')->name('admin.ajax.get');
-                Route::post('ajax/{ajax}', 'AjaxController@post')->name('admin.ajax.post');
-                Route::put('ajax/{ajax}', 'AjaxController@put')->name('admin.ajax.put');
-                Route::patch('ajax/{ajax}', 'AjaxController@patch')->name('admin.ajax.patch');
-                Route::delete('ajax/{ajax}', 'AjaxController@delete')->name('admin.ajax.get');
+                Route::get('ajax/logs/list', 'LogController@ajaxLogsList')->name('admin.ajax.logs.list');
+                Route::get('ajax/logs/{id}', 'LogController@ajaxLogDetails')->name('admin.ajax.logs.details');
 
                 Route::get('dashboard', 'AdminController@dashboard')->name('admin.dashboard');
                 Route::get('changelog', 'ChangelogController@index')->name('admin.changelog.index');
@@ -68,7 +65,9 @@ Route::middleware(['installed'])->group(function () {
                 });
 
                 Route::prefix('logs')->group(function () {
-                    Route::get('/', 'LogController@index')->name('admin.logs.index');
+                    Route::get('/', 'LogController@reader')->name('admin.logs.index');
+                    Route::get('/downloadAll', 'LogController@downloadAll')->name('admin.logs.downloadAll');
+                    Route::delete('/', 'LogController@deleteAll')->name('admin.logs.deleteAll');
                     Route::delete('{log}', 'LogController@delete')->name('admin.logs.delete');
                 });
 
