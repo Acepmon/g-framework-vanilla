@@ -27,7 +27,7 @@ class PagesSeeder extends Seeder
 
         // ---------------------------
 
-        $content = new \App\Content;;
+        $content = new \App\Content;
         $content->title = 'Welcome Page';
         $content->slug = '/';
         $content->type = \App\Content::TYPE_PAGE;
@@ -59,7 +59,7 @@ class PagesSeeder extends Seeder
 
         // ---------------------------
 
-        $content = new \App\Content;;
+        $content = new \App\Content;
         $content->title = 'Home Page';
         $content->slug = 'home';
         $content->type = \App\Content::TYPE_PAGE;
@@ -87,5 +87,40 @@ class PagesSeeder extends Seeder
         $file_path = $file_name . '.' . $file_ext;
 
         file_put_contents(base_path($file_path), $file_content);
+
+        // content factory generator
+        factory(App\Content::class, 50)->create()->each(function ($contentItem) {
+            $value = new \stdClass;
+            $value->datetime = $time;
+            $value->filename_changed = true;
+            $value->before = $contentItem;
+            $value->after = $contentItem;
+            $value->user = \App\User::find(1);
+
+            $content_meta = new \App\ContentMeta();
+            $content_meta->content_id = $contentItem->id;
+            $content_meta->key = 'initial';
+            $content_meta->value = json_encode($value);
+            $content_meta->save();
+
+            $viewPath = Config::where('key', 'content.'.$content->type.'s.viewPath')->first()->value;
+            $name = $viewPath . '.' . $content->slug . Content::NAMING_CONVENTION . $content->status . Content::NAMING_CONVENTION . $time;
+            $extension =  'blade.php';
+
+            $extends = 'themes';
+            $this->create_view($content->type, $name, $extension, $extends);
+
+            if ($type == 'page') {
+                \Artisan::call("make:view", [
+                    'name' => $name,
+                    '--extension' => $extension,
+                    '--extends' => $extends,
+                    '--with-yields' => true]);
+            } else if ($type == 'post') {
+                \Artisan::call("make:view", [
+                    'name' => $name,
+                    '--extension' => $extension]);
+            }
+        });
     }
 }

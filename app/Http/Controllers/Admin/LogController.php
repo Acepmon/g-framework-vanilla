@@ -85,7 +85,7 @@ class LogController extends Controller
 
         $zip->close();
 
-        return response()->download($zipFile)->deleteFileAfterSend();;
+        return response()->download($zipFile)->deleteFileAfterSend();
     }
 
     public function ajaxLogsList()
