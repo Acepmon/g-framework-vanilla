@@ -18,8 +18,8 @@ class PagesSeeder extends Seeder
             mkdir(base_path($rootPath));
         } else {
             $files = glob(base_path($rootPath) . DIRECTORY_SEPARATOR . '*'); // get all file names
-            foreach($files as $file){ // iterate files
-                if(is_file($file)) {
+            foreach ($files as $file) { // iterate files
+                if (is_file($file)) {
                     unlink($file); // delete file
                 }
             }
@@ -52,7 +52,7 @@ class PagesSeeder extends Seeder
         $file_content = file_get_contents(resource_path('stubs/root.stub'));
 
         $file_name = $rootPath . DIRECTORY_SEPARATOR . 'root' . \App\Content::NAMING_CONVENTION . $content->status . \App\Content::NAMING_CONVENTION . $time;
-        $file_ext =  'blade.php';
+        $file_ext = 'blade.php';
         $file_path = $file_name . '.' . $file_ext;
 
         file_put_contents(base_path($file_path), $file_content);
@@ -83,44 +83,44 @@ class PagesSeeder extends Seeder
 
         $file_content = file_get_contents(resource_path('stubs/home.stub'));
         $file_name = $rootPath . DIRECTORY_SEPARATOR . 'home' . \App\Content::NAMING_CONVENTION . $content->status . \App\Content::NAMING_CONVENTION . $time;
-        $file_ext =  'blade.php';
+        $file_ext = 'blade.php';
         $file_path = $file_name . '.' . $file_ext;
 
         file_put_contents(base_path($file_path), $file_content);
 
         // content factory generator
-        factory(App\Content::class, 50)->create()->each(function ($contentItem) {
-            $value = new \stdClass;
-            $value->datetime = $time;
-            $value->filename_changed = true;
-            $value->before = $contentItem;
-            $value->after = $contentItem;
-            $value->user = \App\User::find(1);
+        // factory(App\Content::class, 50)->create()->each(function ($contentItem) {
+        //     $value = new \stdClass;
+        //     $value->datetime = $time;
+        //     $value->filename_changed = true;
+        //     $value->before = $contentItem;
+        //     $value->after = $contentItem;
+        //     $value->user = \App\User::find(1);
 
-            $content_meta = new \App\ContentMeta();
-            $content_meta->content_id = $contentItem->id;
-            $content_meta->key = 'initial';
-            $content_meta->value = json_encode($value);
-            $content_meta->save();
+        //     $content_meta = new \App\ContentMeta();
+        //     $content_meta->content_id = $contentItem->id;
+        //     $content_meta->key = 'initial';
+        //     $content_meta->value = json_encode($value);
+        //     $content_meta->save();
 
-            $viewPath = Config::where('key', 'content.'.$content->type.'s.viewPath')->first()->value;
-            $name = $viewPath . '.' . $content->slug . Content::NAMING_CONVENTION . $content->status . Content::NAMING_CONVENTION . $time;
-            $extension =  'blade.php';
+        //     $viewPath = Config::where('key', 'content.'.$content->type.'s.viewPath')->first()->value;
+        //     $name = $viewPath . '.' . $content->slug . Content::NAMING_CONVENTION . $content->status . Content::NAMING_CONVENTION . $time;
+        //     $extension =  'blade.php';
 
-            $extends = 'themes';
-            $this->create_view($content->type, $name, $extension, $extends);
+        //     $extends = 'themes';
+        //     $this->create_view($content->type, $name, $extension, $extends);
 
-            if ($type == 'page') {
-                \Artisan::call("make:view", [
-                    'name' => $name,
-                    '--extension' => $extension,
-                    '--extends' => $extends,
-                    '--with-yields' => true]);
-            } else if ($type == 'post') {
-                \Artisan::call("make:view", [
-                    'name' => $name,
-                    '--extension' => $extension]);
-            }
-        });
+        //     if ($type == 'page') {
+        //         \Artisan::call("make:view", [
+        //             'name' => $name,
+        //             '--extension' => $extension,
+        //             '--extends' => $extends,
+        //             '--with-yields' => true]);
+        //     } else if ($type == 'post') {
+        //         \Artisan::call("make:view", [
+        //             'name' => $name,
+        //             '--extension' => $extension]);
+        //     }
+        // });
     }
 }
