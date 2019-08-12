@@ -130,13 +130,13 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label class="control-label col-lg-2">Avatar</label>
+                                    <label class="control-label col-lg-2">Avatar2</label>
                                     <div class="col-lg-10">
                                         <div class=" media-left">
                                             <img id="avatar" src="{{ $user->avatar_url()}}" class="img-circle img-md"/>
                                         </div>
                                         <div class="media-body">
-                                            <input type="file" name="avatar" class="file-styled form-control" onchange="readURL(this);">
+                                            <input type="file" name="avatar" class="file-styled form-control" onchange="readURL(this);" accept="image/*">
                                         </div>
                                     </div>
                                 </div>

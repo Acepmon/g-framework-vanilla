@@ -2,12 +2,14 @@
 
 namespace App;
 
+use Auth;
 use Str;
 use App\Menu;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Contracts\Auth\CanResetPassword;
+use Illuminate\Support\Facades\Storage;
 use Laravel\Passport\HasApiTokens;
 use App\Notifications\ResetPasswordNotification;
 
@@ -143,7 +145,15 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
     public function avatar_url()
     {
         if ($this->avatar) {
-            return Str::startsWith($this->avatar, 'http') ? $this->avatar : '/storage/' . $user->avatar;
+            if (Str::startsWith($this->avatar, 'http')) {
+                return $this->avatar;
+            }
+            $imagepath = 'public/'.$this->avatar;
+            if (!Storage::disk('local')->exists($imagepath)) {
+                $image = Storage::disk('ftp')->get($imagepath);
+                Storage::disk('local')->put($imagepath, $image);
+            }
+            return Storage::disk('local')->url($imagepath);
         }
 
         return asset('limitless/images/placeholder.jpg');
