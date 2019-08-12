@@ -121,8 +121,7 @@ class ThemeController extends Controller
     {
         $theme = Theme::findOrFail($id);
 
-        $theme->status = Theme::FAILED;
-        $pluginsPath = "../themes/";
+        $theme->status = Theme::UNINSTALLED;
         Storage::disk('themes')->deleteDirectory($theme->title);
 
         $theme->save();

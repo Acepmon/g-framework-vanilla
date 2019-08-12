@@ -14,6 +14,7 @@ class Theme extends Model
     const DEACTIVATED = 'deactivated';
     const FAILED = 'failed';
     const UPDATING = 'updating';
+    const UNINSTALLED = 'uninstalled';
 
     const STATUS_ARRAY = [
         self::AVAILABLE,
@@ -23,6 +24,7 @@ class Theme extends Model
         self::ACTIVATED,
         self::DEACTIVATED,
         self::FAILED,
-        self::UPDATING
+        self::UPDATING,
+        self:: UNINSTALLED
     ];
 }

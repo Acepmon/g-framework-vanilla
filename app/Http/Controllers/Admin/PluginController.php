@@ -121,7 +121,7 @@ class PluginController extends Controller
     {
         $plugin = Plugin::findOrFail($id);
 
-        $plugin->status = Plugin::FAILED;
+        $plugin->status = Plugin::UNINSTALLED;
         Storage::disk('plugins')->deleteDirectory($plugin->title);
 
         $plugin->save();

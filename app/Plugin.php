@@ -13,6 +13,8 @@ class Plugin extends Model
     const DEACTIVATED = 'deactivated';
     const FAILED = 'failed';
     const UPDATING = 'updating';
+    const UNINSTALLED = 'uninstalled';
+    //const UPDATING = 'updating';
 
     const STATUS_ARRAY = [
         self::AVAILABLE,
@@ -21,6 +23,7 @@ class Plugin extends Model
         self::ACTIVATED,
         self::DEACTIVATED,
         self::FAILED,
-        self::UPDATING
+        self::UPDATING,
+        self::UNINSTALLED
     ];
 }

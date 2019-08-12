@@ -264,6 +264,17 @@ class MenusTableSeeder extends Seeder
                 'order' => 23,
                 'sublevel' => 1,
                 'group' => 'content',
+            ],
+            [
+                'title' => 'Add car',
+                'link' => '/admin/cars',
+                'icon' => 'icon-price-tag2',
+                'type' => App\Menu::TYPE_MENU,
+                'status' => App\Menu::STATUS_PUBLISH,
+                'visibility' => App\Menu::VISIBILITY_PUBLIC,
+                'order' => 24,
+                'sublevel' => 1,
+                'group' => 'content',
             ]
         ]);
 
