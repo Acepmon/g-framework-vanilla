@@ -10,7 +10,7 @@
     </div>
 
     <div class="heading-elements">
-        <a href="{{ route('admin.contents.create', ['type' => Request::get('type')]) }}" class="btn btn-primary">Create New {{ ucfirst(Request::get('type')) }}</a>
+        <a href="{{ route('admin.cars.create', ['type' => Request::get('type')]) }}" class="btn btn-primary">Create New {{ ucfirst(Request::get('type')) }}</a>
     </div>
 </div>
 
@@ -78,10 +78,10 @@
                     <td>{{$content->author_id}}</td>
                     <td width="250px">
                         <div class="btn-group">
-                            <form action="{{ route('admin.contents.show', ['id' => $content->id]) }}" method="GET" style="float: left; margin-right: 5px">
+                            <form action="{{ route('admin.cars.show', ['id' => $content->id]) }}" method="GET" style="float: left; margin-right: 5px">
                                 <button type="submit" class="btn btn-default">View</button>
                             </form>
-                            <form action="{{ route('admin.contents.edit', ['id' => $content->id]) }}" method="GET" style="float: left; margin-right: 5px">
+                            <form action="{{ route('admin.cars.edit', ['id' => $content->id]) }}" method="GET" style="float: left; margin-right: 5px">
                                 <button type="submit" class="btn btn-default">Edit</button>
                             </form>
                             <button data-toggle="modal" data-target="#modal_theme_danger" class="btn btn-default" onclick="delete_content({{ $content->id }})">Delete</button>

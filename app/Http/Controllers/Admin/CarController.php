@@ -30,7 +30,7 @@ class CarController extends Controller
         $type = Input::get('type', 'post');
         Session::flash('type', $type);
         $contents = Content::where('type', $type)->get();
-        return view('admin.contents.index', ['contents' => $contents]);
+        return view('admin.cars.index', ['contents' => $contents]);
     }
 
     /**
@@ -42,7 +42,7 @@ class CarController extends Controller
     {
         $users = User::all();
         $themes = Theme::all();
-        return view('admin.contents.create', ['users' => $users, 'themes' => $themes]);
+        return view('admin.cars.create', ['users' => $users, 'themes' => $themes]);
     }
 
     /**
@@ -86,7 +86,7 @@ class CarController extends Controller
 
             $content_meta = new ContentMeta();
             $content_meta->content_id = $content->id;
-            $content_meta->key = 'initial';
+            $content_meta->key = 'car';
             $content_meta->value = json_encode($value);
             $content_meta->save();
 
@@ -99,10 +99,10 @@ class CarController extends Controller
             $this->create_view($content->type, $name, $extension, $extends);
 
             DB::commit();
-            return redirect()->route('admin.contents.index', ['type' => $content->type]);
+            return redirect()->route('admin.cars.index', ['type' => $content->type]);
         } catch (\Exception $e) {
             DB::rollBack();
-            return redirect()->route('admin.contents.create')->with('error', $e->getMessage());
+            return redirect()->route('admin.cars.create')->with('error', $e->getMessage());
         }
     }
 
@@ -116,7 +116,7 @@ class CarController extends Controller
     {
         $type = Input::get('type', NULL);
         $content = Content::find($id);
-        return view('admin.contents.show', ['content' => $content, 'type' => $type]);
+        return view('admin.cars.show', ['content' => $content, 'type' => $type]);
     }
 
     /**
@@ -133,7 +133,7 @@ class CarController extends Controller
 
         $viewPath = Config::where('key', 'content.'.$content->type.'s.rootPath')->first()->value;
         $revision_path = $viewPath . DIRECTORY_SEPARATOR . $content->currentView() . '.blade.php';
-        return view('admin.contents.edit', ['content' => $content, 'users' => $users, 'metas' => $metas, 'revision_path' => $revision_path]);
+        return view('admin.cars.edit', ['content' => $content, 'users' => $users, 'metas' => $metas, 'revision_path' => $revision_path]);
     }
 
     /**
@@ -204,10 +204,10 @@ class CarController extends Controller
             }
 
             DB::commit();
-            return redirect()->route('admin.contents.index', ['type' => $content->type]);
+            return redirect()->route('admin.cars.index', ['type' => $content->type]);
         } catch (\Exception $e) {
             DB::rollBack();
-            return redirect()->route('admin.contents.edit', ['content' => $content, 'metas' => $content->metas])->with('error', $e->getMessage());
+            return redirect()->route('admin.cars.edit', ['content' => $content, 'metas' => $content->metas])->with('error', $e->getMessage());
         }
     }
 
@@ -221,7 +221,7 @@ class CarController extends Controller
     {
         $type = Content::findORFail($id)->type;
         Content::destroy($id);
-        return redirect()->route('admin.contents.index', ['type' => $type]);
+        return redirect()->route('admin.cars.index', ['type' => $type]);
     }
 
     public function revert($id)
@@ -255,10 +255,10 @@ class CarController extends Controller
             copy(resource_path($filename), resource_path($newname));
 
             DB::commit();
-            return redirect()->route('admin.contents.show', ['id' => $content->id]);
+            return redirect()->route('admin.cars.show', ['id' => $content->id]);
         } catch (\Exception $e) {
             DB::rollBack();
-            return redirect()->route('admin.contents.show', ['id' => $content->id])->with('error', $e->getMessage());
+            return redirect()->route('admin.cars.show', ['id' => $content->id])->with('error', $e->getMessage());
         }
     }
 
