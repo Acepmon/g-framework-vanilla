@@ -1,44 +1,45 @@
 @extends('themes.limitless.layouts.default')
 
 @section('load')
-<script type="text/javascript" src="{{ asset('limitless/js/pages/sidebar_detached_sticky_native.js') }}"></script>
+<script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/demo_pages/sidebar_components.js') }}"></script>
+<script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/demo_pages/sidebar_secondary.js') }}"></script>
 @endsection
 
 @section('pageheader')
-<div class="page-header-content">
-    <div class="page-title">
-        <h4><i class="icon-arrow-left52 position-left"></i> <span class="text-semibold">{{ ucfirst($content->type) }} Detail</span></h4>
+<div class="page-header-content header-elements-inline">
+    <div class="page-title d-flex">
+        <h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">{{ ucfirst($content->type) }} Detail</span></h4>
     </div>
 
-    <div class="heading-elements">
+    <div class="header-elements">
     </div>
 </div>
 
 <div class="breadcrumb-line">
-    <ul class="breadcrumb">
-        <li><a href="index.html"><i class="icon-home2 position-left"></i> Home</a></li>
-        <li><a href="{{ route('admin.contents.index', ['type' => $content->type]) }}">{{ ucfirst($content->type) }}s</a></li>
-        <li class="active">Detail</li>
-    </ul>
+    <div class="d-flex">
+        <div class="breadcrumb">
+            <a class="breadcrumb-item" href="index.html"><i class="icon-home2 mr-2"></i> Home</a>
+            <a class="breadcrumb-item" href="{{ route('admin.contents.index', ['type' => $content->type]) }}">{{ ucfirst($content->type) }}s</a>
+            <span class="breadcrumb-item active">Detail</span>
+        </div>
+    </div>
 
-    <ul class="breadcrumb-elements">
-        <li><a href="#"><i class="icon-comment-discussion position-left"></i> Link</a></li>
-        <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                <i class="icon-gear position-left"></i>
-                Dropdown
-                <span class="caret"></span>
-            </a>
-
-            <ul class="dropdown-menu dropdown-menu-right">
-                <li><a href="#"><i class="icon-user-lock"></i> Account security</a></li>
-                <li><a href="#"><i class="icon-statistics"></i> Analytics</a></li>
-                <li><a href="#"><i class="icon-accessibility"></i> Accessibility</a></li>
-                <li class="divider"></li>
-                <li><a href="#"><i class="icon-gear"></i> All settings</a></li>
-            </ul>
-        </li>
-    </ul>
+    <div class="header-elements d-none">
+        <div class="breadcrumb justify-content-center">
+            <a href="#" class="breadcrumb-elements-item"><i class="icon-comment-discussion mr-2"></i>Link</a>
+            <div class="breadcrumb-elements-item dropdown p-0">
+                <a href="#" class="breadcrumb-elements-item dropdown-toggle" data-toggle="dropdown" aria-expanded="true"><i class="icon-gear mr-2"></i>Dropdown</a>
+                <div class="dropdown-menu dropdown-menu-right" x-placement="bottom-end" 
+                    style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(-84px, 40px, 0px);">
+                    <a href="#" class="dropdown-item"><i class="icon-user-lock"></i> Account security</a>
+                    <a href="#" class="dropdown-item"><i class="icon-statistics"></i> Analytics</a>
+                    <a href="#" class="dropdown-item"><i class="icon-accessibility"></i> Accessibility</a>
+                    <div class="dropdown-divider"></div>
+                    <a href="#" class="dropdown-item"><i class="icon-gear"></i> All settings</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <!-- /page header -->
 @endsection
@@ -57,63 +58,63 @@
             </div>
             @endif
 
-            <div class="panel panel-flat" id="detail">
-                <div class="panel-heading">
-                    <h5 class="panel-title">Detail</h5>
+            <div class="card" id="detail">
+                <div class="card-header">
+                    <h5 class="card-title">Detail</h5>
                 </div>
 
-                <div class="panel-body">
-                    <div class="form-group">
-                        <label class="control-label col-lg-2">Title</label>
+                <div class="card-body">
+                    <div class="form-group row">
+                        <label class="col-form-label col-lg-2">Title</label>
                         <div class="col-lg-10">
-                            <label class="control-label col-lg-2">{{$content->title}}</label>
+                            <label class="col-form-label col-lg-2">{{$content->title}}</label>
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <label class="control-label col-lg-2">Slug</label>
+                    <div class="form-group row">
+                        <label class="col-form-label col-lg-2">Slug</label>
                         <div class="col-lg-10">
-                            <label class="control-label col-lg-2"><a href="{{url($content->slug)}}" target="_blank">{{$content->slug}}</a></label>
+                            <label class="col-form-label col-lg-2"><a href="{{url($content->slug)}}" target="_blank">{{$content->slug}}</a></label>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label class="control-label col-lg-2">Type</label>
+                    <div class="form-group row">
+                        <label class="col-form-label col-lg-2">Type</label>
                         <div class="col-lg-10">
-                            <label class="control-label col-lg-2">{{$content->type}}</label>
+                            <label class="col-form-label col-lg-2">{{$content->type}}</label>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label class="control-label col-lg-2">Status</label>
+                    <div class="form-group row">
+                        <label class="col-form-label col-lg-2">Status</label>
                         <div class="col-lg-10">
-                            <label class="control-label col-lg-2">{{$content->status}}</label>
+                            <label class="col-form-label col-lg-2">{{$content->status}}</label>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label class="control-label col-lg-2">Visibility</label>
+                    <div class="form-group row">
+                        <label class="col-form-label col-lg-2">Visibility</label>
                         <div class="col-lg-10">
-                            <label class="control-label col-lg-2">{{$content->visibility}}</label>
+                            <label class="col-form-label col-lg-2">{{$content->visibility}}</label>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label class="control-label col-lg-2">Author id</label>
+                    <div class="form-group row">
+                        <label class="col-form-label col-lg-2">Author id</label>
                         <div class="col-lg-10">
-                            <label class="control-label col-lg-2">{{$content->author_id}}</label>
+                            <label class="col-form-label col-lg-2">{{$content->author_id}}</label>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label class="control-label col-lg-2">Cateogry</label>
+                    <div class="form-group row">
+                        <label class="col-form-label col-lg-2">Cateogry</label>
                         <div class="col-lg-10">
-                            <label class="control-label col-lg-2">
+                            <label class="col-form-label col-lg-2">
                                 @foreach($content->terms->where('taxonomy', 'category') as $rel)
                                     {{ $rel->term->name }},
                                 @endforeach
                             </label>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label class="control-label col-lg-2">Tags</label>
+                    <div class="form-group row">
+                        <label class="col-form-label col-lg-2">Tags</label>
                         <div class="col-lg-10">
-                            <label class="control-label col-lg-2">
+                            <label class="col-form-label col-lg-2">
                                 @foreach($content->terms->where('taxonomy', 'tag') as $rel)
                                     {{ $rel->term->name }},
                                 @endforeach
@@ -127,17 +128,17 @@
                 </div>
             </div>
 
-            <div class="panel panel-flat" id="comments">
-                <div class="panel-heading">
-                    <h6 class="panel-title text-semiold">Comments</h6>
-                    <div class="heading-elements">
+            <div class="card" id="comments">
+                <div class="card-header">
+                    <h6 class="card-title font-weight-semibold">Comments</h6>
+                    <div class="header-elements">
                         <ul class="list-inline list-inline-separate heading-text text-muted">
                             <li>{{ count($content->comments) }} comments</li>
                         </ul>
                     </div>
                 </div>
 
-                <div class="panel-body">
+                <div class="card-body">
                     <ul class="media-list stack-media-on-mobile">
                         @foreach($content->comments->where('parent_id', NULL) as $comment)
                         <li class="media">
@@ -150,11 +151,11 @@
 
             <!-- Revisions -->
             @foreach($content->metas->whereIn('key', ['initial', 'revision', 'revert'])->sortByDesc('id') as $key=>$revision)
-            <div class="panel panel-flat" id="v_{{ $revision->id }}">
-                <div class="panel-heading">
-                    <h5 class="panel-title">{{ $key+1 }}. {{ ucfirst($revision->key) }}</h5>
-                    <span class="label bg-blue heading-text">{{ date('Y-m-d H:i:s', json_decode($revision->value)->datetime) }}</span>
-                    <div class="heading-elements">
+            <div class="card" id="v_{{ $revision->id }}">
+                <div class="card-header">
+                    <h5 class="card-title">{{ $key+1 }}. {{ ucfirst($revision->key) }}</h5>
+                    <span class="badge bg-blue heading-text">{{ date('Y-m-d H:i:s', json_decode($revision->value)->datetime) }}</span>
+                    <div class="header-elements">
                         @if($key < count($content->metas->whereIn('key', ['initial', 'revision', 'revert']))-1)
                         <a href="{{ route('admin.contents.revisions.revert', ['id' => $content->id, 'revision' => $revision->id]) }}" class="btn btn-default"><i class="icon-reload-alt position-left"></i> Revert</a>
                         @endif
@@ -162,7 +163,7 @@
                     </div>
                 </div>
 
-                <div class="panel-body">
+                <div class="card-body">
                     <pre class="language-javascript"><code>{{ var_dump(json_decode($revision->value)) }}</code></pre>
                 </div>
             </div>

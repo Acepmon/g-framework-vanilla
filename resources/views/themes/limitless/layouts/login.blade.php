@@ -7,36 +7,35 @@
 	<title>G-Framework</title>
 
 	<!-- Global stylesheets -->
-	<link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
-	<link href="{{ asset('limitless/css/icons/icomoon/styles.css') }}" rel="stylesheet" type="text/css">
-	<link href="{{ asset('limitless/css/bootstrap.css') }}" rel="stylesheet" type="text/css">
-	<link href="{{ asset('limitless/css/core.css') }}" rel="stylesheet" type="text/css">
-	<link href="{{ asset('limitless/css/components.css') }}" rel="stylesheet" type="text/css">
-	<link href="{{ asset('limitless/css/colors.css') }}" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
+	<!-- <link href="{{ asset('limitless/bootstrap4/css/icons/icomoon/styles.css') }}" rel="stylesheet" type="text/css"> -->
+	<link href="{{ asset('limitless/bootstrap4/css/icons/icomoon/styles.min.css') }}" rel="stylesheet" type="text/css">
+	<link href="{{ asset('limitless/bootstrap4/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
+	<link href="{{ asset('limitless/bootstrap4/css/bootstrap_limitless.min.css') }}" rel="stylesheet" type="text/css">
+	<!-- <link href="{{ asset('limitless/bootstrap4/css/core.css') }}" rel="stylesheet" type="text/css"> -->
+	<link href="{{ asset('limitless/bootstrap4/css/components.css') }}" rel="stylesheet" type="text/css">
+	<link href="{{ asset('limitless/bootstrap4/css/colors.css') }}" rel="stylesheet" type="text/css">
+	<link href="{{ asset('limitless/bootstrap4/css/layout.min.css') }}" rel="stylesheet" type="text/css">
 	<!-- /global stylesheets -->
 
 	<!-- Core JS files -->
-	<script type="text/javascript" src="{{ asset('limitless/js/plugins/loaders/pace.min.js') }}"></script>
-	<script type="text/javascript" src="{{ asset('limitless/js/core/libraries/jquery.min.js') }}"></script>
-	<script type="text/javascript" src="{{ asset('limitless/js/core/libraries/bootstrap.min.js') }}"></script>
-	<script type="text/javascript" src="{{ asset('limitless/js/plugins/loaders/blockui.min.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/plugins/loaders/pace.min.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/main/jquery.min.js') }}"></script>
+	<!-- <script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/plugins/extensions/bootstrap.min.js') }}"></script> -->
+	<script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/plugins/loaders/blockui.min.js') }}"></script>
 	<!-- /core JS files -->
 
-	@yield('load')
 
 	<!-- Theme JS files -->
-	<script type="text/javascript" src="{{ asset('limitless/js/plugins/forms/styling/uniform.min.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/plugins/forms/styling/uniform.min.js') }}"></script>
 
-	<script type="text/javascript" src="{{ asset('limitless/js/core/app.js') }}"></script>
-	<script type="text/javascript" src="{{ asset('limitless/js/pages/login.js') }}"></script>
-	<!-- /theme JS files -->
+	<script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/demo_pages/login.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/app.js') }}"></script>
+    <!-- /theme JS files -->
 
 </head>
 
-<body class="login-container">
-
-    <!-- Page container -->
-	<div class="page-container">
+<body>
 
         <!-- Page content -->
         <div class="page-content">
@@ -44,22 +43,13 @@
             <!-- Main content -->
             <div class="content-wrapper">
 
-                <!-- Content area -->
-                <div class="content pb-20">
-
                     @yield('content')
-
-                </div>
-                <!-- /content area -->
 
             </div>
             <!-- /main content -->
 
         </div>
         <!-- /page content -->
-
-    </div>
-	<!-- /page container -->
 
     @yield('script')
 

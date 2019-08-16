@@ -13,12 +13,14 @@
     </div>
 </div>
 
-<div class="breadcrumb-line">
-    <ul class="breadcrumb">
-        <li><a href="index.html"><i class="icon-home2 position-left"></i> Home</a></li>
-        <li><a href="{{ route('admin.permissions.index') }}">Permissions</a></li>
-        <li class="active">Permission Detail</li>
-    </ul>
+<div class="breadcrumb-line breadcrumb-line-light header-elements-md-inline">
+    <div class="d-flex">
+        <div class="breadcrumb">
+            <a class="breadcrumb-item" href="index.html"><i class="icon-home2 mr-2"></i> Home</a>
+            <a class="breadcrumb-item" href="{{ route('admin.permissions.index') }}">Permissions</a>
+            <span class="breadcrumb-item active">Permission Detail</span>
+        </div>
+    </div>
 </div>
 <!-- /page header -->
 @endsection
@@ -30,41 +32,41 @@
     <div class="col-md-6">
 
         <!-- Horizontal form -->
-        <div class="panel panel-flat">
-            <div class="panel-heading">
-                <h5 class="panel-title">Horizontal form</h5>
-                <div class="heading-elements">
-                    <ul class="icons-list">
-                        <li><a data-action="collapse"></a></li>
-                        <li><a data-action="close"></a></li>
-                    </ul>
+        <div class="card">
+            <div class="card-header header-elements-inline">
+                <h5 class="card-title">Horizontal form</h5>
+                <div class="header-elements">
+                    <div class="list-icons">
+                        <a class="list-icons-item" data-action="collapse"></a>
+                        <a class="list-icons-item" data-action="remove"></a>
+                    </div>
                 </div>
             </div>
 
-            <div class="panel-body">
+            <div class="card-body">
                 <form class="form-horizontal" method="POST" action="/permissions/{{ $permission->id }}">
                     @csrf
-                    <div class="form-group">
-                        <label class="control-label col-lg-2">Title</label>
+                    <div class="form-group row">
+                        <label class="col-form-label col-lg-2">Title</label>
                         <div class="col-lg-10">
                             {{$permission->title}}
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <label class="control-label col-lg-2">Type</label>
+                    <div class="form-group row">
+                        <label class="col-form-label col-lg-2">Type</label>
                         <div class="col-lg-10">
                             {{$permission->type}}
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label class="control-label col-lg-2">Description</label>
+                    <div class="form-group row">
+                        <label class="col-form-label col-lg-2">Description</label>
                         <div class="col-lg-10">
                             {{$permission->description}}
                         </div>
                     </div>
                     <div class="text-right">
-                        <a href="javascript:history.back()" class="btn btn-primary" ><i class="icon-arrow-left13 position-left"></i> Back</a>
+                        <a href="javascript:history.back()" class="btn btn-primary" ><i class="icon-arrow-left13 mr-1"></i> Back</a>
 
                         <!-- <a type="submit" class="btn btn-danger">Delete form </i></a> -->
                         <a type="button" href="{{ route('admin.permissions.edit', ['id' => $permission->id]) }}" class="btn btn-warning">Edit</i> <i class="icon-arrow-right14 position-left"></i> </a>

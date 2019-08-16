@@ -4,13 +4,13 @@
 
             <!-- User details -->
             <div class="content-group">
-                <div class="panel">
-                    <div class="panel-body border-radius-top">
+                <div class="card">
+                    <div class="card-body border-radius-top">
                         @include('themes.limitless.includes.user-media', $user)
                     </div>
                 </div>
 
-                <div class="panel no-border-top no-border-radius-top">
+                <div class="card no-border-top no-border-radius-top">
                     <ul class="navigation">
                         <li class="navigation-header">Navigation</li>
                         <li><a href="{{ route('admin.users.show', ['id' => $user->id]) }}"><i class="icon-user"></i> Profile</a></li>

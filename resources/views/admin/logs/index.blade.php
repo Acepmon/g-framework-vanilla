@@ -3,7 +3,7 @@
 @section('title', $exists ? $filename : 'Error Logs')
 
 @section('load')
-<script type="text/javascript" src="{{ asset('limitless/js/plugins/tables/datatables/datatables.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/plugins/tables/datatables/datatables.min.js') }}"></script>
 @endsection
 
 @section('pageheader')
@@ -42,18 +42,18 @@
 <div class="container-detached">
     <div class="content-detached">
         @if ($exists)
-            <div class="panel panel-flat">
-                <div class="panel-heading">
-                    <h4 class="panel-title">
+            <div class="card">
+                <div class="card-header header-elements-inline">
+                    <h4 class="card-title">
                         {{ $filename }}
                     </h4>
 
-                    <div class="heading-elements">
+                    <div class="header-elements">
                         <button type="button" data-toggle="modal" data-target="#modal_theme_danger" onclick="choose_log('{{ $filename }}')" class="btn btn-default"><span class="icon-trash position-left"></span> Delete File</button>
                     </div>
                 </div>
 
-                <div class="panel-body">
+                <div class="card-body">
                     <pre class="language-log"><code>{!! $file_contents !!}</code></pre>
                 </div>
             </div>

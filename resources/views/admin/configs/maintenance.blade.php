@@ -16,13 +16,13 @@
         <form action="{{ route('admin.configs.maintenance.set') }}" method="POST">
             @csrf
 
-            <div class="panel panel-flat">
-                <div class="panel-heading">
-                    <h5 class="panel-title">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title">
                         Maintenance Mode
                     </h5>
                 </div>
-                <div class="panel-body">
+                <div class="card-body">
                     <p>
                         When your application is in <strong>maintenance mode</strong>, aa custom view will be displayed for all requests into yourpplication.
                         This makes it easy to "disable" your application while it is updating or when you are performing maintenance.

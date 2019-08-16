@@ -1,27 +1,51 @@
 @extends('themes.limitless.layouts.default')
 
 @section('load')
+<script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/plugins/extensions/jquery_ui/core.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/plugins/forms/selects/select2.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/plugins/forms/selects/bootstrap_multiselect.js') }}"></script>
 
-<script type="text/javascript" src="{{ asset('limitless/js/core/libraries/jquery_ui/core.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('limitless/js/plugins/forms/selects/selectboxit.min.js') }}"></script>
-
-<script type="text/javascript" src="{{ asset('limitless/js/pages/form_selectbox.js') }}"></script>
+<script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/demo_pages/multiselect.js') }}"></script>
+<script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/demo_pages/form_select2.js') }}"></script>
 @endsection
 
 @section('pageheader')
-<div class="page-header-content">
-    <div class="page-title">
-        <h4><i class="icon-arrow-left52 position-left"></i> <span class="text-semibold">Menu</span> Edit Page</h4>
+<div class="page-header-content header-elements-inline">
+    <div class="page-title d-flex">
+        <h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Menu</span> Edit Page</h4>
+        <a href="#" class="header-elements-toggle text-default d-md-none">
+            <i class="icon-more"></i>
+        </a>
     </div>
 
-    <div class="heading-elements">
+    <div class="header-elements">
     </div>
 </div>
 
-<div class="breadcrumb-line">
-    <ul class="breadcrumb">
-        <li><a href="{{ route('admin.menus.index') }}"><i class="icon-home2 position-left"></i> Home</a></li>
-    </ul>
+<div class="breadcrumb-line breadcrumb-line-light header-elements-md-inline">
+    <div class="d-flex">
+        <div class="breadcrumb">
+            <a href="{{ route('admin.menus.index') }}" class="breadcrumb-item"><i class="icon-home2 mr-2"></i> Home</a></li>
+            <span class="breadcrumb-item active">Menu</span>
+        </div>
+    </div>
+
+    <div class="header-elements d-none">
+        <div class="breadcrumb justify-content-center">
+            <a href="#" class="breadcrumb-elements-item"><i class="icon-comment-discussion mr-2"></i>Link</a>
+            <div class="breadcrumb-elements-item dropdown p-0">
+                <a href="#" class="breadcrumb-elements-item dropdown-toggle" data-toggle="dropdown" aria-expanded="true"><i class="icon-gear mr-2"></i>Dropdown</a>
+                <div class="dropdown-menu dropdown-menu-right" x-placement="bottom-end" 
+                    style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(-84px, 40px, 0px);">
+                    <a href="#" class="dropdown-item"><i class="icon-user-lock"></i> Account security</a>
+                    <a href="#" class="dropdown-item"><i class="icon-statistics"></i> Analytics</a>
+                    <a href="#" class="dropdown-item"><i class="icon-accessibility"></i> Accessibility</a>
+                    <div class="dropdown-divider"></div>
+                    <a href="#" class="dropdown-item"><i class="icon-gear"></i> All settings</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <!-- /page header -->
 @endsection
@@ -34,18 +58,18 @@
 <div class="row">
     <div class="col-md-6">
         <!-- Horizontal form -->
-        <div class="panel panel-flat">
-            <div class="panel-heading">
-                <h5 class="panel-title">Horizontal form</h5>
-                <div class="heading-elements">
-                    <ul class="icons-list">
-                        <li><a data-action="collapse"></a></li>
-                        <li><a data-action="close"></a></li>
-                    </ul>
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title">Horizontal form</h5>
+                <div class="header-elements">
+                    <div class="list-icons">
+                        <a class="list-icons-item" data-action="collapse"></a>
+                        <a class="list-icons-item" data-action="remove"></a>
+                    </div>
                 </div>
             </div>
 
-            <div class="panel-body">
+            <div class="card-body">
                 <!-- <form method="put" action="" class="form-horizontal"> -->
                 @if (session('status'))
                 <div class="alert alert-success">
@@ -58,7 +82,7 @@
                     <div class="form-group">
                         <label class="control-label col-lg-2">Type</label>
                         <div class="col-lg-10">
-                            <select id="type" name="type" type="text" value="{{ $menu->type }}" required class="selectbox">
+                            <select id="type" name="type" type="text" value="{{ $menu->type }}" required class="form-control">
                                 @foreach(App\Menu::TYPE_ARRAY as $value)
                                 <option value="{{ $value }}">{{ $value }}</option>
                                 @endforeach
@@ -178,7 +202,7 @@
                     <div class="form-group">
                         <label class="control-label col-lg-2">Parent ID</label>
                         <div class="col-lg-10">
-                            <select class="selectbox" name="parent_id" type="text" value="{{ $menu->parent_id }}" id="type">
+                            <select class="form-control" name="parent_id" type="text" value="{{ $menu->parent_id }}" id="type">
                                 <option value=""></option>
                                 @foreach($menus as $data)
                                 <option value="{{$data->id}}" {{$menu->parent_id == $data->id ? 'selected':''}}>{{$data->name}}</option>

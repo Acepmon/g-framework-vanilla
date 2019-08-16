@@ -3,9 +3,9 @@
 @section('title', 'Register New Configuration')
 
 @section('load')
-<script type="text/javascript" src="{{ asset('limitless/js/plugins/forms/styling/uniform.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('limitless/js/plugins/forms/styling/switchery.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('limitless/js/plugins/forms/styling/switch.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/plugins/forms/styling/uniform.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/plugins/forms/styling/switchery.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/plugins/forms/styling/switch.min.js') }}"></script>
 @endsection
 
 @section('pageheader')
@@ -17,21 +17,20 @@
 <div class="row">
     <div class="col-md-6">
         <form action="{{ route('admin.configs.store') }}" method="POST">
-            <div class="panel panel-flat">
-                <div class="panel-heading">
-                    <h5 class="panel-title">
+            <div class="card">
+                <div class="card-header header-elements-inline">
+                    <h5 class="card-title">
                         Register New Configuration
                     </h5>
-
-                    <div class="heading-elements">
-                        <ul class="icons-list">
-                            <li><a data-action="collapse"></a></li>
-                            <li><a data-action="reload"></a></li>
-                            <li><a data-action="close"></a></li>
-                        </ul>
+                    <div class="header-elements">
+                        <div class="list-icons">
+                            <a class="list-icons-item" data-action="collapse"></a>
+                            <a class="list-icons-item" data-action="reload"></a>
+                            <a class="list-icons-item" data-action="remove"></a>
+                        </div>
                     </div>
                 </div>
-                <div class="panel-body">
+                <div class="card-body">
                     @csrf
 
                     <div class="form-group @error('title') has-error has-feedback @enderror">
@@ -57,17 +56,17 @@
                     <div class="form-group @error('key_module') has-error has-feedback @enderror @error('key_component') has-error has-feedback @enderror @error('key_function') has-error has-feedback @enderror">
                         <label for="key">Unique keyword <span class="text-danger">*</span></label>
                         <div class="row">
-                            <div class="col-xs-4">
+                            <div class="col-md-4">
                                 <select name="key_module" id="key_module" class="form-control text-capitalize" required>
                                     @foreach (\App\Config::MODULE_ARRAY as $module)
                                         <option value="{{$module}}">{{$module}}</option>
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="col-xs-4">
+                            <div class="col-md-4">
                                 <input type="text" class="form-control" name="key_component" id="key_component" value="{{ old('key_component') }}" placeholder="Key component here...">
                             </div>
-                            <div class="col-xs-4">
+                            <div class="col-md-4">
                                 <input type="text" class="form-control" name="key_function" id="key_function" value="{{ old('key_function') }}" placeholder="Key function here...">
                             </div>
                         </div>
@@ -114,10 +113,10 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-xs-6">
+                        <div class="col-md-6">
                             <a href="javascript:history.back()" class="btn btn-default">Back</a>
                         </div>
-                        <div class="col-xs-6">
+                        <div class="col-md-6">
                             <div class="text-right">
                                 <button type="submit" class="btn btn-primary">Submit</button>
                             </div>

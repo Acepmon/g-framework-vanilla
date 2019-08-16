@@ -13,45 +13,45 @@
 @section('content')
 <div class="row">
     <div class="col-md-6">
-        <div class="panel panel-flat">
-            <div class="panel-heading">
-                <h5 class="panel-title">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title">
                     Storage Overview
                 </h5>
             </div>
-            <div class="panel-body"></div>
+            <div class="card-body"></div>
         </div>
     </div>
     <div class="col-md-6">
-        <div class="panel panel-flat">
-            <div class="panel-heading">
-                <h5 class="panel-title">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title">
                     Available Disks
                 </h5>
             </div>
-            <div class="panel-body"></div>
+            <div class="card-body"></div>
         </div>
     </div>
 </div>
 <div class="row">
     <div class="col-md-6">
-        <div class="panel panel-flat">
-            <div class="panel-heading">
-                <h5 class="panel-title">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title">
                     Public Directory List
                 </h5>
             </div>
-            <div class="panel-body"></div>
+            <div class="card-body"></div>
         </div>
     </div>
     <div class="col-md-6">
-        <div class="panel panel-flat">
-            <div class="panel-heading">
-                <h5 class="panel-title">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title">
                     Plugin Assets
                 </h5>
             </div>
-            <div class="panel-body"></div>
+            <div class="card-body"></div>
         </div>
     </div>
 </div>

@@ -1,30 +1,36 @@
 @extends('themes.limitless.layouts.default')
 
 @section('load')
-<script type="text/javascript" src="{{ asset('limitless/js/core/libraries/jquery_ui/core.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('limitless/js/core/libraries/jquery_ui/effects.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('limitless/js/core/libraries/jquery_ui/interactions.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('limitless/js/plugins/extensions/cookie.js') }}"></script>
-<script type="text/javascript" src="{{ asset('limitless/js/plugins/forms/styling/switchery.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('limitless/js/plugins/forms/styling/uniform.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('limitless/js/plugins/trees/fancytree_all.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('limitless/js/plugins/trees/fancytree_childcounter.js') }}"></script>
+<script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/plugins/extensions/jquery_ui/core.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/plugins/extensions/jquery_ui/effects.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/plugins/extensions/jquery_ui/interactions.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/plugins/extensions/cookie.js') }}"></script>
+<script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/plugins/forms/styling/switchery.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/plugins/forms/styling/uniform.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/plugins/trees/fancytree_all.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/plugins/trees/fancytree_childcounter.js') }}"></script>
 @endsection
 
 @section('pageheader')
-<div class="page-header-content">
-    <div class="page-title">
-        <h4><i class="icon-arrow-left52 position-left"></i> <span class="text-semibold">Menu</span> Show Page</h4>
+<div class="page-header-content header-elements-inline">
+    <div class="page-title d-flex">
+        <h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Menu</span> Show Page</h4>
+        <a href="#" class="header-elements-toggle text-default d-md-none">
+            <i class="icon-more"></i>
+        </a>
     </div>
 
-    <div class="heading-elements">
+    <div class="header-elements">
     </div>
 </div>
 
-<div class="breadcrumb-line">
-    <ul class="breadcrumb">
-        <li><a href="{{ route('admin.menus.index') }}"><i class="icon-home2 position-left"></i> Home</a></li>
-    </ul>
+<div class="breadcrumb-line breadcrumb-line-light header-elements-md-inline">
+    <div class="d-flex">
+        <div class="breadcrumb">
+            <a href="{{ route('admin.menus.index') }}" class="breadcrumb-item"><i class="icon-home2 mr-2"></i> Home</a></li>
+            <span class="breadcrumb-item active">Menu</span>
+        </div>
+    </div>
 </div>
 <!-- /page header -->
 @endsection
@@ -36,84 +42,84 @@
     <div class="col-md-6">
 
         <!-- Horizontal form -->
-        <div class="panel panel-flat">
-            <div class="panel-heading">
-                <h5 class="panel-title">Horizontal form</h5>
-                <div class="heading-elements">
-                    <ul class="icons-list">
-                        <li><a data-action="collapse"></a></li>
-                        <li><a data-action="close"></a></li>
-                    </ul>
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title">Horizontal form</h5>
+                <div class="header-elements">
+                    <div class="list-icons">
+                        <a class="list-icons-item" data-action="collapse"></a>
+                        <a class="list-icons-item" data-action="remove"></a>
+                    </div>
                 </div>
             </div>
 
-            <div class="panel-body">
+            <div class="card-body">
                 <form class="form-horizontal">
                     <div class="form-group">
-                        <label class="control-label col-lg-2">Type</label>
+                        <label class="col-form-label col-lg-2">Type</label>
                         <div class="col-lg-10">
                             {{$menu->type}}
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="control-label col-lg-2">Title</label>
+                        <label class="col-form-label col-lg-2">Title</label>
                         <div class="col-lg-10">
                             {{$menu->title}}
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="control-label col-lg-2">Subtitle</label>
+                        <label class="col-form-label col-lg-2">Subtitle</label>
                         <div class="col-lg-10">
                             {{$menu->subtitle}}
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="control-label col-lg-2">Link</label>
+                        <label class="col-form-label col-lg-2">Link</label>
                         <div class="col-lg-10">
                             {{$menu->link}}
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="control-label col-lg-2">Icon</label>
+                        <label class="col-form-label col-lg-2">Icon</label>
                         <div class="col-lg-10">
                             {{$menu->icon}}
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="control-label col-lg-2">Status</label>
+                        <label class="col-form-label col-lg-2">Status</label>
                         <div class="col-lg-10">
                             {{$menu->status}}
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="control-label col-lg-2">Visibility</label>
+                        <label class="col-form-label col-lg-2">Visibility</label>
                         <div class="col-lg-10">
                             {{$menu->visibility}}
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="control-label col-lg-2">Order</label>
+                        <label class="col-form-label col-lg-2">Order</label>
                         <div class="col-lg-10">
                             {{$menu->order}}
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="control-label col-lg-2">Sublevel</label>
+                        <label class="col-form-label col-lg-2">Sublevel</label>
                         <div class="col-lg-10">
                             {{$menu->sublevel}}
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="control-label col-lg-2">Parent ID</label>
+                        <label class="col-form-label col-lg-2">Parent ID</label>
                         <div class="col-lg-10">
                             @if(!empty($menu->parent_id))
                             {{$menu->parent->name}}

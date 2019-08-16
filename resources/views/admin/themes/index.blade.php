@@ -1,68 +1,66 @@
 @extends('themes.limitless.layouts.default')
 
 @section('load')
-    <script type="text/javascript" src="{{ asset('limitless/js/plugins/velocity/velocity.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('limitless/js/plugins/velocity/velocity.ui.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('limitless/js/plugins/buttons/spin.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('limitless/js/plugins/buttons/ladda.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/plugins/velocity/velocity.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/plugins/velocity/velocity.ui.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/plugins/buttons/spin.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/plugins/buttons/ladda.min.js') }}"></script>
 @endsection
 
 @section('pageheader')
-<div class="page-header-content">
-    <div class="page-title">
-        <h4><i class="icon-arrow-left52 position-left"></i> <span class="text-semibold">Menu</span> Index Page</h4>
+<div class="page-header-content header-elements-inline">
+    <div class="page-title d-flex">
+        <h4><i class="icon-arrow-left52 ml-2"></i> <span class="font-weight-semibold">Menu</span> Index Page</h4>
     </div>
 
-    <div class="heading-elements">
-        <a href="#" class="btn btn-labeled btn-labeled-right bg-blue heading-btn">Button <b><i class="icon-menu7"></i></b></a>
+    <div class="header-elements d-none">
+        <a href="#" class="btn btn-labeled bg-blue heading-btn">Button <b><i class="icon-menu7 mr-2"></i></b></a>
     </div>
 </div>
 
 <div class="breadcrumb-line">
-    <ul class="breadcrumb">
-        <li><a href="index.html"><i class="icon-home2 position-left"></i> Home</a></li>
-        <li><a href="2_col.html">Starters</a></li>
-        <li class="active">2 columns</li>
-    </ul>
+    <div class="d-flex">
+        <div class="breadcrumb">
+            <a class="breadcrumb-item" href="index.html"><i class="icon-home2 position-left"></i> Home</a>
+            <a class="breadcrumb-item" href="2_col.html">Themes</a>
+            <span class="breadcrumb-item active">Installed themes</span>
+        </div>
+    </div>
 
-    <ul class="breadcrumb-elements">
-        <li><a href="#"><i class="icon-comment-discussion position-left"></i> Link</a></li>
-        <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                <i class="icon-gear position-left"></i>
-                Dropdown
-                <span class="caret"></span>
-            </a>
-
-            <ul class="dropdown-menu dropdown-menu-right">
-                <li><a href="#"><i class="icon-user-lock"></i> Account security</a></li>
-                <li><a href="#"><i class="icon-statistics"></i> Analytics</a></li>
-                <li><a href="#"><i class="icon-accessibility"></i> Accessibility</a></li>
-                <li class="divider"></li>
-                <li><a href="#"><i class="icon-gear"></i> All settings</a></li>
-            </ul>
-        </li>
-    </ul>
+    <div class="header-elements d-none">
+        <div class="breadcrumb justify-content-center">
+            <a href="#" class="breadcrumb-elements-item"><i class="icon-comment-discussion mr-2"></i>Link</a>
+            <div class="breadcrumb-elements-item dropdown p-0">
+                <a href="#" class="breadcrumb-elements-item dropdown-toggle" data-toggle="dropdown" aria-expanded="true"><i class="icon-gear mr-2"></i>Dropdown</a>
+                <div class="dropdown-menu dropdown-menu-right" x-placement="bottom-end" 
+                    style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(-84px, 40px, 0px);">
+                    <a href="#" class="dropdown-item"><i class="icon-user-lock"></i> Account security</a>
+                    <a href="#" class="dropdown-item"><i class="icon-statistics"></i> Analytics</a>
+                    <a href="#" class="dropdown-item"><i class="icon-accessibility"></i> Accessibility</a>
+                    <div class="dropdown-divider"></div>
+                    <a href="#" class="dropdown-item"><i class="icon-gear"></i> All settings</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <!-- /page header -->
 @endsection
 
 @section('content')
 <!-- Table -->
-<div class="panel panel-flat">
-    <div class="panel-heading">
-        <h5 class="panel-title">
+<div class="card">
+    <div class="card-header header-elements-inline">
+        <h5 class="card-title">
             Theme
         </h5>
-        <div class="heading-elements">
-            <ul class="icons-list">
-                <li><a href="{{ route('admin.themes.create') }}" class="btn btn-primary text-white">Create theme<i class="icon-arrow-right14 position-right"></i></a></li>
-            </ul>
+        <div class="header-elements">
+                <a href="{{ route('admin.themes.create') }}" class="btn btn-primary text-white">Create theme<i class="icon-arrow-right14 ml-2"></i></a>
         </div>
     </div>
 
     @if (session('status'))
-        <div class="panel-body">
+        <div class="card-body">
             <div class="alert alert-success">
                 {{ session('status') }}
             </div>

@@ -3,8 +3,8 @@
 @section('title', 'Triggers')
 
 @section('load')
-<script type="text/javascript" src="{{ asset('limitless/js/plugins/tables/datatables/datatables.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('limitless/js/plugins/forms/selects/select2.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/plugins/tables/datatables/datatables.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/plugins/forms/selects/select2.min.js') }}"></script>
 @endsection
 
 @section('pageheader')
@@ -12,11 +12,11 @@
 @endsection
 
 @section('content')
-<div class="panel panel-flat">
-    <div class="panel-heading">
-        <h5 class="panel-title">All Notification Triggers</h5>
+<div class="card">
+    <div class="card-header header-elements-inline">
+        <h5 class="card-title">All Notification Triggers</h5>
 
-        <div class="heading-elements">
+        <div class="header-elements">
             <a href="{{ route('admin.notifications.triggers.create') }}" class="btn btn-primary btn-sm"><span class="icon-plus3 position-left"></span> New Trigger</a>
         </div>
     </div>
@@ -40,19 +40,16 @@
                 <td>22 Jun 1972</td>
                 <td><span class="label label-success">Active</span></td>
                 <td class="text-center">
-                    <ul class="icons-list">
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <i class="icon-menu9"></i>
-                            </a>
-
-                            <ul class="dropdown-menu dropdown-menu-right">
-                                <li><a href="#"><i class="icon-file-pdf"></i> Export to .pdf</a></li>
-                                <li><a href="#"><i class="icon-file-excel"></i> Export to .csv</a></li>
-                                <li><a href="#"><i class="icon-file-word"></i> Export to .doc</a></li>
-                            </ul>
-                        </li>
-                    </ul>
+                    <div class="dropdown">
+                        <a href="#" data-toggle="dropdown">
+                            <i class="icon-menu9 text-secondary"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <a class="dropdown-item" href="#"><i class="icon-file-pdf"></i> Export to .pdf</a>
+                            <a class="dropdown-item" href="#"><i class="icon-file-excel"></i> Export to .csv</a>
+                            <a class="dropdown-item" href="#"><i class="icon-file-word"></i> Export to .doc</a>
+                        </div>
+                    </div>
                 </td>
             </tr>
         </tbody>

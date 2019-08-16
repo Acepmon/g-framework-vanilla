@@ -3,7 +3,7 @@
 @section('title', 'Add User to Group')
 
 @section('load')
-<script type="text/javascript" src="{{ asset('limitless/js/plugins/tables/datatables/datatables.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/plugins/tables/datatables/datatables.min.js') }}"></script>
 @endsection
 
 @section('pageheader')
@@ -21,15 +21,11 @@
             <!-- Tab content -->
             <div class="tab-content">
                 <div class="tab-pane fade in active" id="permissions">
-                    <div class="panel panel-flat">
-                        <div class="panel-heading">
-                            <h6 class="panel-title">Add User to Group</h6>
-                            <div class="heading-elements">
-                                <ul class="icons-list">
-                                    <li>
-                                        <a href="{{ route('admin.users.permissions.create', ['id' => $user->id]) }}" class="text-white btn btn-primary">New Permission <i class="icon-add position-right"></i></a>
-                                    </li>
-                                </ul>
+                    <div class="card">
+                        <div class="card-header header-elements-inline">
+                            <h6 class="card-title">Add User to Group</h6>
+                            <div class="header-elements">
+                                <a href="{{ route('admin.users.permissions.create', ['id' => $user->id]) }}" class="text-white btn btn-primary">New Permission <i class="icon-add position-right"></i></a>
                             </div>
                         </div>
                     </div>

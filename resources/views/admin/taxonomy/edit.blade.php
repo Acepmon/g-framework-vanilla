@@ -4,41 +4,41 @@
 @endsection
 
 @section('pageheader')
-<div class="page-header-content">
-    <div class="page-title">
-        <h4><i class="icon-arrow-left52 position-left"></i> <span class="text-semibold">Edit {{ ucfirst($term_taxonomy->taxonomy) }} Detail</span></h4>
+<div class="page-header-content header-elements-inline">
+    <div class="page-title d-flex">
+        <h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Edit {{ ucfirst($term_taxonomy->taxonomy) }} Detail</span></h4>
     </div>
 
-    <div class="heading-elements">
+    <div class="header-elements">
     </div>
 </div>
 
-<div class="breadcrumb-line">
-    <ul class="breadcrumb">
-        <li><a href="index.html"><i class="icon-home2 position-left"></i> Home</a></li>
-        <li><a href="{{ route('admin.taxonomy.index', ['taxonomy' => $term_taxonomy->taxonomy]) }}">{{ ucfirst($term_taxonomy->taxonomy) }} List</a></li>
-        <li><a href="{{ route('admin.taxonomy.show', ['id' => $term_taxonomy->id]) }}">Detail</a></li>
-        <li class="active">Edit</li>
-    </ul>
+<div class="breadcrumb-line breadcrumb-line-light header-elements-md-inline">
+    <div class="d-flex">
+        <div class="breadcrumb">
+            <a class="breadcrumb-item" href="index.html"><i class="icon-home2 position-left"></i> Home</a>
+            <a class="breadcrumb-item" href="{{ route('admin.taxonomy.index', ['taxonomy' => $term_taxonomy->taxonomy]) }}">{{ ucfirst($term_taxonomy->taxonomy) }} List</a>
+            <a class="breadcrumb-item" href="{{ route('admin.taxonomy.show', ['id' => $term_taxonomy->id]) }}">Detail</a>
+            <span class="breadcrumb-item active">Edit</li>
+        </div>
+    </div>
 
-    <ul class="breadcrumb-elements">
-        <li><a href="#"><i class="icon-comment-discussion position-left"></i> Link</a></li>
-        <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                <i class="icon-gear position-left"></i>
-                Dropdown
-                <span class="caret"></span>
-            </a>
-
-            <ul class="dropdown-menu dropdown-menu-right">
-                <li><a href="#"><i class="icon-user-lock"></i> Account security</a></li>
-                <li><a href="#"><i class="icon-statistics"></i> Analytics</a></li>
-                <li><a href="#"><i class="icon-accessibility"></i> Accessibility</a></li>
-                <li class="divider"></li>
-                <li><a href="#"><i class="icon-gear"></i> All settings</a></li>
-            </ul>
-        </li>
-    </ul>
+    <div class="header-elements d-none">
+        <div class="breadcrumb justify-content-center">
+            <a href="#" class="breadcrumb-elements-item"><i class="icon-comment-discussion mr-2"></i>Link</a>
+            <div class="breadcrumb-elements-item dropdown p-0">
+                <a href="#" class="breadcrumb-elements-item dropdown-toggle" data-toggle="dropdown" aria-expanded="true"><i class="icon-gear mr-2"></i>Dropdown</a>
+                <div class="dropdown-menu dropdown-menu-right" x-placement="bottom-end" 
+                    style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(-84px, 40px, 0px);">
+                    <a href="#" class="dropdown-item"><i class="icon-user-lock"></i> Account security</a>
+                    <a href="#" class="dropdown-item"><i class="icon-statistics"></i> Analytics</a>
+                    <a href="#" class="dropdown-item"><i class="icon-accessibility"></i> Accessibility</a>
+                    <div class="dropdown-divider"></div>
+                    <a href="#" class="dropdown-item"><i class="icon-gear"></i> All settings</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <!-- /page header -->
 @endsection
@@ -50,8 +50,8 @@
     <div class="col-sm-7">
 
         <!-- Horizontal form -->
-        <div class="panel panel-flat">
-            <div class="panel-body">
+        <div class="card">
+            <div class="card-body">
                 <form class="form-horizontal" action="{{ route('admin.taxonomy.update', ['id' => $term_taxonomy->id]) }}" method="POST">
                     @method('PUT')
                     @csrf
@@ -76,8 +76,8 @@
                         </div>
                         @endforeach
                     @endif
-                    <div class="form-group">
-                        <label class="control-label col-lg-2">Name <span class="text-danger">*</span></label>
+                    <div class="form-group row">
+                        <label class="col-form-label col-lg-2">Name <span class="text-danger">*</span></label>
                         <div class="col-lg-8">
                             <input id="title" type="text" class="form-control" name="name" placeholder="Enter title..." required="required" aria-required="true" invalid="true" value="{{ $term_taxonomy->term->name }}">
                         </div>
@@ -85,23 +85,23 @@
                             <button type="button" class="btn btn-default" onclick="create_slug()">Create Slug</button>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label class="control-label col-lg-2">Slug <span class="text-danger">*</span></label>
+                    <div class="form-group row">
+                        <label class="col-form-label col-lg-2">Slug <span class="text-danger">*</span></label>
                         <div class="col-lg-10">
                             <input id="slug" type="text" class="form-control" name="slug" placeholder="Enter slug..." required="required" aria-required="true" invalid="true" value="{{ $term_taxonomy->term->slug }}">
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <label class="control-label col-lg-2">Description</label>
+                    <div class="form-group row">
+                        <label class="col-form-label col-lg-2">Description</label>
                         <div class="col-lg-10">
                             <textarea rows="5" cols="5" class="form-control" name="description" placeholder="Enter description...">{{ $term_taxonomy->description }}</textarea>
                         </div>
                     </div>
 
                     @if($term_taxonomy->taxonomy != 'tag')
-                    <div class="form-group">
-                        <label class="control-label col-lg-2">Parent</label>
+                    <div class="form-group row">
+                        <label class="col-form-label col-lg-2">Parent</label>
                         <div class="col-lg-10">
                             <select id="status" name="status" class="form-control">
                                 <option value="">None</option>
@@ -126,7 +126,7 @@
         <div class="text-right" style="padding-bottom: 5px">
             <a href="{{ route('admin.taxonomy.metas.create', ['id' => $term_taxonomy->id, 'taxonomy_type' => $term_taxonomy->taxonomy]) }}" class="btn btn-primary">Create Content Metas</a>
         </div>
-        <div class="panel panel-flat">
+        <div class="card">
             <div class="table-responsive">
                 <table class="table">
                     <thead>

@@ -2,8 +2,8 @@
 
 @section('load')
 <!-- Theme JS files -->
-<script type="text/javascript" src="{{ asset('limitless/js/plugins/tables/datatables/datatables.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('limitless/js/pages/datatables_basic.js') }}"></script>
+<script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/plugins/tables/datatables/datatables.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/demo_pages/datatables_basic.js') }}"></script>
 @endsection
 
 @section('pageheader')

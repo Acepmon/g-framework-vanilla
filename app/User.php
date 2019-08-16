@@ -146,7 +146,7 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
             return Str::startsWith($this->avatar, 'http') ? $this->avatar : '/storage/' . $user->avatar;
         }
 
-        return asset('limitless/images/placeholder.jpg');
+        return asset('limitless/bootstrap4/images/placeholder.jpg');
     }
 
     public function created_at_carbon()

@@ -3,7 +3,7 @@
 @section('title', 'Logs Reader')
 
 @section('load')
-<script type="text/javascript" src="{{ asset('limitless/js/plugins/tables/datatables/datatables.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/plugins/tables/datatables/datatables.min.js') }}"></script>
 <style>
     .align-top {
         vertical-align: top !important;
@@ -20,14 +20,14 @@
 @endsection
 
 @section('content')
-<div class="panel panel-flat">
-    <div class="panel-heading">
-        <h5 class="panel-title">
+<div class="card">
+    <div class="card-header header-elements-inline">
+        <h5 class="card-title">
             System Logs
         </h5>
-        <div class="heading-elements">
-            <a href="{{ route('admin.logs.downloadAll') }}" class="btn btn-primary btn-xs" target="_blank"><span class="icon-download position-left"></span> Download</a>
-            <a href="#modal_theme_danger" data-toggle="modal" class="btn btn-danger btn-xs"><span class="icon-trash position-left"></span> Remove All</a>
+        <div class="header-elements">
+            <a href="{{ route('admin.logs.downloadAll') }}" class="btn btn-primary btn-xs mr-2" target="_blank"><span class="icon-download mr-2"></span> Download</a>
+            <a href="#modal_theme_danger" data-toggle="modal" class="btn btn-danger btn-xs"><span class="icon-trash mr-2"></span> Remove All</a>
         </div>
     </div>
 
@@ -143,20 +143,20 @@
             columnDefs: [
                 {
                     "render": function (id) {
-                        return '<span class="icon-plus-circle2 text-muted position-left"></span> ' + id;
+                        return '<span class="icon-plus-circle2 text-muted mr-2"></span> ' + id;
                     },
                     "targets": 0
                 },
                 {
                     "render": function (level) {
                         if (level == 'error') {
-                            return '<span class="label label-danger">' + level + '</span>';
+                            return '<span class="badge badge-danger">' + level + '</span>';
                         } else if (level == 'debug') {
-                            return '<span class="label label-info">' + level + '</span>';
+                            return '<span class="badge badge-info">' + level + '</span>';
                         } else if (level == 'warning') {
-                            return '<span class="label label-warning">' + level + '</span>';
+                            return '<span class="badge badge-warning">' + level + '</span>';
                         } else {
-                            return '<span class="label label-default">' + level + '</span>';
+                            return '<span class="badge badge-default">' + level + '</span>';
                         }
                     },
                     "targets": 3

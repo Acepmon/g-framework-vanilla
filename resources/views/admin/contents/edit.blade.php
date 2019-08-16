@@ -1,52 +1,52 @@
 @extends('themes.limitless.layouts.default')
 
 @section('load')
-<script type="text/javascript" src="{{ asset('limitless/js/plugins/forms/selects/bootstrap_multiselect.js') }}"></script>
-<script type="text/javascript" src="{{ asset('limitless/js/plugins/forms/inputs/touchspin.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('limitless/js/plugins/forms/selects/select2.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('limitless/js/plugins/forms/styling/switch.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('limitless/js/plugins/editors/ace/ace.js') }}"></script>
+<script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/plugins/forms/selects/bootstrap_multiselect.js') }}"></script>
+<script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/plugins/forms/inputs/touchspin.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/plugins/forms/selects/select2.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/plugins/forms/styling/switch.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/plugins/editors/ace/ace.js') }}"></script>
 <script type="text/javascript" src="{{ asset('ckeditor/ckeditor.js') }}"></script>
 <script>
 </script>
 @endsection
 
 @section('pageheader')
-<div class="page-header-content">
-    <div class="page-title">
-        <h4><i class="icon-arrow-left52 position-left"></i> <span class="text-semibold">Edit {{ ucfirst($content->type) }} Detail</span></h4>
+<div class="page-header-content header-elements-inline">
+    <div class="page-title d-flex">
+        <h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Edit {{ ucfirst($content->type) }} Detail</span></h4>
     </div>
 
-    <div class="heading-elements">
+    <div class="header-elements">
     </div>
 </div>
 
 <div class="breadcrumb-line">
-    <ul class="breadcrumb">
-        <li><a href="index.html"><i class="icon-home2 position-left"></i> Home</a></li>
-        <li><a href="{{ route('admin.contents.index', ['type' => $content->type]) }}">{{ ucfirst($content->type) }}s</a></li>
-        <li><a href="{{ route('admin.contents.show', ['id' => $content->id]) }}">Detail</a></li>
-        <li class="active">Edit</li>
-    </ul>
+    <div class="d-flex">
+        <div class="breadcrumb">
+            <a class="breadcrumb-item" href="index.html"><i class="icon-home2 mr-2"></i> Home</a>
+            <a class="breadcrumb-item" href="{{ route('admin.contents.index', ['type' => $content->type]) }}">{{ ucfirst($content->type) }}s</a>
+            <a class="breadcrumb-item" href="{{ route('admin.contents.show', ['id' => $content->id]) }}">Detail</a>
+            <span class="active">Edit</span>
+        </div>
+    </div>
 
-    <ul class="breadcrumb-elements">
-        <li><a href="#"><i class="icon-comment-discussion position-left"></i> Link</a></li>
-        <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                <i class="icon-gear position-left"></i>
-                Dropdown
-                <span class="caret"></span>
-            </a>
-
-            <ul class="dropdown-menu dropdown-menu-right">
-                <li><a href="#"><i class="icon-user-lock"></i> Account security</a></li>
-                <li><a href="#"><i class="icon-statistics"></i> Analytics</a></li>
-                <li><a href="#"><i class="icon-accessibility"></i> Accessibility</a></li>
-                <li class="divider"></li>
-                <li><a href="#"><i class="icon-gear"></i> All settings</a></li>
-            </ul>
-        </li>
-    </ul>
+    <div class="header-elements d-none">
+        <div class="breadcrumb justify-content-center">
+            <a href="#" class="breadcrumb-elements-item"><i class="icon-comment-discussion mr-2"></i>Link</a>
+            <div class="breadcrumb-elements-item dropdown p-0">
+                <a href="#" class="breadcrumb-elements-item dropdown-toggle" data-toggle="dropdown" aria-expanded="true"><i class="icon-gear mr-2"></i>Dropdown</a>
+                <div class="dropdown-menu dropdown-menu-right" x-placement="bottom-end" 
+                    style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(-84px, 40px, 0px);">
+                    <a href="#" class="dropdown-item"><i class="icon-user-lock"></i> Account security</a>
+                    <a href="#" class="dropdown-item"><i class="icon-statistics"></i> Analytics</a>
+                    <a href="#" class="dropdown-item"><i class="icon-accessibility"></i> Accessibility</a>
+                    <div class="dropdown-divider"></div>
+                    <a href="#" class="dropdown-item"><i class="icon-gear"></i> All settings</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <!-- /page header -->
 @endsection
@@ -57,8 +57,8 @@
 <div class="row">
     <div class="col-sm-7">
 
-        <div class="panel panel-flat">
-            <div class="panel-body">
+        <div class="card">
+            <div class="card-body">
                 <form class="form-horizontal form-validate-jquery" action="{{ route('admin.contents.update', ['id' => $content->id]) }}" method="POST">
                     @method('PUT')
                     @csrf
@@ -77,7 +77,7 @@
                         @endforeach
                     @endif
                     <div class="form-group">
-                        <label class="control-label col-lg-2">Title <span class="text-danger">*</span></label>
+                        <label class="col-form-label col-lg-2">Title <span class="text-danger">*</span></label>
                         <div class="col-lg-8">
                             <input id="title" type="text" class="form-control" name="title" placeholder="Enter content title..." value="{{$content->title}}" required="required" aria-required="true" invalid="true">
                         </div>
@@ -86,13 +86,13 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-lg-2">Slug <span class="text-danger">*</span></label>
+                        <label class="col-form-label col-lg-2">Slug <span class="text-danger">*</span></label>
                         <div class="col-lg-10">
                             <input id="slug" type="text" class="form-control" name="slug" placeholder="Enter content slug..." value="{{$content->slug}}" required="required" aria-required="true" invalid="true">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-lg-2">Type <span class="text-danger">*</span></label>
+                        <label class="col-form-label col-lg-2">Type <span class="text-danger">*</span></label>
                         <div class="col-lg-10">
                             <select id="type" name="type" required="required" class="form-control">
                                 @foreach(App\Content::TYPE_ARRAY as $value)
@@ -103,7 +103,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="control-label col-lg-2">Status <span class="text-danger">*</span></label>
+                        <label class="col-form-label col-lg-2">Status <span class="text-danger">*</span></label>
                         <div class="col-lg-10">
                             <select id="status" name="status" required="required" class="form-control">
                                 @foreach(App\Content::STATUS_ARRAY as $value)
@@ -114,7 +114,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="control-label col-lg-2">Visibility <span class="text-danger">*</span></label>
+                        <label class="col-form-label col-lg-2">Visibility <span class="text-danger">*</span></label>
                         <div class="col-lg-10">
                             <select id="visibility" name="visibility" required="required" class="form-control">
                                 @foreach(App\Content::VISIBILITY_ARRAY as $value)
@@ -125,7 +125,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="control-label col-lg-2">Author ID</label>
+                        <label class="col-form-label col-lg-2">Author ID</label>
                         <div class="col-lg-10">
                             <select name="author_id" type="text" id="author_id" class="form-control">
                                 @foreach($users as $user)
@@ -136,7 +136,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="control-label col-lg-2">Category</label>
+                        <label class="col-form-label col-lg-2">Category</label>
                         <div class="col-lg-10">
                             <select name="category" type="text" class="form-control">
                                 @foreach(App\TermTaxonomy::where('taxonomy', 'category')->get() as $taxonomy)
@@ -147,7 +147,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="control-label col-lg-2">Tags</label>
+                        <label class="col-form-label col-lg-2">Tags</label>
                         <div class="col-lg-10">
                             <select name="tags[]" id="tags" data-placeholder="Select Tags..." multiple="multiple" class="select">
                                 @foreach(App\TermTaxonomy::where('taxonomy', 'tag')->get() as $tag)
@@ -169,7 +169,7 @@
             </div>
         </div>
 
-        <div class="panel panel-flat">
+        <div class="card">
             @if (session('status'))
                 <div id="timer" class="alert alert-success">
                     {{ session('status') }}
@@ -179,23 +179,21 @@
             <form action="route('admin.contents.revisions.update')">
                 @method('PUT')
                 @csrf
-                <div class="panel-heading">
-                    <h5 class="panel-title">
+                <div class="card-header">
+                    <h5 class="card-title">
                         <span class="text-semibold">Edit content</span>
                     </h5>
-                    <div class="heading-elements">
-                        <ul class="icons-list">
-                            <li><button type="button" id="save-page" data-target="{{ $revision_path }}" data-loading-text="<i class='icon-spinner4 spinner position-left'></i> Saving" class="btn btn-primary btn-sm btn-loading">Update</button></li>
-                        </ul>
+                    <div class="header-elements">
+                        <button type="button" id="save-page" data-target="{{ $revision_path }}" data-loading-text="<i class='icon-spinner4 spinner position-left'></i> Saving" class="btn btn-primary btn-sm btn-loading">Update</button>
                     </div>
                 </div>
 
                 @if($content->type=='page')
-                <div class="panel-body">
+                <div class="card-body">
                     <div id="php_editor">{{ get_blade_section(base_path($revision_path), 'content') }}</div>
                 </div>
                 @elseif($content->type=='post')
-                <div class="panel-body">
+                <div class="card-body">
                     <div class="content-group">
                         <textarea name="editor-full" id="editor1" rows="4" cols="4">
                         {{ file_get_contents(base_path($revision_path)) }}
@@ -210,7 +208,7 @@
         <div class="text-right" style="padding-bottom: 5px">
             <a href="{{ route('admin.contents.metas.create', ['id' => $content->id]) }}" class="btn btn-primary">Create Content Metas</a>
         </div>
-        <div class="panel panel-flat">
+        <div class="card">
             <div class="table-responsive">
                 <table class="table">
                     <thead>

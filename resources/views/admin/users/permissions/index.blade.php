@@ -2,17 +2,17 @@
 
 @section('load')
 <!-- Theme JS files -->
-<script type="text/javascript" src="{{ asset('limitless/js/plugins/tables/datatables/datatables.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('limitless/js/pages/datatables_basic.js') }}"></script>
+<script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/plugins/tables/datatables/datatables.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/demo_pages/datatables_basic.js') }}"></script>
 @endsection
 
 @section('pageheader')
-<div class="page-header-content">
-    <div class="page-title">
-        <h4><i class="icon-arrow-left52 position-left"></i> <span class="text-semibold">User Details</span></h4>
+<div class="page-header-content header-elements-inline">
+    <div class="page-title d-flex">
+        <h4><i class="icon-arrow-left52 mr-2"></i> <span class="text-semibold">User Details</span></h4>
     </div>
 
-    <div class="heading-elements">
+    <div class="header-elements">
         <div class="heading-btn-group">
             <a href="#" class="btn btn-link btn-float has-text"><i class="icon-bars-alt text-primary"></i><span>Statistics</span></a>
             <a href="#" class="btn btn-link btn-float has-text"><i class="icon-calculator text-primary"></i> <span>Invoices</span></a>
@@ -21,31 +21,31 @@
     </div>
 </div>
 
-<div class="breadcrumb-line">
-    <ul class="breadcrumb">
-        <li><a href="/"><i class="icon-home2 position-left"></i> Home</a></li>
-        <li><a href="{{ route('admin.users.index') }}">Users</a></li>
-        <li class="active">Detail</li>
-    </ul>
+<div class="breadcrumb-line breadcrumb-line-light header-elements-md-inline">
+    <div class="d-flex">
+        <div class="breadcrumb">
+            <a href="{{ route('admin.menus.index') }}" class="breadcrumb-item"><i class="icon-home2 mr-2"></i> Home</a></li>
+            <a href="{{ route('admin.users.index') }}" class="breadcrumb-item">Users</a>
+            <span class="breadcrumb-item active">Detail</span>
+        </div>
+    </div>
 
-    <ul class="breadcrumb-elements">
-        <li><a href="#"><i class="icon-comment-discussion position-left"></i> Link</a></li>
-        <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                <i class="icon-gear position-left"></i>
-                Dropdown
-                <span class="caret"></span>
-            </a>
-
-            <ul class="dropdown-menu dropdown-menu-right">
-                <li><a href="#"><i class="icon-user-lock"></i> Account security</a></li>
-                <li><a href="#"><i class="icon-statistics"></i> Analytics</a></li>
-                <li><a href="#"><i class="icon-accessibility"></i> Accessibility</a></li>
-                <li class="divider"></li>
-                <li><a href="#"><i class="icon-gear"></i> All Settings</a></li>
-            </ul>
-        </li>
-    </ul>
+    <div class="header-elements d-none">
+        <div class="breadcrumb justify-content-center">
+            <a href="#" class="breadcrumb-elements-item"><i class="icon-comment-discussion mr-2"></i>Link</a>
+            <div class="breadcrumb-elements-item dropdown p-0">
+                <a href="#" class="breadcrumb-elements-item dropdown-toggle" data-toggle="dropdown" aria-expanded="true"><i class="icon-gear mr-2"></i>Dropdown</a>
+                <div class="dropdown-menu dropdown-menu-right" x-placement="bottom-end" 
+                    style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(-84px, 40px, 0px);">
+                    <a href="#" class="dropdown-item"><i class="icon-user-lock"></i> Account security</a>
+                    <a href="#" class="dropdown-item"><i class="icon-statistics"></i> Analytics</a>
+                    <a href="#" class="dropdown-item"><i class="icon-accessibility"></i> Accessibility</a>
+                    <div class="dropdown-divider"></div>
+                    <a href="#" class="dropdown-item"><i class="icon-gear"></i> All settings</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 @endsection
 
@@ -60,15 +60,11 @@
             <!-- Tab content -->
             <div class="tab-content">
                 <div class="tab-pane fade in active" id="permissions">
-                    <div class="panel panel-flat">
-                        <div class="panel-heading">
-                            <h6 class="panel-title">User Permissions</h6>
-                            <div class="heading-elements">
-                                <ul class="icons-list">
-                                    <li>
-                                        <a href="{{ route('admin.users.permissions.create', ['id' => $user->id]) }}" class="text-white btn btn-primary">New Permission <i class="icon-add position-right"></i></a>
-                                    </li>
-                                </ul>
+                    <div class="card">
+                        <div class="card-header header-elements-inline">
+                            <h6 class="card-title">User Permissions</h6>
+                            <div class="header-elements">
+                                <a href="{{ route('admin.users.permissions.create', ['id' => $user->id]) }}" class="text-white btn btn-primary">New Permission <i class="icon-add position-right"></i></a>
                             </div>
                         </div>
 
@@ -91,18 +87,13 @@
                                     <td>{{ $permission->description }}</td>
                                     <!---->
                                     <td class="text-center">
-                                        <ul class="icons-list">
-                                            <li class="dropdown">
-                                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                                    <i class="icon-menu9"></i>
-                                                </a>
-
-                                                <ul class="dropdown-menu dropdown-menu-right">
-                                                    <li><a href="{{ route('admin.users.permissions.edit', ['user' => $user->id, 'permission' => $permission->id]) }}"><i class="icon-pencil"></i> Edit</a></li>
-                                                    <li><a href="#" data-toggle="modal" data-target="#modal_theme_danger" onclick="choose_permission({{ $permission->id }})"><i class="icon-trash"></i> Delete</a></li>
-                                                </ul>
-                                            </li>
-                                        </ul>
+                                        <a href="#" data-toggle="dropdown">
+                                            <i class="icon-menu9 text-secondary"></i>
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-right">
+                                            <a class="dropdown-item" href="{{ route('admin.users.permissions.edit', ['user' => $user->id, 'permission' => $permission->id]) }}"><i class="icon-pencil"></i> Edit</a>
+                                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modal_theme_danger" onclick="choose_permission({{ $permission->id }})"><i class="icon-trash"></i> Delete</a>
+                                        </div>
                                     </td>
                                 </tr>
                                 @endforeach
@@ -110,24 +101,24 @@
                         </table>
                     </div>
 
-					<div class="panel panel-flat">
-						<div class="panel-heading">
-							<h5 class="panel-title">Add permission</h5>
-							<div class="heading-elements">
-								<ul class="icons-list">
-			                		<li><a data-action="collapse"></a></li>
-			                		<li><a data-action="reload"></a></li>
-			                		<li><a data-action="close"></a></li>
-			                	</ul>
+					<div class="card">
+						<div class="card-header header-elements-inline">
+							<h5 class="card-title">Add permission</h5>
+							<div class="header-elements">
+								<div class="list-icons">
+			                		<a class="list-icons-item" data-action="collapse"></a></li>
+			                		<a class="list-icons-item" data-action="reload"></a></li>
+			                		<a class="list-icons-item" data-action="remove"></a></li>
+			                	</div>
 		                	</div>
 						</div>
 
-						<div class="panel-body">
+						<div class="card-body">
                             <form method="post" class="form-horizontal form-validate-jquery" action="{{ route('admin.users.permissions.store', ['user' => $user->id]) }}">
                                 {{ csrf_field() }}
 
-                                <div class="form-group">
-                                    <label class="control-label col-lg-2">Permission</label>
+                                <div class="form-group row">
+                                    <label class="col-form-label col-lg-2">Permission</label>
                                     <div class="col-lg-10">
                                         <select name="permission" type="text" class="form-control">
                                             @foreach($permissions as $permission)
