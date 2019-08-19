@@ -318,8 +318,8 @@
                         <label for="manufacturer1" class="control-label col-lg-2">Manufacturer <span class="text-danger">*</span></label>
                         <div class="col-lg-4">
                             <select id="manufacturer1" name="manufacturer1" required="required" class="form-control text-capitalize">
-                                @foreach(App\Content::VISIBILITY_ARRAY as $value)
-                                    <option value="{{ $value }}">{{ $value }}</option>
+                                @foreach(App\TermTaxonomy::where('taxonomy', 'manufacturer')->get() as $value)
+                                    <option value="{{ $value->term->name }}">{{ $value->term->name }}</option>
                                 @endforeach
                             </select>
                         </div>
