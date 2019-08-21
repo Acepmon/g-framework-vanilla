@@ -12,7 +12,7 @@
 @section('pageheader')
 <div class="page-header-content">
     <div class="page-title">
-        <h4><i class="icon-arrow-left52 position-left"></i> <span class="text-semibold">Create {{ ucfirst(Request::get('type')) }}</h4>
+        <h4><i class="icon-arrow-left52 position-left"></i> <span class="text-semibold">Create Car</h4>
     </div>
 
     <div class="heading-elements">
@@ -22,7 +22,7 @@
 <div class="breadcrumb-line">
     <ul class="breadcrumb">
         <li><a href="index.html"><i class="icon-home2 position-left"></i> Home</a></li>
-        <li><a href="{{ route('admin.contents.index', ['type' => Request::get('type')]) }}">{{ ucfirst(Request::get('type')) }}s</a></li>
+        <li><a href="{{ route('admin.contents.index', ['type' => 'car']) }}">Cars</a></li>
         <li class="active">Create</li>
     </ul>
 
@@ -91,16 +91,7 @@
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <label for="type" class="control-label col-lg-2">Type <span class="text-danger">*</span></label>
-                        <div class="col-lg-10">
-                            <select id="type" name="type" required="required" class="form-control text-capitalize">
-                                @foreach(App\Content::TYPE_ARRAY as $value)
-                                <option value="{{ $value }}" {{ ($value === Request::get('type'))?'selected':'' }} >{{ $value }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
+                    <input type="hidden" name="type" value="car"/>
 
                     <div class="form-group">
                         <label for="status" class="control-label col-lg-2">Status <span class="text-danger">*</span></label>
@@ -176,7 +167,7 @@
                     <div class="form-group">
                         <label for="title" class="control-label col-lg-2">Title <span class="text-danger">*</span></label>
                         <div class="col-lg-10">
-                            <input id="title" type="text" class="form-control" name="title" placeholder="Enter car title..." required="required" aria-required="true" invalid="true">
+                            <input id="car-title" type="text" class="form-control" name="car-title" placeholder="Enter car title..." required="required" aria-required="true" invalid="true">
                         </div>
                     </div>
 
@@ -358,32 +349,6 @@
                     {{--</div>--}}
 
                     {{--car section end--}}
-                    <div id="theme_options" style="display: {{Request::get('type') == 'page' ? 'block' : 'none'}}">
-
-                        <hr>
-
-                        <h5>Theme Options</h5>
-
-                        <div class="form-group">
-                            <label for="theme" class="control-label col-lg-2">Theme</label>
-                            <div class="col-lg-10">
-                                <select name="theme" id="theme" class="form-control">
-                                    <option value="0">Default</option>
-                                    @foreach ($themes as $theme)
-                                        <option value="{{ $theme->id }}">{{ $theme->title }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="layout" class="control-label col-lg-2">Theme Layout</label>
-                            <div class="col-lg-10">
-                                <select name="layout" id="layout" class="form-control"></select>
-                            </div>
-                        </div>
-
-                    </div>
 
                     <div class="text-right">
                         <a href="javascript:history.back()" class="btn btn-default">Back</a>

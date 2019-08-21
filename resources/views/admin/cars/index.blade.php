@@ -6,18 +6,18 @@
 @section('pageheader')
 <div class="page-header-content">
     <div class="page-title">
-        <h4><i class="icon-arrow-left52 position-left"></i> <span class="text-semibold">{{ ucfirst(Request::get('type')) }}s</span></h4>
+        <h4><i class="icon-arrow-left52 position-left"></i> <span class="text-semibold">Cars</span></h4>
     </div>
 
     <div class="heading-elements">
-        <a href="{{ route('admin.cars.create', ['type' => Request::get('type')]) }}" class="btn btn-primary">Create New {{ ucfirst(Request::get('type')) }}</a>
+        <a href="{{ route('admin.cars.create', ['type' => Request::get('type')]) }}" class="btn btn-primary">Create New Car</a>
     </div>
 </div>
 
 <div class="breadcrumb-line">
     <ul class="breadcrumb">
         <li><a href="index.html"><i class="icon-home2 position-left"></i> Home</a></li>
-        <li class="active">{{ ucfirst(Request::get('type')) }}s</li>
+        <li class="active">Cars</li>
     </ul>
 
     <ul class="breadcrumb-elements">
