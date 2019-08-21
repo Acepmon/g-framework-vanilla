@@ -59,7 +59,24 @@ class CarController extends Controller
             'content' => 'nullable',
             'status' => 'required|max:50',
             'visibility' => 'required|max:50',
-            'author_id' => 'required|integer|exists:users,id'
+            'author_id' => 'required|integer|exists:users,id',
+            'carTitle' => 'required|max:255',
+            'manufacturer' => 'required|max:255',
+            'carCondition' => 'required|max:255',
+            'model' => 'required|max:255',
+            'color' => 'required|max:255',
+            'displacement' => 'required|max:255',
+            'vin' => 'required|max:255',
+            'yearOfProduct' => 'required|max:255',
+            'yearOfEntry' => 'required|max:255',
+            'lastCheck' => 'required|max:255',
+            'transmission' => 'required|max:255',
+            'steeringWheel' => 'required|max:255',
+            'seating' => 'required|max:255',
+            'typeOfFuel' => 'required|max:255',
+            'wheelDrive' => 'required|max:255',
+            'millage' => 'required|max:255',
+            'sellerDescription' => 'required|max:255',
         ]);
 
         try {
@@ -74,29 +91,33 @@ class CarController extends Controller
             $content->author_id = $request->author_id;
             $content->save();
 
-            $content->terms()->sync($request->input('tags'));
-            $content->terms()->attach($request->input('category'));
-
             $value = new \stdClass;
             $value->datetime = time();
-            $value->filename_changed = true;
-            $value->before = $content;
-            $value->after = $content;
             $value->user = Auth::user();
+            $value->carTitle = $request->carTitle;
+            $value->manufacturer = $request->manufacturer;
+            $value->carCondition = $request->carCondition;
+            $value->model = $request->model;
+            $value->color = $request->color;
+            $value->displacement = $request->displacement;
+            $value->vin = $request->vin;
+            $value->yearOfProduct = $request->yearOfProduct;
+            $value->yearOfEntry = $request->yearOfEntry;
+            $value->lastCheck = $request->lastCheck;
+            $value->transmission = $request->transmission;
+            $value->steeringWheel = $request->steeringWheel;
+            $value->seating = $request->seating;
+            $value->typeOfFuel = $request->typeOfFuel;
+            $value->wheelDrive = $request->wheelDrive;
+            $value->millage = $request->millage;
+            $value->advantages = $request->advantages;
+            $value->sellerDescription = $request->sellerDescription;
 
             $content_meta = new ContentMeta();
             $content_meta->content_id = $content->id;
             $content_meta->key = 'car';
             $content_meta->value = json_encode($value);
             $content_meta->save();
-
-            $time = time();
-            $viewPath = Config::where('key', 'content.'.$content->type.'s.viewPath')->first()->value;
-            $name = $viewPath . '.' . $content->slug . Content::NAMING_CONVENTION . $content->status . Content::NAMING_CONVENTION . $time;
-            $extension =  'blade.php';
-
-            $extends = $request->layout;
-            $this->create_view($content->type, $name, $extension, $extends);
 
             DB::commit();
             return redirect()->route('admin.cars.index', ['type' => $content->type]);

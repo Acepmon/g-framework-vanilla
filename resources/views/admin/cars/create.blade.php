@@ -22,7 +22,7 @@
 <div class="breadcrumb-line">
     <ul class="breadcrumb">
         <li><a href="index.html"><i class="icon-home2 position-left"></i> Home</a></li>
-        <li><a href="{{ route('admin.contents.index', ['type' => 'car']) }}">Cars</a></li>
+        <li><a href="{{ route('admin.cars.index', ['type' => 'car']) }}">Cars</a></li>
         <li class="active">Create</li>
     </ul>
 
@@ -57,7 +57,7 @@
         <!-- Horizontal form -->
         <div class="panel panel-flat">
             <div class="panel-body">
-                <form class="form-horizontal" action="{{ route('admin.contents.store') }}" method="POST">
+                <form class="form-horizontal" action="{{ route('admin.cars.store') }}" method="POST">
                     @csrf
 
                     @if(Session::has('error'))
@@ -167,7 +167,7 @@
                     <div class="form-group">
                         <label for="title" class="control-label col-lg-2">Title <span class="text-danger">*</span></label>
                         <div class="col-lg-10">
-                            <input id="car-title" type="text" class="form-control" name="car-title" placeholder="Enter car title..." required="required" aria-required="true" invalid="true">
+                            <input id="carTitle" type="text" class="form-control" name="carTitle" placeholder="Enter car title..." required="required" aria-required="true" invalid="true">
                         </div>
                     </div>
 
@@ -182,7 +182,7 @@
                         </div>
                         <label for="carCondition" class="control-label col-lg-2">Car condition <span class="text-danger">*</span></label>
                         <div class="col-lg-4">
-                            <select id="carCondition" name="car-condition" required="required" class="form-control text-capitalize">
+                            <select id="carCondition" name="carCondition" required="required" class="form-control text-capitalize">
                                 @foreach(App\TermTaxonomy::where('taxonomy', 'car-condition')->get() as $value)
                                     <option value="{{ $value->term->name }}">{{ $value->term->name }}</option>
                                 @endforeach
@@ -213,9 +213,12 @@
                     <div class="form-group">
                         <label for="displacement" class="control-label col-lg-2">Displacement /km/ <span class="text-danger">*</span></label>
                         <div class="col-lg-4">
-                            <input id="displacement" type="number" class="form-control" name="model" placeholder="Enter displacement length..." required="required" aria-required="true" invalid="true">
+                            <div class="input-group">
+                                <input id="displacement" type="number" class="form-control" name="displacement" placeholder="Enter displacement length..." required="required" aria-required="true" invalid="true">
+                                <span class="input-group-addon">km</span>
+                            </div>
                         </div>
-                        <label for="vin" class="control-label col-lg-2">Vin <span class="text-danger">*</span></label>
+                        <label for="vin" class="control-label col-lg-2">VIN <span class="text-danger">*</span></label>
                         <div class="col-lg-4">
                             <input id="vin" type="text" class="form-control" name="vin" placeholder="Enter car vin..." required="required" aria-required="true" invalid="true">
                         </div>
@@ -224,17 +227,17 @@
                     <div class="form-group">
                         <label for="yearOfProduct" class="control-label col-lg-2">Year of product <span class="text-danger">*</span></label>
                         <div class="col-lg-4">
-                            <input id="yearOfProduct" type="number" class="form-control" name="yearOfProduct" placeholder="Enter year of product..." required="required" aria-required="true" invalid="true">
+                            <input id="yearOfProduct" type="number" min="1769" max="2019" value="2019" class="form-control" name="yearOfProduct" placeholder="Enter year of product..." required="required" aria-required="true" invalid="true">
                         </div>
                         <label for="yearOfEntry" class="control-label col-lg-2">Year of entry <span class="text-danger">*</span></label>
                         <div class="col-lg-4">
-                            <input id="yearOfEntry" type="text" class="form-control" name="yearOfEntry" placeholder="Enter car vin..." required="required" aria-required="true" invalid="true">
+                            <input id="yearOfEntry" type="number" min="1769" max="2019" value="2019" class="form-control" name="yearOfEntry" placeholder="Enter year of entry..." required="required" aria-required="true" invalid="true">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="lastCheck" class="control-label col-lg-2">Last check <span class="text-danger">*</span></label>
                         <div class="col-lg-4">
-                            <input id="lastCheck" type="number" class="form-control" name="lastCheck" placeholder="Enter last check date..." required="required" aria-required="true" invalid="true">
+                            <input id="lastCheck" type="month" class="form-control" name="lastCheck" placeholder="Enter last check date..." required="required" aria-required="true" invalid="true">
                         </div>
                     </div>
 
@@ -262,8 +265,8 @@
                     <div class="form-group">
                         <label for="steeringWheel" class="control-label col-lg-2">Steering wheel <span class="text-danger">*</span></label>
                         <div class="col-lg-4">
-                            <select id="steeringWheel" name="wheel-drive" required="required" class="form-control text-capitalize">
-                                @foreach(App\TermTaxonomy::where('taxonomy', 'wheel-drive')->get() as $value)
+                            <select id="steeringWheel" name="steeringWheel" required="required" class="form-control text-capitalize">
+                                @foreach(App\TermTaxonomy::where('taxonomy', 'steering-wheel')->get() as $value)
                                     <option value="{{ $value->term->name }}">{{ $value->term->name }}</option>
                                 @endforeach
                             </select>
@@ -281,7 +284,7 @@
                     <div class="form-group">
                         <label for="typeOfFuel" class="control-label col-lg-2">Type of fuel <span class="text-danger">*</span></label>
                         <div class="col-lg-4">
-                            <select id="typeOfFuel" name="type-of-fuel" required="required" class="form-control text-capitalize">
+                            <select id="typeOfFuel" name="typeOfFuel" required="required" class="form-control text-capitalize">
                                 @foreach(App\TermTaxonomy::where('taxonomy', 'type-of-fuel')->get() as $value)
                                     <option value="{{ $value->term->name }}">{{ $value->term->name }}</option>
                                 @endforeach
@@ -289,7 +292,7 @@
                         </div>
                         <label for="wheelDrive" class="control-label col-lg-2">Wheel drive <span class="text-danger">*</span></label>
                         <div class="col-lg-4">
-                            <select id="wheelDrive" name="wheel-drive" required="required" class="form-control text-capitalize">
+                            <select id="wheelDrive" name="wheelDrive" required="required" class="form-control text-capitalize">
                                 @foreach(App\TermTaxonomy::where('taxonomy', 'wheel-drive')->get() as $value)
                                     <option value="{{ $value->term->name }}">{{ $value->term->name }}</option>
                                 @endforeach
@@ -300,7 +303,10 @@
                     <div class="form-group">
                         <label for="millage" class="control-label col-lg-2">Millage <span class="text-danger">*</span></label>
                         <div class="col-lg-4">
-                                <input id="lastCheck" type="number" class="form-control" name="lastCheck" placeholder="Enter millage..." required="required" aria-required="true" invalid="true">
+                            <div class="input-group">
+                                <input id="lastCheck" type="number" class="form-control" name="millage" placeholder="Enter millage..." required="required" aria-required="true" invalid="true" class="touchspin-postfix">
+                                <span class="input-group-addon">km</span>
+                            </div>
                         </div>
                         <label for="manufacturer1" class="control-label col-lg-2">Manufacturer <span class="text-danger">*</span></label>
                         <div class="col-lg-4">
@@ -313,7 +319,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="tags" class="control-label col-lg-2">Advantages</label>
+                        <label for="advantages" class="control-label col-lg-2">Advantages</label>
                         <div class="col-lg-10">
                             <select name="advantages[]" id="advantages" data-placeholder="Select advantages..." multiple="multiple" class="select">
                                 @foreach(App\TermTaxonomy::where('taxonomy', 'advantages')->get() as $advantages)
@@ -323,7 +329,7 @@
                                             @php $selected = ($selected || $advantages_id == $advantages->id) @endphp
                                         @endforeach
                                     @endif
-                                    <option value="{{ $advantages->id }}" {{ $selected?'selected':'' }}>{{ $advantages->term->name }}</option>
+                                    <option value="{{ $advantages->term->name }}" {{ $selected?'selected':'' }}>{{ $advantages->term->name }}</option>
                                 @endforeach
                             </select>
                         </div>

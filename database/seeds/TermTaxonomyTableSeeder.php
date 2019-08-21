@@ -247,23 +247,33 @@ class TermTaxonomyTableSeeder extends Seeder
             'count' => 0
         ]);
         $term_id = DB::table('terms')->insertGetId([
-            'name' => 'Car Condition',
-            'slug' => 'car-condition',
+            'name' => 'New',
+            'slug' => 'new',
         ]);
         DB::table('term_taxonomy')->insert([
             'term_id' => $term_id,
             'taxonomy' => 'car-condition',
-            'description' => 'car condition',
+            'description' => 'car condition: new',
             'count' => 0
         ]);
         $term_id = DB::table('terms')->insertGetId([
-            'name' => 'Color',
-            'slug' => 'color',
+            'name' => 'Used',
+            'slug' => 'used',
+        ]);
+        DB::table('term_taxonomy')->insert([
+            'term_id' => $term_id,
+            'taxonomy' => 'car-condition',
+            'description' => 'car condition: used',
+            'count' => 0
+        ]);
+        $term_id = DB::table('terms')->insertGetId([
+            'name' => 'Black',
+            'slug' => 'black',
         ]);
         DB::table('term_taxonomy')->insert([
             'term_id' => $term_id,
             'taxonomy' => 'color',
-            'description' => 'color',
+            'description' => 'black',
             'count' => 0
         ]);
         $term_id = DB::table('terms')->insertGetId([
