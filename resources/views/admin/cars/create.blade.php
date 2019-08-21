@@ -175,16 +175,16 @@
                         <label for="manufacturer" class="control-label col-lg-2">Manufacturer <span class="text-danger">*</span></label>
                         <div class="col-lg-4">
                             <select id="manufacturer" name="manufacturer" required="required" class="form-control text-capitalize">
-                                @foreach(App\Content::VISIBILITY_ARRAY as $value)
-                                    <option value="{{ $value }}">{{ $value }}</option>
+                                @foreach(App\TermTaxonomy::where('taxonomy', 'manufacturer')->get() as $value)
+                                    <option value="{{ $value->term->name }}">{{ $value->term->name }}</option>
                                 @endforeach
                             </select>
                         </div>
                         <label for="carCondition" class="control-label col-lg-2">Car condition <span class="text-danger">*</span></label>
                         <div class="col-lg-4">
-                            <select id="carCondition" name="carCondition" required="required" class="form-control text-capitalize">
-                                @foreach(App\Content::VISIBILITY_ARRAY as $value)
-                                    <option value="{{ $value }}">{{ $value }}</option>
+                            <select id="carCondition" name="car-condition" required="required" class="form-control text-capitalize">
+                                @foreach(App\TermTaxonomy::where('taxonomy', 'car-condition')->get() as $value)
+                                    <option value="{{ $value->term->name }}">{{ $value->term->name }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -203,8 +203,8 @@
                         <label for="color" class="control-label col-lg-2">Color <span class="text-danger">*</span></label>
                         <div class="col-lg-4">
                             <select id="color" name="color" required="required" class="form-control text-capitalize">
-                                @foreach(App\Content::VISIBILITY_ARRAY as $value)
-                                    <option value="{{ $value }}">{{ $value }}</option>
+                                @foreach(App\TermTaxonomy::where('taxonomy', 'color')->get() as $value)
+                                    <option value="{{ $value->term->name }}">{{ $value->term->name }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -244,16 +244,16 @@
                         <label for="manufacturer" class="control-label col-lg-2">Manufacturer <span class="text-danger">*</span></label>
                         <div class="col-lg-4">
                             <select id="manufacturer" name="manufacturer" required="required" class="form-control text-capitalize">
-                                @foreach(App\Content::VISIBILITY_ARRAY as $value)
-                                    <option value="{{ $value }}">{{ $value }}</option>
+                                @foreach(App\TermTaxonomy::where('taxonomy', 'manufacturer')->get() as $value)
+                                    <option value="{{ $value->term->name }}">{{ $value->term->name }}</option>
                                 @endforeach
                             </select>
                         </div>
                         <label for="transmission" class="control-label col-lg-2">Transmission <span class="text-danger">*</span></label>
                         <div class="col-lg-4">
                             <select id="transmission" name="transmission" required="required" class="form-control text-capitalize">
-                                @foreach(App\Content::VISIBILITY_ARRAY as $value)
-                                    <option value="{{ $value }}">{{ $value }}</option>
+                                @foreach(App\TermTaxonomy::where('taxonomy', 'transmission')->get() as $value)
+                                    <option value="{{ $value->term->name }}">{{ $value->term->name }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -262,17 +262,17 @@
                     <div class="form-group">
                         <label for="steeringWheel" class="control-label col-lg-2">Steering wheel <span class="text-danger">*</span></label>
                         <div class="col-lg-4">
-                            <select id="steeringWheel" name="steeringWheel" required="required" class="form-control text-capitalize">
-                                @foreach(App\Content::VISIBILITY_ARRAY as $value)
-                                    <option value="{{ $value }}">{{ $value }}</option>
+                            <select id="steeringWheel" name="wheel-drive" required="required" class="form-control text-capitalize">
+                                @foreach(App\TermTaxonomy::where('taxonomy', 'wheel-drive')->get() as $value)
+                                    <option value="{{ $value->term->name }}">{{ $value->term->name }}</option>
                                 @endforeach
                             </select>
                         </div>
                         <label for="seating" class="control-label col-lg-2">Seating <span class="text-danger">*</span></label>
                         <div class="col-lg-4">
                             <select id="seating" name="seating" required="required" class="form-control text-capitalize">
-                                @foreach(App\Content::VISIBILITY_ARRAY as $value)
-                                    <option value="{{ $value }}">{{ $value }}</option>
+                                @foreach(App\TermTaxonomy::where('taxonomy', 'seating')->get() as $value)
+                                    <option value="{{ $value->term->name }}">{{ $value->term->name }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -281,17 +281,17 @@
                     <div class="form-group">
                         <label for="typeOfFuel" class="control-label col-lg-2">Type of fuel <span class="text-danger">*</span></label>
                         <div class="col-lg-4">
-                            <select id="typeOfFuel" name="typeOfFuel" required="required" class="form-control text-capitalize">
-                                @foreach(App\Content::VISIBILITY_ARRAY as $value)
-                                    <option value="{{ $value }}">{{ $value }}</option>
+                            <select id="typeOfFuel" name="type-of-fuel" required="required" class="form-control text-capitalize">
+                                @foreach(App\TermTaxonomy::where('taxonomy', 'type-of-fuel')->get() as $value)
+                                    <option value="{{ $value->term->name }}">{{ $value->term->name }}</option>
                                 @endforeach
                             </select>
                         </div>
                         <label for="wheelDrive" class="control-label col-lg-2">Wheel drive <span class="text-danger">*</span></label>
                         <div class="col-lg-4">
-                            <select id="wheelDrive" name="wheelDrive" required="required" class="form-control text-capitalize">
-                                @foreach(App\Content::VISIBILITY_ARRAY as $value)
-                                    <option value="{{ $value }}">{{ $value }}</option>
+                            <select id="wheelDrive" name="wheel-drive" required="required" class="form-control text-capitalize">
+                                @foreach(App\TermTaxonomy::where('taxonomy', 'wheel-drive')->get() as $value)
+                                    <option value="{{ $value->term->name }}">{{ $value->term->name }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -300,11 +300,7 @@
                     <div class="form-group">
                         <label for="millage" class="control-label col-lg-2">Millage <span class="text-danger">*</span></label>
                         <div class="col-lg-4">
-                            <select id="millage" name="millage" required="required" class="form-control text-capitalize">
-                                @foreach(App\Content::VISIBILITY_ARRAY as $value)
-                                    <option value="{{ $value }}">{{ $value }}</option>
-                                @endforeach
-                            </select>
+                                <input id="lastCheck" type="number" class="form-control" name="lastCheck" placeholder="Enter millage..." required="required" aria-required="true" invalid="true">
                         </div>
                         <label for="manufacturer1" class="control-label col-lg-2">Manufacturer <span class="text-danger">*</span></label>
                         <div class="col-lg-4">
@@ -319,15 +315,15 @@
                     <div class="form-group">
                         <label for="tags" class="control-label col-lg-2">Advantages</label>
                         <div class="col-lg-10">
-                            <select name="tags[]" id="tags" data-placeholder="Select advantages..." multiple="multiple" class="select">
-                                @foreach(App\TermTaxonomy::where('taxonomy', 'tag')->get() as $tag)
+                            <select name="advantages[]" id="advantages" data-placeholder="Select advantages..." multiple="multiple" class="select">
+                                @foreach(App\TermTaxonomy::where('taxonomy', 'advantages')->get() as $advantages)
                                     @php $selected = False @endphp
-                                    @if(Request::old('tags'))
-                                        @foreach(Request::old('tags') as $tag_id)
-                                            @php $selected = ($selected || $tag_id == $tag->id) @endphp
+                                    @if(Request::old('advantages'))
+                                        @foreach(Request::old('advantages') as $advantages_id)
+                                            @php $selected = ($selected || $advantages_id == $advantages->id) @endphp
                                         @endforeach
                                     @endif
-                                    <option value="{{ $tag->id }}" {{ $selected?'selected':'' }}>{{ $tag->term->name }}</option>
+                                    <option value="{{ $advantages->id }}" {{ $selected?'selected':'' }}>{{ $advantages->term->name }}</option>
                                 @endforeach
                             </select>
                         </div>
