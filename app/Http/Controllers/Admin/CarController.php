@@ -75,8 +75,8 @@ class CarController extends Controller
             'seating' => 'required|max:255',
             'typeOfFuel' => 'required|max:255',
             'wheelDrive' => 'required|max:255',
-            'millage' => 'required|max:255',
-            'sellerDescription' => 'required|max:255',
+            'mileage' => 'required|max:255',
+            'sellerDescription' => 'required|max:255'
         ]);
 
         try {
@@ -93,7 +93,7 @@ class CarController extends Controller
 
             $value = new \stdClass;
             $value->datetime = time();
-            $value->user = Auth::user();
+            $value->user = Auth::user()->id;
             $value->carTitle = $request->carTitle;
             $value->manufacturer = $request->manufacturer;
             $value->carCondition = $request->carCondition;
@@ -109,9 +109,11 @@ class CarController extends Controller
             $value->seating = $request->seating;
             $value->typeOfFuel = $request->typeOfFuel;
             $value->wheelDrive = $request->wheelDrive;
-            $value->millage = $request->millage;
+            $value->mileage = $request->mileage;
             $value->advantages = $request->advantages;
             $value->sellerDescription = $request->sellerDescription;
+            $value->medias = $this->uploadFiles($request->medias);
+            $value->youtubeLink = $request->youtubeLink;
 
             $content_meta = new ContentMeta();
             $content_meta->content_id = $content->id;
@@ -125,6 +127,17 @@ class CarController extends Controller
             DB::rollBack();
             return redirect()->route('admin.cars.create')->with('error', $e->getMessage());
         }
+    }
+
+    public function uploadFiles($files) {
+        $medias = [];
+        if ($files) {
+            foreach ($files as $file) {
+                $filename = $file->store('public/medias', 'ftp');
+                array_push($medias, $filename);
+            }
+        }
+        return $medias;
     }
 
     /**
@@ -240,7 +253,9 @@ class CarController extends Controller
      */
     public function destroy($id)
     {
-        $type = Content::findORFail($id)->type;
+        $content = Content::findORFail($id);
+        $type = $content->type;
+        $content->metas()->destroy();
         Content::destroy($id);
         return redirect()->route('admin.cars.index', ['type' => $type]);
     }

@@ -17,7 +17,7 @@
 <div class="breadcrumb-line">
     <ul class="breadcrumb">
         <li><a href="index.html"><i class="icon-home2 position-left"></i> Home</a></li>
-        <li><a href="{{ route('admin.contents.index', ['type' => $content->type]) }}">{{ ucfirst($content->type) }}s</a></li>
+        <li><a href="{{ route('admin.cars.index', ['type' => $content->type]) }}">{{ ucfirst($content->type) }}s</a></li>
         <li class="active">Detail</li>
     </ul>
 
@@ -123,6 +123,27 @@
                     <div class="text-right" style="padding-bottom: 5px">
                         <a href="{{ route('admin.contents.index', ['type' => $content->type]) }}" class="btn btn-default">Back</a>
                         <a href="{{ route('admin.contents.edit', ['id' => $content->id]) }}" class="btn btn-default">Edit</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel panel-flat" id="comments">
+                <div class="panel-heading">
+                    <h6 class="panel-title text-semiold">Medias</h6>
+                    <div class="heading-elements">
+                        <ul class="list-inline list-inline-separate heading-text text-muted">
+                            <li>{{ count($content->comments) }} comments</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="panel-body">
+                    <div class="row">
+                    @foreach($content->medias() as $media)
+                    <div class="col-lg-2 col-md-4 col-sm-6 px-0">
+                        <img src="{{ $media }}" class="img-thumbnail img-fluid full-width">
+                    </div>
+                    @endforeach()
                     </div>
                 </div>
             </div>

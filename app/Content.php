@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class Content extends Model
 {
@@ -49,6 +50,23 @@ class Content extends Model
     public function terms()
     {
         return $this->belongsToMany('App\TermTaxonomy', 'term_relationships');
+    }
+
+    public function medias()
+    {
+        if ($this->type != 'car') {
+            return null;
+        }
+        $medias = json_decode($this->metas[0]->value)->medias;
+        foreach($medias as &$media) {
+            $imagepath = $media;
+            if (!Storage::disk('local')->exists($imagepath)) {
+                $image = Storage::disk('ftp')->get($imagepath);
+                Storage::disk('local')->put($imagepath, $image);
+            }
+            $media = Storage::disk('local')->url($imagepath);
+        }
+        return $medias;
     }
 
     public function currentView()

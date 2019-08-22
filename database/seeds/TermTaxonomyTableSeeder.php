@@ -296,6 +296,36 @@ class TermTaxonomyTableSeeder extends Seeder
             'description' => 'year-of-entry',
             'count' => 0
         ]);
+        $term_id = DB::table('terms')->insertGetId([
+            'name' => 'Change',
+            'slug' => 'change',
+        ]);
+        DB::table('term_taxonomy')->insert([
+            'term_id' => $term_id,
+            'taxonomy' => 'price-type',
+            'description' => 'Change',
+            'count' => 0
+        ]);
+        $term_id = DB::table('terms')->insertGetId([
+            'name' => 'Negotiate',
+            'slug' => 'negotiate',
+        ]);
+        DB::table('term_taxonomy')->insert([
+            'term_id' => $term_id,
+            'taxonomy' => 'price-type',
+            'description' => 'Negotiate',
+            'count' => 0
+        ]);
+        $term_id = DB::table('terms')->insertGetId([
+            'name' => 'Loan',
+            'slug' => 'loan',
+        ]);
+        DB::table('term_taxonomy')->insert([
+            'term_id' => $term_id,
+            'taxonomy' => 'price-type',
+            'description' => 'Loan',
+            'count' => 0
+        ]);
 
         /* Car Terms Table END */
     }

@@ -57,7 +57,7 @@
         <!-- Horizontal form -->
         <div class="panel panel-flat">
             <div class="panel-body">
-                <form class="form-horizontal" action="{{ route('admin.cars.store') }}" method="POST">
+                <form class="form-horizontal" action="{{ route('admin.cars.store') }}" enctype="multipart/form-data" method="POST">
                     @csrf
 
                     @if(Session::has('error'))
@@ -301,10 +301,10 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="millage" class="control-label col-lg-2">Millage <span class="text-danger">*</span></label>
+                        <label for="mileage" class="control-label col-lg-2">Mileage <span class="text-danger">*</span></label>
                         <div class="col-lg-4">
                             <div class="input-group">
-                                <input id="lastCheck" type="number" class="form-control" name="millage" placeholder="Enter millage..." required="required" aria-required="true" invalid="true" class="touchspin-postfix">
+                                <input id="lastCheck" type="number" class="form-control" name="mileage" placeholder="Enter mileage..." required="required" aria-required="true" invalid="true" class="touchspin-postfix">
                                 <span class="input-group-addon">km</span>
                             </div>
                         </div>
@@ -342,6 +342,45 @@
                         </div>
                     </div>
 
+                    <h4 class="text-center">Car section /Media/</h4>
+
+                    <div class="form-group">
+                        <label for="price" class="control-label col-lg-2">Price <span class="text-danger">*</span></label>
+                        <div class="col-lg-4">
+                            <div class="input-group">
+                                <input id="lastCheck" type="number" min="0" value="0" class="form-control" name="price" placeholder="Enter price..." required="required" aria-required="true" invalid="true" class="touchspin-postfix">
+                                <span class="input-group-addon">₮</span>
+                            </div>
+                        </div>
+                        <label for="priceType" class="control-label col-lg-2">Price Type <span class="text-danger">*</span></label>
+                        <div class="col-lg-4">
+                            <select id="priceType" name="priceType" required="required" class="form-control text-capitalize">
+                                @foreach(App\TermTaxonomy::where('taxonomy', 'price-type')->get() as $value)
+                                    <option value="{{ $value->term->name }}">{{ $value->term->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="price" class="control-label col-lg-2">Images <span class="text-danger">*</span></label>
+                        <div class="col-lg-10">
+                            <input id="media" type="file" class="form-control file-styled" name="medias[]" invalid="true" onchange="previewMedia(this)" multiple>
+                        </div>
+                    </div>
+
+                    <div class="row" id="image-container">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="link" class="control-label col-lg-2">Youtube Link <span class="text-danger">*</span></label>
+                        <div class="col-lg-10">
+                            <input id="link" type="text" class="form-control file-styled" name="youtubeLink" onchange="embedLink(this)">
+                        </div>
+                    </div>
+
+                    <div class="row" id="video-container">
+                    </div>
 
                     {{--<div class="form-group">--}}
                         {{--<label for="slug" class="control-label col-lg-2">Slug <span class="text-danger">*</span></label>--}}
@@ -369,7 +408,7 @@
 @endsection
 
 @section('script')
-<script>
+<script type="text/javascript">
     $(document).ready(function(){
         var theme_layouts = [{
             "text": "default",
@@ -398,8 +437,33 @@
             });
         });
         $("#theme").prop('selectedIndex', 0).trigger('change');
+
     });
 
+    function previewMedia(input) {
+        $(input.files).each(function(index, value) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $("#image-container").append(' \
+                    <div class="col-lg-2 col-md-4 col-sm-6 px-0"> \
+                        <img src="'+e.target.result+'" class="img-thumbnail img-fluid full-width">\
+                    </div>');
+            };
+            reader.readAsDataURL(value);
+        });
+    }
+
+    function embedLink(input) {
+        var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+        var match = input.value.match(regExp);
+
+        if (match && match[2].length == 11) {
+            $("#video-container").empty().append(' \
+            <iframe width="560" height="315" src="//www.youtube.com/embed/' + match[2]
+            +'" frameborder="0" allowfullscreen></iframe>');
+        }
+    }
+    
     function create_slug() {
         var title = document.getElementById("title").value;
         title = title.toString().toLowerCase()

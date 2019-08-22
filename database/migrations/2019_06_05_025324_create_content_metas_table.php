@@ -19,7 +19,7 @@ class CreateContentMetasTable extends Migration
             $table->string('key', 100)->unique();
             $table->string('value', 255);
 
-            $table->foreign('content_id')->references('id')->on('contents');
+            $table->foreign('content_id')->references('id')->on('contents')->onDelete('cascade');
         });
     }
 
