@@ -304,7 +304,7 @@
                         <label for="mileage" class="control-label col-lg-2">Mileage <span class="text-danger">*</span></label>
                         <div class="col-lg-4">
                             <div class="input-group">
-                                <input id="lastCheck" type="number" class="form-control" name="mileage" placeholder="Enter mileage..." required="required" aria-required="true" invalid="true" class="touchspin-postfix">
+                                <input id="mileage" type="number" class="form-control" name="mileage" placeholder="Enter mileage..." required="required" aria-required="true" invalid="true" class="touchspin-postfix">
                                 <span class="input-group-addon">km</span>
                             </div>
                         </div>
@@ -348,7 +348,7 @@
                         <label for="price" class="control-label col-lg-2">Price <span class="text-danger">*</span></label>
                         <div class="col-lg-4">
                             <div class="input-group">
-                                <input id="lastCheck" type="number" min="0" value="0" class="form-control" name="price" placeholder="Enter price..." required="required" aria-required="true" invalid="true" class="touchspin-postfix">
+                                <input id="price" type="number" min="0" value="0" class="form-control" name="price" placeholder="Enter price..." required="required" aria-required="true" invalid="true" class="touchspin-postfix">
                                 <span class="input-group-addon">₮</span>
                             </div>
                         </div>
@@ -363,7 +363,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="price" class="control-label col-lg-2">Images <span class="text-danger">*</span></label>
+                        <label for="price" class="control-label col-lg-2">Images</label>
                         <div class="col-lg-10">
                             <input id="media" type="file" class="form-control file-styled" name="medias[]" invalid="true" onchange="previewMedia(this)" multiple>
                         </div>
@@ -373,7 +373,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="link" class="control-label col-lg-2">Youtube Link <span class="text-danger">*</span></label>
+                        <label for="link" class="control-label col-lg-2">Youtube Link</label>
                         <div class="col-lg-10">
                             <input id="link" type="text" class="form-control file-styled" name="youtubeLink" onchange="embedLink(this)">
                         </div>

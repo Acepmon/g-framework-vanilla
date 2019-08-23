@@ -17,7 +17,7 @@
 <div class="breadcrumb-line">
     <ul class="breadcrumb">
         <li><a href="index.html"><i class="icon-home2 position-left"></i> Home</a></li>
-        <li><a href="{{ route('admin.cars.index', ['type' => $content->type]) }}">{{ ucfirst($content->type) }}s</a></li>
+        <li><a href="{{ route('admin.cars.index') }}">{{ ucfirst($content->type) }}s</a></li>
         <li class="active">Detail</li>
     </ul>
 
@@ -106,7 +106,7 @@
                             <label class="control-label col-lg-2">
                                 @foreach($content->terms->where('taxonomy', 'category') as $rel)
                                     {{ $rel->term->name }},
-                                @endforeach
+                                @endforeach&nbsp;
                             </label>
                         </div>
                     </div>
@@ -116,13 +116,143 @@
                             <label class="control-label col-lg-2">
                                 @foreach($content->terms->where('taxonomy', 'tag') as $rel)
                                     {{ $rel->term->name }},
-                                @endforeach
+                                @endforeach&nbsp;
                             </label>
                         </div>
                     </div>
+
+                    <h5 class="panel-title">Car Information</h5>
+                    <br>
+                    <div class="form-group">
+                        <label class="control-label col-lg-2">Car Title</label>
+                        <div class="col-lg-4">
+                            <label class="control-label">{{$content->carInfo()->carTitle}}</label>
+                        </div>
+                        <label class="control-label col-lg-2">Manufacturer</label>
+                        <div class="col-lg-4">
+                            <label class="control-label">{{$content->carInfo()->manufacturer}}</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-lg-2">Car Title</label>
+                        <div class="col-lg-4">
+                            <label class="control-label">{{$content->carInfo()->carTitle}}</label>
+                        </div>
+                        <label class="control-label col-lg-2">Manufacturer</label>
+                        <div class="col-lg-4">
+                            <label class="control-label">{{$content->carInfo()->manufacturer}}</label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="control-label col-lg-2">Car Condition</label>
+                        <div class="col-lg-4">
+                            <label class="control-label">{{$content->carInfo()->carCondition}}</label>
+                        </div>
+                        <label class="control-label col-lg-2">Model</label>
+                        <div class="col-lg-4">
+                            <label class="control-label">{{$content->carInfo()->model}}</label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="control-label col-lg-2">Color</label>
+                        <div class="col-lg-4">
+                            <label class="control-label">{{$content->carInfo()->color}}</label>
+                        </div>
+                        <label class="control-label col-lg-2">Displacement</label>
+                        <div class="col-lg-4">
+                            <label class="control-label">{{$content->carInfo()->displacement}}km</label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="control-label col-lg-2">VIN</label>
+                        <div class="col-lg-4">
+                            <label class="control-label">{{$content->carInfo()->vin}}</label>
+                        </div>
+                        <label class="control-label col-lg-2">Year of Product</label>
+                        <div class="col-lg-4">
+                            <label class="control-label">{{$content->carInfo()->yearOfProduct}}</label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="control-label col-lg-2">Year of Entry</label>
+                        <div class="col-lg-4">
+                            <label class="control-label">{{$content->carInfo()->yearOfEntry}}</label>
+                        </div>
+                        <label class="control-label col-lg-2">Last Check</label>
+                        <div class="col-lg-4">
+                            <label class="control-label">{{$content->carInfo()->lastCheck}}</label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="control-label col-lg-2">Transmission</label>
+                        <div class="col-lg-4">
+                            <label class="control-label">{{$content->carInfo()->transmission}}</label>
+                        </div>
+                        <label class="control-label col-lg-2">Steering Wheel</label>
+                        <div class="col-lg-4">
+                            <label class="control-label">{{$content->carInfo()->steeringWheel}}</label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="control-label col-lg-2">Seating</label>
+                        <div class="col-lg-4">
+                            <label class="control-label">{{$content->carInfo()->seating}}</label>
+                        </div>
+                        <label class="control-label col-lg-2">Type of Fuel</label>
+                        <div class="col-lg-4">
+                            <label class="control-label">{{$content->carInfo()->typeOfFuel}}</label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="control-label col-lg-2">Wheel Drive</label>
+                        <div class="col-lg-4">
+                            <label class="control-label">{{$content->carInfo()->wheelDrive}}</label>
+                        </div>
+                        <label class="control-label col-lg-2">Mileage</label>
+                        <div class="col-lg-4">
+                            <label class="control-label">{{$content->carInfo()->mileage}}</label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="control-label col-lg-2">Price</label>
+                        <div class="col-lg-4">
+                            <label class="control-label">{{$content->carInfo()->price}}</label>
+                        </div>
+                        <label class="control-label col-lg-2">Price Type</label>
+                        <div class="col-lg-4">
+                            <label class="control-label">{{$content->carInfo()->priceType}}</label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="control-label col-lg-2">Advantages</label>
+                        <div class="col-lg-4">
+                            @if($content->carInfo()->advantages)
+                                @foreach($content->carInfo()->advantages as $advantage)
+                                    <label class="control-label">{{$advantage}}</label>
+                                @endforeach
+                            @else
+                                No advantages listed
+                            @endif
+                        </div>
+                        <label class="control-label col-lg-2">Seller Description</label>
+                        <div class="col-lg-4">
+                            <label class="control-label">{{$content->carInfo()->sellerDescription}}</label>
+                        </div>
+                    </div>
+
                     <div class="text-right" style="padding-bottom: 5px">
-                        <a href="{{ route('admin.contents.index', ['type' => $content->type]) }}" class="btn btn-default">Back</a>
-                        <a href="{{ route('admin.contents.edit', ['id' => $content->id]) }}" class="btn btn-default">Edit</a>
+                        <a href="{{ route('admin.cars.index', ['type' => $content->type]) }}" class="btn btn-default">Back</a>
+                        <a href="{{ route('admin.cars.edit', ['id' => $content->id]) }}" class="btn btn-default">Edit</a>
                     </div>
                 </div>
             </div>
@@ -168,26 +298,6 @@
                     </ul>
                 </div>
             </div>
-
-            <!-- Revisions -->
-            @foreach($content->metas->whereIn('key', ['initial', 'revision', 'revert'])->sortByDesc('id') as $key=>$revision)
-            <div class="panel panel-flat" id="v_{{ $revision->id }}">
-                <div class="panel-heading">
-                    <h5 class="panel-title">{{ $key+1 }}. {{ ucfirst($revision->key) }}</h5>
-                    <span class="label bg-blue heading-text">{{ date('Y-m-d H:i:s', json_decode($revision->value)->datetime) }}</span>
-                    <div class="heading-elements">
-                        @if($key < count($content->metas->whereIn('key', ['initial', 'revision', 'revert']))-1)
-                        <a href="{{ route('admin.contents.revisions.revert', ['id' => $content->id, 'revision' => $revision->id]) }}" class="btn btn-default"><i class="icon-reload-alt position-left"></i> Revert</a>
-                        @endif
-                        <a href="{{ route('admin.contents.revisions.show', ['id' => $content->id, 'revision' => $revision->id]) }}" class="btn btn-default"><i class="icon-eye position-left"></i> View in Editor</a>
-                    </div>
-                </div>
-
-                <div class="panel-body">
-                    <pre class="language-javascript"><code>{{ var_dump(json_decode($revision->value)) }}</code></pre>
-                </div>
-            </div>
-            @endforeach
         </div>
     </div>
 

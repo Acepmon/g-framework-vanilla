@@ -54,10 +54,7 @@ class Content extends Model
 
     public function medias()
     {
-        if ($this->type != 'car') {
-            return null;
-        }
-        $medias = json_decode($this->metas[0]->value)->medias;
+        $medias = $this->carInfo()->medias;
         foreach($medias as &$media) {
             $imagepath = $media;
             if (!Storage::disk('local')->exists($imagepath)) {
@@ -67,6 +64,13 @@ class Content extends Model
             $media = Storage::disk('local')->url($imagepath);
         }
         return $medias;
+    }
+
+    public function carInfo() {
+        if ($this->type != 'car') {
+            return null;
+        }
+        return json_decode($this->metas[0]->value);
     }
 
     public function currentView()

@@ -27,9 +27,7 @@ class CarController extends Controller
      */
     public function index()
     {
-        $type = Input::get('type', 'post');
-        Session::flash('type', $type);
-        $contents = Content::where('type', $type)->get();
+        $contents = Content::where('type', 'car')->get();
         return view('admin.cars.index', ['contents' => $contents]);
     }
 
@@ -76,6 +74,8 @@ class CarController extends Controller
             'typeOfFuel' => 'required|max:255',
             'wheelDrive' => 'required|max:255',
             'mileage' => 'required|max:255',
+            'price' => 'required|number',
+            'priceType' => 'required|max:255',
             'sellerDescription' => 'required|max:255'
         ]);
 
@@ -112,6 +112,8 @@ class CarController extends Controller
             $value->mileage = $request->mileage;
             $value->advantages = $request->advantages;
             $value->sellerDescription = $request->sellerDescription;
+            $value->price = $request->price;
+            $value->priceType = $request->priceType;
             $value->medias = $this->uploadFiles($request->medias);
             $value->youtubeLink = $request->youtubeLink;
 
@@ -133,8 +135,10 @@ class CarController extends Controller
         $medias = [];
         if ($files) {
             foreach ($files as $file) {
-                $filename = $file->store('public/medias', 'ftp');
-                array_push($medias, $filename);
+                if ($file) {
+                    $filename = $file->store('public/medias', 'ftp');
+                    array_push($medias, $filename);
+                }
             }
         }
         return $medias;
@@ -148,9 +152,8 @@ class CarController extends Controller
      */
     public function show($id)
     {
-        $type = Input::get('type', NULL);
         $content = Content::find($id);
-        return view('admin.cars.show', ['content' => $content, 'type' => $type]);
+        return view('admin.cars.show', ['content' => $content, 'type' => 'car']);
     }
 
     /**
@@ -162,12 +165,9 @@ class CarController extends Controller
     public function edit($id)
     {
         $content = Content::findOrFail($id);
-        $users = User::all();
-        $metas = $content->metas;
+        $info = $content->carInfo();
 
-        $viewPath = Config::where('key', 'content.'.$content->type.'s.rootPath')->first()->value;
-        $revision_path = $viewPath . DIRECTORY_SEPARATOR . $content->currentView() . '.blade.php';
-        return view('admin.cars.edit', ['content' => $content, 'users' => $users, 'metas' => $metas, 'revision_path' => $revision_path]);
+        return view('admin.cars.edit', ['content' => $content, 'info' => $info, 'users' => User::all()]);
     }
 
     /**
@@ -180,7 +180,6 @@ class CarController extends Controller
     public function update(Request $request, $id)
     {
         $content = Content::findOrFail($id);
-        $old_content = $content;
 
         $request->validate([
             'title' => 'required|max:191',
@@ -192,7 +191,26 @@ class CarController extends Controller
             'content' => 'nullable',
             'status' => 'required|max:50',
             'visibility' => 'required|max:50',
-            'author_id' => 'required|integer|exists:users,id'
+            'author_id' => 'required|integer|exists:users,id',
+            'carTitle' => 'required|max:255',
+            'manufacturer' => 'required|max:255',
+            'carCondition' => 'required|max:255',
+            'model' => 'required|max:255',
+            'color' => 'required|max:255',
+            'displacement' => 'required|max:255',
+            'vin' => 'required|max:255',
+            'yearOfProduct' => 'required|max:255',
+            'yearOfEntry' => 'required|max:255',
+            'lastCheck' => 'required|max:255',
+            'transmission' => 'required|max:255',
+            'steeringWheel' => 'required|max:255',
+            'seating' => 'required|max:255',
+            'typeOfFuel' => 'required|max:255',
+            'wheelDrive' => 'required|max:255',
+            'mileage' => 'required|max:255',
+            'price' => 'required|int',
+            'priceType' => 'required|max:255',
+            'sellerDescription' => 'required|max:255'
         ]);
 
         try {
@@ -205,37 +223,34 @@ class CarController extends Controller
             $content->visibility = $request->visibility;
             $content->author_id = $request->author_id;
 
-            $updated_at = $content->updated_at;
-            $old_terms = $content->terms;
-            $old_name = $content->metas->last()->revisionView();
-            $content->save();
-            $content->terms()->sync($request->input('tags'));
-            $content->terms()->attach($request->input('category'));
-
-            $updated = $updated_at != $content->updated_at || $content->terms != $old_terms;
-            if ($updated)
-            {
-                $value = new \stdClass;
-                $time = time();
-                $value->datetime = $time;
-                $value->filename_changed = ($old_slug != $content->slug);
-                $value->before = $old_content;
-                $value->after = $content;
-                $value->user = Auth::user();
-
-                $content_meta = new ContentMeta();
-                $content_meta->content_id = $content->id;
-                $content_meta->key = 'revision';
-                $content_meta->value = json_encode($value);
-                $content_meta->save();
-
-                $viewPath = Config::where('key', 'content.'.$content->type.'s.viewPath')->first()->value;
-                $viewPath = str_replace('.', '/', 'views.' . $viewPath);
-                $name = $content->slug . Content::NAMING_CONVENTION . $content->status . Content::NAMING_CONVENTION . $time;
-                $filename = $viewPath . '/' . $old_name . '.blade.php';
-                $newname = $viewPath . '/' . $name . '.blade.php';
-                copy(resource_path($filename), resource_path($newname));
-            }
+            $meta = $content->metas[0];
+            $value = json_decode($meta->value);
+            $value->updatedDatetime = time();
+            $value->user = Auth::user()->id;
+            $value->carTitle = $request->carTitle;
+            $value->manufacturer = $request->manufacturer;
+            $value->carCondition = $request->carCondition;
+            $value->model = $request->model;
+            $value->color = $request->color;
+            $value->displacement = $request->displacement;
+            $value->vin = $request->vin;
+            $value->yearOfProduct = $request->yearOfProduct;
+            $value->yearOfEntry = $request->yearOfEntry;
+            $value->lastCheck = $request->lastCheck;
+            $value->transmission = $request->transmission;
+            $value->steeringWheel = $request->steeringWheel;
+            $value->seating = $request->seating;
+            $value->typeOfFuel = $request->typeOfFuel;
+            $value->wheelDrive = $request->wheelDrive;
+            $value->mileage = $request->mileage;
+            $value->advantages = $request->advantages;
+            $value->sellerDescription = $request->sellerDescription;
+            $value->price = $request->price;
+            $value->priceType = $request->priceType;
+            $value->medias = array_merge($value->medias, $this->uploadFiles($request->medias));
+            $value->youtubeLink = $request->youtubeLink;
+            $meta->value = json_encode($value);
+            $meta->save();
 
             DB::commit();
             return redirect()->route('admin.cars.index', ['type' => $content->type]);
