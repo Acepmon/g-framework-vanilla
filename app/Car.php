@@ -3,9 +3,8 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Storage;
 
-class Content extends Model
+class Car extends Model
 {
     const TYPE_PAGE = 'page';
     const TYPE_POST = 'post';
@@ -50,27 +49,6 @@ class Content extends Model
     public function terms()
     {
         return $this->belongsToMany('App\TermTaxonomy', 'term_relationships');
-    }
-
-    public function medias()
-    {
-        $medias = $this->carInfo()->medias;
-        foreach($medias as &$media) {
-            $imagepath = $media;
-            if (!Storage::disk('local')->exists($imagepath)) {
-                $image = Storage::disk('ftp')->get($imagepath);
-                Storage::disk('local')->put($imagepath, $image);
-            }
-            $media = Storage::disk('local')->url($imagepath);
-        }
-        return $medias;
-    }
-
-    public function carInfo() {
-        if ($this->type != 'car') {
-            return null;
-        }
-        return json_decode($this->metas[0]->value);
     }
 
     public function currentView()

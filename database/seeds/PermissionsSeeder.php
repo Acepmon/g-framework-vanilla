@@ -104,6 +104,11 @@ class PermissionsSeeder extends Seeder
             ['title' => 'admin_contents_read', 'type' => Permission::TYPE_READ, 'description' => 'read permission for content'],
             ['title' => 'admin_contents_update', 'type' => Permission::TYPE_UPDATE, 'description' => 'update permission for content'],
             ['title' => 'admin_contents_delete', 'type' => Permission::TYPE_DELETE, 'description' => 'delete permission for content'],
+            // car CRUD
+            ['title' => 'admin_cars_create', 'type' => Permission::TYPE_CREATE, 'description' => 'create permission for car'],
+            ['title' => 'admin_cars_read', 'type' => Permission::TYPE_READ, 'description' => 'read permission for car'],
+            ['title' => 'admin_cars_update', 'type' => Permission::TYPE_UPDATE, 'description' => 'update permission for car'],
+            ['title' => 'admin_cars_delete', 'type' => Permission::TYPE_DELETE, 'description' => 'delete permission for car'],
             // comment CRUD
             ['title' => 'admin_comments_create', 'type' => Permission::TYPE_CREATE, 'description' => 'create permission for comment'],
             ['title' => 'admin_comments_read', 'type' => Permission::TYPE_READ, 'description' => 'read permission for comment'],

@@ -84,7 +84,7 @@ class UserController extends Controller
                 $user->email = $request->input('email');
                 $user->language = $request->input('language');
                 if ($request->hasFile('avatar')) {
-                    $user->avatar = str_replace("public/", "", $request->file('avatar')->store('public/avatars'));
+                    $user->avatar = str_replace("public/", "", $request->file('avatar')->store('public/avatars', 'ftp'));
                 }
                 $user->save();
                 $user->groups()->sync($request->input('groups'));
@@ -154,7 +154,7 @@ class UserController extends Controller
         $name = $request->input('name');
         $avatar = null;
         if ($request->hasFile('avatar')) {
-            $avatar = str_replace("public/", "", $request->file('avatar')->store('public/avatars'));
+            $avatar = str_replace("public/", "", $request->file('avatar')->store('public/avatars', 'ftp'));
         }
         $groups = $request->input('groups');
         $language = $request->input('language');

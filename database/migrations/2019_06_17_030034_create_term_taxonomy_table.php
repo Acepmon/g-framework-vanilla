@@ -21,7 +21,7 @@ class CreateTermTaxonomyTable extends Migration
             $table->unsignedBigInteger('parent_id')->nullable();
             $table->unsignedBigInteger('count');
 
-            $table->foreign('term_id')->references('id')->on('terms');
+            $table->foreign('term_id')->references('id')->on('terms')->onDelete('cascade');
             $table->foreign('parent_id')->references('id')->on('term_taxonomy');
         });
     }

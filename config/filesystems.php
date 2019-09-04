@@ -63,6 +63,15 @@ return [
             'driver' => 'local',
             'root' => resource_path(),
         ],
+
+        'ftp' => [
+            'driver' => 'ftp',
+            'host' => '66.181.167.116',
+            'username' => 'gframework',
+            'password' => '',
+            'port' => 23,
+            'root' => '',
+        ],
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),
@@ -80,5 +89,4 @@ return [
         ],
 
     ],
-
 ];
