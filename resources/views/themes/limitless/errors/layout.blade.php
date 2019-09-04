@@ -62,7 +62,7 @@
                     </div>
                     <!-- /error wrapper -->
 
-                    @include('themes.limitless.includes.footer')
+                    @include('themes.car-web.includes.footer')
                 </div>
                 <!-- /content area -->
 
