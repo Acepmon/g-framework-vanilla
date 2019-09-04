@@ -105,7 +105,7 @@
                         <div class="col-lg-10">
                             <select id="status" name="status" class="form-control">
                                 <option value="">None</option>
-                                @foreach(App\TermTaxonomy::all() as $value)
+                                @foreach(App\TermTaxonomy::where('taxonomy', $term_taxonomy->taxonomy)->get() as $value)
                                 <option value="{{ $value->term->name }}" {{ $value->term->id==$term_taxonomy->term->id?'selected':'' }}>{{ $value->term->name }}</option>
                                 @endforeach
                             </select>

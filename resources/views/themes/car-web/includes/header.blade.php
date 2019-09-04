@@ -7,11 +7,11 @@
             <li class="nav-item"><a href="#">Customer support</a></li>
             <li class="nav-item"><a href="#">Foreigner support</a></li>
             <li class="nav-item"><a href="#">Sign up</a></li>
-            <li class="nav-item"><a href="#"><img src="img/en.png" alt=""></a></li>
+            <li class="nav-item"><a href="#"><img src="{{ asset('car-web/img/en.png') }}" alt=""></a></li>
         </ul>
     </div>
 </div>
-<nav class="navbar navbar-expand-lg navbar-light bg-transparent fixed-top position-absolute">
+<nav class="navbar navbar-expand-lg navbar-light bg-transparent fixed-top">
     <div class="container">
         <a class="navbar-brand" href="#">Car dealer</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler"
@@ -20,19 +20,20 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarToggler">
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                <li class="nav-item active">
+                <li class="nav-item {{ Request::is('car-web')?'active':'' }}">
                     <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="car-list.html">Buy</a>
+                <li class="nav-item {{ Request::is('car-list')?'active':'' }}">
+                    <a class="nav-link" href="/car-list">Buy</a>
+                    
                 </li>
-                <li class="nav-item">
+                <li class="nav-item {{ Request::is('car-sell')?'active':'' }}">
                     <a class="nav-link" href="#">Sell</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item {{ Request::is('car-finance')?'active':'' }}">
                     <a class="nav-link" href="finance.html">Finance</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item {{ Request::is('car-auction')?'active':'' }}">
                     <a class="nav-link" href="#">Auction</a>
                 </li>
             </ul>

@@ -192,7 +192,7 @@
 
                 @if($content->type=='page')
                 <div class="panel-body">
-                    <div id="php_editor">{{ get_blade_section(base_path($revision_path), 'content') }}</div>
+                    <div id="php_editor">{{ file_get_contents(base_path($revision_path), 'content') }}</div>
                 </div>
                 @elseif($content->type=='post')
                 <div class="panel-body">
