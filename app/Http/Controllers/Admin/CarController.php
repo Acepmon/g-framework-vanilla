@@ -91,37 +91,33 @@ class CarController extends Controller
             $content->author_id = $request->author_id;
             $content->save();
 
-            $value = new \stdClass;
-            $value->datetime = time();
-            $value->user = Auth::user()->id;
-            $value->carTitle = $request->carTitle;
-            $value->manufacturer = $request->manufacturer;
-            $value->carCondition = $request->carCondition;
-            $value->model = $request->model;
-            $value->color = $request->color;
-            $value->displacement = $request->displacement;
-            $value->vin = $request->vin;
-            $value->yearOfProduct = $request->yearOfProduct;
-            $value->yearOfEntry = $request->yearOfEntry;
-            $value->lastCheck = $request->lastCheck;
-            $value->transmission = $request->transmission;
-            $value->steeringWheel = $request->steeringWheel;
-            $value->seating = $request->seating;
-            $value->typeOfFuel = $request->typeOfFuel;
-            $value->wheelDrive = $request->wheelDrive;
-            $value->mileage = $request->mileage;
-            $value->advantages = $request->advantages;
-            $value->sellerDescription = $request->sellerDescription;
-            $value->price = $request->price;
-            $value->priceType = $request->priceType;
-            $value->medias = $this->uploadFiles($request->medias);
-            $value->youtubeLink = $request->youtubeLink;
-
-            $content_meta = new ContentMeta();
-            $content_meta->content_id = $content->id;
-            $content_meta->key = 'car';
-            $content_meta->value = json_encode($value);
-            $content_meta->save();
+            $content->attachMeta('carTitle', $request->carTitle);
+            $content->attachMeta('manufacturer', $request->manufacturer);
+            $content->attachMeta('carCondition', $request->carCondition);
+            $content->attachMeta('model', $request->model);
+            $content->attachMeta('color', $request->color);
+            $content->attachMeta('displacement', $request->displacement);
+            $content->attachMeta('vin', $request->vin);
+            $content->attachMeta('yearOfProduct', $request->yearOfProduct);
+            $content->attachMeta('yearOfEntry', $request->yearOfEntry);
+            $content->attachMeta('lastCheck', $request->lastCheck);
+            $content->attachMeta('transmission', $request->transmission);
+            $content->attachMeta('steeringWheel', $request->steeringWheel);
+            $content->attachMeta('seating', $request->seating);
+            $content->attachMeta('typeOfFuel', $request->typeOfFuel);
+            $content->attachMeta('wheelDrive', $request->wheelDrive);
+            $content->attachMeta('mileage', $request->mileage);
+            foreach ($request->advantages as $advantage) {
+                $content->attachMeta('advantages', $advantage);
+            }
+            $content->attachMeta('sellerDescription', $request->sellerDescription);
+            $content->attachMeta('price', $request->price);
+            $content->attachMeta('priceType', $request->priceType);
+            $media_list = $this->uploadFiles($request->medias);
+            foreach ($media_list as $media) {
+                $content->attachMeta('medias', $media);
+            }
+            $content->attachMeta('youtubeLink', $request->youtubeLink);
 
             DB::commit();
             return redirect()->route('admin.cars.index', ['type' => $content->type]);
@@ -165,9 +161,8 @@ class CarController extends Controller
     public function edit($id)
     {
         $content = Content::findOrFail($id);
-        $info = $content->carInfo();
 
-        return view('admin.cars.edit', ['content' => $content, 'info' => $info, 'users' => User::all()]);
+        return view('admin.cars.edit', ['content' => $content, 'users' => User::all()]);
     }
 
     /**
@@ -223,34 +218,35 @@ class CarController extends Controller
             $content->visibility = $request->visibility;
             $content->author_id = $request->author_id;
 
-            $meta = $content->metas[0];
-            $value = json_decode($meta->value);
-            $value->updatedDatetime = time();
-            $value->user = Auth::user()->id;
-            $value->carTitle = $request->carTitle;
-            $value->manufacturer = $request->manufacturer;
-            $value->carCondition = $request->carCondition;
-            $value->model = $request->model;
-            $value->color = $request->color;
-            $value->displacement = $request->displacement;
-            $value->vin = $request->vin;
-            $value->yearOfProduct = $request->yearOfProduct;
-            $value->yearOfEntry = $request->yearOfEntry;
-            $value->lastCheck = $request->lastCheck;
-            $value->transmission = $request->transmission;
-            $value->steeringWheel = $request->steeringWheel;
-            $value->seating = $request->seating;
-            $value->typeOfFuel = $request->typeOfFuel;
-            $value->wheelDrive = $request->wheelDrive;
-            $value->mileage = $request->mileage;
-            $value->advantages = $request->advantages;
-            $value->sellerDescription = $request->sellerDescription;
-            $value->price = $request->price;
-            $value->priceType = $request->priceType;
-            $value->medias = array_merge($value->medias, $this->uploadFiles($request->medias));
-            $value->youtubeLink = $request->youtubeLink;
-            $meta->value = json_encode($value);
-            $meta->save();
+            $content->updateMeta('carTitle', $request->carTitle);
+            $content->updateMeta('manufacturer', $request->manufacturer);
+            $content->updateMeta('carCondition', $request->carCondition);
+            $content->updateMeta('model', $request->model);
+            $content->updateMeta('color', $request->color);
+            $content->updateMeta('displacement', $request->displacement);
+            $content->updateMeta('vin', $request->vin);
+            $content->updateMeta('yearOfProduct', $request->yearOfProduct);
+            $content->updateMeta('yearOfEntry', $request->yearOfEntry);
+            $content->updateMeta('lastCheck', $request->lastCheck);
+            $content->updateMeta('transmission', $request->transmission);
+            $content->updateMeta('steeringWheel', $request->steeringWheel);
+            $content->updateMeta('seating', $request->seating);
+            $content->updateMeta('typeOfFuel', $request->typeOfFuel);
+            $content->updateMeta('wheelDrive', $request->wheelDrive);
+            $content->updateMeta('mileage', $request->mileage);
+            if ($request->advantages) {
+                $content->updateMeta('advantages', $request->advantages);
+            } else {
+                $content->updateMeta('advantages', array());
+            }
+            $content->updateMeta('sellerDescription', $request->sellerDescription);
+            $content->updateMeta('price', $request->price);
+            $content->updateMeta('priceType', $request->priceType);
+            $media_list = $this->uploadFiles($request->medias);
+            foreach ($media_list as $media) {
+                $content->attachMeta('medias', $media);
+            }
+            $content->updateMeta('youtubeLink', $request->youtubeLink);
 
             DB::commit();
             return redirect()->route('admin.cars.index', ['type' => $content->type]);
@@ -270,7 +266,7 @@ class CarController extends Controller
     {
         $content = Content::findORFail($id);
         $type = $content->type;
-        $content->metas()->destroy();
+        $content->metas()->delete();
         Content::destroy($id);
         return redirect()->route('admin.cars.index', ['type' => $type]);
     }

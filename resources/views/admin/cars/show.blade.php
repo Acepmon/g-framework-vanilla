@@ -126,119 +126,119 @@
                     <div class="form-group">
                         <label class="control-label col-lg-2">Car Title</label>
                         <div class="col-lg-4">
-                            <label class="control-label">{{$content->carInfo()->carTitle}}</label>
+                            <label class="control-label">{{$content->metaValue('carTitle')}}</label>
                         </div>
                         <label class="control-label col-lg-2">Manufacturer</label>
                         <div class="col-lg-4">
-                            <label class="control-label">{{$content->carInfo()->manufacturer}}</label>
+                            <label class="control-label">{{$content->metaValue('manufacturer')}}</label>
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="control-label col-lg-2">Car Title</label>
                         <div class="col-lg-4">
-                            <label class="control-label">{{$content->carInfo()->carTitle}}</label>
+                            <label class="control-label">{{$content->metaValue('carTitle')}}</label>
                         </div>
                         <label class="control-label col-lg-2">Manufacturer</label>
                         <div class="col-lg-4">
-                            <label class="control-label">{{$content->carInfo()->manufacturer}}</label>
+                            <label class="control-label">{{$content->metaValue('manufacturer')}}</label>
                         </div>
                     </div>
                     
                     <div class="form-group">
                         <label class="control-label col-lg-2">Car Condition</label>
                         <div class="col-lg-4">
-                            <label class="control-label">{{$content->carInfo()->carCondition}}</label>
+                            <label class="control-label">{{$content->metaValue('carCondition')}}</label>
                         </div>
                         <label class="control-label col-lg-2">Model</label>
                         <div class="col-lg-4">
-                            <label class="control-label">{{$content->carInfo()->model}}</label>
+                            <label class="control-label">{{$content->metaValue('model')}}</label>
                         </div>
                     </div>
                     
                     <div class="form-group">
                         <label class="control-label col-lg-2">Color</label>
                         <div class="col-lg-4">
-                            <label class="control-label">{{$content->carInfo()->color}}</label>
+                            <label class="control-label">{{$content->metaValue('color')}}</label>
                         </div>
                         <label class="control-label col-lg-2">Displacement</label>
                         <div class="col-lg-4">
-                            <label class="control-label">{{$content->carInfo()->displacement}}km</label>
+                            <label class="control-label">{{$content->metaValue('displacement')}}km</label>
                         </div>
                     </div>
                     
                     <div class="form-group">
                         <label class="control-label col-lg-2">VIN</label>
                         <div class="col-lg-4">
-                            <label class="control-label">{{$content->carInfo()->vin}}</label>
+                            <label class="control-label">{{$content->metaValue('vin')}}</label>
                         </div>
                         <label class="control-label col-lg-2">Year of Product</label>
                         <div class="col-lg-4">
-                            <label class="control-label">{{$content->carInfo()->yearOfProduct}}</label>
+                            <label class="control-label">{{$content->metaValue('yearOfProduct')}}</label>
                         </div>
                     </div>
                     
                     <div class="form-group">
                         <label class="control-label col-lg-2">Year of Entry</label>
                         <div class="col-lg-4">
-                            <label class="control-label">{{$content->carInfo()->yearOfEntry}}</label>
+                            <label class="control-label">{{$content->metaValue('yearOfEntry')}}</label>
                         </div>
                         <label class="control-label col-lg-2">Last Check</label>
                         <div class="col-lg-4">
-                            <label class="control-label">{{$content->carInfo()->lastCheck}}</label>
+                            <label class="control-label">{{$content->metaValue('lastCheck')}}</label>
                         </div>
                     </div>
                     
                     <div class="form-group">
                         <label class="control-label col-lg-2">Transmission</label>
                         <div class="col-lg-4">
-                            <label class="control-label">{{$content->carInfo()->transmission}}</label>
+                            <label class="control-label">{{$content->metaValue('transmission')}}</label>
                         </div>
                         <label class="control-label col-lg-2">Steering Wheel</label>
                         <div class="col-lg-4">
-                            <label class="control-label">{{$content->carInfo()->steeringWheel}}</label>
+                            <label class="control-label">{{$content->metaValue('steeringWheel')}}</label>
                         </div>
                     </div>
                     
                     <div class="form-group">
                         <label class="control-label col-lg-2">Seating</label>
                         <div class="col-lg-4">
-                            <label class="control-label">{{$content->carInfo()->seating}}</label>
+                            <label class="control-label">{{$content->metaValue('seating')}}</label>
                         </div>
                         <label class="control-label col-lg-2">Type of Fuel</label>
                         <div class="col-lg-4">
-                            <label class="control-label">{{$content->carInfo()->typeOfFuel}}</label>
+                            <label class="control-label">{{$content->metaValue('typeOfFuel')}}</label>
                         </div>
                     </div>
                     
                     <div class="form-group">
                         <label class="control-label col-lg-2">Wheel Drive</label>
                         <div class="col-lg-4">
-                            <label class="control-label">{{$content->carInfo()->wheelDrive}}</label>
+                            <label class="control-label">{{$content->metaValue('wheelDrive')}}</label>
                         </div>
                         <label class="control-label col-lg-2">Mileage</label>
                         <div class="col-lg-4">
-                            <label class="control-label">{{$content->carInfo()->mileage}}</label>
+                            <label class="control-label">{{$content->metaValue('mileage')}}</label>
                         </div>
                     </div>
                     
                     <div class="form-group">
                         <label class="control-label col-lg-2">Price</label>
                         <div class="col-lg-4">
-                            <label class="control-label">{{$content->carInfo()->price}}</label>
+                            <label class="control-label">{{$content->metaValue('price')}}</label>
                         </div>
                         <label class="control-label col-lg-2">Price Type</label>
                         <div class="col-lg-4">
-                            <label class="control-label">{{$content->carInfo()->priceType}}</label>
+                            <label class="control-label">{{$content->metaValue('priceType')}}</label>
                         </div>
                     </div>
                     
                     <div class="form-group">
                         <label class="control-label col-lg-2">Advantages</label>
                         <div class="col-lg-4">
-                            @if($content->carInfo()->advantages)
-                                @foreach($content->carInfo()->advantages as $advantage)
-                                    <label class="control-label">{{$advantage}}</label>
+                            @if($content->metas->where('key', 'advantages'))
+                                @foreach($content->metas->where('key', 'advantages') as $advantage)
+                                    <label class="control-label">{{$advantage->value}}</label>
                                 @endforeach
                             @else
                                 No advantages listed
@@ -246,7 +246,7 @@
                         </div>
                         <label class="control-label col-lg-2">Seller Description</label>
                         <div class="col-lg-4">
-                            <label class="control-label">{{$content->carInfo()->sellerDescription}}</label>
+                            <label class="control-label">{{$content->metaValue('sellerDescription')}}</label>
                         </div>
                     </div>
 
