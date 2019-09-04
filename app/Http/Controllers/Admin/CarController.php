@@ -74,7 +74,7 @@ class CarController extends Controller
             'typeOfFuel' => 'required|max:255',
             'wheelDrive' => 'required|max:255',
             'mileage' => 'required|max:255',
-            'price' => 'required|number',
+            'price' => 'required|int',
             'priceType' => 'required|max:255',
             'sellerDescription' => 'required|max:255'
         ]);
