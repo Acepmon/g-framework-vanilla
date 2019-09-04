@@ -50,16 +50,9 @@
 @endsection
 
 @section('content')
-<div class="has-detached-left">
+<div class="d-inline-flex align-items-md-start">
     @include('admin.users.includes.sidebar')
 
-    <!-- Detached content -->
-    <div class="container-detached">
-        <div class="content-detached">
-
-            <!-- Tab content -->
-            <div class="tab-content">
-                <div class="tab-pane fade in active" id="contents">
                     <div class="card">
                         <div class="card-header">
                             <h6 class="card-title">Contents</h6>
@@ -97,14 +90,7 @@
                             </tbody>
                         </table>
                     </div>
-                </div>
-            </div>
-            <!-- /tab content -->
-
-        </div>
-    </div>
 </div>
-
 @endsection
 
 @section('script')

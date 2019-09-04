@@ -50,18 +50,15 @@
 @endsection
 
 @section('content')
-<div class="has-detached-left">
+<div class="d-md-flex align-items-md-start">
     @include('admin.users.includes.sidebar')
 
     <!-- Detached content -->
-    <div class="container-detached">
-        <div class="content-detached">
+    <div>
 
             <!-- Tab content -->
-            <div class="tab-content">
-                <div class="tab-pane fade in active" id="settings">
                     <div class="card">
-                        <div class="card-header">
+                        <div class="card-header card-header header-elements-inline">
                             <h6 class="card-title">User Settings</h6>
                             <div class="header-elements">
                                 <a href="{{ route('admin.users.settings.create', ['id' => $user->id]) }}" class="text-white btn btn-primary">New Settings <i class="icon-add mr-2"></i></a>
@@ -98,11 +95,7 @@
                             </tbody>
                         </table>
                     </div>
-                </div>
-            </div>
             <!-- /tab content -->
-
-        </div>
     </div>
 </div>
 
