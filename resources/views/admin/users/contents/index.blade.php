@@ -50,46 +50,52 @@
 @endsection
 
 @section('content')
-<div class="d-inline-flex align-items-md-start">
+<div class="d-md-flex align-items-md-start">
     @include('admin.users.includes.sidebar')
-
-                    <div class="card">
-                        <div class="card-header">
-                            <h6 class="card-title">Contents</h6>
-                        </div>
-
-                        <table class="table datatable-basic">
-                            <thead>
-                                <tr>
-                                    <th width="5%">#</th>
-                                    <th width="20%">Title</th>
-                                    <th width="20%">Slug</th>
-                                    <th width="10%">Type</th>
-                                    <th width="10%">Status</th>
-                                    <th width="10%">Visibility</th>
-                                    <th width="15%">Created At</th>
-                                    <th width="10%" class="text-center">Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($user->contents->where('type', Session::get('type')) as $content)
-                                <tr>
-                                    <td>{{ $content->id }}</td>
-                                    <td>{{ $content->title }}</td>
-                                    <td>{{ $content->slug }}</td>
-                                    <td>{{ $content->type }}</td>
-                                    <td>{{ $content->status }}</td>
-                                    <td>{{ $content->visibility }}</td>
-                                    <td>{{ $content->created_at }}</td>
-                                    <!---->
-                                    <td class="text-center">
-                                        <a href="{{ route('admin.users.contents.show', ['user' => $user->id, 'content' => $content->id]) }}" class="btn btn-default">Show more</a>
-                                    </td>
-                                </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+        
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h6 class="card-title">Contents</h6>
                     </div>
+
+                    <table class="table datatable-basic">
+                        <thead>
+                            <tr>
+                                <th width="5%">#</th>
+                                <th width="20%">Title</th>
+                                <th width="20%">Slug</th>
+                                <th width="10%">Type</th>
+                                <th width="10%">Status</th>
+                                <th width="10%">Visibility</th>
+                                <th width="15%">Created At</th>
+                                <th width="10%" class="text-center">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($user->contents->where('type', Session::get('type')) as $content)
+                            <tr>
+                                <td>{{ $content->id }}</td>
+                                <td>{{ $content->title }}</td>
+                                <td>{{ $content->slug }}</td>
+                                <td>{{ $content->type }}</td>
+                                <td>{{ $content->status }}</td>
+                                <td>{{ $content->visibility }}</td>
+                                <td>{{ $content->created_at }}</td>
+                                <!---->
+                                <td class="text-center">
+                                    <a href="{{ route('admin.users.contents.show', ['user' => $user->id, 'content' => $content->id]) }}" class="btn btn-default">Show more</a>
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 @endsection
 

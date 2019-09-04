@@ -50,16 +50,15 @@
 @endsection
 
 @section('content')
-<div class="has-detached-left">
+<div class="d-md-flex align-items-md-start">
     @include('admin.users.includes.sidebar')
 
     <!-- Detached content -->
-    <div class="container-detached">
-        <div class="content-detached">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
 
             <!-- Tab content -->
-            <div class="tab-content">
-                <div class="tab-pane fade in active" id="permissions">
                     <div class="card">
                         <div class="card-header header-elements-inline">
                             <h6 class="card-title">User Permissions</h6>
@@ -138,10 +137,8 @@
 							</form>
 						</div>
 					</div>
-                </div>
-            </div>
             <!-- /tab content -->
-
+            </div>
         </div>
     </div>
 </div>

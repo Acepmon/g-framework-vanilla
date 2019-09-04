@@ -69,19 +69,19 @@
                 <div class="tab-pane fade in active" id="settings">
 
 					<!-- Form horizontal -->
-					<div class="panel panel-flat">
-						<div class="panel-heading">
-							<h5 class="panel-title">Edit user setting</h5>
-							<div class="heading-elements">
-								<ul class="icons-list">
-			                		<li><a data-action="collapse"></a></li>
-			                		<li><a data-action="reload"></a></li>
-			                		<li><a data-action="close"></a></li>
-			                	</ul>
+					<div class="card">
+						<div class="card-header header-elements-inline">
+							<h5 class="card-title">Edit user setting</h5>
+							<div class="header-elements">
+								<div class="list-icons">
+			                		<a class="list-icons-item" data-action="collapse"></a>
+			                		<a class="list-icons-item" data-action="reload"></a>
+			                		<a class="list-icons-item" data-action="remove"></a>
+			                	</div>
 		                	</div>
 						</div>
 
-						<div class="panel-body">
+						<div class="card-body">
                             <form method="post" class="form-horizontal form-validate-jquery" action="{{ route('admin.profile.settings.update', ['user' => $user->id, 'setting' => $setting->id]) }}">
                                 {{ method_field('PUT') }}
                                 {{ csrf_field() }}
@@ -93,15 +93,15 @@
                                 </div>
                                 @endif
 
-                                <div class="form-group">
-                                    <label class="control-label col-lg-2">Key <span class="text-danger">*</span></label>
+                                <div class="form-group row">
+                                    <label class="col-form-label col-lg-2">Key <span class="text-danger">*</span></label>
                                     <div class="col-lg-10">
                                         <input name="key" type="text" class="form-control" required="true" placeholder="Setting Key..." value="{{ $setting->key }}">
                                     </div>
                                 </div>
 
-                                <div class="form-group">
-                                    <label class="control-label col-lg-2">Value <span class="text-danger">*</span></label>
+                                <div class="form-group row">
+                                    <label class="col-form-label col-lg-2">Value <span class="text-danger">*</span></label>
                                     <div class="col-lg-10">
                                         <input name="value" type="text" class="form-control" required="true" placeholder="Setting Value..." value="{{ $setting->value }}">
                                     </div>

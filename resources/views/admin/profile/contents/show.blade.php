@@ -12,7 +12,7 @@
         <h4><i class="icon-arrow-left52 position-left"></i> <span class="text-semibold">User Details</span></h4>
     </div>
 
-    <div class="heading-elements">
+    <div class="header-elements">
         <div class="heading-btn-group">
             <a href="#" class="btn btn-link btn-float has-text"><i class="icon-bars-alt text-primary"></i><span>Statistics</span></a>
             <a href="#" class="btn btn-link btn-float has-text"><i class="icon-calculator text-primary"></i> <span>Invoices</span></a>
@@ -60,19 +60,19 @@
             <!-- Tab content -->
             <div class="tab-content">
                 <div class="tab-pane fade in active" id="contents">
-					<div class="panel panel-flat">
-						<div class="panel-heading">
-							<h5 class="panel-title">Page Detail</h5>
-							<div class="heading-elements">
-								<ul class="icons-list">
-			                		<li><a data-action="collapse"></a></li>
-			                		<li><a data-action="reload"></a></li>
-			                		<li><a data-action="close"></a></li>
-			                	</ul>
+					<div class="card">
+						<div class="card-header">
+							<h5 class="card-title">Page Detail</h5>
+							<div class="header-elements">
+								<div class="list-icons">
+			                		<a class="list-icons-item" data-action="collapse"></a>
+			                		<a class="list-icons-item" data-action="reload"></a>
+			                		<a class="list-icons-item" data-action="close"></a>
+			                	</div>
 		                	</div>
 						</div>
 
-						<div class="panel-body">
+						<div class="card-body">
                             <div class="form-group">
                                 <b class="control-label col-lg-1 text-right">Title</b>
                                 <div class="col-lg-11">

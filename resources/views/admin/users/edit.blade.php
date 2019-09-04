@@ -57,146 +57,150 @@
 
 @section('content')
 
+<div class="d-md-flex align-items-md-start">
 <!-- Grid -->
-<div class="row">
-    <div class="col-md-12">
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
 
-        <!-- Horizontal form -->
-        <div class="card">
-            <div class="card-header header-elements-inline">
-                <h5 class="card-title">Edit User Detail</h5>
-                <div class="header-elements">
-                    <div class="list-icons">
-                        <a class="list-icons-item"  data-action="collapse"></a>
-                        <a class="list-icons-item"  data-action="remove"></a>
+            <!-- Horizontal form -->
+            <div class="card">
+                <div class="card-header header-elements-inline">
+                    <h5 class="card-title">Edit User Detail</h5>
+                    <div class="header-elements">
+                        <div class="list-icons">
+                            <a class="list-icons-item"  data-action="collapse"></a>
+                            <a class="list-icons-item"  data-action="remove"></a>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="card-body">
+                <div class="card-body">
 
-                @if(Session::has('success'))
-                <div class="alert alert-success no-border">
-                    <button type="button" class="close" data-dismiss="alert"><span>&times;</span><span class="sr-only">Close</span></button>
-                    {{ session('success') }}
-                </div>
-                @endif
-                @if(Session::has('error'))
-                <div class="alert alert-danger no-border">
-                    <button type="button" class="close" data-dismiss="alert"><span>&times;</span><span class="sr-only">Close</span></button>
-                    {{ session('error') }}
-                </div>
-                @endif
-                @if ($errors->any())
-                    @foreach ($errors->all() as $error)
+                    @if(Session::has('success'))
+                    <div class="alert alert-success no-border">
+                        <button type="button" class="close" data-dismiss="alert"><span>&times;</span><span class="sr-only">Close</span></button>
+                        {{ session('success') }}
+                    </div>
+                    @endif
+                    @if(Session::has('error'))
                     <div class="alert alert-danger no-border">
                         <button type="button" class="close" data-dismiss="alert"><span>&times;</span><span class="sr-only">Close</span></button>
-                        {{ $error }}
+                        {{ session('error') }}
                     </div>
-                    @endforeach
-                @endif
-
-                <form method="post" class="form-horizontal form-validate-jquery" action="{{ route('admin.users.update', ['id' =>  $user->id]) }}" enctype="multipart/form-data">
-                    {{ method_field('PATCH') }}
-                    {{ csrf_field() }}
-
-                    <div class="form-group row">
-                        <label class="col-form-label col-lg-2">Username</label>
-                        <div class="col-lg-10">
-                            <input name="username" type="text" class="form-control" value="{{ $user->username }}" placeholder="e.g. user123, john_doe...">
+                    @endif
+                    @if ($errors->any())
+                        @foreach ($errors->all() as $error)
+                        <div class="alert alert-danger no-border">
+                            <button type="button" class="close" data-dismiss="alert"><span>&times;</span><span class="sr-only">Close</span></button>
+                            {{ $error }}
                         </div>
-                    </div>
+                        @endforeach
+                    @endif
 
-                    <div class="form-group row">
-                        <label class="col-form-label col-lg-2">Email</label>
-                        <div class="col-lg-10">
-                            <input id="email" name="email" type="email" class="form-control" value="{{ $user->email }}" placeholder="e.g. user@example.com...">
-                        </div>
-                    </div>
+                    <form method="post" class="form-horizontal form-validate-jquery" action="{{ route('admin.users.update', ['id' =>  $user->id]) }}" enctype="multipart/form-data">
+                        {{ method_field('PATCH') }}
+                        {{ csrf_field() }}
 
-                    <div class="form-group row">
-                        <label class="col-form-label col-lg-2">Name</label>
-                        <div class="col-lg-10">
-                            <input name="name" type="text" class="form-control" value="{{ $user->name }}" placeholder="e.g. John Doe...">
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label class="col-form-label col-lg-2">Avatar</label>
-                        <div class="col-lg-10">
-                        <div class="col-lg-10">
-                            <div class="row">
-                                <img id="avatar" src="{{ asset('limitless/bootstrap4/images/placeholder.jpg') }}" class="rounded-circle mr-2" height="34"/>
-                                <div class="uniform-uploader col-lg-11"><input type="file" class="form-control-uniform" data-fouc=""><span class="filename" style="user-select: none;">No file selected</span><span class="action btn btn-light" style="user-select: none;">Choose File</span></div>
+                        <div class="form-group row">
+                            <label class="col-form-label col-lg-2">Username</label>
+                            <div class="col-lg-10">
+                                <input name="username" type="text" class="form-control" value="{{ $user->username }}" placeholder="e.g. user123, john_doe...">
                             </div>
                         </div>
-                        </div>
-                    </div>
 
-                    <div class="form-group row">
-                        <label class="col-form-label col-lg-2">Language</label>
-                        <div class="col-lg-10">
-                            <select name="language" class="form-control" value="{{ $user->language }}">
-                                <option value="en" selected="{{ $user->language == 'en' }}">en</option>
-                                <option value="mn" selected="{{ $user->language == 'mn' }}">mn</option>
-                            </select>
+                        <div class="form-group row">
+                            <label class="col-form-label col-lg-2">Email</label>
+                            <div class="col-lg-10">
+                                <input id="email" name="email" type="email" class="form-control" value="{{ $user->email }}" placeholder="e.g. user@example.com...">
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="form-group row">
-                        <label class="col-form-label col-lg-2">Groups</label>
-                        <div class="col-lg-10">
-                            <select name="groups[]" id="groups" data-placeholder="Select Groups..." multiple="multiple" class="form-control">
-                                @foreach($groups as $group)
-                                    @php $selected = False @endphp
-                                    @foreach($user->groups as $user_group)
-                                        @php $selected = ($selected || $user_group->id == $group->id) @endphp
+                        <div class="form-group row">
+                            <label class="col-form-label col-lg-2">Name</label>
+                            <div class="col-lg-10">
+                                <input name="name" type="text" class="form-control" value="{{ $user->name }}" placeholder="e.g. John Doe...">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-form-label col-lg-2">Avatar</label>
+                            <div class="col-lg-10">
+                            <div class="col-lg-10">
+                                <div class="row">
+                                    <img id="avatar" src="{{ asset('limitless/bootstrap4/images/placeholder.jpg') }}" class="rounded-circle mr-2" height="34"/>
+                                    <div class="uniform-uploader col-lg-11"><input type="file" class="form-control-uniform" data-fouc=""><span class="filename" style="user-select: none;">No file selected</span><span class="action btn btn-light" style="user-select: none;">Choose File</span></div>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-form-label col-lg-2">Language</label>
+                            <div class="col-lg-10">
+                                <select name="language" class="form-control" value="{{ $user->language }}">
+                                    <option value="en" selected="{{ $user->language == 'en' }}">en</option>
+                                    <option value="mn" selected="{{ $user->language == 'mn' }}">mn</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-form-label col-lg-2">Groups</label>
+                            <div class="col-lg-10">
+                                <select name="groups[]" id="groups" data-placeholder="Select Groups..." multiple="multiple" class="form-control">
+                                    @foreach($groups as $group)
+                                        @php $selected = False @endphp
+                                        @foreach($user->groups as $user_group)
+                                            @php $selected = ($selected || $user_group->id == $group->id) @endphp
+                                        @endforeach
+                                        <option value="{{ $group->id }}" {{ $selected?'selected':'' }}>{{ $group->title }}</option>
                                     @endforeach
-                                    <option value="{{ $group->id }}" {{ $selected?'selected':'' }}>{{ $group->title }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-
-                    <hr>
-
-                    <div class="form-group row">
-                        <div class="col-lg-2">
-                            <div class="checkbox checkbox-left">
-                                <label>
-                                    <input id="password_checked" name="password_checked" type="checkbox" class="styled" onchange="toggle_password_form(this)">
-                                    Change Password?
-                                </label>
+                                </select>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="form-group row">
-                        <label class="col-form-label col-lg-2">New password</label>
-                        <div class="col-lg-10">
-                            <input id="new_password" name="new_password" type="password" class="form-control" disabled="true" placeholder="Minimum 8 characters allowed">
+                        <hr>
+
+                        <div class="form-group row">
+                            <div class="col-lg-2">
+                                <div class="checkbox checkbox-left">
+                                    <label>
+                                        <input id="password_checked" name="password_checked" type="checkbox" class="styled" onchange="toggle_password_form(this)">
+                                        Change Password?
+                                    </label>
+                                </div>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="form-group row">
-                        <label class="col-form-label col-lg-2">Retype New Password</label>
-                        <div class="col-lg-10">
-                            <input id="new_password2" name="new_password2" type="password" class="form-control" disabled="true" placeholder="Retype password">
+                        <div class="form-group row">
+                            <label class="col-form-label col-lg-2">New password</label>
+                            <div class="col-lg-10">
+                                <input id="new_password" name="new_password" type="password" class="form-control" disabled="true" placeholder="Minimum 8 characters allowed">
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="text-right">
-                        <button type="button" class="btn btn-default" onclick="cancel()">Cancel</button>
-                        <button type="submit" class="btn btn-primary">Submit form <i class="icon-arrow-right14 position-right"></i></button>
-                    </div>
-                </form>
+                        <div class="form-group row">
+                            <label class="col-form-label col-lg-2">Retype New Password</label>
+                            <div class="col-lg-10">
+                                <input id="new_password2" name="new_password2" type="password" class="form-control" disabled="true" placeholder="Retype password">
+                            </div>
+                        </div>
+
+                        <div class="text-right">
+                            <button type="button" class="btn btn-default" onclick="cancel()">Cancel</button>
+                            <button type="submit" class="btn btn-primary">Submit form <i class="icon-arrow-right14 position-right"></i></button>
+                        </div>
+                    </form>
+                </div>
             </div>
-        </div>
-        <!-- /horizotal form -->
+            <!-- /horizotal form -->
 
+        </div>
     </div>
 </div>
 <!-- /grid -->
+</div>
 
 
 @endsection

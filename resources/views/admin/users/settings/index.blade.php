@@ -54,8 +54,9 @@
     @include('admin.users.includes.sidebar')
 
     <!-- Detached content -->
-    <div>
-
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
             <!-- Tab content -->
                     <div class="card">
                         <div class="card-header card-header header-elements-inline">
@@ -96,6 +97,9 @@
                         </table>
                     </div>
             <!-- /tab content -->
+            
+            </div>
+        </div>
     </div>
 </div>
 
