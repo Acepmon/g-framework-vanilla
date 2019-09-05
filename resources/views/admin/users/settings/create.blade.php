@@ -57,17 +57,12 @@
 @endsection
 
 @section('content')
-<div class="has-detached-left">
+<div class="d-md-flex align-items-md-start">
     @include('admin.users.includes.sidebar')
 
-    <!-- Detached content -->
-    <div class="container-detached">
-        <div class="content-detached">
-
-            <!-- Tab content -->
-            <div class="tab-content">
-
-                <div class="tab-pane fade in active" id="settings">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
 
 					<!-- Form horizontal -->
 					<div class="card">
@@ -122,7 +117,6 @@
 							</form>
 						</div>
 					</div>
-                </div>
             </div>
             <!-- /tab content -->
 

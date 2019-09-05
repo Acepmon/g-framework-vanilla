@@ -121,16 +121,13 @@
                                         <input name="name" type="text" class="form-control" value="{{ $user->name }}" placeholder="e.g. John Doe...">
                                     </div>
                                 </div>
-
+                                
                                 <div class="form-group row">
                                     <label class="col-form-label col-lg-2">Avatar</label>
-                                    <div class="col-lg-10">
-                                        <div class=" media-left">
-                                            <img id="avatar" src="{{ $user->avatar_url()}}" class="img-circle img-md"/>
-                                        </div>
-                                        <div class="media-body">
-                                            <input type="file" name="avatar" class="file-styled form-control" onchange="readURL(this);">
-                                        </div>
+                                    <div class="col-lg-10 row">
+                                            <img id="avatar" src="{{ $user->avatar_url()}}" class="rounded-circle mr-2" height="34"/>
+                                    
+                                            <div class="uniform-uploader col-lg-11"><input type="file" class="form-control-uniform" onchange="readURL(this);" data-fouc=""><span class="filename" style="user-select: none;">No file selected</span><span class="action btn btn-light" style="user-select: none;">Choose File</span></div>
                                     </div>
                                 </div>
 

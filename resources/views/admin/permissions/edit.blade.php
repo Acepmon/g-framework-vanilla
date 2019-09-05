@@ -35,10 +35,10 @@
 @section('content')
 
 
+<div class="d-md-flex align-items-md-start">
 
+    <div class="container-fluid">
 <!-- Grid -->
-<div class="row">
-    <div class="col-md-12">
 
         <!-- Horizontal form -->
         <div class="card">
@@ -59,49 +59,50 @@
                     {{ session('status') }}
                 </div>
                 @endif
-                <form class="form-horizontal" method="POST" action="{{ route('admin.permissions.update', $permission->id) }}">
-                    @csrf
-                    @method ('PUT')
-                    <div class="col-lg-9">
-                        <div class="form-group row">
-                            <label class="col-form-label col-lg-2">Title</label>
-                            <div class="col-lg-10">
-                                <input id="title" type="text" class="form-control @error('title') is-invalid @enderror" name="title" placeholder="Title" value="{{ $permission->title }}" required autocomplete="title" autofocus>
-                                @error('title')
-                                <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                @enderror
+                <div class="row">
+                <div class="col-lg-9">
+                    <form class="form-horizontal" method="POST" action="{{ route('admin.permissions.update', $permission->id) }}">
+                        @csrf
+                        @method ('PUT')
+                            <div class="form-group row">
+                                <label class="col-form-label col-lg-2">Title</label>
+                                <div class="col-lg-10">
+                                    <input id="title" type="text" class="form-control @error('title') is-invalid @enderror" name="title" placeholder="Title" value="{{ $permission->title }}" required autocomplete="title" autofocus>
+                                    @error('title')
+                                    <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                    @enderror
+                                </div>
                             </div>
-                        </div>
-                            
-                        <div class="form-group row">
-                            <label for="type" class="col-form-label col-lg-2">Type</label>
-                            <div class="col-lg-10">
-                                <select id="type" name="type" required="required" class="form-control text-capitalize">
-                                    @foreach(App\Permission::TYPE_ARRAY as $value)
-                                    <option value="{{ $value }}" {{ ($value === $permission->type)?'selected':'' }}>{{ $value }}</option>
-                                    @endforeach
-                                </select>
+                                
+                            <div class="form-group row">
+                                <label for="type" class="col-form-label col-lg-2">Type</label>
+                                <div class="col-lg-10">
+                                    <select id="type" name="type" required="required" class="form-control text-capitalize">
+                                        @foreach(App\Permission::TYPE_ARRAY as $value)
+                                        <option value="{{ $value }}" {{ ($value === $permission->type)?'selected':'' }}>{{ $value }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="form-group row">
-                            <label class="col-form-label col-lg-2">Description</label>
-                            <div class="col-lg-10">
-                                <input id="description" type="text" class="form-control @error('description') is-invalid @enderror" name="description" placeholder="Description" value="{{ $permission->description }}" required autocomplete="description" autofocus>
-                                @error('description')
-                                <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                @enderror
+                            <div class="form-group row">
+                                <label class="col-form-label col-lg-2">Description</label>
+                                <div class="col-lg-10">
+                                    <input id="description" type="text" class="form-control @error('description') is-invalid @enderror" name="description" placeholder="Description" value="{{ $permission->description }}" required autocomplete="description" autofocus>
+                                    @error('description')
+                                    <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                    @enderror
+                                </div>
                             </div>
-                        </div>
-                        <div class="text-right">
-                            <button type="submit" class="btn btn-primary">Edit menu<i class="icon-arrow-right14 position-right"></i></button>
-                        </div>
-                    </div>
-                </form>
+                            <div class="text-right">
+                                <button type="submit" class="btn btn-primary">Edit menu<i class="icon-arrow-right14 position-right"></i></button>
+                            </div>
+                    </form>
+                </div>
                 <div class="col-lg-3">
                     <div class="form-group row">
                         <table class="table">
@@ -131,14 +132,13 @@
                         </table>
                     </div>
                 </div>
+                </div>
             </div>
         </div>
         <!-- /horizotal form -->
-
-    </div>
-
-</div>
 <!-- /grid -->
+</div>
+</div>
 
 @endsection
 
