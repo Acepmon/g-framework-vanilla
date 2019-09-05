@@ -30,71 +30,40 @@
 
 @section('content')
 
-
-
-<!-- Grid -->
 <div class="row">
-    <div class="col-md-12">
+    <div class="col-sm-2">
+        <div class="panel">
+            <div class="panel-body panel-body-accent">
+                <h4 class="text-semibold no-margin">
+                    <a href="{{ route('admin.themes.show', $theme->id) }}" class="text-default">{{ $theme->title }}</a>
+                </h4>
 
-        <!-- Horizontal form -->
-        <div class="panel panel-flat">
-            <div class="panel-heading">
-                <h5 class="panel-title">Horizontal form</h5>
-                <div class="heading-elements">
-                    <ul class="icons-list">
-                        <li><a data-action="collapse"></a></li>
-                        <li><a data-action="close"></a></li>
-                    </ul>
-                </div>
-            </div>
+                <p>
+                    {{ $theme->description }}
+                </p>
 
-            <div class="panel-body">
-                <!-- <form method="put" action="" class="form-horizontal"> -->
-                @if (session('status'))
-                <div class="alert alert-success">
-                    {{ session('status') }}
-                </div>
-                @endif
-                <form class="form-horizontal" method="POST" action="{{ route('admin.themes.update', $plugin->id) }}">
-                    @csrf
-                    @method ('PUT')
-                    <div class="col-lg-12">
-                        <div class="form-group">
-                            <label class="control-label col-lg-2">Title</label>
-                            <div class="col-lg-10">
-                                <input id="title" type="text" class="form-control @error('title') is-invalid @enderror" name="title" placeholder="Title" value="{{ $plugin->title }}" required autocomplete="title" autofocus>
-                                @error('title')
-                                <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="control-label col-lg-2">Description</label>
-                            <div class="col-lg-10">
-                                <input id="description" type="text" class="form-control @error('description') is-invalid @enderror" name="description" placeholder="Description" value="{{ $plugin->description }}" required autocomplete="description" autofocus>
-                                @error('description')
-                                <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                @enderror
-                            </div>
-                        </div>
-                        <div class="text-right">
-                            <button type="submit" class="btn btn-primary">Edit Theme<i class="icon-arrow-right14 position-right"></i></button>
-                        </div>
-                    </div>
-                </form>
+                <dl>
+                    <dt>Version</dt>
+                    <dd>{{ $theme->version }}</dd>
+                    <dt>Status</dt>
+                    <dd class="text-capitalize">{{ $theme->status }}</dd>
+                    <dt>Repository</dt>
+                    <dd style="white-space: nowrap; overflow: hidden; text-overflow: ellipses;"><a href="{{ $theme->repository }}" target="_blank">{{ $theme->repository }}</a></dd>
+                </dl>
             </div>
         </div>
-        <!-- /horizotal form -->
+        <div class="panel">
 
+        </div>
     </div>
-
+    <div class="col-sm-10">
+        <div class="panel">
+            <div class="panel-heading">
+                <h5 class="panel-title">Customize</h5>
+            </div>
+        </div>
+    </div>
 </div>
-<!-- /grid -->
 
 @endsection
 

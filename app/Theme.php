@@ -3,6 +3,8 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Config;
+use File;
 
 class Theme extends Model
 {
@@ -25,6 +27,38 @@ class Theme extends Model
         self::DEACTIVATED,
         self::FAILED,
         self::UPDATING,
-        self:: UNINSTALLED
+        self::UNINSTALLED
     ];
+
+    public function layouts() {
+        $layouts = [];
+        $path = Config::getValue('themes.install.viewPath');
+        $fullPath = $path . DIRECTORY_SEPARATOR . $this->package . DIRECTORY_SEPARATOR . 'layouts';
+        if (File::exists($fullPath)) {
+            foreach(File::files($fullPath) as $path) {
+                array_push($layouts, [
+                    'text' => str_replace('.blade.php', '', $path->getFilename()),
+                    'theme_id' => $this->id,
+                    'value' => 'themes.' . $this->package . '.layouts.' . str_replace('.blade.php', '', $path->getFilename())
+                ]);
+            }
+        }
+        return $layouts;
+    }
+
+    public function includes() {
+        $includes = [];
+        $path = Config::getValue('themes.install.viewPath');
+        $fullPath = $path . DIRECTORY_SEPARATOR . $this->package . DIRECTORY_SEPARATOR . 'includes';
+        if (File::exists($fullPath)) {
+            foreach(File::files($fullPath) as $path) {
+                array_push($includes, [
+                    'text' => str_replace('.blade.php', '', $path->getFilename()),
+                    'theme_id' => $this->id,
+                    'value' => 'themes.' . $this->package . '.includes.' . str_replace('.blade.php', '', $path->getFilename())
+                ]);
+            }
+        }
+        return $includes;
+    }
 }
