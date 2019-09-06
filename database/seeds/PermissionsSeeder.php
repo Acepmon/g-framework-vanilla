@@ -94,6 +94,10 @@ class PermissionsSeeder extends Seeder
             ['title' => 'admin_themes_read', 'type' => Permission::TYPE_READ, 'description' => 'read permission for theme'],
             ['title' => 'admin_themes_update', 'type' => Permission::TYPE_UPDATE, 'description' => 'update permission for theme'],
             ['title' => 'admin_themes_delete', 'type' => Permission::TYPE_DELETE, 'description' => 'delete permission for theme'],
+            ['title' => 'admin_themes_layouts_read', 'type' => Permission::TYPE_READ, 'description' => 'read permission for theme layouts'],
+            ['title' => 'admin_themes_layouts_update', 'type' => Permission::TYPE_UPDATE, 'description' => 'update permission for theme layouts'],
+            ['title' => 'admin_themes_includes_read', 'type' => Permission::TYPE_READ, 'description' => 'read permission for theme includes'],
+            ['title' => 'admin_themes_includes_update', 'type' => Permission::TYPE_UPDATE, 'description' => 'update permission for theme includes'],
             // group CRUD
             ['title' => 'admin_groups_create', 'type' => Permission::TYPE_CREATE, 'description' => 'create permission for group'],
             ['title' => 'admin_groups_read', 'type' => Permission::TYPE_READ, 'description' => 'read permission for group'],

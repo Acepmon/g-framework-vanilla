@@ -8,6 +8,7 @@ use App\Theme;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 //use phpDocumentor\Reflection\DocBlock\Tags\Uses;
+use File;
 
 use GuzzleHttp\Client;
 
@@ -31,7 +32,7 @@ class ThemeController extends Controller
     public function index()
     {
 
-        $themes = Theme::where('status', '!=', Theme::AVAILABLE)->get();
+        $themes = Theme::all();
         return view('admin.themes.index', ['themes' => $themes]);
 
     }
@@ -118,8 +119,7 @@ class ThemeController extends Controller
      */
     public function show($id)
     {
-        $theme = Theme::find($id);
-        return view('admin.themes.show', ['plugin' => $theme]);
+        return redirect()->route('admin.themes.edit', $id);
     }
 
     /**
@@ -254,4 +254,93 @@ class ThemeController extends Controller
         return response()->json(['status' => 'Success']);
     }
 
+    public function editLayout(Request $request, $id, $name) {
+        $theme = Theme::findOrFail($id);
+        $layout = array_filter($theme->layouts(), function ($item) use ($name) {
+            if ($item['text'] == $name) {
+                return $item;
+            }
+        });
+
+        if (!$layout) {
+            abort(404);
+        }
+
+        if (count($layout) > 0) {
+            $layout = $layout[key($layout)];
+        }
+
+        return view('admin.themes.layouts.edit', ['theme' => $theme, 'layout' => $layout]);
+    }
+
+    public function updateLayout(Request $request, $id, $name) {
+        $request->validate([
+            'content' => 'required'
+        ]);
+
+        $content = $request->input('content');
+        $theme = Theme::findOrFail($id);
+        $layout = array_filter($theme->layouts(), function ($item) use ($name) {
+            if ($item['text'] == $name) {
+                return $item;
+            }
+        });
+
+        if (!$layout) {
+            abort(404);
+        }
+
+        if (count($layout) > 0) {
+            $layout = $layout[key($layout)];
+        }
+
+        if (File::put($layout['fullPath'], $content)) {
+            return response()->file($layout['fullPath']);
+        }
+    }
+
+    public function editInclude(Request $request, $id, $name) {
+        $theme = Theme::findOrFail($id);
+        $include = array_filter($theme->includes(), function ($item) use ($name) {
+            if ($item['text'] == $name) {
+                return $item;
+            }
+        });
+
+        if (!$include) {
+            abort(404);
+        }
+
+        if (count($include) > 0) {
+            $include = $include[key($include)];
+        }
+
+        return view('admin.themes.includes.edit', ['theme' => $theme, 'include' => $include]);
+    }
+
+    public function updateInclude(Request $request, $id, $name) {
+        $request->validate([
+            'content' => 'required'
+        ]);
+
+        $content = $request->input('content');
+        $theme = Theme::findOrFail($id);
+        $include = array_filter($theme->includes(), function ($item) use ($name) {
+            if ($item['text'] == $name) {
+                return $item;
+            }
+        });
+
+        if (!$include) {
+            abort(404);
+        }
+
+        if (count($include) > 0) {
+            $include = $include[key($include)];
+        }
+
+        if (File::put($include['fullPath'], $content)) {
+            return response()->file($include['fullPath']);
+        }
+    }
 }

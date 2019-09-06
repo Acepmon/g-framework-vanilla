@@ -32,29 +32,7 @@
 
 <div class="row">
     <div class="col-sm-2">
-        <div class="panel">
-            <div class="panel-body panel-body-accent">
-                <h4 class="text-semibold no-margin">
-                    <a href="{{ route('admin.themes.show', $theme->id) }}" class="text-default">{{ $theme->title }}</a>
-                </h4>
-
-                <p>
-                    {{ $theme->description }}
-                </p>
-
-                <dl>
-                    <dt>Version</dt>
-                    <dd>{{ $theme->version }}</dd>
-                    <dt>Status</dt>
-                    <dd class="text-capitalize">{{ $theme->status }}</dd>
-                    <dt>Repository</dt>
-                    <dd style="white-space: nowrap; overflow: hidden; text-overflow: ellipses;"><a href="{{ $theme->repository }}" target="_blank">{{ $theme->repository }}</a></dd>
-                </dl>
-            </div>
-        </div>
-        <div class="panel">
-
-        </div>
+        @include('admin.themes.sidebar')
     </div>
     <div class="col-sm-10">
         <div class="panel">

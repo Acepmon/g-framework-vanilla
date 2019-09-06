@@ -172,6 +172,10 @@ Route::middleware(['installed'])->group(function () {
                     'update' => 'admin.plugins.update',
                     'destroy' => 'admin.plugins.destroy'
                 ]);
+                Route::get('themes/{id}/layouts/{name}', 'ThemeController@editLayout')->name('admin.themes.layouts.edit');
+                Route::put('themes/{id}/layouts/{name}', 'ThemeController@updateLayout')->name('admin.themes.layouts.update');
+                Route::get('themes/{id}/includes/{name}', 'ThemeController@editInclude')->name('admin.themes.includes.edit');
+                Route::put('themes/{id}/includes/{name}', 'ThemeController@updateInclude')->name('admin.themes.includes.update');
                 Route::resource('themes', 'ThemeController')->names([
                     'index' => 'admin.themes.index',
                     'create' => 'admin.themes.create',
@@ -181,6 +185,7 @@ Route::middleware(['installed'])->group(function () {
                     'update' => 'admin.themes.update',
                     'destroy' => 'admin.themes.destroy'
                 ]);
+
                 Route::post('plugins/{plugin}/activate', 'PluginController@activate')->name('admin.plugins.activate');
                 Route::post('plugins/{plugin}/deactivate', 'PluginController@deactivate')->name('admin.plugins.deactivate');
                 Route::post('themes/{theme}/activate', 'ThemeController@activate')->name('admin.themes.activate');

@@ -39,7 +39,8 @@ class Theme extends Model
                 array_push($layouts, [
                     'text' => str_replace('.blade.php', '', $path->getFilename()),
                     'theme_id' => $this->id,
-                    'value' => 'themes.' . $this->package . '.layouts.' . str_replace('.blade.php', '', $path->getFilename())
+                    'value' => 'themes.' . $this->package . '.layouts.' . str_replace('.blade.php', '', $path->getFilename()),
+                    'fullPath' => $fullPath . DIRECTORY_SEPARATOR . $path->getFilename()
                 ]);
             }
         }
@@ -55,7 +56,8 @@ class Theme extends Model
                 array_push($includes, [
                     'text' => str_replace('.blade.php', '', $path->getFilename()),
                     'theme_id' => $this->id,
-                    'value' => 'themes.' . $this->package . '.includes.' . str_replace('.blade.php', '', $path->getFilename())
+                    'value' => 'themes.' . $this->package . '.includes.' . str_replace('.blade.php', '', $path->getFilename()),
+                    'fullPath' => $fullPath . DIRECTORY_SEPARATOR . $path->getFilename()
                 ]);
             }
         }
