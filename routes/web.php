@@ -216,6 +216,15 @@ Route::middleware(['installed'])->group(function () {
                     'update' => 'admin.contents.update',
                     'destroy' => 'admin.contents.destroy'
                 ]);
+                Route::resource('cars/hot', 'CarHotController')->names([
+                    'index' => 'admin.cars.hot.index',
+                    'create' => 'admin.cars.hot.create',
+                    'store' => 'admin.cars.hot.store',
+                    'show' => 'admin.cars.hot.show',
+                    'edit' => 'admin.cars.hot.edit',
+                    'update' => 'admin.cars.hot.update',
+                    'destroy' => 'admin.cars.hot.destroy'
+                ]);
                 Route::resource('cars', 'CarController')->names([
                     'index' => 'admin.cars.index',
                     'create' => 'admin.cars.create',
@@ -270,12 +279,12 @@ Route::middleware(['installed'])->group(function () {
                 Route::put('/contents/{content}/metas/{meta}', 'ContentMetaController@update')->name('admin.contents.metas.update');
                 Route::delete('/contents/{content}/metas/{meta}', 'ContentMetaController@destroy')->name('admin.contents.metas.destroy');
 
-                Route::get('/cars/{car}/metas', 'CarMetaController@index')->name('admin.cars.metas.index');
-                Route::get('/cars/{car}/metas/create', 'CarMetaController@create')->name('admin.cars.metas.create');
-                Route::post('/cars/{car}/metas', 'CarMetaController@store')->name('admin.cars.metas.store');
-                Route::get('/cars/{car}/metas/{meta}/edit', 'CarMetaController@edit')->name('admin.cars.metas.edit');
-                Route::put('/cars/{car}/metas/{meta}', 'CarMetaController@update')->name('admin.cars.metas.update');
-                Route::delete('/cars/{car}/metas/{meta}', 'CarMetaController@destroy')->name('admin.cars.metas.destroy');
+                // Route::get('/cars/{car}/metas', 'CarMetaController@index')->name('admin.cars.metas.index');
+                // Route::get('/cars/{car}/metas/create', 'CarMetaController@create')->name('admin.cars.metas.create');
+                // Route::post('/cars/{car}/metas', 'CarMetaController@store')->name('admin.cars.metas.store');
+                // Route::get('/cars/{car}/metas/{meta}/edit', 'CarMetaController@edit')->name('admin.cars.metas.edit');
+                // Route::put('/cars/{car}/metas/{meta}', 'CarMetaController@update')->name('admin.cars.metas.update');
+                // Route::delete('/cars/{car}/metas/{meta}', 'CarMetaController@destroy')->name('admin.cars.metas.destroy');
 
                 Route::get('/comments/{comment}/metas', 'CommentMetaController@index')->name('admin.comments.metas.index');
                 Route::get('/comments/{comment}/metas/create', 'CommentMetaController@create')->name('admin.comments.metas.create');
