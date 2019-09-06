@@ -163,9 +163,11 @@
 
                                 <div class="form-group row">
                                     <div class="col-lg-12">
-                                        <div class="checkbox checkbox-left">
-                                            <label>
-                                                <input id="password_checked" name="password_checked" type="checkbox" class="styled" onchange="toggle_password_form(this)">
+                                        <div class="form-check">
+                                            <label class="form-check-label">
+                                                <div class="uniform-checker">
+                                                        <input id="password_checked" name="password_checked" type="checkbox" class="form-check-input-styled" onchange="toggle_password_form(this)" data-fouc="">
+                                                </div>
                                                 Change Password?
                                             </label>
                                         </div>

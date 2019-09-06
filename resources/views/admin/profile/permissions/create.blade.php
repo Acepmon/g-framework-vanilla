@@ -72,7 +72,7 @@
 								<div class="list-icons">
 			                		<a class="list-icons-item" data-action="collapse"></a>
 			                		<a class="list-icons-item" data-action="reload"></a>
-			                		<a class="list-icons-item" data-action="close"></a>
+			                		<a class="list-icons-item" data-action="remove"></a>
 			                	</div>
 		                	</div>
 						</div>

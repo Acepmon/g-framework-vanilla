@@ -50,18 +50,14 @@
 @endsection
 
 @section('content')
-<div class="has-detached-left">
+<div class="d-md-flex align-items-md-start">
     @include('admin.profile.includes.sidebar')
 
-    <!-- Detached content -->
-    <div class="container-detached">
-        <div class="content-detached">
-
-            <!-- Tab content -->
-            <div class="tab-content">
-                <div class="tab-pane fade in active" id="contents">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
                     <div class="card">
-                        <div class="card-heading">
+                        <div class="card-header">
                             <h6 class="card-title">Contents</h6>
                         </div>
 
@@ -93,7 +89,6 @@
                             </tbody>
                         </table>
                     </div>
-                </div>
             </div>
             <!-- /tab content -->
 
