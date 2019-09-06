@@ -27,7 +27,6 @@
             <a class="breadcrumb-item" href="index.html"><i class="icon-home2 mr-2"></i> Home</a>
             <a class="breadcrumb-item" href="{{ route('admin.contents.index', ['type' => $content->type]) }}">{{ ucfirst($content->type) }}s</a>
             <a class="breadcrumb-item" href="{{ route('admin.contents.show', ['id' => $content->id]) }}">Detail</a>
-            <span class="active">Edit</span>
         </div>
     </div>
 
@@ -76,22 +75,22 @@
                         </div>
                         @endforeach
                     @endif
-                    <div class="form-group">
+                    <div class="form-group row">
                         <label class="col-form-label col-lg-2">Title <span class="text-danger">*</span></label>
                         <div class="col-lg-8">
                             <input id="title" type="text" class="form-control" name="title" placeholder="Enter content title..." value="{{$content->title}}" required="required" aria-required="true" invalid="true">
                         </div>
                         <div class="col-lg-2">
-                            <button type="button" class="btn btn-default" onclick="create_slug()">Create Slug</button>
+                            <button type="button" class="btn btn-primary" onclick="create_slug()">Create Slug</button>
                         </div>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group row">
                         <label class="col-form-label col-lg-2">Slug <span class="text-danger">*</span></label>
                         <div class="col-lg-10">
                             <input id="slug" type="text" class="form-control" name="slug" placeholder="Enter content slug..." value="{{$content->slug}}" required="required" aria-required="true" invalid="true">
                         </div>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group row">
                         <label class="col-form-label col-lg-2">Type <span class="text-danger">*</span></label>
                         <div class="col-lg-10">
                             <select id="type" name="type" required="required" class="form-control">
@@ -102,7 +101,7 @@
                         </div>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group row">
                         <label class="col-form-label col-lg-2">Status <span class="text-danger">*</span></label>
                         <div class="col-lg-10">
                             <select id="status" name="status" required="required" class="form-control">
@@ -113,7 +112,7 @@
                         </div>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group row">
                         <label class="col-form-label col-lg-2">Visibility <span class="text-danger">*</span></label>
                         <div class="col-lg-10">
                             <select id="visibility" name="visibility" required="required" class="form-control">
@@ -124,7 +123,7 @@
                         </div>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group row">
                         <label class="col-form-label col-lg-2">Author ID</label>
                         <div class="col-lg-10">
                             <select name="author_id" type="text" id="author_id" class="form-control">
@@ -135,7 +134,7 @@
                         </div>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group row">
                         <label class="col-form-label col-lg-2">Category</label>
                         <div class="col-lg-10">
                             <select name="category" type="text" class="form-control">
@@ -146,7 +145,7 @@
                         </div>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group row">
                         <label class="col-form-label col-lg-2">Tags</label>
                         <div class="col-lg-10">
                             <select name="tags[]" id="tags" data-placeholder="Select Tags..." multiple="multiple" class="select">

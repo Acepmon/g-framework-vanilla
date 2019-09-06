@@ -48,9 +48,11 @@
 
 <!-- Grid -->
 
-<div class="has-detached-right">
-    <div class="container-detached">
-        <div class="content-detached">
+<div class="d-md-flex align-items-md-start">
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
             @if(Session::has('error'))
             <div class="alert alert-danger no-border">
                 <button type="button" class="close" data-dismiss="alert"><span>&times;</span><span class="sr-only">Close</span></button>
@@ -170,56 +172,56 @@
             @endforeach
         </div>
     </div>
+</div>
 
+<div class="sidebar sidebar-light sidebar-component sidebar-component-left sidebar-expand-md">
+    <div class="sidebar-content">
 
-    <div class="sidebar-detached">
-        <div class="sidebar sidebar-default">
-            <div class="sidebar-content">
-
-                <!-- Support -->
-                <div class="sidebar-category no-margin">
-                    <div class="category-title">
-                        <span>Sidebar</span>
-                        <i class="icon-menu7 pull-right"></i>
+                <div class="card-header bg-transparent header-elements-inline">
+                    <span class="text-uppercase font-size-sm font-weight-semibold">Sidebar</span>
+                    <div class="header-elements">
+                        <div class="list-icons">
+                            <a class="list-icons-item">
+                                <i class="icon-menu7 pull-right"></i>
+                            </a>
+                        </div>
                     </div>
-
-                    <div class="category-content">
-                        <a href="#" class="btn bg-danger-400 btn-block" target="_blank"><i class="icon-lifebuoy position-left"></i> Item support</a>
-                    </div>
+                </div>
+                                
+                <div class="card-body">
+                    <a href="#" class="btn bg-danger-400 btn-block" target="_blank"><i class="icon-lifebuoy position-left"></i> Item support</a>
                 </div>
                 <!-- /support -->
 
 
                 <!-- Navigation -->
-                <div class="sidebar-category">
-                    <div class="category-content no-padding">
-                        <ul class="nav navigation">
-                            <li class="navigation-divider no-margin-top"></li>
-                            <li class="navigation-header"><i class="icon-history pull-right"></i> Detail</li>
-                            <li><a href="#detail">Detail</a></li>
-                            <li><a href="#comments">Comments <span class="text-muted text-regular pull-right">{{ count($content->comments) }} comments</span></a></li>
+                
+                <div class="card card-sidebar-mobile">
+                        <ul class="nav nav-sidebar" data-nav-type="accordion">
+                            <li class="nav-divider no-margin-top"></li>
+                            <li class="nav-item-header"><i class="icon-history pull-right"></i> Detail</li>
+                            <li class="nav-item"><a class="nav-link" href="#detail">Detail</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#comments">Comments <span class="text-muted text-regular text-right">{{ count($content->comments) }} comments</span></a></li>
 
                             <!-- Navigation History -->
-                            <li class="navigation-header"><i class="icon-history pull-right"></i> Revision history</li>
+                            <li class="nav-item-header"><i class="icon-history pull-right"></i> Revision history</li>
                             @foreach($content->metas->whereIn('key', ['initial', 'revision', 'revert'])->sortByDesc('id') as $key=>$revision)
-                            <li><a href="#v_{{ $revision->id }}">{{ $key+1 }}. {{ ucfirst($revision->key) }}
+                            <li class="nav-item"><a class="nav-link" href="#v_{{ $revision->id }}">{{ $key+1 }}. {{ ucfirst($revision->key) }}
                                 <span class="text-muted text-regular pull-right">{{ date('Y-m-d', json_decode($revision->value)->datetime) }}</span>
                             </a></li>
                             @endforeach
 
-                            <li class="navigation-divider"></li>
-                            <li class="navigation-header"><i class="icon-gear pull-right"></i> Extras</li>
-                            <li><a href="http://themeforest.net/user/kopyov" target="_blank"><i class="icon-bubbles4 text-slate-400"></i> Contact me</a></li>
-                            <li><a href="http://kopyov.ticksy.com" target="_blank"><i class="icon-lifebuoy text-slate-400"></i> Support</a></li>
-                            <li><a href="http://themeforest.net/user/kopyov/portfolio?ref=Kopyov" target="_blank"><i class="icon-rocket text-slate-400"></i> Other templates</a></li>
+                            <li class="nav-divider"></li>
+                            <li class="nav-item-header"><i class="icon-gear pull-right"></i> Extras</li>
+                            <li class="nav-item"><a class="nav-link" href="http://themeforest.net/user/kopyov" target="_blank"><i class="icon-bubbles4 text-slate-400"></i> Contact me</a></li>
+                            <li class="nav-item"><a class="nav-link" href="http://kopyov.ticksy.com" target="_blank"><i class="icon-lifebuoy text-slate-400"></i> Support</a></li>
+                            <li class="nav-item"><a class="nav-link" href="http://themeforest.net/user/kopyov/portfolio?ref=Kopyov" target="_blank"><i class="icon-rocket text-slate-400"></i> Other templates</a></li>
                         </ul>
                     </div>
-                </div>
                 <!-- /navigation -->
 
             </div>
         </div>
-    </div>
 </div>
 <!-- /grid -->
 
