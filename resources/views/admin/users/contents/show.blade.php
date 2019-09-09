@@ -50,16 +50,12 @@
 @endsection
 
 @section('content')
-<div class="has-detached-left">
+<div class="d-md-flex align-items-md-start">
     @include('admin.users.includes.sidebar')
-
-    <!-- Detached content -->
-    <div class="container-detached">
-        <div class="content-detached">
-
-            <!-- Tab content -->
-            <div class="tab-content">
-                <div class="tab-pane fade in active" id="contents">
+        
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
 					<div class="card">
 						<div class="card-header header-elements-inline">
 							<h5 class="card-title">Content Detail</h5>
@@ -135,7 +131,6 @@
                             </div>
 						</div>
 					</div>
-                </div>
             </div>
             <!-- /tab content -->
 
