@@ -15,7 +15,9 @@ class BannerController extends Controller
      */
     public function index()
     {
-        //
+        $banners = Banner::all();
+
+        return view('admin.banners.index', ['banners' => $banners]);
     }
 
     /**
@@ -25,7 +27,7 @@ class BannerController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.banners.create');
     }
 
     /**
@@ -47,7 +49,7 @@ class BannerController extends Controller
      */
     public function show(Banner $banner)
     {
-        //
+        return view('admin.banners.show', ['banner' => $banner]);
     }
 
     /**
@@ -58,7 +60,7 @@ class BannerController extends Controller
      */
     public function edit(Banner $banner)
     {
-        //
+        return view('admin.banners.edit', ['banner' => $banner]);
     }
 
     /**
