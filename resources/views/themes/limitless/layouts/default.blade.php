@@ -26,12 +26,12 @@
 
 	<!-- Theme JS files -->
 	<script type="text/javascript" src="{{ asset('limitless/js/plugins/forms/styling/uniform.min.js') }}"></script>
-
+	@yield('load-before')
 	<script type="text/javascript" src="{{ asset('limitless/js/core/app.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('limitless/js/pages/login.js') }}"></script>
     <!-- /theme JS files -->
-
 	@yield('load')
+
 </head>
 
 <body>

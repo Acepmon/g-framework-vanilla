@@ -1,12 +1,30 @@
 @extends('themes.limitless.layouts.default')
 
 @section('load')
+<script type="text/javascript" src="{{ asset('limitless/js/pages/picker_date.js')}}"></script>
+<script type="text/javascript" src="{{ asset('limitless/js/plugins/forms/styling/switchery.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('limitless/js/plugins/forms/tags/tagsinput.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('limitless/js/plugins/forms/tags/tokenfield.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('limitless/js/pages/form_tags_input.js') }}"></script>
+<script type="text/javascript" src="{{ asset('limitless/js/pages/form_checkboxes_radios.js') }}"></script>
+@endsection
+@section('load-before')
 <script type="text/javascript" src="{{ asset('limitless/js/plugins/forms/validation/validate.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('limitless/js/plugins/forms/selects/bootstrap_multiselect.js') }}"></script>
 <script type="text/javascript" src="{{ asset('limitless/js/plugins/forms/inputs/touchspin.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('limitless/js/plugins/forms/selects/select2.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('limitless/js/plugins/forms/styling/switch.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('limitless/js/pages/form_validation.js') }}"></script>
+
+
+<script type="text/javascript" src="{{ asset('limitless/js/plugins/ui/moment/moment.min.js')}}"></script>
+<script type="text/javascript" src="{{ asset('limitless/js/plugins/pickers/anytime.min.js')}}"></script>
+<script type="text/javascript" src="{{ asset('limitless/js/plugins/pickers/daterangepicker.js') }}"></script>
+<script type="text/javascript" src="{{ asset('limitless/js/plugins/pickers/pickadate/picker.js')}}"></script>
+<script type="text/javascript" src="{{ asset('limitless/js/plugins/pickers/pickadate/picker.date.js')}}"></script>
+<script type="text/javascript" src="{{ asset('limitless/js/plugins/pickers/pickadate/picker.time.js')}}"></script>
+<script type="text/javascript" src="{{ asset('limitless/js/plugins/pickers/pickadate/legacy.js')}}"></script>
+<script type="text/javascript" src="{{ asset('limitless/js/plugins/media/cropper.min.js') }}"></script>
 @endsection
 
 @section('pageheader')
@@ -57,7 +75,7 @@
         <!-- Horizontal form -->
         <div class="panel panel-flat">
             <div class="panel-body">
-                <form class="form-horizontal" action="{{ route('admin.cars.store') }}" enctype="multipart/form-data" method="POST">
+                <form class="form-horizontal" action="{{ route('admin.cars.store') }}" enctype="multipart/form-data" method="POST" id="form">
                     @csrf
 
                     @if(Session::has('error'))
@@ -117,59 +135,7 @@
 
                     <input name="author_id" type="text" id="author_id" value="{{ Auth::id() }}" hidden>
 
-                    <div class="form-group">
-                        <label for="category" class="control-label col-lg-2">Category</label>
-                        <div class="col-lg-10">
-                            <select name="category" type="text" class="form-control">
-                                @foreach(App\TermTaxonomy::where('taxonomy', 'category')->get() as $taxonomy)
-                                    <option value="{{$taxonomy->id}}">{{$taxonomy->term->name}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="tags" class="control-label col-lg-2">Tags</label>
-                        <div class="col-lg-10">
-                            <select name="tags[]" id="tags" data-placeholder="Select Tags..." multiple="multiple" class="select">
-                                @foreach(App\TermTaxonomy::where('taxonomy', 'tag')->get() as $tag)
-                                    @php $selected = False @endphp
-                                    @if(Request::old('tags'))
-                                        @foreach(Request::old('tags') as $tag_id)
-                                            @php $selected = ($selected || $tag_id == $tag->id) @endphp
-                                        @endforeach
-                                    @endif
-                                    <option value="{{ $tag->id }}" {{ $selected?'selected':'' }}>{{ $tag->term->name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-
-                    {{--car section--}}
                     <h4 class="text-center">Car section /General information/</h4>
-                    {{--<div class="form-group">--}}
-                        {{--<label for="tags" class="control-label col-lg-2">Tags</label>--}}
-                        {{--<div class="col-lg-10">--}}
-                            {{--<select name="tags[]" id="tags" data-placeholder="Select Tags..." multiple="multiple" class="select">--}}
-                                {{--@foreach(App\TermTaxonomy::where('taxonomy', 'tag')->get() as $tag)--}}
-                                    {{--@php $selected = False @endphp--}}
-                                    {{--@if(Request::old('tags'))--}}
-                                        {{--@foreach(Request::old('tags') as $tag_id)--}}
-                                            {{--@php $selected = ($selected || $tag_id == $tag->id) @endphp--}}
-                                        {{--@endforeach--}}
-                                    {{--@endif--}}
-                                    {{--<option value="{{ $tag->id }}" {{ $selected?'selected':'' }}>{{ $tag->term->name }}</option>--}}
-                                {{--@endforeach--}}
-                            {{--</select>--}}
-                        {{--</div>--}}
-                    {{--</div>--}}
-
-                    <div class="form-group">
-                        <label for="title" class="control-label col-lg-2">Title <span class="text-danger">*</span></label>
-                        <div class="col-lg-10">
-                            <input id="carTitle" type="text" class="form-control" name="carTitle" placeholder="Enter car title..." required="required" aria-required="true" invalid="true">
-                        </div>
-                    </div>
 
                     <div class="form-group">
                         <label for="manufacturer" class="control-label col-lg-2">Manufacturer <span class="text-danger">*</span></label>
@@ -182,27 +148,36 @@
                         </div>
                         <label for="carCondition" class="control-label col-lg-2">Car condition <span class="text-danger">*</span></label>
                         <div class="col-lg-4">
-                            <select id="carCondition" name="carCondition" required="required" class="form-control text-capitalize">
-                                @foreach(App\TermTaxonomy::where('taxonomy', 'car-condition')->get() as $value)
-                                    <option value="{{ $value->term->name }}">{{ $value->term->name }}</option>
-                                @endforeach
-                            </select>
+
+                            @foreach(App\TermTaxonomy::where('taxonomy', 'car-condition')->get() as $key=>$value)
+                                <label class="radio-inline">
+                                    <input type="radio" name="carCondition" class="styled" value="{{$value->term->name}}" onchange="carConditionChanged('{{$value->term->name}}')"
+                                    @if($key == 0) 
+                                        checked
+                                    @endif>
+                                    {{ $value->term->name }}
+                                </label>
+                                @if($value->term->name == 'Used') 
+                                <label class="radio-inline">
+                                    <input id="plateNumber" type="text" class="form-control" name="plateNumber" placeholder="Enter number plate..." style="visibility: hidden">
+                                </label>
+                                @endif
+                            @endforeach
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="model" class="control-label col-lg-2">Model <span class="text-danger">*</span></label>
+                        <label for="modelName" class="control-label col-lg-2">Model <span class="text-danger">*</span></label>
                         <div class="col-lg-4">
-                            <input id="model" type="text" class="form-control" name="model" placeholder="Enter car model..." required="required" aria-required="true" invalid="true">
-                            {{--<select id="model" name="model" required="required" class="form-control text-capitalize">--}}
-                                {{--@foreach(App\Content::VISIBILITY_ARRAY as $value)--}}
-                                    {{--<option value="{{ $value }}">{{ $value }}</option>--}}
-                                {{--@endforeach--}}
-                            {{--</select>--}}
+                            <select id="modelName" name="modelName" required="required" class="form-control">
+                                @foreach(App\TermTaxonomy::where('taxonomy', 'model')->get() as $value)
+                                    <option value="{{ $value->term->name }}">{{ $value->term->name }}</option>
+                                @endforeach
+                            </select>
                         </div>
-                        <label for="color" class="control-label col-lg-2">Color <span class="text-danger">*</span></label>
+                        <label for="colorName" class="control-label col-lg-2">Color <span class="text-danger">*</span></label>
                         <div class="col-lg-4">
-                            <select id="color" name="color" required="required" class="form-control text-capitalize">
+                            <select id="colorName" name="colorName" required="required" class="form-control text-capitalize">
                                 @foreach(App\TermTaxonomy::where('taxonomy', 'color')->get() as $value)
                                     <option value="{{ $value->term->name }}">{{ $value->term->name }}</option>
                                 @endforeach
@@ -211,11 +186,11 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="displacement" class="control-label col-lg-2">Displacement /km/ <span class="text-danger">*</span></label>
+                        <label for="displacement" class="control-label col-lg-2">Displacement <span class="text-danger">*</span></label>
                         <div class="col-lg-4">
                             <div class="input-group">
-                                <input id="displacement" type="number" class="form-control" name="displacement" placeholder="Enter displacement length..." required="required" aria-required="true" invalid="true">
-                                <span class="input-group-addon">km</span>
+                                <input id="displacement" type="number" class="form-control" name="displacement" placeholder="Enter displacement volume..." required="required" aria-required="true" invalid="true">
+                                <span class="input-group-addon">cc</span>
                             </div>
                         </div>
                         <label for="vin" class="control-label col-lg-2">VIN <span class="text-danger">*</span></label>
@@ -225,19 +200,13 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="yearOfProduct" class="control-label col-lg-2">Year of product <span class="text-danger">*</span></label>
+                        <label for="buildYear" class="control-label col-lg-2">Build Year <span class="text-danger">*</span></label>
                         <div class="col-lg-4">
-                            <input id="yearOfProduct" type="number" min="1769" max="2019" value="2019" class="form-control" name="yearOfProduct" placeholder="Enter year of product..." required="required" aria-required="true" invalid="true">
+                            <input id="buildYear" type="number" min="1769" max="2019" value="2019" class="form-control" name="buildYear" placeholder="Enter year of product..." required="required" aria-required="true" invalid="true">
                         </div>
-                        <label for="yearOfEntry" class="control-label col-lg-2">Year of entry <span class="text-danger">*</span></label>
+                        <label for="importDate" class="control-label col-lg-2">Import Date <span class="text-danger">*</span></label>
                         <div class="col-lg-4">
-                            <input id="yearOfEntry" type="number" min="1769" max="2019" value="2019" class="form-control" name="yearOfEntry" placeholder="Enter year of entry..." required="required" aria-required="true" invalid="true">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="lastCheck" class="control-label col-lg-2">Last check <span class="text-danger">*</span></label>
-                        <div class="col-lg-4">
-                            <input id="lastCheck" type="month" class="form-control" name="lastCheck" placeholder="Enter last check date..." required="required" aria-required="true" invalid="true">
+                            <input id="importDate" type="number" min="1769" max="2019" value="2019" class="form-control" name="importDate" placeholder="Enter year of entry..." required="required" aria-required="true" invalid="true">
                         </div>
                     </div>
 
@@ -263,17 +232,17 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="steeringWheel" class="control-label col-lg-2">Steering wheel <span class="text-danger">*</span></label>
+                        <label for="wheelPosition" class="control-label col-lg-2">Steering wheel <span class="text-danger">*</span></label>
                         <div class="col-lg-4">
-                            <select id="steeringWheel" name="steeringWheel" required="required" class="form-control text-capitalize">
+                            <select id="wheelPosition" name="wheelPosition" required="required" class="form-control text-capitalize">
                                 @foreach(App\TermTaxonomy::where('taxonomy', 'steering-wheel')->get() as $value)
                                     <option value="{{ $value->term->name }}">{{ $value->term->name }}</option>
                                 @endforeach
                             </select>
                         </div>
-                        <label for="seating" class="control-label col-lg-2">Seating <span class="text-danger">*</span></label>
+                        <label for="manCount" class="control-label col-lg-2">Seating <span class="text-danger">*</span></label>
                         <div class="col-lg-4">
-                            <select id="seating" name="seating" required="required" class="form-control text-capitalize">
+                            <select id="manCount" name="manCount" required="required" class="form-control text-capitalize">
                                 @foreach(App\TermTaxonomy::where('taxonomy', 'seating')->get() as $value)
                                     <option value="{{ $value->term->name }}">{{ $value->term->name }}</option>
                                 @endforeach
@@ -282,9 +251,9 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="typeOfFuel" class="control-label col-lg-2">Type of fuel <span class="text-danger">*</span></label>
+                        <label for="fuelType" class="control-label col-lg-2">Type of fuel <span class="text-danger">*</span></label>
                         <div class="col-lg-4">
-                            <select id="typeOfFuel" name="typeOfFuel" required="required" class="form-control text-capitalize">
+                            <select id="fuelType" name="fuelType" required="required" class="form-control text-capitalize">
                                 @foreach(App\TermTaxonomy::where('taxonomy', 'type-of-fuel')->get() as $value)
                                     <option value="{{ $value->term->name }}">{{ $value->term->name }}</option>
                                 @endforeach
@@ -321,17 +290,7 @@
                     <div class="form-group">
                         <label for="advantages" class="control-label col-lg-2">Advantages</label>
                         <div class="col-lg-10">
-                            <select name="advantages[]" id="advantages" data-placeholder="Select advantages..." multiple="multiple" class="select">
-                                @foreach(App\TermTaxonomy::where('taxonomy', 'advantages')->get() as $advantages)
-                                    @php $selected = False @endphp
-                                    @if(Request::old('advantages'))
-                                        @foreach(Request::old('advantages') as $advantages_id)
-                                            @php $selected = ($selected || $advantages_id == $advantages->id) @endphp
-                                        @endforeach
-                                    @endif
-                                    <option value="{{ $advantages->term->name }}" {{ $selected?'selected':'' }}>{{ $advantages->term->name }}</option>
-                                @endforeach
-                            </select>
+                            <input type="text" name="advantages" id="advantages" class="form-control tokenfield" value="" placeholder="Press Enter">
                         </div>
                     </div>
 
@@ -363,13 +322,29 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="price" class="control-label col-lg-2">Images</label>
+                        <label for="thumbnail" class="control-label col-lg-2">Thumbnail <span class="text-danger">*</span></label>
                         <div class="col-lg-10">
-                            <input id="media" type="file" class="form-control file-styled" name="medias[]" invalid="true" onchange="previewMedia(this)" multiple>
+                            <input id="thumbnail" type="file" name="thumbnail" class="form-control file-styled" invalid="true" onchange="previewMedia(this, 'thumbnail-container')" required="required" aria-required="true">
+                            <input type="hidden" id="thumbnailCrop" name="thumbnailCrop"/>
                         </div>
                     </div>
 
-                    <div class="row" id="image-container">
+                    <div class="row">
+                        <div class="col-lg-2"></div>
+                        <div class="col-lg-10" id="thumbnail-container"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="medias" class="control-label col-lg-2">Images</label>
+                        <div class="col-lg-10">
+                            <input id="media" type="file" class="form-control file-styled" name="medias[]" invalid="true" onchange="previewMedia(this, 'image-container')" multiple>
+                            <input type="hidden" id="imagesCrop" name="imagesCrop"/>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-2"></div>
+                        <div class="col-lg-10" id="image-container"></div>
                     </div>
 
                     <div class="form-group">
@@ -379,16 +354,73 @@
                         </div>
                     </div>
 
-                    <div class="row" id="video-container">
+                    <div class="row">
+                        <div class="col-lg-2"></div>
+                        <div id="video-container"></div>
                     </div>
 
-                    {{--<div class="form-group">--}}
-                        {{--<label for="slug" class="control-label col-lg-2">Slug <span class="text-danger">*</span></label>--}}
-                        {{--<div class="col-lg-10">--}}
-                            {{--<input id="slug" type="text" class="form-control" name="slug" placeholder="Enter content slug..." required="required" aria-required="true" invalid="true">--}}
-                        {{--</div>--}}
-                    {{--</div>--}}
+                    <h4 class="text-center">Auction section</h4>
 
+                    <div class="form-group">
+                        <label for="buyout" class="control-label col-lg-2">Buyout</label>
+                        <div class="col-lg-4">
+                            <div class="input-group">
+                                <input id="buyout" type="number" min="0" class="form-control" name="buyout" placeholder="Enter buyout..." invalid="true" class="touchspin-postfix">
+                                <span class="input-group-addon">₮</span>
+                            </div>
+                        </div>
+                        <label for="startPrice" class="control-label col-lg-2">Start Price</label>
+                        <div class="col-lg-4">
+                            <div class="input-group">
+                                <input id="startPrice" type="number" min="0" class="form-control" name="startPrice" placeholder="Enter start price..." invalid="true" class="touchspin-postfix">
+                                <span class="input-group-addon">₮</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="maxBid" class="control-label col-lg-2">Max Bid</label>
+                        <div class="col-lg-4">
+                            <div class="input-group">
+                                <input id="maxBid" type="number" min="0" class="form-control" name="maxBid" placeholder="Enter max bid..." invalid="true" class="touchspin-postfix">
+                                <span class="input-group-addon">₮</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="startsAt" class="control-label col-lg-2">Starts At</label>
+                        <div class="col-lg-4">
+                            <div class="input-group">
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default btn-icon" id="startsAtBut"><i class="icon-calendar3"></i></button>
+                                </span>
+                                <input type="text" class="form-control" id="startsAt" name="startsAt" placeholder="Start date">
+                            </div>
+                        </div>
+                        <label for="endsAt" class="control-label col-lg-2">Ends At</label>
+                        <div class="col-lg-4">
+                            <div class="input-group">
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default btn-icon" id="endsAtBut"><i class="icon-calendar3"></i></button>
+                                </span>
+                                <input type="text" class="form-control" id="endsAt" name="endsAt" placeholder="End date">
+                            </div>
+                        </div>
+                    </div>
+
+                    <h4 class="text-center">Additional section</h4>
+
+                    <div class="form-group">
+                        <label for="cabinNumber" class="control-label col-lg-2">Cabin Number</label>
+                        <div class="col-lg-4">
+                            <input id="cabinNumber" type="text" class="form-control" name="cabinNumber" placeholder="Enter cabin number...">
+                        </div>
+                        <label for="countryName" class="control-label col-lg-2">Country Name</label>
+                        <div class="col-lg-4">
+                            <input id="countryName" type="text" class="form-control" name="countryName" placeholder="Enter country name...">
+                        </div>
+                    </div>
                     {{--car section end--}}
 
                     <div class="text-right">
@@ -404,6 +436,25 @@
 </div>
 <!-- /grid -->
 
+<div class="modal fade docs-cropped" id="getCroppedCanvasModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h6 class="modal-title" id="getCroppedCanvasTitle">Crop your image</h6>
+            </div>
+            <div class="modal-body" id="cropBody">
+                <div class="img-cropper-container" class="col-lg-12">
+                    <img id="cropImage" class="croppable">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="cropImage()">Done</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 @endsection
 
@@ -440,14 +491,63 @@
 
     });
 
-    function previewMedia(input) {
+    var blobs=[];
+
+    function cropImage() {
+        var cropData = [];
+        var container;
+        $("#cropBody img").each(function() {
+            var image = $(this);
+
+            container = image.attr('alt');
+            var cropped = image.cropper('getCroppedCanvas', {});
+
+            if (cropped) {
+                if (container == 'thumbnail-container') {
+                    $("#" + container).empty();
+                    $("#thumbnailCrop").val(JSON.stringify(image.cropper('getData')));
+                } else {
+                    cropData.push(image.cropper('getData'));
+                }
+                $("#" + container).append(' \
+                    <div class="col-lg-4 col-md-6 col-sm-12 mb-10"> \
+                        <img src="'+cropped.toDataURL('image/jpeg')+'" class="col-lg-12"> \
+                    </div>');
+                    
+                    image.attr('src', '');
+                }
+        });
+        if (container != 'thumbnail-container') {
+            $("#imagesCrop").val(JSON.stringify(cropData));
+        }
+    }
+
+    function previewMedia(input, container) {
+        $("#cropBody").empty();
         $(input.files).each(function(index, value) {
             var reader = new FileReader();
             reader.onload = function (e) {
-                $("#image-container").append(' \
-                    <div class="col-lg-2 col-md-4 col-sm-6 px-0"> \
-                        <img src="'+e.target.result+'" class="img-thumbnail img-fluid full-width">\
+                $("#cropBody").append(' \
+                    <div class="image-cropper-container" class="col-lg-12""> \
+                        <img src="'+e.target.result+'" id="cropImage'+index+'" class="col-lg-12">\
                     </div>');
+
+                $("#cropImage"+index).attr('src', e.target.result);
+                $("#cropImage"+index).attr('alt', container);
+                $('#cropImage'+index).cropper({
+                    dragMode: 'move',
+                    aspectRatio: 16 / 9,
+                    autoCropArea: 0.8,
+                    restore: false,
+                    guides: false,
+                    center: true,
+                    highlight: false,
+                    cropBoxMovable: false,
+                    cropBoxResizable: false,
+                    toggleDragModeOnDblclick: false,
+                });
+
+                $("#getCroppedCanvasModal").modal('show');
             };
             reader.readAsDataURL(value);
         });
@@ -475,6 +575,29 @@
         document.getElementById("slug").value = title;
 
     }
+
+    function carConditionChanged(value) {
+        if (value == 'Used') {
+            $("#plateNumber").css('visibility', 'visible');
+        } else {
+            $("#plateNumber").css('visibility', 'hidden');
+        }
+    }
+
+    $("#modelName").select2({
+        tags: true,
+        //maximumSelectionLength: 1
+    });
+
+    $('#endsAtBut').click(function (e) {
+        $('#endsAt').AnyTime_noPicker().AnyTime_picker().focus();
+        e.preventDefault();
+    });
+
+    $('#startsAtBut').click(function (e) {
+        $('#startsAt').AnyTime_noPicker().AnyTime_picker().focus();
+        e.preventDefault();
+    });
 
     $( "#slug" ).keyup(function( event ) {
         if ( event.which == 32) {
