@@ -148,7 +148,7 @@
                         <div class="form-group row">
                             <label class="col-form-label col-lg-2">Groups</label>
                             <div class="col-lg-10">
-                                <select name="groups[]" id="groups" data-placeholder="Select Groups..." multiple="multiple" class="form-control">
+                                <select name="groups[]" id="groups" data-placeholder="Select Groups..." multiple="multiple" class="select">
                                     @foreach($groups as $group)
                                         @php $selected = False @endphp
                                         @foreach($user->groups as $user_group)
@@ -164,9 +164,9 @@
 
                         <div class="form-group row">
                             <div class="col-lg-2">
-                                <div class="checkbox checkbox-left">
-                                    <label>
-                                        <input id="password_checked" name="password_checked" type="checkbox" class="styled" onchange="toggle_password_form(this)">
+                                <div class="form-check">
+                                    <label class="form-check-label">
+                                        <div class="uniform-checker"><input id="password_checked" name="password_checked" type="checkbox" class="form-check-input-styled" onchange="toggle_password_form(this)"></div>
                                         Change Password?
                                     </label>
                                 </div>

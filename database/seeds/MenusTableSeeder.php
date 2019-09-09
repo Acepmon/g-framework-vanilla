@@ -264,17 +264,6 @@ class MenusTableSeeder extends Seeder
                 'order' => 23,
                 'sublevel' => 1,
                 'group' => 'content',
-            ],
-            [
-                'title' => 'Add car',
-                'link' => '/admin/cars',
-                'icon' => 'icon-price-tag2',
-                'type' => App\Menu::TYPE_MENU,
-                'status' => App\Menu::STATUS_PUBLISH,
-                'visibility' => App\Menu::VISIBILITY_PUBLIC,
-                'order' => 24,
-                'sublevel' => 1,
-                'group' => 'content',
             ]
         ]);
 
@@ -436,30 +425,6 @@ class MenusTableSeeder extends Seeder
                 'parent_id' => 6,
             ],
             [
-                'title' => 'Layouts',
-                'link' => '/admin/themes/layouts',
-                'icon' => '',
-                'type' => App\Menu::TYPE_MENU,
-                'status' => App\Menu::STATUS_PUBLISH,
-                'visibility' => App\Menu::VISIBILITY_PUBLIC,
-                'order' => 3,
-                'sublevel' => 2,
-                'group' => 'system',
-                'parent_id' => 6,
-            ],
-            [
-                'title' => 'Editor',
-                'link' => '/admin/themes/editor',
-                'icon' => '',
-                'type' => App\Menu::TYPE_MENU,
-                'status' => App\Menu::STATUS_PUBLISH,
-                'visibility' => App\Menu::VISIBILITY_PUBLIC,
-                'order' => 4,
-                'sublevel' => 2,
-                'group' => 'system',
-                'parent_id' => 6,
-            ],
-            [
                 'title' => 'Triggers',
                 'link' => '/admin/notifications/triggers',
                 'icon' => '',
@@ -506,6 +471,67 @@ class MenusTableSeeder extends Seeder
                 'sublevel' => 2,
                 'group' => 'system',
                 'parent_id' => 7,
+            ]
+        ]);
+
+        DB::table('menus')->insert([
+            [
+                'title' => 'Cars',
+                'link' => '/admin/cars',
+                'icon' => 'icon-car',
+                'type' => App\Menu::TYPE_MENU,
+                'status' => App\Menu::STATUS_PUBLISH,
+                'visibility' => App\Menu::VISIBILITY_PUBLIC,
+                'order' => 24,
+                'sublevel' => 1,
+                'group' => 'car management',
+            ],
+            [
+                'title' => 'Hot Deals',
+                'link' => '/admin/cars/hot',
+                'icon' => 'icon-fire',
+                'type' => App\Menu::TYPE_MENU,
+                'status' => App\Menu::STATUS_PUBLISH,
+                'visibility' => App\Menu::VISIBILITY_PUBLIC,
+                'order' => 24,
+                'sublevel' => 1,
+                'group' => 'car management',
+            ],
+            [
+                'title' => 'Add Car',
+                'link' => '/admin/cars/create',
+                'icon' => 'icon-plus3',
+                'type' => App\Menu::TYPE_MENU,
+                'status' => App\Menu::STATUS_PUBLISH,
+                'visibility' => App\Menu::VISIBILITY_PUBLIC,
+                'order' => 24,
+                'sublevel' => 1,
+                'group' => 'car management',
+            ]
+        ]);
+
+        DB::table('menus')->insert([
+            [
+                'title' => 'Banners',
+                'link' => '/admin/banners',
+                'icon' => 'icon-printer4',
+                'type' => App\Menu::TYPE_MENU,
+                'status' => App\Menu::STATUS_PUBLISH,
+                'visibility' => App\Menu::VISIBILITY_PUBLIC,
+                'order' => 24,
+                'sublevel' => 1,
+                'group' => 'banner management',
+            ],
+            [
+                'title' => 'Create Banner',
+                'link' => '/admin/banners/create',
+                'icon' => 'icon-plus3',
+                'type' => App\Menu::TYPE_MENU,
+                'status' => App\Menu::STATUS_PUBLISH,
+                'visibility' => App\Menu::VISIBILITY_PUBLIC,
+                'order' => 24,
+                'sublevel' => 1,
+                'group' => 'banner management',
             ]
         ]);
     }

@@ -35,6 +35,14 @@ class ThemesTableSeeder extends Seeder
                 'repository' => 'https://github.com/acepmon/g-framework-future-imperfect/archive/master.zip',
                 'version' => '1.0',
                 'status' => \App\Theme::INSTALLED
+            ],
+            [
+                'package' => 'car-web',
+                'title' => 'Car Web',
+                'description' => 'Web version of Car Dealership Template',
+                'repository' => 'https://github.com/acepmon/carweb-theme/archive/master.zip',
+                'version' => '1.0',
+                'status' => \App\Theme::INSTALLED
             ]
         ]);
     }

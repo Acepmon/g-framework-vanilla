@@ -8,9 +8,22 @@ use App\Theme;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 //use phpDocumentor\Reflection\DocBlock\Tags\Uses;
+use File;
+
+use GuzzleHttp\Client;
 
 class ThemeController extends Controller
 {
+    private $marketUrl = 'https://raw.githubusercontent.com/Acepmon/g-framework-templates/master/marketplace.json';
+
+    private function marketplaceTemplates() {
+        $client = new Client();
+        $result = $client->get($this->marketUrl);
+        $body = $result->getBody();
+        $json = json_decode($body, true);
+        return $json;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -31,8 +44,45 @@ class ThemeController extends Controller
      */
     public function create()
     {
-        $themes = Theme::all();
-        return view('admin.themes.create', ['themes' => $themes]);
+        $allThemes = Theme::all();
+        $templates = $this->marketplaceTemplates();
+        $themes = [];
+
+        foreach ($templates as $key => $template) {
+            $found = false;
+            foreach ($allThemes as $key2 => $theme) {
+                if ($template['package'] == $theme->package) {
+                    $found = true;
+
+                    if ($template['version'] != $theme->version) {
+                        array_push($themes, $template);
+                    }
+
+                    if ($theme->status == Theme::AVAILABLE) {
+                        array_push($themes, $template);
+                    }
+
+                    $theme->title = $template['title'];
+                    $theme->description = $template['description'];
+                    $theme->save();
+                }
+            }
+
+            if (!$found) {
+                array_push($themes, $template);
+
+                $newTheme = new Theme();
+                $newTheme->package = $template['package'];
+                $newTheme->title = $template['title'];
+                $newTheme->description = $template['description'];
+                $newTheme->version = $template['version'];
+                $newTheme->status = Theme::AVAILABLE;
+                $newTheme->save();
+            }
+        }
+
+
+        return view('admin.themes.create', ['themes' => $allThemes]);
     }
 
     /**
@@ -44,11 +94,11 @@ class ThemeController extends Controller
     public function store(Request $request)
 
     {
-       $request->validate([
-           'title' => 'required|max:191',
-           'description' => 'nullable|max:255',
-           'repository' => 'required|max:255',
-       ]);
+        $request->validate([
+            'title' => 'required|max:191',
+            'description' => 'nullable|max:255',
+            'repository' => 'required|max:255',
+        ]);
         $theme = new Theme();
 
         $theme->title = $request->title;
@@ -69,8 +119,7 @@ class ThemeController extends Controller
      */
     public function show($id)
     {
-        $theme = Theme::find($id);
-        return view('admin.themes.show', ['plugin' => $theme]);
+        return redirect()->route('admin.themes.edit', $id);
     }
 
     /**
@@ -85,7 +134,7 @@ class ThemeController extends Controller
         $themes = Theme::all();
 
         $theme = Theme::find($id);
-        return view('admin.themes.edit', ['plugin' => $theme, 'themes' => $themes]);
+        return view('admin.themes.edit', ['theme' => $theme, 'themes' => $themes]);
     }
 
     /**
@@ -205,4 +254,93 @@ class ThemeController extends Controller
         return response()->json(['status' => 'Success']);
     }
 
+    public function editLayout(Request $request, $id, $name) {
+        $theme = Theme::findOrFail($id);
+        $layout = array_filter($theme->layouts(), function ($item) use ($name) {
+            if ($item['text'] == $name) {
+                return $item;
+            }
+        });
+
+        if (!$layout) {
+            abort(404);
+        }
+
+        if (count($layout) > 0) {
+            $layout = $layout[key($layout)];
+        }
+
+        return view('admin.themes.layouts.edit', ['theme' => $theme, 'layout' => $layout]);
+    }
+
+    public function updateLayout(Request $request, $id, $name) {
+        $request->validate([
+            'content' => 'required'
+        ]);
+
+        $content = $request->input('content');
+        $theme = Theme::findOrFail($id);
+        $layout = array_filter($theme->layouts(), function ($item) use ($name) {
+            if ($item['text'] == $name) {
+                return $item;
+            }
+        });
+
+        if (!$layout) {
+            abort(404);
+        }
+
+        if (count($layout) > 0) {
+            $layout = $layout[key($layout)];
+        }
+
+        if (File::put($layout['fullPath'], $content)) {
+            return response()->file($layout['fullPath']);
+        }
+    }
+
+    public function editInclude(Request $request, $id, $name) {
+        $theme = Theme::findOrFail($id);
+        $include = array_filter($theme->includes(), function ($item) use ($name) {
+            if ($item['text'] == $name) {
+                return $item;
+            }
+        });
+
+        if (!$include) {
+            abort(404);
+        }
+
+        if (count($include) > 0) {
+            $include = $include[key($include)];
+        }
+
+        return view('admin.themes.includes.edit', ['theme' => $theme, 'include' => $include]);
+    }
+
+    public function updateInclude(Request $request, $id, $name) {
+        $request->validate([
+            'content' => 'required'
+        ]);
+
+        $content = $request->input('content');
+        $theme = Theme::findOrFail($id);
+        $include = array_filter($theme->includes(), function ($item) use ($name) {
+            if ($item['text'] == $name) {
+                return $item;
+            }
+        });
+
+        if (!$include) {
+            abort(404);
+        }
+
+        if (count($include) > 0) {
+            $include = $include[key($include)];
+        }
+
+        if (File::put($include['fullPath'], $content)) {
+            return response()->file($include['fullPath']);
+        }
+    }
 }

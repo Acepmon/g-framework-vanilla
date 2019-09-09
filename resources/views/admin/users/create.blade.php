@@ -156,7 +156,7 @@
                     <div class="form-group row">
                         <label class="col-form-label col-lg-2">Groups</label>
                         <div class="col-lg-10">
-                            <select name="groups[]" id="groups" data-placeholder="Select Groups..." multiple="multiple" class="form-control">
+                            <select name="groups[]" id="groups" data-placeholder="Select Groups..." multiple="multiple" class="select">
                                 @foreach($groups as $group)
                                     @php $selected = False @endphp
                                     @if(Request::old('groups'))

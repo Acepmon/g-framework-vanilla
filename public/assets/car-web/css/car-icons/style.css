@@ -1,0 +1,266 @@
+@font-face {
+  font-family: 'icomoon';
+  src:  url('fonts/icomoon.eot?vwnnye');
+  src:  url('fonts/icomoon.eot?vwnnye#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?vwnnye') format('truetype'),
+    url('fonts/icomoon.woff?vwnnye') format('woff'),
+    url('fonts/icomoon.svg?vwnnye#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="carIcon-"], [class*=" carIcon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.carIcon-airbag:before {
+  content: "\e900";
+}
+.carIcon-air-conditioner:before {
+  content: "\e901";
+}
+.carIcon-air-conditioner-1:before {
+  content: "\e902";
+}
+.carIcon-air-conditioner-2:before {
+  content: "\e903";
+}
+.carIcon-air-conditioner-3:before {
+  content: "\e904";
+}
+.carIcon-air-conditioner-4:before {
+  content: "\e905";
+}
+.carIcon-air-pump:before {
+  content: "\e906";
+}
+.carIcon-alloy-wheel:before {
+  content: "\e907";
+}
+.carIcon-alloy-wheel-1:before {
+  content: "\e908";
+}
+.carIcon-alloy-wheel-2:before {
+  content: "\e909";
+}
+.carIcon-alloy-wheel-3:before {
+  content: "\e90a";
+}
+.carIcon-alloy-wheel-4:before {
+  content: "\e90b";
+}
+.carIcon-alloy-wheel-5:before {
+  content: "\e90c";
+}
+.carIcon-alloy-wheel-6:before {
+  content: "\e90d";
+}
+.carIcon-alloy-wheel-7:before {
+  content: "\e90e";
+}
+.carIcon-alloy-wheel-8:before {
+  content: "\e90f";
+}
+.carIcon-alloy-wheel-9:before {
+  content: "\e910";
+}
+.carIcon-battery:before {
+  content: "\e911";
+}
+.carIcon-break:before {
+  content: "\e912";
+}
+.carIcon-break-1:before {
+  content: "\e913";
+}
+.carIcon-break-2:before {
+  content: "\e914";
+}
+.carIcon-break-3:before {
+  content: "\e915";
+}
+.carIcon-car:before {
+  content: "\e916";
+}
+.carIcon-car-1:before {
+  content: "\e917";
+}
+.carIcon-car-2:before {
+  content: "\e918";
+}
+.carIcon-car-3:before {
+  content: "\e919";
+}
+.carIcon-car-4:before {
+  content: "\e91a";
+}
+.carIcon-car-5:before {
+  content: "\e91b";
+}
+.carIcon-car-6:before {
+  content: "\e91c";
+}
+.carIcon-car-key:before {
+  content: "\e91d";
+}
+.carIcon-car-key-1:before {
+  content: "\e91e";
+}
+.carIcon-car-lights:before {
+  content: "\e91f";
+}
+.carIcon-car-lights-1:before {
+  content: "\e920";
+}
+.carIcon-car-lights-2:before {
+  content: "\e921";
+}
+.carIcon-catalytic-converter:before {
+  content: "\e922";
+}
+.carIcon-chassis:before {
+  content: "\e923";
+}
+.carIcon-damper:before {
+  content: "\e924";
+}
+.carIcon-dashboard:before {
+  content: "\e925";
+}
+.carIcon-dashboard-1:before {
+  content: "\e926";
+}
+.carIcon-dashboard-2:before {
+  content: "\e927";
+}
+.carIcon-dashboard-3:before {
+  content: "\e928";
+}
+.carIcon-dashboard-4:before {
+  content: "\e929";
+}
+.carIcon-engine:before {
+  content: "\e92a";
+}
+.carIcon-engine-1:before {
+  content: "\e92b";
+}
+.carIcon-exhaust:before {
+  content: "\e92c";
+}
+.carIcon-exhaust-1:before {
+  content: "\e92d";
+}
+.carIcon-exhaust-2:before {
+  content: "\e92e";
+}
+.carIcon-fog-light:before {
+  content: "\e92f";
+}
+.carIcon-frost:before {
+  content: "\e930";
+}
+.carIcon-frost-1:before {
+  content: "\e931";
+}
+.carIcon-gas-station:before {
+  content: "\e932";
+}
+.carIcon-gearshift:before {
+  content: "\e933";
+}
+.carIcon-gearshift-1:before {
+  content: "\e934";
+}
+.carIcon-indicators:before {
+  content: "\e935";
+}
+.carIcon-info:before {
+  content: "\e936";
+}
+.carIcon-information:before {
+  content: "\e937";
+}
+.carIcon-light:before {
+  content: "\e938";
+}
+.carIcon-mechanic:before {
+  content: "\e939";
+}
+.carIcon-oil:before {
+  content: "\e93a";
+}
+.carIcon-oil-1:before {
+  content: "\e93b";
+}
+.carIcon-parking:before {
+  content: "\e93c";
+}
+.carIcon-parking-1:before {
+  content: "\e93d";
+}
+.carIcon-parking-2:before {
+  content: "\e93e";
+}
+.carIcon-piston:before {
+  content: "\e93f";
+}
+.carIcon-radiator:before {
+  content: "\e940";
+}
+.carIcon-seatbelt:before {
+  content: "\e941";
+}
+.carIcon-seat-belt:before {
+  content: "\e942";
+}
+.carIcon-spark-plug:before {
+  content: "\e943";
+}
+.carIcon-steering-wheel:before {
+  content: "\e944";
+}
+.carIcon-steering-wheel-1:before {
+  content: "\e945";
+}
+.carIcon-suspension:before {
+  content: "\e946";
+}
+.carIcon-temperature:before {
+  content: "\e947";
+}
+.carIcon-tire:before {
+  content: "\e948";
+}
+.carIcon-turbine:before {
+  content: "\e949";
+}
+.carIcon-warning:before {
+  content: "\e94a";
+}
+.carIcon-warning-1:before {
+  content: "\e94b";
+}
+.carIcon-window:before {
+  content: "\e94c";
+}
+.carIcon-window-1:before {
+  content: "\e94d";
+}
+.carIcon-windshield:before {
+  content: "\e94e";
+}
+.carIcon-windshield-1:before {
+  content: "\e94f";
+}

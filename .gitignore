@@ -20,5 +20,3 @@ yarn-error.log
 .idea/vcs.xml
 /resources/views/admin/contents/pages/
 /resources/views/admin/contents/posts/
-/resources/views/pages/
-/resources/views/posts/
