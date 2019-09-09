@@ -29,7 +29,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-
+        Schema::defaultStringLength(191);
         \Blade::directive('contents', function ($expression) {
             $someObject = json_decode($expression);
             $contents = Content::whereRaw('1 = 1');
