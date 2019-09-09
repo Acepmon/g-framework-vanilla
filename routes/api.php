@@ -21,4 +21,12 @@ Route::post('login', 'UserController@login');
 Route::post('register', 'UserController@register');
 Route::group(['middleware' => 'auth:api'], function () {
     Route::post('details', 'UserController@details');
+
+    Route::prefix('v1')->group(function () {
+        Route::namespace('API\v1')->group(function () {
+            Route::apiResources([
+                'banners' => 'BannerController'
+            ]);
+        });
+    });
 });

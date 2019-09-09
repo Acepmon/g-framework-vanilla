@@ -10,11 +10,11 @@
 @section('pageheader')
 <div class="page-header-content">
     <div class="page-title">
-        <h4><i class="icon-arrow-left52 position-left"></i> <span class="text-semibold">Menu</span> Index Page</h4>
+        <h4><i class="icon-arrow-left52 position-left"></i> <span class="text-semibold">Themes</span> - Installed Themes</h4>
     </div>
 
     <div class="heading-elements">
-        <a href="#" class="btn btn-labeled btn-labeled-right bg-blue heading-btn">Button <b><i class="icon-menu7"></i></b></a>
+        <a href="{{ route('admin.themes.create') }}" class="btn bg-blue heading-btn">Add New <b><i class="icon-arrow-right14 position-right"></i></b></a>
     </div>
 </div>
 
@@ -48,82 +48,46 @@
 @endsection
 
 @section('content')
-<!-- Table -->
-<div class="panel panel-flat">
-    <div class="panel-heading">
-        <h5 class="panel-title">
-            Theme
-        </h5>
-        <div class="heading-elements">
-            <ul class="icons-list">
-                <li><a href="{{ route('admin.themes.create') }}" class="btn btn-primary text-white">Create theme<i class="icon-arrow-right14 position-right"></i></a></li>
-            </ul>
+
+@if (session('status'))
+    <div class="panel-body">
+        <div class="alert alert-success">
+            {{ session('status') }}
         </div>
     </div>
+@endif
 
-    @if (session('status'))
-        <div class="panel-body">
-            <div class="alert alert-success">
-                {{ session('status') }}
+<div class="row">
+    @foreach ($themes as $theme)
+        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
+            <div class="panel">
+                <div class="panel-body panel-body-accent">
+                    <h4 class="text-semibold no-margin">
+                        <a href="{{ route('admin.themes.show', $theme->id) }}" class="text-default">{{ $theme->title }}</a>
+                    </h4>
+
+                    <p>
+                        {{ $theme->description }}
+                    </p>
+
+                    @if($theme->status == \App\Theme::AVAILABLE)
+                        <button type="button" data-target="{{ $theme->id  }}" data-loading-text="<i class='icon-spinner4 spinner'></i> Downloading..." class="btn btn-default theme-install">Install</button>
+                    @elseif($theme->status == \App\Theme::DEACTIVATED)
+                        <button type="button" data-target="{{ $theme->id  }}" class="btn btn-success theme-activate">Activate</button>
+                    @elseif($theme->status == \App\Theme::ACTIVATED)
+                        <button type="button" data-target="{{ $theme->id  }}" class="btn btn-danger theme-deactivate">Deactivate</button>
+                    @elseif($theme->status == \App\Theme::INSTALLED)
+                        <a href="{{ route('admin.themes.edit', $theme->id) }}" class="btn btn-default theme-customize">Customize</a>
+                    @else
+                        <button data-target="{{ $theme->id  }}" data-loading-text="<i class='icon-spinner4 spinner'></i> Downloading..." disabled class="btn btn-default theme-install">Install</button>
+                    @endif
+
+                    <small class="text-muted pull-right">v{{ $theme->version }}</small>
+                </div>
             </div>
         </div>
-    @endif
-
-    <div class="table-responsive">
-        <div style="display: none">{{$i=1}}</div>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Title</th>
-                    <th>Description</th>
-                    <th>Version</th>
-                    <th>install/update</th>
-                    <th>Status</th>
-                    <th>Activate</th>
-                    <th>Edit</th>
-                    <th>Delete</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($themes as $data)
-                <tr>
-                    <td>{{$i++}}</td>
-                    <td>{{ $data->title}}</td>
-                    <td>{{ $data->description}}</td>
-                    <td>{{ $data->version }}</td>
-                    @if($data->status=='available')
-                    <td><button data-target="{{ $data->id  }}" data-loading-text="<i class='icon-spinner4 spinner'></i> Downloading..." class="btn btn-default theme-install">Install</button></td>
-
-                    @else
-                    <td><button data-target="{{ $data->id  }}" data-loading-text="<i class='icon-spinner4 spinner'></i> Downloading..." disabled class="btn btn-default theme-install">Install</button></td>
-
-                    @endif
-
-                    <td>{{ $data->status }}</td>
-                    @if($data->status =='deactivated')
-
-                        <td><button type="button" data-target="{{ $data->id  }}" class="btn btn-success theme-activate">Activate</button></td>
-
-                    @elseif($data->status =='activated')
-                    <td><button type="button" data-target="{{ $data->id  }}" class="btn btn-danger theme-deactivate">Deactivate</button></td>
-
-                    @else
-                    <td></td>
-
-                    @endif
-                    <td><a href='{{ route('admin.themes.edit', ['id' => $data->id]) }}' type="btn btn-default">Edit</a></td>
-                    <td>
-                        <a href="#" data-toggle="modal" data-target="#modal_theme_danger" onclick="delete_confirm({{ $data->id }})"><i class="icon-trash"></i> Delete</a>
-
-                    </td>
-                </tr>
-                @endforeach
-            </tbody>
-        </table>
-    </div>
+    @endforeach
 </div>
-<!-- /table -->
 
 <!-- Danger modal -->
 <div id="modal_theme_danger" class="modal fade">

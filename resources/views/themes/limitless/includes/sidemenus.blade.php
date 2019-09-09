@@ -2,7 +2,9 @@
 @if($menu && $menu->status === 'published' && $menu->visibility === 'public')
 <li>
     <a href="{{ $menu->link }}">
+        @if ($menu->icon)
         <i class="{{ $menu->icon}}"></i>
+        @endif
         <span>{{ $menu->title }}</span>
     </a>
 
