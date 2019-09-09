@@ -25,5 +25,7 @@ class DatabaseSeeder extends Seeder
         $this->call(NotificationEventsSeeder::class);
         $this->call(NotificationChannelsSeeder::class);
         $this->call(NotificationTriggersSeeder::class);
+
+        $this->call(BannersTableSeeder::class);
     }
 }
