@@ -75,7 +75,7 @@ class BannerController extends Controller
 
         $banner->save();
 
-        return back()->with('status', 'Banner Successfully created!');
+        return back()->with('status', 'Banner Successfully created! <a href="'.route('admin.banners.show', $banner->id).'">Click here</a> to go to details page.');
     }
 
     /**
