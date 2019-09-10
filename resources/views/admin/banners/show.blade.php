@@ -11,7 +11,18 @@
 @endsection
 
 @section('content')
+<div class="row">
+    <div class="col-md-6">
+        <div class="panel">
+            <div class="panel-heading">
+                <h6 class="panel-title">Banner Details</h6>
+            </div>
 
+            <div class="panel-body">
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
 
 @section('script')
