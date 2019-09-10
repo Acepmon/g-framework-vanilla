@@ -60,24 +60,24 @@ class CarController extends Controller
             'status' => 'required|max:50',
             'visibility' => 'required|max:50',
             'author_id' => 'required|integer|exists:users,id',
-            'manufacturer' => 'required|max:255',
-            'carCondition' => 'required|max:255',
+            'manufacturer' => 'max:255',
+            'carCondition' => 'max:255',
             'plateNumber' => 'max:10',
-            'modelName' => 'required|max:255',
-            'colorName' => 'required|max:255',
-            'displacement' => 'required|max:255',
-            'vin' => 'required|max:255',
-            'buildYear' => 'required|max:255',
-            'importDate' => 'required|max:255',
-            'transmission' => 'required|max:255',
-            'wheelPosition' => 'required|max:255',
-            'manCount' => 'required|max:255',
-            'fuelType' => 'required|max:255',
-            'wheelDrive' => 'required|max:255',
-            'mileage' => 'required|max:255',
-            'price' => 'required|int',
-            'priceType' => 'required|max:255',
-            'sellerDescription' => 'required|max:255'
+            'modelName' => 'max:255',
+            'colorName' => 'max:255',
+            'displacement' => 'max:255',
+            'vin' => 'max:255',
+            'buildYear' => 'max:255',
+            'importDate' => 'max:255',
+            'transmission' => 'max:255',
+            'wheelPosition' => 'max:255',
+            'manCount' => 'max:255',
+            'fuelType' => 'max:255',
+            'wheelDrive' => 'max:255',
+            'mileage' => 'max:255',
+            'price' => 'int',
+            'priceType' => 'max:255',
+            'sellerDescription' => 'max:255'
         ]);
 
         try {
@@ -219,25 +219,23 @@ class CarController extends Controller
             'status' => 'required|max:50',
             'visibility' => 'required|max:50',
             'author_id' => 'required|integer|exists:users,id',
-            'carTitle' => 'required|max:255',
-            'manufacturer' => 'required|max:255',
-            'carCondition' => 'required|max:255',
-            'modelName' => 'required|max:255',
-            'colorName' => 'required|max:255',
-            'displacement' => 'required|max:255',
-            'vin' => 'required|max:255',
-            'buildYear' => 'required|max:255',
-            'importDate' => 'required|max:255',
-            'transmission' => 'required|max:255',
-            'wheelPosition' => 'required|max:255',
-            'manCount' => 'required|max:255',
-            'fuelType' => 'required|max:255',
-            'wheelDrive' => 'required|max:255',
-            'mileage' => 'required|max:255',
-            'price' => 'required|int',
-            'priceType' => 'required|max:255',
-            'thumbnail' => 'required',
-            'sellerDescription' => 'required|max:255'
+            'manufacturer' => 'max:255',
+            'carCondition' => 'max:255',
+            'plateNumber' => 'max:10',
+            'modelName' => 'max:255',
+            'colorName' => 'max:255',
+            'displacement' => 'max:255',
+            'vin' => 'max:255',
+            'buildYear' => 'max:255',
+            'importDate' => 'max:255',
+            'transmission' => 'max:255',
+            'wheelPosition' => 'max:255',
+            'manCount' => 'max:255',
+            'fuelType' => 'max:255',
+            'wheelDrive' => 'max:255',
+            'mileage' => 'max:255',
+            'priceType' => 'max:255',
+            'sellerDescription' => 'max:255'
         ]);
 
         try {
@@ -250,9 +248,9 @@ class CarController extends Controller
             $content->visibility = $request->visibility;
             $content->author_id = $request->author_id;
 
-            $content->updateMeta('carTitle', $request->carTitle);
             $content->updateMeta('manufacturer', $request->manufacturer);
             $content->updateMeta('carCondition', $request->carCondition);
+            $content->updateMeta('plateNumber', $request->plateNumber);
             $content->updateMeta('modelName', $request->modelName);
             $content->updateMeta('colorName', $request->colorName);
             $content->updateMeta('displacement', $request->displacement);
@@ -266,18 +264,37 @@ class CarController extends Controller
             $content->updateMeta('wheelDrive', $request->wheelDrive);
             $content->updateMeta('mileage', $request->mileage);
             if ($request->advantages) {
-                $content->updateMeta('advantages', $request->advantages);
-            } else {
-                $content->updateMeta('advantages', array());
+                foreach (explode(", ", $request->advantages) as $advantage) {
+                    $content->updateMeta('advantages', $advantage);
+                }
             }
             $content->updateMeta('sellerDescription', $request->sellerDescription);
             $content->updateMeta('price', $request->price);
             $content->updateMeta('priceType', $request->priceType);
-            $media_list = $this->uploadFiles($request->medias);
-            foreach ($media_list as $media) {
-                $content->attachMeta('medias', $media);
+            $thumbnail = $request->thumbnail;
+            if ($thumbnail) {
+                $filename = $thumbnail->store('public/medias', 'ftp');
+                $filename = $this->cropAndStore($filename, json_decode($request->thumbnailCrop));
+                $content->updateMeta('thumbnail', $filename);
+            }
+            $media_list = $this->uploadFiles($request->medias, $request->imagesCrop);
+            if ($media_list) {
+                foreach ($media_list as $media) {
+                    $content->updateMeta('medias', $media);
+                }
             }
             $content->updateMeta('youtubeLink', $request->youtubeLink);
+            $content->updateMeta('buyout', $request->buyout);
+            $content->updateMeta('startPrice', $request->startPrice);
+            $content->updateMeta('maxBid', $request->maxBid);
+            $startsAt = $request->startsAt;
+            $endsAt = $request->endsAt;
+            $content->updateMeta('startsAt', $startsAt);
+            $content->updateMeta('endsAt', $endsAt);
+            if ($startsAt && $endsAt) {
+                $days = date_diff(new DateTime($startsAt), new DateTime($endsAt))->d;
+                $content->updateMeta('durationDays', ($days!=0)?$days:"0");
+            }
 
             DB::commit();
             return redirect()->route('admin.cars.index', ['type' => $content->type]);
