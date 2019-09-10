@@ -20,7 +20,7 @@
         </h6>
 
         <div class="heading-elements">
-            <a href="{{ route('admin.banners.create') }}" class="btn btn-primary btn-sm">Create Banner</a>
+            <a href="{{ route('admin.banners.create') }}" class="btn btn-primary btn-sm"><span class="icon-plus3 position-left"></span> Create Banner</a>
         </div>
     </div>
 
@@ -30,7 +30,7 @@
                 <tr>
                     <th>#</th>
                     <th>Title</th>
-                    <th>Active</th>
+                    <th style="width: 200px">Active</th>
                     <th>Mobile Banner</th>
                     <th>Web Banner</th>
                     <th>Button</th>
@@ -50,11 +50,10 @@
                         </a>
                     </td>
                     <td>
-                        @if ($banner->active)
-                        <span class="text-success icon-checkmark3"></span>
-                        @else
-                        <span class="text-danger icon-cross2"></span>
-                        @endif
+                        <select name="active" class="form-control" data-target="{{ $banner->id }}" onchange="changeBannerActive(this)">
+                            <option value="0" {{ $banner->active ? '' : 'selected' }}>Not Active</option>
+                            <option value="1" {{ $banner->active ? 'selected' : '' }}>Active</option>
+                        </select>
                     </td>
                     <td>
                         @if ($banner->banner_img_mobile)
@@ -95,6 +94,33 @@
 
 @section('script')
 <script>
+function changeBannerActive(event) {
+    var targetId = $(event).data('target');
+    var targetValue = parseInt($(event).val());
+
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    $.ajax({
+        type: 'PUT',
+        url: '{{ route('admin.banners.index') }}/' + targetId,
+        data: {
+            id: targetId,
+            active: targetValue
+        },
+        success: function (data) {
+            if (data.active == 1) {
+                alert('Set to active!');
+            } else {
+                alert('Set to not active!');
+            }
+        }
+    });
+}
+
 document.addEventListener('DOMContentLoaded', function() {
 
     // Table setup
