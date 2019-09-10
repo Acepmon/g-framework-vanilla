@@ -36,6 +36,7 @@ Route::middleware(['installed'])->group(function () {
                 Route::get('databaseRestore','backupController@databaseRestore')->name('admin.backups.databaseRestore');
 
                 Route::get('/menus/tree', 'MenuController@tree')->name('admin.menus.tree');
+                Route::put('/menus/tree', 'MenuController@updateTree')->name('admin.menus.tree.update');
 
                 Route::prefix('profile')->group(function () {
                     Route::get('/', 'ProfileController@index')->name('admin.profile.index');

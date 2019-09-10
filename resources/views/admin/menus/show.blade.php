@@ -172,7 +172,11 @@
     }
 
     $(document).ready(function () {
-
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
 
         //
         // Table tree
@@ -185,6 +189,35 @@
                 indentation: 20,      // indent 20px per node level
                 nodeColumnIdx: 1,     // render the node title into the 2nd column
                 checkboxColumnIdx: 0  // render the checkboxes into the 1st column
+            },
+            dnd: {
+                autoExpandMS: 500,
+                focusOnClick: true,
+                preventVoidMoves: true, // Prevent dropping nodes 'before self', etc.
+                preventRecursiveMoves: true, // Prevent dropping nodes on own descendants
+                dragStart: function(node, data) {
+                    return true;
+                },
+                dragEnter: function(node, data) {
+                    return ["before", "after"];
+                },
+                dragDrop: function(node, data) {
+                    var change = {
+                        mode: data.hitMode,
+                        other: data.node.data.id,
+                        node: data.otherNode.data.id
+                    }
+
+                    $.ajax({
+                        type: 'PUT',
+                        url: '{{ route('admin.menus.tree.update') }}',
+                        data: change,
+                        success: function () {
+                            // This function MUST be defined to enable dropping of items on the tree.
+                            data.otherNode.moveTo(node, data.hitMode);
+                        }
+                    });
+                }
             },
             source: {
                 url: "/admin/menus/tree?parent_id={{$menu->id}}"

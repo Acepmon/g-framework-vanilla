@@ -51,6 +51,79 @@ class MenuController extends Controller
         return response()->json($output);
     }
 
+    public function updateTree(Request $request)
+    {
+        $request->validate([
+            'mode' => 'required|in:before,after',
+            'node' => 'required|exists:menus,id',
+            'other' => 'required|exists:menus,id'
+        ]);
+
+        $mode = $request->input('mode');
+        $node = $request->input('node');
+        $other = $request->input('other');
+
+        $updated = null;
+
+        try {
+            if ($mode == 'before') {
+                $updated = $this->updateOrderBefore($node, $other);
+            } else if ($mode == 'after') {
+                $updated = $this->updateOrderAfter($node, $other);
+            }
+        } catch (Exception $ex) {
+            abort(500);
+        }
+
+        if (is_null($updated)) {
+            abort(500);
+        }
+
+        return response()->json($updated);
+    }
+
+    private function updateOrderBefore($node, $other)
+    {
+        $nodeMenu = Menu::find($node);
+        $otherMenu = Menu::find($other);
+
+        if ($nodeMenu->parent_id != $otherMenu->parent_id) {
+            $nodeMenu->parent_id = $otherMenu->parent_id;
+        }
+
+        $nodeMenu->order = $otherMenu->order - 1;
+        $nodeMenu->save();
+
+        $menus = Menu::where('parent_id', $otherMenu->parent_id)->orderBy('order', 'asc')->get();
+        foreach ($menus as $index => $menu) {
+            $menu->order = $index + 1;
+            $menu->save();
+        }
+
+        return $nodeMenu;
+    }
+
+    private function updateOrderAfter($node, $other)
+    {
+        $nodeMenu = Menu::find($node);
+        $otherMenu = Menu::find($other);
+
+        if ($nodeMenu->parent_id != $otherMenu->parent_id) {
+            $nodeMenu->parent_id = $otherMenu->parent_id;
+        }
+
+        $nodeMenu->order = $otherMenu->order + 1;
+        $nodeMenu->save();
+
+        $menus = Menu::where('parent_id', $otherMenu->parent_id)->orderBy('order', 'asc')->get();
+        foreach ($menus as $index => $menu) {
+            $menu->order = $index + 1;
+            $menu->save();
+        }
+
+        return $nodeMenu;
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -69,7 +142,6 @@ class MenuController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-
     {
         $request->validate([
             'type' => 'required',
