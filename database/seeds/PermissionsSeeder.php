@@ -113,11 +113,16 @@ class PermissionsSeeder extends Seeder
             ['title' => 'admin_cars_read', 'type' => Permission::TYPE_READ, 'description' => 'read permission for car'],
             ['title' => 'admin_cars_update', 'type' => Permission::TYPE_UPDATE, 'description' => 'update permission for car'],
             ['title' => 'admin_cars_delete', 'type' => Permission::TYPE_DELETE, 'description' => 'delete permission for car'],
-            // car hot CRUD
-            ['title' => 'admin_cars_hot_create', 'type' => Permission::TYPE_CREATE, 'description' => 'create permission for car hot'],
-            ['title' => 'admin_cars_hot_read', 'type' => Permission::TYPE_READ, 'description' => 'read permission for car hot'],
-            ['title' => 'admin_cars_hot_update', 'type' => Permission::TYPE_UPDATE, 'description' => 'update permission for car hot'],
-            ['title' => 'admin_cars_hot_delete', 'type' => Permission::TYPE_DELETE, 'description' => 'delete permission for car hot'],
+            // car specials CRUD
+            ['title' => 'admin_cars_specials_create', 'type' => Permission::TYPE_CREATE, 'description' => 'create permission for car specials'],
+            ['title' => 'admin_cars_specials_read', 'type' => Permission::TYPE_READ, 'description' => 'read permission for car specials'],
+            ['title' => 'admin_cars_specials_update', 'type' => Permission::TYPE_UPDATE, 'description' => 'update permission for car specials'],
+            ['title' => 'admin_cars_specials_delete', 'type' => Permission::TYPE_DELETE, 'description' => 'delete permission for car specials'],
+            // car options CRUD
+            ['title' => 'admin_cars_options_create', 'type' => Permission::TYPE_CREATE, 'description' => 'create permission for car options'],
+            ['title' => 'admin_cars_options_read', 'type' => Permission::TYPE_READ, 'description' => 'read permission for car options'],
+            ['title' => 'admin_cars_options_update', 'type' => Permission::TYPE_UPDATE, 'description' => 'update permission for car options'],
+            ['title' => 'admin_cars_options_delete', 'type' => Permission::TYPE_DELETE, 'description' => 'delete permission for car options'],
             // banner CRUD
             ['title' => 'admin_banners_create', 'type' => Permission::TYPE_CREATE, 'description' => 'create permission for banner'],
             ['title' => 'admin_banners_read', 'type' => Permission::TYPE_READ, 'description' => 'read permission for banner'],
