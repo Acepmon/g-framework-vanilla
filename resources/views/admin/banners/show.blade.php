@@ -1,6 +1,6 @@
 @extends('themes.limitless.layouts.default')
 
-@section('title', 'Banner Details')
+@section('title', $banner->title)
 
 @section('load')
 
@@ -17,7 +17,7 @@
             <div class="panel-heading">
                 <h6 class="panel-title">{{ $banner->title }}</h6>
                 @if ($banner->active)
-                <small class="text-muted">Active</small>
+                <small class="text-success">Active</small>
                 @else
                 <small class="text-muted">Not Active</small>
                 @endif
@@ -30,10 +30,10 @@
             <div class="panel-body">
                 @if ($banner->btn_show)
                 <fieldset class="content-group">
-                    <legend class="text-bold">Button preview</legend>
+                    <legend class="text-bold">Action button preview</legend>
 
                     <div class="form-group">
-                        <a href="{{ $banner->btn_link }}" class="btn btn-primary">{{ $banner->btn_text }}</a>
+                        <a href="{{ $banner->btn_link }}" class="btn btn-primary btn-lg">{{ $banner->btn_text }}</a>
                         <br><small><a href="{{ $banner->btn_link }}">{{ $banner->btn_link }}</a></small>
                     </div>
                 </fieldset>

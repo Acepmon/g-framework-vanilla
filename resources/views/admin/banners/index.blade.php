@@ -20,7 +20,7 @@
         </h6>
 
         <div class="heading-elements">
-            <a href="{{ route('admin.banners.create') }}" class="btn btn-primary btn-sm">Create Banner</a>
+            <a href="{{ route('admin.banners.create') }}" class="btn btn-primary btn-sm"><span class="icon-plus3 position-left"></span> Create Banner</a>
         </div>
     </div>
 

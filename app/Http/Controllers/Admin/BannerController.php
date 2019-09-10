@@ -97,7 +97,10 @@ class BannerController extends Controller
      */
     public function edit(Banner $banner)
     {
-        return view('admin.banners.edit', ['banner' => $banner]);
+        $pages = Content::where('type', Content::TYPE_PAGE)->get();
+        $lastOrder = Banner::orderBy('order', 'desc')->first()->order;
+
+        return view('admin.banners.edit', ['pages' => $pages, 'lastOrder' => $lastOrder, 'banner' => $banner]);
     }
 
     /**
@@ -142,6 +145,20 @@ class BannerController extends Controller
 
         if ($request->has('active')) {
             $banner->active = $request->input('active');
+        }
+
+        if ($request->has('banner_img_mobile_remove')) {
+            $banner->banner_img_mobile = null;
+        } else if ($request->hasFile('banner_img_mobile') && $request->has('banner_img_mobile_cropped')) {
+            $filename = $this->saveBase64Image($request->input('banner_img_mobile_cropped'), $request->banner_img_mobile->getMimeType(), $request->banner_img_mobile->extension());
+            $banner->banner_img_mobile = url(Storage::url($filename));
+        }
+
+        if ($request->has('banner_img_web_remove')) {
+            $banner->banner_img_web = null;
+        } else if ($request->hasFile('banner_img_web') && $request->has('banner_img_web_cropped')) {
+            $filename = $this->saveBase64Image($request->input('banner_img_web_cropped'), $request->banner_img_web->getMimeType(), $request->banner_img_web->extension());
+            $banner->banner_img_web = url(Storage::url($filename));
         }
 
         $banner->save();
