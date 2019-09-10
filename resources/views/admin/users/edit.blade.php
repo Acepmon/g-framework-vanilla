@@ -189,7 +189,7 @@
 
                         <div class="text-right">
                             <button type="button" class="btn btn-default" onclick="cancel()">Cancel</button>
-                            <button type="submit" class="btn btn-primary">Submit form <i class="icon-arrow-right14 position-right"></i></button>
+                            <button type="submit" class="btn btn-primary">Submit form <i class="icon-arrow-right14 ml-2"></i></button>
                         </div>
                     </form>
                 </div>

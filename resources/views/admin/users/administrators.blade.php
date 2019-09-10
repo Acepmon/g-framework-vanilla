@@ -14,7 +14,7 @@
     </div>
 
     <div class="header-elements d-none">
-        <a href="{{ route('admin.users.create') }}" class="btn bg-blue">Register New <i class="icon-add mr-2"></i></a>
+        <a href="{{ route('admin.users.create') }}" class="btn bg-blue">Register New <i class="icon-add ml-2"></i></a>
     </div>
 </div>
 
