@@ -23,6 +23,7 @@
                 @endif
 
                 <div class="heading-elements">
+                    <a href="#modal_banner_remove" data-toggle="modal" data-id="{{ $banner->id }}" class="btn btn-default btn-sm"><span class="icon-trash position-left"></span> Remove</a>
                     <a href="{{ route('admin.banners.edit', $banner->id) }}" class="btn btn-default btn-sm"><span class="icon-pencil position-left"></span> Edit</a>
                 </div>
             </div>
@@ -62,9 +63,43 @@
         </div>
     </div>
 </div>
+<div id="modal_banner_remove" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h6 class="modal-title">Remove Banner</h6>
+            </div>
+
+            <div class="modal-body">
+                <p>
+                    Are you sure you want to remove banner?
+                </p>
+            </div>
+
+            <div class="modal-footer">
+                <form action="#" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-danger">Remove</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
 
 @section('script')
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        $("#modal_banner_remove").on('show.bs.modal', function (e) {
+            var id = $(e.relatedTarget).data('id');
+            var url = '{{ route('admin.banners.index') }}/' + id;
 
+            $("#modal_banner_remove").find('form').attr('action', url);
+        });
+    });
+</script>
 @endsection
 
