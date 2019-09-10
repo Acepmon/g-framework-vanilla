@@ -509,5 +509,30 @@ class MenusTableSeeder extends Seeder
                 'group' => 'car management',
             ]
         ]);
+
+        DB::table('menus')->insert([
+            [
+                'title' => 'Banners',
+                'link' => '/admin/banners',
+                'icon' => 'icon-printer4',
+                'type' => App\Menu::TYPE_MENU,
+                'status' => App\Menu::STATUS_PUBLISH,
+                'visibility' => App\Menu::VISIBILITY_PUBLIC,
+                'order' => 24,
+                'sublevel' => 1,
+                'group' => 'banner management',
+            ],
+            [
+                'title' => 'Create Banner',
+                'link' => '/admin/banners/create',
+                'icon' => 'icon-plus3',
+                'type' => App\Menu::TYPE_MENU,
+                'status' => App\Menu::STATUS_PUBLISH,
+                'visibility' => App\Menu::VISIBILITY_PUBLIC,
+                'order' => 24,
+                'sublevel' => 1,
+                'group' => 'banner management',
+            ]
+        ]);
     }
 }

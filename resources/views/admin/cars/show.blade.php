@@ -123,21 +123,11 @@
 
                     <h5 class="panel-title">Car Information</h5>
                     <br>
+
                     <div class="form-group">
-                        <label class="control-label col-lg-2">Car Title</label>
-                        <div class="col-lg-4">
-                            <label class="control-label">{{$content->metaValue('carTitle')}}</label>
-                        </div>
                         <label class="control-label col-lg-2">Manufacturer</label>
                         <div class="col-lg-4">
                             <label class="control-label">{{$content->metaValue('manufacturer')}}</label>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="control-label col-lg-2">Car Title</label>
-                        <div class="col-lg-4">
-                            <label class="control-label">{{$content->metaValue('carTitle')}}</label>
                         </div>
                         <label class="control-label col-lg-2">Manufacturer</label>
                         <div class="col-lg-4">
@@ -163,7 +153,7 @@
                         </div>
                         <label class="control-label col-lg-2">Displacement</label>
                         <div class="col-lg-4">
-                            <label class="control-label">{{$content->metaValue('displacement')}}km</label>
+                            <label class="control-label">{{$content->metaValue('displacement')}}cc</label>
                         </div>
                     </div>
                     

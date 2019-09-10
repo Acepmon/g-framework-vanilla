@@ -25,28 +25,6 @@ class TermTaxonomyTableSeeder extends Seeder
         ]);
 
         /* Car Terms Table START */
-        
-        // Manufacturer
-        // $term_id = DB::table('terms')->insertGetId([
-        //     'name' => 'Toyota',
-        //     'slug' => 'toyota',
-        // ]);
-        // DB::table('term_taxonomy')->insert([
-        //     'term_id' => $term_id,
-        //     'taxonomy' => 'manufacturer',
-        //     'description' => 'Toyota',
-        //     'count' => 0
-        // ]);
-        // $term_id = DB::table('terms')->insertGetId([
-        //     'name' => 'Ford',
-        //     'slug' => 'ford',
-        // ]);
-        // DB::table('term_taxonomy')->insert([
-        //     'term_id' => $term_id,
-        //     'taxonomy' => 'manufacturer',
-        //     'description' => 'Ford',
-        //     'count' => 0
-        // ]);
 
         // Steering Wheel
         $term_id = DB::table('terms')->insertGetId([
@@ -70,62 +48,6 @@ class TermTaxonomyTableSeeder extends Seeder
             'count' => 0
         ]);
 
-        // Type of Fuel
-        // $term_id = DB::table('terms')->insertGetId([
-        //     'name' => 'Gas',
-        //     'slug' => 'gas',
-        // ]);
-        // DB::table('term_taxonomy')->insert([
-        //     'term_id' => $term_id,
-        //     'taxonomy' => 'type-of-fuel',
-        //     'description' => 'Gas',
-        //     'count' => 0
-        // ]);
-        // $term_id = DB::table('terms')->insertGetId([
-        //     'name' => 'Diesel',
-        //     'slug' => 'diesel',
-        // ]);
-        // DB::table('term_taxonomy')->insert([
-        //     'term_id' => $term_id,
-        //     'taxonomy' => 'type-of-fuel',
-        //     'description' => 'Diesel',
-        //     'count' => 0
-        // ]);
-
-        // Millage
-        // $term_id = DB::table('terms')->insertGetId([
-        //     'name' => 'millage',
-        //     'slug' => 'millage',
-        // ]);
-        // DB::table('term_taxonomy')->insert([
-        //     'term_id' => $term_id,
-        //     'taxonomy' => 'millage',
-        //     'description' => 'millage',
-        //     'count' => 0
-        // ]);
-
-        // Transmission
-        // $term_id = DB::table('terms')->insertGetId([
-        //     'name' => 'Automatic',
-        //     'slug' => 'automatic',
-        // ]);
-        // DB::table('term_taxonomy')->insert([
-        //     'term_id' => $term_id,
-        //     'taxonomy' => 'transmission',
-        //     'description' => 'Automatic',
-        //     'count' => 0
-        // ]);
-        // $term_id = DB::table('terms')->insertGetId([
-        //     'name' => 'Manual',
-        //     'slug' => 'manual',
-        // ]);
-        // DB::table('term_taxonomy')->insert([
-        //     'term_id' => $term_id,
-        //     'taxonomy' => 'transmission',
-        //     'description' => 'Manual',
-        //     'count' => 0
-        // ]);
-        // Seating
         $term_id = DB::table('terms')->insertGetId([
             'name' => '4',
             'slug' => 'four',
@@ -340,7 +262,7 @@ class TermTaxonomyTableSeeder extends Seeder
             'slug' => 'Sedan',
         ]);
         DB::table('term_taxonomy')->insert([
-            
+
             'term_id' => $term_id1,
             'taxonomy' => 'Car Type',
             'description' => 'Sedan',
@@ -351,7 +273,7 @@ class TermTaxonomyTableSeeder extends Seeder
             'slug' => 'SUV',
         ]);
         DB::table('term_taxonomy')->insert([
-            
+
             'term_id' => $term_id1,
             'taxonomy' => 'Car Type',
             'description' => 'SUV',
@@ -362,7 +284,7 @@ class TermTaxonomyTableSeeder extends Seeder
             'slug' => 'Sport',
         ]);
         DB::table('term_taxonomy')->insert([
-            
+
             'term_id' => $term_id1,
             'taxonomy' => 'Car Type',
             'description' => 'Sport',
@@ -373,7 +295,7 @@ class TermTaxonomyTableSeeder extends Seeder
             'slug' => 'Trucks',
         ]);
         DB::table('term_taxonomy')->insert([
-            
+
             'term_id' => $term_id1,
             'taxonomy' => 'Car Type',
             'description' => 'Trucks',
@@ -384,7 +306,7 @@ class TermTaxonomyTableSeeder extends Seeder
             'slug' => 'Vans',
         ]);
         DB::table('term_taxonomy')->insert([
-            
+
             'term_id' => $term_id1,
             'taxonomy' => 'Car Type',
             'description' => 'Vans',
@@ -395,7 +317,7 @@ class TermTaxonomyTableSeeder extends Seeder
             'slug' => 'Bus',
         ]);
         DB::table('term_taxonomy')->insert([
-            
+
             'term_id' => $term_id1,
             'taxonomy' => 'Car Type',
             'description' => 'Bus',
@@ -410,7 +332,7 @@ class TermTaxonomyTableSeeder extends Seeder
             'slug' => 'Toyota',
         ]);
         DB::table('term_taxonomy')->insert([
-            
+
             'term_id' => $term_id2,
             'taxonomy' => 'Manufacturer',
             'description' => 'Toyota',
@@ -421,7 +343,7 @@ class TermTaxonomyTableSeeder extends Seeder
             'slug' => 'Lexus',
         ]);
         DB::table('term_taxonomy')->insert([
-            
+
             'term_id' => $term_id2,
             'taxonomy' => 'Manufacturer',
             'description' => 'Lexus',
@@ -432,7 +354,7 @@ class TermTaxonomyTableSeeder extends Seeder
             'slug' => 'Nissan',
         ]);
         DB::table('term_taxonomy')->insert([
-            
+
             'term_id' => $term_id2,
             'taxonomy' => 'Manufacturer',
             'description' => 'Nissan',
@@ -443,7 +365,7 @@ class TermTaxonomyTableSeeder extends Seeder
             'slug' => 'Mercedes-benz',
         ]);
         DB::table('term_taxonomy')->insert([
-            
+
             'term_id' => $term_id2,
             'taxonomy' => 'Manufacturer',
             'description' => 'Mercedes-benz',
@@ -454,7 +376,7 @@ class TermTaxonomyTableSeeder extends Seeder
             'slug' => 'Volkswagen',
         ]);
         DB::table('term_taxonomy')->insert([
-            
+
             'term_id' => $term_id2,
             'taxonomy' => 'Manufacturer',
             'description' => 'Volkswagen',
@@ -465,7 +387,7 @@ class TermTaxonomyTableSeeder extends Seeder
             'slug' => 'Mini',
         ]);
         DB::table('term_taxonomy')->insert([
-            
+
             'term_id' => $term_id2,
             'taxonomy' => 'Manufacturer',
             'description' => 'Mini',
@@ -476,7 +398,7 @@ class TermTaxonomyTableSeeder extends Seeder
             'slug' => 'Audi',
         ]);
         DB::table('term_taxonomy')->insert([
-            
+
             'term_id' => $term_id2,
             'taxonomy' => 'Manufacturer',
             'description' => 'Audi',
@@ -487,7 +409,7 @@ class TermTaxonomyTableSeeder extends Seeder
             'slug' => 'BMW',
         ]);
         DB::table('term_taxonomy')->insert([
-            
+
             'term_id' => $term_id2,
             'taxonomy' => 'Manufacturer',
             'description' => 'BMW',
@@ -498,7 +420,7 @@ class TermTaxonomyTableSeeder extends Seeder
             'slug' => 'Ford',
         ]);
         DB::table('term_taxonomy')->insert([
-            
+
             'term_id' => $term_id2,
             'taxonomy' => 'Manufacturer',
             'description' => 'Ford',
@@ -509,7 +431,7 @@ class TermTaxonomyTableSeeder extends Seeder
             'slug' => 'Land Rover',
         ]);
         DB::table('term_taxonomy')->insert([
-            
+
             'term_id' => $term_id2,
             'taxonomy' => 'Manufacturer',
             'description' => 'Land Rover',
@@ -520,7 +442,7 @@ class TermTaxonomyTableSeeder extends Seeder
             'slug' => 'Daihatsu',
         ]);
         DB::table('term_taxonomy')->insert([
-            
+
             'term_id' => $term_id2,
             'taxonomy' => 'Manufacturer',
             'description' => 'Daihatsu',
@@ -531,7 +453,7 @@ class TermTaxonomyTableSeeder extends Seeder
             'slug' => 'Dodge',
         ]);
         DB::table('term_taxonomy')->insert([
-            
+
             'term_id' => $term_id2,
             'taxonomy' => 'Manufacturer',
             'description' => 'Dodge',
@@ -542,7 +464,7 @@ class TermTaxonomyTableSeeder extends Seeder
             'slug' => 'Honda',
         ]);
         DB::table('term_taxonomy')->insert([
-            
+
             'term_id' => $term_id2,
             'taxonomy' => 'Manufacturer',
             'description' => 'Honda',
@@ -553,7 +475,7 @@ class TermTaxonomyTableSeeder extends Seeder
             'slug' => 'Hyundai',
         ]);
         DB::table('term_taxonomy')->insert([
-            
+
             'term_id' => $term_id2,
             'taxonomy' => 'Manufacturer',
             'description' => 'Hyundai',
@@ -564,7 +486,7 @@ class TermTaxonomyTableSeeder extends Seeder
             'slug' => 'Kia',
         ]);
         DB::table('term_taxonomy')->insert([
-            
+
             'term_id' => $term_id2,
             'taxonomy' => 'Manufacturer',
             'description' => 'Kia',
@@ -575,7 +497,7 @@ class TermTaxonomyTableSeeder extends Seeder
             'slug' => 'Jeep',
         ]);
         DB::table('term_taxonomy')->insert([
-            
+
             'term_id' => $term_id2,
             'taxonomy' => 'Manufacturer',
             'description' => 'Jeep',
@@ -586,7 +508,7 @@ class TermTaxonomyTableSeeder extends Seeder
             'slug' => 'Subaru',
         ]);
         DB::table('term_taxonomy')->insert([
-            
+
             'term_id' => $term_id2,
             'taxonomy' => 'Manufacturer',
             'description' => 'Subaru',
@@ -597,7 +519,7 @@ class TermTaxonomyTableSeeder extends Seeder
             'slug' => 'Suzuki',
         ]);
         DB::table('term_taxonomy')->insert([
-            
+
             'term_id' => $term_id2,
             'taxonomy' => 'Manufacturer',
             'description' => 'Suzuki',
@@ -611,7 +533,6 @@ class TermTaxonomyTableSeeder extends Seeder
             'slug' => 'Gasoline',
         ]);
         DB::table('term_taxonomy')->insert([
-            [
             'term_id' => $term_id3,
             'taxonomy' => 'Fuel',
             'description' => 'Gasoline',
@@ -622,7 +543,6 @@ class TermTaxonomyTableSeeder extends Seeder
             'slug' => 'Diesel',
         ]);
         DB::table('term_taxonomy')->insert([
-            [
             'term_id' => $term_id3,
             'taxonomy' => 'Fuel',
             'description' => 'Diesel',
@@ -633,7 +553,6 @@ class TermTaxonomyTableSeeder extends Seeder
             'slug' => 'LPG',
         ]);
         DB::table('term_taxonomy')->insert([
-            [
             'term_id' => $term_id3,
             'taxonomy' => 'Fuel',
             'description' => 'LPG',
@@ -644,7 +563,6 @@ class TermTaxonomyTableSeeder extends Seeder
             'slug' => 'Gasoline + Electricity',
         ]);
         DB::table('term_taxonomy')->insert([
-            [
             'term_id' => $term_id3,
             'taxonomy' => 'Fuel',
             'description' => 'Gasoline + Electricity',
@@ -655,7 +573,6 @@ class TermTaxonomyTableSeeder extends Seeder
             'slug' => 'LPG + Electricity',
         ]);
         DB::table('term_taxonomy')->insert([
-            [
             'term_id' => $term_id3,
             'taxonomy' => 'Fuel',
             'description' => 'LPG + Electricity',
@@ -666,7 +583,6 @@ class TermTaxonomyTableSeeder extends Seeder
             'slug' => 'Gasoline + CNG',
         ]);
         DB::table('term_taxonomy')->insert([
-            [
             'term_id' => $term_id3,
             'taxonomy' => 'Fuel',
             'description' => 'Gasoline + CNG',
@@ -677,7 +593,6 @@ class TermTaxonomyTableSeeder extends Seeder
             'slug' => 'Diesel + Electricity',
         ]);
         DB::table('term_taxonomy')->insert([
-            [
             'term_id' => $term_id3,
             'taxonomy' => 'Fuel',
             'description' => 'Diesel + Electricity',
@@ -688,7 +603,6 @@ class TermTaxonomyTableSeeder extends Seeder
             'slug' => 'Electricity',
         ]);
         DB::table('term_taxonomy')->insert([
-            [
             'term_id' => $term_id3,
             'taxonomy' => 'Fuel',
             'description' => 'Electricity',
@@ -699,7 +613,6 @@ class TermTaxonomyTableSeeder extends Seeder
             'slug' => 'LNG',
         ]);
         DB::table('term_taxonomy')->insert([
-            [
             'term_id' => $term_id3,
             'taxonomy' => 'Fuel',
             'description' => 'LNG',
@@ -709,8 +622,11 @@ class TermTaxonomyTableSeeder extends Seeder
 
         /* Transmission Table START */
 
+        $term_id4 = DB::table('terms')->insertGetId([
+            'name' => 'Auto',
+            'slug' => 'Auto',
+        ]);
         DB::table('term_taxonomy')->insert([
-            [
             'term_id' => $term_id4,
             'taxonomy' => 'Transmission',
             'description' => 'Auto',
@@ -721,7 +637,6 @@ class TermTaxonomyTableSeeder extends Seeder
             'slug' => 'Semi Auto',
         ]);
         DB::table('term_taxonomy')->insert([
-            [
             'term_id' => $term_id4,
             'taxonomy' => 'Transmission',
             'description' => 'Semi Auto',
@@ -732,7 +647,6 @@ class TermTaxonomyTableSeeder extends Seeder
             'slug' => 'Manual',
         ]);
         DB::table('term_taxonomy')->insert([
-            [
             'term_id' => $term_id4,
             'taxonomy' => 'Transmission',
             'description' => 'Manual',
@@ -743,7 +657,6 @@ class TermTaxonomyTableSeeder extends Seeder
             'slug' => 'CVT',
         ]);
         DB::table('term_taxonomy')->insert([
-            [
             'term_id' => $term_id4,
             'taxonomy' => 'Transmission',
             'description' => 'CVT',
@@ -759,7 +672,6 @@ class TermTaxonomyTableSeeder extends Seeder
             'slug' => 'Ulaanbaatar',
         ]);
         DB::table('term_taxonomy')->insert([
-            [
             'term_id' => $term_id7,
             'taxonomy' => 'Area',
             'description' => 'Ulaanbaatar',
@@ -770,7 +682,6 @@ class TermTaxonomyTableSeeder extends Seeder
             'slug' => 'Darkhan',
         ]);
         DB::table('term_taxonomy')->insert([
-            [
             'term_id' => $term_id7,
             'taxonomy' => 'Area',
             'description' => 'Darkhan',
@@ -781,7 +692,6 @@ class TermTaxonomyTableSeeder extends Seeder
             'slug' => 'Erdenet',
         ]);
         DB::table('term_taxonomy')->insert([
-            [
             'term_id' => $term_id7,
             'taxonomy' => 'Area',
             'description' => 'Erdenet',
@@ -792,7 +702,6 @@ class TermTaxonomyTableSeeder extends Seeder
             'slug' => 'Arkhangai',
         ]);
         DB::table('term_taxonomy')->insert([
-            [
             'term_id' => $term_id7,
             'taxonomy' => 'Area',
             'description' => 'Arkhangai',
@@ -803,7 +712,6 @@ class TermTaxonomyTableSeeder extends Seeder
             'slug' => 'Bayan-Ulgii',
         ]);
         DB::table('term_taxonomy')->insert([
-            [
             'term_id' => $term_id7,
             'taxonomy' => 'Area',
             'description' => 'Bayan-Ulgii',
@@ -814,7 +722,6 @@ class TermTaxonomyTableSeeder extends Seeder
             'slug' => 'Bayankhongor',
         ]);
         DB::table('term_taxonomy')->insert([
-            [
             'term_id' => $term_id7,
             'taxonomy' => 'Area',
             'description' => 'Bayankhongor',
@@ -825,7 +732,6 @@ class TermTaxonomyTableSeeder extends Seeder
             'slug' => 'Bulgan',
         ]);
         DB::table('term_taxonomy')->insert([
-            [
             'term_id' => $term_id7,
             'taxonomy' => 'Area',
             'description' => 'Bulgan',
@@ -836,7 +742,6 @@ class TermTaxonomyTableSeeder extends Seeder
             'slug' => 'Gobi-Altai',
         ]);
         DB::table('term_taxonomy')->insert([
-            [
             'term_id' => $term_id7,
             'taxonomy' => 'Area',
             'description' => 'Gobi-Altai',
@@ -847,7 +752,6 @@ class TermTaxonomyTableSeeder extends Seeder
             'slug' => 'Gobisumber',
         ]);
         DB::table('term_taxonomy')->insert([
-            [
             'term_id' => $term_id7,
             'taxonomy' => 'Area',
             'description' => 'Gobisumber',
@@ -858,7 +762,6 @@ class TermTaxonomyTableSeeder extends Seeder
             'slug' => 'Darkhan-Uul',
         ]);
         DB::table('term_taxonomy')->insert([
-            [
             'term_id' => $term_id7,
             'taxonomy' => 'Area',
             'description' => 'Darkhan-Uul',
@@ -869,7 +772,6 @@ class TermTaxonomyTableSeeder extends Seeder
             'slug' => 'Dornogobi',
         ]);
         DB::table('term_taxonomy')->insert([
-            [
             'term_id' => $term_id7,
             'taxonomy' => 'Area',
             'description' => 'Dornogobi',
@@ -880,7 +782,6 @@ class TermTaxonomyTableSeeder extends Seeder
             'slug' => 'Dornod',
         ]);
         DB::table('term_taxonomy')->insert([
-            [
             'term_id' => $term_id7,
             'taxonomy' => 'Area',
             'description' => 'Dornod',
@@ -891,7 +792,6 @@ class TermTaxonomyTableSeeder extends Seeder
             'slug' => 'Dundgobi',
         ]);
         DB::table('term_taxonomy')->insert([
-            [
             'term_id' => $term_id7,
             'taxonomy' => 'Area',
             'description' => 'Dundgobi',
@@ -902,7 +802,6 @@ class TermTaxonomyTableSeeder extends Seeder
             'slug' => 'Zavkhan',
         ]);
         DB::table('term_taxonomy')->insert([
-            [
             'term_id' => $term_id7,
             'taxonomy' => 'Area',
             'description' => 'Zavkhan',
@@ -913,7 +812,6 @@ class TermTaxonomyTableSeeder extends Seeder
             'slug' => 'Orkhon',
         ]);
         DB::table('term_taxonomy')->insert([
-            [
             'term_id' => $term_id7,
             'taxonomy' => 'Area',
             'description' => 'Orkhon',
@@ -924,7 +822,6 @@ class TermTaxonomyTableSeeder extends Seeder
             'slug' => 'Uvurkhangai',
         ]);
         DB::table('term_taxonomy')->insert([
-            [
             'term_id' => $term_id7,
             'taxonomy' => 'Area',
             'description' => 'Uvurkhangai',
@@ -935,7 +832,6 @@ class TermTaxonomyTableSeeder extends Seeder
             'slug' => 'Umnugobi',
         ]);
         DB::table('term_taxonomy')->insert([
-            [
             'term_id' => $term_id7,
             'taxonomy' => 'Area',
             'description' => 'Umnugobi',
@@ -946,7 +842,6 @@ class TermTaxonomyTableSeeder extends Seeder
             'slug' => 'Sukhbaatar',
         ]);
         DB::table('term_taxonomy')->insert([
-            [
             'term_id' => $term_id7,
             'taxonomy' => 'Area',
             'description' => 'Sukhbaatar',
@@ -957,7 +852,6 @@ class TermTaxonomyTableSeeder extends Seeder
             'slug' => 'Selenge',
         ]);
         DB::table('term_taxonomy')->insert([
-            [
             'term_id' => $term_id7,
             'taxonomy' => 'Area',
             'description' => 'Selenge',
@@ -968,7 +862,6 @@ class TermTaxonomyTableSeeder extends Seeder
             'slug' => 'Tuv',
         ]);
         DB::table('term_taxonomy')->insert([
-            [
             'term_id' => $term_id7,
             'taxonomy' => 'Area',
             'description' => 'Tuv',
@@ -979,7 +872,6 @@ class TermTaxonomyTableSeeder extends Seeder
             'slug' => 'Uvs',
         ]);
         DB::table('term_taxonomy')->insert([
-            [
             'term_id' => $term_id7,
             'taxonomy' => 'Area',
             'description' => 'Uvs',
@@ -990,7 +882,6 @@ class TermTaxonomyTableSeeder extends Seeder
             'slug' => 'Khovd',
         ]);
         DB::table('term_taxonomy')->insert([
-            [
             'term_id' => $term_id7,
             'taxonomy' => 'Area',
             'description' => 'Khovd',
@@ -1001,7 +892,6 @@ class TermTaxonomyTableSeeder extends Seeder
             'slug' => 'Khuvsgul',
         ]);
         DB::table('term_taxonomy')->insert([
-            [
             'term_id' => $term_id7,
             'taxonomy' => 'Area',
             'description' => 'Khuvsgul',
@@ -1012,7 +902,6 @@ class TermTaxonomyTableSeeder extends Seeder
             'slug' => 'Khentii',
         ]);
         DB::table('term_taxonomy')->insert([
-            [
             'term_id' => $term_id7,
             'taxonomy' => 'Area',
             'description' => 'Khentii',
@@ -1028,7 +917,6 @@ class TermTaxonomyTableSeeder extends Seeder
             'slug' => 'White',
         ]);
         DB::table('term_taxonomy')->insert([
-            [
             'term_id' => $term_id2,
             'taxonomy' => 'Color',
             'description' => 'White',
@@ -1039,7 +927,6 @@ class TermTaxonomyTableSeeder extends Seeder
             'slug' => 'Black',
         ]);
         DB::table('term_taxonomy')->insert([
-            [
             'term_id' => $term_id2,
             'taxonomy' => 'Color',
             'description' => 'Black',
@@ -1050,7 +937,6 @@ class TermTaxonomyTableSeeder extends Seeder
             'slug' => 'Rusty',
         ]);
         DB::table('term_taxonomy')->insert([
-            [
             'term_id' => $term_id2,
             'taxonomy' => 'Color',
             'description' => 'Rusty',
@@ -1061,7 +947,6 @@ class TermTaxonomyTableSeeder extends Seeder
             'slug' => 'Pearl gray',
         ]);
         DB::table('term_taxonomy')->insert([
-            [
             'term_id' => $term_id2,
             'taxonomy' => 'Color',
             'description' => 'Pearl gray',
@@ -1072,7 +957,6 @@ class TermTaxonomyTableSeeder extends Seeder
             'slug' => 'Silver',
         ]);
         DB::table('term_taxonomy')->insert([
-            [
             'term_id' => $term_id2,
             'taxonomy' => 'Color',
             'description' => 'Silver',
@@ -1088,7 +972,6 @@ class TermTaxonomyTableSeeder extends Seeder
             'slug' => 'Right',
         ]);
         DB::table('term_taxonomy')->insert([
-            [
             'term_id' => $term_id8,
             'taxonomy' => 'Steering Wheel',
             'description' => 'Right',
@@ -1099,7 +982,6 @@ class TermTaxonomyTableSeeder extends Seeder
             'slug' => 'Left',
         ]);
         DB::table('term_taxonomy')->insert([
-            [
             'term_id' => $term_id8,
             'taxonomy' => 'Steering Wheel',
             'description' => 'Left',
@@ -1115,7 +997,6 @@ class TermTaxonomyTableSeeder extends Seeder
             'slug' => 'Unassuming',
         ]);
         DB::table('term_taxonomy')->insert([
-            [
             'term_id' => $term_id6,
             'taxonomy' => 'An accident',
             'description' => 'Unassuming',
@@ -1126,7 +1007,6 @@ class TermTaxonomyTableSeeder extends Seeder
             'slug' => 'Simple exchange',
         ]);
         DB::table('term_taxonomy')->insert([
-            [
             'term_id' => $term_id6,
             'taxonomy' => 'An accident',
             'description' => 'Simple exchange',
@@ -1137,7 +1017,6 @@ class TermTaxonomyTableSeeder extends Seeder
             'slug' => 'Simple accident',
         ]);
         DB::table('term_taxonomy')->insert([
-            [
             'term_id' => $term_id6,
             'taxonomy' => 'An accident',
             'description' => 'Simple accident',
@@ -1153,7 +1032,6 @@ class TermTaxonomyTableSeeder extends Seeder
             'slug' => 'Unassuming',
         ]);
         DB::table('term_taxonomy')->insert([
-            [
             'term_id' => $term_id6,
             'taxonomy' => 'An accident',
             'description' => 'Unassuming',
@@ -1164,7 +1042,6 @@ class TermTaxonomyTableSeeder extends Seeder
             'slug' => 'Simple exchange',
         ]);
         DB::table('term_taxonomy')->insert([
-            [
             'term_id' => $term_id6,
             'taxonomy' => 'An accident',
             'description' => 'Simple exchange',
@@ -1175,7 +1052,6 @@ class TermTaxonomyTableSeeder extends Seeder
             'slug' => 'Simple accident',
         ]);
         DB::table('term_taxonomy')->insert([
-            [
             'term_id' => $term_id6,
             'taxonomy' => 'An accident',
             'description' => 'Simple accident',
@@ -1191,7 +1067,6 @@ class TermTaxonomyTableSeeder extends Seeder
             'slug' => 'Four seater',
         ]);
         DB::table('term_taxonomy')->insert([
-            [
             'term_id' => $term_id5,
             'taxonomy' => 'Passenger',
             'description' => 'Four seater',
@@ -1202,7 +1077,6 @@ class TermTaxonomyTableSeeder extends Seeder
             'slug' => '5 passengers',
         ]);
         DB::table('term_taxonomy')->insert([
-            [
             'term_id' => $term_id5,
             'taxonomy' => 'Passenger',
             'description' => '5 passengers',
@@ -1213,7 +1087,6 @@ class TermTaxonomyTableSeeder extends Seeder
             'slug' => '7 passengers',
         ]);
         DB::table('term_taxonomy')->insert([
-            [
             'term_id' => $term_id5,
             'taxonomy' => 'Passenger',
             'description' => '7 passengers',
@@ -1224,7 +1097,6 @@ class TermTaxonomyTableSeeder extends Seeder
             'slug' => '9 passengers',
         ]);
         DB::table('term_taxonomy')->insert([
-            [
             'term_id' => $term_id5,
             'taxonomy' => 'Passenger',
             'description' => '9 passengers',
@@ -1235,7 +1107,6 @@ class TermTaxonomyTableSeeder extends Seeder
             'slug' => '11 passengers',
         ]);
         DB::table('term_taxonomy')->insert([
-            [
             'term_id' => $term_id5,
             'taxonomy' => 'Passenger',
             'description' => '11 passengers',
@@ -1246,7 +1117,6 @@ class TermTaxonomyTableSeeder extends Seeder
             'slug' => '15 passengers',
         ]);
         DB::table('term_taxonomy')->insert([
-            [
             'term_id' => $term_id5,
             'taxonomy' => 'Passenger',
             'description' => '15 passengers',
@@ -1257,13 +1127,12 @@ class TermTaxonomyTableSeeder extends Seeder
             'slug' => '+ Direct input',
         ]);
         DB::table('term_taxonomy')->insert([
-            [
             'term_id' => $term_id5,
             'taxonomy' => 'Passenger',
             'description' => '+ Direct input',
             'count' => 0
         ]);
-        
+
 
         /* Passenger Table END */
 
@@ -1275,7 +1144,6 @@ class TermTaxonomyTableSeeder extends Seeder
             'slug' => 'Exterior',
         ]);
         DB::table('term_taxonomy')->insert([
-            [
             'term_id' => $term_id5,
             'taxonomy' => 'Option',
             'description' => 'Sunroof',
@@ -1286,7 +1154,6 @@ class TermTaxonomyTableSeeder extends Seeder
             'slug' => 'Exterior',
         ]);
         DB::table('term_taxonomy')->insert([
-            [
             'term_id' => $term_id5,
             'taxonomy' => 'Option',
             'description' => 'Aluminum wheel',
@@ -1297,7 +1164,6 @@ class TermTaxonomyTableSeeder extends Seeder
             'slug' => 'Exterior',
         ]);
         DB::table('term_taxonomy')->insert([
-            [
             'term_id' => $term_id5,
             'taxonomy' => 'Option',
             'description' => '4 season tire',
@@ -1308,7 +1174,6 @@ class TermTaxonomyTableSeeder extends Seeder
             'slug' => 'Exterior',
         ]);
         DB::table('term_taxonomy')->insert([
-            [
             'term_id' => $term_id5,
             'taxonomy' => 'Option',
             'description' => 'Electric folding side mirror',
@@ -1319,7 +1184,6 @@ class TermTaxonomyTableSeeder extends Seeder
             'slug' => 'Exterior',
         ]);
         DB::table('term_taxonomy')->insert([
-            [
             'term_id' => $term_id5,
             'taxonomy' => 'Option',
             'description' => 'Rear wiper',
@@ -1332,7 +1196,6 @@ class TermTaxonomyTableSeeder extends Seeder
             'slug' => 'Guts',
         ]);
         DB::table('term_taxonomy')->insert([
-            [
             'term_id' => $term_id5,
             'taxonomy' => 'Option',
             'description' => 'Steering wheel remote control',
@@ -1343,7 +1206,6 @@ class TermTaxonomyTableSeeder extends Seeder
             'slug' => 'Guts',
         ]);
         DB::table('term_taxonomy')->insert([
-            [
             'term_id' => $term_id5,
             'taxonomy' => 'Option',
             'description' => 'Power steering',
@@ -1354,7 +1216,6 @@ class TermTaxonomyTableSeeder extends Seeder
             'slug' => 'Guts',
         ]);
         DB::table('term_taxonomy')->insert([
-            [
             'term_id' => $term_id5,
             'taxonomy' => 'Option',
             'description' => 'Leather seat',
@@ -1365,7 +1226,6 @@ class TermTaxonomyTableSeeder extends Seeder
             'slug' => 'Guts',
         ]);
         DB::table('term_taxonomy')->insert([
-            [
             'term_id' => $term_id5,
             'taxonomy' => 'Option',
             'description' => 'Electric seat : driver’s seat',
@@ -1376,7 +1236,6 @@ class TermTaxonomyTableSeeder extends Seeder
             'slug' => 'Guts',
         ]);
         DB::table('term_taxonomy')->insert([
-            [
             'term_id' => $term_id5,
             'taxonomy' => 'Option',
             'description' => 'Electric seat : Passenger seat',
@@ -1387,7 +1246,6 @@ class TermTaxonomyTableSeeder extends Seeder
             'slug' => 'Guts',
         ]);
         DB::table('term_taxonomy')->insert([
-            [
             'term_id' => $term_id5,
             'taxonomy' => 'Option',
             'description' => 'Heated Seat: Driver’s Seat',
@@ -1398,7 +1256,6 @@ class TermTaxonomyTableSeeder extends Seeder
             'slug' => 'Guts',
         ]);
         DB::table('term_taxonomy')->insert([
-            [
             'term_id' => $term_id5,
             'taxonomy' => 'Option',
             'description' => 'Heated Seat: Rear Seat',
@@ -1409,7 +1266,6 @@ class TermTaxonomyTableSeeder extends Seeder
             'slug' => 'Guts',
         ]);
         DB::table('term_taxonomy')->insert([
-            [
             'term_id' => $term_id5,
             'taxonomy' => 'Option',
             'description' => 'Memory seat : driver’s seat',
@@ -1420,7 +1276,6 @@ class TermTaxonomyTableSeeder extends Seeder
             'slug' => 'Guts',
         ]);
         DB::table('term_taxonomy')->insert([
-            [
             'term_id' => $term_id5,
             'taxonomy' => 'Option',
             'description' => 'Power Door lock',
@@ -1432,7 +1287,6 @@ class TermTaxonomyTableSeeder extends Seeder
             'slug' => 'Safety',
         ]);
         DB::table('term_taxonomy')->insert([
-            [
             'term_id' => $term_id5,
             'taxonomy' => 'Option',
             'description' => 'Airbag : Driver’s seat',
@@ -1443,117 +1297,106 @@ class TermTaxonomyTableSeeder extends Seeder
             'slug' => 'Safety',
         ]);
         DB::table('term_taxonomy')->insert([
-            [
             'term_id' => $term_id5,
             'taxonomy' => 'Option',
             'description' => 'Airbag : Passenger’s seat',
             'count' => 0
         ]);
         $term_id5 = DB::table('terms')->insertGetId([
-            'name' => 'Airbag : Side,
+            'name' => 'Airbag : Side',
             'slug' => 'Safety',
         ]);
         DB::table('term_taxonomy')->insert([
-            [
             'term_id' => $term_id5,
             'taxonomy' => 'Option',
             'description' => 'Airbag : Side',
             'count' => 0
         ]);
         $term_id5 = DB::table('terms')->insertGetId([
-            'name' => 'Airbag : Side,
+            'name' => 'Airbag : Side',
             'slug' => 'Safety',
         ]);
         DB::table('term_taxonomy')->insert([
-            [
             'term_id' => $term_id5,
             'taxonomy' => 'Option',
             'description' => 'Airbag : Side',
             'count' => 0
         ]);
         $term_id5 = DB::table('terms')->insertGetId([
-            'name' => 'Airbag : Curtains,
+            'name' => 'Airbag : Curtains',
             'slug' => 'Safety',
         ]);
         DB::table('term_taxonomy')->insert([
-            [
             'term_id' => $term_id5,
             'taxonomy' => 'Option',
             'description' => 'Airbag : Curtains',
             'count' => 0
         ]);
         $term_id5 = DB::table('terms')->insertGetId([
-            'name' => 'Camera : Front,
+            'name' => 'Camera : Front',
             'slug' => 'Safety',
         ]);
         DB::table('term_taxonomy')->insert([
-            [
             'term_id' => $term_id5,
             'taxonomy' => 'Option',
             'description' => 'Camera : Front',
             'count' => 0
         ]);
         $term_id5 = DB::table('terms')->insertGetId([
-            'name' => 'Camera : Rear,
+            'name' => 'Camera : Rear',
             'slug' => 'Safety',
         ]);
         DB::table('term_taxonomy')->insert([
-            [
             'term_id' => $term_id5,
             'taxonomy' => 'Option',
             'description' => 'Camera : Rear',
             'count' => 0
         ]);
         $term_id5 = DB::table('terms')->insertGetId([
-            'name' => 'Camera : Side,
+            'name' => 'Camera : Side',
             'slug' => 'Safety',
         ]);
         DB::table('term_taxonomy')->insert([
-            [
             'term_id' => $term_id5,
             'taxonomy' => 'Option',
             'description' => 'Camera : Side',
             'count' => 0
         ]);
         $term_id5 = DB::table('terms')->insertGetId([
-            'name' => 'Parking Sense : rear,
+            'name' => 'Parking Sense : rear',
             'slug' => 'Safety',
         ]);
         DB::table('term_taxonomy')->insert([
-            [
             'term_id' => $term_id5,
             'taxonomy' => 'Option',
             'description' => 'Parking Sense : rear',
             'count' => 0
         ]);
         $term_id5 = DB::table('terms')->insertGetId([
-            'name' => 'Parking sense : Front,
+            'name' => 'Parking sense : Front',
             'slug' => 'Safety',
         ]);
         DB::table('term_taxonomy')->insert([
-            [
             'term_id' => $term_id5,
             'taxonomy' => 'Option',
             'description' => 'Parking sense : Front',
             'count' => 0
         ]);
         $term_id5 = DB::table('terms')->insertGetId([
-            'name' => 'ABS,
+            'name' => 'ABS',
             'slug' => 'Safety',
         ]);
         DB::table('term_taxonomy')->insert([
-            [
             'term_id' => $term_id5,
             'taxonomy' => 'Option',
             'description' => 'ABS',
             'count' => 0
         ]);
         $term_id5 = DB::table('terms')->insertGetId([
-            'name' => 'Electric parking brake,
+            'name' => 'Electric parking brake',
             'slug' => 'Safety',
         ]);
         DB::table('term_taxonomy')->insert([
-            [
             'term_id' => $term_id5,
             'taxonomy' => 'Option',
             'description' => 'Electric parking brake',
@@ -1561,165 +1404,150 @@ class TermTaxonomyTableSeeder extends Seeder
         ]);
 
         $term_id5 = DB::table('terms')->insertGetId([
-            'name' => 'Smart Key,
+            'name' => 'Smart Key',
             'slug' => 'Convenience',
         ]);
         DB::table('term_taxonomy')->insert([
-            [
             'term_id' => $term_id5,
             'taxonomy' => 'Option',
             'description' => 'Smart Key',
             'count' => 0
         ]);
         $term_id5 = DB::table('terms')->insertGetId([
-            'name' => 'Cruise control,
+            'name' => 'Cruise control',
             'slug' => 'Convenience',
         ]);
         DB::table('term_taxonomy')->insert([
-            [
             'term_id' => $term_id5,
             'taxonomy' => 'Option',
             'description' => 'Cruise control',
             'count' => 0
         ]);
         $term_id5 = DB::table('terms')->insertGetId([
-            'name' => 'Auto air conditioner,
+            'name' => 'Auto air conditioner',
             'slug' => 'Convenience',
         ]);
         DB::table('term_taxonomy')->insert([
-            [
             'term_id' => $term_id5,
             'taxonomy' => 'Option',
             'description' => 'Auto air conditioner',
             'count' => 0
         ]);
         $term_id5 = DB::table('terms')->insertGetId([
-            'name' => 'Power window,
+            'name' => 'Power window',
             'slug' => 'Convenience',
         ]);
         DB::table('term_taxonomy')->insert([
-            [
             'term_id' => $term_id5,
             'taxonomy' => 'Option',
             'description' => 'Power window',
             'count' => 0
         ]);
         $term_id5 = DB::table('terms')->insertGetId([
-            'name' => 'CD player,
+            'name' => 'CD player',
             'slug' => 'Convenience',
         ]);
         DB::table('term_taxonomy')->insert([
-            [
             'term_id' => $term_id5,
             'taxonomy' => 'Option',
             'description' => 'CD player',
             'count' => 0
         ]);
         $term_id5 = DB::table('terms')->insertGetId([
-            'name' => 'Navigation,
+            'name' => 'Navigation',
             'slug' => 'Convenience',
         ]);
         DB::table('term_taxonomy')->insert([
-            [
             'term_id' => $term_id5,
             'taxonomy' => 'Option',
             'description' => 'Navigation',
             'count' => 0
         ]);
         $term_id5 = DB::table('terms')->insertGetId([
-            'name' => 'USB Terminal,
+            'name' => 'USB Terminal',
             'slug' => 'Convenience',
         ]);
         DB::table('term_taxonomy')->insert([
-            [
             'term_id' => $term_id5,
             'taxonomy' => 'Option',
             'description' => 'USB Terminal',
             'count' => 0
         ]);
         $term_id5 = DB::table('terms')->insertGetId([
-            'name' => 'AUX terminal,
+            'name' => 'AUX terminal',
             'slug' => 'Convenience',
         ]);
         DB::table('term_taxonomy')->insert([
-            [
             'term_id' => $term_id5,
             'taxonomy' => 'Option',
             'description' => 'AUX terminal',
             'count' => 0
         ]);
         $term_id5 = DB::table('terms')->insertGetId([
-            'name' => 'Bluetooth,
+            'name' => 'Bluetooth',
             'slug' => 'Convenience',
         ]);
         DB::table('term_taxonomy')->insert([
-            [
             'term_id' => $term_id5,
             'taxonomy' => 'Option',
             'description' => 'Bluetooth',
             'count' => 0
         ]);
         $term_id5 = DB::table('terms')->insertGetId([
-            'name' => 'Auto light,
+            'name' => 'Auto light',
             'slug' => 'Convenience',
         ]);
         DB::table('term_taxonomy')->insert([
-            [
             'term_id' => $term_id5,
             'taxonomy' => 'Option',
             'description' => 'Auto light',
             'count' => 0
         ]);
         $term_id5 = DB::table('terms')->insertGetId([
-            'name' => 'Rain senser,
+            'name' => 'Rain senser',
             'slug' => 'Convenience',
         ]);
         DB::table('term_taxonomy')->insert([
-            [
             'term_id' => $term_id5,
             'taxonomy' => 'Option',
             'description' => 'Rain senser',
             'count' => 0
         ]);
         $term_id5 = DB::table('terms')->insertGetId([
-            'name' => 'AV monitor : Front,
+            'name' => 'AV monitor : Front',
             'slug' => 'Convenience',
         ]);
         DB::table('term_taxonomy')->insert([
-            [
             'term_id' => $term_id5,
             'taxonomy' => 'Option',
             'description' => 'AV monitor : Front',
             'count' => 0
         ]);
         $term_id5 = DB::table('terms')->insertGetId([
-            'name' => 'AV monitor : Rear,
+            'name' => 'AV monitor : Rear',
             'slug' => 'Convenience',
         ]);
         DB::table('term_taxonomy')->insert([
-            [
             'term_id' => $term_id5,
             'taxonomy' => 'Option',
             'description' => 'AV monitor : Rear',
             'count' => 0
         ]);
         $term_id5 = DB::table('terms')->insertGetId([
-            'name' => 'Blinder : rear,
+            'name' => 'Blinder : rear',
             'slug' => 'Convenience',
         ]);
         DB::table('term_taxonomy')->insert([
-            [
             'term_id' => $term_id5,
             'taxonomy' => 'Option',
             'description' => 'Blinder : rear',
             'count' => 0
         ]);
         $term_id5 = DB::table('terms')->insertGetId([
-            'name' => 'Black box,
+            'name' => 'Black box',
             'slug' => 'Convenience',
         ]);
         DB::table('term_taxonomy')->insert([
-            [
             'term_id' => $term_id5,
             'taxonomy' => 'Option',
             'description' => 'Black box',
@@ -1727,33 +1555,30 @@ class TermTaxonomyTableSeeder extends Seeder
         ]);
 
         $term_id5 = DB::table('terms')->insertGetId([
-            'name' => 'One person drive,
+            'name' => 'One person drive',
             'slug' => 'Clean',
         ]);
         DB::table('term_taxonomy')->insert([
-            [
             'term_id' => $term_id5,
             'taxonomy' => 'Option',
             'description' => 'One person drive',
             'count' => 0
         ]);
         $term_id5 = DB::table('terms')->insertGetId([
-            'name' => 'No smoking,
+            'name' => 'No smoking',
             'slug' => 'Clean',
         ]);
         DB::table('term_taxonomy')->insert([
-            [
             'term_id' => $term_id5,
             'taxonomy' => 'Option',
             'description' => 'No smoking',
             'count' => 0
         ]);
         $term_id5 = DB::table('terms')->insertGetId([
-            'name' => 'Woman driver,
+            'name' => 'Woman driver',
             'slug' => 'Clean',
         ]);
         DB::table('term_taxonomy')->insert([
-            [
             'term_id' => $term_id5,
             'taxonomy' => 'Option',
             'description' => 'Woman driver',

@@ -7,6 +7,10 @@
 <script type="text/javascript" src="{{ asset('limitless/js/plugins/forms/styling/switch.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('limitless/js/plugins/editors/ace/ace.js') }}"></script>
 <script type="text/javascript" src="{{ asset('ckeditor/ckeditor.js') }}"></script>
+
+<script type="text/javascript" src="{{ asset('limitless/js/plugins/forms/tags/tagsinput.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('limitless/js/plugins/forms/tags/tokenfield.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('limitless/js/pages/form_tags_input.js') }}"></script>
 <script>
 </script>
 @endsection
@@ -320,17 +324,11 @@
                 <div class="form-group">
                     <label for="advantages" class="control-label col-lg-2">Advantages</label>
                     <div class="col-lg-10">
-                        <select name="advantages[]" id="advantages" data-placeholder="Select advantages..." multiple="multiple" class="select">
-                            @foreach(App\TermTaxonomy::where('taxonomy', 'advantages')->get() as $advantages)
-                                @php $selected = False @endphp
-                                @if($content->metas->where('key', 'advantages'))
-                                    @foreach($content->metas->where('key', 'advantages') as $advantages_id)
-                                        @php $selected = ($selected || $advantages_id->value == $advantages->term->name) @endphp
-                                    @endforeach
-                                @endif
-                                <option value="{{ $advantages->term->name }}" {{ $selected?'selected':'' }}>{{ $advantages->term->name }}</option>
-                            @endforeach
-                        </select>
+                        <input type="text" class="form-control tokenfield" value="
+                        @foreach($content->metas->where('key', 'advantages') as $advantages)
+                            {{ $advantages->value . ',' }}
+                        @endforeach
+                        " placeholder="Press Enter">
                     </div>
                 </div>
 
