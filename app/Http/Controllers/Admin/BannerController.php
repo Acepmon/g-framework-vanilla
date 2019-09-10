@@ -73,41 +73,9 @@ class BannerController extends Controller
             $banner->banner_img_web = url(Storage::url($filename));
         }
 
-        // if ($request->hasFile('banner_img_mobile')) {
-        //     if ($request->has('banner_img_mobile_cropped')) {
-        //         $mobileBase64 = $request->input('banner_img_mobile_cropped');
-        //         $mobileBase64 = str_replace('data:image/png;base64,', '', $mobileBase64);
-        //         $mobileBase64 = str_replace('data:image/jpeg;base64,', '', $mobileBase64);
-        //         $mobileBase64 = str_replace(' ', '+', $mobileBase64);
-        //         $imageName = str_random(10).'.'.'png';
-        //         File::put(storage_path('app'.DIRECTORY_SEPARATOR.'public'.DIRECTORY_SEPARATOR.'banners'). DIRECTORY_SEPARATOR . $imageName, base64_decode($mobileBase64));
-        //         $banner->banner_img_mobile = $imageName;
-        //     } else {
-        //         $mobile_path = $request->banner_img_mobile->store('public/banners');
-        //         $mobile_path = url(Storage::url($mobile_path));
-        //         $banner->banner_img_mobile = $mobile_path;
-        //     }
-        // }
-
-        // if ($request->hasFile('banner_img_web')) {
-        //     if ($request->has('banner_img_web_cropped')) {
-        //         $webBase64 = $request->input('banner_img_web_cropped');
-        //         $webBase64 = str_replace('data:image/png;base64,', '', $webBase64);
-        //         $webBase64 = str_replace('data:image/jpeg;base64,', '', $webBase64);
-        //         $webBase64 = str_replace(' ', '+', $webBase64);
-        //         $imageName = str_random(10).'.'.'png';
-        //         File::put(storage_path('app/public/banners/'). DIRECTORY_SEPARATOR . $imageName, base64_decode($webBase64));
-        //         $banner->banner_img_web = $imageName;
-        //     } else {
-        //         $web_path = $request->banner_img_web->store('public/banners');
-        //         $web_path = url(Storage::url($web_path));
-        //         $banner->banner_img_web = $web_path;
-        //     }
-        // }
-
         $banner->save();
 
-        return back()->with('status', 'Banner Successfully created!');
+        return back()->with('status', 'Banner Successfully created! <a href="'.route('admin.banners.show', $banner->id).'">Click here</a> to go to details page.');
     }
 
     /**
@@ -129,7 +97,10 @@ class BannerController extends Controller
      */
     public function edit(Banner $banner)
     {
-        return view('admin.banners.edit', ['banner' => $banner]);
+        $pages = Content::where('type', Content::TYPE_PAGE)->get();
+        $lastOrder = Banner::orderBy('order', 'desc')->first()->order;
+
+        return view('admin.banners.edit', ['pages' => $pages, 'lastOrder' => $lastOrder, 'banner' => $banner]);
     }
 
     /**
@@ -141,7 +112,62 @@ class BannerController extends Controller
      */
     public function update(Request $request, Banner $banner)
     {
-        //
+        $request->validate([
+            'title' => 'nullable|max:191',
+            'btn_show' => 'nullable|boolean',
+            'btn_text' => 'nullable|max:255',
+            'btn_link' => 'nullable|max:255',
+            'banner_img_mobile' => 'nullable|file',
+            'banner_img_web' => 'nullable|file',
+            'order' => 'nullable|numeric',
+            'active' => 'nullable|boolean'
+        ]);
+
+        if ($request->has('title')) {
+            $banner->title = $request->input('title');
+        }
+
+        if ($request->has('btn_show')) {
+            $banner->btn_show = $request->input('btn_show');
+        }
+
+        if ($request->has('btn_text')) {
+            $banner->btn_text = $request->input('btn_text');
+        }
+
+        if ($request->has('btn_link')) {
+            $banner->btn_link = $request->input('btn_link');
+        }
+
+        if ($request->has('order')) {
+            $banner->order = $request->input('order');
+        }
+
+        if ($request->has('active')) {
+            $banner->active = $request->input('active');
+        }
+
+        if ($request->has('banner_img_mobile_remove')) {
+            $banner->banner_img_mobile = null;
+        } else if ($request->hasFile('banner_img_mobile') && $request->has('banner_img_mobile_cropped')) {
+            $filename = $this->saveBase64Image($request->input('banner_img_mobile_cropped'), $request->banner_img_mobile->getMimeType(), $request->banner_img_mobile->extension());
+            $banner->banner_img_mobile = url(Storage::url($filename));
+        }
+
+        if ($request->has('banner_img_web_remove')) {
+            $banner->banner_img_web = null;
+        } else if ($request->hasFile('banner_img_web') && $request->has('banner_img_web_cropped')) {
+            $filename = $this->saveBase64Image($request->input('banner_img_web_cropped'), $request->banner_img_web->getMimeType(), $request->banner_img_web->extension());
+            $banner->banner_img_web = url(Storage::url($filename));
+        }
+
+        $banner->save();
+
+        if ($request->ajax()) {
+            return response()->json($banner);
+        } else {
+            return back()->with('status', 'Successfully Saved!');
+        }
     }
 
     /**
@@ -150,9 +176,15 @@ class BannerController extends Controller
      * @param  \App\Banner  $banner
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Banner $banner)
+    public function destroy(Request $request, Banner $banner)
     {
-        //
+        $banner->delete();
+
+        if ($request->ajax()) {
+            return response()->json(['status' => 'Banner Removed!']);
+        } else {
+            return redirect()->route('admin.banners.index')->with('status', 'Successfully Removed!');
+        }
     }
 
     private function saveBase64Image($base64, $imageType, $extension)

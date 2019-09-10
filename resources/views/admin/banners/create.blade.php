@@ -32,7 +32,7 @@
                 <div class="panel-body">
                     @if (session('status'))
                         <div class="alert alert-success">
-                            {{ session('status') }}
+                            {!! session('status') !!}
                         </div>
                     @endif
 
@@ -137,6 +137,7 @@
                     </fieldset>
 
                     <div class="form-group text-right">
+                        <a href="{{ route('admin.banners.index') }}" class="btn btn-default">Cancel</a>
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </div>
                 </div>
