@@ -64,13 +64,6 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="control-label col-lg-2">Subtitle</label>
-                        <div class="col-lg-10">
-                            {{$menu->subtitle}}
-                        </div>
-                    </div>
-
-                    <div class="form-group">
                         <label class="control-label col-lg-2">Link</label>
                         <div class="col-lg-10">
                             {{$menu->link}}
@@ -81,20 +74,6 @@
                         <label class="control-label col-lg-2">Icon</label>
                         <div class="col-lg-10">
                             {{$menu->icon}}
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="control-label col-lg-2">Status</label>
-                        <div class="col-lg-10">
-                            {{$menu->status}}
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="control-label col-lg-2">Visibility</label>
-                        <div class="col-lg-10">
-                            {{$menu->visibility}}
                         </div>
                     </div>
 
@@ -169,18 +148,16 @@
     </div>
 
     <div class="table-responsive">
-        <table class="table table-bordered tree-table">
+        <table class="table table-bordered table-condensed tree-table">
             <thead>
                 <tr>
                     <th style="width: 80px;">#</th>
                     <th>Title</th>
                     <th style="width: 100px;">Link</th>
-                    <th style="width: 50px;">Status</th>
-                    <th style="width: 50px;">Visibility</th>
+                    <th style="width: 50px;">Group</th>
                 </tr>
             </thead>
-            <tbody>
-            </tbody>
+            <tbody></tbody>
         </table>
     </div>
 </div>
@@ -226,8 +203,7 @@
                 $tdList.eq(0).text(node.getIndexHier()).addClass("alignRight");
 
                 $tdList.eq(2).addClass('text-left').html("<a href='" + node.data.link + "' style='display: block;max-width: 150px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden;'>" + node.data.link + "</a>");
-                $tdList.eq(3).addClass('text-left').html("<span class='label label-" + node.data.statusClass + "'>" + node.data.status + "</a>");
-                $tdList.eq(4).addClass('text-center').html("<span class='" + node.data.visibilityIcon + "'></a>");
+                $tdList.eq(3).addClass('text-left').html("<span class='label label-default label-striped'>" + node.data.group + "</a>");
 
                 // Style checkboxes
                 $(".styled").uniform({radioClass: 'choice'});

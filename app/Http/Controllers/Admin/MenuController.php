@@ -33,13 +33,9 @@ class MenuController extends Controller
             $menu->id = $value["id"];
             $menu->title = $value["title"];
             $menu->type = $value["type"];
-            $menu->subtitle = $value["subtitle"];
             $menu->link = $value["link"];
             $menu->icon = $value["icon"];
-            $menu->status = $value["status"];
-            $menu->visibility = $value["visibility"];
-            $menu->statusClass = $value->statusClass();
-            $menu->visibilityIcon = $value->visibilityIcon();
+            $menu->group = $value["group"];
 
             $menu->children = $this->subtree($value["id"]);
 
@@ -78,11 +74,8 @@ class MenuController extends Controller
         $request->validate([
             'type' => 'required',
             'title' => 'required|max:191',
-            'subtitle' => 'nullable|max:255',
             'link' => 'nullable|max:255',
             'icon' => 'nullable|max:50',
-            'status' => 'required|max:50',
-            'visibility' => 'required|max:50',
             'order' => 'required|integer',
             'sublevel' => 'required|integer',
             'parent_id' => 'nullable|integer|exists:menus,id'
@@ -91,11 +84,8 @@ class MenuController extends Controller
 
         $menu->type = $request->type;
         $menu->title = $request->title;
-        $menu->subtitle = $request->subtitle;
         $menu->link = $request->link;
         $menu->icon = $request->icon;
-        $menu->status = $request->status;
-        $menu->visibility = $request->visibility;
         $menu->order = $request->order;
         $menu->sublevel = $request->sublevel;
         $menu->parent_id = $request->parent_id;
@@ -145,11 +135,8 @@ class MenuController extends Controller
         $request->validate([
             'type' => 'required|in:admin,car,tour,default',
             'title' => 'required|max:191',
-            'subtitle' => 'nullable|max:255',
             'link' => 'nullable|max:255',
             'icon' => 'nullable|max:50',
-            'status' => 'required|max:50',
-            'visibility' => 'required|max:50',
             'order' => 'required|integer',
             'sublevel' => 'required|integer',
             'parent_id' => 'nullable|integer|exists:menus,id'
@@ -159,11 +146,8 @@ class MenuController extends Controller
 
         $menu->type = $request->type;
         $menu->title = $request->title;
-        $menu->subtitle = $request->subtitle;
         $menu->link = $request->link;
         $menu->icon = $request->icon;
-        $menu->status = $request->status;
-        $menu->visibility = $request->visibility;
         $menu->order = $request->order;
         $menu->sublevel = $request->sublevel;
         $menu->parent_id = $request->parent_id;

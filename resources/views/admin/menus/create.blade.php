@@ -53,16 +53,6 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="subtitle" class="control-label">Subtitle</label>
-                        <input id="subtitle" type="text" class="form-control @error('title') is-invalid @enderror" name="subtitle" placeholder="Menu subtitle" value="{{ old('subtitle') }}" required autocomplete="subtitle">
-                        @error('subtitle')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
-                    </div>
-
-                    <div class="form-group">
                         <label for="link" class="control-label">Link</label>
                         <input id="link" type="text" class="form-control @error('link') is-invalid @enderror" name="link" placeholder="Menu link" value="{{ old('link') }}" required autocomplete="link">
                         @error('link')
@@ -106,34 +96,6 @@
                             @endforeach
                         </select>
                         @error('type')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
-                    </div>
-
-                    <div class="form-group">
-                        <label for="status" class="control-label">Status</label>
-                        <select id="status" name="status" type="text" value="{{ old('status') }}" required class="form-control">
-                            @foreach(App\Menu::STATUS_ARRAY as $value)
-                            <option value="{{ $value }}">{{ ucfirst($value) }}</option>
-                            @endforeach
-                        </select>
-                        @error('status')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
-                    </div>
-
-                    <div class="form-group">
-                        <label for="visibility" class="control-label">Visibility</label>
-                        <select id="visibility" name="visibility" type="text" value="{{ old('visibility') }}" required class="form-control">
-                            @foreach(App\Menu::VISIBILITY_ARRAY as $value)
-                            <option value="{{ $value }}">{{ ucfirst($value) }}</option>
-                            @endforeach
-                        </select>
-                        @error('visibility')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>

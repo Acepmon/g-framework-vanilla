@@ -74,6 +74,7 @@ class PermissionsSeeder extends Seeder
             ['title' => 'admin_menus_read', 'type' => Permission::TYPE_READ, 'description' => 'read permission for menu'],
             ['title' => 'admin_menus_update', 'type' => Permission::TYPE_UPDATE, 'description' => 'update permission for menu'],
             ['title' => 'admin_menus_delete', 'type' => Permission::TYPE_DELETE, 'description' => 'delete permission for menu'],
+            ['title' => 'admin_menus_tree', 'type' => Permission::TYPE_READ, 'description' => 'read permission for menu trees'],
             // permission CRUD
             ['title' => 'admin_permissions_create', 'type' => Permission::TYPE_CREATE, 'description' => 'create permission for permission'],
             ['title' => 'admin_permissions_read', 'type' => Permission::TYPE_READ, 'description' => 'read permission for permission'],
