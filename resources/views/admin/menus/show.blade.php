@@ -1,5 +1,7 @@
 @extends('themes.limitless.layouts.default')
 
+@section('title', 'Details')
+
 @section('load')
 <script type="text/javascript" src="{{ asset('limitless/js/core/libraries/jquery_ui/core.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('limitless/js/core/libraries/jquery_ui/effects.min.js') }}"></script>
@@ -12,21 +14,7 @@
 @endsection
 
 @section('pageheader')
-<div class="page-header-content">
-    <div class="page-title">
-        <h4><i class="icon-arrow-left52 position-left"></i> <span class="text-semibold">Menu</span> Show Page</h4>
-    </div>
-
-    <div class="heading-elements">
-    </div>
-</div>
-
-<div class="breadcrumb-line">
-    <ul class="breadcrumb">
-        <li><a href="{{ route('admin.menus.index') }}"><i class="icon-home2 position-left"></i> Home</a></li>
-    </ul>
-</div>
-<!-- /page header -->
+    @include('admin.menus.includes.pageheader')
 @endsection
 
 @section('content')
@@ -34,8 +22,6 @@
 <!-- Grid -->
 <div class="row">
     <div class="col-md-6">
-
-        <!-- Horizontal form -->
         <div class="panel panel-flat">
             <div class="panel-heading">
                 <h5 class="panel-title">Horizontal form</h5>
@@ -64,13 +50,6 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="control-label col-lg-2">Subtitle</label>
-                        <div class="col-lg-10">
-                            {{$menu->subtitle}}
-                        </div>
-                    </div>
-
-                    <div class="form-group">
                         <label class="control-label col-lg-2">Link</label>
                         <div class="col-lg-10">
                             {{$menu->link}}
@@ -81,34 +60,6 @@
                         <label class="control-label col-lg-2">Icon</label>
                         <div class="col-lg-10">
                             {{$menu->icon}}
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="control-label col-lg-2">Status</label>
-                        <div class="col-lg-10">
-                            {{$menu->status}}
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="control-label col-lg-2">Visibility</label>
-                        <div class="col-lg-10">
-                            {{$menu->visibility}}
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="control-label col-lg-2">Order</label>
-                        <div class="col-lg-10">
-                            {{$menu->order}}
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="control-label col-lg-2">Sublevel</label>
-                        <div class="col-lg-10">
-                            {{$menu->sublevel}}
                         </div>
                     </div>
 
@@ -130,8 +81,6 @@
                 </form>
             </div>
         </div>
-        <!-- /horizotal form -->
-
     </div>
 
     <div class="col-md-6">
@@ -160,31 +109,27 @@
         </div>
     </div>
 </div>
-<!-- /grid -->
 
-<!-- Table tree -->
 <div class="panel panel-flat">
     <div class="panel-heading">
         <h6 class="panel-title">Submenus</h6>
     </div>
 
     <div class="table-responsive">
-        <table class="table table-bordered tree-table">
+        <table class="table table-bordered table-condensed tree-table">
             <thead>
                 <tr>
                     <th style="width: 80px;">#</th>
                     <th>Title</th>
                     <th style="width: 100px;">Link</th>
-                    <th style="width: 50px;">Status</th>
-                    <th style="width: 50px;">Visibility</th>
+                    <th style="width: 50px;">Group</th>
+                    <th style="width: 200px;">Actions</th>
                 </tr>
             </thead>
-            <tbody>
-            </tbody>
+            <tbody></tbody>
         </table>
     </div>
 </div>
-<!-- /table tree -->
 
 @endsection
 
@@ -195,7 +140,11 @@
     }
 
     $(document).ready(function () {
-
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
 
         //
         // Table tree
@@ -208,6 +157,35 @@
                 indentation: 20,      // indent 20px per node level
                 nodeColumnIdx: 1,     // render the node title into the 2nd column
                 checkboxColumnIdx: 0  // render the checkboxes into the 1st column
+            },
+            dnd: {
+                autoExpandMS: 500,
+                focusOnClick: true,
+                preventVoidMoves: true, // Prevent dropping nodes 'before self', etc.
+                preventRecursiveMoves: true, // Prevent dropping nodes on own descendants
+                dragStart: function(node, data) {
+                    return true;
+                },
+                dragEnter: function(node, data) {
+                    return ["before", "after"];
+                },
+                dragDrop: function(node, data) {
+                    var change = {
+                        mode: data.hitMode,
+                        other: data.node.data.id,
+                        node: data.otherNode.data.id
+                    }
+
+                    $.ajax({
+                        type: 'PUT',
+                        url: '{{ route('admin.menus.tree.update') }}',
+                        data: change,
+                        success: function () {
+                            // This function MUST be defined to enable dropping of items on the tree.
+                            data.otherNode.moveTo(node, data.hitMode);
+                        }
+                    });
+                }
             },
             source: {
                 url: "/admin/menus/tree?parent_id={{$menu->id}}"
@@ -226,8 +204,13 @@
                 $tdList.eq(0).text(node.getIndexHier()).addClass("alignRight");
 
                 $tdList.eq(2).addClass('text-left').html("<a href='" + node.data.link + "' style='display: block;max-width: 150px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden;'>" + node.data.link + "</a>");
-                $tdList.eq(3).addClass('text-left').html("<span class='label label-" + node.data.statusClass + "'>" + node.data.status + "</a>");
-                $tdList.eq(4).addClass('text-center').html("<span class='" + node.data.visibilityIcon + "'></a>");
+                $tdList.eq(3).addClass('text-left').html("<span class='label label-default label-striped'>" + node.data.group + "</a>");
+                $tdList.eq(4).addClass('text-center').html(`
+                    <div class='btn-group'>
+                    <a href='/admin/menus/` + node.data.id + `' class='btn btn-default btn-xs'><span class='icon-eye'></span></a>
+                    <a href='/admin/menus/` + node.data.id + `/edit' class='btn btn-default btn-xs'><span class='icon-pencil'></span></a>
+                    <a href='#' data-toggle='modal' data-target='#modal_theme_danger' onclick='delete_confirm(` + node.data.id + `)' class='btn btn-default btn-xs'><span class='icon-trash'></span></a>
+                    </div>`);
 
                 // Style checkboxes
                 $(".styled").uniform({radioClass: 'choice'});

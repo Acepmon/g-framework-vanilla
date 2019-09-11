@@ -32,14 +32,9 @@ class MenuController extends Controller
             $menu = (object)[];
             $menu->id = $value["id"];
             $menu->title = $value["title"];
-            $menu->type = $value["type"];
-            $menu->subtitle = $value["subtitle"];
             $menu->link = $value["link"];
             $menu->icon = $value["icon"];
-            $menu->status = $value["status"];
-            $menu->visibility = $value["visibility"];
-            $menu->statusClass = $value->statusClass();
-            $menu->visibilityIcon = $value->visibilityIcon();
+            $menu->group = $value["group"];
 
             $menu->children = $this->subtree($value["id"]);
 
@@ -53,6 +48,79 @@ class MenuController extends Controller
         $parent_id = $request->input('parent_id', null);
         $output = $this->subtree($parent_id);
         return response()->json($output);
+    }
+
+    public function updateTree(Request $request)
+    {
+        $request->validate([
+            'mode' => 'required|in:before,after',
+            'node' => 'required|exists:menus,id',
+            'other' => 'required|exists:menus,id'
+        ]);
+
+        $mode = $request->input('mode');
+        $node = $request->input('node');
+        $other = $request->input('other');
+
+        $updated = null;
+
+        try {
+            if ($mode == 'before') {
+                $updated = $this->updateOrderBefore($node, $other);
+            } else if ($mode == 'after') {
+                $updated = $this->updateOrderAfter($node, $other);
+            }
+        } catch (Exception $ex) {
+            abort(500);
+        }
+
+        if (is_null($updated)) {
+            abort(500);
+        }
+
+        return response()->json($updated);
+    }
+
+    private function updateOrderBefore($node, $other)
+    {
+        $nodeMenu = Menu::find($node);
+        $otherMenu = Menu::find($other);
+
+        if ($nodeMenu->parent_id != $otherMenu->parent_id) {
+            $nodeMenu->parent_id = $otherMenu->parent_id;
+        }
+
+        $nodeMenu->order = $otherMenu->order - 1;
+        $nodeMenu->save();
+
+        $menus = Menu::where('parent_id', $otherMenu->parent_id)->orderBy('order', 'asc')->get();
+        foreach ($menus as $index => $menu) {
+            $menu->order = $index + 1;
+            $menu->save();
+        }
+
+        return $nodeMenu;
+    }
+
+    private function updateOrderAfter($node, $other)
+    {
+        $nodeMenu = Menu::find($node);
+        $otherMenu = Menu::find($other);
+
+        if ($nodeMenu->parent_id != $otherMenu->parent_id) {
+            $nodeMenu->parent_id = $otherMenu->parent_id;
+        }
+
+        $nodeMenu->order = $otherMenu->order + 1;
+        $nodeMenu->save();
+
+        $menus = Menu::where('parent_id', $otherMenu->parent_id)->orderBy('order', 'asc')->get();
+        foreach ($menus as $index => $menu) {
+            $menu->order = $index + 1;
+            $menu->save();
+        }
+
+        return $nodeMenu;
     }
 
     /**
@@ -73,29 +141,20 @@ class MenuController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-
     {
         $request->validate([
-            'type' => 'required',
             'title' => 'required|max:191',
-            'subtitle' => 'nullable|max:255',
             'link' => 'nullable|max:255',
             'icon' => 'nullable|max:50',
-            'status' => 'required|max:50',
-            'visibility' => 'required|max:50',
             'order' => 'required|integer',
             'sublevel' => 'required|integer',
             'parent_id' => 'nullable|integer|exists:menus,id'
         ]);
         $menu = new Menu();
 
-        $menu->type = $request->type;
         $menu->title = $request->title;
-        $menu->subtitle = $request->subtitle;
         $menu->link = $request->link;
         $menu->icon = $request->icon;
-        $menu->status = $request->status;
-        $menu->visibility = $request->visibility;
         $menu->order = $request->order;
         $menu->sublevel = $request->sublevel;
         $menu->parent_id = $request->parent_id;
@@ -143,13 +202,9 @@ class MenuController extends Controller
         // $menus = Menu::find($id);
         // $menu = new menu;
         $request->validate([
-            'type' => 'required|in:admin,car,tour,default',
             'title' => 'required|max:191',
-            'subtitle' => 'nullable|max:255',
             'link' => 'nullable|max:255',
             'icon' => 'nullable|max:50',
-            'status' => 'required|max:50',
-            'visibility' => 'required|max:50',
             'order' => 'required|integer',
             'sublevel' => 'required|integer',
             'parent_id' => 'nullable|integer|exists:menus,id'
@@ -157,13 +212,9 @@ class MenuController extends Controller
 
         $menu = Menu::findOrFail($id);
 
-        $menu->type = $request->type;
         $menu->title = $request->title;
-        $menu->subtitle = $request->subtitle;
         $menu->link = $request->link;
         $menu->icon = $request->icon;
-        $menu->status = $request->status;
-        $menu->visibility = $request->visibility;
         $menu->order = $request->order;
         $menu->sublevel = $request->sublevel;
         $menu->parent_id = $request->parent_id;
