@@ -70,6 +70,7 @@
                     <th style="width: 5px;"></th>
                     <th style="width: 30px;">#</th>
                     <th>Title</th>
+                    <th style="width: 40px;">Link</th>
                     <th style="width: 40px;">Group</th>
                     <th style="width: 200px;">Actions</th>
                 </tr>
@@ -177,13 +178,13 @@
                 // (index #0 is rendered by fancytree by adding the checkbox)
                 $tdList.eq(1).text(node.getIndexHier()).addClass("alignRight");
 
-                $tdList.eq(3).addClass('text-left').html("<span class='label label-default label-striped'>" + node.data.group + "</a>");
-                $tdList.eq(4).addClass('text-center').html(`
+                $tdList.eq(3).addClass('text-left').html("<a href='" + node.data.link + "' style='display: block;max-width: 150px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden;'>" + node.data.link + "</a>");
+                $tdList.eq(4).addClass('text-left').html("<span class='label label-default label-striped'>" + node.data.group + "</a>");
+                $tdList.eq(5).addClass('text-center').html(`
                     <div class='btn-group'>
                     <a href='/admin/menus/` + node.data.id + `' class='btn btn-default btn-xs'><span class='icon-eye'></span></a>
                     <a href='/admin/menus/` + node.data.id + `/edit' class='btn btn-default btn-xs'><span class='icon-pencil'></span></a>
                     <a href='#' data-toggle='modal' data-target='#modal_theme_danger' onclick='delete_confirm(` + node.data.id + `)' class='btn btn-default btn-xs'><span class='icon-trash'></span></a>
-                    <a href='` + node.data.link + `' class='btn btn-default btn-xs'><span class='icon-link'></span></a>
                     </div>`);
 
                 // Style checkboxes

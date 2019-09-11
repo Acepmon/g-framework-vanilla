@@ -155,6 +155,7 @@
                     <th>Title</th>
                     <th style="width: 100px;">Link</th>
                     <th style="width: 50px;">Group</th>
+                    <th style="width: 200px">Actions</th>
                 </tr>
             </thead>
             <tbody></tbody>
@@ -237,6 +238,12 @@
 
                 $tdList.eq(2).addClass('text-left').html("<a href='" + node.data.link + "' style='display: block;max-width: 150px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden;'>" + node.data.link + "</a>");
                 $tdList.eq(3).addClass('text-left').html("<span class='label label-default label-striped'>" + node.data.group + "</a>");
+                $tdList.eq(4).addClass('text-center').html(`
+                    <div class='btn-group'>
+                    <a href='/admin/menus/` + node.data.id + `' class='btn btn-default btn-xs'><span class='icon-eye'></span></a>
+                    <a href='/admin/menus/` + node.data.id + `/edit' class='btn btn-default btn-xs'><span class='icon-pencil'></span></a>
+                    <a href='#' data-toggle='modal' data-target='#modal_theme_danger' onclick='delete_confirm(` + node.data.id + `)' class='btn btn-default btn-xs'><span class='icon-trash'></span></a>
+                    </div>`);
 
                 // Style checkboxes
                 $(".styled").uniform({radioClass: 'choice'});
