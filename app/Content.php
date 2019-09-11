@@ -10,6 +10,7 @@ class Content extends Model
 {
     const TYPE_PAGE = 'page';
     const TYPE_POST = 'post';
+    const TYPE_CAR = 'car';
 
     const TYPE_ARRAY = [
         self::TYPE_PAGE,
@@ -69,13 +70,6 @@ class Content extends Model
         return $media_path;
     }
 
-    public function carInfo() {
-        if ($this->type != 'car') {
-            return null;
-        }
-        return json_decode($this->metas[0]->value);
-    }
-
     public function currentView()
     {
         $time = $this->metas->whereIn('key', ['initial', 'revision', 'revert'])->sortByDesc('id')->first()->value;
@@ -121,9 +115,14 @@ class Content extends Model
     }
 
     public function metaValue($key) {
-        $meta = $this->metas->where('key', $key)->first();
-        if ($meta)
-            return $meta->value;
+        try {
+            $meta = $this->metas->where('key', $key)->first();
+            if ($meta)
+                return $meta->value;
+        } catch (\Exception $ex) {
+            return Null;
+
+        }
         return Null;
     }
 }
