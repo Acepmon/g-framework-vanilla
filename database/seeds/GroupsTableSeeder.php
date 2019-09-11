@@ -39,6 +39,6 @@ class GroupsTableSeeder extends Seeder
         }
 
         // Static Groups
-        factory(App\Group::class, 50)->create();
+        factory(App\Group::class, 500)->create();
     }
 }

@@ -20,6 +20,12 @@ class DatabaseSeeder extends Seeder
         $this->call(ThemesTableSeeder::class);
         $this->call(PagesSeeder::class);
         $this->call(PermissionsSeeder::class);
+
+        $this->call(NotificationTemplatesSeeder::class);
+        $this->call(NotificationEventsSeeder::class);
+        $this->call(NotificationChannelsSeeder::class);
+        $this->call(NotificationTriggersSeeder::class);
+
         $this->call(BannersTableSeeder::class);
     }
 }

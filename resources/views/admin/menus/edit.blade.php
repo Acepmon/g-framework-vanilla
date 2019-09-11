@@ -55,6 +55,21 @@
                 <form class="form-horizontal" method="POST" action="{{ route('admin.menus.update', ['id' => $menu->id]) }}">
                     @method('PUT')
                     @csrf
+                    <div class="form-group">
+                        <label class="control-label col-lg-2">Type</label>
+                        <div class="col-lg-10">
+                            <select id="type" name="type" type="text" value="{{ $menu->type }}" required class="selectbox">
+                                @foreach(App\Menu::TYPE_ARRAY as $value)
+                                <option value="{{ $value }}">{{ $value }}</option>
+                                @endforeach
+                            </select>
+                            @error('type')
+                            <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                            @enderror
+                        </div>
+                    </div>
 
                     <div class="form-group">
                         <label class="control-label col-lg-2">Title</label>
