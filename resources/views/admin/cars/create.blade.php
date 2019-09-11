@@ -251,10 +251,10 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="fuelType" class="control-label col-lg-2">Type of fuel <span class="text-danger">*</span></label>
+                        <label for="fuel" class="control-label col-lg-2">Type of fuel <span class="text-danger">*</span></label>
                         <div class="col-lg-4">
-                            <select id="fuelType" name="fuelType" required="required" class="form-control text-capitalize">
-                                @foreach(App\TermTaxonomy::where('taxonomy', 'type-of-fuel')->get() as $value)
+                            <select id="fuel" name="fuel" required="required" class="form-control text-capitalize">
+                                @foreach(App\TermTaxonomy::where('taxonomy', 'Fuel')->get() as $value)
                                     <option value="{{ $value->term->name }}">{{ $value->term->name }}</option>
                                 @endforeach
                             </select>

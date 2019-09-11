@@ -72,7 +72,7 @@ class CarController extends Controller
             'transmission' => 'required|max:255',
             'wheelPosition' => 'required|max:255',
             'manCount' => 'required|max:255',
-            'fuelType' => 'required|max:255',
+            'fuel' => 'required|max:255',
             'wheelDrive' => 'required|max:255',
             'mileage' => 'required|max:255',
             'price' => 'required|int',
@@ -104,7 +104,7 @@ class CarController extends Controller
             $content->attachMeta('transmission', $request->transmission);
             $content->attachMeta('wheelPosition', $request->wheelPosition);
             $content->attachMeta('manCount', $request->manCount);
-            $content->attachMeta('fuelType', $request->fuelType);
+            $content->attachMeta('fuel', $request->fuel);
             $content->attachMeta('wheelDrive', $request->wheelDrive);
             $content->attachMeta('mileage', $request->mileage);
             if ($request->advantages) {
@@ -231,7 +231,7 @@ class CarController extends Controller
             'transmission' => 'required|max:255',
             'wheelPosition' => 'required|max:255',
             'manCount' => 'required|max:255',
-            'fuelType' => 'required|max:255',
+            'fuel' => 'required|max:255',
             'wheelDrive' => 'required|max:255',
             'mileage' => 'required|max:255',
             'price' => 'required|int',
@@ -262,7 +262,7 @@ class CarController extends Controller
             $content->updateMeta('transmission', $request->transmission);
             $content->updateMeta('wheelPosition', $request->wheelPosition);
             $content->updateMeta('manCount', $request->manCount);
-            $content->updateMeta('fuelType', $request->fuelType);
+            $content->updateMeta('fuel', $request->fuel);
             $content->updateMeta('wheelDrive', $request->wheelDrive);
             $content->updateMeta('mileage', $request->mileage);
             if ($request->advantages) {
