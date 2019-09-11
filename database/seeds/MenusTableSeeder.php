@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\Menu;
 
 class MenusTableSeeder extends Seeder
 {
@@ -11,528 +12,111 @@ class MenusTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('menus')->insert([
-            [
-                'title' => 'Dashboard',
-                'link' => '/admin/dashboard',
-                'icon' => 'icon-home4',
-                'type' => App\Menu::TYPE_MENU,
-                'status' => App\Menu::STATUS_PUBLISH,
-                'visibility' => App\Menu::VISIBILITY_PUBLIC,
-                'order' => 1,
-                'sublevel' => 1,
-                'group' => 'overview',
-            ],
-            [
-                'title' => 'Changelog',
-                'link' => '/admin/changelog',
-                'icon' => 'icon-list-unordered',
-                'type' => App\Menu::TYPE_MENU,
-                'status' => App\Menu::STATUS_PUBLISH,
-                'visibility' => App\Menu::VISIBILITY_PUBLIC,
-                'order' => 2,
-                'sublevel' => 1,
-                'group' => 'overview',
-            ],
-            [
-                'title' => 'System Users',
-                'link' => '',
-                'icon' => 'icon-user-tie',
-                'type' => App\Menu::TYPE_MENU,
-                'status' => App\Menu::STATUS_PUBLISH,
-                'visibility' => App\Menu::VISIBILITY_PUBLIC,
-                'order' => 3,
-                'sublevel' => 1,
-                'group' => 'system',
-            ],
-            [
-                'title' => 'Configurations',
-                'link' => '',
-                'icon' => 'icon-gear',
-                'type' => App\Menu::TYPE_MENU,
-                'status' => App\Menu::STATUS_PUBLISH,
-                'visibility' => App\Menu::VISIBILITY_PUBLIC,
-                'order' => 4,
-                'sublevel' => 1,
-                'group' => 'system',
-            ],
-            [
-                'title' => 'Plugins',
-                'link' => '',
-                'icon' => 'icon-puzzle2',
-                'type' => App\Menu::TYPE_MENU,
-                'status' => App\Menu::STATUS_PUBLISH,
-                'visibility' => App\Menu::VISIBILITY_PUBLIC,
-                'order' => 5,
-                'sublevel' => 1,
-                'group' => 'system',
-            ],
-            [
-                'title' => 'Themes',
-                'link' => '',
-                'icon' => 'icon-brush',
-                'type' => App\Menu::TYPE_MENU,
-                'status' => App\Menu::STATUS_PUBLISH,
-                'visibility' => App\Menu::VISIBILITY_PUBLIC,
-                'order' => 6,
-                'sublevel' => 1,
-                'group' => 'system',
-            ],
-            [
-                'title' => 'Notifications',
-                'link' => '',
-                'icon' => 'icon-mail5',
-                'type' => App\Menu::TYPE_MENU,
-                'status' => App\Menu::STATUS_PUBLISH,
-                'visibility' => App\Menu::VISIBILITY_PUBLIC,
-                'order' => 7,
-                'sublevel' => 1,
-                'group' => 'system',
-            ],
-            [
-                'title' => 'Backups',
-                'link' => '/admin/backups',
-                'icon' => 'icon-database',
-                'type' => App\Menu::TYPE_MENU,
-                'status' => App\Menu::STATUS_PUBLISH,
-                'visibility' => App\Menu::VISIBILITY_PUBLIC,
-                'order' => 8,
-                'sublevel' => 1,
-                'group' => 'system',
-            ],
-            [
-                'title' => 'Logs',
-                'link' => '/admin/logs',
-                'icon' => 'icon-archive',
-                'type' => App\Menu::TYPE_MENU,
-                'status' => App\Menu::STATUS_PUBLISH,
-                'visibility' => App\Menu::VISIBILITY_PUBLIC,
-                'order' => 9,
-                'sublevel' => 1,
-                'group' => 'system',
-            ],
-            [
-                'title' => 'Users',
-                'link' => '/admin/users',
-                'icon' => 'icon-user',
-                'type' => App\Menu::TYPE_MENU,
-                'status' => App\Menu::STATUS_PUBLISH,
-                'visibility' => App\Menu::VISIBILITY_PUBLIC,
-                'order' => 10,
-                'sublevel' => 1,
-                'group' => 'users',
-            ],
-            [
-                'title' => 'Permissions',
-                'link' => '/admin/permissions',
-                'icon' => 'icon-key',
-                'type' => App\Menu::TYPE_MENU,
-                'status' => App\Menu::STATUS_PUBLISH,
-                'visibility' => App\Menu::VISIBILITY_PUBLIC,
-                'order' => 11,
-                'sublevel' => 1,
-                'group' => 'users',
-            ],
-            [
-                'title' => 'Groups',
-                'link' => '/admin/groups',
-                'icon' => 'icon-users2',
-                'type' => App\Menu::TYPE_MENU,
-                'status' => App\Menu::STATUS_PUBLISH,
-                'visibility' => App\Menu::VISIBILITY_PUBLIC,
-                'order' => 12,
-                'sublevel' => 1,
-                'group' => 'users',
-            ],
-            [
-                'title' => 'Auctions',
-                'link' => '/admin/auctions',
-                'icon' => 'icon-hammer2',
-                'type' => App\Menu::TYPE_MENU,
-                'status' => App\Menu::STATUS_PUBLISH,
-                'visibility' => App\Menu::VISIBILITY_PUBLIC,
-                'order' => 13,
-                'sublevel' => 1,
-                'group' => 'auction',
-            ],
-            [
-                'title' => 'Buyers / Sellers',
-                'link' => '/admin/buyers',
-                'icon' => 'icon-people',
-                'type' => App\Menu::TYPE_MENU,
-                'status' => App\Menu::STATUS_PUBLISH,
-                'visibility' => App\Menu::VISIBILITY_PUBLIC,
-                'order' => 14,
-                'sublevel' => 1,
-                'group' => 'auction',
-            ],
-            [
-                'title' => 'Items',
-                'link' => '/admin/items',
-                'icon' => 'icon-cart2',
-                'type' => App\Menu::TYPE_MENU,
-                'status' => App\Menu::STATUS_PUBLISH,
-                'visibility' => App\Menu::VISIBILITY_PUBLIC,
-                'order' => 15,
-                'sublevel' => 1,
-                'group' => 'auction',
-            ],
-            [
-                'title' => 'Menus',
-                'link' => '/admin/menus',
-                'icon' => 'icon-menu2',
-                'type' => App\Menu::TYPE_MENU,
-                'status' => App\Menu::STATUS_PUBLISH,
-                'visibility' => App\Menu::VISIBILITY_PUBLIC,
-                'order' => 16,
-                'sublevel' => 1,
-                'group' => 'content',
-            ],
-            [
-                'title' => 'Pages',
-                'link' => '/admin/contents?type=page',
-                'icon' => 'icon-files-empty2',
-                'type' => App\Menu::TYPE_MENU,
-                'status' => App\Menu::STATUS_PUBLISH,
-                'visibility' => App\Menu::VISIBILITY_PUBLIC,
-                'order' => 17,
-                'sublevel' => 1,
-                'group' => 'content',
-            ],
-            [
-                'title' => 'Blog Posts',
-                'link' => '/admin/contents?type=post',
-                'icon' => 'icon-blog',
-                'type' => App\Menu::TYPE_MENU,
-                'status' => App\Menu::STATUS_PUBLISH,
-                'visibility' => App\Menu::VISIBILITY_PUBLIC,
-                'order' => 18,
-                'sublevel' => 1,
-                'group' => 'content',
-            ],
-            [
-                'title' => 'Comments',
-                'link' => '/admin/comments',
-                'icon' => 'icon-comment',
-                'type' => App\Menu::TYPE_MENU,
-                'status' => App\Menu::STATUS_PUBLISH,
-                'visibility' => App\Menu::VISIBILITY_PUBLIC,
-                'order' => 19,
-                'sublevel' => 1,
-                'group' => 'content',
-            ],
-            [
-                'title' => 'Media & Assets',
-                'link' => '/admin/media',
-                'icon' => 'icon-media',
-                'type' => App\Menu::TYPE_MENU,
-                'status' => App\Menu::STATUS_PUBLISH,
-                'visibility' => App\Menu::VISIBILITY_PUBLIC,
-                'order' => 20,
-                'sublevel' => 1,
-                'group' => 'content',
-            ],
-            [
-                'title' => 'Localization',
-                'link' => '/admin/localization',
-                'icon' => 'icon-flag3',
-                'type' => App\Menu::TYPE_MENU,
-                'status' => App\Menu::STATUS_PUBLISH,
-                'visibility' => App\Menu::VISIBILITY_PUBLIC,
-                'order' => 21,
-                'sublevel' => 1,
-                'group' => 'content',
-            ],
-            [
-                'title' => 'Categories',
-                'link' => '/admin/taxonomy?taxonomy=category',
-                'icon' => 'icon-grid6',
-                'type' => App\Menu::TYPE_MENU,
-                'status' => App\Menu::STATUS_PUBLISH,
-                'visibility' => App\Menu::VISIBILITY_PUBLIC,
-                'order' => 22,
-                'sublevel' => 1,
-                'group' => 'content',
-            ],
-            [
-                'title' => 'Tags',
-                'link' => '/admin/taxonomy?taxonomy=tag',
-                'icon' => 'icon-price-tag2',
-                'type' => App\Menu::TYPE_MENU,
-                'status' => App\Menu::STATUS_PUBLISH,
-                'visibility' => App\Menu::VISIBILITY_PUBLIC,
-                'order' => 23,
-                'sublevel' => 1,
-                'group' => 'content',
-            ]
-        ]);
+        // Structure
+        // [Title, Link, Icon, Group, Children[]?]
 
-        DB::table("menus")->insert([
-            [
-                'title' => 'Administrators',
-                'link' => '/admin/users/administrators',
-                'icon' => '',
-                'type' => App\Menu::TYPE_MENU,
-                'status' => App\Menu::STATUS_PUBLISH,
-                'visibility' => App\Menu::VISIBILITY_PUBLIC,
-                'order' => 1,
-                'sublevel' => 2,
-                'group' => 'system',
-                'parent_id' => 3,
-            ],
-            [
-                'title' => 'Operators',
-                'link' => '/admin/users/operators',
-                'icon' => '',
-                'type' => App\Menu::TYPE_MENU,
-                'status' => App\Menu::STATUS_PUBLISH,
-                'visibility' => App\Menu::VISIBILITY_PUBLIC,
-                'order' => 2,
-                'sublevel' => 2,
-                'group' => 'system',
-                'parent_id' => 3,
-            ],
-            [
-                'title' => 'Maintenance Mode',
-                'link' => '/admin/configs/maintenance',
-                'icon' => '',
-                'type' => App\Menu::TYPE_MENU,
-                'status' => App\Menu::STATUS_PUBLISH,
-                'visibility' => App\Menu::VISIBILITY_PUBLIC,
-                'order' => 1,
-                'sublevel' => 2,
-                'group' => 'system',
-                'parent_id' => 4,
-            ],
-            [
-                'title' => 'Base Configurations',
-                'link' => '/admin/configs/base',
-                'icon' => '',
-                'type' => App\Menu::TYPE_MENU,
-                'status' => App\Menu::STATUS_PUBLISH,
-                'visibility' => App\Menu::VISIBILITY_PUBLIC,
-                'order' => 2,
-                'sublevel' => 2,
-                'group' => 'system',
-                'parent_id' => 4,
-            ],
-            [
-                'title' => 'System Configurations',
-                'link' => '/admin/configs/system',
-                'icon' => '',
-                'type' => App\Menu::TYPE_MENU,
-                'status' => App\Menu::STATUS_PUBLISH,
-                'visibility' => App\Menu::VISIBILITY_PUBLIC,
-                'order' => 3,
-                'sublevel' => 2,
-                'group' => 'system',
-                'parent_id' => 4,
-            ],
-            [
-                'title' => 'Themes Configurations',
-                'link' => '/admin/configs/themes',
-                'icon' => '',
-                'type' => App\Menu::TYPE_MENU,
-                'status' => App\Menu::STATUS_PUBLISH,
-                'visibility' => App\Menu::VISIBILITY_PUBLIC,
-                'order' => 4,
-                'sublevel' => 2,
-                'group' => 'system',
-                'parent_id' => 4,
-            ],
-            [
-                'title' => 'Plugins Configurations',
-                'link' => '/admin/configs/plugins',
-                'icon' => '',
-                'type' => App\Menu::TYPE_MENU,
-                'status' => App\Menu::STATUS_PUBLISH,
-                'visibility' => App\Menu::VISIBILITY_PUBLIC,
-                'order' => 5,
-                'sublevel' => 2,
-                'group' => 'system',
-                'parent_id' => 4,
-            ],
-            [
-                'title' => 'Security Configurations',
-                'link' => '/admin/configs/security',
-                'icon' => '',
-                'type' => App\Menu::TYPE_MENU,
-                'status' => App\Menu::STATUS_PUBLISH,
-                'visibility' => App\Menu::VISIBILITY_PUBLIC,
-                'order' => 6,
-                'sublevel' => 2,
-                'group' => 'system',
-                'parent_id' => 4,
-            ],
-            [
-                'title' => 'Content Configurations',
-                'link' => '/admin/configs/contents',
-                'icon' => '',
-                'type' => App\Menu::TYPE_MENU,
-                'status' => App\Menu::STATUS_PUBLISH,
-                'visibility' => App\Menu::VISIBILITY_PUBLIC,
-                'order' => 7,
-                'sublevel' => 2,
-                'group' => 'system',
-                'parent_id' => 4,
-            ],
-            [
-                'title' => 'Installed Plugins',
-                'link' => '/admin/plugins',
-                'icon' => '',
-                'type' => App\Menu::TYPE_MENU,
-                'status' => App\Menu::STATUS_PUBLISH,
-                'visibility' => App\Menu::VISIBILITY_PUBLIC,
-                'order' => 1,
-                'sublevel' => 2,
-                'group' => 'system',
-                'parent_id' => 5,
-            ],
-            [
-                'title' => 'Add New',
-                'link' => '/admin/plugins/create',
-                'icon' => '',
-                'type' => App\Menu::TYPE_MENU,
-                'status' => App\Menu::STATUS_PUBLISH,
-                'visibility' => App\Menu::VISIBILITY_PUBLIC,
-                'order' => 2,
-                'sublevel' => 2,
-                'group' => 'system',
-                'parent_id' => 5,
-            ],
-            [
-                'title' => 'Installed Themes',
-                'link' => '/admin/themes',
-                'icon' => '',
-                'type' => App\Menu::TYPE_MENU,
-                'status' => App\Menu::STATUS_PUBLISH,
-                'visibility' => App\Menu::VISIBILITY_PUBLIC,
-                'order' => 1,
-                'sublevel' => 2,
-                'group' => 'system',
-                'parent_id' => 6,
-            ],
-            [
-                'title' => 'Add New',
-                'link' => '/admin/themes/create',
-                'icon' => '',
-                'type' => App\Menu::TYPE_MENU,
-                'status' => App\Menu::STATUS_PUBLISH,
-                'visibility' => App\Menu::VISIBILITY_PUBLIC,
-                'order' => 2,
-                'sublevel' => 2,
-                'group' => 'system',
-                'parent_id' => 6,
-            ],
-            [
-                'title' => 'Triggers',
-                'link' => '/admin/notifications/triggers',
-                'icon' => '',
-                'type' => App\Menu::TYPE_MENU,
-                'status' => App\Menu::STATUS_PUBLISH,
-                'visibility' => App\Menu::VISIBILITY_PUBLIC,
-                'order' => 1,
-                'sublevel' => 2,
-                'group' => 'system',
-                'parent_id' => 7,
-            ],
-            [
-                'title' => 'Channels',
-                'link' => '/admin/notifications/channels',
-                'icon' => '',
-                'type' => App\Menu::TYPE_MENU,
-                'status' => App\Menu::STATUS_PUBLISH,
-                'visibility' => App\Menu::VISIBILITY_PUBLIC,
-                'order' => 2,
-                'sublevel' => 2,
-                'group' => 'system',
-                'parent_id' => 7,
-            ],
-            [
-                'title' => 'Events',
-                'link' => '/admin/notifications/events',
-                'icon' => '',
-                'type' => App\Menu::TYPE_MENU,
-                'status' => App\Menu::STATUS_PUBLISH,
-                'visibility' => App\Menu::VISIBILITY_PUBLIC,
-                'order' => 3,
-                'sublevel' => 2,
-                'group' => 'system',
-                'parent_id' => 7,
-            ],
-            [
-                'title' => 'Templates',
-                'link' => '/admin/notifications/templates',
-                'icon' => '',
-                'type' => App\Menu::TYPE_MENU,
-                'status' => App\Menu::STATUS_PUBLISH,
-                'visibility' => App\Menu::VISIBILITY_PUBLIC,
-                'order' => 4,
-                'sublevel' => 2,
-                'group' => 'system',
-                'parent_id' => 7,
-            ]
-        ]);
+        $adminMenus = ['Admin', '/admin', '', '', [
+            // Overview
+            ['Dashboard', '/admin/dashboard', 'icon-home4', 'overview'],
+            ['Changelog', '/admin/changelog', 'icon-list-unordered', 'overview'],
+            // System
+            ['System Users', '', 'icon-user-tie', 'system', [
+                ['Administrators', '/admin/users/administrators', '', 'system'],
+                ['Operators', '/admin/users/operators', '', 'system']
+            ]],
+            ['Configurations', '', 'icon-gear', 'system', [
+                ['Maintenance Mode', '/admin/configs/maintenance', '', 'system'],
+                ['Base Configurations', '/admin/configs/base', '', 'system'],
+                ['System Configurations', '/admin/configs/system', '', 'system'],
+                ['Themes Configurations', '/admin/configs/themes', '', 'system'],
+                ['Plugins Configurations', '/admin/configs/plugins', '', 'system'],
+                ['Security Configurations', '/admin/configs/security', '', 'system'],
+                ['Content Configurations', '/admin/configs/contents', '', 'system']
+            ]],
+            ['Plugins', '', 'icon-puzzle2', 'system', [
+                ['Installed Plugins', '/admin/plugins', '', 'system'],
+                ['Add New', '/admin/plugins/create', '', 'system']
+            ]],
+            ['Themes', '', 'icon-brush', 'system', [
+                ['Installed Themes', '/admin/themes', '', 'system', 'parent_id' => 6],
+                ['Add New', '/admin/themes/create', '', 'system', 'parent_id' => 6]
+            ]],
+            ['Backups', '/admin/backups', 'icon-database', 'system'],
+            ['Logs', '/admin/logs', 'icon-archive', 'system'],
+            // User management
+            ['Users', '/admin/users', 'icon-user', 'user management'],
+            ['Permissions', '/admin/permissions', 'icon-key', 'user management'],
+            ['Groups', '/admin/groups', 'icon-users2', 'user management'],
+            // Auction
+            ['Auctions', '/admin/auctions', 'icon-hammer2', 'auction'],
+            ['Buyers / Sellers', '/admin/buyers', 'icon-people', 'auction'],
+            ['Items', '/admin/items', 'icon-cart2', 'auction'],
+            // Content management
+            ['Menus', '/admin/menus', 'icon-menu2', 'content management'],
+            ['Pages', '/admin/contents?type=page', 'icon-files-empty2', 'content management'],
+            ['Blog Posts', '/admin/contents?type=post', 'icon-blog', 'content management'],
+            ['Comments', '/admin/comments', 'icon-comment', 'content management'],
+            ['Media & Assets', '/admin/media', 'icon-media', 'content management'],
+            ['Localization', '/admin/localization', 'icon-flag3', 'content management'],
+            ['Categories', '/admin/taxonomy?taxonomy=category', 'icon-grid6', 'content management'],
+            ['Tags', '/admin/taxonomy?taxonomy=tag', 'icon-price-tag2', 'content management'],
+            // Car Management
+            ['Cars', '/admin/cars', 'icon-car', 'car management'],
+            ['Specials', '/admin/cars/specials', 'icon-fire', 'car management'],
+            ['Car Options', '/admin/cars/options', 'icon-cog', 'car management'],
+            ['Add Car', '/admin/cars/create', 'icon-plus3', 'car management'],
+            // Banner Management
+            ['Banners', '/admin/banners', 'icon-printer4', 'banner management'],
+            ['Create Banner', '/admin/banners/create', 'icon-plus3', 'banner management']
+        ]];
+        $carMainMenus = ['Car Main', '', '', '', [
+            ['Home', '/', '', ''],
+            ['Buy', '/buy', '', ''],
+            ['Sell', '/sell', '', ''],
+            ['Finance', '/finance', '', ''],
+            ['Auction', '/auction', '', '']
+        ]];
+        $carTopbarMenus = ['Car Topbar', '', '', '', [
+            ['About', '/about-us', '', ''],
+            ['Contact Us', '/contact-us', '', ''],
+            ['Sign Up', '/register', '', '']
+        ]];
+        $carFooterMenus = ['Car Footer', '', '', '', [
+            ['About', '/about-us', '', ''],
+            ['Contact Us', '/contact-us', '', '']
+        ]];
 
-        DB::table('menus')->insert([
-            [
-                'title' => 'Cars',
-                'link' => '/admin/cars',
-                'icon' => 'icon-car',
-                'type' => App\Menu::TYPE_MENU,
-                'status' => App\Menu::STATUS_PUBLISH,
-                'visibility' => App\Menu::VISIBILITY_PUBLIC,
-                'order' => 24,
-                'sublevel' => 1,
-                'group' => 'car management',
-            ],
-            [
-                'title' => 'Hot Deals',
-                'link' => '/admin/cars/hot',
-                'icon' => 'icon-fire',
-                'type' => App\Menu::TYPE_MENU,
-                'status' => App\Menu::STATUS_PUBLISH,
-                'visibility' => App\Menu::VISIBILITY_PUBLIC,
-                'order' => 24,
-                'sublevel' => 1,
-                'group' => 'car management',
-            ],
-            [
-                'title' => 'Add Car',
-                'link' => '/admin/cars/create',
-                'icon' => 'icon-plus3',
-                'type' => App\Menu::TYPE_MENU,
-                'status' => App\Menu::STATUS_PUBLISH,
-                'visibility' => App\Menu::VISIBILITY_PUBLIC,
-                'order' => 24,
-                'sublevel' => 1,
-                'group' => 'car management',
-            ]
-        ]);
+        $menus = [
+            $adminMenus,
+            $carMainMenus,
+            $carTopbarMenus,
+            $carFooterMenus
+        ];
 
-        DB::table('menus')->insert([
-            [
-                'title' => 'Banners',
-                'link' => '/admin/banners',
-                'icon' => 'icon-printer4',
-                'type' => App\Menu::TYPE_MENU,
-                'status' => App\Menu::STATUS_PUBLISH,
-                'visibility' => App\Menu::VISIBILITY_PUBLIC,
-                'order' => 24,
-                'sublevel' => 1,
-                'group' => 'banner management',
-            ],
-            [
-                'title' => 'Create Banner',
-                'link' => '/admin/banners/create',
-                'icon' => 'icon-plus3',
-                'type' => App\Menu::TYPE_MENU,
-                'status' => App\Menu::STATUS_PUBLISH,
-                'visibility' => App\Menu::VISIBILITY_PUBLIC,
-                'order' => 24,
-                'sublevel' => 1,
-                'group' => 'banner management',
-            ]
-        ]);
+        $this->iterate($menus, 1);
+    }
+
+    private function iterate($array, $sublevel, $parent = null) {
+        for ($i=0; $i < count($array); $i++) {
+            // dd($array[$i]);
+            $menu = $this->insertMenu($array[$i][0], $array[$i][1], $array[$i][2], $array[$i][3], $sublevel, $i + 1, $parent);
+            if (array_key_exists(4, $array[$i]) && count($array[$i][4]) > 0) {
+                $this->iterate($array[$i][4], $sublevel + 1, $menu->id);
+            }
+        }
+    }
+
+    private function insertMenu($title, $link, $icon, $group, $sublevel, $order, $parent = null) {
+        $menu = new Menu();
+        $menu->title = $title;
+        $menu->link = $link;
+        $menu->icon = $icon;
+        $menu->group = $group;
+        $menu->sublevel = $sublevel;
+        $menu->order = $order;
+        $menu->parent_id = $parent;
+        $menu->save();
+
+        return $menu;
     }
 }

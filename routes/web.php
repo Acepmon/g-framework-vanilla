@@ -36,6 +36,7 @@ Route::middleware(['installed'])->group(function () {
                 Route::get('databaseRestore','backupController@databaseRestore')->name('admin.backups.databaseRestore');
 
                 Route::get('/menus/tree', 'MenuController@tree')->name('admin.menus.tree');
+                Route::put('/menus/tree', 'MenuController@updateTree')->name('admin.menus.tree.update');
 
                 Route::prefix('profile')->group(function () {
                     Route::get('/', 'ProfileController@index')->name('admin.profile.index');
@@ -221,14 +222,23 @@ Route::middleware(['installed'])->group(function () {
                     'update' => 'admin.contents.update',
                     'destroy' => 'admin.contents.destroy'
                 ]);
-                Route::resource('cars/hot', 'CarHotController')->names([
-                    'index' => 'admin.cars.hot.index',
-                    'create' => 'admin.cars.hot.create',
-                    'store' => 'admin.cars.hot.store',
-                    'show' => 'admin.cars.hot.show',
-                    'edit' => 'admin.cars.hot.edit',
-                    'update' => 'admin.cars.hot.update',
-                    'destroy' => 'admin.cars.hot.destroy'
+                Route::resource('cars/specials', 'CarSpecialController')->names([
+                    'index' => 'admin.cars.specials.index',
+                    'create' => 'admin.cars.specials.create',
+                    'store' => 'admin.cars.specials.store',
+                    'show' => 'admin.cars.specials.show',
+                    'edit' => 'admin.cars.specials.edit',
+                    'update' => 'admin.cars.specials.update',
+                    'destroy' => 'admin.cars.specials.destroy'
+                ]);
+                Route::resource('cars/options', 'CarOptionController')->names([
+                    'index' => 'admin.cars.options.index',
+                    'create' => 'admin.cars.options.create',
+                    'store' => 'admin.cars.options.store',
+                    'show' => 'admin.cars.options.show',
+                    'edit' => 'admin.cars.options.edit',
+                    'update' => 'admin.cars.options.update',
+                    'destroy' => 'admin.cars.options.destroy'
                 ]);
                 Route::resource('cars', 'CarController')->names([
                     'index' => 'admin.cars.index',

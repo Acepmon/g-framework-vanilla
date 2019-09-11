@@ -176,9 +176,15 @@ class BannerController extends Controller
      * @param  \App\Banner  $banner
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Banner $banner)
+    public function destroy(Request $request, Banner $banner)
     {
-        //
+        $banner->delete();
+
+        if ($request->ajax()) {
+            return response()->json(['status' => 'Banner Removed!']);
+        } else {
+            return redirect()->route('admin.banners.index')->with('status', 'Successfully Removed!');
+        }
     }
 
     private function saveBase64Image($base64, $imageType, $extension)

@@ -1,5 +1,7 @@
 @extends('themes.limitless.layouts.default')
 
+@section('title', 'All Menus')
+
 @section('load')
 <script type="text/javascript" src="{{ asset('limitless/js/core/libraries/jquery_ui/core.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('limitless/js/core/libraries/jquery_ui/effects.min.js') }}"></script>
@@ -9,45 +11,11 @@
 <script type="text/javascript" src="{{ asset('limitless/js/plugins/forms/styling/uniform.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('limitless/js/plugins/trees/fancytree_all.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('limitless/js/plugins/trees/fancytree_childcounter.js') }}"></script>
+<script type="text/javascript" src="{{ asset('limitless/js/plugins/forms/inputs/typeahead/typeahead.bundle.min.js') }}"></script>
 @endsection
 
 @section('pageheader')
-<div class="page-header-content">
-    <div class="page-title">
-        <h4><i class="icon-arrow-left52 position-left"></i> <span class="text-semibold">Menu</span> Index Page</h4>
-    </div>
-
-    <div class="heading-elements"><a href="{{ route('admin.menus.create') }}" class="btn btn-primary" style="color: #ffffff">Create menu<i class="icon-arrow-right14 position-right"></i></a>
-    </div>
-</div>
-
-<div class="breadcrumb-line">
-    <ul class="breadcrumb">
-        <li><a href="index.html"><i class="icon-home2 position-left"></i> Home</a></li>
-        <li><a href="2_col.html">Starters</a></li>
-        <li class="active">2 columns</li>
-    </ul>
-
-    <ul class="breadcrumb-elements">
-        <li><a href="#"><i class="icon-comment-discussion position-left"></i> Link</a></li>
-        <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                <i class="icon-gear position-left"></i>
-                Dropdown
-                <span class="caret"></span>
-            </a>
-
-            <ul class="dropdown-menu dropdown-menu-right">
-                <li><a href="#"><i class="icon-user-lock"></i> Account security</a></li>
-                <li><a href="#"><i class="icon-statistics"></i> Analytics</a></li>
-                <li><a href="#"><i class="icon-accessibility"></i> Accessibility</a></li>
-                <li class="divider"></li>
-                <li><a href="#"><i class="icon-gear"></i> All settings</a></li>
-            </ul>
-        </li>
-    </ul>
-</div>
-<!-- /page header -->
+    @include('admin.menus.includes.pageheader')
 @endsection
 
 @section('content')
@@ -56,33 +24,35 @@
 <div class="panel panel-flat">
     <div class="panel-heading">
         <h6 class="panel-title">Menus</h6>
+
+        <div class="heading-elements">
+            <a href="#modal_menu_new" data-toggle="modal" class="btn btn-primary"><span class="icon-plus3 position-left"></span> New Menu</a>
+        </div>
     </div>
 
     @if (session('status'))
-            <div class="alert alert-success">
-                {{ session('status') }}
-            </div>
-        @endif
+        <div class="alert alert-success">
+            {{ session('status') }}
+        </div>
+    @endif
+
     <div class="table-responsive">
         <table class="table table-condensed table-bordered tree-table">
             <thead>
                 <tr>
-                    <th style="width: 5px;"></th>
                     <th style="width: 30px;">#</th>
                     <th>Title</th>
-                    <th style="width: 40px;">Status</th>
-                    <th style="width: 40px;">Visibility</th>
+                    <th style="width: 40px;">Link</th>
+                    <th style="width: 40px;">Group</th>
                     <th style="width: 200px;">Actions</th>
                 </tr>
             </thead>
-            <tbody>
-            </tbody>
+            <tbody></tbody>
         </table>
     </div>
 </div>
 <!-- /table tree -->
 
-<!-- Danger modal -->
 <div id="modal_theme_danger" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -107,17 +77,303 @@
         </div>
     </div>
 </div>
-<!-- /default modal -->
+
+<div id="modal_menu_edit" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h6 class="modal-title">Edit Menu</h6>
+            </div>
+
+            <div class="modal-body">
+                <form method="POST" action="{{ route('admin.menus.store') }}" id="menu_edit_form">
+                    @csrf
+
+                    <div class="form-group">
+                        <label for="title" class="control-label">Title <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control @error('title') is-invalid @enderror" name="title" placeholder="Menu title" value="{{ old('title') }}" required autocomplete="title">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="link" class="control-label">Link</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control @error('link') is-invalid @enderror" name="link" placeholder="https://..." value="{{ old('link') }}" autocomplete="link">
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal_choose_page">Choose From Pages</button>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="icon" class="control-label">Icon</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control @error('icon') is-invalid @enderror" name="icon" placeholder="Menu icon" value="{{ old('icon') }}" autocomplete="icon">
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal_choose_icon">Choose Icon</button>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="group" class="control-label">Group</label>
+                        <input type="text" class="form-control @error('group') is-invalid @enderror typeahead-group" name="group" placeholder="Menu group" value="{{ old('group') }}" autocomplete="group">
+                    </div>
+
+                    <div class="text-right">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary btn-loading" data-loading-text="<i class='icon-spinner4 spinner position-left'></i> Saving">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="modal_menu_add_submenu" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h6 class="modal-title">Add Sub Menu</h6>
+            </div>
+
+            <div class="modal-body">
+                <form method="POST" action="{{ route('admin.menus.store') }}" id="menu_add_submenu_form">
+                    @csrf
+
+                    <fieldset class="content-group">
+                        <legend class="text-bold">Parent Menu</legend>
+                        <input type="text" name="parent_id" hidden>
+
+                        <div class="media" style="margin-top: 0px;" id="menu_add_submenu_form_parent">
+                            <span class="icon-spinner4 spinner"></span>
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="content-group">
+                        <legend class="text-bold">Sub Menu</legend>
+
+                        <div class="form-group">
+                            <label for="title" class="control-label">Title <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control @error('title') is-invalid @enderror" name="title" placeholder="Menu title" value="{{ old('title') }}" required autocomplete="title">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="link" class="control-label">Link</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control @error('link') is-invalid @enderror" name="link" placeholder="https://..." value="{{ old('link') }}" autocomplete="link">
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal_choose_page">Choose From Pages</button>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="icon" class="control-label">Icon</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control @error('icon') is-invalid @enderror" name="icon" placeholder="Menu icon" value="{{ old('icon') }}" autocomplete="icon">
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal_choose_icon">Choose Icon</button>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="group" class="control-label">Group</label>
+                            <input type="text" class="form-control @error('group') is-invalid @enderror typeahead-group" name="group" placeholder="Menu group" value="{{ old('group') }}" autocomplete="group">
+                        </div>
+                    </fieldset>
+
+                    <div class="text-right">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary btn-loading" data-loading-text="<i class='icon-spinner4 spinner position-left'></i> Saving">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="modal_menu_new" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h6 class="modal-title">New Menu</h6>
+            </div>
+
+            <div class="modal-body">
+                <form method="POST" action="{{ route('admin.menus.store') }}" id="menu_new_form">
+                    @csrf
+
+                    <div class="form-group">
+                        <label for="title" class="control-label">Title <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control @error('title') is-invalid @enderror" name="title" placeholder="Menu title" value="{{ old('title') }}" required autocomplete="title">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="link" class="control-label">Link</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control @error('link') is-invalid @enderror" name="link" placeholder="https://..." value="{{ old('link') }}" autocomplete="link">
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal_choose_page">Choose From Pages</button>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="icon" class="control-label">Icon</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control @error('icon') is-invalid @enderror" name="icon" placeholder="Menu icon" value="{{ old('icon') }}" autocomplete="icon">
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal_choose_icon">Choose Icon</button>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="group" class="control-label">Group</label>
+                        <input type="text" class="form-control @error('group') is-invalid @enderror typeahead-group" name="group" placeholder="Menu group" value="{{ old('group') }}" autocomplete="group">
+                    </div>
+
+                    <div class="text-right">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary btn-loading" data-loading-text="<i class='icon-spinner4 spinner position-left'></i> Saving">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="modal_choose_page" class="modal fade">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h6 class="modal-title">Choose from Pages</h6>
+            </div>
+
+            <div class="modal-body">
+                <ul class="media-list media-list-bordered">
+                    @foreach ($pages as $index => $page)
+                    <li class="media">
+                        <div class="media-left">
+                            <h5 class="text-center">{{ $index + 1 }}</h5>
+                        </div>
+
+                        <div class="media-body">
+                            <h6 class="media-heading">{{ $page->title }}</h6>
+                            <small><a href="{{ url($page->slug) }}" target="_blank">{{ url($page->slug) }}</a></small>
+                        </div>
+
+                        <div class="media-right">
+                            <button type="button" class="btn btn-default" onclick="choosePage('{{ url($page->slug) }}')">Choose</button>
+                        </div>
+                    </li>
+                    @endforeach
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="modal_choose_icon" class="modal fade">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h6 class="modal-title">Icomoon icon set</h6>
+            </div>
+
+            <div class="modal-body">
+                <p class="content-group">Icomoon is a custom icon set, includes 1145 icon glyphs based on 16px grid. This set is a <code>default</code> icon set of the template, majority of components are using Icomoon font family for UI elements instead of images, so all of them are retina-ready. <code>Glyphicon</code> and <code>FontAwesome</code> icon sets are also added, but as optional choice. In order to get the best look of UI elements, I recommend to include this icon set only as you can find perfectly crafted icons according to most of your common needs.</p>
+
+                <div class="row glyphs">
+                    @foreach ($icons as $icon)
+                    <div class="col-md-3 col-sm-4" onclick="chooseIcon('{{$icon}}')"><i class="{{$icon}}"></i> {{$icon}}</div>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
 
 @section('script')
 <script>
-    window.delete_confirm = function(id) {
+    function delete_confirm(id) {
         $("#delete_form").attr('action', '/admin/menus/'+id);
     }
 
-    $(document).ready(function () {
+    function menu_edit(id) {
+        $("#menu_edit_form").attr('action', '/admin/menus/'+id);
 
+        $.getJSON('{{ route('admin.menus.index') }}/'+id, function (data) {
+            var title = data.title;
+            var link = data.link;
+            var icon = data.icon;
+            var group = data.group;
+
+            $("#menu_edit_form").find('[name="title"]').val(title);
+            $("#menu_edit_form").find('[name="link"]').val(link);
+            $("#menu_edit_form").find('[name="icon"]').val(icon);
+            $("#menu_edit_form").find('[name="group"]').val(group);
+        });
+    }
+
+    function menu_add_submenu(id) {
+        $("#menu_add_submenu_form").find('[name="parent_id"]').val(id);
+        var parentMedia = $("#menu_add_submenu_form_parent");
+
+        parentMedia.html('<span class="icon-spinner4 spinner"></span>');
+
+        $.getJSON('{{ route('admin.menus.index') }}/'+id, function (data) {
+            var icon = data.icon;
+            var title = data.title;
+            var link = data.link;
+            var group = data.group;
+
+            parentMedia.html('');
+
+            if (icon && icon.length) {
+                parentMedia.append('<div class="media-left"><span class="'+icon+'"></span></div>');
+            }
+
+            if (title && title.length) {
+                var bodyStr = '<div class="media-body"><h6 class="media-heading">'+title+'</h6>';
+                if (link && link.length) {
+                    bodyStr = bodyStr + '<small><a href="'+link+'">'+link+'</a></small>';
+                }
+                bodyStr = bodyStr + '</div>';
+                parentMedia.append(bodyStr);
+            }
+
+            if (group && group.length) {
+                parentMedia.append('<div class="media-right"><span class="label label-default label-striped">'+group+'</span></div>');
+            }
+        });
+    }
+
+    function choosePage(url) {
+        $('[name="link"]').val(url);
+
+        $('#modal_choose_page').modal('hide');
+    }
+
+    function chooseIcon(icon) {
+        $('[name="icon"]').val(icon);
+
+        $('#modal_choose_icon').modal('hide');
+    }
+
+    $(document).ready(function () {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
 
         //
         // Table tree
@@ -128,12 +384,40 @@
             checkbox: false,
             table: {
                 indentation: 20,      // indent 20px per node level
-                nodeColumnIdx: 2,     // render the node title into the 2nd column
-                checkboxColumnIdx: 0  // render the checkboxes into the 1st column
+                nodeColumnIdx: 1,     // render the node title into the 2nd column
+            },
+            icon: false,
+            dnd: {
+                autoExpandMS: 500,
+                focusOnClick: true,
+                preventVoidMoves: true, // Prevent dropping nodes 'before self', etc.
+                preventRecursiveMoves: true, // Prevent dropping nodes on own descendants
+                dragStart: function(node, data) {
+                    return true;
+                },
+                dragEnter: function(node, data) {
+                    return ["before", "after"];
+                },
+                dragDrop: function(node, data) {
+                    var change = {
+                        mode: data.hitMode,
+                        other: data.node.data.id,
+                        node: data.otherNode.data.id
+                    }
+
+                    $.ajax({
+                        type: 'PUT',
+                        url: '{{ route('admin.menus.tree.update') }}',
+                        data: change,
+                        success: function () {
+                            // This function MUST be defined to enable dropping of items on the tree.
+                            data.otherNode.moveTo(node, data.hitMode);
+                        }
+                    });
+                }
             },
             source: {
                 url: "/admin/menus/tree"
-
             },
             lazyLoad: function(event, data) {
                 data.result = {url: "/admin/menus/tree"}
@@ -144,18 +428,18 @@
                 $tdList = $(node.tr).find(">td");
 
                 // (index #0 is rendered by fancytree by adding the checkbox)
-                $tdList.eq(1).text(node.getIndexHier()).addClass("alignRight");
+                $tdList.eq(0).text(node.getIndexHier()).addClass("alignRight");
 
-                // $tdList.eq(3).addClass('text-left').html("<a href='" + node.data.link + "' style='display: block;max-width: 150px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden;'>" + node.data.link + "</a>");
-                $tdList.eq(3).addClass('text-left').html("<span class='label label-" + node.data.statusClass + "'>" + node.data.status + "</a>");
-                $tdList.eq(4).addClass('text-center').html("<span class='" + node.data.visibilityIcon + "'></a>");
-                $tdList.eq(5).addClass('text-center').html(`
+                $tdList.eq(2).addClass('text-left').html(node.data.link ? "<a href='" + node.data.link + "' style='display: block;max-width: 150px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden;'>" + node.data.link + "</a>" : "");
+                $tdList.eq(3).addClass('text-left').html(node.data.group ? "<span class='label label-default label-striped'>" + node.data.group + "</a>" : "");
+                $tdList.eq(4).addClass('text-center').html(`
                     <div class='btn-group'>
-                    <a href='/admin/menus/` + node.data.id + `' class='btn btn-default btn-xs'><span class='icon-file-empty2'></span></a>
-                    <a href='/admin/menus/` + node.data.id + `/edit' class='btn btn-default btn-xs'><span class='icon-pencil'></span></a>
-                    <a href='#' data-toggle='modal' data-target='#modal_theme_danger' onclick='delete_confirm(` + node.data.id + `)' class='btn btn-default btn-xs'><span class='icon-trash'></span></a>
-                    <a href='` + node.data.link + `' class='btn btn-default btn-xs'><span class='icon-link'></span></a>
-                    </div>`);
+                    <a href='#modal_menu_edit' data-toggle="modal" onclick='menu_edit(` + node.data.id + `)' class='btn btn-default btn-sm'><span class='icon-pencil'></span></a>
+                    <a href='#modal_theme_danger' data-toggle='modal' onclick='delete_confirm(` + node.data.id + `)' class='btn btn-default btn-sm'><span class='icon-trash'></span></a>
+                    </div>
+
+                    <a href='#modal_menu_add_submenu' data-toggle="modal" onclick='menu_add_submenu(` + node.data.id + `)' class='btn btn-default btn-sm'><span class='icon-plus-circle2'></span></a>
+                `);
 
                 // Style checkboxes
                 $(".styled").uniform({radioClass: 'choice'});
@@ -174,6 +458,130 @@
                 alert("dislike " + $input.val());
             }
         });
+
+        $("#menu_new_form").submit(function (e) {
+            e.preventDefault();
+
+            var form = $(this);
+            var url = form.attr('action');
+
+            var btn = $(this).find('[type="submit"]');
+            btn.button('loading');
+
+            $.ajax({
+                url: url,
+                type: 'POST',
+                data: form.serialize(),
+                success: function (data) {
+                    form.trigger('reset');
+                    btn.button('reset');
+
+                    $('#modal_menu_new').modal('hide');
+
+                    var tree = $('.tree-table').fancytree('getTree');
+                    tree.reload();
+                }
+            })
+        });
+
+        $("#menu_add_submenu_form").submit(function (e) {
+            e.preventDefault();
+
+            var form = $(this);
+            var url = form.attr('action');
+
+            var btn = $(this).find('[type="submit"]');
+            btn.button('loading');
+
+            $.ajax({
+                url: url,
+                type: 'POST',
+                data: form.serialize(),
+                success: function (data) {
+                    form.trigger('reset');
+                    btn.button('reset');
+
+                    $('#modal_menu_add_submenu').modal('hide');
+
+                    var tree = $('.tree-table').fancytree('getTree');
+                    tree.reload();
+                }
+            })
+        });
+
+        $("#menu_edit_form").submit(function (e) {
+            e.preventDefault();
+
+            var form = $(this);
+            var url = form.attr('action');
+
+            var btn = $(this).find('[type="submit"]');
+            btn.button('loading');
+
+            $.ajax({
+                url: url,
+                type: 'PUT',
+                data: form.serialize(),
+                success: function (data) {
+                    form.trigger('reset');
+                    btn.button('reset');
+
+                    $('#modal_menu_edit').modal('hide');
+
+                    var tree = $('.tree-table').fancytree('getTree');
+                    tree.reload();
+                }
+            })
+        });
+
+        // Basic example
+        // ------------------------------
+
+        // Substring matches
+        var substringMatcher = function(strs) {
+            return function findMatches(q, cb) {
+                var matches, substringRegex;
+
+                // an array that will be populated with substring matches
+                matches = [];
+
+                // regex used to determine if a string contains the substring `q`
+                substrRegex = new RegExp(q, 'i');
+
+                // iterate through the pool of strings and for any string that
+                // contains the substring `q`, add it to the `matches` array
+                $.each(strs, function(i, str) {
+                    if (substrRegex.test(str)) {
+
+                        // the typeahead jQuery plugin expects suggestions to a
+                        // JavaScript object, refer to typeahead docs for more info
+                        matches.push({ value: str });
+                    }
+                });
+
+                cb(matches);
+            };
+        };
+
+        // Add data
+        var groupsJson = '{!! json_encode($groupsArray) !!}';
+        var groups = JSON.parse(groupsJson);
+
+        console.log(groups);
+
+        // Initialize
+        $('.typeahead-group').typeahead(
+            {
+                hint: true,
+                highlight: true,
+                minLength: 1
+            },
+            {
+                name: 'groups',
+                displayKey: 'value',
+                source: substringMatcher(groups)
+            }
+        );
     });
 </script>
 @endsection

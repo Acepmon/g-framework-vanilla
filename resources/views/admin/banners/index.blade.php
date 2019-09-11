@@ -24,6 +24,14 @@
         </div>
     </div>
 
+    @if (session('status'))
+        <div class="panel-body">
+            <div class="alert alert-success">
+                {!! session('status') !!}
+            </div>
+        </div>
+    @endif
+
     <div class="table-responsive">
         <table class="table datatable-basic">
             <thead>
@@ -35,6 +43,7 @@
                     <th>Web Banner</th>
                     <th>Button</th>
                     <th>Created At</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
 
@@ -83,10 +92,50 @@
                     <td>
                         {{ $banner->created_at->diffForHumans() }}
                     </td>
+                    <td class="text-center">
+                        <ul class="icons-list">
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <i class="icon-menu9"></i>
+                                </a>
+
+                                <ul class="dropdown-menu dropdown-menu-right">
+                                    <li><a href="{{ route('admin.banners.edit', $banner->id) }}"><i class="icon-pencil"></i> Edit</a></li>
+                                    <li><a href="#modal_banner_remove" data-toggle="modal" data-id="{{ $banner->id }}"><i class="icon-trash"></i> Remove</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </td>
                 </tr>
                 @endforeach
             </tbody>
         </table>
+    </div>
+</div>
+
+<div id="modal_banner_remove" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h6 class="modal-title">Remove Banner</h6>
+            </div>
+
+            <div class="modal-body">
+                <p>
+                    Are you sure you want to remove banner?
+                </p>
+            </div>
+
+            <div class="modal-footer">
+                <form action="#" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-danger">Remove</button>
+                </form>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -151,6 +200,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Basic datatable
     $('.datatable-basic').DataTable();
+
+    $("#modal_banner_remove").on('show.bs.modal', function (e) {
+        var id = $(e.relatedTarget).data('id');
+        var url = '{{ route('admin.banners.index') }}/' + id;
+
+        $("#modal_banner_remove").find('form').attr('action', url);
+    });
 });
 </script>
 @endsection
