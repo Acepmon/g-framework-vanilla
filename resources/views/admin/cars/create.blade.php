@@ -133,7 +133,7 @@
                     <h4 class="text-center">Car section /General information/</h4>
 
                     <div class="form-group">
-                        <label for="manufacturer" class="control-label col-lg-2">Manufacturer</label>
+                        <label for="manufacturer" class="control-label col-lg-2">Manufacturer <span class="text-danger">*</span></label>
                         <div class="col-lg-4">
                             <select id="manufacturer" name="manufacturer" required="required" class="form-control text-capitalize">
                                 @foreach(App\TermTaxonomy::where('taxonomy', 'manufacturer')->get() as $value)
@@ -141,7 +141,7 @@
                                 @endforeach
                             </select>
                         </div>
-                        <label for="carCondition" class="control-label col-lg-2">Car condition</label>
+                        <label for="carCondition" class="control-label col-lg-2">Car condition <span class="text-danger">*</span></label>
                         <div class="col-lg-4">
 
                             @foreach(App\TermTaxonomy::where('taxonomy', 'car-condition')->get() as $key=>$value)
@@ -162,17 +162,17 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="modelName" class="control-label col-lg-2">Model</label>
+                        <label for="modelName" class="control-label col-lg-2">Model <span class="text-danger">*</span></label>
                         <div class="col-lg-4">
-                            <select id="modelName" name="modelName" class="form-control">
+                            <select id="modelName" name="modelName" required="required" class="form-control">
                                 @foreach(App\TermTaxonomy::where('taxonomy', 'model')->get() as $value)
                                     <option value="{{ $value->term->name }}">{{ $value->term->name }}</option>
                                 @endforeach
                             </select>
                         </div>
-                        <label for="colorName" class="control-label col-lg-2">Color</label>
+                        <label for="colorName" class="control-label col-lg-2">Color <span class="text-danger">*</span></label>
                         <div class="col-lg-4">
-                            <select id="colorName" name="colorName" class="form-control text-capitalize">
+                            <select id="colorName" name="colorName" required="required" class="form-control text-capitalize">
                                 @foreach(App\TermTaxonomy::where('taxonomy', 'color')->get() as $value)
                                     <option value="{{ $value->term->name }}">{{ $value->term->name }}</option>
                                 @endforeach
@@ -181,43 +181,44 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="displacement" class="control-label col-lg-2">Displacement</label>
+                        <label for="displacement" class="control-label col-lg-2">Displacement <span class="text-danger">*</span></label>
                         <div class="col-lg-4">
                             <div class="input-group">
-                                <input id="displacement" type="number" class="form-control" name="displacement" placeholder="Enter displacement volume..." invalid="true">
+                                <input id="displacement" type="number" class="form-control" name="displacement" placeholder="Enter displacement volume..." required="required" aria-required="true" invalid="true">
                                 <span class="input-group-addon">cc</span>
                             </div>
                         </div>
-                        <label for="vin" class="control-label col-lg-2">VIN</label>
+                        <label for="vin" class="control-label col-lg-2">VIN <span class="text-danger">*</span></label>
                         <div class="col-lg-4">
-                            <input id="vin" type="text" class="form-control" name="vin" placeholder="Enter car vin..." invalid="true">
+                            <input id="vin" type="text" class="form-control" name="vin" placeholder="Enter car vin..." required="required" aria-required="true" invalid="true">
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="buildYear" class="control-label col-lg-2">Build Year</label>
+                        <label for="buildYear" class="control-label col-lg-2">Build Year <span class="text-danger">*</span></label>
                         <div class="col-lg-4">
-                            <input id="buildYear" type="number" min="1769" max="2019" value="2019" class="form-control" name="buildYear" placeholder="Enter year of product..." invalid="true">
+                            <input id="buildYear" type="number" min="1769" max="2019" value="2019" class="form-control" name="buildYear" placeholder="Enter year of product..." required="required" aria-required="true" invalid="true">
                         </div>
-                        <label for="importDate" class="control-label col-lg-2">Import Date</label>
+                        <label for="importDate" class="control-label col-lg-2">Import Date <span class="text-danger">*</span></label>
                         <div class="col-lg-4">
-                            <input id="importDate" type="number" min="1769" max="2019" value="2019" class="form-control" name="importDate" placeholder="Enter year of entry..." invalid="true">
+                            <input id="importDate" type="number" min="1769" max="2019" value="2019" class="form-control" name="importDate" placeholder="Enter year of entry..." required="required" aria-required="true" invalid="true">
                         </div>
                     </div>
 
                     <h4 class="text-center">Car section /More information/</h4>
 
                     <div class="form-group">
-                        <label for="mileage" class="control-label col-lg-2">Mileage</label>
+                        <label for="manufacturer" class="control-label col-lg-2">Manufacturer <span class="text-danger">*</span></label>
                         <div class="col-lg-4">
-                            <div class="input-group">
-                                <input id="mileage" type="number" class="form-control" name="mileage" placeholder="Enter mileage..." invalid="true" class="touchspin-postfix">
-                                <span class="input-group-addon">km</span>
-                            </div>
+                            <select id="manufacturer" name="manufacturer" required="required" class="form-control text-capitalize">
+                                @foreach(App\TermTaxonomy::where('taxonomy', 'manufacturer')->get() as $value)
+                                    <option value="{{ $value->term->name }}">{{ $value->term->name }}</option>
+                                @endforeach
+                            </select>
                         </div>
-                        <label for="transmission" class="control-label col-lg-2">Transmission</label>
+                        <label for="transmission" class="control-label col-lg-2">Transmission <span class="text-danger">*</span></label>
                         <div class="col-lg-4">
-                            <select id="transmission" name="transmission" class="form-control text-capitalize">
+                            <select id="transmission" name="transmission" required="required" class="form-control text-capitalize">
                                 @foreach(App\TermTaxonomy::where('taxonomy', 'transmission')->get() as $value)
                                     <option value="{{ $value->term->name }}">{{ $value->term->name }}</option>
                                 @endforeach
@@ -226,17 +227,17 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="wheelPosition" class="control-label col-lg-2">Steering wheel</label>
+                        <label for="wheelPosition" class="control-label col-lg-2">Steering wheel <span class="text-danger">*</span></label>
                         <div class="col-lg-4">
-                            <select id="wheelPosition" name="wheelPosition" class="form-control text-capitalize">
+                            <select id="wheelPosition" name="wheelPosition" required="required" class="form-control text-capitalize">
                                 @foreach(App\TermTaxonomy::where('taxonomy', 'steering-wheel')->get() as $value)
                                     <option value="{{ $value->term->name }}">{{ $value->term->name }}</option>
                                 @endforeach
                             </select>
                         </div>
-                        <label for="manCount" class="control-label col-lg-2">Seating</label>
+                        <label for="manCount" class="control-label col-lg-2">Seating <span class="text-danger">*</span></label>
                         <div class="col-lg-4">
-                            <select id="manCount" name="manCount" class="form-control text-capitalize">
+                            <select id="manCount" name="manCount" required="required" class="form-control text-capitalize">
                                 @foreach(App\TermTaxonomy::where('taxonomy', 'seating')->get() as $value)
                                     <option value="{{ $value->term->name }}">{{ $value->term->name }}</option>
                                 @endforeach
@@ -245,18 +246,36 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="fuelType" class="control-label col-lg-2">Type of fuel</label>
+                        <label for="fuel" class="control-label col-lg-2">Type of fuel <span class="text-danger">*</span></label>
                         <div class="col-lg-4">
-                            <select id="fuelType" name="fuelType" class="form-control text-capitalize">
-                                @foreach(App\TermTaxonomy::where('taxonomy', 'type-of-fuel')->get() as $value)
+                            <select id="fuel" name="fuel" required="required" class="form-control text-capitalize">
+                                @foreach(App\TermTaxonomy::where('taxonomy', 'Fuel')->get() as $value)
                                     <option value="{{ $value->term->name }}">{{ $value->term->name }}</option>
                                 @endforeach
                             </select>
                         </div>
-                        <label for="wheelDrive" class="control-label col-lg-2">Wheel drive</label>
+                        <label for="wheelDrive" class="control-label col-lg-2">Wheel drive <span class="text-danger">*</span></label>
                         <div class="col-lg-4">
-                            <select id="wheelDrive" name="wheelDrive" class="form-control text-capitalize">
+                            <select id="wheelDrive" name="wheelDrive" required="required" class="form-control text-capitalize">
                                 @foreach(App\TermTaxonomy::where('taxonomy', 'wheel-drive')->get() as $value)
+                                    <option value="{{ $value->term->name }}">{{ $value->term->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="mileage" class="control-label col-lg-2">Mileage <span class="text-danger">*</span></label>
+                        <div class="col-lg-4">
+                            <div class="input-group">
+                                <input id="mileage" type="number" class="form-control" name="mileage" placeholder="Enter mileage..." required="required" aria-required="true" invalid="true" class="touchspin-postfix">
+                                <span class="input-group-addon">km</span>
+                            </div>
+                        </div>
+                        <label for="manufacturer1" class="control-label col-lg-2">Manufacturer <span class="text-danger">*</span></label>
+                        <div class="col-lg-4">
+                            <select id="manufacturer1" name="manufacturer1" required="required" class="form-control text-capitalize">
+                                @foreach(App\TermTaxonomy::where('taxonomy', 'manufacturer')->get() as $value)
                                     <option value="{{ $value->term->name }}">{{ $value->term->name }}</option>
                                 @endforeach
                             </select>
@@ -271,25 +290,25 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="sellerDescription" class="control-label col-lg-2">Seller description</label>
+                        <label for="sellerDescription" class="control-label col-lg-2">Seller description <span class="text-danger">*</span></label>
                         <div class="col-lg-10">
-                            <textarea id="sellerDescription" type="text" class="form-control" name="sellerDescription" placeholder="Enter seller description..." invalid="true"></textarea>
+                            <textarea id="sellerDescription" type="text" class="form-control" name="sellerDescription" placeholder="Enter seller description..." required="required" aria-required="true" invalid="true"></textarea>
                         </div>
                     </div>
 
                     <h4 class="text-center">Car section /Media/</h4>
 
                     <div class="form-group">
-                        <label for="price" class="control-label col-lg-2">Price</label>
+                        <label for="price" class="control-label col-lg-2">Price <span class="text-danger">*</span></label>
                         <div class="col-lg-4">
                             <div class="input-group">
-                                <input id="price" type="number" min="0" value="0" class="form-control" name="price" placeholder="Enter price..." invalid="true" class="touchspin-postfix">
+                                <input id="price" type="number" min="0" value="0" class="form-control" name="price" placeholder="Enter price..." required="required" aria-required="true" invalid="true" class="touchspin-postfix">
                                 <span class="input-group-addon">₮</span>
                             </div>
                         </div>
-                        <label for="priceType" class="control-label col-lg-2">Price Type</label>
+                        <label for="priceType" class="control-label col-lg-2">Price Type <span class="text-danger">*</span></label>
                         <div class="col-lg-4">
-                            <select id="priceType" name="priceType" class="form-control text-capitalize">
+                            <select id="priceType" name="priceType" required="required" class="form-control text-capitalize">
                                 @foreach(App\TermTaxonomy::where('taxonomy', 'price-type')->get() as $value)
                                     <option value="{{ $value->term->name }}">{{ $value->term->name }}</option>
                                 @endforeach
@@ -298,9 +317,9 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="thumbnail" class="control-label col-lg-2">Thumbnail</label>
+                        <label for="thumbnail" class="control-label col-lg-2">Thumbnail <span class="text-danger">*</span></label>
                         <div class="col-lg-10">
-                            <input id="thumbnail" type="file" name="thumbnail" class="form-control file-styled" invalid="true" onchange="previewMedia(this, 'thumbnail-container')">
+                            <input id="thumbnail" type="file" name="thumbnail" class="form-control file-styled" invalid="true" onchange="previewMedia(this, 'thumbnail-container')" required="required" aria-required="true">
                             <input type="hidden" id="thumbnailCrop" name="thumbnailCrop"/>
                         </div>
                     </div>
@@ -315,7 +334,6 @@
                         <div class="col-lg-10">
                             <input id="media" type="file" class="form-control file-styled" name="medias[]" invalid="true" onchange="previewMedia(this, 'image-container')" multiple>
                             <input type="hidden" id="imagesCrop" name="imagesCrop"/>
-                            <i class="text-muted">* You can choose multiple images</i>
                         </div>
                     </div>
 
@@ -385,7 +403,7 @@
                             </div>
                         </div>
                     </div>
-<!-- 
+
                     <h4 class="text-center">Additional section</h4>
 
                     <div class="form-group">
@@ -397,7 +415,7 @@
                         <div class="col-lg-4">
                             <input id="countryName" type="text" class="form-control" name="countryName" placeholder="Enter country name...">
                         </div>
-                    </div> -->
+                    </div>
                     {{--car section end--}}
 
                     <div class="text-right">
@@ -420,7 +438,7 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h6 class="modal-title" id="getCroppedCanvasTitle">Crop your image</h6>
             </div>
-            <div class="modal-body cropper" id="cropBody">
+            <div class="modal-body" id="cropBody">
                 <div class="img-cropper-container" class="col-lg-12">
                     <img id="cropImage" class="croppable">
                 </div>
@@ -468,10 +486,12 @@
 
     });
 
+    var blobs=[];
+
     function cropImage() {
         var cropData = [];
         var container;
-        $("#cropBody img[id^=cropImage]").each(function(index) {
+        $("#cropBody img").each(function() {
             var image = $(this);
 
             container = image.attr('alt');
@@ -479,21 +499,20 @@
 
             if (cropped) {
                 if (container == 'thumbnail-container') {
-                    $("#thumbnailCrop").val(JSON.stringify(image.cropper('getData')));
-                } else if (index == 0) {
                     $("#" + container).empty();
+                    $("#thumbnailCrop").val(JSON.stringify(image.cropper('getData')));
+                } else {
+                    cropData.push(image.cropper('getData'));
                 }
-                cropData.push(image.cropper('getData'));
                 $("#" + container).append(' \
                     <div class="col-lg-4 col-md-6 col-sm-12 mb-10"> \
                         <img src="'+cropped.toDataURL('image/jpeg')+'" class="col-lg-12"> \
                     </div>');
-                
-                image.attr('src', '');
-            }
+                    
+                    image.attr('src', '');
+                }
         });
         if (container != 'thumbnail-container') {
-            console.log(cropData);
             $("#imagesCrop").val(JSON.stringify(cropData));
         }
     }
@@ -504,23 +523,23 @@
             var reader = new FileReader();
             reader.onload = function (e) {
                 $("#cropBody").append(' \
-                    <div class="col-lg-12 cropper-container content-group" style="height: 300px"> \
+                    <div class="image-cropper-container" class="col-lg-12""> \
                         <img src="'+e.target.result+'" id="cropImage'+index+'" class="col-lg-12">\
                     </div>');
 
                 $("#cropImage"+index).attr('src', e.target.result);
                 $("#cropImage"+index).attr('alt', container);
                 $('#cropImage'+index).cropper({
-                    viewMode: 1,
                     dragMode: 'move',
                     aspectRatio: 16 / 9,
+                    autoCropArea: 0.8,
                     restore: false,
                     guides: false,
                     center: true,
                     highlight: false,
                     cropBoxMovable: false,
                     cropBoxResizable: false,
-                    toggleDragModeOnDblclick: false
+                    toggleDragModeOnDblclick: false,
                 });
 
                 $("#getCroppedCanvasModal").modal('show');
@@ -583,9 +602,4 @@
         }
     });
 </script>
-<style>
-    .cropper-container {
-        width: 100%!important;
-    }
-</style>
 @endsection
