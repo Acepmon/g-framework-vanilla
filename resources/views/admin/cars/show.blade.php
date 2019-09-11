@@ -100,26 +100,6 @@
                             <label class="control-label col-lg-2">{{$content->author_id}}</label>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label class="control-label col-lg-2">Cateogry</label>
-                        <div class="col-lg-10">
-                            <label class="control-label col-lg-2">
-                                @foreach($content->terms->where('taxonomy', 'category') as $rel)
-                                    {{ $rel->term->name }},
-                                @endforeach&nbsp;
-                            </label>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label col-lg-2">Tags</label>
-                        <div class="col-lg-10">
-                            <label class="control-label col-lg-2">
-                                @foreach($content->terms->where('taxonomy', 'tag') as $rel)
-                                    {{ $rel->term->name }},
-                                @endforeach&nbsp;
-                            </label>
-                        </div>
-                    </div>
 
                     <h5 class="panel-title">Car Information</h5>
                     <br>
@@ -127,11 +107,7 @@
                     <div class="form-group">
                         <label class="control-label col-lg-2">Manufacturer</label>
                         <div class="col-lg-4">
-                            <label class="control-label">{{$content->metaValue('manufacturer')}}</label>
-                        </div>
-                        <label class="control-label col-lg-2">Manufacturer</label>
-                        <div class="col-lg-4">
-                            <label class="control-label">{{$content->metaValue('manufacturer')}}</label>
+                            <label class="control-label">{{$content->metaValue('manufacturer')}}&nbsp;</label>
                         </div>
                     </div>
                     
@@ -142,14 +118,14 @@
                         </div>
                         <label class="control-label col-lg-2">Model</label>
                         <div class="col-lg-4">
-                            <label class="control-label">{{$content->metaValue('model')}}</label>
+                            <label class="control-label">{{$content->metaValue('model')}}&nbsp;</label>
                         </div>
                     </div>
                     
                     <div class="form-group">
                         <label class="control-label col-lg-2">Color</label>
                         <div class="col-lg-4">
-                            <label class="control-label">{{$content->metaValue('color')}}</label>
+                            <label class="control-label">{{$content->metaValue('color')}}&nbsp;</label>
                         </div>
                         <label class="control-label col-lg-2">Displacement</label>
                         <div class="col-lg-4">
@@ -160,66 +136,62 @@
                     <div class="form-group">
                         <label class="control-label col-lg-2">VIN</label>
                         <div class="col-lg-4">
-                            <label class="control-label">{{$content->metaValue('vin')}}</label>
+                            <label class="control-label">{{$content->metaValue('vin')}}&nbsp;</label>
                         </div>
                         <label class="control-label col-lg-2">Year of Product</label>
                         <div class="col-lg-4">
-                            <label class="control-label">{{$content->metaValue('yearOfProduct')}}</label>
+                            <label class="control-label">{{$content->metaValue('buildYear')}}&nbsp;</label>
                         </div>
                     </div>
                     
                     <div class="form-group">
                         <label class="control-label col-lg-2">Year of Entry</label>
                         <div class="col-lg-4">
-                            <label class="control-label">{{$content->metaValue('yearOfEntry')}}</label>
-                        </div>
-                        <label class="control-label col-lg-2">Last Check</label>
-                        <div class="col-lg-4">
-                            <label class="control-label">{{$content->metaValue('lastCheck')}}</label>
+                            <label class="control-label">{{$content->metaValue('importDate')}}&nbsp;</label>
                         </div>
                     </div>
                     
                     <div class="form-group">
                         <label class="control-label col-lg-2">Transmission</label>
                         <div class="col-lg-4">
-                            <label class="control-label">{{$content->metaValue('transmission')}}</label>
+                            <label class="control-label">{{$content->metaValue('transmission')}}&nbsp;</label>
                         </div>
                         <label class="control-label col-lg-2">Steering Wheel</label>
                         <div class="col-lg-4">
-                            <label class="control-label">{{$content->metaValue('steeringWheel')}}</label>
+                            <label class="control-label">{{$content->metaValue('steeringWheel')}}&nbsp;</label>
                         </div>
                     </div>
                     
                     <div class="form-group">
                         <label class="control-label col-lg-2">Seating</label>
                         <div class="col-lg-4">
-                            <label class="control-label">{{$content->metaValue('seating')}}</label>
+                            <label class="control-label">{{$content->metaValue('manCount')}}&nbsp;</label>
                         </div>
                         <label class="control-label col-lg-2">Type of Fuel</label>
                         <div class="col-lg-4">
-                            <label class="control-label">{{$content->metaValue('typeOfFuel')}}</label>
+                            <label class="control-label">{{$content->metaValue('fuelType')}}&nbsp;</label>
                         </div>
                     </div>
                     
                     <div class="form-group">
                         <label class="control-label col-lg-2">Wheel Drive</label>
                         <div class="col-lg-4">
-                            <label class="control-label">{{$content->metaValue('wheelDrive')}}</label>
+                            <label class="control-label">{{$content->metaValue('wheelPosition')}}&nbsp;</label>
                         </div>
                         <label class="control-label col-lg-2">Mileage</label>
                         <div class="col-lg-4">
-                            <label class="control-label">{{$content->metaValue('mileage')}}</label>
+                            <label class="control-label">{{$content->metaValue('mileage')}}&nbsp;</label>
                         </div>
                     </div>
                     
                     <div class="form-group">
                         <label class="control-label col-lg-2">Price</label>
                         <div class="col-lg-4">
-                            <label class="control-label">{{$content->metaValue('price')}}</label>
+                            <label class="control-label">{{$content->metaValue('price')}}&nbsp;</label>
                         </div>
                         <label class="control-label col-lg-2">Price Type</label>
                         <div class="col-lg-4">
-                            <label class="control-label">{{$content->metaValue('priceType')}}</label>
+                            <label class="control-label">{{$content->metaValue('priceType')}}&nbsp;</label>
                         </div>
                     </div>
                     
@@ -236,7 +208,7 @@
                         </div>
                         <label class="control-label col-lg-2">Seller Description</label>
                         <div class="col-lg-4">
-                            <label class="control-label">{{$content->metaValue('sellerDescription')}}</label>
+                            <label class="control-label">{{$content->metaValue('sellerDescription')}}&nbsp;</label>
                         </div>
                     </div>
 
@@ -259,6 +231,9 @@
 
                 <div class="panel-body">
                     <div class="row">
+                    <div class="col-lg-2 col-md-4 col-sm-6 px-0">
+                        <img src="{{ App\Config::getStorage() . $content->metaValue('thumbnail') }}" class="img-thumbnail img-fluid full-width">
+                    </div>
                     @foreach($content->medias() as $media)
                     <div class="col-lg-2 col-md-4 col-sm-6 px-0">
                         <img src="{{ $media }}" class="img-thumbnail img-fluid full-width">

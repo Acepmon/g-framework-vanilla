@@ -66,11 +66,11 @@ return [
 
         'ftp' => [
             'driver' => 'ftp',
-            'host' => '66.181.167.116',
-            'username' => 'gframework',
-            'password' => '',
-            'port' => 23,
-            'root' => '',
+            'host' => env('FTP_HOST'),
+            'username' => env('FTP_USERNAME'),
+            'password' => env('FTP_PASSWORD'),
+            'port' => env('FTP_PORT'),
+            'root' => env('FTP_ROOT'),
         ],
         'public' => [
             'driver' => 'local',
