@@ -1,5 +1,5 @@
 
-@if($menu)
+@if($menu && $menu->status === 'published' && $menu->visibility === 'public')
 <li>
     <a href="{{ $menu->link }}">
         @if ($menu->icon)
@@ -10,7 +10,7 @@
 
     @if(count(Auth::user()->menus->where('parent_id', $menu->id))>0)
     <ul>
-        @each('themes.limitless.includes.sidemenus', Auth::user()->menus->where('parent_id', $menu->id)->sortBy('order'), 'menu')
+        @each('themes.limitless.includes.sidemenus', Auth::user()->menus->where('parent_id', $menu->id), 'menu')
     </ul>
     @endif
 
