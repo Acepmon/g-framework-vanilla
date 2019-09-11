@@ -78,6 +78,7 @@ foreach($request as $key=>$value) {
                           <input type="radio" id="{{$taxonomy->term->name}}" name="{{ idize($category) }}" class="custom-control-input" value="{{ $taxonomy->term->name }}" {{ (isset($request[idize($category)]) && $request[idize($category)]==$taxonomy->term->name)?'checked':'' }} onchange="this.form.submit()">
                           <label class="custom-control-label  d-flex justify-content-between" for="{{$taxonomy->term->name}}">{{ $taxonomy->term->name }} 
                           <div class="text-muted">{{ $taxonomy->count }}</div></label>
+                          <input type="hidden" name="carCondition" value="{{ $request['carCondition'] }}"/>
                       </div>
                       @endforeach
                       </form>

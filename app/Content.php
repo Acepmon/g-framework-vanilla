@@ -3,6 +3,7 @@
 namespace App;
 
 use App\ContentMeta;
+use App\TermTaxonomy;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 
@@ -91,25 +92,27 @@ class Content extends Model
 
     public function updateMeta($key, $value)
     {
-        if (is_array($value)) {
-            $exists = $this->metas->where('key', $key);
-            foreach($exists as $exist) {
-                if (in_array($exist->value, $value)) {
-                    $value = array_diff($value, [$exist->value]);
-                } else {
-                    $exist->delete();
+        if ($key && $value && $this->id) {
+            if (is_array($value)) {
+                $exists = $this->metas->where('key', $key);
+                foreach($exists as $exist) {
+                    if (in_array($exist->value, $value)) {
+                        $value = array_diff($value, [$exist->value]);
+                    } else {
+                        $exist->delete();
+                    }
                 }
-            }
-            foreach($value as $v) {
-                $this->attachMeta($key, $v);
-            }
-        } else {
-            $exists = $this->metas->where('key', $key)->first();
-            if ($exists) {
-                $exists->value = $value;
-                $exists->save();
+                foreach($value as $v) {
+                    $this->attachMeta($key, $v);
+                }
             } else {
-                $this->attachMeta($key, $value);
+                $exists = $this->metas->where('key', $key)->first();
+                if ($exists) {
+                    $exists->value = $value;
+                    $exists->save();
+                } else {
+                    $this->attachMeta($key, $value);
+                }
             }
         }
     }

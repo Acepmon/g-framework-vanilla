@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Blade;
 use Illuminate\Database\Eloquent\Model;
 use App\Content;
 use App\ContentMeta;
+use App\Observers\ContentMetaObserver;
 use DB;
 
 class AppServiceProvider extends ServiceProvider
@@ -29,6 +30,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        ContentMeta::observe(ContentMetaObserver::class);
         Schema::defaultStringLength(191);
         \Blade::directive('contents', function ($expression) {
             $someObject = json_decode($expression);
