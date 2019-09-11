@@ -1,5 +1,7 @@
 @extends('themes.limitless.layouts.default')
 
+@section('title', 'Create Menu')
+
 @section('load')
 <script type="text/javascript" src="{{ asset('limitless/js/core/libraries/jquery_ui/core.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('limitless/js/plugins/forms/selects/selectboxit.min.js') }}"></script>
@@ -29,53 +31,49 @@
                 <form method="POST" action="{{ route('admin.menus.store') }}">
                     @csrf
 
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="title" class="control-label">Title</label>
-                                <input id="title" type="text" class="form-control @error('title') is-invalid @enderror" name="title" placeholder="Menu title" value="{{ old('title') }}" required autocomplete="title">
-                                @error('title')
-                                <span class="invalid-feedback" role="alert">
+                    <div class="form-group">
+                        <label for="title" class="control-label">Title</label>
+                        <input id="title" type="text" class="form-control @error('title') is-invalid @enderror" name="title" placeholder="Menu title" value="{{ old('title') }}" required autocomplete="title">
+                        @error('title')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                    </div>
+
+                    <div class="form-group">
+                        <label for="link" class="control-label">Link</label>
+                        <input id="link" type="text" class="form-control @error('link') is-invalid @enderror" name="link" placeholder="Menu link" value="{{ old('link') }}" required autocomplete="link">
+                        @error('link')
+                        <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
-                                @enderror
-                            </div>
+                        @enderror
+                    </div>
 
-                            <div class="form-group">
-                                <label for="link" class="control-label">Link</label>
-                                <input id="link" type="text" class="form-control @error('link') is-invalid @enderror" name="link" placeholder="Menu link" value="{{ old('link') }}" required autocomplete="link">
-                                @error('link')
-                                <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                @enderror
-                            </div>
+                    <div class="form-group">
+                        <label for="icon" class="control-label">Icon</label>
+                        <input id="icon" type="text" class="form-control @error('icon') is-invalid @enderror" name="icon" placeholder="Menu icon" value="{{ old('icon') }}" required autocomplete="icon">
+                        @error('icon')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                    </div>
 
-                            <div class="form-group">
-                                <label for="icon" class="control-label">Icon</label>
-                                <input id="icon" type="text" class="form-control @error('icon') is-invalid @enderror" name="icon" placeholder="Menu icon" value="{{ old('icon') }}" required autocomplete="icon">
-                                @error('icon')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
-                            </div>
-
-                            <div class="form-group">
-                                <label for="parent_id" class="control-label">Parent ID</label>
-                                <select class="selectbox" name="parent_id" type="text" id="parent_id">
-                                    <option value=""></option>
-                                    @foreach($menus as $data)
-                                    <option value="{{$data->id}}">{{$data->title}}</option>
-                                    @endforeach
-                                </select>
-                                @error('parent_id')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
-                            </div>
-                        </div>
+                    <div class="form-group">
+                        <label for="parent_id" class="control-label">Parent ID</label>
+                        <select class="selectbox" name="parent_id" type="text" id="parent_id">
+                            <option value=""></option>
+                            @foreach($menus as $data)
+                            <option value="{{$data->id}}">{{$data->title}}</option>
+                            @endforeach
+                        </select>
+                        @error('parent_id')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
                     </div>
 
                     <div class="text-right">

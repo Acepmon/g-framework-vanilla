@@ -1,5 +1,7 @@
 @extends('themes.limitless.layouts.default')
 
+@section('title', 'Details')
+
 @section('load')
 <script type="text/javascript" src="{{ asset('limitless/js/core/libraries/jquery_ui/core.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('limitless/js/core/libraries/jquery_ui/effects.min.js') }}"></script>
@@ -12,21 +14,7 @@
 @endsection
 
 @section('pageheader')
-<div class="page-header-content">
-    <div class="page-title">
-        <h4><i class="icon-arrow-left52 position-left"></i> <span class="text-semibold">Menu</span> Show Page</h4>
-    </div>
-
-    <div class="heading-elements">
-    </div>
-</div>
-
-<div class="breadcrumb-line">
-    <ul class="breadcrumb">
-        <li><a href="{{ route('admin.menus.index') }}"><i class="icon-home2 position-left"></i> Home</a></li>
-    </ul>
-</div>
-<!-- /page header -->
+    @include('admin.menus.includes.pageheader')
 @endsection
 
 @section('content')
@@ -34,8 +22,6 @@
 <!-- Grid -->
 <div class="row">
     <div class="col-md-6">
-
-        <!-- Horizontal form -->
         <div class="panel panel-flat">
             <div class="panel-heading">
                 <h5 class="panel-title">Horizontal form</h5>
@@ -78,20 +64,6 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="control-label col-lg-2">Order</label>
-                        <div class="col-lg-10">
-                            {{$menu->order}}
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="control-label col-lg-2">Sublevel</label>
-                        <div class="col-lg-10">
-                            {{$menu->sublevel}}
-                        </div>
-                    </div>
-
-                    <div class="form-group">
                         <label class="control-label col-lg-2">Parent ID</label>
                         <div class="col-lg-10">
                             @if(!empty($menu->parent_id))
@@ -109,8 +81,6 @@
                 </form>
             </div>
         </div>
-        <!-- /horizotal form -->
-
     </div>
 
     <div class="col-md-6">
@@ -139,9 +109,7 @@
         </div>
     </div>
 </div>
-<!-- /grid -->
 
-<!-- Table tree -->
 <div class="panel panel-flat">
     <div class="panel-heading">
         <h6 class="panel-title">Submenus</h6>
@@ -155,13 +123,13 @@
                     <th>Title</th>
                     <th style="width: 100px;">Link</th>
                     <th style="width: 50px;">Group</th>
+                    <th style="width: 200px;">Actions</th>
                 </tr>
             </thead>
             <tbody></tbody>
         </table>
     </div>
 </div>
-<!-- /table tree -->
 
 @endsection
 
@@ -237,6 +205,12 @@
 
                 $tdList.eq(2).addClass('text-left').html("<a href='" + node.data.link + "' style='display: block;max-width: 150px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden;'>" + node.data.link + "</a>");
                 $tdList.eq(3).addClass('text-left').html("<span class='label label-default label-striped'>" + node.data.group + "</a>");
+                $tdList.eq(4).addClass('text-center').html(`
+                    <div class='btn-group'>
+                    <a href='/admin/menus/` + node.data.id + `' class='btn btn-default btn-xs'><span class='icon-eye'></span></a>
+                    <a href='/admin/menus/` + node.data.id + `/edit' class='btn btn-default btn-xs'><span class='icon-pencil'></span></a>
+                    <a href='#' data-toggle='modal' data-target='#modal_theme_danger' onclick='delete_confirm(` + node.data.id + `)' class='btn btn-default btn-xs'><span class='icon-trash'></span></a>
+                    </div>`);
 
                 // Style checkboxes
                 $(".styled").uniform({radioClass: 'choice'});

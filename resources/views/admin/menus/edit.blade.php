@@ -1,57 +1,32 @@
 @extends('themes.limitless.layouts.default')
 
-@section('load')
+@section('title', 'Edit Menu')
 
+@section('load')
 <script type="text/javascript" src="{{ asset('limitless/js/core/libraries/jquery_ui/core.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('limitless/js/plugins/forms/selects/selectboxit.min.js') }}"></script>
-
 <script type="text/javascript" src="{{ asset('limitless/js/pages/form_selectbox.js') }}"></script>
 @endsection
 
 @section('pageheader')
-<div class="page-header-content">
-    <div class="page-title">
-        <h4><i class="icon-arrow-left52 position-left"></i> <span class="text-semibold">Menu</span> Edit Page</h4>
-    </div>
-
-    <div class="heading-elements">
-    </div>
-</div>
-
-<div class="breadcrumb-line">
-    <ul class="breadcrumb">
-        <li><a href="{{ route('admin.menus.index') }}"><i class="icon-home2 position-left"></i> Home</a></li>
-    </ul>
-</div>
-<!-- /page header -->
+    @include('admin.menus.includes.pageheader')
 @endsection
 
 @section('content')
-
-
-
-<!-- Grid -->
 <div class="row">
     <div class="col-md-6">
-        <!-- Horizontal form -->
         <div class="panel panel-flat">
             <div class="panel-heading">
                 <h5 class="panel-title">Horizontal form</h5>
-                <div class="heading-elements">
-                    <ul class="icons-list">
-                        <li><a data-action="collapse"></a></li>
-                        <li><a data-action="close"></a></li>
-                    </ul>
-                </div>
             </div>
 
             <div class="panel-body">
-                <!-- <form method="put" action="" class="form-horizontal"> -->
                 @if (session('status'))
-                <div class="alert alert-success">
-                    {{ session('status') }}
-                </div>
+                    <div class="alert alert-success">
+                        {{ session('status') }}
+                    </div>
                 @endif
+
                 <form class="form-horizontal" method="POST" action="{{ route('admin.menus.update', ['id' => $menu->id]) }}">
                     @method('PUT')
                     @csrf
@@ -156,7 +131,6 @@
                 </form>
             </div>
         </div>
-        <!-- /horizotal form -->
     </div>
     <div class="col-md-6">
         <div class="text-right" style="padding-bottom: 5px">
@@ -193,11 +167,7 @@
 
 
 </div>
-<!-- /grid -->
 
-
-
-<!-- Danger modal -->
 <div id="modal_theme_danger" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -222,9 +192,6 @@
         </div>
     </div>
 </div>
-<!-- /default modal -->
-
-
 @endsection
 
 @section('script')
