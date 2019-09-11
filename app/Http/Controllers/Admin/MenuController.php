@@ -32,7 +32,6 @@ class MenuController extends Controller
             $menu = (object)[];
             $menu->id = $value["id"];
             $menu->title = $value["title"];
-            $menu->type = $value["type"];
             $menu->link = $value["link"];
             $menu->icon = $value["icon"];
             $menu->group = $value["group"];
@@ -144,7 +143,6 @@ class MenuController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'type' => 'required',
             'title' => 'required|max:191',
             'link' => 'nullable|max:255',
             'icon' => 'nullable|max:50',
@@ -154,7 +152,6 @@ class MenuController extends Controller
         ]);
         $menu = new Menu();
 
-        $menu->type = $request->type;
         $menu->title = $request->title;
         $menu->link = $request->link;
         $menu->icon = $request->icon;
@@ -205,7 +202,6 @@ class MenuController extends Controller
         // $menus = Menu::find($id);
         // $menu = new menu;
         $request->validate([
-            'type' => 'required|in:admin,car,tour,default',
             'title' => 'required|max:191',
             'link' => 'nullable|max:255',
             'icon' => 'nullable|max:50',
@@ -216,7 +212,6 @@ class MenuController extends Controller
 
         $menu = Menu::findOrFail($id);
 
-        $menu->type = $request->type;
         $menu->title = $request->title;
         $menu->link = $request->link;
         $menu->icon = $request->icon;

@@ -117,7 +117,6 @@ class MenusTableSeeder extends Seeder
 
     private function insertMenu($title, $link, $icon, $group, $sublevel, $order, $parent = null) {
         $menu = new Menu();
-        $menu->type = Menu::TYPE_MENU;
         $menu->title = $title;
         $menu->link = $link;
         $menu->icon = $icon;

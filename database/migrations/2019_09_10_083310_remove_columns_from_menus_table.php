@@ -14,6 +14,7 @@ class RemoveColumnsFromMenusTable extends Migration
     public function up()
     {
         Schema::table('menus', function (Blueprint $table) {
+            $table->dropColumn('type');
             $table->dropColumn('status');
             $table->dropColumn('visibility');
             $table->dropColumn('subtitle');

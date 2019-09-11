@@ -50,13 +50,6 @@
             <div class="panel-body">
                 <form class="form-horizontal">
                     <div class="form-group">
-                        <label class="control-label col-lg-2">Type</label>
-                        <div class="col-lg-10">
-                            {{$menu->type}}
-                        </div>
-                    </div>
-
-                    <div class="form-group">
                         <label class="control-label col-lg-2">Title</label>
                         <div class="col-lg-10">
                             {{$menu->title}}

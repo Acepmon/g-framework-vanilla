@@ -89,20 +89,6 @@
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="type" class="control-label">Type</label>
-                        <select class="selectbox" id="type" name="type" type="text" value="{{ old('type') }}" required>
-                            @foreach(App\Menu::TYPE_ARRAY as $value)
-                            <option value="{{ $value }}">{{ ucfirst($value) }}</option>
-                            @endforeach
-                        </select>
-                        @error('type')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
-                    </div>
-
-                    <div class="form-group">
                         <label for="order" class="control-label">Order</label>
                         <input id="order" type="text" class="form-control @error('order') is-invalid @enderror" name="order" placeholder="Menu order" value="{{ old('order') }}" required autocomplete="order">
                         @error('order')
