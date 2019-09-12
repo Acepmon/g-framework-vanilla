@@ -1,81 +1,32 @@
 @extends('themes.limitless.layouts.default')
 
-@section('load')
-<script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/plugins/extensions/jquery_ui/core.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/plugins/forms/selects/select2.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/plugins/forms/selects/bootstrap_multiselect.js') }}"></script>
+@section('title', 'Edit Menu')
 
-<script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/demo_pages/multiselect.js') }}"></script>
-<script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/demo_pages/form_select2.js') }}"></script>
+@section('load')
+<script type="text/javascript" src="{{ asset('limitless/js/core/libraries/jquery_ui/core.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('limitless/js/plugins/forms/selects/selectboxit.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('limitless/js/pages/form_selectbox.js') }}"></script>
 @endsection
 
 @section('pageheader')
-<div class="page-header-content header-elements-inline">
-    <div class="page-title d-flex">
-        <h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Menu</span> Edit Page</h4>
-        <a href="#" class="header-elements-toggle text-default d-md-none">
-            <i class="icon-more"></i>
-        </a>
-    </div>
-
-    <div class="header-elements">
-    </div>
-</div>
-
-<div class="breadcrumb-line breadcrumb-line-light header-elements-md-inline">
-    <div class="d-flex">
-        <div class="breadcrumb">
-            <a href="{{ route('admin.menus.index') }}" class="breadcrumb-item"><i class="icon-home2 mr-2"></i> Home</a></li>
-            <span class="breadcrumb-item active">Menu</span>
-        </div>
-    </div>
-
-    <div class="header-elements d-none">
-        <div class="breadcrumb justify-content-center">
-            <a href="#" class="breadcrumb-elements-item"><i class="icon-comment-discussion mr-2"></i>Link</a>
-            <div class="breadcrumb-elements-item dropdown p-0">
-                <a href="#" class="breadcrumb-elements-item dropdown-toggle" data-toggle="dropdown" aria-expanded="true"><i class="icon-gear mr-2"></i>Dropdown</a>
-                <div class="dropdown-menu dropdown-menu-right" x-placement="bottom-end" 
-                    style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(-84px, 40px, 0px);">
-                    <a href="#" class="dropdown-item"><i class="icon-user-lock"></i> Account security</a>
-                    <a href="#" class="dropdown-item"><i class="icon-statistics"></i> Analytics</a>
-                    <a href="#" class="dropdown-item"><i class="icon-accessibility"></i> Accessibility</a>
-                    <div class="dropdown-divider"></div>
-                    <a href="#" class="dropdown-item"><i class="icon-gear"></i> All settings</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- /page header -->
+    @include('admin.menus.includes.pageheader')
 @endsection
 
 @section('content')
-
-
-
-<!-- Grid -->
 <div class="row">
     <div class="col-md-6">
-        <!-- Horizontal form -->
         <div class="card">
             <div class="card-header">
                 <h5 class="card-title">Horizontal form</h5>
-                <div class="header-elements">
-                    <div class="list-icons">
-                        <a class="list-icons-item" data-action="collapse"></a>
-                        <a class="list-icons-item" data-action="remove"></a>
-                    </div>
-                </div>
             </div>
 
             <div class="card-body">
-                <!-- <form method="put" action="" class="form-horizontal"> -->
                 @if (session('status'))
-                <div class="alert alert-success">
-                    {{ session('status') }}
-                </div>
+                    <div class="alert alert-success">
+                        {{ session('status') }}
+                    </div>
                 @endif
+
                 <form class="form-horizontal" method="POST" action="{{ route('admin.menus.update', ['id' => $menu->id]) }}">
                     @method('PUT')
                     @csrf
@@ -108,18 +59,6 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="control-label col-lg-2">Subtitle</label>
-                        <div class="col-lg-10">
-                            <input id="subtitle" type="text" class="form-control @error('subtitle') is-invalid @enderror" name="subtitle" placeholder="Menu subtitle" value="{{ $menu->subtitle }}" required autocomplete="subtitle" autofocus>
-                            @error('subtitle')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                            @enderror
-                        </div>
-                    </div>
-
-                    <div class="form-group">
                         <label class="control-label col-lg-2">Link</label>
                         <div class="col-lg-10">
                             <input id="link" type="text" class="form-control @error('link') is-invalid @enderror" name="link" placeholder="Menu link" value="{{ $menu->link }}" required autocomplete="link" autofocus>
@@ -136,38 +75,6 @@
                         <div class="col-lg-10">
                             <input id="icon" type="text" class="form-control @error('icon') is-invalid @enderror" name="icon" placeholder="Menu icon" value="{{ $menu->icon }}" required autocomplete="icon" autofocus>
                             @error('icon')
-                            <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                            @enderror
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="control-label col-lg-2">Status</label>
-                        <div class="col-lg-10">
-                            <select id="status" name="status" type="text" value="{{ $menu->status }}" required class="form-control">
-                                @foreach(App\Menu::STATUS_ARRAY as $value)
-                                <option value="{{ $value }}">{{ $value }}</option>
-                                @endforeach
-                            </select>
-                            @error('status')
-                            <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                            @enderror
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="control-label col-lg-2">Visibility</label>
-                        <div class="col-lg-10">
-                            <select id="visibility" name="visibility" type="text" value="{{ $menu->visibility }}" required class="form-control">
-                                @foreach(App\Menu::VISIBILITY_ARRAY as $value)
-                                <option value="{{ $value }}">{{ $value }}</option>
-                                @endforeach
-                            </select>
-                            @error('visibility')
                             <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -224,7 +131,6 @@
                 </form>
             </div>
         </div>
-        <!-- /horizotal form -->
     </div>
     <div class="col-md-6">
         <div class="text-right" style="padding-bottom: 5px">
@@ -261,11 +167,7 @@
 
 
 </div>
-<!-- /grid -->
 
-
-
-<!-- Danger modal -->
 <div id="modal_theme_danger" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -290,9 +192,6 @@
         </div>
     </div>
 </div>
-<!-- /default modal -->
-
-
 @endsection
 
 @section('script')

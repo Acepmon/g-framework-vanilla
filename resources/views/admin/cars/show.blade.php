@@ -89,182 +89,99 @@
                                 <label class="col-form-label col-lg-2">{{$content->status}}</label>
                             </div>
                         </div>
-                        <div class="form-group row">
-                            <label class="col-form-label col-lg-2">Visibility</label>
-                            <div class="col-lg-10">
-                                <label class="col-form-label col-lg-2">{{$content->visibility}}</label>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-form-label col-lg-2">Author id</label>
-                            <div class="col-lg-10">
-                                <label class="col-form-label col-lg-2">{{$content->author_id}}</label>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-form-label col-lg-2">Cateogry</label>
-                            <div class="col-lg-10">
-                                <label class="col-form-label col-lg-2">
-                                    @foreach($content->terms->where('taxonomy', 'category') as $rel)
-                                        {{ $rel->term->name }},
-                                    @endforeach&nbsp;
-                                </label>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-form-label col-lg-2">Tags</label>
-                            <div class="col-lg-10">
-                                <label class="col-form-label col-lg-2">
-                                    @foreach($content->terms->where('taxonomy', 'tag') as $rel)
-                                        {{ $rel->term->name }},
-                                    @endforeach&nbsp;
-                                </label>
-                            </div>
-                        </div>
+                    </div>
 
-                        <h5 class="card-title">Car Information</h5>
-                        <br>
-                        <div class="form-group row">
-                            <label class="col-form-label col-lg-2">Car Title</label>
-                            <div class="col-lg-4">
-                                <label class="col-form-label">{{$content->metaValue('carTitle')}}</label>
-                            </div>
-                            <label class="col-form-label col-lg-2">Manufacturer</label>
-                            <div class="col-lg-4">
-                                <label class="col-form-label">{{$content->metaValue('manufacturer')}}</label>
-                            </div>
-                        </div>
+                    <h5 class="card-title">Car Information</h5>
+                    <br>
 
-                        <div class="form-group row">
-                            <label class="col-form-label col-lg-2">Car Title</label>
-                            <div class="col-lg-4">
-                                <label class="col-form-label">{{$content->metaValue('carTitle')}}</label>
-                            </div>
-                            <label class="col-form-label col-lg-2">Manufacturer</label>
-                            <div class="col-lg-4">
-                                <label class="col-form-label">{{$content->metaValue('manufacturer')}}</label>
-                            </div>
-                        </div>
-                        
-                        <div class="form-group row">
-                            <label class="col-form-label col-lg-2">Car Condition</label>
-                            <div class="col-lg-4">
-                                <label class="col-form-label">{{$content->metaValue('carCondition')}}</label>
-                            </div>
-                            <label class="col-form-label col-lg-2">Model</label>
-                            <div class="col-lg-4">
-                                <label class="col-form-label">{{$content->metaValue('model')}}</label>
-                            </div>
-                        </div>
-                        
-                        <div class="form-group row">
-                            <label class="col-form-label col-lg-2">Color</label>
-                            <div class="col-lg-4">
-                                <label class="col-form-label">{{$content->metaValue('color')}}</label>
-                            </div>
-                            <label class="col-form-label col-lg-2">Displacement</label>
-                            <div class="col-lg-4">
-                                <label class="col-form-label">{{$content->metaValue('displacement')}}km</label>
-                            </div>
-                        </div>
-                        
-                        <div class="form-group row">
-                            <label class="col-form-label col-lg-2">VIN</label>
-                            <div class="col-lg-4">
-                                <label class="col-form-label">{{$content->metaValue('vin')}}</label>
-                            </div>
-                            <label class="col-form-label col-lg-2">Year of Product</label>
-                            <div class="col-lg-4">
-                                <label class="col-form-label">{{$content->metaValue('yearOfProduct')}}</label>
-                            </div>
-                        </div>
-                        
-                        <div class="form-group row">
-                            <label class="col-form-label col-lg-2">Year of Entry</label>
-                            <div class="col-lg-4">
-                                <label class="col-form-label">{{$content->metaValue('yearOfEntry')}}</label>
-                            </div>
-                            <label class="col-form-label col-lg-2">Last Check</label>
-                            <div class="col-lg-4">
-                                <label class="col-form-label">{{$content->metaValue('lastCheck')}}</label>
-                            </div>
-                        </div>
-                        
-                        <div class="form-group row">
-                            <label class="col-form-label col-lg-2">Transmission</label>
-                            <div class="col-lg-4">
-                                <label class="col-form-label">{{$content->metaValue('transmission')}}</label>
-                            </div>
-                            <label class="col-form-label col-lg-2">Steering Wheel</label>
-                            <div class="col-lg-4">
-                                <label class="col-form-label">{{$content->metaValue('steeringWheel')}}</label>
-                            </div>
-                        </div>
-                        
-                        <div class="form-group row">
-                            <label class="col-form-label col-lg-2">Seating</label>
-                            <div class="col-lg-4">
-                                <label class="col-form-label">{{$content->metaValue('seating')}}</label>
-                            </div>
-                            <label class="col-form-label col-lg-2">Type of Fuel</label>
-                            <div class="col-lg-4">
-                                <label class="col-form-label">{{$content->metaValue('typeOfFuel')}}</label>
-                            </div>
-                        </div>
-                        
-                        <div class="form-group row">
-                            <label class="col-form-label col-lg-2">Wheel Drive</label>
-                            <div class="col-lg-4">
-                                <label class="col-form-label">{{$content->metaValue('wheelDrive')}}</label>
-                            </div>
-                            <label class="col-form-label col-lg-2">Mileage</label>
-                            <div class="col-lg-4">
-                                <label class="col-form-label">{{$content->metaValue('mileage')}}</label>
-                            </div>
-                        </div>
-                        
-                        <div class="form-group row">
-                            <label class="col-form-label col-lg-2">Price</label>
-                            <div class="col-lg-4">
-                                <label class="col-form-label">{{$content->metaValue('price')}}</label>
-                            </div>
-                            <label class="col-form-label col-lg-2">Price Type</label>
-                            <div class="col-lg-4">
-                                <label class="col-form-label">{{$content->metaValue('priceType')}}</label>
-                            </div>
-                        </div>
-                        
-                        <div class="form-group row">
-                            <label class="col-form-label col-lg-2">Advantages</label>
-                            <div class="col-lg-4">
-                                @if($content->metas->where('key', 'advantages'))
-                                    @foreach($content->metas->where('key', 'advantages') as $advantage)
-                                        <label class="col-form-label">{{$advantage->value}}</label>
-                                    @endforeach
-                                @else
-                                    No advantages listed
-                                @endif
-                            </div>
-                            <label class="col-form-label col-lg-2">Seller Description</label>
-                            <div class="col-lg-4">
-                                <label class="col-form-label">{{$content->metaValue('sellerDescription')}}</label>
-                            </div>
-                        </div>
-
-                        <div class="text-right" style="padding-bottom: 5px">
-                            <a href="{{ route('admin.cars.index', ['type' => $content->type]) }}" class="btn btn-default">Back</a>
-                            <a href="{{ route('admin.cars.edit', ['id' => $content->id]) }}" class="btn btn-default">Edit</a>
+                    <div class="form-group row">
+                        <label class="col-form-label col-lg-2">Manufacturer</label>
+                        <div class="col-lg-4">
+                            <label class="col-form-label">{{$content->metaValue('manufacturer')}}&nbsp;</label>
                         </div>
                     </div>
-                </div>
-
-                <div class="card" id="comments">
-                    <div class="card-header">
-                        <h6 class="card-title font-weight-semibold">Medias</h6>
-                        <div class="header-elements">
-                            <ul class="list-inline list-inline-separate heading-text text-muted">
-                                <li>{{ count($content->comments) }} comments</li>
-                            </ul>
+                    
+                    <div class="form-group row">
+                        <label class="col-form-label col-lg-2">Car Condition</label>
+                        <div class="col-lg-4">
+                            <label class="col-form-label">{{$content->metaValue('carCondition')}}</label>
+                        </div>
+                        <label class="col-form-label col-lg-2">Model</label>
+                        <div class="col-lg-4">
+                            <label class="col-form-label">{{$content->metaValue('model')}}&nbsp;</label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group row">
+                        <label class="col-form-label col-lg-2">Color</label>
+                        <div class="col-lg-4">
+                            <label class="col-form-label">{{$content->metaValue('color')}}&nbsp;</label>
+                        </div>
+                        <label class="col-form-label col-lg-2">Displacement</label>
+                        <div class="col-lg-4">
+                            <label class="col-form-label">{{$content->metaValue('displacement')}}cc</label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group row">
+                        <label class="col-form-label col-lg-2">VIN</label>
+                        <div class="col-lg-4">
+                            <label class="col-form-label">{{$content->metaValue('vin')}}&nbsp;</label>
+                        </div>
+                        <label class="col-form-label col-lg-2">Year of Product</label>
+                        <div class="col-lg-4">
+                            <label class="col-form-label">{{$content->metaValue('buildYear')}}&nbsp;</label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group row">
+                        <label class="col-form-label col-lg-2">Year of Entry</label>
+                        <div class="col-lg-4">
+                            <label class="col-form-label">{{$content->metaValue('importDate')}}&nbsp;</label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group row">
+                        <label class="col-form-label col-lg-2">Transmission</label>
+                        <div class="col-lg-4">
+                            <label class="col-form-label">{{$content->metaValue('transmission')}}&nbsp;</label>
+                        </div>
+                        <label class="col-form-label col-lg-2">Steering Wheel</label>
+                        <div class="col-lg-4">
+                            <label class="col-form-label">{{$content->metaValue('steeringWheel')}}&nbsp;</label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group row">
+                        <label class="col-form-label col-lg-2">Seating</label>
+                        <div class="col-lg-4">
+                            <label class="col-form-label">{{$content->metaValue('manCount')}}&nbsp;</label>
+                        </div>
+                        <label class="col-form-label col-lg-2">Type of Fuel</label>
+                        <div class="col-lg-4">
+                            <label class="col-form-label">{{$content->metaValue('fuelType')}}&nbsp;</label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group row">
+                        <label class="col-form-label col-lg-2">Wheel Drive</label>
+                        <div class="col-lg-4">
+                            <label class="col-form-label">{{$content->metaValue('wheelPosition')}}&nbsp;</label>
+                        </div>
+                        <label class="col-form-label col-lg-2">Mileage</label>
+                        <div class="col-lg-4">
+                            <label class="col-form-label">{{$content->metaValue('mileage')}}&nbsp;</label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group row">
+                        <label class="col-form-label col-lg-2">Price</label>
+                        <div class="col-lg-4">
+                            <label class="col-form-label">{{$content->metaValue('price')}}&nbsp;</label>
+                        </div>
+                        <label class="col-form-label col-lg-2">Price Type</label>
+                        <div class="col-lg-4">
+                            <label class="col-form-label">{{$content->metaValue('priceType')}}&nbsp;</label>
                         </div>
                     </div>
 
@@ -274,19 +191,23 @@
                         <div class="col-lg-2 col-md-4 col-sm-6 px-0">
                             <img src="{{ $media }}" class="img-thumbnail img-fluid full-width">
                         </div>
-                        @endforeach()
+                        <label class="col-form-label col-lg-2">Seller Description</label>
+                        <div class="col-lg-4">
+                            <label class="col-form-label">{{$content->metaValue('sellerDescription')}}&nbsp;</label>
                         </div>
                     </div>
                 </div>
 
-                <div class="card" id="comments">
-                    <div class="card-header">
-                        <h6 class="card-title font-weight-semibold">Comments</h6>
-                        <div class="header-elements">
-                            <ul class="list-inline list-inline-separate heading-text text-muted">
-                                <li>{{ count($content->comments) }} comments</li>
-                            </ul>
-                        </div>
+                <div class="card-body">
+                    <div class="row">
+                    <div class="col-lg-2 col-md-4 col-sm-6 px-0">
+                        <img src="{{ App\Config::getStorage() . $content->metaValue('thumbnail') }}" class="img-thumbnail img-fluid full-width">
+                    </div>
+                    @foreach($content->medias() as $media)
+                    <div class="col-lg-2 col-md-4 col-sm-6 px-0">
+                        <img src="{{ $media }}" class="img-thumbnail img-fluid full-width">
+                    </div>
+                    @endforeach()
                     </div>
 
                     <div class="card-body">

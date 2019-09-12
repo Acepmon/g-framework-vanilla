@@ -6,7 +6,7 @@ use App\Content;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class CarHotController extends Controller
+class CarSpecialController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,7 +16,7 @@ class CarHotController extends Controller
     public function index()
     {
         $contents = Content::where('type', 'car')->get();
-        return view('admin.cars.hot.index', ['contents' => $contents]);
+        return view('admin.cars.specials.index', ['contents' => $contents]);
     }
 
     /**
@@ -26,7 +26,7 @@ class CarHotController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.cars.specials.create')
     }
 
     /**
@@ -48,7 +48,7 @@ class CarHotController extends Controller
      */
     public function show(Content $content)
     {
-        //
+        return view('admin.cars.specials.show')
     }
 
     /**
@@ -59,7 +59,7 @@ class CarHotController extends Controller
      */
     public function edit(Content $content)
     {
-        //
+        return view('admin.cars.specials.edit')
     }
 
     /**

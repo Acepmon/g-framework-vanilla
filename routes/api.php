@@ -19,14 +19,16 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::post('login', 'UserController@login');
 Route::post('register', 'UserController@register');
+
+// Public API
+Route::prefix('v1')->group(function () {
+    Route::namespace('API\v1')->group(function () {
+        Route::apiResources([
+            'banners' => 'BannerController'
+        ]);
+    });
+});
+
 Route::group(['middleware' => 'auth:api'], function () {
     Route::post('details', 'UserController@details');
-
-    Route::prefix('v1')->group(function () {
-        Route::namespace('API\v1')->group(function () {
-            Route::apiResources([
-                'banners' => 'BannerController'
-            ]);
-        });
-    });
 });

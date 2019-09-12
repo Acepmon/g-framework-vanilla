@@ -178,6 +178,13 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        App\Providers\GframeworkServiceProvider::class,
+        App\Providers\CarwebServiceProvider::class,
+
+        /*
+        * Image Intervention
+        */
+        Intervention\Image\ImageServiceProvider::class,
     ],
 
     /*
@@ -230,7 +237,8 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Zipper' => 'Chumper\Zipper\Zipper',
         'LogReader' => Jackiedo\LogReader\Facades\LogReader::class,
-
+        // Image Intervention
+        'Image' => Intervention\Image\Facades\Image::class,
     ],
 
     /*

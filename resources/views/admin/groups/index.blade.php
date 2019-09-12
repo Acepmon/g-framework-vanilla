@@ -79,7 +79,7 @@
             </div>
         </div>
         <div class="card">
-            <table class="table">
+            <table class="table table-condensed">
                 <tr>
                     <th colspan="4" class="active">System Groups ({{$systemGroups->count()}})</th>
                 </tr>
@@ -92,7 +92,11 @@
                 @foreach($systemGroups as $group)
                     <tr>
                         <td>{{$group->id}}</td>
-                        <td>{{$group->title}}</td>
+                        <td>
+                            <a href="{{ route('admin.groups.show', ['id' => $group->id]) }}">
+                                {{$group->title}}
+                            </a>
+                        </td>
                         <td>{{$group->description}}</td>
                         <td>
                             <span class="badge badge-{{ $group->typeClass() }}">{{$group->type}}</span>
@@ -100,7 +104,7 @@
                     </tr>
                 @endforeach
             </table>
-            <table class="table">
+            <table class="table table-condensed">
                 <tr>
                     <th colspan="6" class="active">Dynamic Groups ({{$dynamicGroups->count()}})</th>
                 </tr>
@@ -110,23 +114,25 @@
                     <th style="width: 150px">Title</th>
                     <th>Description</th>
                     <th style="width: 100px">Type</th>
-                    <th style="width: 100px">Show</th>
                 </tr>
                 @foreach($dynamicGroups as $group)
                     <tr>
                         <td>{{$group->id}}</td>
                         <td>{{$group->parent_id}}
                         </td>
-                        <td>{{$group->title}}</td>
+                        <td>
+                            <a href="{{ route('admin.groups.show', ['id' => $group->id]) }}">
+                                {{$group->title}}
+                            </a>
+                        </td>
                         <td>{{$group->description}}</td>
                         <td>
                             <span class="badge badge-{{ $group->typeClass() }}">{{$group->type}}</span>
                         </td>
-                        <td><a href='{{ route('admin.groups.show', ['id' => $group->id]) }}' type="btn btn-primary">Show</a> </td>
                     </tr>
                 @endforeach
             </table>
-            <table class="table">
+            <table class="table table-condensed">
                 <tr>
                     <th colspan="7" class="active">
                         Static Groups ({{$staticGroups->count()}})
@@ -137,22 +143,25 @@
                     <th style="width: 150px">Title</th>
                     <th>Description</th>
                     <th style="width: 100px">Type</th>
-                    <th style="width: 100px">Show</th>
-                    <th style="width: 100px">Edit</th>
-                    <th style="width: 100px">Delete</th>
+                    <th style="width: 150px">Actions</th>
                 </tr>
                 @foreach($staticGroups as $group)
                     <tr>
                         <td>{{$group->id}}</td>
-                        <td>{{$group->title}}</td>
+                        <td>
+                            <a href="{{ route('admin.groups.show', ['id' => $group->id]) }}">
+                                {{$group->title}}
+                            </a>
+                        </td>
                         <td>{{$group->description}}</td>
                         <td>
                             <span class="badge badge-{{ $group->typeClass() }}">{{$group->type}}</span>
                         </td>
-                        <td><a href='{{ route('admin.groups.show', ['id' => $group->id]) }}' type="btn btn-primary">Show</a> </td>
-                        <td><a href='{{ route('admin.groups.edit', ['id' => $group->id]) }}' type="btn btn-primary">Edit</a> </td>
                         <td>
-                            <button data-toggle="modal" data-target="#modal_theme_danger" class="btn btn-danger" onclick="choose_group({{ $group->id }})">Delete</button>
+                            <div class="btn-group">
+                                <a href='{{ route('admin.groups.edit', ['id' => $group->id]) }}' class="btn btn-default btn-sm">Edit</a>
+                                <button data-toggle="modal" data-target="#modal_theme_danger" class="btn btn-default btn-sm" onclick="choose_group({{ $group->id }})">Delete</button>
+                            </div>
                         </td>
                     </tr>
                 @endforeach

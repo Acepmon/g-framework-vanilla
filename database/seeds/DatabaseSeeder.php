@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
         $this->call(AdministratorMenusSeeder::class);
         $this->call(ThemesTableSeeder::class);
         $this->call(PagesSeeder::class);
+        $this->call(CarPagesSeeder::class);
         $this->call(PermissionsSeeder::class);
 
         $this->call(NotificationTemplatesSeeder::class);
@@ -27,5 +28,6 @@ class DatabaseSeeder extends Seeder
         $this->call(NotificationTriggersSeeder::class);
 
         $this->call(BannersTableSeeder::class);
+        $this->call(FileConfigsSeeder::class);
     }
 }

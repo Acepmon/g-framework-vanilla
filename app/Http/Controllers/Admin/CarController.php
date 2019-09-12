@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Artisan;
 use Auth;
+use DateTime;
 use Storage;
 use App\Content;
 use App\ContentMeta;
@@ -17,6 +18,7 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Validation\Rule;
+use Intervention\Image\ImageManagerStatic as Image;
 
 class CarController extends Controller
 {
@@ -58,20 +60,19 @@ class CarController extends Controller
             'status' => 'required|max:50',
             'visibility' => 'required|max:50',
             'author_id' => 'required|integer|exists:users,id',
-            'carTitle' => 'required|max:255',
             'manufacturer' => 'required|max:255',
             'carCondition' => 'required|max:255',
-            'model' => 'required|max:255',
-            'color' => 'required|max:255',
+            'plateNumber' => 'max:10',
+            'modelName' => 'required|max:255',
+            'colorName' => 'required|max:255',
             'displacement' => 'required|max:255',
             'vin' => 'required|max:255',
-            'yearOfProduct' => 'required|max:255',
-            'yearOfEntry' => 'required|max:255',
-            'lastCheck' => 'required|max:255',
+            'buildYear' => 'required|max:255',
+            'importDate' => 'required|max:255',
             'transmission' => 'required|max:255',
-            'steeringWheel' => 'required|max:255',
-            'seating' => 'required|max:255',
-            'typeOfFuel' => 'required|max:255',
+            'wheelPosition' => 'required|max:255',
+            'manCount' => 'required|max:255',
+            'fuel' => 'required|max:255',
             'wheelDrive' => 'required|max:255',
             'mileage' => 'required|max:255',
             'price' => 'required|int',
@@ -91,53 +92,84 @@ class CarController extends Controller
             $content->author_id = $request->author_id;
             $content->save();
 
-            $content->attachMeta('carTitle', $request->carTitle);
             $content->attachMeta('manufacturer', $request->manufacturer);
             $content->attachMeta('carCondition', $request->carCondition);
-            $content->attachMeta('model', $request->model);
-            $content->attachMeta('color', $request->color);
+            $content->attachMeta('plateNumber', $request->plateNumber);
+            $content->attachMeta('modelName', $request->modelName);
+            $content->attachMeta('colorName', $request->colorName);
             $content->attachMeta('displacement', $request->displacement);
             $content->attachMeta('vin', $request->vin);
-            $content->attachMeta('yearOfProduct', $request->yearOfProduct);
-            $content->attachMeta('yearOfEntry', $request->yearOfEntry);
-            $content->attachMeta('lastCheck', $request->lastCheck);
+            $content->attachMeta('buildYear', $request->buildYear);
+            $content->attachMeta('importDate', $request->importDate);
             $content->attachMeta('transmission', $request->transmission);
-            $content->attachMeta('steeringWheel', $request->steeringWheel);
-            $content->attachMeta('seating', $request->seating);
-            $content->attachMeta('typeOfFuel', $request->typeOfFuel);
+            $content->attachMeta('wheelPosition', $request->wheelPosition);
+            $content->attachMeta('manCount', $request->manCount);
+            $content->attachMeta('fuel', $request->fuel);
             $content->attachMeta('wheelDrive', $request->wheelDrive);
             $content->attachMeta('mileage', $request->mileage);
-            foreach ($request->advantages as $advantage) {
-                $content->attachMeta('advantages', $advantage);
+            if ($request->advantages) {
+                foreach (explode(", ", $request->advantages) as $advantage) {
+                    $content->attachMeta('advantages', $advantage);
+                }
             }
             $content->attachMeta('sellerDescription', $request->sellerDescription);
             $content->attachMeta('price', $request->price);
             $content->attachMeta('priceType', $request->priceType);
-            $media_list = $this->uploadFiles($request->medias);
-            foreach ($media_list as $media) {
-                $content->attachMeta('medias', $media);
+            $thumbnail = $request->thumbnail;
+            if ($thumbnail) {
+                $filename = $thumbnail->store('public/medias', 'ftp');
+                $filename = $this->cropAndStore($filename, json_decode($request->thumbnailCrop));
+                $content->attachMeta('thumbnail', $filename);
+            }
+            $media_list = $this->uploadFiles($request->medias, $request->imagesCrop);
+            if ($media_list) {
+                foreach ($media_list as $media) {
+                    $content->attachMeta('medias', $media);
+                }
             }
             $content->attachMeta('youtubeLink', $request->youtubeLink);
+            $content->attachMeta('buyout', $request->buyout);
+            $content->attachMeta('startPrice', $request->startPrice);
+            $content->attachMeta('maxBid', $request->maxBid);
+            $startsAt = $request->startsAt;
+            $endsAt = $request->endsAt;
+            $content->attachMeta('startsAt', $startsAt);
+            $content->attachMeta('endsAt', $endsAt);
+            if ($startsAt && $endsAt) {
+                $days = date_diff(new DateTime($startsAt), new DateTime($endsAt))->d;
+                $content->attachMeta('durationDays', ($days!=0)?$days:"0");
+            }
 
             DB::commit();
             return redirect()->route('admin.cars.index', ['type' => $content->type]);
         } catch (\Exception $e) {
             DB::rollBack();
-            return redirect()->route('admin.cars.create')->with('error', $e->getMessage());
+            throw $e;
+            // return redirect()->route('admin.cars.create')->with('error', $e->getMessage());
         }
     }
 
-    public function uploadFiles($files) {
+    public function uploadFiles($files, $crops) {
         $medias = [];
+        $crops = json_decode($crops);
         if ($files) {
-            foreach ($files as $file) {
+            foreach ($files as $index=>$file) {
                 if ($file) {
                     $filename = $file->store('public/medias', 'ftp');
+                    $filename = $this->cropAndStore($filename, $crops[$index]);
                     array_push($medias, $filename);
                 }
             }
         }
         return $medias;
+    }
+
+    public function cropAndStore($filename, $cropData) {
+        $crop = Image::make(Storage::disk('ftp')->get($filename))->crop((int) $cropData->width, (int) $cropData->height, (int) $cropData->x, (int) $cropData->y)->encode('jpg', 50);
+        $cropThumb = $crop->resize(160, 90);
+        Storage::disk('ftp')->put('public/medias/'.pathinfo($filename, PATHINFO_FILENAME).'_crop.jpg', $crop);
+        Storage::disk('ftp')->put('public/medias/'.pathinfo($filename, PATHINFO_FILENAME).'_thumbnail.jpg', $cropThumb);
+        return 'public/medias/'.pathinfo($filename, PATHINFO_FILENAME).'_crop.jpg';
     }
 
     /**
@@ -190,21 +222,21 @@ class CarController extends Controller
             'carTitle' => 'required|max:255',
             'manufacturer' => 'required|max:255',
             'carCondition' => 'required|max:255',
-            'model' => 'required|max:255',
-            'color' => 'required|max:255',
+            'modelName' => 'required|max:255',
+            'colorName' => 'required|max:255',
             'displacement' => 'required|max:255',
             'vin' => 'required|max:255',
-            'yearOfProduct' => 'required|max:255',
-            'yearOfEntry' => 'required|max:255',
-            'lastCheck' => 'required|max:255',
+            'buildYear' => 'required|max:255',
+            'importDate' => 'required|max:255',
             'transmission' => 'required|max:255',
-            'steeringWheel' => 'required|max:255',
-            'seating' => 'required|max:255',
-            'typeOfFuel' => 'required|max:255',
+            'wheelPosition' => 'required|max:255',
+            'manCount' => 'required|max:255',
+            'fuel' => 'required|max:255',
             'wheelDrive' => 'required|max:255',
             'mileage' => 'required|max:255',
             'price' => 'required|int',
             'priceType' => 'required|max:255',
+            'thumbnail' => 'required',
             'sellerDescription' => 'required|max:255'
         ]);
 
@@ -221,17 +253,16 @@ class CarController extends Controller
             $content->updateMeta('carTitle', $request->carTitle);
             $content->updateMeta('manufacturer', $request->manufacturer);
             $content->updateMeta('carCondition', $request->carCondition);
-            $content->updateMeta('model', $request->model);
-            $content->updateMeta('color', $request->color);
+            $content->updateMeta('modelName', $request->modelName);
+            $content->updateMeta('colorName', $request->colorName);
             $content->updateMeta('displacement', $request->displacement);
             $content->updateMeta('vin', $request->vin);
-            $content->updateMeta('yearOfProduct', $request->yearOfProduct);
-            $content->updateMeta('yearOfEntry', $request->yearOfEntry);
-            $content->updateMeta('lastCheck', $request->lastCheck);
+            $content->updateMeta('buildYear', $request->buildYear);
+            $content->updateMeta('importDate', $request->importDate);
             $content->updateMeta('transmission', $request->transmission);
-            $content->updateMeta('steeringWheel', $request->steeringWheel);
-            $content->updateMeta('seating', $request->seating);
-            $content->updateMeta('typeOfFuel', $request->typeOfFuel);
+            $content->updateMeta('wheelPosition', $request->wheelPosition);
+            $content->updateMeta('manCount', $request->manCount);
+            $content->updateMeta('fuel', $request->fuel);
             $content->updateMeta('wheelDrive', $request->wheelDrive);
             $content->updateMeta('mileage', $request->mileage);
             if ($request->advantages) {
