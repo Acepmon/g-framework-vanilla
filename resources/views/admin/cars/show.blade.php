@@ -18,7 +18,7 @@
         <div class="breadcrumb">
             <a class="breadcrumb-item" href="index.html"><i class="icon-home2 ml-2`"></i> Home</a>
             <a class="breadcrumb-item" href="{{ route('admin.cars.index') }}">{{ ucfirst($content->type) }}s</a>
-            <span class="active">Detail</span>
+            <span class="breadcrumb-item active">Detail</span>
         </div>
     </div>
 
@@ -45,6 +45,7 @@
 @section('content')
 
 <!-- Grid -->
+
 
 <div class="d-md-flex align-items-md-start">
 
@@ -91,102 +92,108 @@
                         </div>
                     </div>
 
-                    <h5 class="card-title">Car Information</h5>
+                    <div class="card-header">
+                        <h5 class="card-title">Car Information</h5>
+                    </div>
                     <br>
 
-                    <div class="form-group row">
-                        <label class="col-form-label col-lg-2">Manufacturer</label>
-                        <div class="col-lg-4">
-                            <label class="col-form-label">{{$content->metaValue('manufacturer')}}&nbsp;</label>
-                        </div>
-                    </div>
-                    
-                    <div class="form-group row">
-                        <label class="col-form-label col-lg-2">Car Condition</label>
-                        <div class="col-lg-4">
-                            <label class="col-form-label">{{$content->metaValue('carCondition')}}</label>
-                        </div>
-                        <label class="col-form-label col-lg-2">Model</label>
-                        <div class="col-lg-4">
-                            <label class="col-form-label">{{$content->metaValue('model')}}&nbsp;</label>
-                        </div>
-                    </div>
-                    
-                    <div class="form-group row">
-                        <label class="col-form-label col-lg-2">Color</label>
-                        <div class="col-lg-4">
-                            <label class="col-form-label">{{$content->metaValue('color')}}&nbsp;</label>
-                        </div>
-                        <label class="col-form-label col-lg-2">Displacement</label>
-                        <div class="col-lg-4">
-                            <label class="col-form-label">{{$content->metaValue('displacement')}}cc</label>
-                        </div>
-                    </div>
-                    
-                    <div class="form-group row">
-                        <label class="col-form-label col-lg-2">VIN</label>
-                        <div class="col-lg-4">
-                            <label class="col-form-label">{{$content->metaValue('vin')}}&nbsp;</label>
-                        </div>
-                        <label class="col-form-label col-lg-2">Year of Product</label>
-                        <div class="col-lg-4">
-                            <label class="col-form-label">{{$content->metaValue('buildYear')}}&nbsp;</label>
-                        </div>
-                    </div>
-                    
-                    <div class="form-group row">
-                        <label class="col-form-label col-lg-2">Year of Entry</label>
-                        <div class="col-lg-4">
-                            <label class="col-form-label">{{$content->metaValue('importDate')}}&nbsp;</label>
-                        </div>
-                    </div>
-                    
-                    <div class="form-group row">
-                        <label class="col-form-label col-lg-2">Transmission</label>
-                        <div class="col-lg-4">
-                            <label class="col-form-label">{{$content->metaValue('transmission')}}&nbsp;</label>
-                        </div>
-                        <label class="col-form-label col-lg-2">Steering Wheel</label>
-                        <div class="col-lg-4">
-                            <label class="col-form-label">{{$content->metaValue('steeringWheel')}}&nbsp;</label>
-                        </div>
-                    </div>
-                    
-                    <div class="form-group row">
-                        <label class="col-form-label col-lg-2">Seating</label>
-                        <div class="col-lg-4">
-                            <label class="col-form-label">{{$content->metaValue('manCount')}}&nbsp;</label>
-                        </div>
-                        <label class="col-form-label col-lg-2">Type of Fuel</label>
-                        <div class="col-lg-4">
-                            <label class="col-form-label">{{$content->metaValue('fuelType')}}&nbsp;</label>
-                        </div>
-                    </div>
-                    
-                    <div class="form-group row">
-                        <label class="col-form-label col-lg-2">Wheel Drive</label>
-                        <div class="col-lg-4">
-                            <label class="col-form-label">{{$content->metaValue('wheelPosition')}}&nbsp;</label>
-                        </div>
-                        <label class="col-form-label col-lg-2">Mileage</label>
-                        <div class="col-lg-4">
-                            <label class="col-form-label">{{$content->metaValue('mileage')}}&nbsp;</label>
-                        </div>
-                    </div>
-                    
-                    <div class="form-group row">
-                        <label class="col-form-label col-lg-2">Price</label>
-                        <div class="col-lg-4">
-                            <label class="col-form-label">{{$content->metaValue('price')}}&nbsp;</label>
-                        </div>
-                        <label class="col-form-label col-lg-2">Price Type</label>
-                        <div class="col-lg-4">
-                            <label class="col-form-label">{{$content->metaValue('priceType')}}&nbsp;</label>
-                        </div>
-                    </div>
-
                     <div class="card-body">
-                        <div class="row">
+                        <div class="form-group row">
+                            <label class="col-form-label col-lg-2">Manufacturer</label>
+                            <div class="col-lg-4">
+                                <label class="col-form-label">{{$content->metaValue('manufacturer')}}&nbsp;</label>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group row">
+                            <label class="col-form-label col-lg-2">Car Condition</label>
+                            <div class="col-lg-4">
+                                <label class="col-form-label">{{$content->metaValue('carCondition')}}</label>
+                            </div>
+                            <label class="col-form-label col-lg-2">Model</label>
+                            <div class="col-lg-4">
+                                <label class="col-form-label">{{$content->metaValue('model')}}&nbsp;</label>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group row">
+                            <label class="col-form-label col-lg-2">Color</label>
+                            <div class="col-lg-4">
+                                <label class="col-form-label">{{$content->metaValue('color')}}&nbsp;</label>
+                            </div>
+                            <label class="col-form-label col-lg-2">Displacement</label>
+                            <div class="col-lg-4">
+                                <label class="col-form-label">{{$content->metaValue('displacement')}}cc</label>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group row">
+                            <label class="col-form-label col-lg-2">VIN</label>
+                            <div class="col-lg-4">
+                                <label class="col-form-label">{{$content->metaValue('vin')}}&nbsp;</label>
+                            </div>
+                            <label class="col-form-label col-lg-2">Year of Product</label>
+                            <div class="col-lg-4">
+                                <label class="col-form-label">{{$content->metaValue('buildYear')}}&nbsp;</label>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group row">
+                            <label class="col-form-label col-lg-2">Year of Entry</label>
+                            <div class="col-lg-4">
+                                <label class="col-form-label">{{$content->metaValue('importDate')}}&nbsp;</label>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group row">
+                            <label class="col-form-label col-lg-2">Transmission</label>
+                            <div class="col-lg-4">
+                                <label class="col-form-label">{{$content->metaValue('transmission')}}&nbsp;</label>
+                            </div>
+                            <label class="col-form-label col-lg-2">Steering Wheel</label>
+                            <div class="col-lg-4">
+                                <label class="col-form-label">{{$content->metaValue('steeringWheel')}}&nbsp;</label>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group row">
+                            <label class="col-form-label col-lg-2">Seating</label>
+                            <div class="col-lg-4">
+                                <label class="col-form-label">{{$content->metaValue('manCount')}}&nbsp;</label>
+                            </div>
+                            <label class="col-form-label col-lg-2">Type of Fuel</label>
+                            <div class="col-lg-4">
+                                <label class="col-form-label">{{$content->metaValue('fuelType')}}&nbsp;</label>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group row">
+                            <label class="col-form-label col-lg-2">Wheel Drive</label>
+                            <div class="col-lg-4">
+                                <label class="col-form-label">{{$content->metaValue('wheelPosition')}}&nbsp;</label>
+                            </div>
+                            <label class="col-form-label col-lg-2">Mileage</label>
+                            <div class="col-lg-4">
+                                <label class="col-form-label">{{$content->metaValue('mileage')}}&nbsp;</label>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group row">
+                            <label class="col-form-label col-lg-2">Price</label>
+                            <div class="col-lg-4">
+                                <label class="col-form-label">{{$content->metaValue('price')}}&nbsp;</label>
+                            </div>
+                            <label class="col-form-label col-lg-2">Price Type</label>
+                            <div class="col-lg-4">
+                                <label class="col-form-label">{{$content->metaValue('priceType')}}&nbsp;</label>
+                            </div>
+                        </div>
+                    </div>
+                
+                </div>
+
+                <div class="card">
+                    <div class="card-body">
                         @foreach($content->medias() as $media)
                         <div class="col-lg-2 col-md-4 col-sm-6 px-0">
                             <img src="{{ $media }}" class="img-thumbnail img-fluid full-width">
@@ -195,77 +202,85 @@
                         <div class="col-lg-4">
                             <label class="col-form-label">{{$content->metaValue('sellerDescription')}}&nbsp;</label>
                         </div>
+                        @endforeach
                     </div>
                 </div>
 
-                <div class="card-body">
-                    <div class="row">
-                    <div class="col-lg-2 col-md-4 col-sm-6 px-0">
-                        <img src="{{ App\Config::getStorage() . $content->metaValue('thumbnail') }}" class="img-thumbnail img-fluid full-width">
-                    </div>
-                    @foreach($content->medias() as $media)
-                    <div class="col-lg-2 col-md-4 col-sm-6 px-0">
-                        <img src="{{ $media }}" class="img-thumbnail img-fluid full-width">
-                    </div>
-                    @endforeach()
-                    </div>
-
+                <div class="card">
                     <div class="card-body">
-                        <ul class="media-list stack-media-on-mobile">
-                            @foreach($content->comments->where('parent_id', NULL) as $comment)
-                            <li class="media">
-                                @include('admin.comments.includes.comment', ['comment' => $comment])
-                            </li>
-                            @endforeach()
-                        </ul>
+                        <div class="row">
+                        <div class="col-lg-2 col-md-4 col-sm-6 px-0">
+                            <img src="{{ App\Config::getStorage() . $content->metaValue('thumbnail') }}" class="img-thumbnail img-fluid full-width">
+                        </div>
+                        @foreach($content->medias() as $media)
+                        <div class="col-lg-2 col-md-4 col-sm-6 px-0">
+                            <img src="{{ $media }}" class="img-thumbnail img-fluid full-width">
+                        </div>
+                        @endforeach()
+                        </div>
+
+                        <div class="card-body">
+                            <ul class="media-list stack-media-on-mobile">
+                                @foreach($content->comments->where('parent_id', NULL) as $comment)
+                                <li class="media">
+                                    @include('admin.comments.includes.comment', ['comment' => $comment])
+                                </li>
+                                @endforeach()
+                            </ul>
+                        </div>
                     </div>
                 </div>
+
             </div>
         </div>
+    </div>
 
+    <div class="sidebar sidebar-light sidebar-component sidebar-component-left sidebar-expand-md">
+        <div class="sidebar-content">
 
-        <div class="sidebar sidebar-light sidebar-component sidebar-component-left sidebar-expand-md">
-            <div class="sidebar-content">
-
-                    <!-- Support -->
-                <div class="sidebar-category no-margin">
-                    <div class="category-title">
-                        <span>Sidebar</span>
-                        <i class="icon-menu7 pull-right"></i>
-                    </div>
-
-                    <div class="category-content">
-                        <a href="#" class="btn bg-danger-400 btn-block" target="_blank"><i class="icon-lifebuoy position-left"></i> Item support</a>
+            <div class="card-header bg-transparent header-elements-inline">
+                <span class="text-uppercase font-size-sm font-weight-semibold">Sidebar</span>
+                <div class="header-elements">
+                    <div class="list-icons">
+                        <a class="list-icons-item">
+                            <i class="icon-menu7 pull-right"></i>
+                        </a>
                     </div>
                 </div>
-                <!-- /support -->
-
-
-                <!-- Navigation -->
-                <div class="card card-sidebar-mobile">
-                    <ul class="nav nav-sidebar" data-nav-type="accordion">
-                        <li class="navigation-divider no-margin-top"></li>
-                        <li class="nav-item-header"><i class="icon-history pull-right"></i> Detail</li>
-                        <li class="nav-item"><a class="nav-link" href="#detail">Detail</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#comments">Comments <span class="text-muted text-regular pull-right">{{ count($content->comments) }} comments</span></a></li>
-
-                        <!-- Navigation History -->
-                        <li class="nav-item-header"><i class="icon-history pull-right"></i> Revision history</li>
-                        @foreach($content->metas->whereIn('key', ['initial', 'revision', 'revert'])->sortByDesc('id') as $key=>$revision)
-                        <li class="nav-item"><a class="nav-link" href="#v_{{ $revision->id }}">{{ $key+1 }}. {{ ucfirst($revision->key) }}
-                            <span class="text-muted text-regular pull-right">{{ date('Y-m-d', json_decode($revision->value)->datetime) }}</span>
-                        </a></li>
-                        @endforeach
-
-                        <li class="navigation-divider"></li>
-                        <li class="nav-item-header"><i class="icon-gear pull-right"></i> Extras</li>
-                        <li class="nav-item"><a class="nav-link" href="http://themeforest.net/user/kopyov" target="_blank"><i class="icon-bubbles4 text-slate-400"></i> Contact me</a></li>
-                        <li class="nav-item"><a class="nav-link" href="http://kopyov.ticksy.com" target="_blank"><i class="icon-lifebuoy text-slate-400"></i> Support</a></li>
-                        <li class="nav-item"><a class="nav-link" href="http://themeforest.net/user/kopyov/portfolio?ref=Kopyov" target="_blank"><i class="icon-rocket text-slate-400"></i> Other templates</a></li>
-                    </ul>
-                </div>
-                    <!-- /navigation -->
             </div>
+                            
+            <div class="card-body">
+                <a href="#" class="btn bg-danger-400 btn-block" target="_blank"><i class="icon-lifebuoy position-left"></i> Item support</a>
+            </div>
+            <!-- /support -->
+
+
+            <!-- Navigation -->
+            
+            <div class="card card-sidebar-mobile">
+                <ul class="nav nav-sidebar" data-nav-type="accordion">
+                    <li class="nav-divider no-margin-top"></li>
+                    <li class="nav-item-header"><i class="icon-history pull-right"></i> Detail</li>
+                    <li class="nav-item"><a class="nav-link" href="#detail">Detail</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#comments">Comments <span class="text-muted text-regular text-right">{{ count($content->comments) }} comments</span></a></li>
+
+                    <!-- Navigation History -->
+                    <li class="nav-item-header"><i class="icon-history pull-right"></i> Revision history</li>
+                    @foreach($content->metas->whereIn('key', ['initial', 'revision', 'revert'])->sortByDesc('id') as $key=>$revision)
+                    <li class="nav-item"><a class="nav-link" href="#v_{{ $revision->id }}">{{ $key+1 }}. {{ ucfirst($revision->key) }}
+                        <span class="text-muted text-regular pull-right">{{ date('Y-m-d', json_decode($revision->value)->datetime) }}</span>
+                    </a></li>
+                    @endforeach
+
+                    <li class="nav-divider"></li>
+                    <li class="nav-item-header"><i class="icon-gear pull-right"></i> Extras</li>
+                    <li class="nav-item"><a class="nav-link" href="http://themeforest.net/user/kopyov" target="_blank"><i class="icon-bubbles4 text-slate-400"></i> Contact me</a></li>
+                    <li class="nav-item"><a class="nav-link" href="http://kopyov.ticksy.com" target="_blank"><i class="icon-lifebuoy text-slate-400"></i> Support</a></li>
+                    <li class="nav-item"><a class="nav-link" href="http://themeforest.net/user/kopyov/portfolio?ref=Kopyov" target="_blank"><i class="icon-rocket text-slate-400"></i> Other templates</a></li>
+                </ul>
+            </div>
+            <!-- /navigation -->
+
         </div>
     </div>
 </div>

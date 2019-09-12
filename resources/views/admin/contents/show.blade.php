@@ -172,57 +172,57 @@
             @endforeach
         </div>
     </div>
-</div>
+    </div>
 
-<div class="sidebar sidebar-light sidebar-component sidebar-component-left sidebar-expand-md">
-    <div class="sidebar-content">
+    <div class="sidebar sidebar-light sidebar-component sidebar-component-left sidebar-expand-md">
+        <div class="sidebar-content">
 
-                <div class="card-header bg-transparent header-elements-inline">
-                    <span class="text-uppercase font-size-sm font-weight-semibold">Sidebar</span>
-                    <div class="header-elements">
-                        <div class="list-icons">
-                            <a class="list-icons-item">
-                                <i class="icon-menu7 pull-right"></i>
-                            </a>
+                    <div class="card-header bg-transparent header-elements-inline">
+                        <span class="text-uppercase font-size-sm font-weight-semibold">Sidebar</span>
+                        <div class="header-elements">
+                            <div class="list-icons">
+                                <a class="list-icons-item">
+                                    <i class="icon-menu7 pull-right"></i>
+                                </a>
+                            </div>
                         </div>
                     </div>
-                </div>
-                                
-                <div class="card-body">
-                    <a href="#" class="btn bg-danger-400 btn-block" target="_blank"><i class="icon-lifebuoy position-left"></i> Item support</a>
-                </div>
-                <!-- /support -->
-
-
-                <!-- Navigation -->
-                
-                <div class="card card-sidebar-mobile">
-                        <ul class="nav nav-sidebar" data-nav-type="accordion">
-                            <li class="nav-divider no-margin-top"></li>
-                            <li class="nav-item-header"><i class="icon-history pull-right"></i> Detail</li>
-                            <li class="nav-item"><a class="nav-link" href="#detail">Detail</a></li>
-                            <li class="nav-item"><a class="nav-link" href="#comments">Comments <span class="text-muted text-regular text-right">{{ count($content->comments) }} comments</span></a></li>
-
-                            <!-- Navigation History -->
-                            <li class="nav-item-header"><i class="icon-history pull-right"></i> Revision history</li>
-                            @foreach($content->metas->whereIn('key', ['initial', 'revision', 'revert'])->sortByDesc('id') as $key=>$revision)
-                            <li class="nav-item"><a class="nav-link" href="#v_{{ $revision->id }}">{{ $key+1 }}. {{ ucfirst($revision->key) }}
-                                <span class="text-muted text-regular pull-right">{{ date('Y-m-d', json_decode($revision->value)->datetime) }}</span>
-                            </a></li>
-                            @endforeach
-
-                            <li class="nav-divider"></li>
-                            <li class="nav-item-header"><i class="icon-gear pull-right"></i> Extras</li>
-                            <li class="nav-item"><a class="nav-link" href="http://themeforest.net/user/kopyov" target="_blank"><i class="icon-bubbles4 text-slate-400"></i> Contact me</a></li>
-                            <li class="nav-item"><a class="nav-link" href="http://kopyov.ticksy.com" target="_blank"><i class="icon-lifebuoy text-slate-400"></i> Support</a></li>
-                            <li class="nav-item"><a class="nav-link" href="http://themeforest.net/user/kopyov/portfolio?ref=Kopyov" target="_blank"><i class="icon-rocket text-slate-400"></i> Other templates</a></li>
-                        </ul>
+                                    
+                    <div class="card-body">
+                        <a href="#" class="btn bg-danger-400 btn-block" target="_blank"><i class="icon-lifebuoy position-left"></i> Item support</a>
                     </div>
-                <!-- /navigation -->
+                    <!-- /support -->
 
+
+                    <!-- Navigation -->
+                    
+                    <div class="card card-sidebar-mobile">
+                            <ul class="nav nav-sidebar" data-nav-type="accordion">
+                                <li class="nav-divider no-margin-top"></li>
+                                <li class="nav-item-header"><i class="icon-history pull-right"></i> Detail</li>
+                                <li class="nav-item"><a class="nav-link" href="#detail">Detail</a></li>
+                                <li class="nav-item"><a class="nav-link" href="#comments">Comments <span class="text-muted text-regular text-right">{{ count($content->comments) }} comments</span></a></li>
+
+                                <!-- Navigation History -->
+                                <li class="nav-item-header"><i class="icon-history pull-right"></i> Revision history</li>
+                                @foreach($content->metas->whereIn('key', ['initial', 'revision', 'revert'])->sortByDesc('id') as $key=>$revision)
+                                <li class="nav-item"><a class="nav-link" href="#v_{{ $revision->id }}">{{ $key+1 }}. {{ ucfirst($revision->key) }}
+                                    <span class="text-muted text-regular pull-right">{{ date('Y-m-d', json_decode($revision->value)->datetime) }}</span>
+                                </a></li>
+                                @endforeach
+
+                                <li class="nav-divider"></li>
+                                <li class="nav-item-header"><i class="icon-gear pull-right"></i> Extras</li>
+                                <li class="nav-item"><a class="nav-link" href="http://themeforest.net/user/kopyov" target="_blank"><i class="icon-bubbles4 text-slate-400"></i> Contact me</a></li>
+                                <li class="nav-item"><a class="nav-link" href="http://kopyov.ticksy.com" target="_blank"><i class="icon-lifebuoy text-slate-400"></i> Support</a></li>
+                                <li class="nav-item"><a class="nav-link" href="http://themeforest.net/user/kopyov/portfolio?ref=Kopyov" target="_blank"><i class="icon-rocket text-slate-400"></i> Other templates</a></li>
+                            </ul>
+                        </div>
+                    <!-- /navigation -->
+
+                </div>
             </div>
-        </div>
-</div>
+    </div>
 <!-- /grid -->
 
 
