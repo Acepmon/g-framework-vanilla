@@ -18,6 +18,11 @@ class Menu extends Model
         return $this->hasOne('App\Menu', 'id', 'parent_id');
     }
 
+    public function children()
+    {
+        return $this->hasMany('App\Menu', 'parent_id', 'id');
+    }
+
     public function groups()
     {
         return $this->belongsToMany('App\Group', 'group_menu');
