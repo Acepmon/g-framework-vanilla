@@ -15,8 +15,8 @@ class Config extends Model
     const MODULE_ARRAY = [
         self::MODULE_SYSTEM,
         self::MODULE_THEMES,
-        self::MODULE_PLUGINS,
-        self::MODULE_SECURITY,
+        // self::MODULE_PLUGINS,
+        // self::MODULE_SECURITY,
         self::MODULE_CONTENT,
     ];
 
