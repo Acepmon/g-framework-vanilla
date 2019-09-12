@@ -14,7 +14,8 @@ class Content extends Model
 
     const TYPE_ARRAY = [
         self::TYPE_PAGE,
-        self::TYPE_POST
+        self::TYPE_POST,
+        self::TYPE_CAR
     ];
 
     const STATUS_DRAFT = 'draft';

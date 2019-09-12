@@ -29,5 +29,6 @@ class DatabaseSeeder extends Seeder
 
         $this->call(BannersTableSeeder::class);
         $this->call(FileConfigsSeeder::class);
+        $this->call(CarContentsSeeder::class);
     }
 }
