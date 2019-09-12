@@ -24,14 +24,14 @@ class CarwebServiceProvider extends ServiceProvider
     public function boot()
     {
         view()->composer('themes.car-web.includes.header', function ($view) {
-            $mainMenus = \App\Menu::where('parent_id', 43)->get();
-            $topbarMenus = \App\Menu::where('parent_id', 49)->get();
+            $mainMenus = \App\Menu::where('title', 'Car Main')->first()->children;
+            $topbarMenus = \App\Menu::where('title', 'Car Topbar')->first()->children;
             return $view->with('mainMenus', $mainMenus)->with('topbarMenus', $topbarMenus);
         });
 
         view()->composer('themes.car-web.includes.footer', function ($view) {
-            $mainMenus = \App\Menu::where('parent_id', 43)->get();
-            $footerMenus = \App\Menu::where('parent_id', 53)->get();
+            $mainMenus = \App\Menu::where('title', 'Car Main')->first()->children;
+            $footerMenus = \App\Menu::where('title', 'Car Footer')->first()->children;
             return $view->with('footerMenus', $footerMenus)->with('mainMenus', $mainMenus);
         });
     }
