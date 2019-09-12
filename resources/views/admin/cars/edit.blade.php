@@ -93,18 +93,13 @@
                 <div class="form-group row">
                     <label class="col-form-label col-lg-2">Title <span class="text-danger">*</span></label>
                     <div class="col-lg-8">
-                        <input id="title" type="text" class="form-control" name="title" placeholder="Enter content title..." value="{{$content->title}}" required="required" aria-required="true" invalid="true">
+                        <input id="title" type="text" class="form-control" name="title" placeholder="Enter content title..." value="{{$content->title}}" required="required" aria-required="true" invalid="true" onfocusout="create_slug()">
                     </div>
                     <div class="col-lg-2">
                         <button type="button" class="btn btn-light" onclick="create_slug()">Create Slug</button>
                     </div>
                 </div>
-                <div class="form-group row">
-                    <label class="col-form-label col-lg-2">Slug <span class="text-danger">*</span></label>
-                    <div class="col-lg-10">
-                        <input id="slug" type="text" class="form-control" name="slug" placeholder="Enter content slug..." value="{{$content->slug}}" required="required" aria-required="true" invalid="true">
-                    </div>
-                </div>
+                <input id="slug" type="hidden" class="form-control" name="slug" placeholder="Enter content slug..." value="{{$content->slug}}" required="required" aria-required="true" invalid="true">
 
                 <input type="hidden" name="type" value="car"/>
 
@@ -170,6 +165,7 @@
                             @foreach(App\TermTaxonomy::where('taxonomy', 'model')->get() as $value)
                                 <option value="{{ $value->term->name }}" {{ $value->term->name==$content->metaValue('model')?'selected':'' }}>{{ $value->term->name }}</option>
                             @endforeach
+                            <option value="{{ $content->metaValue('modelName') }}" selected>{{ $content->metaValue('modelName') }}</option>
                         </select>
                     </div>
                     <label for="colorName" class="col-form-label col-lg-2">Color</label>

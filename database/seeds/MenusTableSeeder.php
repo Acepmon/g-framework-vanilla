@@ -29,14 +29,14 @@ class MenusTableSeeder extends Seeder
                 ['Base Configurations', '/admin/configs/base', '', 'system'],
                 ['System Configurations', '/admin/configs/system', '', 'system'],
                 ['Themes Configurations', '/admin/configs/themes', '', 'system'],
-                ['Plugins Configurations', '/admin/configs/plugins', '', 'system'],
-                ['Security Configurations', '/admin/configs/security', '', 'system'],
+                // ['Plugins Configurations', '/admin/configs/plugins', '', 'system'],
+                // ['Security Configurations', '/admin/configs/security', '', 'system'],
                 ['Content Configurations', '/admin/configs/contents', '', 'system']
             ]],
-            ['Plugins', '', 'icon-puzzle2', 'system', [
-                ['Installed Plugins', '/admin/plugins', '', 'system'],
-                ['Add New', '/admin/plugins/create', '', 'system']
-            ]],
+            // ['Plugins', '', 'icon-puzzle2', 'system', [
+            //     ['Installed Plugins', '/admin/plugins', '', 'system'],
+            //     ['Add New', '/admin/plugins/create', '', 'system']
+            // ]],
             ['Themes', '', 'icon-brush', 'system', [
                 ['Installed Themes', '/admin/themes', '', 'system', 'parent_id' => 6],
                 ['Add New', '/admin/themes/create', '', 'system', 'parent_id' => 6]
@@ -55,9 +55,9 @@ class MenusTableSeeder extends Seeder
             ['Menus', '/admin/menus', 'icon-menu2', 'content management'],
             ['Pages', '/admin/contents?type=page', 'icon-files-empty2', 'content management'],
             ['Blog Posts', '/admin/contents?type=post', 'icon-blog', 'content management'],
-            ['Comments', '/admin/comments', 'icon-comment', 'content management'],
+            // ['Comments', '/admin/comments', 'icon-comment', 'content management'],
             ['Media & Assets', '/admin/media', 'icon-media', 'content management'],
-            ['Localization', '/admin/localization', 'icon-flag3', 'content management'],
+            // ['Localization', '/admin/localization', 'icon-flag3', 'content management'],
             ['Categories', '/admin/taxonomy?taxonomy=category', 'icon-grid6', 'content management'],
             ['Tags', '/admin/taxonomy?taxonomy=tag', 'icon-price-tag2', 'content management'],
             // Car Management
@@ -79,11 +79,13 @@ class MenusTableSeeder extends Seeder
         $carTopbarMenus = ['Car Topbar', '', '', '', [
             ['About', '/about-us', '', ''],
             ['Contact Us', '/contact-us', '', ''],
+            ['Write wanna buy', '/wanna-buy', '', ''],
             ['Sign Up', '/register', '', '']
         ]];
         $carFooterMenus = ['Car Footer', '', '', '', [
             ['About', '/about-us', '', ''],
-            ['Contact Us', '/contact-us', '', '']
+            ['Contact Us', '/contact-us', '', ''],
+            ['Write wanna buy', '/wanna-buy', '', '']
         ]];
 
         $menus = [

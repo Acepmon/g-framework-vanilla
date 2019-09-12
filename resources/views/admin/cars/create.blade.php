@@ -96,18 +96,13 @@
                     <div class="form-group row">
                         <label for="title" class="col-form-label col-lg-2">Title <span class="text-danger">*</span></label>
                         <div class="col-lg-8">
-                            <input id="title" type="text" class="form-control" name="title" placeholder="Enter car title..." required="required" aria-required="true" invalid="true">
+                            <input id="title" type="text" class="form-control" name="title" placeholder="Enter car title..." required="required" aria-required="true" invalid="true" onfocusout="create_slug()">
                         </div>
                         <div class="col-lg-2">
                             <button type="button" class="btn btn-light btn-block" onclick="create_slug()">Create Slug</button>
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <label for="slug" class="col-form-label col-lg-2">Slug <span class="text-danger">*</span></label>
-                        <div class="col-lg-10">
-                            <input id="slug" type="text" class="form-control" name="slug" placeholder="Enter content slug..." required="required" aria-required="true" invalid="true">
-                        </div>
-                    </div>
+                    <input id="slug" type="hidden" class="form-control" name="slug" placeholder="Enter content slug..." required="required" aria-required="true" invalid="true">
 
                     <input type="hidden" name="type" value="car"/>
 
@@ -615,15 +610,6 @@
     $('#startsAtBut').click(function (e) {
         $('#startsAt').AnyTime_noPicker().AnyTime_picker().focus();
         e.preventDefault();
-    });
-
-    $( "#slug" ).keyup(function( event ) {
-        if ( event.which == 32) {
-            var slug = document.getElementById("slug").value;
-            slug = slug.toString().toLowerCase()
-                .replace(' ', '-');
-            document.getElementById("slug").value = slug;
-        }
     });
 
     $("#type").change(function () {
