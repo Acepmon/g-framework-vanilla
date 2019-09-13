@@ -24,7 +24,8 @@ Route::post('register', 'UserController@register');
 Route::prefix('v1')->group(function () {
     Route::namespace('API\v1')->group(function () {
         Route::apiResources([
-            'banners' => 'BannerController'
+            'banners' => 'BannerController',
+            'contents' => 'ContentController'
         ]);
     });
 });

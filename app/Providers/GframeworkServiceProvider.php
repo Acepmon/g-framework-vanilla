@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Blade;
 use Illuminate\Database\Eloquent\Model;
 use App\Content;
 use App\Banner;
+use App\TermTaxonomy;
 use App\ContentMeta;
 use DB;
 
@@ -68,6 +69,23 @@ class GframeworkServiceProvider extends ServiceProvider
                 $daaataaa = '$' . $daaataaa;
             }
             return "<?php {$daaataaa} = ('$bannerData'); ?>";
+        });
+
+        Blade::directive('getTaxonomys', function ($expression) {
+            $someObject = json_decode($expression);
+            $taxonomys = TermTaxonomy::select('id', 'taxonomy', 'description')->whereRaw('1 = 1')->orderBy('description', 'asc');
+            foreach ($someObject as $some) {
+                $taxonomys = $taxonomys->where($some->field, '=', $some->key);
+                $daaataaa= $some->key;
+            }
+            $taxonomys = $taxonomys->get();
+            $taxonomyData=json_encode($taxonomys);
+//            /dd($daaataaa);
+            //$daaataaa='taxonomys';
+            if (!starts_with($daaataaa, '$')) {
+                $daaataaa = '$' . $daaataaa;
+            }
+            return "<?php {$daaataaa} = ('$taxonomyData'); ?>";
         });
 
     }
