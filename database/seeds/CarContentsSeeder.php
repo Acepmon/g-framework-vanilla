@@ -11,8 +11,8 @@ class CarContentsSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Content::class, 10)->create()->each(function ($content) {
-            
+        factory(App\Content::class, 50)->create()->each(function ($content) {
+
             if ($content->type == App\Content::TYPE_CAR) {
             	$content->metas()->saveMany([
 				    new App\ContentMeta(['key' => 'plateNumber', 'value' => '0035UNA']),
