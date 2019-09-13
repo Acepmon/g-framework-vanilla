@@ -146,7 +146,7 @@
                         </div>
                     </fieldset>
 
-                    <div class="form-group row text-right">
+                    <div class="text-right">
                         <a href="{{ route('admin.banners.index') }}" class="btn btn-light">Cancel</a>
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </div>

@@ -68,9 +68,11 @@
 <div id="modal_banner_remove" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <div class="modal-header header-elements-inline">
                 <h6 class="modal-title">Remove Banner</h6>
+                <div class="header-elements">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
             </div>
 
             <div class="modal-body">
