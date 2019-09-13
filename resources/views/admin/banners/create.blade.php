@@ -3,10 +3,10 @@
 @section('title', 'Create Banner')
 
 @section('load')
-<script src="{{ asset('limitless/js/plugins/forms/styling/uniform.min.js') }}"></script>
-<script src="{{ asset('limitless/js/plugins/forms/styling/switchery.min.js') }}"></script>
-<script src="{{ asset('limitless/js/plugins/forms/styling/switch.min.js') }}"></script>
-<script src="{{ asset('limitless/js/plugins/media/cropper.min.js') }}"></script>
+<script src="{{ asset('limitless/bootstrap4/js/plugins/forms/styling/uniform.min.js') }}"></script>
+<script src="{{ asset('limitless/bootstrap4/js/plugins/forms/styling/switchery.min.js') }}"></script>
+<script src="{{ asset('limitless/bootstrap4/js/plugins/forms/styling/switch.min.js') }}"></script>
+<script src="{{ asset('limitless/bootstrap4/js/plugins/media/cropper.min.js') }}"></script>
 
 <style>
     .image-cropper-container img {
@@ -107,10 +107,10 @@
                                 <span class="action btn btn-light" style="user-select: none;">Choose File</span>
                             </div>
                             <input type="text" name="banner_img_mobile_cropped" id="banner_img_mobile_cropped" hidden>
-                            <div class="thumbnail mt-5" id="banner_img_mobile_preview_container" style="display: none;">
-                                <div class="thumb">
-                                    <img src="{{ asset('limitless/bootstrap4/images/placeholder.jpg') }}" alt="" id="banner_img_mobile_preview">
-                                    <div class="caption-overflow">
+                            <div class="card" id="banner_img_mobile_preview_container" style="display: none;">
+                                <div class="card-img-actions m-1">
+                                    <img class="card-img img-fluid" src="{{ asset('limitless/bootstrap4/images/placeholder.jpg') }}" alt="" id="banner_img_mobile_preview">
+                                    <div class="card-img-actions-overlay card-img">
                                         <span>
                                             <button type="button" class="btn btn-info btn-sm" onclick="removeMobilePreview()">Remove</button>
                                         </span>
@@ -130,10 +130,10 @@
                                 <span class="action btn btn-light" style="user-select: none;">Choose File</span>
                             </div>
                             <input type="text" name="banner_img_web_cropped" id="banner_img_web_cropped" hidden>
-                            <div class="thumbnail mt-5" id="banner_img_web_preview_container" style="display: none;">
-                                <div class="thumb">
-                                    <img src="{{ asset('limitless/bootstrap4/images/placeholder.jpg') }}" alt="" id="banner_img_web_preview">
-                                    <div class="caption-overflow">
+                            <div class="card"  id="banner_img_web_preview_container" style="display: none;">
+                                <div class="card-img-actions m-1">
+                                    <img class="card-img img-fluid" src="{{ asset('limitless/bootstrap4/images/placeholder.jpg') }}" alt="" id="banner_img_web_preview">
+                                    <div class="card-img-actions-overlay card-img">
                                         <span>
                                             <button type="button" class="btn btn-info btn-sm" onclick="removeWebPreview()">Remove</button>
                                         </span>
@@ -159,14 +159,16 @@
 <div id="modal_mobile_crop" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <div class="modal-header header-elements-inline">
                 <h6 class="modal-title">Crop Banner Image</h6>
+                <div class="header-elements">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
             </div>
 
             <div class="modal-body">
                 <div class="image-cropper-container">
-                    <img src="{{ asset('limitless/images/placeholder.jpg') }}" alt="" class="crop-16-9" id="modal_mobile_crop_image">
+                    <img src="{{ asset('limitless/bootstrap4/images/placeholder.jpg') }}" alt="" class="crop-16-9" id="modal_mobile_crop_image">
                 </div>
             </div>
 
@@ -180,14 +182,16 @@
 <div id="modal_web_crop" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <div class="modal-header header-elements-inline">
                 <h6 class="modal-title">Crop Banner Image</h6>
+                <div class="header-elements">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
             </div>
 
             <div class="modal-body">
                 <div class="image-cropper-container">
-                    <img src="{{ asset('limitless/images/placeholder.jpg') }}" alt="" id="modal_web_crop_image">
+                    <img src="{{ asset('limitless/bootstrap4/images/placeholder.jpg') }}" alt="" id="modal_web_crop_image">
                 </div>
             </div>
 
@@ -201,9 +205,11 @@
 <div id="modal_choose_page" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <div class="modal-header header-elements-inline">
                 <h6 class="modal-title">Choose from Pages</h6>
+                <div class="header-elements">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
             </div>
 
             <div class="modal-body">
