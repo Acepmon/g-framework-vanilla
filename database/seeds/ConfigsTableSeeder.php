@@ -111,7 +111,7 @@ class ConfigsTableSeeder extends Seeder
             [
                 'title' => 'Bitcoin is Volatile - Enabled',
                 'key' => 'bitcoin.volatile.enabled',
-                'value' => true,
+                'value' => false,
                 'autoload' => false
             ],
             [

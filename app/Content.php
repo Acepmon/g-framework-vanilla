@@ -3,6 +3,7 @@
 namespace App;
 
 use App\ContentMeta;
+use App\TermTaxonomy;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 
@@ -10,10 +11,12 @@ class Content extends Model
 {
     const TYPE_PAGE = 'page';
     const TYPE_POST = 'post';
+    const TYPE_CAR = 'car';
 
     const TYPE_ARRAY = [
         self::TYPE_PAGE,
-        self::TYPE_POST
+        self::TYPE_POST,
+        self::TYPE_CAR
     ];
 
     const STATUS_DRAFT = 'draft';
@@ -59,20 +62,14 @@ class Content extends Model
         $media_path = array();
         foreach($medias as &$media) {
             $imagepath = $media->value;
-            if (!Storage::disk('local')->exists($imagepath)) {
-                $image = Storage::disk('ftp')->get($imagepath);
-                Storage::disk('local')->put($imagepath, $image);
-            }
-            array_push($media_path, Storage::disk('local')->url($imagepath));
+            array_push($media_path, Config::getStorage() . $imagepath);
+            // if (!Storage::disk('local')->exists($imagepath)) {
+            //     $image = Storage::disk('ftp')->get($imagepath);
+            //     Storage::disk('local')->put($imagepath, $image);
+            // }
+            // array_push($media_path, Storage::disk('local')->url($imagepath));
         }
         return $media_path;
-    }
-
-    public function carInfo() {
-        if ($this->type != 'car') {
-            return null;
-        }
-        return json_decode($this->metas[0]->value);
     }
 
     public function currentView()
@@ -96,33 +93,40 @@ class Content extends Model
 
     public function updateMeta($key, $value)
     {
-        if (is_array($value)) {
-            $exists = $this->metas->where('key', $key);
-            foreach($exists as $exist) {
-                if (in_array($exist->value, $value)) {
-                    $value = array_diff($value, [$exist->value]);
-                } else {
-                    $exist->delete();
+        if ($key && $value && $this->id) {
+            if (is_array($value)) {
+                $exists = $this->metas->where('key', $key);
+                foreach($exists as $exist) {
+                    if (in_array($exist->value, $value)) {
+                        $value = array_diff($value, [$exist->value]);
+                    } else {
+                        $exist->delete();
+                    }
                 }
-            }
-            foreach($value as $v) {
-                $this->attachMeta($key, $v);
-            }
-        } else {
-            $exists = $this->metas->where('key', $key)->first();
-            if ($exists) {
-                $exists->value = $value;
-                $exists->save();
+                foreach($value as $v) {
+                    $this->attachMeta($key, $v);
+                }
             } else {
-                $this->attachMeta($key, $value);
+                $exists = $this->metas->where('key', $key)->first();
+                if ($exists) {
+                    $exists->value = $value;
+                    $exists->save();
+                } else {
+                    $this->attachMeta($key, $value);
+                }
             }
         }
     }
 
     public function metaValue($key) {
-        $meta = $this->metas->where('key', $key)->first();
-        if ($meta)
-            return $meta->value;
+        try {
+            $meta = $this->metas->where('key', $key)->first();
+            if ($meta)
+                return $meta->value;
+        } catch (\Exception $ex) {
+            return Null;
+
+        }
         return Null;
     }
 }

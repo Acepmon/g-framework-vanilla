@@ -31,40 +31,20 @@
                 <div class="row">
                     <div class="col-lg-6 h-100 text-center text-white text-lg-left my-auto">
                         <ul class="list-inline mb-2">
+                            @foreach ($mainMenus as $menu)
                             <li class="list-inline-item">
-                                <a href="#">Home</a>
+                                <a href="{{ $menu->link }}">{{ $menu->title }}</a>
                             </li>
-                            <li class="list-inline-item">
-                                <a href="#">Buy</a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a href="#">Sell</a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a href="#">Auction</a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a href="#">Finance</a>
-                            </li>
+                            @endforeach
                         </ul>
                     </div>
                     <div class="col-lg-6 h-100 text-right text-muted my-auto">
                         <ul class="list-inline mb-2">
+                            @foreach ($footerMenus as $menu)
                             <li class="list-inline-item">
-                                <a href="#">Contact us</a>
+                                <a href="{{ $menu->link }}">{{ $menu->title }}</a>
                             </li>
-
-                            <li class="list-inline-item">
-                                <a href="#">About us</a>
-                            </li>
-
-                            <li class="list-inline-item">
-                                <a href="#">Customer support</a>
-                            </li>
-
-                            <li class="list-inline-item">
-                                <a href="#">Foriegner support</a>
-                            </li>
+                            @endforeach
                         </ul>
                     </div>
                 </div>

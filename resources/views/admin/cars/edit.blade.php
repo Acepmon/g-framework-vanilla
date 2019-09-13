@@ -1,18 +1,30 @@
 @extends('themes.limitless.layouts.default')
 
 @section('load')
+<script type="text/javascript" src="{{ asset('limitless/js/pages/picker_date.js')}}"></script>
+<script type="text/javascript" src="{{ asset('limitless/js/plugins/forms/styling/switchery.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('limitless/js/plugins/forms/tags/tagsinput.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('limitless/js/plugins/forms/tags/tokenfield.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('limitless/js/pages/form_tags_input.js') }}"></script>
+<script type="text/javascript" src="{{ asset('limitless/js/pages/form_checkboxes_radios.js') }}"></script>
+@endsection
+@section('load-before')
+<script type="text/javascript" src="{{ asset('limitless/js/plugins/forms/validation/validate.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('limitless/js/plugins/forms/selects/bootstrap_multiselect.js') }}"></script>
 <script type="text/javascript" src="{{ asset('limitless/js/plugins/forms/inputs/touchspin.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('limitless/js/plugins/forms/selects/select2.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('limitless/js/plugins/forms/styling/switch.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('limitless/js/plugins/editors/ace/ace.js') }}"></script>
-<script type="text/javascript" src="{{ asset('ckeditor/ckeditor.js') }}"></script>
+<script type="text/javascript" src="{{ asset('limitless/js/pages/form_validation.js') }}"></script>
 
-<script type="text/javascript" src="{{ asset('limitless/js/plugins/forms/tags/tagsinput.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('limitless/js/plugins/forms/tags/tokenfield.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('limitless/js/pages/form_tags_input.js') }}"></script>
-<script>
-</script>
+
+<script type="text/javascript" src="{{ asset('limitless/js/plugins/ui/moment/moment.min.js')}}"></script>
+<script type="text/javascript" src="{{ asset('limitless/js/plugins/pickers/anytime.min.js')}}"></script>
+<script type="text/javascript" src="{{ asset('limitless/js/plugins/pickers/daterangepicker.js') }}"></script>
+<script type="text/javascript" src="{{ asset('limitless/js/plugins/pickers/pickadate/picker.js')}}"></script>
+<script type="text/javascript" src="{{ asset('limitless/js/plugins/pickers/pickadate/picker.date.js')}}"></script>
+<script type="text/javascript" src="{{ asset('limitless/js/plugins/pickers/pickadate/picker.time.js')}}"></script>
+<script type="text/javascript" src="{{ asset('limitless/js/plugins/pickers/pickadate/legacy.js')}}"></script>
+<script type="text/javascript" src="{{ asset('limitless/js/plugins/media/cropper.min.js') }}"></script>
 @endsection
 
 @section('pageheader')
@@ -81,28 +93,15 @@
                 <div class="form-group">
                     <label class="control-label col-lg-2">Title <span class="text-danger">*</span></label>
                     <div class="col-lg-8">
-                        <input id="title" type="text" class="form-control" name="title" placeholder="Enter content title..." value="{{$content->title}}" required="required" aria-required="true" invalid="true">
+                        <input id="title" type="text" class="form-control" name="title" placeholder="Enter content title..." value="{{$content->title}}" required="required" aria-required="true" invalid="true" onfocusout="create_slug()">
                     </div>
                     <div class="col-lg-2">
                         <button type="button" class="btn btn-default" onclick="create_slug()">Create Slug</button>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label class="control-label col-lg-2">Slug <span class="text-danger">*</span></label>
-                    <div class="col-lg-10">
-                        <input id="slug" type="text" class="form-control" name="slug" placeholder="Enter content slug..." value="{{$content->slug}}" required="required" aria-required="true" invalid="true">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-lg-2">Type <span class="text-danger">*</span></label>
-                    <div class="col-lg-10">
-                        <select id="type" name="type" required="required" class="form-control">
-                            @foreach(App\Content::TYPE_ARRAY as $value)
-                            <option value="{{ $value }}" {{ ($value === $content->type)?'selected':'' }} >{{ $value }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
+                <input id="slug" type="hidden" class="form-control" name="slug" placeholder="Enter content slug..." value="{{$content->slug}}" required="required" aria-required="true" invalid="true">
+
+                <input type="hidden" name="type" value="car"/>
 
                 <div class="form-group">
                     <label class="control-label col-lg-2">Status <span class="text-danger">*</span></label>
@@ -126,86 +125,52 @@
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <label class="control-label col-lg-2">Author ID</label>
-                    <div class="col-lg-10">
-                        <select name="author_id" type="text" id="author_id" class="form-control">
-                            @foreach($users as $user)
-                            <option {{$content->author_id == $user->id?'selected':''}} value="{{$user->id}}">{{$user->username}}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
+                <input name="author_id" type="text" id="author_id" value="{{ Auth::id() }}" hidden>
 
-                <div class="form-group">
-                    <label class="control-label col-lg-2">Category</label>
-                    <div class="col-lg-10">
-                        <select name="category" type="text" class="form-control">
-                            @foreach(App\TermTaxonomy::where('taxonomy', 'category')->get() as $taxonomy)
-                                <option value="{{$taxonomy->id}}" {{ count($content->terms->where('id', $taxonomy->id))>0?'selected':'' }}>{{$taxonomy->term->name}}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="control-label col-lg-2">Tags</label>
-                    <div class="col-lg-10">
-                        <select name="tags[]" id="tags" data-placeholder="Select Tags..." multiple="multiple" class="select">
-                            @foreach(App\TermTaxonomy::where('taxonomy', 'tag')->get() as $tag)
-                                @php $selected = False @endphp
-                                @foreach($content->terms as $term)
-                                    @php $selected = ($selected || $term->id == $tag->id) @endphp
-                                @endforeach
-                                <option value="{{ $tag->id }}" {{ $selected?'selected':'' }}>{{ $tag->term->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
-
-
-                {{--car section--}}
                 <h4 class="text-center">Car section /General information/</h4>
 
                 <div class="form-group">
-                    <label for="title" class="control-label col-lg-2">Title <span class="text-danger">*</span></label>
-                    <div class="col-lg-10">
-                        <input value="{{ $content->metaValue('carTitle') }}" id="carTitle" type="text" class="form-control" name="carTitle" placeholder="Enter car title..." required="required" aria-required="true" invalid="true">
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="manufacturer" class="control-label col-lg-2">Manufacturer <span class="text-danger">*</span></label>
+                    <label for="manufacturer" class="control-label col-lg-2">Manufacturer</label>
                     <div class="col-lg-4">
-                        <select id="manufacturer" name="manufacturer" required="required" class="form-control text-capitalize">
+                        <select id="manufacturer" name="manufacturer" class="form-control text-capitalize">
                             @foreach(App\TermTaxonomy::where('taxonomy', 'manufacturer')->get() as $value)
                                 <option value="{{ $value->term->name }}" {{ $value->term->name==$content->metaValue('manufacturer')?'selected':'' }}>{{ $value->term->name }}</option>
                             @endforeach
                         </select>
                     </div>
-                    <label for="carCondition" class="control-label col-lg-2">Car condition <span class="text-danger">*</span></label>
+                    <label for="carCondition" class="control-label col-lg-2">Car condition</label>
                     <div class="col-lg-4">
-                        <select id="carCondition" name="carCondition" required="required" class="form-control text-capitalize">
-                            @foreach(App\TermTaxonomy::where('taxonomy', 'car-condition')->get() as $value)
-                                <option value="{{ $value->term->name }}" {{ $value->term->name==$content->metaValue('carCondition')?'selected':'' }}>{{ $value->term->name }}</option>
-                            @endforeach
-                        </select>
+
+                        @foreach(App\TermTaxonomy::where('taxonomy', 'car-condition')->get() as $key=>$value)
+                            <label class="radio-inline">
+                                <input type="radio" name="carCondition" class="styled" value="{{$value->term->name}}" onchange="carConditionChanged('{{$value->term->name}}')"
+                                @if($key == 0) 
+                                    checked
+                                @endif>
+                                {{ $value->term->name }}
+                            </label>
+                            @if($value->term->name == 'Used') 
+                            <label class="radio-inline">
+                                <input id="plateNumber" type="text" class="form-control" name="plateNumber" placeholder="Enter number plate..." style="visibility: hidden" value="{{$content->metaValue('plateNumber')}}">
+                            </label>
+                            @endif
+                        @endforeach
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="model" class="control-label col-lg-2">Model <span class="text-danger">*</span></label>
+                    <label for="modelName" class="control-label col-lg-2">Model</label>
                     <div class="col-lg-4">
-                        <input value="{{ $content->metaValue('model') }}" id="model" type="text" class="form-control" name="model" placeholder="Enter car model..." required="required" aria-required="true" invalid="true">
-                        {{--<select id="model" name="model" required="required" class="form-control text-capitalize">--}}
-                            {{--@foreach(App\Content::VISIBILITY_ARRAY as $value)--}}
-                                {{--<option value="{{ $value }}">{{ $value }}</option>--}}
-                            {{--@endforeach--}}
-                        {{--</select>--}}
+                        <select id="modelName" name="modelName" class="form-control">
+                            @foreach(App\TermTaxonomy::where('taxonomy', 'model')->get() as $value)
+                                <option value="{{ $value->term->name }}" {{ $value->term->name==$content->metaValue('model')?'selected':'' }}>{{ $value->term->name }}</option>
+                            @endforeach
+                            <option value="{{ $content->metaValue('modelName') }}" selected>{{ $content->metaValue('modelName') }}</option>
+                        </select>
                     </div>
-                    <label for="color" class="control-label col-lg-2">Color <span class="text-danger">*</span></label>
+                    <label for="colorName" class="control-label col-lg-2">Color</label>
                     <div class="col-lg-4">
-                        <select id="color" name="color" required="required" class="form-control text-capitalize">
+                        <select id="colorName" name="colorName" class="form-control text-capitalize">
                             @foreach(App\TermTaxonomy::where('taxonomy', 'color')->get() as $value)
                                 <option value="{{ $value->term->name }}" {{ $value->term->name==$content->metaValue('color')?'selected':'' }}>{{ $value->term->name }}</option>
                             @endforeach
@@ -214,88 +179,81 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="displacement" class="control-label col-lg-2">Displacement /km/ <span class="text-danger">*</span></label>
+                    <label for="displacement" class="control-label col-lg-2">Displacement</label>
                     <div class="col-lg-4">
                         <div class="input-group">
-                            <input value="{{ $content->metaValue('displacement') }}" id="displacement" type="number" class="form-control" name="displacement" placeholder="Enter displacement length..." required="required" aria-required="true" invalid="true">
-                            <span class="input-group-addon">km</span>
+                            <input value="{{ $content->metaValue('displacement') }}" id="displacement" type="number" class="form-control" name="displacement" placeholder="Enter displacement length..." invalid="true">
+                            <span class="input-group-addon">cc</span>
                         </div>
                     </div>
-                    <label for="vin" class="control-label col-lg-2">VIN <span class="text-danger">*</span></label>
+                    <label for="vin" class="control-label col-lg-2">VIN</label>
                     <div class="col-lg-4">
-                        <input value="{{ $content->metaValue('vin') }}" id="vin" type="text" class="form-control" name="vin" placeholder="Enter car vin..." required="required" aria-required="true" invalid="true">
+                        <input value="{{ $content->metaValue('vin') }}" id="vin" type="text" class="form-control" name="vin" placeholder="Enter car vin..." invalid="true">
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="yearOfProduct" class="control-label col-lg-2">Year of product <span class="text-danger">*</span></label>
+                    <label for="buildYear" class="control-label col-lg-2">Build Year</label>
                     <div class="col-lg-4">
-                        <input value="{{ $content->metaValue('yearOfProduct') }}" id="yearOfProduct" type="number" min="1769" max="2019" value="2019" class="form-control" name="yearOfProduct" placeholder="Enter year of product..." required="required" aria-required="true" invalid="true">
+                        <input id="buildYear" value="{{$content->metaValue('buildYear')}}" type="number" min="1769" max="2019" value="2019" class="form-control" name="buildYear" placeholder="Enter year of product..." invalid="true">
                     </div>
-                    <label for="yearOfEntry" class="control-label col-lg-2">Year of entry <span class="text-danger">*</span></label>
+                    <label for="importDate" class="control-label col-lg-2">Import Date</label>
                     <div class="col-lg-4">
-                        <input value="{{ $content->metaValue('yearOfEntry') }}" id="yearOfEntry" type="number" min="1769" max="2019" value="2019" class="form-control" name="yearOfEntry" placeholder="Enter year of entry..." required="required" aria-required="true" invalid="true">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="lastCheck" class="control-label col-lg-2">Last check <span class="text-danger">*</span></label>
-                    <div class="col-lg-4">
-                        <input value="{{ $content->metaValue('lastCheck') }}" id="lastCheck" type="month" class="form-control" name="lastCheck" placeholder="Enter last check date..." required="required" aria-required="true" invalid="true">
+                        <input id="importDate" value="{{$content->metaValue('importDate')}}" type="number" min="1769" max="2019" value="2019" class="form-control" name="importDate" placeholder="Enter year of entry..." invalid="true">
                     </div>
                 </div>
 
                 <h4 class="text-center">Car section /More information/</h4>
 
                 <div class="form-group">
-                    <label for="manufacturer" class="control-label col-lg-2">Manufacturer <span class="text-danger">*</span></label>
+                    <label for="mileage" class="control-label col-lg-2">Mileage</label>
                     <div class="col-lg-4">
-                        <select id="manufacturer" name="manufacturer" required="required" class="form-control text-capitalize">
-                            @foreach(App\TermTaxonomy::where('taxonomy', 'manufacturer')->get() as $value)
-                                <option value="{{ $value->term->name }}" {{ $value->term->name==$content->metaValue('manufacturer')?'selected':'' }}>{{ $value->term->name }}</option>
-                            @endforeach
-                        </select>
+                        <div class="input-group">
+                            <input id="mileage" value="{{$content->metaValue('mileage')}}" type="number" class="form-control" name="mileage" placeholder="Enter mileage..." invalid="true" class="touchspin-postfix">
+                            <span class="input-group-addon">km</span>
+                        </div>
                     </div>
-                    <label for="transmission" class="control-label col-lg-2">Transmission <span class="text-danger">*</span></label>
+                    <label for="transmission" class="control-label col-lg-2">Transmission</label>
                     <div class="col-lg-4">
-                        <select id="transmission" name="transmission" required="required" class="form-control text-capitalize">
+                        <select id="transmission" name="transmission" class="form-control text-capitalize">
                             @foreach(App\TermTaxonomy::where('taxonomy', 'transmission')->get() as $value)
-                                <option value="{{ $value->term->name }} {{ $value->term->name==$content->metaValue('transmission')?'selected':'' }}">{{ $value->term->name }}</option>
+                                <option value="{{ $value->term->name }}" {{ $value->term->name==$content->metaValue('transmission')?'selected':'' }}>{{ $value->term->name }}</option>
                             @endforeach
                         </select>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="steeringWheel" class="control-label col-lg-2">Steering wheel <span class="text-danger">*</span></label>
+                    <label for="wheelPosition" class="control-label col-lg-2">Steering wheel</label>
                     <div class="col-lg-4">
-                        <select id="steeringWheel" name="steeringWheel" required="required" class="form-control text-capitalize">
+                        <select id="wheelPosition" name="wheelPosition" class="form-control text-capitalize">
                             @foreach(App\TermTaxonomy::where('taxonomy', 'steering-wheel')->get() as $value)
-                                <option value="{{ $value->term->name }}" {{ $value->term->name==$content->metaValue('steeringWheel')?'selected':'' }}>{{ $value->term->name }}</option>
+                                <option value="{{ $value->term->name }}" {{ $value->term->name==$content->metaValue('steering-wheel')?'selected':'' }}>{{ $value->term->name }}</option>
                             @endforeach
                         </select>
                     </div>
-                    <label for="seating" class="control-label col-lg-2">Seating <span class="text-danger">*</span></label>
+                    <label for="manCount" class="control-label col-lg-2">Seating</label>
                     <div class="col-lg-4">
-                        <select id="seating" name="seating" required="required" class="form-control text-capitalize">
+                        <select id="manCount" name="manCount" class="form-control text-capitalize">
                             @foreach(App\TermTaxonomy::where('taxonomy', 'seating')->get() as $value)
-                                <option value="{{ $value->term->name }}" {{ $value->term->name==$content->metaValue('seating')?'selected':'' }}>{{ $value->term->name }}</option>
+                                <option value="{{ $value->term->name }}" {{ $value->term->name==$content->metaValue('manCount')?'selected':'' }}>{{ $value->term->name }}</option>
                             @endforeach
                         </select>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="typeOfFuel" class="control-label col-lg-2">Type of fuel <span class="text-danger">*</span></label>
+                    <label for="fuelType" class="control-label col-lg-2">Type of fuel</label>
                     <div class="col-lg-4">
-                        <select id="typeOfFuel" name="typeOfFuel" required="required" class="form-control text-capitalize">
+                        <select id="fuelType" name="fuelType" class="form-control text-capitalize">
                             @foreach(App\TermTaxonomy::where('taxonomy', 'type-of-fuel')->get() as $value)
-                                <option value="{{ $value->term->name }}" {{ $value->term->name==$content->metaValue('typeOfFuel')?'selected':'' }}>{{ $value->term->name }}</option>
+                                <option value="{{ $value->term->name }}" {{ $value->term->name==$content->metaValue('fuelType')?'selected':'' }}>{{ $value->term->name }}</option>
                             @endforeach
                         </select>
                     </div>
-                    <label for="wheelDrive" class="control-label col-lg-2">Wheel drive <span class="text-danger">*</span></label>
+                    <label for="wheelDrive" class="control-label col-lg-2">Wheel drive</label>
                     <div class="col-lg-4">
-                        <select id="wheelDrive" name="wheelDrive" required="required" class="form-control text-capitalize">
+                        <select id="wheelDrive" name="wheelDrive" class="form-control text-capitalize">
                             @foreach(App\TermTaxonomy::where('taxonomy', 'wheel-drive')->get() as $value)
                                 <option value="{{ $value->term->name }}" {{ $value->term->name==$content->metaValue('wheelDrive')?'selected':'' }}>{{ $value->term->name }}</option>
                             @endforeach
@@ -304,27 +262,9 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="mileage" class="control-label col-lg-2">Mileage <span class="text-danger">*</span></label>
-                    <div class="col-lg-4">
-                        <div class="input-group">
-                            <input value="{{ $content->metaValue('mileage') }}" id="mileage" type="number" class="form-control" name="mileage" placeholder="Enter mileage..." required="required" aria-required="true" invalid="true" class="touchspin-postfix">
-                            <span class="input-group-addon">km</span>
-                        </div>
-                    </div>
-                    <label for="manufacturer1" class="control-label col-lg-2">Manufacturer <span class="text-danger">*</span></label>
-                    <div class="col-lg-4">
-                        <select id="manufacturer1" name="manufacturer1" required="required" class="form-control text-capitalize">
-                            @foreach(App\TermTaxonomy::where('taxonomy', 'manufacturer')->get() as $value)
-                                <option value="{{ $value->term->name }}" {{ $value->term->name==$content->metaValue('manufacturer')?'selected':'' }}>{{ $value->term->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
-
-                <div class="form-group">
                     <label for="advantages" class="control-label col-lg-2">Advantages</label>
                     <div class="col-lg-10">
-                        <input type="text" class="form-control tokenfield" value="
+                        <input type="text" name="advantages" class="form-control tokenfield" value="
                         @foreach($content->metas->where('key', 'advantages') as $advantages)
                             {{ $advantages->value . ',' }}
                         @endforeach
@@ -333,25 +273,25 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="sellerDescription" class="control-label col-lg-2">Seller description <span class="text-danger">*</span></label>
+                    <label for="sellerDescription" class="control-label col-lg-2">Seller description</label>
                     <div class="col-lg-10">
-                        <textarea id="sellerDescription" type="text" class="form-control" name="sellerDescription" placeholder="Enter seller description..." required="required" aria-required="true" invalid="true">{{ $content->metaValue('sellerDescription') }}</textarea>
+                        <textarea id="sellerDescription" type="text" class="form-control" name="sellerDescription" placeholder="Enter seller description..." invalid="true">{{ $content->metaValue('sellerDescription') }}</textarea>
                     </div>
                 </div>
 
                 <h4 class="text-center">Car section /Media/</h4>
 
                 <div class="form-group">
-                    <label for="price" class="control-label col-lg-2">Price <span class="text-danger">*</span></label>
+                    <label for="price" class="control-label col-lg-2">Price</label>
                     <div class="col-lg-4">
                         <div class="input-group">
-                            <input value="{{ $content->metaValue('price') }}" id="price" type="number" min="0" value="0" class="form-control" name="price" placeholder="Enter price..." required="required" aria-required="true" invalid="true" class="touchspin-postfix">
+                            <input value="{{ $content->metaValue('price') }}" id="price" type="number" min="0" class="form-control" name="price" placeholder="Enter price..." invalid="true" class="touchspin-postfix">
                             <span class="input-group-addon">₮</span>
                         </div>
                     </div>
-                    <label for="priceType" class="control-label col-lg-2">Price Type <span class="text-danger">*</span></label>
+                    <label for="priceType" class="control-label col-lg-2">Price Type</label>
                     <div class="col-lg-4">
-                        <select id="priceType" name="priceType" required="required" class="form-control text-capitalize">
+                        <select id="priceType" name="priceType" class="form-control text-capitalize">
                             @foreach(App\TermTaxonomy::where('taxonomy', 'price-type')->get() as $value)
                                 <option value="{{ $value->term->name }}" {{ $value->term->name==$content->metaValue('priceType')?'selected':'' }}>{{ $value->term->name }}</option>
                             @endforeach
@@ -360,25 +300,46 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="price" class="control-label col-lg-2">Images</label>
+                    <label for="thumbnail" class="control-label col-lg-2">Thumbnail</label>
                     <div class="col-lg-10">
-                        <input id="media" type="file" class="form-control file-styled" name="medias[]" invalid="true" onchange="previewMedia(this)" multiple>
+                        <input id="thumbnail" type="file" name="thumbnail" class="form-control file-styled" invalid="true" onchange="previewMedia(this, 'thumbnail-container')">
+                        <input type="hidden" id="thumbnailCrop" name="thumbnailCrop"/>
                     </div>
                 </div>
 
-                <div class="row" id="image-container">
+                <div class="row">
                     <div class="col-lg-2"></div>
-                    @foreach($content->medias() as $media)
-                    <div class="col-lg-2 col-md-4 col-sm-6 px-0"> 
-                        <img src="{{ $media }}" class="img-thumbnail img-fluid full-width">
+                    <div class="col-lg-10" id="thumbnail-container">
+                        <div class="col-lg-2 col-md-4 col-sm-6 px-0"> 
+                            <img src="{{ App\Config::getStorage() . $content->metaValue('thumbnail') }}" class="img-thumbnail img-fluid full-width">
+                        </div>
                     </div>
-                    @endforeach
+                </div>
+
+                <div class="form-group">
+                    <label for="medias" class="control-label col-lg-2">Images</label>
+                    <div class="col-lg-10">
+                        <input id="media" type="file" class="form-control file-styled" name="medias[]" invalid="true" onchange="previewMedia(this, 'image-container')" multiple>
+                        <input type="hidden" id="imagesCrop" name="imagesCrop"/>
+                        <i class="text-muted">* You can choose multiple images</i>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-2"></div>
+                    <div class="col-lg-10" id="image-container">
+                        @foreach($content->medias() as $media)
+                        <div class="col-lg-2 col-md-4 col-sm-6 px-0"> 
+                            <img src="{{ $media }}" class="img-thumbnail img-fluid full-width">
+                        </div>
+                        @endforeach
+                    </div>
                 </div>
 
                 <div class="form-group">
                     <label for="link" class="control-label col-lg-2">Youtube Link</label>
                     <div class="col-lg-10">
-                        <input value="{{ $content->metaValue('youtubeLink') }}" id="link" type="text" class="form-control file-styled" name="youtubeLink" onchange="embedLink(this)">
+                        <input id="link" type="text" class="form-control file-styled" name="youtubeLink" onchange="embedLink(this)">
                     </div>
                 </div>
 
@@ -387,13 +348,55 @@
                     <div id="video-container"></div>
                 </div>
 
-                {{--<div class="form-group">--}}
-                    {{--<label for="slug" class="control-label col-lg-2">Slug <span class="text-danger">*</span></label>--}}
-                    {{--<div class="col-lg-10">--}}
-                        {{--<input id="slug" type="text" class="form-control" name="slug" placeholder="Enter content slug..." required="required" aria-required="true" invalid="true">--}}
-                    {{--</div>--}}
-                {{--</div>--}}
+                <h4 class="text-center">Auction section</h4>
 
+                <div class="form-group">
+                    <label for="buyout" class="control-label col-lg-2">Buyout</label>
+                    <div class="col-lg-4">
+                        <div class="input-group">
+                            <input id="buyout" value="{{$content->metaValue('buyout')}}" type="number" min="0" class="form-control" name="buyout" placeholder="Enter buyout..." invalid="true" class="touchspin-postfix">
+                            <span class="input-group-addon">₮</span>
+                        </div>
+                    </div>
+                    <label for="startPrice" class="control-label col-lg-2">Start Price</label>
+                    <div class="col-lg-4">
+                        <div class="input-group">
+                            <input id="startPrice" value="{{$content->metaValue('startPrice')}}" type="number" min="0" class="form-control" name="startPrice" placeholder="Enter start price..." invalid="true" class="touchspin-postfix">
+                            <span class="input-group-addon">₮</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="maxBid" class="control-label col-lg-2">Max Bid</label>
+                    <div class="col-lg-4">
+                        <div class="input-group">
+                            <input id="maxBid" value="{{$content->metaValue('maxBid')}}" type="number" min="0" class="form-control" name="maxBid" placeholder="Enter max bid..." invalid="true" class="touchspin-postfix">
+                            <span class="input-group-addon">₮</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="startsAt" class="control-label col-lg-2">Starts At</label>
+                    <div class="col-lg-4">
+                        <div class="input-group">
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-default btn-icon" id="startsAtBut"><i class="icon-calendar3"></i></button>
+                            </span>
+                            <input type="text" value="{{$content->metaValue('startsAt')}}" class="form-control" id="startsAt" name="startsAt" placeholder="Start date">
+                        </div>
+                    </div>
+                    <label for="endsAt" class="control-label col-lg-2">Ends At</label>
+                    <div class="col-lg-4">
+                        <div class="input-group">
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-default btn-icon" id="endsAtBut"><i class="icon-calendar3"></i></button>
+                            </span>
+                            <input type="text" value="{{$content->metaValue('endsAt')}}" class="form-control" id="endsAt" name="endsAt" placeholder="End date">
+                        </div>
+                    </div>
+                </div>
                 {{--car section end--}}
 
                 <div class="text-right">
@@ -406,6 +409,25 @@
 </div>
 <!-- /grid -->
 
+<div class="modal fade docs-cropped" id="getCroppedCanvasModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h6 class="modal-title" id="getCroppedCanvasTitle">Crop your image</h6>
+            </div>
+            <div class="modal-body cropper" id="cropBody">
+                <div class="img-cropper-container" class="col-lg-12">
+                    <img id="cropImage" class="croppable">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="cropImage()">Done</button>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
 
 @section('script')
@@ -414,14 +436,62 @@
         embedLink({"value": "{{ $content->metaValue('youtubeLink') }}"});
     });
 
-    function previewMedia(input) {
+    function cropImage() {
+        var cropData = [];
+        var container;
+        $("#cropBody img[id^=cropImage]").each(function(index) {
+            var image = $(this);
+
+            container = image.attr('alt');
+            var cropped = image.cropper('getCroppedCanvas', {});
+
+            if (cropped) {
+                if (container == 'thumbnail-container') {
+                    $("#thumbnailCrop").val(JSON.stringify(image.cropper('getData')));
+                } else if (index == 0) {
+                    $("#" + container).empty();
+                }
+                cropData.push(image.cropper('getData'));
+                $("#" + container).append(' \
+                    <div class="col-lg-4 col-md-6 col-sm-12 mb-10"> \
+                        <img src="'+cropped.toDataURL('image/jpeg')+'" class="col-lg-12"> \
+                    </div>');
+                
+                image.attr('src', '');
+            }
+        });
+        if (container != 'thumbnail-container') {
+            console.log(cropData);
+            $("#imagesCrop").val(JSON.stringify(cropData));
+        }
+    }
+
+    function previewMedia(input, container) {
+        $("#cropBody").empty();
         $(input.files).each(function(index, value) {
             var reader = new FileReader();
             reader.onload = function (e) {
-                $("#image-container").append(' \
-                    <div class="col-lg-2 col-md-4 col-sm-6 px-0"> \
-                        <img src="'+e.target.result+'" class="img-thumbnail img-fluid full-width">\
+                $("#cropBody").append(' \
+                    <div class="col-lg-12 cropper-container content-group" style="height: 300px"> \
+                        <img src="'+e.target.result+'" id="cropImage'+index+'" class="col-lg-12">\
                     </div>');
+
+                $("#cropImage"+index).attr('src', e.target.result);
+                $("#cropImage"+index).attr('alt', container);
+                $('#cropImage'+index).cropper({
+                    viewMode: 1,
+                    dragMode: 'move',
+                    aspectRatio: 16 / 9,
+                    restore: false,
+                    guides: false,
+                    center: true,
+                    highlight: false,
+                    cropBoxMovable: false,
+                    cropBoxResizable: false,
+                    toggleDragModeOnDblclick: false
+                });
+
+                $("#getCroppedCanvasModal").modal('show');
             };
             reader.readAsDataURL(value);
         });
@@ -448,6 +518,37 @@
             .replace(/-+$/, '');
         document.getElementById("slug").value = title;
     }
+
+    function carConditionChanged(value) {
+        if (value == 'Used') {
+            $("#plateNumber").css('visibility', 'visible');
+        } else {
+            $("#plateNumber").css('visibility', 'hidden');
+        }
+    }
+
+    $("#modelName").select2({
+        tags: true,
+        //maximumSelectionLength: 1
+    });
+
+    $('#endsAtBut').click(function (e) {
+        $('#endsAt').AnyTime_noPicker().AnyTime_picker().focus();
+        e.preventDefault();
+    });
+
+    $('#startsAtBut').click(function (e) {
+        $('#startsAt').AnyTime_noPicker().AnyTime_picker().focus();
+        e.preventDefault();
+    });
+
+    $("#type").change(function () {
+        if ($(this).val() == 'page') {
+            $("#theme_options").css('display', 'block');
+        } else {
+            $("#theme_options").css('display', 'none');
+        }
+    });
 
     $( "#slug" ).keyup(function( event ) {
             console.log(event.which);

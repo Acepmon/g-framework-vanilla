@@ -178,6 +178,9 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        App\Providers\GframeworkServiceProvider::class,
+        App\Providers\CarwebServiceProvider::class,
+
         /*
         * Image Intervention
         */
