@@ -29,7 +29,12 @@ class CarController extends Controller
      */
     public function index()
     {
-        $contents = Content::where('type', 'car')->get();
+        $contents = [
+            Content::STATUS_PUBLISHED => Content::where('type', 'car')->where('status', Content::STATUS_PUBLISHED)->orderBy('visibility', 'desc')->get(),
+            Content::STATUS_PENDING => Content::where('type', 'car')->where('status', Content::STATUS_PENDING)->orderBy('visibility', 'desc')->get(),
+            Content::STATUS_DRAFT => Content::where('type', 'car')->where('status', Content::STATUS_DRAFT)->orderBy('visibility', 'desc')->get(),
+        ];
+
         return view('admin.cars.index', ['contents' => $contents]);
     }
 

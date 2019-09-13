@@ -33,8 +33,8 @@
     <script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/demo_pages/form_select2.js') }}"></script>
     <script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/demo_pages/login.js') }}"></script>
     <script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/demo_pages/form_checkboxes_radios.js') }}"></script>
-    
-    
+
+
 	<script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/plugins/forms/selects/select2.min.js') }}"></script>
     <!-- /theme JS files -->
 	@yield('load')
@@ -65,7 +65,7 @@
                 @yield('content')
 
             </div>
-            
+
             @include('themes.limitless.includes.footer')
             <!-- /content area -->
 

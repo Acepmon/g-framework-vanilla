@@ -19,7 +19,7 @@
         <div class="breadcrumb">
             <a class="breadcrumb-item" href="index.html"><i class="icon-home2 mr-2"></i> Admin</a>
             <span class="breadcrumb-item active">Groups</span>
-        </div>   
+        </div>
     </div>
 
     <div class="header-elements d-none">
@@ -27,7 +27,7 @@
             <a href="#" class="breadcrumb-elements-item"><i class="icon-comment-discussion mr-2"></i>Link</a>
             <div class="breadcrumb-elements-item dropdown p-0">
                 <a href="#" class="breadcrumb-elements-item dropdown-toggle" data-toggle="dropdown" aria-expanded="true"><i class="icon-gear mr-2"></i>Dropdown</a>
-                <div class="dropdown-menu dropdown-menu-right" x-placement="bottom-end" 
+                <div class="dropdown-menu dropdown-menu-right" x-placement="bottom-end"
                     style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(-84px, 40px, 0px);">
                     <a href="#" class="dropdown-item"><i class="icon-user-lock"></i> Account security</a>
                     <a href="#" class="dropdown-item"><i class="icon-statistics"></i> Analytics</a>
@@ -81,7 +81,7 @@
         <div class="card">
             <table class="table table-condensed">
                 <tr>
-                    <th colspan="4" class="active">System Groups ({{$systemGroups->count()}})</th>
+                    <th colspan="4" class="table-border-double table-active">System Groups ({{$systemGroups->count()}})</th>
                 </tr>
                 <tr>
                     <th style="width: 50px">#</th>
@@ -106,7 +106,7 @@
             </table>
             <table class="table table-condensed">
                 <tr>
-                    <th colspan="6" class="active">Dynamic Groups ({{$dynamicGroups->count()}})</th>
+                    <th colspan="6" class="table-border-double table-active">Dynamic Groups ({{$dynamicGroups->count()}})</th>
                 </tr>
                 <tr>
                     <th style="width: 50px">#</th>
@@ -134,7 +134,7 @@
             </table>
             <table class="table table-condensed">
                 <tr>
-                    <th colspan="7" class="active">
+                    <th colspan="7" class="table-border-double table-active">
                         Static Groups ({{$staticGroups->count()}})
                     </th>
                 </tr>

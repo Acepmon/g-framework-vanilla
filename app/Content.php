@@ -56,6 +56,11 @@ class Content extends Model
         return $this->belongsToMany('App\TermTaxonomy', 'term_relationships');
     }
 
+    public function author()
+    {
+        return $this->hasOne('App\User', 'id', 'author_id');
+    }
+
     public function medias()
     {
         $medias = $this->metas->where('key', 'medias');
@@ -128,5 +133,14 @@ class Content extends Model
 
         }
         return Null;
+    }
+
+    public function visibilityClass() {
+        switch ($this->visibility) {
+            case self::VISIBILITY_PUBLIC: return 'success';
+            case self::VISIBILITY_PRIVATE: return 'secondary';
+            case self::VISIBILITY_AUTH: return 'primary';
+            default: return 'default';
+        }
     }
 }
