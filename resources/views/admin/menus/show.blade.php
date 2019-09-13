@@ -3,14 +3,14 @@
 @section('title', 'Details')
 
 @section('load')
-<script type="text/javascript" src="{{ asset('limitless/js/core/libraries/jquery_ui/core.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('limitless/js/core/libraries/jquery_ui/effects.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('limitless/js/core/libraries/jquery_ui/interactions.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('limitless/js/plugins/extensions/cookie.js') }}"></script>
-<script type="text/javascript" src="{{ asset('limitless/js/plugins/forms/styling/switchery.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('limitless/js/plugins/forms/styling/uniform.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('limitless/js/plugins/trees/fancytree_all.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('limitless/js/plugins/trees/fancytree_childcounter.js') }}"></script>
+<script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/plugins/extensions/jquery_ui/core.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/plugins/extensions/jquery_ui/effects.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/plugins/extensions/jquery_ui/interactions.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/plugins/extensions/cookie.js') }}"></script>
+<script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/plugins/forms/styling/switchery.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/plugins/forms/styling/uniform.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/plugins/trees/fancytree_all.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/plugins/trees/fancytree_childcounter.js') }}"></script>
 @endsection
 
 @section('pageheader')
@@ -22,49 +22,49 @@
 <!-- Grid -->
 <div class="row">
     <div class="col-md-6">
-        <div class="panel panel-flat">
-            <div class="panel-heading">
-                <h5 class="panel-title">Horizontal form</h5>
-                <div class="heading-elements">
-                    <ul class="icons-list">
-                        <li><a data-action="collapse"></a></li>
-                        <li><a data-action="close"></a></li>
-                    </ul>
+        <div class="card">
+            <div class="card-header header-elements-inline">
+                <h5 class="card-title">Horizontal form</h5>
+                <div class="header-elements">
+                    <div class="list-icons">
+                        <a class="list-icons-item" data-action="collapse"></a>
+                        <a class="list-icons-item" data-action="remove"></a>
+                    </div>
                 </div>
             </div>
 
-            <div class="panel-body">
+            <div class="card-body">
                 <form class="form-horizontal">
-                    <div class="form-group">
-                        <label class="control-label col-lg-2">Type</label>
+                    <div class="form-group row">
+                        <label class="col-form-label col-lg-2">Type</label>
                         <div class="col-lg-10">
                             {{$menu->type}}
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <label class="control-label col-lg-2">Title</label>
+                    <div class="form-group row">
+                        <label class="col-form-label col-lg-2">Title</label>
                         <div class="col-lg-10">
                             {{$menu->title}}
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <label class="control-label col-lg-2">Link</label>
+                    <div class="form-group row">
+                        <label class="col-form-label col-lg-2">Link</label>
                         <div class="col-lg-10">
                             {{$menu->link}}
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <label class="control-label col-lg-2">Icon</label>
+                    <div class="form-group row">
+                        <label class="col-form-label col-lg-2">Icon</label>
                         <div class="col-lg-10">
                             {{$menu->icon}}
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <label class="control-label col-lg-2">Parent ID</label>
+                    <div class="form-group row">
+                        <label class="col-form-label col-lg-2">Parent ID</label>
                         <div class="col-lg-10">
                             @if(!empty($menu->parent_id))
                             {{$menu->parent->name}}
@@ -73,10 +73,10 @@
                     </div>
 
                     <div class="text-right">
-                        <a type="button" href="javascript:history.back()" class="btn btn-default" ><i class="icon-arrow-left13 position-left"></i> Back</a>
+                        <a type="button" href="javascript:history.back()" class="btn btn-default" ><i class="icon-arrow-left13 ml-2"></i> Back</a>
 
                         <!-- <a type="submit" class="btn btn-danger">Delete form </i></a> -->
-                        <a type="button" href="{{ route('admin.menus.edit', ['id' => $menu->id]) }}" class="btn btn-primary">Edit</i> <i class="icon-arrow-right14 position-left"></i> </a>
+                        <a type="button" href="{{ route('admin.menus.edit', ['id' => $menu->id]) }}" class="btn btn-primary">Edit</i> <i class="icon-arrow-right14 ml-2"></i> </a>
                     </div>
                 </form>
             </div>
@@ -84,7 +84,7 @@
     </div>
 
     <div class="col-md-6">
-        <div class="panel panel-flat">
+        <div class="card">
             <div class="table-responsive">
                 <table class="table">
                     <thead>
@@ -110,9 +110,9 @@
     </div>
 </div>
 
-<div class="panel panel-flat">
-    <div class="panel-heading">
-        <h6 class="panel-title">Submenus</h6>
+<div class="card">
+    <div class="card-header">
+        <h6 class="card-title">Submenus</h6>
     </div>
 
     <div class="table-responsive">

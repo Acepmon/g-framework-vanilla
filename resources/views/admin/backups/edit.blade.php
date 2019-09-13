@@ -2,28 +2,32 @@
 
 @section('load')
 {{--<!-- Theme JS files -->--}}
-<script type="text/javascript" src="{{ asset('limitless/js/plugins/forms/styling/uniform.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('limitless/js/plugins/forms/styling/switchery.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('limitless/js/plugins/forms/styling/switch.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('limitless/js/pages/form_checkboxes_radios.js') }}"></script>
+<script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/plugins/forms/styling/uniform.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/plugins/forms/styling/switchery.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/plugins/forms/styling/switch.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/demo_pages/form_checkboxes_radios.js') }}"></script>
 <!-- /theme JS files -->
 @endsection
 
 @section('pageheader')
-<div class="page-header-content">
-    <div class="page-title">
-        <h4><i class="icon-arrow-left52 position-left"></i> <span class="text-semibold">backup</span> Edit Page</h4>
+<div class="page-header-content header-elements-inline">
+    <div class="page-title d-flex">
+        <h4><i class="icon-arrow-left52 mr-2"></i> <span class="text-semibold">Backups</span></h4>
     </div>
 
-    <div class="heading-elements">
-        <a href="#" class="btn btn-labeled btn-labeled-right bg-blue heading-btn">Button <b><i class="icon-menu7"></i></b></a>
+    <div class="header-elements">
+        <a href="#" class="btn btn-labeled btn-labeled-right bg-blue heading-btn">Button <b><i
+                    class="icon-menu7"></i></b></a>
     </div>
 </div>
 
-<div class="breadcrumb-line">
-    <ul class="breadcrumb">
-        <li><a href="/backups/"><i class="icon-home2 position-left"></i> Home</a></li>
-    </ul>
+<div class="breadcrumb-line breadcrumb-line-light header-elements-md-inline">
+    <div class="d-flex">
+        <div class="breadcrumb">
+            <a href="index.html" class="breadcrumb-item"><i class="icon-home2 mr-2"></i> Home</a></li>
+            <a href="#" class="breadcrumb-item active">Backups</a>
+        </div>
+    </div>
 </div>
 <!-- /page header -->
 @endsection
@@ -37,18 +41,18 @@
     <div class="col-md-12">
 
         <!-- Horizontal form -->
-        <div class="panel panel-flat">
-            <div class="panel-heading">
-                <h5 class="panel-title">Horizontal form</h5>
-                <div class="heading-elements">
-                    <ul class="icons-list">
-                        <li><a data-action="collapse"></a></li>
-                        <li><a data-action="close"></a></li>
-                    </ul>
+        <div class="card">
+            <div class="card-header header-elements-inline">
+                <h5 class="card-title">Horizontal form</h5>
+                <div class="header-elements">
+                    <div class="list-icons">
+                        <a class="list-icons-item" data-action="collapse"></a>
+                        <a class="list-icons-item" data-action="remove"></a>
+                    </div>
                 </div>
             </div>
 
-            <div class="panel-body">
+            <div class="card-body">
                 <!-- <form method="put" action="" class="form-horizontal"> -->
                 @if (session('status'))
                 <div class="alert alert-success">
@@ -59,8 +63,8 @@
                     @csrf
                     @method ('PUT')
                     <div class="col-lg-9">
-                        <div class="form-group">
-                            <label class="control-label col-lg-2">Title</label>
+                        <div class="form-group row">
+                            <label class="col-form-label col-lg-2">Title</label>
                             <div class="col-lg-10">
                                 <input id="title" type="text" class="form-control @error('title') is-invalid @enderror" name="title" placeholder="Title" value="{{ $backup->title }}" required autocomplete="title" autofocus>
                                 @error('title')
@@ -71,8 +75,8 @@
                             </div>
                         </div>
 
-                        <div class="form-group">
-                            <label class="control-label col-lg-2">Description</label>
+                        <div class="form-group row">
+                            <label class="col-form-label col-lg-2">Description</label>
                             <div class="col-lg-10">
                                 <input id="description" type="text" class="form-control @error('description') is-invalid @enderror" name="description" placeholder="Description" value="{{ $backup->description }}" required autocomplete="description" autofocus>
                                 @error('description')

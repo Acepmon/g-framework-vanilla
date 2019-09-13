@@ -1,6 +1,6 @@
 <div class="media">
     <div class="media-left">
-        <a href="{{ route('admin.users.show', [$user->id]) }}"><img src="{{ $user->avatar_url() }}" class="img-circle img-sm" alt="{{ $user->name }}"></a>
+        <a href="{{ route('admin.users.show', [$user->id]) }}"><img src="{{ $user->avatar_url() }}" width="34" class="rounded-circle mr-2" alt="{{ $user->name }}"></a>
     </div>
 
     <div class="media-body">

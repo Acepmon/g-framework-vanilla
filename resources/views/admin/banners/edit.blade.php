@@ -3,10 +3,10 @@
 @section('title', 'Edit ' . $banner->title)
 
 @section('load')
-<script src="{{ asset('limitless/js/plugins/forms/styling/uniform.min.js') }}"></script>
-<script src="{{ asset('limitless/js/plugins/forms/styling/switchery.min.js') }}"></script>
-<script src="{{ asset('limitless/js/plugins/forms/styling/switch.min.js') }}"></script>
-<script src="{{ asset('limitless/js/plugins/media/cropper.min.js') }}"></script>
+<script src="{{ asset('limitless/bootstrap4/js/plugins/forms/styling/uniform.min.js') }}"></script>
+<script src="{{ asset('limitless/bootstrap4/js/plugins/forms/styling/switchery.min.js') }}"></script>
+<script src="{{ asset('limitless/bootstrap4/js/plugins/forms/styling/switch.min.js') }}"></script>
+<script src="{{ asset('limitless/bootstrap4/js/plugins/media/cropper.min.js') }}"></script>
 
 <style>
     .image-cropper-container img {
@@ -26,18 +26,18 @@
             @csrf
             @method('PUT')
 
-            <div class="panel">
-                <div class="panel-heading">
-                    <h6 class="panel-title">
+            <div class="card">
+                <div class="card-header header-elements-inline">
+                    <h6 class="card-title">
                         Edit Banner
                     </h6>
 
-                    <div class="heading-elements">
-                        <a href="#modal_banner_remove" data-toggle="modal" data-id="{{ $banner->id }}" class="btn btn-default btn-sm"><span class="icon-trash position-left"></span> Remove</a>
+                    <div class="header-elements">
+                        <a href="#modal_banner_remove" data-toggle="modal" data-id="{{ $banner->id }}" class="btn btn-light btn-sm"><span class="icon-trash position-left"></span> Remove</a>
                     </div>
                 </div>
 
-                <div class="panel-body">
+                <div class="card-body">
                     @if (session('status'))
                         <div class="alert alert-success">
                             {!! session('status') !!}
@@ -45,26 +45,26 @@
                     @endif
 
                     <fieldset class="content-group">
-                        <legend class="text-bold">General</legend>
+                        <legend class="font-weight-bold">General</legend>
 
-                        <div class="form-group @error('title') has-error @enderror">
-                            <label for="title" class="control-label">Title <span class="text-danger">*</span></label>
+                        <div class="form-group row @error('title') has-error @enderror">
+                            <label for="title" class="col-form-label">Title <span class="text-danger">*</span></label>
                             <input type="text" class="form-control" name="title" id="title" placeholder="Winter season sale!... etc" required value="{{ $banner->title }}">
                             @error('title')
                                 <div class="help-block text-danger">{{ $message }}</div>
                             @enderror
                         </div>
 
-                        <div class="form-group">
-                            <label for="active" class="control-label">Active</label>
+                        <div class="form-group row">
+                            <label for="active" class="col-form-label">Active</label>
                             <select name="active" id="active" class="form-control">
                                 <option value="0" {{ $banner->active ? '' : 'selected' }}>Not Active</option>
                                 <option value="1" {{ $banner->active ? 'selected' : '' }}>Active</option>
                             </select>
                         </div>
 
-                        <div class="form-group @error('order') has-error @enderror">
-                            <label for="order" class="control-label">Order</label>
+                        <div class="form-group row @error('order') has-error @enderror">
+                            <label for="order" class="col-form-label">Order</label>
                             <input type="number" class="form-control" name="order" id="order" placeholder="0, 1, 2... etc" value="{{ $banner->order }}">
                             <span class="help-block">Set the showing order of multiple banners</span>
                             @error('order')
@@ -74,12 +74,14 @@
                     </fieldset>
 
                     <fieldset class="content-group">
-                        <legend class="text-bold">Action Button</legend>
+                        <legend class="font-weight-bold">Action Button</legend>
 
-                        <div class="form-group @error('btn_show') has-error @enderror">
-                            <div class="checkbox">
-                                <label>
-                                    <input type="checkbox" class="styled" name="btn_show" id="btn_show" onclick="toggleButtonFields(this)" value="{{ $banner->btn_show }}" {{ $banner->btn_show ? 'checked' : ''}}>
+                        <div class="form-group row @error('btn_show') has-error @enderror">
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                    <div class="uniform-checker">
+                                        <input type="checkbox" class="form-check-input-styled" name="btn_show" id="btn_show" onclick="toggleButtonFields(this)" value="{{ $banner->btn_show }}" {{ $banner->btn_show ? 'checked' : ''}}>
+                                    </div>
                                     Show button?
                                 </label>
                                 @error('btn_show')
@@ -88,20 +90,20 @@
                             </div>
                         </div>
 
-                        <div class="form-group @error('btn_text') has-error @enderror" id="btn_text_group" style="display: {{ $banner->btn_show ? 'block' : 'none' }}">
-                            <label for="btn_text" class="control-label">Button Text</label>
+                        <div class="form-group row @error('btn_text') has-error @enderror" id="btn_text_group" style="display: {{ $banner->btn_show ? 'block' : 'none' }}">
+                            <label for="btn_text" class="col-form-label">Button Text</label>
                             <input type="text" class="form-control" name="btn_text" id="btn_text" placeholder="Get Started, Sign up, Subscribe... etc" value="{{ $banner->btn_text }}">
                             @error('btn_text')
                                 <div class="help-block text-danger">{{ $message }}</div>
                             @enderror
                         </div>
 
-                        <div class="form-group @error('btn_link') has-error @enderror" id="btn_link_group" style="display: {{ $banner->btn_show ? 'block' : 'none' }}">
-                            <label for="btn_link" class="control-label">Button Link</label>
+                        <div class="form-group row @error('btn_link') has-error @enderror" id="btn_link_group" style="display: {{ $banner->btn_show ? 'block' : 'none' }}">
+                            <label for="btn_link" class="col-form-label">Button Link</label>
                             <div class="input-group">
                                 <input type="text" class="form-control" name="btn_link" id="btn_link" placeholder="https://..." value="{{ $banner->btn_link }}">
                                 <span class="input-group-btn">
-                                    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal_choose_page">Choose From Pages</button>
+                                    <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_choose_page">Choose From Pages</button>
                                 </span>
                             </div>
                             @error('btn_link')
@@ -111,17 +113,21 @@
                     </fieldset>
 
                     <fieldset class="content-group">
-                        <legend class="text-bold">Banner Image</legend>
+                        <legend class="font-weight-bold">Banner Image</legend>
 
                         <div class="form-group @error('banner_img_mobile') has-error @enderror">
-                            <label for="banner_img_mobile" class="control-label">Mobile Image</label>
-                            <input type="file" class="file-styled" name="banner_img_mobile" id="banner_img_mobile" onchange="showMobileCropper(this)" accept="image/*">
+                            <label for="banner_img_mobile" class="col-form-label">Mobile Image</label>
+                            <div class="uniform-uploader">
+                                <input type="file" class="form-control-uniform" name="banner_img_mobile" id="banner_img_mobile" onchange="showMobileCropper(this)" accept="image/*">
+                                <span class="filename" style="user-select: none;">No file selected</span>
+                                <span class="action btn btn-light" style="user-select: none;">Choose File</span>
+                            </div>
                             <input type="text" name="banner_img_mobile_cropped" id="banner_img_mobile_cropped" hidden>
                             <input type="checkbox" name="banner_img_mobile_remove" id="banner_img_mobile_remove" hidden>
-                            <div class="thumbnail mt-5" id="banner_img_mobile_preview_container" style="display: {{ $banner->banner_img_mobile ? 'block' : 'none' }}">
-                                <div class="thumb">
-                                    <img src="{{ $banner->banner_img_mobile }}" alt="" id="banner_img_mobile_preview">
-                                    <div class="caption-overflow">
+                            <div class="card"  id="banner_img_mobile_preview_container" style="display: {{ $banner->banner_img_mobile ? 'block' : 'none' }}">
+                                <div class="card-img-actions m-1">
+                                    <img class="card-img img-fluid" src="{{ $banner->banner_img_mobile }}" alt="" id="banner_img_mobile_preview">
+                                    <div class="card-img-actions-overlay card-img">
                                         <span>
                                             <button type="button" class="btn btn-info btn-sm" onclick="removeMobilePreview()">Remove</button>
                                         </span>
@@ -134,14 +140,18 @@
                         </div>
 
                         <div class="form-group @error('banner_img_web') has-error @enderror">
-                            <label for="banner_img_web" class="control-label">Web Image</label>
-                            <input type="file" class="file-styled" name="banner_img_web" id="banner_img_web" onchange="showWebCropper(this)" accept="image/*">
+                            <label for="banner_img_web" class="col-form-label">Web Image</label>
+                            <div class="uniform-uploader">
+                                <input type="file" class="form-control-uniform" name="banner_img_web" id="banner_img_web" onchange="showWebCropper(this)" accept="image/*">
+                                <span class="filename" style="user-select: none;">No file selected</span>
+                                <span class="action btn btn-light" style="user-select: none;">Choose File</span>
+                            </div>
                             <input type="text" name="banner_img_web_cropped" id="banner_img_web_cropped" hidden>
                             <input type="checkbox" name="banner_img_web_remove" id="banner_img_web_remove" hidden>
-                            <div class="thumbnail mt-5" id="banner_img_web_preview_container" style="display: {{ $banner->banner_img_web ? 'block' : 'none' }}">
-                                <div class="thumb">
-                                    <img src="{{ $banner->banner_img_web }}" alt="" id="banner_img_web_preview">
-                                    <div class="caption-overflow">
+                            <div class="card" id="banner_img_web_preview_container" style="display: {{ $banner->banner_img_web ? 'block' : 'none' }}">
+                                <div class="card-img-actions m-1">
+                                    <img class="card-img img-fluid" src="{{ $banner->banner_img_web }}" alt="" id="banner_img_web_preview">
+                                    <div class="card-img-actions-overlay card-img">
                                         <span>
                                             <button type="button" class="btn btn-info btn-sm" onclick="removeWebPreview()">Remove</button>
                                         </span>
@@ -154,7 +164,7 @@
                         </div>
                     </fieldset>
 
-                    <div class="form-group text-right">
+                    <div class="text-right">
                         <a href="{{ route('admin.banners.show', $banner->id) }}" class="btn btn-default">Cancel</a>
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </div>
@@ -167,14 +177,16 @@
 <div id="modal_mobile_crop" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <div class="modal-header header-elements-inline">
                 <h6 class="modal-title">Crop Banner Image</h6>
+                <div class="header-elements">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
             </div>
 
             <div class="modal-body">
                 <div class="image-cropper-container">
-                    <img src="{{ asset('limitless/images/placeholder.jpg') }}" alt="" class="crop-16-9" id="modal_mobile_crop_image">
+                    <img src="{{ asset('limitless/bootstrap4/images/placeholder.jpg') }}" alt="" class="crop-16-9" id="modal_mobile_crop_image">
                 </div>
             </div>
 
@@ -188,14 +200,16 @@
 <div id="modal_web_crop" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <div class="modal-header header-elements-inline">
                 <h6 class="modal-title">Crop Banner Image</h6>
+                <div class="header-elements">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
             </div>
 
             <div class="modal-body">
                 <div class="image-cropper-container">
-                    <img src="{{ asset('limitless/images/placeholder.jpg') }}" alt="" id="modal_web_crop_image">
+                    <img src="{{ asset('limitless/bootstrap4/images/placeholder.jpg') }}" alt="" id="modal_web_crop_image">
                 </div>
             </div>
 
@@ -209,9 +223,11 @@
 <div id="modal_choose_page" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <div class="modal-header header-elements-inline">
                 <h6 class="modal-title">Choose from Pages</h6>
+                <div class="header-elements">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
             </div>
 
             <div class="modal-body">
@@ -228,7 +244,7 @@
                         </div>
 
                         <div class="media-right">
-                            <button type="button" class="btn btn-default" onclick="choosePage('{{ url($page->slug) }}')">Choose</button>
+                            <button type="button" class="btn btn-light" onclick="choosePage('{{ url($page->slug) }}')">Choose</button>
                         </div>
                     </li>
                     @endforeach
@@ -241,9 +257,11 @@
 <div id="modal_banner_remove" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <div class="modal-header header-elements-inline">
                 <h6 class="modal-title">Remove Banner</h6>
+                <div class="header-elements">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
             </div>
 
             <div class="modal-body">
@@ -256,7 +274,7 @@
                 <form action="#" method="POST">
                     @csrf
                     @method('DELETE')
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
                     <button type="submit" class="btn btn-danger">Remove</button>
                 </form>
             </div>

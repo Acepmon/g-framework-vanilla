@@ -3,9 +3,9 @@
 @section('title', 'Edit Configuration')
 
 @section('load')
-<script type="text/javascript" src="{{ asset('limitless/js/plugins/forms/styling/uniform.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('limitless/js/plugins/forms/styling/switchery.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('limitless/js/plugins/forms/styling/switch.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/plugins/forms/styling/uniform.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/plugins/forms/styling/switchery.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/plugins/forms/styling/switch.min.js') }}"></script>
 @endsection
 
 @section('pageheader')
@@ -16,21 +16,20 @@
 <div class="row">
     <div class="col-md-6">
         <form action="{{ route('admin.configs.update', ['id' => $config->id]) }}" method="POST">
-            <div class="panel panel-flat">
-                <div class="panel-heading">
-                    <h5 class="panel-title">
+            <div class="card">
+                <div class="card-header header-elements-inline">
+                    <h5 class="card-title">
                         Update Configuration
                     </h5>
-
-                    <div class="heading-elements">
-                        <ul class="icons-list">
-                            <li><a data-action="collapse"></a></li>
-                            <li><a data-action="reload"></a></li>
-                            <li><a data-action="close"></a></li>
-                        </ul>
+                    <div class="header-elements">
+                        <div class="list-icons">
+                            <a class="list-icons-item" data-action="collapse"></a>
+                            <a class="list-icons-item" data-action="reload"></a>
+                            <a class="list-icons-item" data-action="remove"></a>
+                        </div>
                     </div>
                 </div>
-                <div class="panel-body">
+                <div class="card-body">
                     @method('PUT')
                     @csrf
 
@@ -94,7 +93,7 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-xs-6">
+                        <div class="col-md-6">
                             @if (\Str::startsWith($config->key, 'system'))
                             <a href="{{ route('admin.configs.system') }}" class="btn btn-default">List</a>
                             @elseif (\Str::startsWith($config->key, 'themes'))
@@ -109,7 +108,7 @@
                             <a href="javascript:history.back()" class="btn btn-default">Back</a>
                             @endif
                         </div>
-                        <div class="col-xs-6">
+                        <div class="col-md-6">
                             <div class="text-right">
                                 <button type="submit" class="btn btn-primary">Submit</button>
                             </div>

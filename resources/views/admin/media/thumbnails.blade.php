@@ -3,7 +3,7 @@
 @section('title', 'Content Thumbnails')
 
 @section('load')
-<script type="text/javascript" src="{{ asset('limitless/js/plugins/media/fancybox.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/plugins/media/fancybox.min.js') }}"></script>
 <style>
     .thumbnail {
         height: 110px;
@@ -21,7 +21,7 @@
 
 @section('content')
 <!-- Image grid -->
-<h6 class="content-group text-semibold">
+<h6 class="content-group font-weight-semibold">
     Content Thumbnails
     <small class="display-block">There are about <strong>{{ number_format(count($thumbnails)) }}</strong> thumbnails stored.</small>
 </h6>

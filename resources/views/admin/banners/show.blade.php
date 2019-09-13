@@ -13,25 +13,27 @@
 @section('content')
 <div class="row">
     <div class="col-md-12">
-        <div class="panel">
-            <div class="panel-heading">
-                <h6 class="panel-title">{{ $banner->title }}</h6>
-                @if ($banner->active)
-                <small class="text-success">Active</small>
-                @else
-                <small class="text-muted">Not Active</small>
-                @endif
+        <div class="card">
+            <div class="card-header header-elements-inline">
+                <div>
+                    <h6 class="card-title">{{ $banner->title }}</h6>
+                    @if ($banner->active)
+                    <small class="text-success">Active</small>
+                    @else
+                    <small class="text-muted">Not Active</small>
+                    @endif
+                </div>
 
-                <div class="heading-elements">
-                    <a href="#modal_banner_remove" data-toggle="modal" data-id="{{ $banner->id }}" class="btn btn-default btn-sm"><span class="icon-trash position-left"></span> Remove</a>
-                    <a href="{{ route('admin.banners.edit', $banner->id) }}" class="btn btn-default btn-sm"><span class="icon-pencil position-left"></span> Edit</a>
+                <div class="header-elements">
+                    <a href="#modal_banner_remove" data-toggle="modal" data-id="{{ $banner->id }}" class="btn btn-light btn-sm mr-2"><span class="icon-trash ml-2"></span> Remove</a>
+                    <a href="{{ route('admin.banners.edit', $banner->id) }}" class="btn btn-light btn-sm"><span class="icon-pencil ml-2"></span> Edit</a>
                 </div>
             </div>
 
-            <div class="panel-body">
+            <div class="card-body">
                 @if ($banner->btn_show)
                 <fieldset class="content-group">
-                    <legend class="text-bold">Action button preview</legend>
+                    <legend class="font-weight-bold">Action button preview</legend>
 
                     <div class="form-group">
                         <a href="{{ $banner->btn_link }}" class="btn btn-primary btn-lg">{{ $banner->btn_text }}</a>
@@ -42,7 +44,7 @@
 
                 @if ($banner->banner_img_mobile)
                 <fieldset class="content-group">
-                    <legend class="text-bold">Mobile Banner Image</legend>
+                    <legend class="font-weight-bold">Mobile Banner Image</legend>
 
                     <div class="thumbnail">
                         <img src="{{ $banner->banner_img_mobile }}" alt="Mobile Banner">
@@ -52,7 +54,7 @@
 
                 @if ($banner->banner_img_web)
                 <fieldset class="content-group">
-                    <legend class="text-bold">Web Banner Image</legend>
+                    <legend class="font-weight-bold">Web Banner Image</legend>
 
                     <div class="thumbnail">
                         <img src="{{ $banner->banner_img_web }}" alt="Web Banner">
@@ -66,9 +68,11 @@
 <div id="modal_banner_remove" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <div class="modal-header header-elements-inline">
                 <h6 class="modal-title">Remove Banner</h6>
+                <div class="header-elements">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
             </div>
 
             <div class="modal-body">

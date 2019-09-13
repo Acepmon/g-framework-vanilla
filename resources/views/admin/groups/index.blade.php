@@ -4,41 +4,40 @@
 @endsection
 
 @section('pageheader')
-<div class="page-header-content">
-    <div class="page-title">
-        <h4><i class="icon-arrow-left52 position-left"></i> <span class="text-semibold">Groups Management</span> - Index</h4>
+<div class="page-header-content header-elements-inline">
+    <div class="page-title d-flex">
+        <h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Groups Management</span> - Index</h4>
     </div>
 
-    <div class="heading-elements">
+    <div class="header-elements">
         <a href="{{ route('admin.groups.create') }}" class="btn btn-primary heading-btn">Create Static Group</a>
     </div>
 </div>
 
-<div class="breadcrumb-line">
-    <ul class="breadcrumb">
-        <li><a href="index.html"><i class="icon-home2 position-left"></i> Admin</a></li>
-        <li><a href="2_col.html">Groups</a></li>
-        <li class="active">Index</li>
-    </ul>
+<div class="breadcrumb-line breadcrumb-line-light header-elements-md-inline">
+    <div class="d-flex">
+        <div class="breadcrumb">
+            <a class="breadcrumb-item" href="index.html"><i class="icon-home2 mr-2"></i> Admin</a>
+            <span class="breadcrumb-item active">Groups</span>
+        </div>
+    </div>
 
-    <ul class="breadcrumb-elements">
-        <li><a href="#"><i class="icon-comment-discussion position-left"></i> Link</a></li>
-        <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                <i class="icon-gear position-left"></i>
-                Dropdown
-                <span class="caret"></span>
-            </a>
-
-            <ul class="dropdown-menu dropdown-menu-right">
-                <li><a href="#"><i class="icon-user-lock"></i> Account security</a></li>
-                <li><a href="#"><i class="icon-statistics"></i> Analytics</a></li>
-                <li><a href="#"><i class="icon-accessibility"></i> Accessibility</a></li>
-                <li class="divider"></li>
-                <li><a href="#"><i class="icon-gear"></i> All settings</a></li>
-            </ul>
-        </li>
-    </ul>
+    <div class="header-elements d-none">
+        <div class="breadcrumb justify-content-center">
+            <a href="#" class="breadcrumb-elements-item"><i class="icon-comment-discussion mr-2"></i>Link</a>
+            <div class="breadcrumb-elements-item dropdown p-0">
+                <a href="#" class="breadcrumb-elements-item dropdown-toggle" data-toggle="dropdown" aria-expanded="true"><i class="icon-gear mr-2"></i>Dropdown</a>
+                <div class="dropdown-menu dropdown-menu-right" x-placement="bottom-end"
+                    style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(-84px, 40px, 0px);">
+                    <a href="#" class="dropdown-item"><i class="icon-user-lock"></i> Account security</a>
+                    <a href="#" class="dropdown-item"><i class="icon-statistics"></i> Analytics</a>
+                    <a href="#" class="dropdown-item"><i class="icon-accessibility"></i> Accessibility</a>
+                    <div class="dropdown-divider"></div>
+                    <a href="#" class="dropdown-item"><i class="icon-gear"></i> All settings</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <!-- /page header -->
 @endsection
@@ -49,40 +48,40 @@
 <div class="row">
     <div class="col-lg-12">
         @if (session('status'))
-        <div class="panel">
-            <div class="panel-body">
+        <div class="card">
+            <div class="card-body">
                     <div id="timer" class="alert alert-success">
                         {{ session('status') }}
                     </div>
                 </div>
             </div>
         @endif
-        <div class="panel panel-flat">
-            <div class="panel-heading">
-                <h5 class="panel-title">Group type definition</h5>
-                <div class="heading-elements">
-                    <ul class="icons-list">
-                        <li><a data-action="collapse"></a></li>
-                        <li><a data-action="close"></a></li>
-                    </ul>
+        <div class="card">
+            <div class="card-header header-elements-inline">
+                <h5 class="card-title">Group type definition</h5>
+                <div class="header-elements">
+                    <div class="list-icons">
+                        <a class="list-icons-item" data-action="collapse"></a>
+                        <a class="list-icons-item" data-action="remove"></a>
+                    </div>
                 </div>
             </div>
 
-            <div class="panel-body">
-                <h6 class="text-semibold">System Group</h6>
+            <div class="card-body">
+                <h6 class="font-weight-semibold">System Group</h6>
                 <p class="content-group">System user groups are in the system by default. They cannot be deleted, it is unchanging.</p>
 
-                <h6 class="text-semibold">Dynamic Group</h6>
+                <h6 class="font-weight-semibold">Dynamic Group</h6>
                 <p class="content-group">Dynamic user groups are populated and maintained through either a query or a directory server.</p>
 
-                <h6 class="text-semibold">Static Group</h6>
+                <h6 class="font-weight-semibold">Static Group</h6>
                 <p>Static user groups are those which are populated manually, that is added by the administrator.</p>
             </div>
         </div>
-        <div class="panel panel-flat">
+        <div class="card">
             <table class="table table-condensed">
                 <tr>
-                    <th colspan="4" class="active">System Groups ({{$systemGroups->count()}})</th>
+                    <th colspan="4" class="table-border-double table-active">System Groups ({{$systemGroups->count()}})</th>
                 </tr>
                 <tr>
                     <th style="width: 50px">#</th>
@@ -100,14 +99,14 @@
                         </td>
                         <td>{{$group->description}}</td>
                         <td>
-                            <span class="label label-{{ $group->typeClass() }}">{{$group->type}}</span>
+                            <span class="badge badge-{{ $group->typeClass() }}">{{$group->type}}</span>
                         </td>
                     </tr>
                 @endforeach
             </table>
             <table class="table table-condensed">
                 <tr>
-                    <th colspan="6" class="active">Dynamic Groups ({{$dynamicGroups->count()}})</th>
+                    <th colspan="6" class="table-border-double table-active">Dynamic Groups ({{$dynamicGroups->count()}})</th>
                 </tr>
                 <tr>
                     <th style="width: 50px">#</th>
@@ -128,14 +127,14 @@
                         </td>
                         <td>{{$group->description}}</td>
                         <td>
-                            <span class="label label-{{ $group->typeClass() }}">{{$group->type}}</span>
+                            <span class="badge badge-{{ $group->typeClass() }}">{{$group->type}}</span>
                         </td>
                     </tr>
                 @endforeach
             </table>
             <table class="table table-condensed">
                 <tr>
-                    <th colspan="7" class="active">
+                    <th colspan="7" class="table-border-double table-active">
                         Static Groups ({{$staticGroups->count()}})
                     </th>
                 </tr>
@@ -156,7 +155,7 @@
                         </td>
                         <td>{{$group->description}}</td>
                         <td>
-                            <span class="label label-{{ $group->typeClass() }}">{{$group->type}}</span>
+                            <span class="badge badge-{{ $group->typeClass() }}">{{$group->type}}</span>
                         </td>
                         <td>
                             <div class="btn-group">

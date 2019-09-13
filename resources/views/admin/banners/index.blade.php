@@ -13,9 +13,9 @@
 
 @section('content')
 
-<div class="panel">
-    <div class="panel-heading">
-        <h6 class="panel-title">
+<div class="card">
+    <div class="card-header header-elements-inline">
+        <h6 class="card-title">
             All Banners
         </h6>
 
@@ -25,7 +25,7 @@
     </div>
 
     @if (session('status'))
-        <div class="panel-body">
+        <div class="card-body">
             <div class="alert alert-success">
                 {!! session('status') !!}
             </div>
@@ -93,18 +93,14 @@
                         {{ $banner->created_at->diffForHumans() }}
                     </td>
                     <td class="text-center">
-                        <ul class="icons-list">
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <i class="icon-menu9"></i>
-                                </a>
+                        <a href="#" data-toggle="dropdown">
+                            <i class="icon-menu9 text-secondary"></i>
+                        </a>
 
-                                <ul class="dropdown-menu dropdown-menu-right">
-                                    <li><a href="{{ route('admin.banners.edit', $banner->id) }}"><i class="icon-pencil"></i> Edit</a></li>
-                                    <li><a href="#modal_banner_remove" data-toggle="modal" data-id="{{ $banner->id }}"><i class="icon-trash"></i> Remove</a></li>
-                                </ul>
-                            </li>
-                        </ul>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <a class="dropdown-item" href="{{ route('admin.banners.edit', $banner->id) }}"><i class="icon-pencil"></i> Edit</a>
+                            <a class="dropdown-item" href="#modal_banner_remove" data-toggle="modal" data-id="{{ $banner->id }}"><i class="icon-trash"></i> Remove</a>
+                        </div>
                     </td>
                 </tr>
                 @endforeach

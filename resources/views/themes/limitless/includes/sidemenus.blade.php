@@ -1,7 +1,7 @@
 
 @if($menu)
-<li>
-    <a href="{{ $menu->link }}">
+<li class="nav-item">
+    <a class="nav-link" href="{{ $menu->link }}">
         @if ($menu->icon)
         <i class="{{ $menu->icon}}"></i>
         @endif
@@ -9,7 +9,7 @@
     </a>
 
     @if(count(Auth::user()->menus->where('parent_id', $menu->id))>0)
-    <ul>
+    <ul class="nav nav-group-sub">
         @each('themes.limitless.includes.sidemenus', Auth::user()->menus->where('parent_id', $menu->id)->sortBy('order'), 'menu')
     </ul>
     @endif

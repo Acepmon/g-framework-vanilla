@@ -3,7 +3,7 @@
 @section('title', 'Base Configuration')
 
 @section('load')
-<script type="text/javascript" src="{{ asset('limitless/js/plugins/editors/ace/ace.js') }}"></script>
+<script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/plugins/editors/ace/ace.js') }}"></script>
 @endsection
 
 @section('pageheader')
@@ -14,19 +14,17 @@
     <div class="row">
         @foreach ($configs as $config)
         <div class="col-md-12">
-            <div class="panel panel-flat">
-                <div class="panel-heading">
-                    <h5 class="panel-title">
-                        <span class="text-semibold">{{$config}}.php</span>
+            <div class="card">
+                <div class="card-header header-elements-inline">
+                    <h5 class="card-title">
+                        <span class="font-weight-semibold">{{$config}}.php</span>
                     </h5>
-                    <div class="heading-elements">
-                        <ul class="icons-list">
-                            <li><button type="button" data-target="{{$config}}" data-loading-text="<i class='icon-spinner4 spinner position-left'></i> Saving" class="btn btn-primary btn-sm btn-loading">Save Configuration</button></li>
-                        </ul>
+                    <div class="header-elements">
+                        <button type="button" data-target="{{$config}}" data-loading-text="<i class='icon-spinner4 spinner position-left'></i> Saving" class="btn btn-primary btn-sm btn-loading">Save Configuration</button>
                     </div>
                 </div>
 
-                <div class="panel-body">
+                <div class="card-body">
                     <div class="content-group">
                         <div id="{{$config}}_editor">
                             {{ Storage::disk('config')->get($config . '.php') }}

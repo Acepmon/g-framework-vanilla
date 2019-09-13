@@ -79,12 +79,6 @@
                 <div class="title m-b-md">
                     G-Framework
                 </div>
-
-                <div class="links">
-                    <a href="https://github.com/acepmon/g-framework" target="_blank">Core</a>
-                    <a href="https://github.com/acepmon/g-framework-mobile" target="_blank">Mobile</a>
-                    <a href="https://github.com/acepmon/g-framework/wiki" target="_blank">Docs</a>
-                </div>
             </div>
         </div>
     </body>

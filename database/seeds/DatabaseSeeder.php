@@ -19,10 +19,14 @@ class DatabaseSeeder extends Seeder
         $this->call(AdministratorMenusSeeder::class);
         $this->call(ThemesTableSeeder::class);
         $this->call(PagesSeeder::class);
-        $this->call(CarPagesSeeder::class);
         $this->call(PermissionsSeeder::class);
         $this->call(BannersTableSeeder::class);
         $this->call(FileConfigsSeeder::class);
+
+        $this->call(CarConfigsSeeder::class);
+        $this->call(CarGroupsSeeder::class);
+        $this->call(CarUsersSeeder::class);
+        $this->call(CarPagesSeeder::class);
         $this->call(CarContentsSeeder::class);
     }
 }

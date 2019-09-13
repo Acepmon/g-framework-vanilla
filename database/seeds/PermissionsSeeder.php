@@ -13,8 +13,10 @@ class PermissionsSeeder extends Seeder
     public function run()
     {
         DB::table('permissions')->insert([
-            // logout
+            // authentication
             ['title' => 'logout', 'type' => Permission::TYPE_READ, 'description' => 'logout'],
+            ['title' => 'register', 'type' => Permission::TYPE_READ, 'description' => 'register'],
+            ['title' => 'login', 'type' => Permission::TYPE_READ, 'description' => 'login'],
             // user CRUD
             ['title' => 'admin_users_create', 'type' => Permission::TYPE_CREATE, 'description' => 'create permission for user'],
             ['title' => 'admin_users_read', 'type' => Permission::TYPE_READ, 'description' => 'read permission for user'],

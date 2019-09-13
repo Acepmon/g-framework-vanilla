@@ -3,10 +3,12 @@
 @section('title', 'Create Menu')
 
 @section('load')
-<script type="text/javascript" src="{{ asset('limitless/js/core/libraries/jquery_ui/core.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('limitless/js/plugins/forms/selects/selectboxit.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/plugins/extensions/jquery_ui/core.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/plugins/forms/selects/select2.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/plugins/forms/selects/bootstrap_multiselect.js') }}"></script>
 
-<script type="text/javascript" src="{{ asset('limitless/js/pages/form_selectbox.js') }}"></script>
+<script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/demo_pages/multiselect.js') }}"></script>
+<script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/demo_pages/form_select2.js') }}"></script>
 @endsection
 
 @section('pageheader')
@@ -16,23 +18,23 @@
 @section('content')
 <div class="row">
     <div class="col-md-6">
-        <div class="panel panel-flat">
-            <div class="panel-heading">
-                <h5 class="panel-title">Create New Menu</h5>
-                <div class="heading-elements">
-                    <ul class="icons-list">
-                        <li><a data-action="collapse"></a></li>
-                        <li><a data-action="close"></a></li>
-                    </ul>
+        <div class="card">
+            <div class="card-header header-elements-inline">
+                <h5 class="card-title">Create New Menu</h5>
+                <div class="header-elements">
+                    <div class="list-icons">
+                        <a class="list-icons-item" data-action="collapse"></a>
+                        <a class="list-icons-item" data-action="remove"></a>
+                    </div>
                 </div>
             </div>
 
-            <div class="panel-body">
+            <div class="card-body">
                 <form method="POST" action="{{ route('admin.menus.store') }}">
                     @csrf
 
-                    <div class="form-group">
-                        <label for="title" class="control-label">Title <span class="text-danger">*</span></label>
+                    <div class="form-group row">
+                        <label for="title" class="col-form-label">Title <span class="text-danger">*</span></label>
                         <input id="title" type="text" class="form-control @error('title') is-invalid @enderror" name="title" placeholder="Menu title" value="{{ old('title') }}" required autocomplete="title">
                         @error('title')
                         <span class="invalid-feedback" role="alert">
@@ -41,8 +43,8 @@
                         @enderror
                     </div>
 
-                    <div class="form-group">
-                        <label for="link" class="control-label">Link</label>
+                    <div class="form-group row">
+                        <label for="link" class="col-form-label">Link</label>
                         <div class="input-group">
                             <input id="link" type="text" class="form-control @error('link') is-invalid @enderror" name="link" placeholder="https://..." value="{{ old('link') }}" required autocomplete="link">
                             <span class="input-group-btn">
@@ -56,8 +58,8 @@
                         @enderror
                     </div>
 
-                    <div class="form-group">
-                        <label for="icon" class="control-label">Icon</label>
+                    <div class="form-group row">
+                        <label for="icon" class="col-form-label">Icon</label>
                         <div class="input-group">
                             <input id="icon" type="text" class="form-control @error('icon') is-invalid @enderror" name="icon" placeholder="Menu icon" value="{{ old('icon') }}" required autocomplete="icon">
                             <span class="input-group-btn">
@@ -72,9 +74,9 @@
                     </div>
 
                     <div class="text-right">
-                        <a class="btn btn-default" href="javascript:history.back()" type="btn btn-primary"><i class="icon-arrow-left13 position-left"></i>Back</a>
+                        <a class="btn btn-default" href="javascript:history.back()" type="btn btn-primary"><i class="icon-arrow-left13 ml-2"></i>Back</a>
                         <button type="submit" class="btn btn-success">Submit
-                            <i class="icon-arrow-right14 position-right"></i>
+                            <i class="icon-arrow-right14 mr-2"></i>
                         </button>
                     </div>
                 </form>

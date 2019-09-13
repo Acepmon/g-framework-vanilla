@@ -3,7 +3,7 @@
 @section('title', 'User Groups List')
 
 @section('load')
-<script type="text/javascript" src="{{ asset('limitless/js/plugins/tables/datatables/datatables.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/plugins/tables/datatables/datatables.min.js') }}"></script>
 @endsection
 
 @section('pageheader')
@@ -11,20 +11,16 @@
 @endsection
 
 @section('content')
-<div class="has-detached-left">
+<div class="d-md-flex align-items-md-start">
     @include('admin.users.includes.sidebar')
 
-    <!-- Detached content -->
-    <div class="container-detached">
-        <div class="content-detached">
-
-            <!-- Tab content -->
-            <div class="tab-content">
-                <div class="tab-pane fade in active" id="groups">
-                    <div class="panel panel-flat">
-                        <div class="panel-heading">
-                            <h6 class="panel-title">User Groups</h6>
-                            <div class="heading-elements">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-header header-elements-inline">
+                            <h6 class="card-title">User Groups</h6>
+                            <div class="header-elements">
                                 <a href="{{ route('admin.users.groups.create', ['id' => $user->id]) }}" class="text-white btn btn-primary btn-sm">Add To Group</a>
                             </div>
                         </div>
@@ -52,8 +48,6 @@
                             </tbody>
                         </table>
                     </div>
-
-                </div>
             </div>
             <!-- /tab content -->
 

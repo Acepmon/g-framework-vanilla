@@ -3,10 +3,10 @@
 @section('title', 'Create Banner')
 
 @section('load')
-<script src="{{ asset('limitless/js/plugins/forms/styling/uniform.min.js') }}"></script>
-<script src="{{ asset('limitless/js/plugins/forms/styling/switchery.min.js') }}"></script>
-<script src="{{ asset('limitless/js/plugins/forms/styling/switch.min.js') }}"></script>
-<script src="{{ asset('limitless/js/plugins/media/cropper.min.js') }}"></script>
+<script src="{{ asset('limitless/bootstrap4/js/plugins/forms/styling/uniform.min.js') }}"></script>
+<script src="{{ asset('limitless/bootstrap4/js/plugins/forms/styling/switchery.min.js') }}"></script>
+<script src="{{ asset('limitless/bootstrap4/js/plugins/forms/styling/switch.min.js') }}"></script>
+<script src="{{ asset('limitless/bootstrap4/js/plugins/media/cropper.min.js') }}"></script>
 
 <style>
     .image-cropper-container img {
@@ -24,12 +24,12 @@
     <div class="col-md-6">
         <form action="{{ route('admin.banners.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
-            <div class="panel">
-                <div class="panel-heading">
-                    <h6 class="panel-title">Create Banner</h6>
+            <div class="card">
+                <div class="card-header">
+                    <h6 class="card-title">Create Banner</h6>
                 </div>
 
-                <div class="panel-body">
+                <div class="card-body">
                     @if (session('status'))
                         <div class="alert alert-success">
                             {!! session('status') !!}
@@ -37,18 +37,18 @@
                     @endif
 
                     <fieldset class="content-group">
-                        <legend class="text-bold">General</legend>
+                        <legend class="font-weight-bold">General</legend>
 
-                        <div class="form-group @error('title') has-error @enderror">
-                            <label for="title" class="control-label">Title <span class="text-danger">*</span></label>
+                        <div class="form-group row @error('title') has-error @enderror">
+                            <label for="title" class="col-form-label">Title <span class="text-danger">*</span></label>
                             <input type="text" class="form-control" name="title" id="title" placeholder="Winter season sale!... etc" required>
                             @error('title')
                                 <div class="help-block text-danger">{{ $message }}</div>
                             @enderror
                         </div>
 
-                        <div class="form-group @error('order') has-error @enderror">
-                            <label for="order" class="control-label">Order</label>
+                        <div class="form-group row @error('order') has-error @enderror">
+                            <label for="order" class="col-form-label">Order</label>
                             <input type="number" class="form-control" name="order" id="order" placeholder="0, 1, 2... etc" value="{{ $lastOrder + 1 }}">
                             <span class="help-block">Set the showing order of multiple banners</span>
                             @error('order')
@@ -58,12 +58,14 @@
                     </fieldset>
 
                     <fieldset class="content-group">
-                        <legend class="text-bold">Action Button</legend>
+                        <legend class="font-weight-bold">Action Button</legend>
 
-                        <div class="form-group @error('btn_show') has-error @enderror">
-                            <div class="checkbox">
-                                <label>
-                                    <input type="checkbox" class="styled" name="btn_show" id="btn_show" onclick="toggleButtonFields(this)" value="1">
+                        <div class="form-group row @error('btn_show') has-error @enderror">
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                    <div class="uniform-checker">
+                                        <input type="checkbox" class="form-check-input-styled" name="btn_show" id="btn_show" onclick="toggleButtonFields(this)" value="1">
+                                    </div>
                                     Show button?
                                 </label>
                                 @error('btn_show')
@@ -72,20 +74,20 @@
                             </div>
                         </div>
 
-                        <div class="form-group @error('btn_text') has-error @enderror" id="btn_text_group" style="display: none;">
-                            <label for="btn_text" class="control-label">Button Text</label>
+                        <div class="form-group row @error('btn_text') has-error @enderror" id="btn_text_group" style="display: none;">
+                            <label for="btn_text" class="col-form-label">Button Text</label>
                             <input type="text" class="form-control" name="btn_text" id="btn_text" placeholder="Get Started, Sign up, Subscribe... etc">
                             @error('btn_text')
                                 <div class="help-block text-danger">{{ $message }}</div>
                             @enderror
                         </div>
 
-                        <div class="form-group @error('btn_link') has-error @enderror" id="btn_link_group" style="display: none;">
-                            <label for="btn_link" class="control-label">Button Link</label>
+                        <div class="form-group row @error('btn_link') has-error @enderror" id="btn_link_group" style="display: none;">
+                            <label for="btn_link" class="col-form-label">Button Link</label>
                             <div class="input-group">
                                 <input type="text" class="form-control" name="btn_link" id="btn_link" placeholder="https://...">
                                 <span class="input-group-btn">
-                                    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal_choose_page">Choose From Pages</button>
+                                    <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_choose_page">Choose From Pages</button>
                                 </span>
                             </div>
                             @error('btn_link')
@@ -95,16 +97,20 @@
                     </fieldset>
 
                     <fieldset class="content-group">
-                        <legend class="text-bold">Banner Image</legend>
+                        <legend class="font-weight-bold">Banner Image</legend>
 
                         <div class="form-group @error('banner_img_mobile') has-error @enderror">
-                            <label for="banner_img_mobile" class="control-label">Mobile Image</label>
-                            <input type="file" class="file-styled" name="banner_img_mobile" id="banner_img_mobile" onchange="showMobileCropper(this)">
+                            <label for="banner_img_mobile" class="col-form-label">Mobile Image</label>                            
+                            <div class="uniform-uploader">
+                                <input type="file" class="form-control-uniform" name="banner_img_mobile" id="banner_img_mobile" onchange="showMobileCropper(this)">
+                                <span class="filename" style="user-select: none;">No file selected</span>
+                                <span class="action btn btn-light" style="user-select: none;">Choose File</span>
+                            </div>
                             <input type="text" name="banner_img_mobile_cropped" id="banner_img_mobile_cropped" hidden>
-                            <div class="thumbnail mt-5" id="banner_img_mobile_preview_container" style="display: none;">
-                                <div class="thumb">
-                                    <img src="{{ asset('limitless/images/placeholder.jpg') }}" alt="" id="banner_img_mobile_preview">
-                                    <div class="caption-overflow">
+                            <div class="card" id="banner_img_mobile_preview_container" style="display: none;">
+                                <div class="card-img-actions m-1">
+                                    <img class="card-img img-fluid" src="{{ asset('limitless/bootstrap4/images/placeholder.jpg') }}" alt="" id="banner_img_mobile_preview">
+                                    <div class="card-img-actions-overlay card-img">
                                         <span>
                                             <button type="button" class="btn btn-info btn-sm" onclick="removeMobilePreview()">Remove</button>
                                         </span>
@@ -117,13 +123,17 @@
                         </div>
 
                         <div class="form-group @error('banner_img_web') has-error @enderror">
-                            <label for="banner_img_web" class="control-label">Web Image</label>
-                            <input type="file" class="file-styled" name="banner_img_web" id="banner_img_web" onchange="showWebCropper(this)">
+                            <label for="banner_img_web" class="col-form-label">Web Image</label>                       
+                            <div class="uniform-uploader">
+                                <input type="file" class="form-control-uniform" name="banner_img_web" id="banner_img_web" onchange="showWebCropper(this)">
+                                <span class="filename" style="user-select: none;">No file selected</span>
+                                <span class="action btn btn-light" style="user-select: none;">Choose File</span>
+                            </div>
                             <input type="text" name="banner_img_web_cropped" id="banner_img_web_cropped" hidden>
-                            <div class="thumbnail mt-5" id="banner_img_web_preview_container" style="display: none;">
-                                <div class="thumb">
-                                    <img src="{{ asset('limitless/images/placeholder.jpg') }}" alt="" id="banner_img_web_preview">
-                                    <div class="caption-overflow">
+                            <div class="card"  id="banner_img_web_preview_container" style="display: none;">
+                                <div class="card-img-actions m-1">
+                                    <img class="card-img img-fluid" src="{{ asset('limitless/bootstrap4/images/placeholder.jpg') }}" alt="" id="banner_img_web_preview">
+                                    <div class="card-img-actions-overlay card-img">
                                         <span>
                                             <button type="button" class="btn btn-info btn-sm" onclick="removeWebPreview()">Remove</button>
                                         </span>
@@ -136,8 +146,8 @@
                         </div>
                     </fieldset>
 
-                    <div class="form-group text-right">
-                        <a href="{{ route('admin.banners.index') }}" class="btn btn-default">Cancel</a>
+                    <div class="text-right">
+                        <a href="{{ route('admin.banners.index') }}" class="btn btn-light">Cancel</a>
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </div>
                 </div>
@@ -149,14 +159,16 @@
 <div id="modal_mobile_crop" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <div class="modal-header header-elements-inline">
                 <h6 class="modal-title">Crop Banner Image</h6>
+                <div class="header-elements">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
             </div>
 
             <div class="modal-body">
                 <div class="image-cropper-container">
-                    <img src="{{ asset('limitless/images/placeholder.jpg') }}" alt="" class="crop-16-9" id="modal_mobile_crop_image">
+                    <img src="{{ asset('limitless/bootstrap4/images/placeholder.jpg') }}" alt="" class="crop-16-9" id="modal_mobile_crop_image">
                 </div>
             </div>
 
@@ -170,14 +182,16 @@
 <div id="modal_web_crop" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <div class="modal-header header-elements-inline">
                 <h6 class="modal-title">Crop Banner Image</h6>
+                <div class="header-elements">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
             </div>
 
             <div class="modal-body">
                 <div class="image-cropper-container">
-                    <img src="{{ asset('limitless/images/placeholder.jpg') }}" alt="" id="modal_web_crop_image">
+                    <img src="{{ asset('limitless/bootstrap4/images/placeholder.jpg') }}" alt="" id="modal_web_crop_image">
                 </div>
             </div>
 
@@ -191,9 +205,11 @@
 <div id="modal_choose_page" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <div class="modal-header header-elements-inline">
                 <h6 class="modal-title">Choose from Pages</h6>
+                <div class="header-elements">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
             </div>
 
             <div class="modal-body">

@@ -4,41 +4,43 @@
 @endsection
 
 @section('pageheader')
-<div class="page-header-content">
-    <div class="page-title">
-        <h4><i class="icon-arrow-left52 position-left"></i> <span class="text-semibold">Starters</span> - 2 Columns</h4>
+<div class="page-header-content header-elements-md-inline">
+    <div class="page-title d-flex">
+        <h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Starters</span> - 2 Columns</h4>
+        <a href="#" class="header-elements-toggle text-default d-md-none">
+            <i class="icon-more"></i>
+        </a>
     </div>
 
-    <div class="heading-elements">
+    <div class="header-elements d-none">
         <a href="#" class="btn btn-labeled btn-labeled-right bg-blue heading-btn">Button <b><i class="icon-menu7"></i></b></a>
     </div>
 </div>
 
-<div class="breadcrumb-line">
-    <ul class="breadcrumb">
-        <li><a href="index.html"><i class="icon-home2 position-left"></i> Home</a></li>
-        <li><a href="2_col.html">Starters</a></li>
-        <li class="active">2 columns</li>
-    </ul>
+<div class="breadcrumb-line breadcrumb-line-light header-elements-md-inline">
+    <div class="d-flex">
+        <div class="breadcrumb">
+            <a href="index.html" class="breadcrumb-item"><i class="icon-home2 mr-2"></i> Home</a>
+            <span class="breadcrumb-item active">Dashboard</span>
+        </div>
+    </div>
 
-    <ul class="breadcrumb-elements">
-        <li><a href="#"><i class="icon-comment-discussion position-left"></i> Link</a></li>
-        <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                <i class="icon-gear position-left"></i>
-                Dropdown
-                <span class="caret"></span>
-            </a>
-
-            <ul class="dropdown-menu dropdown-menu-right">
-                <li><a href="#"><i class="icon-user-lock"></i> Account security</a></li>
-                <li><a href="#"><i class="icon-statistics"></i> Analytics</a></li>
-                <li><a href="#"><i class="icon-accessibility"></i> Accessibility</a></li>
-                <li class="divider"></li>
-                <li><a href="#"><i class="icon-gear"></i> All settings</a></li>
-            </ul>
-        </li>
-    </ul>
+    <div class="header-elements d-none">
+        <div class="breadcrumb justify-content-center">
+            <a href="#" class="breadcrumb-elements-item"><i class="icon-comment-discussion mr-2"></i>Link</a>
+            <div class="breadcrumb-elements-item dropdown p-0">
+                <a href="#" class="breadcrumb-elements-item dropdown-toggle" data-toggle="dropdown" aria-expanded="true"><i class="icon-gear mr-2"></i>Dropdown</a>
+                <div class="dropdown-menu dropdown-menu-right" x-placement="bottom-end" 
+                    style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(-84px, 40px, 0px);">
+                    <a href="#" class="dropdown-item"><i class="icon-user-lock"></i> Account security</a>
+                    <a href="#" class="dropdown-item"><i class="icon-statistics"></i> Analytics</a>
+                    <a href="#" class="dropdown-item"><i class="icon-accessibility"></i> Accessibility</a>
+                    <div class="dropdown-divider"></div>
+                    <a href="#" class="dropdown-item"><i class="icon-gear"></i> All settings</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <!-- /page header -->
 @endsection
@@ -46,25 +48,25 @@
 @section('content')
 
 <!-- Simple panel -->
-<div class="panel panel-flat">
-    <div class="panel-heading">
-        <h5 class="panel-title">Simple panel</h5>
-        <div class="heading-elements">
-            <ul class="icons-list">
-                <li><a data-action="collapse"></a></li>
-                <li><a data-action="close"></a></li>
-            </ul>
+<div class="card">
+    <div class="card-header header-elements-inline">
+        <h5 class="card-title">Simple panel</h5>
+        <div class="header-elements">
+            <div class="list-icons">
+                <a class="list-icons-item" data-action="collapse"></a>
+                <a class="list-icons-item" data-action="remove"></a>
+            </div>
         </div>
     </div>
 
-    <div class="panel-body">
-        <h6 class="text-semibold">Start your development with no hassle!</h6>
+    <div class="card-body">
+        <h6 class="font-weight-semibold pt-3">Start your development with no hassle!</h6>
         <p class="content-group">Common problem of templates is that all code is deeply integrated into the core. This limits your freedom in decreasing amount of code, i.e. it becomes pretty difficult to remove unnecessary code from the project. Limitless allows you to remove unnecessary and extra code easily just by removing the path to specific LESS file with component styling. All plugins and their options are also in separate files. Use only components you actually need!</p>
 
-        <h6 class="text-semibold">What is this?</h6>
+        <h6 class="font-weight-semibold pt-3">What is this?</h6>
         <p class="content-group">Starter kit is a set of pages, useful for developers to start development process from scratch. Each layout includes base components only: layout, page kits, color system which is still optional, bootstrap files and bootstrap overrides. No extra CSS/JS files and markup. CSS files are compiled without any plugins or components. Starter kit was moved to a separate folder for better accessibility.</p>
 
-        <h6 class="text-semibold">How does it work?</h6>
+        <h6 class="font-weight-semibold pt-3">How does it work?</h6>
         <p>You open one of the starter pages, add necessary plugins, uncomment paths to files in components.less file, compile new CSS. That's it. I'd also recommend to open one of main pages with functionality you need and copy all paths/JS code from there to your new page, it's just faster and easier.</p>
     </div>
 </div>
@@ -72,18 +74,18 @@
 
 
 <!-- Table -->
-<div class="panel panel-flat">
-    <div class="panel-heading">
-        <h5 class="panel-title">Basic table</h5>
-        <div class="heading-elements">
-            <ul class="icons-list">
-                <li><a data-action="collapse"></a></li>
-                <li><a data-action="close"></a></li>
-            </ul>
+<div class="card">
+    <div class="card-header header-elements-inline">
+        <h5 class="card-title">Basic table</h5>
+        <div class="header-elements">
+            <div class="list-icons">
+                <a class="list-icons-item" data-action="collapse"></a>
+                <a class="list-icons-item" data-action="remove"></a>
+            </div>
         </div>
     </div>
 
-    <div class="panel-body">
+    <div class="card-body">
         Starter pages include the most basic components that may help you start your development process - basic grid example, panel, table and form layouts with standard components. Nothing extra.
     </div>
 
@@ -134,18 +136,18 @@
     <div class="col-md-6">
 
         <!-- Horizontal form -->
-        <div class="panel panel-flat">
-            <div class="panel-heading">
-                <h5 class="panel-title">Horizontal form</h5>
-                <div class="heading-elements">
-                    <ul class="icons-list">
-                        <li><a data-action="collapse"></a></li>
-                        <li><a data-action="close"></a></li>
-                    </ul>
+        <div class="card">
+            <div class="card-header header-elements-inline">
+                <h5 class="card-title">Horizontal form</h5>
+                <div class="header-elements">
+                    <div class="list-icons">
+                        <a class="list-icons-item" data-action="collapse"></a>
+                        <a class="list-icons-item" data-action="remove"></a>
+                    </div>
                 </div>
             </div>
 
-            <div class="panel-body">
+            <div class="card-body">
                 <form class="form-horizontal" action="#">
                     <div class="form-group">
                         <label class="control-label col-lg-2">Text input</label>
@@ -197,18 +199,18 @@
     <div class="col-md-6">
 
         <!-- Vertical form -->
-        <div class="panel panel-flat">
-            <div class="panel-heading">
-                <h5 class="panel-title">Vertical form</h5>
-                <div class="heading-elements">
-                    <ul class="icons-list">
-                        <li><a data-action="collapse"></a></li>
-                        <li><a data-action="close"></a></li>
-                    </ul>
+        <div class="card">
+            <div class="card-header header-elements-inline">
+                <h5 class="card-title">Vertical form</h5>
+                <div class="header-elements">
+                    <div class="list-icons">
+                        <a class="list-icons-item" data-action="collapse"></a>
+                        <a class="list-icons-item" data-action="remove"></a>
+                    </div>
                 </div>
             </div>
 
-            <div class="panel-body">
+            <div class="card-body">
                 <form action="#">
                     <div class="form-group">
                         <label>Text input</label>

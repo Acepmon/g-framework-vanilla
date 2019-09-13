@@ -1,44 +1,47 @@
 @extends('themes.limitless.layouts.default')
 
 @section('load')
-<script type="text/javascript" src="{{ asset('limitless/js/plugins/tables/datatables/datatables.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/plugins/tables/datatables/datatables.min.js') }}"></script>
 @endsection
 
 @section('pageheader')
-<div class="page-header-content">
-    <div class="page-title">
-        <h4><i class="icon-arrow-left52 position-left"></i> <span class="text-semibold">Operators</span></h4>
+<div class="page-header-content header-elements-md-inline">
+    <div class="page-title d-flex">
+        <h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Operators</span></h4>
+        <a href="#" class="header-elements-toggle text-default d-md-none">
+            <i class="icon-more"></i>
+        </a>
     </div>
 
-    <div class="heading-elements">
-        <a href="{{ route('admin.users.create') }}" class="text-white btn btn-primary">Register New <i class="icon-add position-right"></i></a>
+    <div class="header-elements d-none">
+        <a href="{{ route('admin.users.create') }}" class="btn bg-blue">Register New <i class="icon-add mr-1"></i></a>
     </div>
 </div>
 
-<div class="breadcrumb-line">
-    <ul class="breadcrumb">
-        <li><a href="index.html"><i class="icon-home2 position-left"></i> Home</a></li>
-        <li class="active">Operators</li>
-    </ul>
+<div class="breadcrumb-line breadcrumb-line-light header-elements-md-inline">
+    <div class="d-flex">
+        <div class="breadcrumb">
+            <a href="index.html" class="breadcrumb-item"><i class="icon-home2 mr-2"></i> Home</a>
+            <span class="breadcrumb-item active">Operators</span>
+        </div>
+    </div>
 
-    <ul class="breadcrumb-elements">
-        <li><a href="#"><i class="icon-comment-discussion position-left"></i> Link</a></li>
-        <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                <i class="icon-gear position-left"></i>
-                Dropdown
-                <span class="caret"></span>
-            </a>
-
-            <ul class="dropdown-menu dropdown-menu-right">
-                <li><a href="#"><i class="icon-user-lock"></i> Account security</a></li>
-                <li><a href="#"><i class="icon-statistics"></i> Analytics</a></li>
-                <li><a href="#"><i class="icon-accessibility"></i> Accessibility</a></li>
-                <li class="divider"></li>
-                <li><a href="#"><i class="icon-gear"></i> All settings</a></li>
-            </ul>
-        </li>
-    </ul>
+    <div class="header-elements d-none">
+        <div class="breadcrumb justify-content-center">
+            <a href="#" class="breadcrumb-elements-item"><i class="icon-comment-discussion mr-2"></i>Link</a>
+            <div class="breadcrumb-elements-item dropdown p-0">
+                <a href="#" class="breadcrumb-elements-item dropdown-toggle" data-toggle="dropdown" aria-expanded="true"><i class="icon-gear mr-2"></i>Dropdown</a>
+                <div class="dropdown-menu dropdown-menu-right" x-placement="bottom-end" 
+                    style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(-84px, 40px, 0px);">
+                    <a href="#" class="dropdown-item"><i class="icon-user-lock"></i> Account security</a>
+                    <a href="#" class="dropdown-item"><i class="icon-statistics"></i> Analytics</a>
+                    <a href="#" class="dropdown-item"><i class="icon-accessibility"></i> Accessibility</a>
+                    <div class="dropdown-divider"></div>
+                    <a href="#" class="dropdown-item"><i class="icon-gear"></i> All settings</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <!-- /page header -->
 @endsection
@@ -47,66 +50,64 @@
 
 <!-- Table -->
 
-<div class="panel panel-flat">
-    <div class="panel-heading">
-        <h5 class="panel-title">Operators datatable</h5>
-        <div class="heading-elements">
-            <ul class="icons-list">
-                <li><a data-action="collapse"></a></li>
-                <li><a data-action="reload"></a></li>
-                <li><a data-action="close"></a></li>
-            </ul>
+<div class="card">
+    <div class="card-header header-elements-inline">
+        <h5 class="card-title">Operators datatable</h5>
+        <div class="header-elements">
+            <div class="list-icons">
+                <a class="list-icons-item" data-action="collapse"></a>
+                <a class="list-icons-item" data-action="reload"></a>
+                <a class="list-icons-item" data-action="remove"></a>
+            </div>
         </div>
     </div>
 
-    <table class="table table-condensed table-hover datatable-basic">
-        <thead>
-            <tr>
-                <th style="width: 50px;">#</th>
-                <th>User</th>
-                <th style="width: 150px;">Groups</th>
-                <th style="width: 150px;">Registered</th>
-                <th style="width: 50px;">Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach($users as $index => $user)
-            <tr>
-                <td>{{ $index + 1 }}</td>
-                <td>
-                    @include('themes.limitless.includes.user-media', $user)
-                </td>
-                <td>
-                    @if ($user->groups->count() > 1)
-                        <a href="{{ route('admin.users.groups.index', [$user->id]) }}"><strong>{{ $user->groups->count() }}</strong> groups</a>
-                    @else
-                        @foreach ($user->groups as $group)
-                            <a href="{{ route('admin.groups.show', [$group->id]) }}" class="label label-flat border-grey text-grey-600">
-                                {{ $group->title }}
-                            </a>
-                        @endforeach
-                    @endif
-                </td>
-                <td>{{ $user->created_at_carbon()->diffForHumans() }}</td>
-                <td>
-                    <ul class="icons-list">
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <i class="icon-menu9"></i>
-                            </a>
-
-                            <ul class="dropdown-menu dropdown-menu-right">
-                                <li><a href="{{ route('admin.users.show', ['id' => $user->id]) }}"><i class="icon-eye"></i> View</a></li>
-                                <li><a href="{{ route('admin.users.edit', ['id' => $user->id]) }}"><i class="icon-pencil"></i> Edit</a></li>
-                                <li><a href="#" data-toggle="modal" data-target="#modal_theme_danger" onclick="choose_user({{ $user->id }})"><i class="icon-trash"></i> Delete</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-            @endforeach
-        </tbody>
-    </table>
+    
+    <div class="table-responsive">
+        <table class="table table-condensed table-hover datatable-basic">
+            <thead>
+                <tr>
+                    <th style="width: 50px;">#</th>
+                    <th>User</th>
+                    <th style="width: 150px;">Groups</th>
+                    <th style="width: 150px;">Registered</th>
+                    <th style="width: 50px;">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($users as $index => $user)
+                <tr>
+                    <td>{{ $index + 1 }}</td>
+                    <td>
+                        @include('themes.limitless.includes.user-media', $user)
+                    </td>
+                    <td>
+                        @if ($user->groups->count() > 1)
+                            <a href="{{ route('admin.users.groups.index', [$user->id]) }}"><strong>{{ $user->groups->count() }}</strong> groups</a>
+                        @else
+                            @foreach ($user->groups as $group)
+                                <a href="{{ route('admin.groups.show', [$group->id]) }}" class="label label-flat border-grey text-grey-600">
+                                    {{ $group->title }}
+                                </a>
+                            @endforeach
+                        @endif
+                    </td>
+                    <td>{{ $user->created_at_carbon()->diffForHumans() }}</td>
+                    <td>
+                        <a href="#" data-toggle="dropdown">
+                            <i class="icon-menu9 text-secondary"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <a class="dropdown-item" href="{{ route('admin.users.show', ['id' => $user->id]) }}"><i class="icon-eye"></i> View</a>
+                            <a class="dropdown-item" href="{{ route('admin.users.edit', ['id' => $user->id]) }}"><i class="icon-pencil"></i> Edit</a>
+                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modal_theme_danger" onclick="choose_user({{ $user->id }})"><i class="icon-trash"></i> Delete</a>
+                        </div>
+                    </td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
 </div>
 
 <!-- Danger modal -->

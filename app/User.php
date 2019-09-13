@@ -5,6 +5,7 @@ namespace App;
 use Auth;
 use Str;
 use App\Menu;
+use App\Group;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -106,6 +107,38 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
         return $this->hasMany('App\Setting');
     }
 
+    public function metas()
+    {
+        return $this->hasMany('App\UserMeta');
+    }
+
+    public function metaValue($key) {
+        try {
+            $meta = $this->metas->where('key', $key)->first();
+            if ($meta)
+                return $meta->value;
+        } catch (\Exception $ex) {
+            return Null;
+
+        }
+        return Null;
+    }
+
+    public function metaArray($key) {
+        try {
+            $meta = $this->metas->where('key', $key);
+            if ($meta) {
+                return $meta->transform(function ($item) {
+                    return $item->value;
+                });
+            }
+        } catch (\Exception $ex) {
+            return Null;
+
+        }
+        return Null;
+    }
+
     public function getMenusAttribute()
     {
         return $this->groups->pluck('menus')->collapse();
@@ -156,7 +189,7 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
             return Storage::disk('local')->url($imagepath);
         }
 
-        return asset('limitless/images/placeholder.jpg');
+        return asset('limitless/bootstrap4/images/placeholder.jpg');
     }
 
     public function created_at_carbon()

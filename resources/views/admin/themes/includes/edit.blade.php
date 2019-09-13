@@ -5,9 +5,9 @@
 @endsection
 
 @section('pageheader')
-<div class="page-header-content">
-    <div class="page-title">
-        <h4><i class="icon-arrow-left52 position-left"></i> <span class="text-semibold">theme</span> Edit Page</h4>
+<div class="page-header-content header-elements-inline">
+    <div class="page-title d-flex">
+        <h4><i class="icon-arrow-left52 ml-2"></i> <span class="font-weight-semibold">theme</span> Edit Page</h4>
     </div>
 
     <div class="heading-elements">
@@ -17,7 +17,7 @@
 
 <div class="breadcrumb-line">
     <ul class="breadcrumb">
-        <li><a href="/themes/"><i class="icon-home2 position-left"></i> Home</a></li>
+        <li><a href="/themes/"><i class="icon-home2 ml-2"></i> Home</a></li>
     </ul>
 </div>
 <!-- /page header -->
@@ -30,16 +30,16 @@
         @include('admin.themes.sidebar')
     </div>
     <div class="col-sm-10">
-        <div class="panel">
-            <div class="panel-heading">
-                <h5 class="panel-title">Customize Include: <strong>{{ $include['text'] }}</strong></h5>
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title">Customize Include: <strong>{{ $include['text'] }}</strong></h5>
 
-                <div class="heading-elements">
-                    <button type="button" data-loading-text="<i class='icon-spinner4 spinner position-left'></i> Saving" class="btn btn-primary btn-sm btn-loading">Save File</button>
+                <div class="header-elements">
+                    <button type="button" data-loading-text="<i class='icon-spinner4 spinner mr-2'></i> Saving" class="btn btn-primary btn-sm btn-loading">Save File</button>
                 </div>
             </div>
 
-            <div class="panel-body">
+            <div class="card-body">
                 <div id="editor">{{ File::get($include['fullPath']) }}</div>
             </div>
         </div>

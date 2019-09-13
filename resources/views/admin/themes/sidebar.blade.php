@@ -4,9 +4,9 @@
     }
 </style>
 
-<div class="panel">
-    <div class="panel-body panel-body-accent">
-        <h4 class="text-semibold no-margin">
+<div class="card">
+    <div class="card-body card-body-accent">
+        <h4 class="font-weight-semibold no-margin">
             <a href="{{ route('admin.themes.show', $theme->id) }}" class="text-default">{{ $theme->title }}</a>
         </h4>
 
@@ -25,9 +25,9 @@
     </div>
 </div>
 
-<div class="panel">
-    <div class="panel-heading">
-        <h5 class="panel-title">Layouts ({{ count($theme->layouts()) }})</h5>
+<div class="card">
+    <div class="card-header">
+        <h5 class="card-title">Layouts ({{ count($theme->layouts()) }})</h5>
     </div>
 
     <ul class="media-list media-list-linked">
@@ -43,9 +43,9 @@
     </ul>
 </div>
 
-<div class="panel">
-    <div class="panel-heading">
-        <h5 class="panel-title">Includes ({{ count($theme->includes()) }})</h5>
+<div class="card">
+    <div class="card-header">
+        <h5 class="card-title">Includes ({{ count($theme->includes()) }})</h5>
     </div>
 
     <ul class="media-list media-list-linked">

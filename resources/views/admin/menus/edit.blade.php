@@ -15,12 +15,12 @@
 @section('content')
 <div class="row">
     <div class="col-md-6">
-        <div class="panel panel-flat">
-            <div class="panel-heading">
-                <h5 class="panel-title">Horizontal form</h5>
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title">Horizontal form</h5>
             </div>
 
-            <div class="panel-body">
+            <div class="card-body">
                 @if (session('status'))
                     <div class="alert alert-success">
                         {{ session('status') }}
@@ -33,7 +33,7 @@
                     <div class="form-group">
                         <label class="control-label col-lg-2">Type</label>
                         <div class="col-lg-10">
-                            <select id="type" name="type" type="text" value="{{ $menu->type }}" required class="selectbox">
+                            <select id="type" name="type" type="text" value="{{ $menu->type }}" required class="form-control">
                                 @foreach(App\Menu::TYPE_ARRAY as $value)
                                 <option value="{{ $value }}">{{ $value }}</option>
                                 @endforeach
@@ -109,7 +109,7 @@
                     <div class="form-group">
                         <label class="control-label col-lg-2">Parent ID</label>
                         <div class="col-lg-10">
-                            <select class="selectbox" name="parent_id" type="text" value="{{ $menu->parent_id }}" id="type">
+                            <select class="form-control" name="parent_id" type="text" value="{{ $menu->parent_id }}" id="type">
                                 <option value=""></option>
                                 @foreach($menus as $data)
                                 <option value="{{$data->id}}" {{$menu->parent_id == $data->id ? 'selected':''}}>{{$data->name}}</option>

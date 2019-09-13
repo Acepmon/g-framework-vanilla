@@ -4,41 +4,41 @@
 @endsection
 
 @section('pageheader')
-<div class="page-header-content">
-    <div class="page-title">
-        <h4><i class="icon-arrow-left52 position-left"></i> <span class="text-semibold">Create {{ ucfirst($content->type) }} Meta</span></h4>
+<div class="page-header-content header-elements-inline">
+    <div class="page-title d-flex">
+        <h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Create {{ ucfirst($content->type) }} Meta</span></h4>
     </div>
 
-    <div class="heading-elements">
+    <div class="header-elements">
     </div>
 </div>
 
-<div class="breadcrumb-line">
-    <ul class="breadcrumb">
-        <li><a href="index.html"><i class="icon-home2 position-left"></i> Home</a></li>
-        <li><a href="{{ route('admin.contents.index', ['type' => $content->type]) }}">{{ ucfirst($content->type) }}s</a></li>
-        <li><a href="{{ route('admin.contents.show', ['id' => $content->id]) }}">Detail</a></li>
-        <li class="active">Create Meta</li>
-    </ul>
+<div class="breadcrumb-line breadcrumb-line-light header-elements-md-inline">
+    <div class="d-flex">
+        <div class="breadcrumb">
+            <a class="breadcrumb-item" href="index.html"><i class="icon-home2 mr-2"></i> Home</a>
+            <a class="breadcrumb-item" href="{{ route('admin.contents.index', ['type' => $content->type]) }}">{{ ucfirst($content->type) }}s</a>
+            <a class="breadcrumb-item" href="{{ route('admin.contents.show', ['id' => $content->id]) }}">Detail</a>
+            <span class="breadcrumb-item active">Create Meta</span>
+        </div>
+    </div>
 
-    <ul class="breadcrumb-elements">
-        <li><a href="#"><i class="icon-comment-discussion position-left"></i> Link</a></li>
-        <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                <i class="icon-gear position-left"></i>
-                Dropdown
-                <span class="caret"></span>
-            </a>
-
-            <ul class="dropdown-menu dropdown-menu-right">
-                <li><a href="#"><i class="icon-user-lock"></i> Account security</a></li>
-                <li><a href="#"><i class="icon-statistics"></i> Analytics</a></li>
-                <li><a href="#"><i class="icon-accessibility"></i> Accessibility</a></li>
-                <li class="divider"></li>
-                <li><a href="#"><i class="icon-gear"></i> All settings</a></li>
-            </ul>
-        </li>
-    </ul>
+    <div class="header-elements d-none">
+        <div class="breadcrumb justify-content-center">
+            <a href="#" class="breadcrumb-elements-item"><i class="icon-comment-discussion mr-2"></i>Link</a>
+            <div class="breadcrumb-elements-item dropdown p-0">
+                <a href="#" class="breadcrumb-elements-item dropdown-toggle" data-toggle="dropdown" aria-expanded="true"><i class="icon-gear mr-2"></i>Dropdown</a>
+                <div class="dropdown-menu dropdown-menu-right" x-placement="bottom-end" 
+                    style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(-84px, 40px, 0px);">
+                    <a href="#" class="dropdown-item"><i class="icon-user-lock"></i> Account security</a>
+                    <a href="#" class="dropdown-item"><i class="icon-statistics"></i> Analytics</a>
+                    <a href="#" class="dropdown-item"><i class="icon-accessibility"></i> Accessibility</a>
+                    <div class="dropdown-divider"></div>
+                    <a href="#" class="dropdown-item"><i class="icon-gear"></i> All settings</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <!-- /page header -->
 @endsection
@@ -50,18 +50,18 @@
     <div class="col-md-6">
 
         <!-- Horizontal form -->
-        <div class="panel panel-flat">
-            <div class="panel-body">
+        <div class="card">
+            <div class="card-body">
                 <form class="form-horizontal" action="{{ route('admin.contents.metas.store', ['content' => $content->id]) }}" method="POST">
                     @csrf
-                    <div class="form-group">
-                        <label class="control-label col-lg-2">Key <span class="text-danger">*</span></label>
+                    <div class="form-group row">
+                        <label class="col-form-label col-lg-2">Key <span class="text-danger">*</span></label>
                         <div class="col-lg-10">
                             <input type="text" class="form-control" name="key" placeholder="Enter content meta key..." required="required" aria-required="true" invalid="true">
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label class="control-label col-lg-2">Value <span class="text-danger">*</span></label>
+                    <div class="form-group row">
+                        <label class="col-form-label col-lg-2">Value <span class="text-danger">*</span></label>
                         <div class="col-lg-10">
                             <input type="text" class="form-control" name="value" placeholder="Enter content meta value..." required="required" aria-required="true" invalid="true">
                         </div>

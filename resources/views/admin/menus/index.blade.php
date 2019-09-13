@@ -21,11 +21,11 @@
 @section('content')
 
 <!-- Table tree -->
-<div class="panel panel-flat">
-    <div class="panel-heading">
-        <h6 class="panel-title">Menus</h6>
+<div class="card">
+    <div class="card-header header-elements-inline">
+        <h6 class="card-title">Menus</h6>
 
-        <div class="heading-elements">
+        <div class="header-elements">
             <a href="#modal_menu_new" data-toggle="modal" class="btn btn-primary"><span class="icon-plus3 position-left"></span> New Menu</a>
         </div>
     </div>

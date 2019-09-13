@@ -1,12 +1,12 @@
 @if($comment)
 <div class="media">
     <div class="media-left">
-        <a href="#"><img src="{{ $comment->author_avatar }}" class="img-circle img-sm" alt=""></a>
+        <a href="#"><img src="{{ $comment->author_avatar }}" class="rounded-circle img-sm" alt=""></a>
     </div>
 
     <div class="media-body">
         <div class="media-heading">
-            <a href="#" class="text-semibold">{{ $comment->author_name }} {{$comment->id}}</a>
+            <a href="#" class="font-weight-semibold">{{ $comment->author_name }} {{$comment->id}}</a>
             <span class="media-annotation dotted">{{ $comment->created_at }} {{ ($comment->created_at != $comment->updated_at)?'*':'' }}</span>
         </div>
 
