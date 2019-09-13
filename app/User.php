@@ -124,6 +124,21 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
         return Null;
     }
 
+    public function metaArray($key) {
+        try {
+            $meta = $this->metas->where('key', $key);
+            if ($meta) {
+                return $meta->transform(function ($item) {
+                    return $item->value;
+                });
+            }
+        } catch (\Exception $ex) {
+            return Null;
+
+        }
+        return Null;
+    }
+
     public function getMenusAttribute()
     {
         return $this->groups->pluck('menus')->collapse();
