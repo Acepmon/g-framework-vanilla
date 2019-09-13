@@ -201,13 +201,13 @@
                                 <li class="nav-divider no-margin-top"></li>
                                 <li class="nav-item-header"><i class="icon-history pull-right"></i> Detail</li>
                                 <li class="nav-item"><a class="nav-link" href="#detail">Detail</a></li>
-                                <li class="nav-item"><a class="nav-link" href="#comments">Comments <span class="text-muted text-regular text-right">{{ count($content->comments) }} comments</span></a></li>
+                                <li class="nav-item"><a class="nav-link" href="#comments">Comments <span class="text-muted font-weight-normal ml-auto">{{ count($content->comments) }} comments</span></a></li>
 
                                 <!-- Navigation History -->
                                 <li class="nav-item-header"><i class="icon-history pull-right"></i> Revision history</li>
                                 @foreach($content->metas->whereIn('key', ['initial', 'revision', 'revert'])->sortByDesc('id') as $key=>$revision)
                                 <li class="nav-item"><a class="nav-link" href="#v_{{ $revision->id }}">{{ $key+1 }}. {{ ucfirst($revision->key) }}
-                                    <span class="text-muted text-regular pull-right">{{ date('Y-m-d', json_decode($revision->value)->datetime) }}</span>
+                                    <span class="text-muted font-weight-normal ml-auto">{{ date('Y-m-d', json_decode($revision->value)->datetime) }}</span>
                                 </a></li>
                                 @endforeach
 
