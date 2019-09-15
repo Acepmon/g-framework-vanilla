@@ -22,6 +22,22 @@ class CarContentsSeeder extends Seeder
             $content->author_id = $carUserRandomId;
             $content->save();
 
+            // -------------
+            $thumbWidth = 640;
+            $thumbHeight = 360;
+            $mediaWidth = 1920;
+            $mediaHeight = 1080;
+            $lorempixelType = 'transport';
+            $lorempixelUrl = 'http://lorempixel.com';
+            $thumbnail = $lorempixelUrl . '/' . $thumbWidth . '/' . $thumbHeight . '/' . $lorempixelType . '/?=' . rand(1, 50000);
+            $medias = [];
+            $mediasLimit = rand(1, 50);
+            for ($i=0; $i < $mediasLimit; $i++) {
+                $media = $lorempixelUrl . '/' . $mediaWidth . '/' . $mediaHeight . '/' . $lorempixelType . '/?=' . rand(1, 50000);
+                $meta = new App\ContentMeta(['key' => 'medias', 'value' => $media]);
+                array_push($medias, $meta);
+            }
+
             $content->metas()->saveMany([
                 new App\ContentMeta(['key' => 'plateNumber', 'value' => '0035UNA']),
                 new App\ContentMeta(['key' => 'cabinNumber', 'value' => 'VF3 3CRFNC 12345678']),
@@ -50,9 +66,6 @@ class CarContentsSeeder extends Seeder
                 new App\ContentMeta(['key' => 'wheelPosition', 'value' => 'left']),
                 new App\ContentMeta(['key' => 'length', 'value' => '4m']),
                 new App\ContentMeta(['key' => 'archiveNumber', 'value' => 'A598WDY987']),
-                new App\ContentMeta(['key' => 'title', 'value' => 'Selling car']),
-                new App\ContentMeta(['key' => 'status', 'value' => 'published']),
-                new App\ContentMeta(['key' => 'visibility', 'value' => 'public']),
                 new App\ContentMeta(['key' => 'carCondition', 'value' => 'used']),
                 new App\ContentMeta(['key' => 'importDate', 'value' => '2006']),
                 new App\ContentMeta(['key' => 'wheelDrive', 'value' => 'back']),
@@ -61,8 +74,7 @@ class CarContentsSeeder extends Seeder
                 new App\ContentMeta(['key' => 'SellerDescription', 'value' => 'there is nothing to change']),
                 new App\ContentMeta(['key' => 'price', 'value' => '10000000']),
                 new App\ContentMeta(['key' => 'priceType', 'value' => 'loan']),
-                new App\ContentMeta(['key' => 'thumbnail', 'value' => 'thumb1']),
-                new App\ContentMeta(['key' => 'medias', 'value' => 'image2']),
+                new App\ContentMeta(['key' => 'thumbnail', 'value' => $thumbnail]),
                 new App\ContentMeta(['key' => 'link', 'value' => 'https://www.youtube.com/watch?v=2RnGwkWL94I']),
                 new App\ContentMeta(['key' => 'buyout', 'value' => '10000000']),
                 new App\ContentMeta(['key' => 'startPrice', 'value' => '8000000']),
@@ -70,6 +82,8 @@ class CarContentsSeeder extends Seeder
                 new App\ContentMeta(['key' => 'startsAt', 'value' => '2019-09-15']),
                 new App\ContentMeta(['key' => 'endsAt', 'value' => '2019-09-18']),
             ]);
+
+            $content->metas()->saveMany($medias);
 
             $value = new \stdClass;
             $value->datetime = $time;

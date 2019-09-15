@@ -50,7 +50,7 @@
             {{ session('status') }}
         </div>
     @endif
-    <div class="table-responsive">
+    <div class="table-responsive" id="accordion-control">
         <table class="table">
             <thead>
                 <tr>
@@ -62,19 +62,19 @@
                     <th></th>
                 </tr>
             </thead>
-            <tbody>
-                @foreach ($contents as $group => $groupContents)
-                    <tr>
-                        <th colspan="6" class="table-active text-capitalize">
-                            {{ $group }} ({{$groupContents->count()}})
-                        </th>
-                    </tr>
+            @foreach ($contents as $group => $groupContents)
+                <tr>
+                    <th colspan="6" class="table-active">
+                        <a data-toggle="collapse" class="text-default text-capitalize" href="#accordion-control-{{ $group }}">{{ $group }} ({{$groupContents->count()}})</a>
+                    </th>
+                </tr>
+                <tbody id="accordion-control-{{ $group }}" class="collapse {{ $group == \App\Content::STATUS_PUBLISHED ? 'show' : '' }}" data-parent="#accordion-control">
                     @foreach($groupContents as $content)
                         <tr>
                             <td>{{$content->id}}</td>
                             <td>{{$content->title}}</td>
                             <td>
-                                <a href="{{url($content->slug)}}" target="_blank">{{$content->slug}}</a>
+                                <a href="{{url($content->slug)}}" target="_blank">{{url($content->slug)}}</a>
                             </td>
                             <td>
                                 <span class="badge badge-{{ $content->visibilityClass() }}">{{$content->visibility}}</span>
@@ -95,8 +95,8 @@
                             </td>
                         </tr>
                     @endforeach
-                @endforeach
-            </tbody>
+                </tbody>
+            @endforeach
         </table>
     </div>
 </div>
