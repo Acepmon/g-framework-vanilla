@@ -61,34 +61,13 @@
                         </div>
 
                         <div class="col-md-12 mb-2">
-                        <div class="card">
-                            <div class="card-body">
-                            <div class="dealer-information px-3">
-                                <div class="dealer-more">
-                                <div class="value"><i class="icon-check"></i></div>
-                                <div class="title">Verified</div>
-                                </div>
-                                <div class="dealer-more">
-                                <div class="value">
-                                    <p>521</p>
-                                </div>
-                                <div class="title">Viewed</div>
-                                </div>
-                                <div class="dealer-more">
-                                <div class="value">
-                                    <p>72</p>
-                                </div>
-                                <div class="title">Interested</div>
-                                </div>
-                            </div>
-                            </div>
-                        </div>
+                            @include('themes.car-web.includes.detail-car-stats', ['content' => $content])
                         </div>
 
                         <div class="col-md-12 px-5">
-                        <a class="btn btn-danger btn-round btn-block my-4 shadow-red p-3" href="#">Online purchase</a>
-                        <a class="btn btn-light btn-round btn-block my-4 shadow-soft-blue p-3 btn-icon-left" href="#"><i class="icon-heart"></i>
-                            Save to interested</a>
+                            <a class="btn btn-danger btn-round btn-block my-4 shadow-red p-3" href="#">Online purchase</a>
+                            <a class="btn btn-light btn-round btn-block my-4 shadow-soft-blue p-3 btn-icon-left" href="#"><i class="icon-heart"></i>
+                                Save to interested</a>
                         </div>
 
                     </div>
