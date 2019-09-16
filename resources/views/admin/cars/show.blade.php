@@ -1,7 +1,7 @@
 @extends('themes.limitless.layouts.default')
 
 @section('load')
-<script type="text/javascript" src="{{ asset('limitless/js/pages/sidebar_detached_sticky_native.js') }}"></script>
+<script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/demo_pages/sidebar_components.js') }}"></script>
 @endsection
 
 @section('pageheader')

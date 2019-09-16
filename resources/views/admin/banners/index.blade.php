@@ -3,8 +3,8 @@
 @section('title', 'All Banners')
 
 @section('load')
-<script src="{{ asset('limitless/js/plugins/tables/datatables/datatables.min.js') }}"></script>
-<script src="{{ asset('limitless/js/plugins/forms/selects/select2.min.js') }}"></script>
+<script src="{{ asset('limitless/bootstrap4/js/plugins/tables/datatables/datatables.min.js') }}"></script>
+<script src="{{ asset('limitless/bootstrap4/js/plugins/forms/selects/select2.min.js') }}"></script>
 @endsection
 
 @section('pageheader')

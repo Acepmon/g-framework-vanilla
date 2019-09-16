@@ -1,13 +1,13 @@
-<div class="page-header-content">
-    <div class="page-title">
-        <h4><i class="icon-arrow-left52 position-left"></i> <span class="text-semibold">Menus</span> - @yield('title')</h4>
+<div class="page-header-content header-elements-inline">
+    <div class="page-title d-flex">
+        <h4><i class="icon-arrow-left52 ml-2"></i> <span class="font-weight-semibold">Menus</span> - @yield('title')</h4>
     </div>
 </div>
 
 <div class="breadcrumb-line">
-    <ul class="breadcrumb">
-        <li><a href="{{ route('admin.dashboard') }}"><i class="icon-home2 position-left"></i> Home</a></li>
-        <li><a href="{{ route('admin.menus.index') }}">Menus</a></li>
-        <li class="active">Detail</li>
-    </ul>
+    <div class="breadcrumb">
+        <a class="breadcrumb-item" href="{{ route('admin.dashboard') }}"><i class="icon-home2 ml-2"></i> Home</a>
+        <a class="breadcrumb-item" href="{{ route('admin.menus.index') }}">Menus</a>
+        <span class="breadcrumb-item active">Detail</span>
+    </div>
 </div>
