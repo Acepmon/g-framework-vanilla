@@ -16,7 +16,6 @@
                 <li class="nav-item"><a class="nav-link" href="{{ route('admin.users.contents.index', ['id' => $user->id, 'type' => 'post']) }}"><i class="icon-blog"></i> <span>Blog Posts</span></a></li>
                 <li class="nav-item"><a class="nav-link" href="{{ route('admin.users.permissions.index', ['id' => $user->id]) }}"><i class="icon-key"></i> Permissions</a></li>
                 <li class="nav-item"><a class="nav-link" href="{{ route('admin.users.groups.index', ['id' => $user->id]) }}"><i class="icon-users2"></i> Groups</a></a></li>
-                <li class="nav-item"><a class="nav-link" href="{{ route('admin.users.settings.index', ['id' => $user->id]) }}"><i class="icon-gear"></i> Settings</a></li>
             </ul>
         </div>
         <!-- /user details -->
