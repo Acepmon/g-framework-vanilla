@@ -48,7 +48,6 @@
 @endsection
 
 @section('content')
-<<<<<<< HEAD
 <!-- Table -->
 <div class="card">
     <div class="card-header header-elements-inline">
@@ -65,13 +64,6 @@
             <div class="alert alert-success">
                 {{ session('status') }}
             </div>
-=======
-
-@if (session('status'))
-    <div class="panel-body">
-        <div class="alert alert-success">
-            {{ session('status') }}
->>>>>>> f429e6bc88c8a4c98c7e0c725184258197970ac4
         </div>
     </div>
 @endif
