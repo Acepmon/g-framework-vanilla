@@ -16,6 +16,6 @@ class Banner extends Model
 
     public function location()
     {
-        return $this->hasOne('App\BannerLocation');
+        return $this->hasOne('App\BannerLocation', 'id', 'location_id');
     }
 }
