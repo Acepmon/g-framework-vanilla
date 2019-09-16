@@ -129,4 +129,47 @@ class Content extends Model
         }
         return Null;
     }
+    public function metaArray($key) {
+        try {
+            $meta = $this->metas->where('key', $key);
+            if ($meta) {
+                return $meta->transform(function ($item) {
+                    return $item->value;
+                });
+            }
+        } catch (\Exception $ex) {
+            return Null;
+
+        }
+        return Null;
+    }
+
+    public function metasTransform() {
+        $arr = [];
+        foreach ($this->metas->groupBy('key')->toArray() as $key => $metaValues) {
+            if (count($metaValues) > 1) {
+                $arr[$key] = array_map(function ($meta) {
+                    return $this->isJson($meta['value']) ? json_decode($meta['value']) : $meta['value'];
+                }, $metaValues);
+            } else {
+                $arr[$key] = $this->isJson($metaValues[0]['value']) ? json_decode($metaValues[0]['value']) : $metaValues[0]['value'];
+            }
+        }
+        return $arr;
+    }
+
+    private function isJson($string) {
+        return ((is_string($string) &&
+                (is_object(json_decode($string)) ||
+                is_array(json_decode($string))))) ? true : false;
+    }
+
+    public function visibilityClass() {
+        switch ($this->visibility) {
+            case self::VISIBILITY_PUBLIC: return 'success';
+            case self::VISIBILITY_PRIVATE: return 'secondary';
+            case self::VISIBILITY_AUTH: return 'primary';
+            default: return 'default';
+        }
+    }
 }

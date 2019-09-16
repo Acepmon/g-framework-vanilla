@@ -13,8 +13,10 @@ class PermissionsSeeder extends Seeder
     public function run()
     {
         DB::table('permissions')->insert([
-            // logout
+            // authentication
             ['title' => 'logout', 'type' => Permission::TYPE_READ, 'description' => 'logout'],
+            ['title' => 'register', 'type' => Permission::TYPE_READ, 'description' => 'register'],
+            ['title' => 'login', 'type' => Permission::TYPE_READ, 'description' => 'login'],
             // user CRUD
             ['title' => 'admin_users_create', 'type' => Permission::TYPE_CREATE, 'description' => 'create permission for user'],
             ['title' => 'admin_users_read', 'type' => Permission::TYPE_READ, 'description' => 'read permission for user'],
@@ -140,11 +142,6 @@ class PermissionsSeeder extends Seeder
             ['title' => 'admin_taxonomy_read', 'type' => Permission::TYPE_READ, 'description' => 'read permission for taxonomy'],
             ['title' => 'admin_taxonomy_update', 'type' => Permission::TYPE_UPDATE, 'description' => 'update permission for taxonomy'],
             ['title' => 'admin_taxonomy_delete', 'type' => Permission::TYPE_DELETE, 'description' => 'delete permission for taxonomy'],
-            // users_settings CRUD
-            ['title' => 'admin_users_settings_create', 'type' => Permission::TYPE_CREATE, 'description' => 'create permission for users_settings'],
-            ['title' => 'admin_users_settings_read', 'type' => Permission::TYPE_READ, 'description' => 'read permission for users_settings'],
-            ['title' => 'admin_users_settings_update', 'type' => Permission::TYPE_UPDATE, 'description' => 'update permission for users_settings'],
-            ['title' => 'admin_users_settings_delete', 'type' => Permission::TYPE_DELETE, 'description' => 'delete permission for users_settings'],
             // contents_metas CRUD
             ['title' => 'admin_contents_metas_create', 'type' => Permission::TYPE_CREATE, 'description' => 'create permission for contents_metas'],
             ['title' => 'admin_contents_metas_read', 'type' => Permission::TYPE_READ, 'description' => 'read permission for contents_metas'],

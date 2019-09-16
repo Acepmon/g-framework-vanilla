@@ -11,32 +11,20 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        $seedTestUsers = false;
-
         DB::table('users')->insert([
             'username' => 'admin',
             'email' => 'admin@gmail.com',
             'password' => Hash::make('admin'),
             'name' => 'G-Framework',
             'language' => 'en',
-            'created_at' => \Carbon\Carbon::now(),
-            'updated_at' => \Carbon\Carbon::now(),
+            'avatar' => 'https://i.pravatar.cc/100?img=' . rand(1, 70),
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
 
         DB::table('user_group')->insert([
             'user_id' => 1,
             'group_id' => 1
         ]);
-
-        if ($seedTestUsers) {
-            factory(App\User::class, 500)->create()->each(function ($user) {
-                // $user->posts()->save(factory(App\Post::class)->make());
-                $user->groups()->attach(3);
-
-                for ($i=0; $i < rand(0, 5); $i++) {
-                    $user->groups()->attach(rand(4, \App\Group::where('type', \App\Group::TYPE_STATIC)->count() + 3));
-                }
-            });
-        }
     }
 }
