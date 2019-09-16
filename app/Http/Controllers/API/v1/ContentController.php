@@ -18,10 +18,28 @@ class ContentController extends Controller
         $type = $request->input('type', Content::TYPE_POST);
         $status = $request->input('status', Content::STATUS_PUBLISHED);
         $visibility = $request->input('visibility', Content::VISIBILITY_PUBLIC);
-
         $limit = $request->input('limit', 10);
 
+        $inputExcept = ['type', 'status', 'visibility', 'limit', 'page', 'author_id'];
+        $metaInputs = array_filter($request->input(), function ($key) use ($inputExcept) {
+            return !in_array($key, $inputExcept);
+        }, ARRAY_FILTER_USE_KEY);
+
         $contents = Content::where('type', $type)->where('status', $status)->where('visibility', $visibility);
+
+        if ($request->has('author_id')) {
+            $contents = $contents->where('author_id', $request->input('author_id'));
+        }
+
+        if (count($metaInputs) > 0) {
+            $contents = $contents->whereHas('metas', function ($query) use ($metaInputs) {
+                foreach ($metaInputs as $key => $value) {
+                    $query->where('key', $key);
+                    $query->where('value', $value);
+                }
+            });
+        }
+
         $contents = $contents->paginate($limit);
 
         $contents->getCollection()->transform(function ($content) {

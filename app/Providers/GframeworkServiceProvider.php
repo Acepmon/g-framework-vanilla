@@ -30,10 +30,10 @@ class GframeworkServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        view()->composer(\App\Config::getValue('content.pages.viewPath') . '.' . '*', function ($view) {
-            $content = Content::where('slug', \Request::path())->first();
-            return $view->with('content', $content);
-        });
+        // view()->composer(\App\Config::getValue('content.pages.viewPath') . '.' . '*', function ($view) {
+        //     $content = Content::where('slug', \Request::path())->first();
+        //     return $view->with('content', $content);
+        // });
 
         Blade::directive('contents', function ($expression) {
             $someObject = json_decode($expression);

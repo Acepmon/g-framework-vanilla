@@ -42,7 +42,7 @@
             <a href="#" class="breadcrumb-elements-item"><i class="icon-comment-discussion mr-2"></i>Link</a>
             <div class="breadcrumb-elements-item dropdown p-0">
                 <a href="#" class="breadcrumb-elements-item dropdown-toggle" data-toggle="dropdown" aria-expanded="true"><i class="icon-gear mr-2"></i>Dropdown</a>
-                <div class="dropdown-menu dropdown-menu-right" x-placement="bottom-end" 
+                <div class="dropdown-menu dropdown-menu-right" x-placement="bottom-end"
                     style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(-84px, 40px, 0px);">
                     <a href="#" class="dropdown-item"><i class="icon-user-lock"></i> Account security</a>
                     <a href="#" class="dropdown-item"><i class="icon-statistics"></i> Analytics</a>
@@ -121,12 +121,12 @@
                                         <input name="name" type="text" class="form-control" value="{{ $user->name }}" placeholder="e.g. John Doe...">
                                     </div>
                                 </div>
-                                
+
                                 <div class="form-group row">
                                     <label class="col-form-label col-lg-2">Avatar</label>
                                     <div class="col-lg-10 row">
                                             <img id="avatar" src="{{ $user->avatar_url()}}" class="rounded-circle mr-2" height="34"/>
-                                    
+
                                             <div class="uniform-uploader col-lg-11"><input type="file" class="form-control-uniform" onchange="readURL(this);" data-fouc=""><span class="filename" style="user-select: none;">No file selected</span><span class="action btn btn-light" style="user-select: none;">Choose File</span></div>
                                     </div>
                                 </div>
@@ -188,42 +188,6 @@
                                 </div>
                             </form>
                         </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-header">
-                            <h6 class="card-title">Settings</h6>
-                        </div>
-
-                        <table class="table datatable-basic">
-                            <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>Key</th>
-                                    <th>Value</th>
-                                    <th class="text-center">Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($user->settings as $setting)
-                                <tr>
-                                    <td>{{ $setting->id }}</td>
-                                    <td>{{ $setting->key }}</td>
-                                    <td>{{ $setting->value }}</td>
-                                    <!---->
-                                    <td class="text-center">
-                                        <a href="#" data-toggle="dropdown">
-                                            <i class="icon-menu9"></i>
-                                        </a>
-
-                                        <div class="dropdown-menu dropdown-menu-right">
-                                            <a class="dropdown-item" href="/users/{{ $setting->id }}/edit"><i class="icon-pencil"></i> Edit</a>
-                                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modal_theme_danger" onclick="choose_setting({{ $setting->id }})"><i class="icon-trash"></i> Delete</a>
-                                        </div>
-                                    </td>
-                                </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
                     </div>
                 </div>
             </div>

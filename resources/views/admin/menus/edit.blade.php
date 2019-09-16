@@ -3,9 +3,10 @@
 @section('title', 'Edit Menu')
 
 @section('load')
-<script type="text/javascript" src="{{ asset('limitless/js/core/libraries/jquery_ui/core.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('limitless/js/plugins/forms/selects/selectboxit.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('limitless/js/pages/form_selectbox.js') }}"></script>
+<script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/plugins/extensions/jquery_ui/core.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/plugins/forms/selects/select2.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/plugins/forms/selects/bootstrap_multiselect.js') }}"></script>
+<script type="text/javascript" src="{{ asset('limitless/js/demo_pages/form_select2.js') }}"></script>
 @endsection
 
 @section('pageheader')

@@ -43,7 +43,6 @@ Route::middleware(['installed'])->group(function () {
                     Route::put('/', 'ProfileController@update')->name('admin.profile.update');
                     Route::get('contents', 'ProfileController@contents')->name('admin.profile.contents.index');
                     Route::get('permissions', 'ProfileController@permissions')->name('admin.profile.permissions.index');
-                    Route::get('settings', 'ProfileController@settings')->name('admin.profile.settings.index');
                     Route::get('notifications', 'ProfileController@notifications')->name('admin.profile.notifications.index');
                     Route::get('notifications/read', 'ProfileController@readNotifications')->name('admin.profile.notifications.read');
                     Route::get('edit', 'ProfileController@edit')->name('admin.profile.edit');
@@ -288,13 +287,6 @@ Route::middleware(['installed'])->group(function () {
                     'update' => 'admin.taxonomy.update',
                     'destroy' => 'admin.taxonomy.destroy'
                 ]);
-
-                Route::get('/users/{user}/settings', 'UserSettingController@index')->name('admin.users.settings.index');
-                Route::get('/users/{user}/settings/create', 'UserSettingController@create')->name('admin.users.settings.create');
-                Route::post('/users/{user}/settings', 'UserSettingController@store')->name('admin.users.settings.store');
-                Route::get('/users/{user}/settings/{setting}/edit', 'UserSettingController@edit')->name('admin.users.settings.edit');
-                Route::put('/users/{user}/settings/{setting}', 'UserSettingController@update')->name('admin.users.settings.update');
-                Route::delete('/users/{user}/settings/{setting}', 'UserSettingController@destroy')->name('admin.users.settings.destroy');
 
                 Route::get('/contents/{content}/metas', 'ContentMetaController@index')->name('admin.contents.metas.index');
                 Route::get('/contents/{content}/metas/create', 'ContentMetaController@create')->name('admin.contents.metas.create');
