@@ -56,6 +56,11 @@ class Content extends Model
         return $this->belongsToMany('App\TermTaxonomy', 'term_relationships');
     }
 
+    public function author()
+    {
+        return $this->hasOne('App\User', 'id', 'author_id');
+    }
+
     public function medias()
     {
         $medias = $this->metas->where('key', 'medias');
