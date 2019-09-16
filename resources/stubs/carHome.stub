@@ -25,14 +25,14 @@
                         @if(count($bannerList) > 0)
                             @foreach($bannerList as $bnr)
                                 <div class="slider-item">
-                                    {{--<div class="slider-text animated slideInLeft" style="top: 0; left: 100px">--}}
-                                        {{--<h1>Зээлийн хүү</h1>--}}
-                                    {{--</div>--}}
-                                    {{--<div class="slider-text animated slideInLeft slider-highlight" style="top: 50px; left: 50px">3%--}}
-                                    {{--</div>--}}
-                                    {{--<div class="slider-text animated slideInLeft" style="top: 200px; left: 200px">--}}
-                                        {{--<h1>Жилийн</h1>--}}
-                                    {{--</div>--}}
+                                    <div class="slider-text animated slideInLeft" style="top: 0; left: 100px">
+                                        <h1>Зээлийн хүү</h1>
+                                    </div>
+                                    <div class="slider-text animated slideInLeft slider-highlight" style="top: 50px; left: 50px">3%
+                                    </div>
+                                    <div class="slider-text animated slideInLeft" style="top: 200px; left: 200px">
+                                        <h1>Жилийн</h1>
+                                    </div>
                                     <div class="slider-img animated slideInLeft" style="bottom: 0; left: -50px;">
                                         <img src="{{$bnr->banner_img_web}}" alt="">
                                     </div>
@@ -168,9 +168,9 @@
         <div class="card-list">
             <div class="container">
                 <div class="row">
-                    @contents([{"field":"type", "key":"car"}, {"field":"status", "key":"published"} ])
+                    @contents({"filter":[{"field":"type", "key":"car"}, {"field":"status", "key":"published"}], "metasFilter": [{"key": "markName", "value": "nissan"}], "limit":12, "returnVariable":"carDataPremium"})
                     @php
-                        $carDataHotList=json_decode($carDataHot);
+                        $carDataPremium=json_decode($carDataPremium);
                         function getValue($rr,$key){
                             foreach($rr->metas as $metas){
                                 if($metas->key==$key){
@@ -180,7 +180,7 @@
                         }
                     @endphp
                     {{--{{$carDataHot}}--}}
-                    @foreach($carDataHotList as $rr)
+                    @foreach($carDataPremium as $rr)
                         <div class="card col-md-3 mb-3" >
                             <div class="brand-name"><?php echo getValue($rr, 'manufacturer') ?></div>
                             <div class="card-img">
@@ -234,27 +234,26 @@
         <div class="card-list">
             <div class="container">
                 <div class="row">
-                    {{--@contents([{"field":"type", "key":"car"}, {"field":"status", "key":"published"} ])--}}
-                    {{--@php--}}
-                        {{--$carDataHotList=json_decode($carDataHot);--}}
-                        {{--function getValue($rr,$key){--}}
-                            {{--foreach($rr->metas as $metas){--}}
-                                {{--if($metas->key==$key){--}}
-                                {{--return $metas->value;--}}
-                                {{--}--}}
-                            {{--}--}}
-                        {{--}--}}
-                    {{--@endphp--}}
-                    {{--{{$carDataHot}}--}}
-                    @foreach($carDataHotList as $rr)
+                    @contents({"filter":[{"field":"type", "key":"car"}, {"field":"status", "key":"published"}], "metasFilter": [{"key": "markName", "value": "Toyota"}], "limit":12, "returnVariable":"carAuctionPremium"})
+                    @php
+                        $carAuctionPremium=json_decode($carAuctionPremium);
+                        function getValueAuction($actionPrmCars,$key){
+                            foreach($actionPrmCars->metas as $metas){
+                                if($metas->key==$key){
+                                return $metas->value;
+                                }
+                            }
+                        }
+                    @endphp
+                    @foreach($carAuctionPremium as $auctionPrmCars)
                         <div class="card col-md-3 mb-3" >
-                            <div class="brand-name"><?php echo getValue($rr, 'manufacturer') ?></div>
+                            <div class="brand-name"><?php echo getValueAuction($auctionPrmCars, 'manufacturer') ?></div>
                             <div class="card-img">
                                 {{--<img src="{{(getValue($rr, 'thumbnail'))}}" class="img-fluid" alt="alt">--}}
                                 <img src="{{asset('car-web/img/Cars/3.jpg')}}" class="img-fluid" alt="alt">
                                 <div class="bestDeal" style="position: absolute; top:5px; left: 5px; background-color: white; border-radius: 3px; padding: 3px">ci</div>
                                 <div class="card-caption">
-                                    <div class="meta"><?php echo getValue($rr, 'buildYear') ?>/<?php echo getValue($rr, 'importDate') ?> | <?php echo getValue($rr, 'mileage') ?> | <?php echo getValue($rr, 'fuel') ?></div>
+                                    <div class="meta"><?php echo getValueAuction($auctionPrmCars, 'buildYear') ?>/<?php echo getValueAuction($auctionPrmCars, 'importDate') ?> | <?php echo getValueAuction($auctionPrmCars, 'mileage') ?> | <?php echo getValueAuction($auctionPrmCars, 'fuel') ?></div>
                                     <div class="favorite">
                                         <i class="icon-heart"></i>
                                     </div>
@@ -262,10 +261,10 @@
                             </div>
                             <div class="card-body">
                                 <div class="card-description">
-                                    <a href="detail-page.html" class="card-title">{{$rr->title}}</a>
+                                    <a href="detail-page.html" class="card-title">{{$auctionPrmCars->title}}</a>
                                     <div class="card-meta">
-                                        <div class="status"><?php echo getValue($rr, 'priceType') ?> / finance</div>
-                                        <div class="price"><?php echo getValue($rr, 'price') ?></div>
+                                        <div class="status"><?php echo getValueAuction($auctionPrmCars, 'priceType') ?> / finance</div>
+                                        <div class="price"><?php echo getValueAuction($auctionPrmCars, 'price') ?></div>
                                     </div>
                                 </div>
                             </div>
@@ -296,7 +295,7 @@
                         <!-- card start -->
                         <div class="card">
                             <div class="brand-name"></div>
-                            <div class="wish-title bg-dark text-white font-weight-bold rounded-top"><span class=font-size-lg>"</span>mashin awna</div>
+                            <div class="wish-title bg-dark text-white font-weight-bold rounded-top"><span class="display-2">" </span><span style="margin-top: -35px">mashin awna</span></div>
                             <div class="wish-detail text-black rounded-bottom border pl-4 pr-4" style="background-color: #f8f9fa">
                                 <div class="wl-detail-row mt-2">
                                     <i class="icon-tag mr-4"></i>12 сая ~ 15,5 сая
@@ -467,52 +466,49 @@
             <div class="container">
                 <div class="row">
                     <div class="car-list">
-                        <!-- card start -->
-                        <div class="card col-md-6 float-left" style="margin-right: 0">
-                            <div class="card-body">
-                                <div class="card-img">
-                                    <img src="{{asset('car-web/img/Cars/4.jpg')}}" class="img-fluid" alt="alt">
-                                </div>
-                                <div class="card-description d-inline">
-                                    <div class="col-md-12">
-                                        <div class="card-title">Santa fe The Prime diesel 2.0 2wd</div>
+
+                        @contents({"filter":[{"field":"type", "key":"car"}, {"field":"status", "key":"published"}], "metasFilter": [{"key": "markName", "value": "Toyota"}], "limit":10, "returnVariable":"carsOther"})
+                    @php
+                        $carsOther=json_decode($carsOther);
+                        function getValueOtherCar($othCars,$key){
+                            foreach($othCars->metas as $metas){
+                                if($metas->key==$key){
+                                return $metas->value;
+                                }
+                            }
+                        }
+                    @endphp
+
+                        @foreach($carsOther as $othCars)
+
+                            <!-- card start -->
+                            <div class="card col-md-6 float-left" style="margin-right: 0">
+                                <div class="card-body">
+                                    <div class="card-img">
+                                        {{--<img src="{{asset('car-web/img/Cars/4.jpg')}}" class="img-fluid" alt="alt">--}}
+                                        <img src="<?php echo getValueOtherCar($othCars, 'thumbnail') ?>" class="img-fluid" alt="alt">
                                     </div>
-                                    <div class="col-md-12">
-                                        <div class="meta"><span class="font-weight-bold text-dark">2006/2013</span> | 17,820km | Gasoline | 2.0 CC</div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="price"><span class="font-weight-bold">12 Сая ₮</span></div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <i class="icon-heart"></i> Add to interest list
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- card end -->
-                        <!-- card start -->
-                        <div class="card col-md-6 float-left" style="margin-right: 0">
-                            <div class="card-body">
-                                <div class="card-img">
-                                    <img src="{{asset('car-web/img/Cars/4.jpg')}}" class="img-fluid" alt="alt">
-                                </div>
-                                <div class="card-description d-inline">
-                                    <div class="col-md-12">
-                                        <div class="card-title">Santa fe The Prime diesel 2.0 2wd</div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="meta"><span class="font-weight-bold text-dark">2006/2013</span> | 17,820km | Gasoline | 2.0 CC</div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="price"><span class="font-weight-bold">12 Сая ₮</span></div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <i class="icon-heart"></i> Add to interest list
+                                    <div class="card-description d-inline">
+                                        <div class="col-md-12">
+                                            <div class="card-title">{{$othCars->title}}</div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="meta"><span class="font-weight-bold text-dark"><?php echo getValueOtherCar($othCars, 'buildYear') ?> / <?php echo getValueOtherCar($othCars, 'importDate') ?></span> | <?php echo getValueOtherCar($othCars, 'mileage') ?> | <?php echo getValueOtherCar($othCars, 'fuelType') ?> | <?php echo getValueOtherCar($othCars, 'capacity') ?></div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="price"><span class="font-weight-bold"><?php echo getValueOtherCar($othCars, 'price') ?></span></div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <i class="icon-heart"></i> Add to interest list
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <!-- card end -->
+                            <!-- card end -->
+
+                    @endforeach
+
+
                     </div>
                     <div class="col-md-12 text-center">
                         <button class="btn btn-danger font-weight-bolder text-center">See all vehicles</button>

@@ -36,19 +36,32 @@ class GframeworkServiceProvider extends ServiceProvider
         // });
 
         Blade::directive('contents', function ($expression) {
+            //dd($expression);
             $someObject = json_decode($expression);
             $contents = Content::whereRaw('1 = 1');
-            $car=null;
-            foreach ($someObject as $some) {
-                $contents = $contents->where($some->field, '=', $some->key);
+//            dd($someObject);
+            $metaInputs=[];
+            foreach ($someObject->metasFilter as $item) {
+                $metaInputs[$item->key] = $item->value;
             }
+//            dd($metaInputs);
+            foreach ($someObject->filter as $some) {
+                    $contents = $contents->where($some->field, '=', $some->key);
+            }
+            $contents = $contents->whereHas('metas', function ($query) use ($metaInputs) {
+                foreach ($metaInputs as $key => $value) {
+                    $query->where('key', $key);
+                    $query->where('value', $value);
+                }
+            });
+            $contents = $contents->take($someObject->limit);
             $contents = $contents->get();
             foreach ($contents as $content){
                 $content->metas = $content->metas()->get();
             }
             $carData=null;
             $carData=json_encode($contents);
-            $daaataaa='carDataHot';
+            $daaataaa=$someObject->returnVariable;
             if (!starts_with($daaataaa, '$')) {
                 $daaataaa = '$' . $daaataaa;
             }
