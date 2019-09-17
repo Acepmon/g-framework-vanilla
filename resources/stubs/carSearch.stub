@@ -9,158 +9,396 @@
 @endsection
 
 @section('content')
+<div class="bg-page-header"></div>
 
-
-    <!-- Masthead -->
-    <header class="masthead text-center">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-7">
-                    <div class="hero-slider owl-carousel owl-theme">
-
-                        @banners([{"field":"active", "key":"1"}])
-                        @php
-                            $bannerList=json_decode($banners);
-                        @endphp
-                        @if(count($bannerList) > 0)
-                            @foreach($bannerList as $bnr)
-                                <div class="slider-item">
-                                    {{--<div class="slider-text animated slideInLeft" style="top: 0; left: 100px">--}}
-                                        {{--<h1>Зээлийн хүү</h1>--}}
-                                    {{--</div>--}}
-                                    {{--<div class="slider-text animated slideInLeft slider-highlight" style="top: 50px; left: 50px">3%--}}
-                                    {{--</div>--}}
-                                    {{--<div class="slider-text animated slideInLeft" style="top: 200px; left: 200px">--}}
-                                        {{--<h1>Жилийн</h1>--}}
-                                    {{--</div>--}}
-                                    <div class="slider-img animated slideInLeft" style="bottom: 0; left: -50px;">
-                                        <img src="{{$bnr->banner_img_web}}" alt="">
-                                    </div>
-                                </div>
-                            @endforeach
-                        @else
-                            <div class="slider-item">
-                                <div class="slider-text animated slideInLeft" style="top: 0; left: 100px">
-                                    <h1>Зээлийн хүү</h1>
-                                </div>
-                                <div class="slider-text animated slideInLeft slider-highlight" style="top: 50px; left: 50px">3%
-                                </div>
-                                <div class="slider-text animated slideInLeft" style="top: 200px; left: 200px">
-                                    <h1>Жилийн</h1>
-                                </div>
-                                <div class="slider-img animated slideInLeft" style="bottom: 0; left: -50px;">
-                                    <img src="{{asset('car-web/img/slider-1.png')}}" alt="">
-                                </div>
-                            </div>
-                            <div class="slider-item">
-                                <div class="slider-text" style="top: 5%; left: 90px">
-                                    <h1>Авто машины</h1>
-                                </div>
-                                <div class="slider-text" style="top: 18%; left: 100px; ">
-                                    <h1 style="font-size: 2rem;">Дуудлага худалдаа</h1>
-                                </div>
-                                <div class="slider-img" style="top: 50%; left: 50px;">
-                                    <img src="{{asset('car-web/img/slider-2.png')}}" alt="" class="img-fluid">
-                                </div>
-                                <div class="slider-img" style="top: 25%; left: 0; z-index:-1;">
-                                    <img src="{{asset('car-web/img/auction.png')}}" alt="" class="img-fluid">
-                                </div>
-                            </div>
-                        @endif
-                    </div>
+<section class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="left-bar-title">
+                    Sort Vehicle <i class="fab fa fa-search"></i>
                 </div>
-                <div class="col-md-5" style="z-index: 1">
-
-                    <div class="card masthead-search shadow-lg-3d">
-                        <div class="">
-                            <div class="card-header px-5 pt-5 pb-3">
-                                <h1>Vehicle search</h1>
-                                <div class="mh-search-input">
-                                    <input class="search" type="search" placeholder="Search" aria-label="Search">
-                                    <button type="button" class="search-button">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="20.4" height="20.4" viewBox="0 0 20.4 20.4">
-                                            <path
-                                                d="M152.734,14.153a5.385,5.385,0,1,1,5.417-5.385A5.379,5.379,0,0,1,152.734,14.153Zm7.223,0h-.963l-.361-.359a7.857,7.857,0,0,0,1.806-6.342A7.77,7.77,0,0,0,153.7,1.109a7.859,7.859,0,0,0-8.788,8.735,7.9,7.9,0,0,0,6.38,6.7,7.969,7.969,0,0,0,6.38-1.795l.361.359v.957l5.056,5.026a1.315,1.315,0,0,0,1.806,0,1.3,1.3,0,0,0,0-1.795Z"
-                                                transform="translate(-144.854 -1.052)" fill="#2b3651" />
-                                        </svg>
-                                    </button>
-                                </div>
+                <div class="accordion shadow-soft-blue" id="accordionExample">
+                    <div class="card">
+                    <div class="accordian-head" id="carType">
+                        <h2 class="mb-0">
+                        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#car-type" aria-expanded="true" aria-controls="car-type">
+                            Car type<i class="fab fa fa-angle-down"></i>
+                        </button>
+                        </h2>
+                    </div>
+                
+                    <div id="car-type" class="collapse show" aria-labelledby="carType" data-parent="#accordionExample">
+                        <div class="card-body bg-light">
+                            <div class="custom-control custom-radio">
+                                <input type="radio" id="sedan" name="carTyoe" class="custom-control-input">
+                                <label class="custom-control-label  d-flex justify-content-between" for="sedan">Sedan <div class="text-muted">65</div></label>
+                            </div>
+                            <div class="custom-control custom-radio">
+                                <input type="radio" id="suv" name="carTyoe" class="custom-control-input">
+                                <label class="custom-control-label d-flex justify-content-between" for="suv">SUV <div class="text-muted">128</div></label>
+                            </div>
+                            <div class="custom-control custom-radio">
+                                <input type="radio" id="sport" name="carTyoe" class="custom-control-input">
+                                <label class="custom-control-label  d-flex justify-content-between" for="sport">Sport <div class="text-muted">98</div></label>
+                            </div>
+                            <div class="custom-control custom-radio">
+                                <input type="radio" id="trucks" name="carTyoe" class="custom-control-input">
+                                <label class="custom-control-label  d-flex justify-content-between" for="trucks">Trucks <div class="text-muted">7</div></label>
+                            </div>
+                            <div class="custom-control custom-radio">
+                                <input type="radio" id="vans" name="carTyoe" class="custom-control-input">
+                                <label class="custom-control-label  d-flex justify-content-between" for="vans">Vans <div class="text-muted">154</div></label>
+                            </div>
+                            <div class="custom-control custom-radio">
+                                <input type="radio" id="bus" name="carTyoe" class="custom-control-input">
+                                <label class="custom-control-label  d-flex justify-content-between" for="bus">Bus <div class="text-muted">25</div></label>
                             </div>
                         </div>
-                        <ul class="nav nav-tabs px-5" id="heroTab" role="tablist">
-                            <li class="nav-item">
-                                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab"
-                                   aria-controls="imported" aria-selected="true">Imported</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="used"
-                                   aria-selected="false">Used in MN</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab"
-                                   aria-controls="auction" aria-selected="false">Auction</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="budget"
-                                   aria-selected="false">Budget</a>
-                            </li>
-                        </ul>
-                        <div class="tab-content p-5" id="heroTabFilter">
-                            <div class="tab-pane fade show active" id="imported" role="tabpanel" aria-labelledby="imported-tab">
-                                <form>
-                                    <div class="form-group">
-                                        <select class="form-control">
-                                            <option>Default select</option>
-                                            <option>Default select</option>
-                                            <option>Default select</option>
-                                            <option>Default select</option>
-                                            <option>Default select</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <select class="form-control">
-                                            <option>Default select</option>
-                                            <option>Default select</option>
-                                            <option>Default select</option>
-                                            <option>Default select</option>
-                                            <option>Default select</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <select class="form-control">
-                                            <option>Default select</option>
-                                            <option>Default select</option>
-                                            <option>Default select</option>
-                                            <option>Default select</option>
-                                            <option>Default select</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <select class="form-control">
-                                            <option>Default select</option>
-                                            <option>Default select</option>
-                                            <option>Default select</option>
-                                            <option>Default select</option>
-                                            <option>Default select</option>
-                                        </select>
-                                    </div>
-                                    <button type="submit" class="btn btn-danger btn-lg btn-round shadow mt-4">Submit</button>
-                                </form>
-                            </div>
-                            <div class="tab-pane fade" id="used" role="tabpanel" aria-labelledby="used-tab">...</div>
-                            <div class="tab-pane fade" id="auction" role="tabpanel" aria-labelledby="auction-tab">...</div>
-                            <div class="tab-pane fade" id="budget" role="tabpanel" aria-labelledby="budget-tab">...</div>
-                        </div>
-
                     </div>
-
-                </div>
-                <div class="master-head-bg">
-                    <img src="{{asset('car-web/img/hero_bg.png')}}" class="img-fluid" alt="">
+                    </div>
+                    <div class="card">
+                    <div class="accordian-head" id="model">
+                        <h2 class="mb-0">
+                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#manufacture" aria-expanded="false" aria-controls="manufacture">
+                            Manufacturer / Model <i class="fab fa fa-angle-down"></i>
+                        </button>
+                        </h2>
+                    </div>
+                    <div id="manufacture" class="collapse" aria-labelledby="model" data-parent="#accordionExample">
+                        <div class="card-body bg-light">
+                            <div class="custom-control custom-radio">
+                                <input type="radio" id="Toyota" name="carTyoe" class="custom-control-input">
+                                <label class="custom-control-label d-flex justify-content-between" for="Toyota">Toyota <div class="text-muted">0</div></label>
+                            </div>
+                            <div class="custom-control custom-radio">
+                                <input type="radio" id="Lexus" name="carTyoe" class="custom-control-input">
+                                <label class="custom-control-label d-flex justify-content-between" for="Lexus">Lexus <div class="text-muted">0</div></label>
+                            </div>
+                            <div class="custom-control custom-radio">
+                                <input type="radio" id="Nissan" name="carTyoe" class="custom-control-input">
+                                <label class="custom-control-label d-flex justify-content-between" for="Nissan">Nissan <div class="text-muted">0</div></label>
+                            </div>
+                            <div class="custom-control custom-radio">
+                                <input type="radio" id="Mercedes benz" name="carTyoe" class="custom-control-input">
+                                <label class="custom-control-label d-flex justify-content-between" for="Mercedes benz">Mercedes benz <div class="text-muted">0</div></label>
+                            </div>
+                            <div class="custom-control custom-radio">
+                                <input type="radio" id="Volkswagen" name="carTyoe" class="custom-control-input">
+                                <label class="custom-control-label d-flex justify-content-between" for="Volkswagen">Volkswagen <div class="text-muted">0</div></label>
+                            </div>
+                            <div class="custom-control custom-radio">
+                                <input type="radio" id="Mini" name="carTyoe" class="custom-control-input">
+                                <label class="custom-control-label d-flex justify-content-between" for="Mini">Mini <div class="text-muted">0</div></label>
+                            </div>
+                            <div class="custom-control custom-radio">
+                                <input type="radio" id="Audi" name="carTyoe" class="custom-control-input">
+                                <label class="custom-control-label d-flex justify-content-between" for="Audi">Audi <div class="text-muted">0</div></label>
+                            </div>
+                            <div class="custom-control custom-radio">
+                                <input type="radio" id="BMW" name="carTyoe" class="custom-control-input">
+                                <label class="custom-control-label d-flex justify-content-between" for="BMW">BMW <div class="text-muted">0</div></label>
+                            </div>
+                            <div class="custom-control custom-radio">
+                                <input type="radio" id="Ford" name="carTyoe" class="custom-control-input">
+                                <label class="custom-control-label d-flex justify-content-between" for="Ford">Ford <div class="text-muted">0</div></label>
+                            </div>
+                            <div class="custom-control custom-radio">
+                                <input type="radio" id="Land Rover" name="carTyoe" class="custom-control-input">
+                                <label class="custom-control-label d-flex justify-content-between" for="Land Rover">Land Rover <div class="text-muted">0</div></label>
+                            </div>
+                            <div class="custom-control custom-radio">
+                                <input type="radio" id="Daihatsu" name="carTyoe" class="custom-control-input">
+                                <label class="custom-control-label d-flex justify-content-between" for="Daihatsu">Daihatsu <div class="text-muted">0</div></label>
+                            </div>
+                            <div class="custom-control custom-radio">
+                                <input type="radio" id="Dodge" name="carTyoe" class="custom-control-input">
+                                <label class="custom-control-label d-flex justify-content-between" for="Dodge">Dodge <div class="text-muted">0</div></label>
+                            </div>
+                            <div class="custom-control custom-radio">
+                                <input type="radio" id="Honda" name="carTyoe" class="custom-control-input">
+                                <label class="custom-control-label d-flex justify-content-between" for="Honda">Honda <div class="text-muted">0</div></label>
+                            </div>
+                            <div class="custom-control custom-radio">
+                                <input type="radio" id="Hyundai" name="carTyoe" class="custom-control-input">
+                                <label class="custom-control-label d-flex justify-content-between" for="Hyundai">Hyundai <div class="text-muted">0</div></label>
+                            </div>
+                            <div class="custom-control custom-radio">
+                                <input type="radio" id="Kia" name="carTyoe" class="custom-control-input">
+                                <label class="custom-control-label d-flex justify-content-between" for="Kia">Kia <div class="text-muted">0</div></label>
+                            </div>
+                            <div class="custom-control custom-radio">
+                                <input type="radio" id="Jeep" name="carTyoe" class="custom-control-input">
+                                <label class="custom-control-label d-flex justify-content-between" for="Jeep">Jeep <div class="text-muted">0</div></label>
+                            </div>
+                            <div class="custom-control custom-radio">
+                                <input type="radio" id="Subaru" name="carTyoe" class="custom-control-input">
+                                <label class="custom-control-label d-flex justify-content-between" for="Subaru">Subaru <div class="text-muted">0</div></label>
+                            </div>
+                            <div class="custom-control custom-radio">
+                                <input type="radio" id="Suzuki" name="carTyoe" class="custom-control-input">
+                                <label class="custom-control-label d-flex justify-content-between" for="Suzuki">Suzuki <div class="text-muted">0</div></label>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="card">
+                    <div class="accordian-head" id="year-accordian">
+                        <h2 class="mb-0">
+                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#year" aria-expanded="false" aria-controls="year">
+                            Year <i class="fab fa fa-angle-down"></i>
+                        </button>
+                        </h2>
+                    </div>
+                    <div id="year" class="collapse" aria-labelledby="year-accordian" data-parent="#accordionExample">
+                        <div class="card-body bg-light">
+                            <span id="ex18-label-2a" class="d-none">Example low value</span>
+                            <span id="ex18-label-2b" class="d-none">Example high value</span>
+                            <div class="slider slider-horizontal" id=""><div class="slider-track"><div class="slider-track-low" style="left: 0px; width: 30%;"></div><div class="slider-selection" style="left: 30%; width: 30%;"></div><div class="slider-track-high" style="right: 0px; width: 40%;"></div></div><div class="tooltip tooltip-main top" role="presentation" style="left: 45%;"><div class="tooltip-arrow"></div><div class="tooltip-inner">3 : 6</div></div><div class="tooltip tooltip-min top" role="presentation" style="left: 30%;"><div class="tooltip-arrow"></div><div class="tooltip-inner">3</div></div><div class="tooltip tooltip-max top" role="presentation" style="left: 60%;"><div class="tooltip-arrow"></div><div class="tooltip-inner">6</div></div><div class="slider-handle min-slider-handle round" role="slider" aria-valuemin="0" aria-valuemax="10" aria-labelledby="ex18-label-2a" aria-valuenow="3" tabindex="0" style="left: 30%;"></div><div class="slider-handle max-slider-handle round" role="slider" aria-valuemin="0" aria-valuemax="10" aria-labelledby="ex18-label-2b" aria-valuenow="6" tabindex="0" style="left: 60%;"></div></div><input id="ex18b" type="text" data-value="3,6" value="3,6" style="display: none;">
+                        </div>
+                    </div>
+                    </div>
+                    <div class="card">
+                    <div class="accordian-head" id="manufacturer-accordian">
+                        <h2 class="mb-0">
+                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#manufacturer" aria-expanded="false" aria-controls="manufacturer">
+                            Manufacturer  <i class="fab fa fa-angle-down"></i>
+                        </button>
+                        </h2>
+                    </div>
+                    <div id="manufacturer" class="collapse" aria-labelledby="manufacturer-accordian" data-parent="#accordionExample">
+                        <div class="card-body bg-light">
+                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid.
+                        </div>
+                    </div>
+                    </div>
+                    <div class="card">
+                    <div class="accordian-head" id="distance">
+                        <h2 class="mb-0">
+                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#distance" aria-expanded="false" aria-controls="distance">
+                            Distance driven <i class="fab fa fa-angle-down"></i>
+                        </button>
+                        </h2>
+                    </div>
+                    <div id="distance" class="collapse" aria-labelledby="distance" data-parent="#accordionExample">
+                        <div class="card-body bg-light">
+                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid.
+                        </div>
+                    </div>
+                    </div>
+                    <div class="card">
+                    <div class="accordian-head" id="price-accordian">
+                        <h2 class="mb-0">
+                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#price" aria-expanded="false" aria-controls="price">
+                            Price / Installment <i class="fab fa fa-angle-down"></i>
+                        </button>
+                        </h2>
+                    </div>
+                    <div id="price" class="collapse" aria-labelledby="price-accordian" data-parent="#accordionExample">
+                        <div class="card-body bg-light">
+                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid.
+                        </div>
+                    </div>
+                    </div>
+                    <div class="card">
+                    <div class="accordian-head" id="color-accordian">
+                        <h2 class="mb-0">
+                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#color" aria-expanded="false" aria-controls="color">
+                            Color <i class="fab fa fa-angle-down"></i>
+                        </button>
+                        </h2>
+                    </div>
+                    <div id="color" class="collapse" aria-labelledby="color-accordian" data-parent="#accordionExample">
+                        <div class="card-body bg-light">
+                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid.
+                        </div>
+                    </div>
+                    </div>
+                    <div class="card">
+                    <div class="accordian-head" id="fuel-accordian">
+                        <h2 class="mb-0">
+                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#fuel" aria-expanded="false" aria-controls="fuel">
+                            Fuel <i class="fab fa fa-angle-down"></i>
+                        </button>
+                        </h2>
+                    </div>
+                    <div id="fuel" class="collapse" aria-labelledby="fuel-accordian" data-parent="#accordionExample">
+                        <div class="card-body bg-light">
+                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid.
+                        </div>
+                    </div>
+                    </div>
+                    <div class="card">
+                    <div class="accordian-head" id="transmission-accordian">
+                        <h2 class="mb-0">
+                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#transmission" aria-expanded="false" aria-controls="transmission">
+                            Transmission <i class="fab fa fa-angle-down"></i>
+                        </button>
+                        </h2>
+                    </div>
+                    <div id="transmission" class="collapse" aria-labelledby="transmission-accordian" data-parent="#accordionExample">
+                        <div class="card-body bg-light">
+                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid.
+                        </div>
+                    </div>
+                    </div>
+                    <div class="card">
+                    <div class="accordian-head" id="option-accordian">
+                        <h2 class="mb-0">
+                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#option" aria-expanded="false" aria-controls="option">
+                            Option <i class="fab fa fa-angle-down"></i>
+                        </button>
+                        </h2>
+                    </div>
+                    <div id="option" class="collapse" aria-labelledby="option-accordian" data-parent="#accordionExample">
+                        <div class="card-body bg-light">
+                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid.
+                        </div>
+                    </div>
+                    </div>
+                    <div class="card">
+                    <div class="accordian-head" id="accident-accordian">
+                        <h2 class="mb-0">
+                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#accident" aria-expanded="false" aria-controls="accident">
+                            An accident <i class="fab fa fa-angle-down"></i>
+                        </button>
+                        </h2>
+                    </div>
+                    <div id="accident" class="collapse" aria-labelledby="accident-accordian" data-parent="#accordionExample">
+                        <div class="card-body bg-light">
+                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid.
+                        </div>
+                    </div>
+                    </div>
+                    <div class="card">
+                    <div class="accordian-head" id="passenger-accordian">
+                        <h2 class="mb-0">
+                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#passenger" aria-expanded="false" aria-controls="passenger">
+                            Passenger <i class="fab fa fa-angle-down"></i>
+                        </button>
+                        </h2>
+                    </div>
+                    <div id="passenger" class="collapse" aria-labelledby="passenger-accordian" data-parent="#accordionExample">
+                        <div class="card-body bg-light">
+                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid.
+                        </div>
+                    </div>
+                    </div>
+                    <div class="card">
+                    <div class="accordian-head" id="steeringWheel-accordian">
+                        <h2 class="mb-0">
+                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#sterringWheel" aria-expanded="false" aria-controls="sterringWheel">
+                            Steering wheel <i class="fab fa fa-angle-down"></i>
+                        </button>
+                        </h2>
+                    </div>
+                    <div id="sterringWheel" class="collapse" aria-labelledby="steeringWheel-accordian" data-parent="#accordionExample">
+                        <div class="card-body bg-light">
+                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid.
+                        </div>
+                    </div>
+                    </div>
+                    <div class="card">
+                    <div class="accordian-head" id="area-accordian">
+                        <h2 class="mb-0">
+                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#area" aria-expanded="false" aria-controls="area">
+                            Area <i class="fab fa fa-angle-down"></i>
+                        </button>
+                        </h2>
+                    </div>
+                    <div id="area" class="collapse" aria-labelledby="area-accordian" data-parent="#accordionExample">
+                        <div class="card-body bg-light">
+                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid.
+                        </div>
+                    </div>
+                    </div>
                 </div>
             </div>
+            <div class="col-md-9">
+                <div class="card shadow-soft-blue">
+                    <div class="card-body">
+                        <span class="d-flex justify-content-between">
+                            Search result
+                        </span>
+                        <input type="text" class="form-control" placeholder="Enter search text">
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="row">
+                    <div class="car-list">
+                        <!-- card start -->
+                        <div class="card">
+                        <div class="card-body">
+                            <div class="card-img">
+                                <img src="/assets/car-web/img/Cars/3.jpg" class="img-fluid" alt="alt">
+                            </div>
+                            <div class="card-description">
+                                <div class="card-caption">
+                                    <div class="card-title">Santa fe The Prime diesel 2.0 2wd</div>
+                                    <div class="meta">2006/2013 | 17,820km</div>
+                                    <div class="price">12 Сая ₮</div>
+                                    <div class="favorite">
+                                    <i class="icon-heart"></i> Add to interest list
+                                    </div>
+                                </div>
+                            <div class="info">
+                                <span class="carIcon-engine">
+                                    <p>1499 L</p>
+                                </span>
+                                <span class="carIcon-car-6">
+                                    <p>52,000 KM</p>
+                                </span>
+                                <span class="carIcon-gas-station">
+                                    <p>Gasoline</p>
+                                </span>
+                                <span class="carIcon-gearshift">
+                                    <p>Automatic</p>
+                                </span>
+                                <span class="carIcon-steering-wheel">
+                                    <p>Right wheel</p>
+                                </span>
+                                <span class="color" data-color="black">
+                                    <p>Black</p>
+                                </span>
+
+                                <div class="tag">
+                                    <a href="#">1 person</a>
+                                    <a href="#">In Garage</a>
+                                    <a href="#">4 Season tire</a>
+                                    <a href="#">Bank Loan</a>
+                                    </div>
+                                </div>
+
+                            </div>
+            
+                        </div>
+            
+                        </div>
+                        <!-- card end -->
+                    </div>   
+                </div>
+            </div>
+            <nav aria-label="Page navigation">
+                <ul class="pagination d-flex justify-content-end">
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#" aria-label="Previous">
+                            <span aria-hidden="true">«</span>
+                        </a>
+                    </li>
+                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item">
+                        <a class="page-link" href="#" aria-label="Next">
+                            <span aria-hidden="true">»</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
         </div>
-    </header>
+      </div>
+    </div>
+</section>
 
     <section class="mainPage-items bg-white">
         <div class="container">
@@ -239,369 +477,6 @@
                          <!-- card end -->
 
                     </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-
-    <!-- Importation Grid -->
-    <section class="mainPage-items bg-light">
-        <div class="container">
-            <div class="row">
-                <div class="section-title">
-                    <h2>Importation cars</h2>
-                    <span>
-            <a href="#">See all (123)</a>
-            <div class="more-arrow"></div>
-          </span>
-                </div>
-            </div>
-        </div>
-        <div class="card-list importation">
-            <div class="container">
-                <div class="row">
-                    <div class="card-slide owl-carousel owl-theme">
-                        <!-- card start -->
-                        <div class="card">
-                            <div class="brand-name"></div>
-                            <div class="card-img">
-                                <img src="{{asset('car-web/img/Cars/2.jpg')}}" class="img-fluid" alt="alt">
-                                <div class="info">
-                  <span class="carIcon-engine">
-                    <p>1499 L</p>
-                  </span>
-                                    <span class="carIcon-car-6">
-                    <p>52,000 KM</p>
-                  </span>
-                                    <span class="carIcon-gas-station">
-                    <p>Gasoline</p>
-                  </span>
-                                    <span class="carIcon-gearshift">
-                    <p>Automatic</p>
-                  </span>
-                                    <span class="carIcon-steering-wheel">
-                    <p>Right wheel</p>
-                  </span>
-                                    <span class="color" data-color="black">
-                    <p>Black</p>
-                  </span>
-                                </div>
-                                <div class="card-caption">
-                                    <div class="meta">2006/2013 | 17,820km | Gasoline <i class="show-more fab fa fa-angle-up"></i></div>
-                                    <div class="favorite">
-                                        <i class="icon-heart"></i>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="card-body">
-                                <div class="card-description">
-                                    <a href="detail-page.html" class="card-title">
-                                        Santa fe The Prime diesel 2.0 2wd
-                                    </a>
-                                    <div class="card-meta">
-                                        <div class="status">Change / Finance</div>
-                                        <div class="price">12 Сая ₮</div>
-                                    </div>
-                                </div>
-
-                            </div>
-
-                        </div>
-                        <!-- card end -->
-
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Used in Mongolia Grid -->
-    <section class="mainPage-items bg-white">
-        <div class="container">
-            <div class="row">
-                <div class="section-title">
-                    <h2>Used in Mongolia</h2>
-                    <span>
-            <a href="#">See all (123)</a>
-            <div class="more-arrow"></div>
-          </span>
-                </div>
-            </div>
-        </div>
-        <div class="card-list usedInMn">
-            <div class="container">
-                <div class="row">
-                    <div class="card-slide owl-carousel owl-theme">
-                        <!-- card start -->
-                        <div class="card">
-                            <div class="brand-name"></div>
-                            <div class="card-img">
-                                <img src="{{asset('car-web/img/Cars/3.jpg')}}" class="img-fluid" alt="alt">
-                                <div class="info">
-                  <span class="carIcon-engine">
-                    <p>1499 L</p>
-                  </span>
-                                    <span class="carIcon-car-6">
-                    <p>52,000 KM</p>
-                  </span>
-                                    <span class="carIcon-gas-station">
-                    <p>Gasoline</p>
-                  </span>
-                                    <span class="carIcon-gearshift">
-                    <p>Automatic</p>
-                  </span>
-                                    <span class="carIcon-steering-wheel">
-                    <p>Right wheel</p>
-                  </span>
-                                    <span class="color" data-color="black">
-                    <p>Black</p>
-                  </span>
-                                </div>
-                                <div class="card-caption">
-                                    <div class="meta">2006/2013 | 17,820km | Gasoline <i class="show-more fab fa fa-angle-up"></i></div>
-                                    <div class="favorite">
-                                        <i class="icon-heart"></i>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="card-body">
-                                <div class="card-description">
-                                    <a href="detail-page.html" class="card-title">Santa fe The Prime diesel 2.0 2wd</a>
-                                    <div class="card-meta">
-                                        <div class="status">Change / Finance</div>
-                                        <div class="price">12 Сая ₮</div>
-                                    </div>
-                                </div>
-
-                            </div>
-
-                        </div>
-                        <!-- card end -->
-
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Used in Mongolia Grid -->
-    <section class="mainPage-items bg-light">
-        <div class="container">
-            <div class="row">
-                <div class="section-title">
-                    <h2>Auction</h2>
-                    <span>
-            <a href="#">See all (123)</a>
-            <div class="more-arrow"></div>
-          </span>
-                </div>
-            </div>
-        </div>
-        <div class="card-list auction">
-            <div class="container">
-                <div class="row">
-                    <div class="card-slide owl-carousel owl-theme">
-                        <!-- card start -->
-                        <div class="card">
-                            <div class="brand-name"></div>
-                            <div class="card-img">
-                                <img src="{{asset('car-web/img/Cars/4.jpg')}}" class="img-fluid" alt="alt">
-                                <div class="info">
-                  <span class="carIcon-engine">
-                    <p>1499 L</p>
-                  </span>
-                                    <span class="carIcon-car-6">
-                    <p>52,000 KM</p>
-                  </span>
-                                    <span class="carIcon-gas-station">
-                    <p>Gasoline</p>
-                  </span>
-                                    <span class="carIcon-gearshift">
-                    <p>Automatic</p>
-                  </span>
-                                    <span class="carIcon-steering-wheel">
-                    <p>Right wheel</p>
-                  </span>
-                                    <span class="color" data-color="white">
-                    <p>White</p>
-                  </span>
-                                </div>
-                                <div class="card-caption">
-                                    <div class="countdown">00h:00m:00s</div>
-                                    <div class="favorite">
-                                        <i class="icon-heart"></i>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="card-body">
-                                <div class="card-description">
-                                    <a href="detail-page.html" class="card-title">Santa fe The Prime diesel 2.0 2wd</a>
-                                    <div class="meta">2006/2013 | 17,820km | Gasoline </div>
-                                    <div class="card-meta">
-                                        <div class="bids">0 Bids</div>
-                                        <div class="price">12 Сая ₮</div>
-                                    </div>
-                                </div>
-
-                            </div>
-
-                        </div>
-                        <!-- card end -->
-
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Blog post -->
-    <section class="mainPage-items bg-white">
-        <div class="container">
-            <div class="row">
-                <div class="section-title">
-                    <h2>Auto Magazine</h2>
-                    <span>
-            <a href="#">See all (123)</a>
-            <div class="more-arrow"></div>
-          </span>
-                </div>
-            </div>
-        </div>
-        <div class="card-list magazine">
-            <div class="container">
-                <div class="row mx-n4">
-
-                    <!-- card start -->
-                    <div class="card-magazine col-md-6 px-2 big-blog">
-                        <div class="brand-name"></div>
-                        <div class="card-img">
-                            <img src="{{asset('car-web/img/blog/1.jpg')}}" class="img-fluid h-100" alt="alt">
-                        </div>
-
-                        <div class="card-body">
-                            <div class="card-description">
-                                <div class="card-title">Нараа нараа ЦААШАА, сүүдэр сүүдэр НААШАА</div>
-                                <div class="card-meta">
-                                    <div class="date"><i class="icon-clock"></i> Aug 23</div>
-                                    <div class="views"><i class="icon-eye"></i> 132</div>
-                                </div>
-                            </div>
-
-                        </div>
-
-                    </div>
-                    <!-- card end -->
-                    <!-- card start -->
-                    <div class="card-magazine col-md-3 px-2">
-                        <div class="brand-name"></div>
-                        <div class="card-img">
-                            <img src="{{asset('car-web/img/blog/2.jpg')}}" class="img-fluid h-100" alt="alt">
-                        </div>
-
-                        <div class="card-body">
-                            <div class="card-description">
-                                <div class="card-title">Нараа нараа ЦААШАА, сүүдэр сүүдэр НААШАА</div>
-                                <div class="card-meta">
-                                    <div class="date"><i class="icon-clock"></i> Aug 23</div>
-                                    <div class="views"><i class="icon-eye"></i> 132</div>
-                                </div>
-                            </div>
-
-                        </div>
-
-                    </div>
-                    <!-- card end -->
-                    <!-- card start -->
-                    <div class="card-magazine col-md-3 px-2">
-                        <div class="brand-name"></div>
-                        <div class="card-img">
-                            <img src="{{asset('car-web/img/blog/3.jpg')}}" class="img-fluid h-100" alt="alt">
-                        </div>
-
-                        <div class="card-body">
-                            <div class="card-description">
-                                <div class="card-title">Нараа нараа ЦААШАА, сүүдэр сүүдэр НААШАА</div>
-                                <div class="card-meta">
-                                    <div class="date"><i class="icon-clock"></i> Aug 23</div>
-                                    <div class="views"><i class="icon-eye"></i> 132</div>
-                                </div>
-                            </div>
-
-                        </div>
-
-                    </div>
-                    <!-- card end -->
-
-                </div>
-            </div>
-            <div class="container mt-3">
-                <div class="row mx-n4">
-
-                    <!-- card start -->
-                    <div class="card-magazine col-md-3 px-2">
-                        <div class="brand-name"></div>
-                        <div class="card-img">
-                            <img src="{{asset('car-web/img/blog/6.jpg')}}" class="img-fluid h-100" alt="alt">
-                        </div>
-
-                        <div class="card-body">
-                            <div class="card-description">
-                                <div class="card-title">Нараа нараа ЦААШАА, сүүдэр сүүдэр НААШАА</div>
-                                <div class="card-meta">
-                                    <div class="date"><i class="icon-clock"></i> Aug 23</div>
-                                    <div class="views"><i class="icon-eye"></i> 132</div>
-                                </div>
-                            </div>
-
-                        </div>
-
-                    </div>
-                    <!-- card end -->
-                    <!-- card start -->
-                    <div class="card-magazine col-md-3 px-2">
-                        <div class="brand-name"></div>
-                        <div class="card-img">
-                            <img src="{{asset('car-web/img/blog/5.jpg')}}" class="img-fluid h-100" alt="alt">
-                        </div>
-
-                        <div class="card-body">
-                            <div class="card-description">
-                                <div class="card-title">Нараа нараа ЦААШАА, сүүдэр сүүдэр НААШАА</div>
-                                <div class="card-meta">
-                                    <div class="date"><i class="icon-clock"></i> Aug 23</div>
-                                    <div class="views"><i class="icon-eye"></i> 132</div>
-                                </div>
-                            </div>
-
-                        </div>
-
-                    </div>
-                    <!-- card end -->
-                    <!-- card start -->
-                    <div class="card-magazine col-md-6 px-2 big-blog">
-                        <div class="brand-name"></div>
-                        <div class="card-img">
-                            <img src="{{asset('car-web/img/blog/4.jpg')}}" class="img-fluid h-100" alt="alt">
-                        </div>
-
-                        <div class="card-body">
-                            <div class="card-description">
-                                <div class="card-title">Нараа нараа ЦААШАА, сүүдэр сүүдэр НААШАА</div>
-                                <div class="card-meta">
-                                    <div class="date"><i class="icon-clock"></i> Aug 23</div>
-                                    <div class="views"><i class="icon-eye"></i> 132</div>
-                                </div>
-                            </div>
-
-                        </div>
-
-                    </div>
-                    <!-- card end -->
-
                 </div>
             </div>
         </div>
