@@ -30,10 +30,10 @@ class GframeworkServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        // view()->composer(\App\Config::getValue('content.pages.viewPath') . '.' . '*', function ($view) {
-        //     $content = Content::where('slug', \Request::path())->first();
-        //     return $view->with('content', $content);
-        // });
+//         view()->composer(\App\Config::getValue('content.pages.viewPath') . '.' . '*', function ($view) {
+//             $content = Content::where('slug', \Request::path())->first();
+//             return $view->with('content', $content);
+//         });
 
         Blade::directive('contents', function ($expression) {
             //dd($expression);
@@ -61,17 +61,20 @@ class GframeworkServiceProvider extends ServiceProvider
             }
             $carData=null;
             $carData=json_encode($contents);
+            //$carData = htmlspecialchars(json_encode($contents), ENT_QUOTES, 'UTF-8');
+            //dd($carData);
             $daaataaa=$someObject->returnVariable;
             if (!starts_with($daaataaa, '$')) {
                 $daaataaa = '$' . $daaataaa;
             }
+
             return "<?php {$daaataaa} = ('$carData'); ?>";
         });
 
 
         Blade::directive('banners', function ($expression) {
             $someObject = json_decode($expression);
-            $banners = Banner::select('id', 'btn_show', 'btn_text', 'btn_link', 'banner_img_web', 'order', 'active')->whereRaw('1 = 1')->orderBy('order', 'asc');
+            $banners = Banner::select('id', 'banner', 'link', 'location_id', 'status')->whereRaw('1 = 1')->orderBy('id', 'asc');
             foreach ($someObject as $some) {
                 $banners = $banners->where($some->field, '=', $some->key);
             }

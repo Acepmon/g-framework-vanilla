@@ -18,23 +18,17 @@
                 <div class="col-md-7">
                     <div class="hero-slider owl-carousel owl-theme">
 
-                        @banners([{"field":"active", "key":"1"}])
+                        @banners([{"field":"location_id", "key":1}])
                         @php
                             $bannerList=json_decode($banners);
                         @endphp
                         @if(count($bannerList) > 0)
                             @foreach($bannerList as $bnr)
                                 <div class="slider-item">
-                                    <div class="slider-text animated slideInLeft" style="top: 0; left: 100px">
-                                        <h1>Зээлийн хүү</h1>
-                                    </div>
-                                    <div class="slider-text animated slideInLeft slider-highlight" style="top: 50px; left: 50px">3%
-                                    </div>
-                                    <div class="slider-text animated slideInLeft" style="top: 200px; left: 200px">
-                                        <h1>Жилийн</h1>
-                                    </div>
                                     <div class="slider-img animated slideInLeft" style="bottom: 0; left: -50px;">
-                                        <img src="{{$bnr->banner_img_web}}" alt="">
+                                        <a href="{{$bnr->link}}" target="_blank">
+                                            <img src="{{$bnr->banner}}" alt="">
+                                        </a>
                                     </div>
                                 </div>
                             @endforeach
@@ -43,7 +37,8 @@
                                 <div class="slider-text animated slideInLeft" style="top: 0; left: 100px">
                                     <h1>Зээлийн хүү</h1>
                                 </div>
-                                <div class="slider-text animated slideInLeft slider-highlight" style="top: 50px; left: 50px">3%
+                                <div class="slider-text animated slideInLeft slider-highlight"
+                                     style="top: 50px; left: 50px">3%
                                 </div>
                                 <div class="slider-text animated slideInLeft" style="top: 200px; left: 200px">
                                     <h1>Жилийн</h1>
@@ -76,12 +71,14 @@
                             <div class="card-header px-5 pt-5 pb-3">
                                 <h1>Vehicle search</h1>
                                 <div class="mh-search-input">
-                                    <input class="search" type="search" placeholder="Search" aria-label="Search">
+                                    <input class="search" name="title" type="search" placeholder="Search"
+                                           aria-label="Search">
                                     <button type="button" class="search-button">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="20.4" height="20.4" viewBox="0 0 20.4 20.4">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20.4" height="20.4"
+                                             viewBox="0 0 20.4 20.4">
                                             <path
                                                 d="M152.734,14.153a5.385,5.385,0,1,1,5.417-5.385A5.379,5.379,0,0,1,152.734,14.153Zm7.223,0h-.963l-.361-.359a7.857,7.857,0,0,0,1.806-6.342A7.77,7.77,0,0,0,153.7,1.109a7.859,7.859,0,0,0-8.788,8.735,7.9,7.9,0,0,0,6.38,6.7,7.969,7.969,0,0,0,6.38-1.795l.361.359v.957l5.056,5.026a1.315,1.315,0,0,0,1.806,0,1.3,1.3,0,0,0,0-1.795Z"
-                                                transform="translate(-144.854 -1.052)" fill="#2b3651" />
+                                                transform="translate(-144.854 -1.052)" fill="#2b3651"/>
                                         </svg>
                                     </button>
                                 </div>
@@ -89,20 +86,24 @@
                         </div>
                         <ul class="nav nav-tabs px-5" id="heroTab" role="tablist">
                             <li class="nav-item">
-                                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab"
+                                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#allVehicles"
+                                   role="tab"
                                    aria-controls="imported" aria-selected="true">All vehicles</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="used"
+                                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#auction" role="tab"
+                                   aria-controls="used"
                                    aria-selected="false">Auction</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="budget"
+                                <a class="nav-link" id="contact-tab" data-toggle="tab" href="#budget" role="tab"
+                                   aria-controls="budget"
                                    aria-selected="false">Budget</a>
                             </li>
                         </ul>
                         <div class="tab-content p-5" id="heroTabFilter">
-                            <div class="tab-pane fade show active" id="allVehicles" role="tabpanel" aria-labelledby="imported-tab">
+                            <div class="tab-pane fade show active" id="allVehicles" role="tabpanel"
+                                 aria-labelledby="imported-tab">
                                 <form>
                                     <div class="form-group">
                                         <select class="form-control">
@@ -140,11 +141,88 @@
                                             @endfor
                                         </select>
                                     </div>
-                                    <button type="submit" class="btn btn-danger btn-lg btn-round shadow mt-4">Submit</button>
+                                    <button type="submit" class="btn btn-danger btn-lg btn-round shadow mt-4">Submit
+                                    </button>
                                 </form>
                             </div>
-                            <div class="tab-pane fade" id="auction" role="tabpanel" aria-labelledby="used-tab">...</div>
-                            <div class="tab-pane fade" id="budget" role="tabpanel" aria-labelledby="auction-tab">...</div>
+                            <div class="tab-pane fade" id="auction" role="tabpanel" aria-labelledby="used-tab">
+                                <form>
+                                    <div class="form-group">
+                                        <select class="form-control">
+                                            @getTaxonomys([{"field":"taxonomy", "key":"manufacturer"}])
+                                            @php
+                                                $manufacturers=json_decode($manufacturer);
+                                            @endphp
+                                            @foreach($manufacturers as $data)
+                                                <option>{{$data->description}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <select class="form-control">
+                                            @getTaxonomys([{"field":"taxonomy", "key":"model"}])
+                                            @php
+                                                $models=json_decode($model);
+                                            @endphp
+                                            @foreach($models as $data)
+                                                <option>{{$data->description}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <select class="form-control">
+                                            @for ($i = \Carbon\Carbon::now()->year; $i >= \Carbon\Carbon::now()->year - 50; $i--)
+                                                <option value="{{$i}}">{{$i}}</option>
+                                            @endfor
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <select class="form-control">
+                                            @for ($i = \Carbon\Carbon::now()->year; $i >= \Carbon\Carbon::now()->year - 50; $i--)
+                                                <option value="{{$i}}">{{$i}}</option>
+                                            @endfor
+                                        </select>
+                                    </div>
+                                    <button type="submit" class="btn btn-danger btn-lg btn-round shadow mt-4">Submit
+                                    </button>
+                                </form>
+                            </div>
+                            <div class="tab-pane fade" id="budget" role="tabpanel" aria-labelledby="auction-tab">
+                                <form>
+                                    <div class="form-group">
+                                        <select class="form-control">
+                                            @getTaxonomys([{"field":"taxonomy", "key":"manufacturer"}])
+                                            @php
+                                                $manufacturers=json_decode($manufacturer);
+                                            @endphp
+                                            @foreach($manufacturers as $data)
+                                                <option>{{$data->description}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <select class="form-control">
+                                            @getTaxonomys([{"field":"taxonomy", "key":"model"}])
+                                            @php
+                                                $models=json_decode($model);
+                                            @endphp
+                                            @foreach($models as $data)
+                                                <option>{{$data->description}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <input class="form-control" name="min-price" type="number"
+                                               placeholder="min-price" aria-label="Search">
+                                    </div>
+                                    <div class="form-group">
+                                        <input class="form-control" name="max-price" type="number"
+                                               placeholder="max-price" aria-label="Search">
+                                    </div>
+                                    <button type="submit" class="btn btn-danger btn-lg btn-round shadow mt-4">Submit
+                                    </button>
+                                </form>
+                            </div>
                         </div>
 
                     </div>
@@ -156,6 +234,9 @@
             </div>
         </div>
     </header>
+    <div class="col-md-12 text-center">
+        <a class="scrollDown" href="javascript:;"> DISCOVER CARS </a>
+    </div>
 
     <section class="mainPage-items bg-white">
         <div class="container">
@@ -168,9 +249,13 @@
         <div class="card-list">
             <div class="container">
                 <div class="row">
-                    @contents({"filter":[{"field":"type", "key":"car"}, {"field":"status", "key":"published"}], "metasFilter": [{"key": "markName", "value": "nissan"}], "limit":12, "returnVariable":"carDataPremium"})
+                    @contents({"filter":[{"field":"type", "key":"car"}, {"field":"status", "key":"published"}],
+                    "metasFilter": [{"key": "markName", "value": "toyota"}], "limit":12,
+                    "returnVariable":"carDataPremium"})
                     @php
                         $carDataPremium=json_decode($carDataPremium);
+                        //$carDataPremium=html_entity_decode(htmlentities($carDataPremium, ENT_QUOTES, "UTF-8"));
+
                         function getValue($rr,$key){
                             foreach($rr->metas as $metas){
                                 if($metas->key==$key){
@@ -179,16 +264,23 @@
                             }
                         }
                     @endphp
+
                     {{--{{$carDataHot}}--}}
                     @foreach($carDataPremium as $rr)
-                        <div class="card col-md-3 mb-3" >
+                        <div class="card col-md-3 mb-3">
                             <div class="brand-name"><?php echo getValue($rr, 'manufacturer') ?></div>
                             <div class="card-img">
-                                {{--<img src="{{(getValue($rr, 'thumbnail'))}}" class="img-fluid" alt="alt">--}}
-                                <img src="{{asset('car-web/img/Cars/3.jpg')}}" class="img-fluid" alt="alt">
-                                <div class="bestDeal" style="position: absolute; top:5px; left: 5px; background-color: white; border-radius: 3px; padding: 3px">ci</div>
+                                <img src="{{(getValue($rr, 'thumbnail'))}}" class="img-fluid" alt="alt">
+                                {{--<img src="{{asset('car-web/img/Cars/3.jpg')}}" class="img-fluid" alt="alt">--}}
+                                <div class="bestDeal"
+                                     style="position: absolute; top:5px; left: 5px; background-color: white; border-radius: 3px; padding: 3px">
+                                    ci
+                                </div>
                                 <div class="card-caption">
-                                    <div class="meta"><?php echo getValue($rr, 'buildYear') ?>/<?php echo getValue($rr, 'importDate') ?> | <?php echo getValue($rr, 'mileage') ?> | <?php echo getValue($rr, 'fuel') ?></div>
+                                    <div class="meta"><?php echo getValue($rr, 'buildYear') ?>
+                                        /<?php echo getValue($rr, 'importDate') ?>
+                                        | <?php echo getValue($rr, 'mileage') ?>
+                                        | <?php echo getValue($rr, 'fuel') ?></div>
                                     <div class="favorite">
                                         <i class="icon-heart"></i>
                                     </div>
@@ -204,13 +296,13 @@
                                 </div>
                             </div>
                         </div>
-                    @endforeach
-                    {{--<div class="card-slide owl-carousel owl-theme">--}}
+                @endforeach
+                {{--<div class="card-slide owl-carousel owl-theme">--}}
 
-                         {{----}}
+                {{----}}
 
-                    {{--</div>--}}
-                    <!-- card end -->
+                {{--</div>--}}
+                <!-- card end -->
 
                 </div>
             </div>
@@ -234,7 +326,9 @@
         <div class="card-list">
             <div class="container">
                 <div class="row">
-                    @contents({"filter":[{"field":"type", "key":"car"}, {"field":"status", "key":"published"}], "metasFilter": [{"key": "markName", "value": "Toyota"}], "limit":12, "returnVariable":"carAuctionPremium"})
+                    @contents({"filter":[{"field":"type", "key":"car"}, {"field":"status", "key":"published"}],
+                    "metasFilter": [{"key": "markName", "value": "Toyota"}], "limit":12,
+                    "returnVariable":"carAuctionPremium"})
                     @php
                         $carAuctionPremium=json_decode($carAuctionPremium);
                         function getValueAuction($actionPrmCars,$key){
@@ -246,14 +340,20 @@
                         }
                     @endphp
                     @foreach($carAuctionPremium as $auctionPrmCars)
-                        <div class="card col-md-3 mb-3" >
+                        <div class="card col-md-3 mb-3">
                             <div class="brand-name"><?php echo getValueAuction($auctionPrmCars, 'manufacturer') ?></div>
                             <div class="card-img">
-                                {{--<img src="{{(getValue($rr, 'thumbnail'))}}" class="img-fluid" alt="alt">--}}
-                                <img src="{{asset('car-web/img/Cars/3.jpg')}}" class="img-fluid" alt="alt">
-                                <div class="bestDeal" style="position: absolute; top:5px; left: 5px; background-color: white; border-radius: 3px; padding: 3px">ci</div>
+                                <img src="{{(getValue($rr, 'thumbnail'))}}" class="img-fluid" alt="alt">
+                                {{--<img src="{{asset('car-web/img/Cars/3.jpg')}}" class="img-fluid" alt="alt">--}}
+                                <div class="bestDeal"
+                                     style="position: absolute; top:5px; left: 5px; background-color: white; border-radius: 3px; padding: 3px">
+                                    ci
+                                </div>
                                 <div class="card-caption">
-                                    <div class="meta"><?php echo getValueAuction($auctionPrmCars, 'buildYear') ?>/<?php echo getValueAuction($auctionPrmCars, 'importDate') ?> | <?php echo getValueAuction($auctionPrmCars, 'mileage') ?> | <?php echo getValueAuction($auctionPrmCars, 'fuel') ?></div>
+                                    <div class="meta"><?php echo getValueAuction($auctionPrmCars, 'buildYear') ?>
+                                        /<?php echo getValueAuction($auctionPrmCars, 'importDate') ?>
+                                        | <?php echo getValueAuction($auctionPrmCars, 'mileage') ?>
+                                        | <?php echo getValueAuction($auctionPrmCars, 'fuel') ?></div>
                                     <div class="favorite">
                                         <i class="icon-heart"></i>
                                     </div>
@@ -263,7 +363,9 @@
                                 <div class="card-description">
                                     <a href="detail-page.html" class="card-title">{{$auctionPrmCars->title}}</a>
                                     <div class="card-meta">
-                                        <div class="status"><?php echo getValueAuction($auctionPrmCars, 'priceType') ?> / finance</div>
+                                        <div class="status"><?php echo getValueAuction($auctionPrmCars, 'priceType') ?>/
+                                            finance
+                                        </div>
                                         <div class="price"><?php echo getValueAuction($auctionPrmCars, 'price') ?></div>
                                     </div>
                                 </div>
@@ -295,8 +397,10 @@
                         <!-- card start -->
                         <div class="card">
                             <div class="brand-name"></div>
-                            <div class="wish-title bg-dark text-white font-weight-bold rounded-top"><span class="display-2">" </span><span style="margin-top: -35px">mashin awna</span></div>
-                            <div class="wish-detail text-black rounded-bottom border pl-4 pr-4" style="background-color: #f8f9fa">
+                            <div class="wish-title bg-dark text-white font-weight-bold rounded-top"><span
+                                    class="display-2">" </span><span style="margin-top: -35px">mashin awna</span></div>
+                            <div class="wish-detail text-black rounded-bottom border pl-4 pr-4"
+                                 style="background-color: #f8f9fa">
                                 <div class="wl-detail-row mt-2">
                                     <i class="icon-tag mr-4"></i>12 сая ~ 15,5 сая
                                 </div>
@@ -305,7 +409,9 @@
                                     <button class="btn btn-sm btn-outline-dark float-right">Watch</button>
                                 </div>
                                 <div class="wl-detail-row mt-2">
-                                    <img src="{{asset('car-web/img/Cars/4.jpg')}}" class="rounded-circle float-left mr-2 mt-2" width="32px" height="32"  style="width: 32px" alt="alt">
+                                    <img src="{{asset('car-web/img/Cars/4.jpg')}}"
+                                         class="rounded-circle float-left mr-2 mt-2" width="32px" height="32"
+                                         style="width: 32px" alt="alt">
                                     <p class="">Enkhtuvshin
                                         </br>
                                         <span>2019-03-01</span>
@@ -315,8 +421,11 @@
                         </div>
                         <div class="card">
                             <div class="brand-name"></div>
-                            <div class="wish-title bg-dark text-white font-weight-bold rounded-top"><span class=font-size-lg>"</span>mashin awna</div>
-                            <div class="wish-detail text-black rounded-bottom border pl-4 pr-4" style="background-color: #f8f9fa">
+                            <div class="wish-title bg-dark text-white font-weight-bold rounded-top"><span
+                                    class=font-size-lg>"</span>mashin awna
+                            </div>
+                            <div class="wish-detail text-black rounded-bottom border pl-4 pr-4"
+                                 style="background-color: #f8f9fa">
                                 <div class="wl-detail-row mt-2">
                                     <i class="icon-tag mr-4"></i>12 сая ~ 15,5 сая
                                 </div>
@@ -325,7 +434,9 @@
                                     <button class="btn btn-sm btn-outline-dark float-right">Watch</button>
                                 </div>
                                 <div class="wl-detail-row mt-2">
-                                    <img src="{{asset('car-web/img/Cars/4.jpg')}}" class="rounded-circle float-left mr-2 mt-2" width="32px" height="32"  style="width: 32px" alt="alt">
+                                    <img src="{{asset('car-web/img/Cars/4.jpg')}}"
+                                         class="rounded-circle float-left mr-2 mt-2" width="32px" height="32"
+                                         style="width: 32px" alt="alt">
                                     <p class="">Enkhtuvshin
                                         </br>
                                         <span>2019-03-01</span>
@@ -335,8 +446,11 @@
                         </div>
                         <div class="card">
                             <div class="brand-name"></div>
-                            <div class="wish-title bg-dark text-white font-weight-bold rounded-top"><span class=font-size-lg>"</span>mashin awna</div>
-                            <div class="wish-detail text-black rounded-bottom border pl-4 pr-4" style="background-color: #f8f9fa">
+                            <div class="wish-title bg-dark text-white font-weight-bold rounded-top"><span
+                                    class=font-size-lg>"</span>mashin awna
+                            </div>
+                            <div class="wish-detail text-black rounded-bottom border pl-4 pr-4"
+                                 style="background-color: #f8f9fa">
                                 <div class="wl-detail-row mt-2">
                                     <i class="icon-tag mr-4"></i>12 сая ~ 15,5 сая
                                 </div>
@@ -345,7 +459,9 @@
                                     <button class="btn btn-sm btn-outline-dark float-right">Watch</button>
                                 </div>
                                 <div class="wl-detail-row mt-2">
-                                    <img src="{{asset('car-web/img/Cars/4.jpg')}}" class="rounded-circle float-left mr-2 mt-2" width="32px" height="32"  style="width: 32px" alt="alt">
+                                    <img src="{{asset('car-web/img/Cars/4.jpg')}}"
+                                         class="rounded-circle float-left mr-2 mt-2" width="32px" height="32"
+                                         style="width: 32px" alt="alt">
                                     <p class="">Enkhtuvshin
                                         </br>
                                         <span>2019-03-01</span>
@@ -355,8 +471,11 @@
                         </div>
                         <div class="card">
                             <div class="brand-name"></div>
-                            <div class="wish-title bg-dark text-white font-weight-bold rounded-top"><span class=font-size-lg>"</span>mashin awna</div>
-                            <div class="wish-detail text-black rounded-bottom border pl-4 pr-4" style="background-color: #f8f9fa">
+                            <div class="wish-title bg-dark text-white font-weight-bold rounded-top"><span
+                                    class=font-size-lg>"</span>mashin awna
+                            </div>
+                            <div class="wish-detail text-black rounded-bottom border pl-4 pr-4"
+                                 style="background-color: #f8f9fa">
                                 <div class="wl-detail-row mt-2">
                                     <i class="icon-tag mr-4"></i>12 сая ~ 15,5 сая
                                 </div>
@@ -365,7 +484,9 @@
                                     <button class="btn btn-sm btn-outline-dark float-right">Watch</button>
                                 </div>
                                 <div class="wl-detail-row mt-2">
-                                    <img src="{{asset('car-web/img/Cars/4.jpg')}}" class="rounded-circle float-left mr-2 mt-2" width="32px" height="32"  style="width: 32px" alt="alt">
+                                    <img src="{{asset('car-web/img/Cars/4.jpg')}}"
+                                         class="rounded-circle float-left mr-2 mt-2" width="32px" height="32"
+                                         style="width: 32px" alt="alt">
                                     <p class="">Enkhtuvshin
                                         </br>
                                         <span>2019-03-01</span>
@@ -375,8 +496,11 @@
                         </div>
                         <div class="card">
                             <div class="brand-name"></div>
-                            <div class="wish-title bg-dark text-white font-weight-bold rounded-top"><span class=font-size-lg>"</span>mashin awna</div>
-                            <div class="wish-detail text-black rounded-bottom border pl-4 pr-4" style="background-color: #f8f9fa">
+                            <div class="wish-title bg-dark text-white font-weight-bold rounded-top"><span
+                                    class=font-size-lg>"</span>mashin awna
+                            </div>
+                            <div class="wish-detail text-black rounded-bottom border pl-4 pr-4"
+                                 style="background-color: #f8f9fa">
                                 <div class="wl-detail-row mt-2">
                                     <i class="icon-tag mr-4"></i>12 сая ~ 15,5 сая
                                 </div>
@@ -385,7 +509,9 @@
                                     <button class="btn btn-sm btn-outline-dark float-right">Watch</button>
                                 </div>
                                 <div class="wl-detail-row mt-2">
-                                    <img src="{{asset('car-web/img/Cars/4.jpg')}}" class="rounded-circle float-left mr-2 mt-2" width="32px" height="32"  style="width: 32px" alt="alt">
+                                    <img src="{{asset('car-web/img/Cars/4.jpg')}}"
+                                         class="rounded-circle float-left mr-2 mt-2" width="32px" height="32"
+                                         style="width: 32px" alt="alt">
                                     <p class="">Enkhtuvshin
                                         </br>
                                         <span>2019-03-01</span>
@@ -395,8 +521,11 @@
                         </div>
                         <div class="card">
                             <div class="brand-name"></div>
-                            <div class="wish-title bg-dark text-white font-weight-bold rounded-top"><span class=font-size-lg>"</span>mashin awna</div>
-                            <div class="wish-detail text-black rounded-bottom border pl-4 pr-4" style="background-color: #f8f9fa">
+                            <div class="wish-title bg-dark text-white font-weight-bold rounded-top"><span
+                                    class=font-size-lg>"</span>mashin awna
+                            </div>
+                            <div class="wish-detail text-black rounded-bottom border pl-4 pr-4"
+                                 style="background-color: #f8f9fa">
                                 <div class="wl-detail-row mt-2">
                                     <i class="icon-tag mr-4"></i>12 сая ~ 15,5 сая
                                 </div>
@@ -405,7 +534,9 @@
                                     <button class="btn btn-sm btn-outline-dark float-right">Watch</button>
                                 </div>
                                 <div class="wl-detail-row mt-2">
-                                    <img src="{{asset('car-web/img/Cars/4.jpg')}}" class="rounded-circle float-left mr-2 mt-2" width="32px" height="32"  style="width: 32px" alt="alt">
+                                    <img src="{{asset('car-web/img/Cars/4.jpg')}}"
+                                         class="rounded-circle float-left mr-2 mt-2" width="32px" height="32"
+                                         style="width: 32px" alt="alt">
                                     <p class="">Enkhtuvshin
                                         </br>
                                         <span>2019-03-01</span>
@@ -415,8 +546,11 @@
                         </div>
                         <div class="card">
                             <div class="brand-name"></div>
-                            <div class="wish-title bg-dark text-white font-weight-bold rounded-top"><span class=font-size-lg>"</span>mashin awna</div>
-                            <div class="wish-detail text-black rounded-bottom border pl-4 pr-4" style="background-color: #f8f9fa">
+                            <div class="wish-title bg-dark text-white font-weight-bold rounded-top"><span
+                                    class=font-size-lg>"</span>mashin awna
+                            </div>
+                            <div class="wish-detail text-black rounded-bottom border pl-4 pr-4"
+                                 style="background-color: #f8f9fa">
                                 <div class="wl-detail-row mt-2">
                                     <i class="icon-tag mr-4"></i>12 сая ~ 15,5 сая
                                 </div>
@@ -425,7 +559,9 @@
                                     <button class="btn btn-sm btn-outline-dark float-right">Watch</button>
                                 </div>
                                 <div class="wl-detail-row mt-2">
-                                    <img src="{{asset('car-web/img/Cars/4.jpg')}}" class="rounded-circle float-left mr-2 mt-2" width="32px" height="32"  style="width: 32px" alt="alt">
+                                    <img src="{{asset('car-web/img/Cars/4.jpg')}}"
+                                         class="rounded-circle float-left mr-2 mt-2" width="32px" height="32"
+                                         style="width: 32px" alt="alt">
                                     <p class="">Enkhtuvshin
                                         </br>
                                         <span>2019-03-01</span>
@@ -444,7 +580,25 @@
     <section>
         <div class="container p-0 mb-5">
             <div class="banner">
-                <img src="{{asset('car-web/img/Cars/4.jpg')}}"  height="150"  style="width: 100%" alt="alt">
+                <div class="hero-slider owl-carousel owl-theme">
+                    @banners([{"field":"location_id", "key":5}])
+                    @php
+                        $bannerMidList=json_decode($banners);
+                    @endphp
+                    @if(count($bannerMidList) > 1)
+                        @foreach($bannerMidList as $bnr)
+                            <div class="slider-item" style="height: 160px; min-height: 160px;">
+                                <a href="{{$bnr->link}}" target="_blank">
+                                    <img src="{{$bnr->banner}}" alt="">
+                                </a>
+                            </div>
+                        @endforeach
+                    @else
+                        <a href="{{$bnr->link}}" target="_blank">
+                            <img src="{{$bnr->banner}}" alt="">
+                        </a>
+                    @endif
+                </div>
             </div>
         </div>
     </section>
@@ -467,7 +621,9 @@
                 <div class="row">
                     <div class="car-list">
 
-                        @contents({"filter":[{"field":"type", "key":"car"}, {"field":"status", "key":"published"}], "metasFilter": [{"key": "markName", "value": "Toyota"}], "limit":10, "returnVariable":"carsOther"})
+                        @contents({"filter":[{"field":"type", "key":"car"}, {"field":"status", "key":"published"}],
+                        "metasFilter": [{"key": "markName", "value": "Toyota"}], "limit":10,
+                        "returnVariable":"carsOther"})
                     @php
                         $carsOther=json_decode($carsOther);
                         function getValueOtherCar($othCars,$key){
@@ -479,24 +635,32 @@
                         }
                     @endphp
 
-                        @foreach($carsOther as $othCars)
+                    @foreach($carsOther as $othCars)
 
-                            <!-- card start -->
+                        <!-- card start -->
                             <div class="card col-md-6 float-left" style="margin-right: 0">
                                 <div class="card-body">
                                     <div class="card-img">
                                         {{--<img src="{{asset('car-web/img/Cars/4.jpg')}}" class="img-fluid" alt="alt">--}}
-                                        <img src="<?php echo getValueOtherCar($othCars, 'thumbnail') ?>" class="img-fluid" alt="alt">
+                                        <img src="<?php echo getValueOtherCar($othCars, 'thumbnail') ?>"
+                                             class="img-fluid" alt="alt">
                                     </div>
                                     <div class="card-description d-inline">
                                         <div class="col-md-12">
                                             <div class="card-title">{{$othCars->title}}</div>
                                         </div>
                                         <div class="col-md-12">
-                                            <div class="meta"><span class="font-weight-bold text-dark"><?php echo getValueOtherCar($othCars, 'buildYear') ?> / <?php echo getValueOtherCar($othCars, 'importDate') ?></span> | <?php echo getValueOtherCar($othCars, 'mileage') ?> | <?php echo getValueOtherCar($othCars, 'fuelType') ?> | <?php echo getValueOtherCar($othCars, 'capacity') ?></div>
+                                            <div class="meta"><span
+                                                    class="font-weight-bold text-dark"><?php echo getValueOtherCar($othCars, 'buildYear') ?>
+                                                    / <?php echo getValueOtherCar($othCars, 'importDate') ?></span>
+                                                | <?php echo getValueOtherCar($othCars, 'mileage') ?>
+                                                | <?php echo getValueOtherCar($othCars, 'fuelType') ?>
+                                                | <?php echo getValueOtherCar($othCars, 'capacity') ?></div>
                                         </div>
                                         <div class="col-md-12">
-                                            <div class="price"><span class="font-weight-bold"><?php echo getValueOtherCar($othCars, 'price') ?></span></div>
+                                            <div class="price"><span
+                                                    class="font-weight-bold"><?php echo getValueOtherCar($othCars, 'price') ?></span>
+                                            </div>
                                         </div>
                                         <div class="col-md-12">
                                             <i class="icon-heart"></i> Add to interest list
@@ -506,7 +670,7 @@
                             </div>
                             <!-- card end -->
 
-                    @endforeach
+                        @endforeach
 
 
                     </div>
@@ -522,12 +686,38 @@
     <section>
         <div class="container p-0 mb-5">
             <div class="banner">
-                <img src="{{asset('car-web/img/Cars/4.jpg')}}"  height="150"  style="width: 100%" alt="alt">
+                <div class="hero-slider owl-carousel owl-theme">
+                    @banners([{"field":"location_id", "key":5}])
+                    @php
+                        $bannerMidList=json_decode($banners);
+                    @endphp
+                    @if(count($bannerMidList) > 1)
+                        @foreach($bannerMidList as $bnr)
+                            <div class="slider-item" style="height: 160px; min-height: 160px;">
+                                <a href="{{$bnr->link}}" target="_blank">
+                                    <img src="{{$bnr->banner}}" alt="">
+                                </a>
+                            </div>
+                        @endforeach
+                    @else
+                        <a href="{{$bnr->link}}" target="_blank">
+                            <img src="{{$bnr->banner}}" alt="">
+                        </a>
+                    @endif
+                </div>
             </div>
         </div>
     </section>
 @endsection
 
 @section('script')
-
+    <script>
+        $('.scrollDown').click(function(event){
+            // Preventing default action of the event
+            event.preventDefault();
+            // Getting the height of the document
+            var n = $(document).height();
+            $('html, body').animate({ scrollTop: 1200 }, 400);
+        });
+    </script>
 @endsection
