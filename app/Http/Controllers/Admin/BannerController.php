@@ -18,7 +18,7 @@ class BannerController extends Controller
      */
     public function index()
     {
-        $banners = Banner::orderBy('order', 'asc')->get();
+        $banners = Banner::all();
 
         return view('admin.banners.index', ['banners' => $banners]);
     }
@@ -46,22 +46,10 @@ class BannerController extends Controller
     {
         $request->validate([
             'title' => 'required|max:191',
-            'btn_show' => 'nullable|boolean',
-            'btn_text' => 'nullable|max:255',
-            'btn_link' => 'nullable|max:255',
-            'banner_img_mobile' => 'nullable|file',
-            'banner_img_web' => 'nullable|file',
-            'order' => 'nullable|numeric',
-            'active' => 'nullable|boolean'
         ]);
 
         $banner = new Banner();
         $banner->title = $request->input('title');
-        $banner->btn_show = $request->input('btn_show', false);
-        $banner->btn_text = $request->input('btn_text', null);
-        $banner->btn_link = $request->input('btn_link', null);
-        $banner->order = $request->input('order', 0);
-        $banner->active = $request->input('active', false);
 
         if ($request->hasFile('banner_img_mobile') && $request->has('banner_img_mobile_cropped')) {
             $filename = $this->saveBase64Image($request->input('banner_img_mobile_cropped'), $request->banner_img_mobile->getMimeType(), $request->banner_img_mobile->extension());
@@ -114,13 +102,6 @@ class BannerController extends Controller
     {
         $request->validate([
             'title' => 'nullable|max:191',
-            'btn_show' => 'nullable|boolean',
-            'btn_text' => 'nullable|max:255',
-            'btn_link' => 'nullable|max:255',
-            'banner_img_mobile' => 'nullable|file',
-            'banner_img_web' => 'nullable|file',
-            'order' => 'nullable|numeric',
-            'active' => 'nullable|boolean'
         ]);
 
         if ($request->has('title')) {
