@@ -1,238 +1,258 @@
 @extends('themes.car-web.layouts.default')
+@section('load')
+    <div class="col-1 full-height" style="position: absolute; left: 79%; top:125%; height: 4000px">
+        <div class="sidebar-item">
+            <div class="make-me-sticky float-right">
+                <div class="hero-slider owl-carousel owl-theme" style="width: 120px;">
+                    @banners([{"field":"location_id", "key":4}])
+                    @php
+                        $bannerStickyList=json_decode($banners);
+                    @endphp
+                    @if(count($bannerStickyList) > 1)
+                        @foreach($bannerStickyList as $bnr)
+                            <div class="slider-item" style="height: 160px; min-height: 160px; width: 120px;">
+                                <a href="{{$bnr->link}}" target="_blank">
+                                    <img src="{{$bnr->banner}}" alt="">
+                                </a>
+                            </div>
+                        @endforeach
+                    @else
+                        <a href="{{$bnr->link}}" target="_blank">
+                            <img src="{{$bnr->banner}}" alt="">
+                        </a>
+                    @endif
+                </div>
+            </div>
+        </div>
+    </div>
 
+@endsection
 @section('title')
 
 @endsection
 
-@section('load')
-
-@endsection
-
 @section('content')
-
-
     <!-- Masthead -->
     <header class="masthead text-center">
         <div class="container">
-            <div class="row">
-                <div class="col-md-7">
-                    <div class="hero-slider owl-carousel owl-theme">
+                <div class="row">
+                    <div class="col-md-7">
+                        <div class="hero-slider owl-carousel owl-theme">
 
-                        @banners([{"field":"location_id", "key":1}])
-                        @php
-                            $bannerList=json_decode($banners);
-                        @endphp
-                        @if(count($bannerList) > 0)
-                            @foreach($bannerList as $bnr)
+                            @banners([{"field":"location_id", "key":1}])
+                            @php
+                                $bannerList=json_decode($banners);
+                            @endphp
+                            @if(count($bannerList) > 0)
+                                @foreach($bannerList as $bnr)
+                                    <div class="slider-item">
+                                        <div class="slider-img animated slideInLeft" style="bottom: 0; left: -50px;">
+                                            <a href="{{$bnr->link}}" target="_blank">
+                                                <img src="{{$bnr->banner}}" alt="">
+                                            </a>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            @else
                                 <div class="slider-item">
+                                    <div class="slider-text animated slideInLeft" style="top: 0; left: 100px">
+                                        <h1>Зээлийн хүү</h1>
+                                    </div>
+                                    <div class="slider-text animated slideInLeft slider-highlight"
+                                         style="top: 50px; left: 50px">3%
+                                    </div>
+                                    <div class="slider-text animated slideInLeft" style="top: 200px; left: 200px">
+                                        <h1>Жилийн</h1>
+                                    </div>
                                     <div class="slider-img animated slideInLeft" style="bottom: 0; left: -50px;">
-                                        <a href="{{$bnr->link}}" target="_blank">
-                                            <img src="{{$bnr->banner}}" alt="">
-                                        </a>
+                                        <img src="{{asset('car-web/img/slider-1.png')}}" alt="">
                                     </div>
                                 </div>
-                            @endforeach
-                        @else
-                            <div class="slider-item">
-                                <div class="slider-text animated slideInLeft" style="top: 0; left: 100px">
-                                    <h1>Зээлийн хүү</h1>
+                                <div class="slider-item">
+                                    <div class="slider-text" style="top: 5%; left: 90px">
+                                        <h1>Авто машины</h1>
+                                    </div>
+                                    <div class="slider-text" style="top: 18%; left: 100px; ">
+                                        <h1 style="font-size: 2rem;">Дуудлага худалдаа</h1>
+                                    </div>
+                                    <div class="slider-img" style="top: 50%; left: 50px;">
+                                        <img src="{{asset('car-web/img/slider-2.png')}}" alt="" class="img-fluid">
+                                    </div>
+                                    <div class="slider-img" style="top: 25%; left: 0; z-index:-1;">
+                                        <img src="{{asset('car-web/img/auction.png')}}" alt="" class="img-fluid">
+                                    </div>
                                 </div>
-                                <div class="slider-text animated slideInLeft slider-highlight"
-                                     style="top: 50px; left: 50px">3%
-                                </div>
-                                <div class="slider-text animated slideInLeft" style="top: 200px; left: 200px">
-                                    <h1>Жилийн</h1>
-                                </div>
-                                <div class="slider-img animated slideInLeft" style="bottom: 0; left: -50px;">
-                                    <img src="{{asset('car-web/img/slider-1.png')}}" alt="">
-                                </div>
-                            </div>
-                            <div class="slider-item">
-                                <div class="slider-text" style="top: 5%; left: 90px">
-                                    <h1>Авто машины</h1>
-                                </div>
-                                <div class="slider-text" style="top: 18%; left: 100px; ">
-                                    <h1 style="font-size: 2rem;">Дуудлага худалдаа</h1>
-                                </div>
-                                <div class="slider-img" style="top: 50%; left: 50px;">
-                                    <img src="{{asset('car-web/img/slider-2.png')}}" alt="" class="img-fluid">
-                                </div>
-                                <div class="slider-img" style="top: 25%; left: 0; z-index:-1;">
-                                    <img src="{{asset('car-web/img/auction.png')}}" alt="" class="img-fluid">
-                                </div>
-                            </div>
-                        @endif
-                    </div>
-                </div>
-                <div class="col-md-5" style="z-index: 1">
-
-                    <div class="card masthead-search shadow-lg-3d">
-                        <div class="">
-                            <div class="card-header px-5 pt-5 pb-3">
-                                <h1>Vehicle search</h1>
-                                <div class="mh-search-input">
-                                    <input class="search" name="title" type="search" placeholder="Search"
-                                           aria-label="Search">
-                                    <button type="button" class="search-button">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="20.4" height="20.4"
-                                             viewBox="0 0 20.4 20.4">
-                                            <path
-                                                d="M152.734,14.153a5.385,5.385,0,1,1,5.417-5.385A5.379,5.379,0,0,1,152.734,14.153Zm7.223,0h-.963l-.361-.359a7.857,7.857,0,0,0,1.806-6.342A7.77,7.77,0,0,0,153.7,1.109a7.859,7.859,0,0,0-8.788,8.735,7.9,7.9,0,0,0,6.38,6.7,7.969,7.969,0,0,0,6.38-1.795l.361.359v.957l5.056,5.026a1.315,1.315,0,0,0,1.806,0,1.3,1.3,0,0,0,0-1.795Z"
-                                                transform="translate(-144.854 -1.052)" fill="#2b3651"/>
-                                        </svg>
-                                    </button>
-                                </div>
-                            </div>
+                            @endif
                         </div>
-                        <ul class="nav nav-tabs px-5" id="heroTab" role="tablist">
-                            <li class="nav-item">
-                                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#allVehicles"
-                                   role="tab"
-                                   aria-controls="imported" aria-selected="true">All vehicles</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#auction" role="tab"
-                                   aria-controls="used"
-                                   aria-selected="false">Auction</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" id="contact-tab" data-toggle="tab" href="#budget" role="tab"
-                                   aria-controls="budget"
-                                   aria-selected="false">Budget</a>
-                            </li>
-                        </ul>
-                        <div class="tab-content p-5" id="heroTabFilter">
-                            <div class="tab-pane fade show active" id="allVehicles" role="tabpanel"
-                                 aria-labelledby="imported-tab">
-                                <form>
-                                    <div class="form-group">
-                                        <select class="form-control">
-                                            @getTaxonomys([{"field":"taxonomy", "key":"manufacturer"}])
-                                            @php
-                                                $manufacturers=json_decode($manufacturer);
-                                            @endphp
-                                            @foreach($manufacturers as $data)
-                                                <option>{{$data->description}}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <select class="form-control">
-                                            @getTaxonomys([{"field":"taxonomy", "key":"model"}])
-                                            @php
-                                                $models=json_decode($model);
-                                            @endphp
-                                            @foreach($models as $data)
-                                                <option>{{$data->description}}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <select class="form-control">
-                                            @for ($i = \Carbon\Carbon::now()->year; $i >= \Carbon\Carbon::now()->year - 50; $i--)
-                                                <option value="{{$i}}">{{$i}}</option>
-                                            @endfor
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <select class="form-control">
-                                            @for ($i = \Carbon\Carbon::now()->year; $i >= \Carbon\Carbon::now()->year - 50; $i--)
-                                                <option value="{{$i}}">{{$i}}</option>
-                                            @endfor
-                                        </select>
-                                    </div>
-                                    <button type="submit" class="btn btn-danger btn-lg btn-round shadow mt-4">Submit
-                                    </button>
-                                </form>
-                            </div>
-                            <div class="tab-pane fade" id="auction" role="tabpanel" aria-labelledby="used-tab">
-                                <form>
-                                    <div class="form-group">
-                                        <select class="form-control">
-                                            @getTaxonomys([{"field":"taxonomy", "key":"manufacturer"}])
-                                            @php
-                                                $manufacturers=json_decode($manufacturer);
-                                            @endphp
-                                            @foreach($manufacturers as $data)
-                                                <option>{{$data->description}}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <select class="form-control">
-                                            @getTaxonomys([{"field":"taxonomy", "key":"model"}])
-                                            @php
-                                                $models=json_decode($model);
-                                            @endphp
-                                            @foreach($models as $data)
-                                                <option>{{$data->description}}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <select class="form-control">
-                                            @for ($i = \Carbon\Carbon::now()->year; $i >= \Carbon\Carbon::now()->year - 50; $i--)
-                                                <option value="{{$i}}">{{$i}}</option>
-                                            @endfor
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <select class="form-control">
-                                            @for ($i = \Carbon\Carbon::now()->year; $i >= \Carbon\Carbon::now()->year - 50; $i--)
-                                                <option value="{{$i}}">{{$i}}</option>
-                                            @endfor
-                                        </select>
-                                    </div>
-                                    <button type="submit" class="btn btn-danger btn-lg btn-round shadow mt-4">Submit
-                                    </button>
-                                </form>
-                            </div>
-                            <div class="tab-pane fade" id="budget" role="tabpanel" aria-labelledby="auction-tab">
-                                <form>
-                                    <div class="form-group">
-                                        <select class="form-control">
-                                            @getTaxonomys([{"field":"taxonomy", "key":"manufacturer"}])
-                                            @php
-                                                $manufacturers=json_decode($manufacturer);
-                                            @endphp
-                                            @foreach($manufacturers as $data)
-                                                <option>{{$data->description}}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <select class="form-control">
-                                            @getTaxonomys([{"field":"taxonomy", "key":"model"}])
-                                            @php
-                                                $models=json_decode($model);
-                                            @endphp
-                                            @foreach($models as $data)
-                                                <option>{{$data->description}}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <input class="form-control" name="min-price" type="number"
-                                               placeholder="min-price" aria-label="Search">
-                                    </div>
-                                    <div class="form-group">
-                                        <input class="form-control" name="max-price" type="number"
-                                               placeholder="max-price" aria-label="Search">
-                                    </div>
-                                    <button type="submit" class="btn btn-danger btn-lg btn-round shadow mt-4">Submit
-                                    </button>
-                                </form>
-                            </div>
-                        </div>
-
                     </div>
+                    <div class="col-md-5" style="z-index: 1">
 
-                </div>
-                <div class="master-head-bg">
-                    <img src="{{asset('car-web/img/hero_bg.png')}}" class="img-fluid" alt="">
+                        <div class="card masthead-search shadow-lg-3d">
+                            <div class="">
+                                <div class="card-header px-5 pt-5 pb-3">
+                                    <h1>Vehicle search</h1>
+                                    <div class="mh-search-input">
+                                        <input class="search" name="title" type="search" placeholder="Search"
+                                               aria-label="Search">
+                                        <button type="button" class="search-button">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="20.4" height="20.4"
+                                                 viewBox="0 0 20.4 20.4">
+                                                <path
+                                                    d="M152.734,14.153a5.385,5.385,0,1,1,5.417-5.385A5.379,5.379,0,0,1,152.734,14.153Zm7.223,0h-.963l-.361-.359a7.857,7.857,0,0,0,1.806-6.342A7.77,7.77,0,0,0,153.7,1.109a7.859,7.859,0,0,0-8.788,8.735,7.9,7.9,0,0,0,6.38,6.7,7.969,7.969,0,0,0,6.38-1.795l.361.359v.957l5.056,5.026a1.315,1.315,0,0,0,1.806,0,1.3,1.3,0,0,0,0-1.795Z"
+                                                    transform="translate(-144.854 -1.052)" fill="#2b3651"/>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <ul class="nav nav-tabs px-5" id="heroTab" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#allVehicles"
+                                       role="tab"
+                                       aria-controls="imported" aria-selected="true">All vehicles</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#auction" role="tab"
+                                       aria-controls="used"
+                                       aria-selected="false">Auction</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="contact-tab" data-toggle="tab" href="#budget" role="tab"
+                                       aria-controls="budget"
+                                       aria-selected="false">Budget</a>
+                                </li>
+                            </ul>
+                            <div class="tab-content p-5" id="heroTabFilter">
+                                <div class="tab-pane fade show active" id="allVehicles" role="tabpanel"
+                                     aria-labelledby="imported-tab">
+                                    <form>
+                                        <div class="form-group">
+                                            <select class="form-control">
+                                                @getTaxonomys([{"field":"taxonomy", "key":"manufacturer"}])
+                                                @php
+                                                    $manufacturers=json_decode($manufacturer);
+                                                @endphp
+                                                @foreach($manufacturers as $data)
+                                                    <option>{{$data->description}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <select class="form-control">
+                                                @getTaxonomys([{"field":"taxonomy", "key":"model"}])
+                                                @php
+                                                    $models=json_decode($model);
+                                                @endphp
+                                                @foreach($models as $data)
+                                                    <option>{{$data->description}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <select class="form-control">
+                                                @for ($i = \Carbon\Carbon::now()->year; $i >= \Carbon\Carbon::now()->year - 50; $i--)
+                                                    <option value="{{$i}}">{{$i}}</option>
+                                                @endfor
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <select class="form-control">
+                                                @for ($i = \Carbon\Carbon::now()->year; $i >= \Carbon\Carbon::now()->year - 50; $i--)
+                                                    <option value="{{$i}}">{{$i}}</option>
+                                                @endfor
+                                            </select>
+                                        </div>
+                                        <button type="submit" class="btn btn-danger btn-lg btn-round shadow mt-4">Submit
+                                        </button>
+                                    </form>
+                                </div>
+                                <div class="tab-pane fade" id="auction" role="tabpanel" aria-labelledby="used-tab">
+                                    <form>
+                                        <div class="form-group">
+                                            <select class="form-control">
+                                                @getTaxonomys([{"field":"taxonomy", "key":"manufacturer"}])
+                                                @php
+                                                    $manufacturers=json_decode($manufacturer);
+                                                @endphp
+                                                @foreach($manufacturers as $data)
+                                                    <option>{{$data->description}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <select class="form-control">
+                                                @getTaxonomys([{"field":"taxonomy", "key":"model"}])
+                                                @php
+                                                    $models=json_decode($model);
+                                                @endphp
+                                                @foreach($models as $data)
+                                                    <option>{{$data->description}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <select class="form-control">
+                                                @for ($i = \Carbon\Carbon::now()->year; $i >= \Carbon\Carbon::now()->year - 50; $i--)
+                                                    <option value="{{$i}}">{{$i}}</option>
+                                                @endfor
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <select class="form-control">
+                                                @for ($i = \Carbon\Carbon::now()->year; $i >= \Carbon\Carbon::now()->year - 50; $i--)
+                                                    <option value="{{$i}}">{{$i}}</option>
+                                                @endfor
+                                            </select>
+                                        </div>
+                                        <button type="submit" class="btn btn-danger btn-lg btn-round shadow mt-4">Submit
+                                        </button>
+                                    </form>
+                                </div>
+                                <div class="tab-pane fade" id="budget" role="tabpanel" aria-labelledby="auction-tab">
+                                    <form>
+                                        <div class="form-group">
+                                            <select class="form-control">
+                                                @getTaxonomys([{"field":"taxonomy", "key":"manufacturer"}])
+                                                @php
+                                                    $manufacturers=json_decode($manufacturer);
+                                                @endphp
+                                                @foreach($manufacturers as $data)
+                                                    <option>{{$data->description}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <select class="form-control">
+                                                @getTaxonomys([{"field":"taxonomy", "key":"model"}])
+                                                @php
+                                                    $models=json_decode($model);
+                                                @endphp
+                                                @foreach($models as $data)
+                                                    <option>{{$data->description}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <input class="form-control" name="min-price" type="number"
+                                                   placeholder="min-price" aria-label="Search">
+                                        </div>
+                                        <div class="form-group">
+                                            <input class="form-control" name="max-price" type="number"
+                                                   placeholder="max-price" aria-label="Search">
+                                        </div>
+                                        <button type="submit" class="btn btn-danger btn-lg btn-round shadow mt-4">Submit
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="master-head-bg">
+                        <img src="{{asset('car-web/img/hero_bg.png')}}" class="img-fluid" alt="">
+                    </div>
                 </div>
             </div>
-        </div>
     </header>
     <div class="col-md-12 text-center">
         <a class="scrollDown" href="javascript:;"> DISCOVER CARS </a>
@@ -721,3 +741,41 @@
         });
     </script>
 @endsection
+<style>
+    .sidebar-item {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 100000;
+
+    /* Position the items */
+    /* // &:nth-child(2) { top: 25%; }
+     // &:nth-child(3) { top: 50%; }
+     // &:nth-child(4) { top: 75%; } */
+     }
+
+
+     .make-me-sticky {
+         position: -webkit-sticky;
+         position: sticky;
+         top: 0;
+         margin-right: 13%;
+         padding: 0 15px;
+     }
+
+
+
+     /* Ignore This, just coloring */
+    body {
+        height: 100%;
+    }
+    .full-height {
+        height: 100%;
+    }
+    .sidebar-item {
+        text-align: center;
+    }
+</style>
+
