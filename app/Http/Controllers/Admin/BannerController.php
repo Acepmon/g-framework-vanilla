@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Banner;
+use App\BannerLocation;
 use App\Content;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -16,11 +17,20 @@ class BannerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $banners = Banner::all();
+        if ($request->has('location_id')) {
+            $data = [
+                'banners' => Banner::where('location_id', $request->input('location_id'))->get(),
+                'location' => BannerLocation::find($request->input('location_id'))
+            ];
+        } else {
+            $data = [
+                'banners' => Banner::all(),
+            ];
+        }
 
-        return view('admin.banners.index', ['banners' => $banners]);
+        return view('admin.banners.index', $data);
     }
 
     /**
@@ -30,10 +40,10 @@ class BannerController extends Controller
      */
     public function create()
     {
+        $locations = BannerLocation::all();
         $pages = Content::where('type', Content::TYPE_PAGE)->get();
-        $lastOrder = Banner::orderBy('order', 'desc')->first()->order;
 
-        return view('admin.banners.create', ['pages' => $pages, 'lastOrder' => $lastOrder]);
+        return view('admin.banners.create', ['locations' => $locations, 'pages' => $pages]);
     }
 
     /**
@@ -46,6 +56,12 @@ class BannerController extends Controller
     {
         $request->validate([
             'title' => 'required|max:191',
+            'banner' => 'required|file',
+            'link' => 'required',
+            'location_id' => 'required|exists:banner_locations,id',
+            'status' => 'nullable',
+            'starts_at' => 'required|datetime',
+            'ends_at' => 'required|datetime'
         ]);
 
         $banner = new Banner();

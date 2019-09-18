@@ -17,7 +17,7 @@
 @section('content')
 <div class="card">
     <div class="card-header header-elements-inline">
-        <h5 class="card-title">Banners Datatable</h5>
+        <h5 class="card-title">Location Banners Datatable</h5>
         <div class="header-elements">
             <div class="list-icons">
                 <a class="list-icons-item" data-action="collapse"></a>
@@ -27,11 +27,18 @@
         </div>
     </div>
 
+    @if (isset($location))
+        <div class="card-body">
+            <p><strong>Showing banners for location</strong>: {{ $location->title }}</p>
+        </div>
+    @endif
+
     <table class="table table-condensed table-hover datatable-basic">
         <thead>
             <tr>
                 <th>#</th>
                 <th>Title</th>
+                <th>Status</th>
                 <th>Banner</th>
                 <th>Link</th>
                 <th>Location</th>
@@ -45,6 +52,13 @@
                     <td>{{ $index + 1 }}</td>
                     <td>{{ $banner->title }}</td>
                     <td>
+                        @if ($banner->status == \App\Banner::STATUS_ACTIVE)
+                        <span class="text-success">{{ $banner->status }}</span>
+                        @else
+                        <span class="text-muted">{{ $banner->status }}</span>
+                        @endif
+                    </td>
+                    <td>
                         @if ($banner->banner)
                             <a href="{{ $banner->banner }}" target="_blank"><span class="icon-image2"></span></a>
                         @endif
@@ -55,7 +69,9 @@
                         @endif
                     </td>
                     <td>
-                        <a href="{{ route('admin.banners.locations.show', $banner->location_id) }}">{{ $banner->location->title }}</a>
+                        @if ($banner->location_id)
+                            <a href="{{ route('admin.banners.locations.show', $banner->location_id) }}">{{ $banner->location->title }}</a>
+                        @endif
                     </td>
                     <td>
                         {{ $banner->starts_at }} <br>
