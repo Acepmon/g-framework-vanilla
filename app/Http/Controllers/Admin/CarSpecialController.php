@@ -26,7 +26,7 @@ class CarSpecialController extends Controller
      */
     public function create()
     {
-        return view('admin.cars.specials.create')
+        return view('admin.cars.specials.create');
     }
 
     /**
@@ -48,7 +48,7 @@ class CarSpecialController extends Controller
      */
     public function show(Content $content)
     {
-        return view('admin.cars.specials.show')
+        return view('admin.cars.specials.show');
     }
 
     /**
@@ -59,7 +59,7 @@ class CarSpecialController extends Controller
      */
     public function edit(Content $content)
     {
-        return view('admin.cars.specials.edit')
+        return view('admin.cars.specials.edit');
     }
 
     /**
