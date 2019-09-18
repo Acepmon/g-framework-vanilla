@@ -132,6 +132,11 @@ class PermissionsSeeder extends Seeder
             ['title' => 'admin_banners_read', 'type' => Permission::TYPE_READ, 'description' => 'read permission for banner'],
             ['title' => 'admin_banners_update', 'type' => Permission::TYPE_UPDATE, 'description' => 'update permission for banner'],
             ['title' => 'admin_banners_delete', 'type' => Permission::TYPE_DELETE, 'description' => 'delete permission for banner'],
+            // banner location CRUD
+            ['title' => 'admin_banners_locations_create', 'type' => Permission::TYPE_CREATE, 'description' => 'create permission for banner location'],
+            ['title' => 'admin_banners_locations_read', 'type' => Permission::TYPE_READ, 'description' => 'read permission for banner location'],
+            ['title' => 'admin_banners_locations_update', 'type' => Permission::TYPE_UPDATE, 'description' => 'update permission for banner location'],
+            ['title' => 'admin_banners_locations_delete', 'type' => Permission::TYPE_DELETE, 'description' => 'delete permission for banner location'],
             // comment CRUD
             ['title' => 'admin_comments_create', 'type' => Permission::TYPE_CREATE, 'description' => 'create permission for comment'],
             ['title' => 'admin_comments_read', 'type' => Permission::TYPE_READ, 'description' => 'read permission for comment'],
