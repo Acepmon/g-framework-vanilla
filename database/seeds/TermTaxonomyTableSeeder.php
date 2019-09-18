@@ -731,7 +731,7 @@ class TermTaxonomyTableSeeder extends Seeder
         ]);
         DB::table('term_taxonomy')->insert([
             'term_id' => $term_id8,
-            'taxonomy' => 'Steering Wheel',
+            'taxonomy' => 'WheelPosition',
             'description' => 'Right',
             'count' => 0
         ]);
@@ -741,7 +741,7 @@ class TermTaxonomyTableSeeder extends Seeder
         ]);
         DB::table('term_taxonomy')->insert([
             'term_id' => $term_id8,
-            'taxonomy' => 'Steering Wheel',
+            'taxonomy' => 'WheelPosition',
             'description' => 'Left',
             'count' => 0
         ]);
@@ -826,7 +826,7 @@ class TermTaxonomyTableSeeder extends Seeder
         ]);
         DB::table('term_taxonomy')->insert([
             'term_id' => $term_id5,
-            'taxonomy' => 'Passenger',
+            'taxonomy' => 'manCount',
             'description' => 'Four seater',
             'count' => 0
         ]);
@@ -836,7 +836,7 @@ class TermTaxonomyTableSeeder extends Seeder
         ]);
         DB::table('term_taxonomy')->insert([
             'term_id' => $term_id5,
-            'taxonomy' => 'Passenger',
+            'taxonomy' => 'manCount',
             'description' => '5 passengers',
             'count' => 0
         ]);
@@ -846,7 +846,7 @@ class TermTaxonomyTableSeeder extends Seeder
         ]);
         DB::table('term_taxonomy')->insert([
             'term_id' => $term_id5,
-            'taxonomy' => 'Passenger',
+            'taxonomy' => 'manCount',
             'description' => '7 passengers',
             'count' => 0
         ]);
@@ -856,7 +856,7 @@ class TermTaxonomyTableSeeder extends Seeder
         ]);
         DB::table('term_taxonomy')->insert([
             'term_id' => $term_id5,
-            'taxonomy' => 'Passenger',
+            'taxonomy' => 'manCount',
             'description' => '9 passengers',
             'count' => 0
         ]);
@@ -866,7 +866,7 @@ class TermTaxonomyTableSeeder extends Seeder
         ]);
         DB::table('term_taxonomy')->insert([
             'term_id' => $term_id5,
-            'taxonomy' => 'Passenger',
+            'taxonomy' => 'manCount',
             'description' => '11 passengers',
             'count' => 0
         ]);
@@ -876,7 +876,7 @@ class TermTaxonomyTableSeeder extends Seeder
         ]);
         DB::table('term_taxonomy')->insert([
             'term_id' => $term_id5,
-            'taxonomy' => 'Passenger',
+            'taxonomy' => 'manCount',
             'description' => '15 passengers',
             'count' => 0
         ]);
@@ -886,7 +886,7 @@ class TermTaxonomyTableSeeder extends Seeder
         ]);
         DB::table('term_taxonomy')->insert([
             'term_id' => $term_id5,
-            'taxonomy' => 'Passenger',
+            'taxonomy' => 'manCount',
             'description' => '+ Direct input',
             'count' => 0
         ]);
@@ -896,7 +896,6 @@ class TermTaxonomyTableSeeder extends Seeder
 
         /* Option Table START */
 
-        /* exterior */
         $term_id5 = DB::table('terms')->insertGetId([
             'name' => 'Sunroof',
             'slug' => 'Exterior',
@@ -1344,6 +1343,32 @@ class TermTaxonomyTableSeeder extends Seeder
         ]);
 
         /* Option Table END */
+
+        /* Model Table START */
+
+        $term_id5 = DB::table('terms')->insertGetId([
+            'name' => 'Front',
+            'slug' => 'Front',
+        ]);
+        DB::table('term_taxonomy')->insert([
+            'term_id' => $term_id5,
+            'taxonomy' => 'wheelDrive',
+            'description' => 'Front',
+            'count' => 0
+        ]);
+
+        $term_id5 = DB::table('terms')->insertGetId([
+            'name' => 'Back',
+            'slug' => 'Back',
+        ]);
+        DB::table('term_taxonomy')->insert([
+            'term_id' => $term_id5,
+            'taxonomy' => 'wheelDrive',
+            'description' => 'Back',
+            'count' => 0
+        ]);
+
+        /* Model Table END */
 
         /* Model Table START */
 
