@@ -1,13 +1,13 @@
 @extends('themes.limitless.layouts.default')
 
-@section('title', 'All Banners')
+@section('title', 'Index')
 
 @section('load-before')
 
 @endsection
 
 @section('load')
-<script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/plugins/tables/datatables/datatables.min.js') }}"></script>
+
 @endsection
 
 @section('pageheader')
@@ -32,43 +32,28 @@
             <tr>
                 <th>#</th>
                 <th>Title</th>
-                <th>Banner</th>
-                <th>Link</th>
-                <th>Location</th>
-                <th>Schedule</th>
+                <th>Banners</th>
+                <th>Size</th>
+                <th>Type</th>
                 <th>Actions</th>
             </tr>
         </thead>
         <tbody>
-            @foreach ($banners as $index => $banner)
+            @foreach ($locations as $index => $location)
                 <tr>
                     <td>{{ $index + 1 }}</td>
-                    <td>{{ $banner->title }}</td>
-                    <td>
-                        @if ($banner->banner)
-                            <a href="{{ $banner->banner }}" target="_blank"><span class="icon-image2"></span></a>
-                        @endif
-                    </td>
-                    <td>
-                        @if ($banner->link)
-                            <a href="{{ $banner->link }}" target="_blank"><span class="icon-link"></span></a>
-                        @endif
-                    </td>
-                    <td>
-                        <a href="{{ route('admin.banners.locations.show', $banner->location_id) }}">{{ $banner->location->title }}</a>
-                    </td>
-                    <td>
-                        {{ $banner->starts_at }} <br>
-                        {{ $banner->ends_at }}
-                    </td>
+                    <td>{{ $location->title }}</td>
+                    <td><a href="{{ route('admin.banners.index') }}?location_id={{ $location->id }}">{{ count($location->banners) }}</a></td>
+                    <td>{{ $location->width . 'x' . $location->height }}</td>
+                    <td>{{ $location->type }}</td>
                     <td>
                         <a href="#" data-toggle="dropdown">
                             <i class="icon-menu9 text-secondary"></i>
                         </a>
 
                         <div class="dropdown-menu dropdown-menu-right">
-                            <a class="dropdown-item" href="{{ route('admin.banners.show', ['id' => $banner->id]) }}"><i class="icon-eye"></i> View</a>
-                            <a class="dropdown-item" href="{{ route('admin.banners.edit', ['id' => $banner->id]) }}"><i class="icon-pencil"></i> Edit</a>
+                            <a class="dropdown-item" href="{{ route('admin.banners.locations.show', ['id' => $location->id]) }}"><i class="icon-eye"></i> View</a>
+                            <a class="dropdown-item" href="{{ route('admin.banners.locations.edit', ['id' => $location->id]) }}"><i class="icon-pencil"></i> Edit</a>
                         </div>
                     </td>
                 </tr>

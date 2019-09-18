@@ -31,8 +31,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        // ContentMeta::observe(ContentMetaObserver::class);
         Schema::defaultStringLength(191);
+        ContentMeta::observe(ContentMetaObserver::class);
 
         Blade::extend(function($value) {
             return preg_replace('/\{\?(.+)\?\}/', '<?php ${1} ?>', $value);

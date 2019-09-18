@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Content;
+use App\BannerLocation;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class CarSpecialController extends Controller
+class BannerLocationController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +15,9 @@ class CarSpecialController extends Controller
      */
     public function index()
     {
-        $contents = Content::where('type', 'car')->get();
-        return view('admin.cars.specials.index', ['contents' => $contents]);
+        $locations = BannerLocation::all();
+
+        return view('admin.banners.locations.index', ['locations' => $locations]);
     }
 
     /**
@@ -26,7 +27,7 @@ class CarSpecialController extends Controller
      */
     public function create()
     {
-        return view('admin.cars.specials.create');
+        return view('admin.banners.locations.create');
     }
 
     /**
@@ -43,33 +44,33 @@ class CarSpecialController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Content  $content
+     * @param  \App\BannerLocation  $bannerLocation
      * @return \Illuminate\Http\Response
      */
-    public function show(Content $content)
+    public function show(BannerLocation $bannerLocation)
     {
-        return view('admin.cars.specials.show');
+        return view('admin.banners.locations.show', ['location' => $bannerLocation]);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Content  $content
+     * @param  \App\BannerLocation  $bannerLocation
      * @return \Illuminate\Http\Response
      */
-    public function edit(Content $content)
+    public function edit(BannerLocation $bannerLocation)
     {
-        return view('admin.cars.specials.edit');
+        return view('admin.banners.locations.edit', ['location' => $bannerLocation]);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Content  $content
+     * @param  \App\BannerLocation  $bannerLocation
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Content $content)
+    public function update(Request $request, BannerLocation $bannerLocation)
     {
         //
     }
@@ -77,10 +78,10 @@ class CarSpecialController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Content  $content
+     * @param  \App\BannerLocation  $bannerLocation
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Content $content)
+    public function destroy(BannerLocation $bannerLocation)
     {
         //
     }

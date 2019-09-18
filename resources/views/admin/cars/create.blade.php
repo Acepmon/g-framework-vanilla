@@ -95,11 +95,8 @@
 
                     <div class="form-group row">
                         <label for="title" class="col-form-label col-lg-2">Title <span class="text-danger">*</span></label>
-                        <div class="col-lg-8">
+                        <div class="col-lg-10">
                             <input id="title" type="text" class="form-control" name="title" placeholder="Enter car title..." required="required" aria-required="true" invalid="true" onfocusout="create_slug()">
-                        </div>
-                        <div class="col-lg-2">
-                            <button type="button" class="btn btn-light btn-block" onclick="create_slug()">Create Slug</button>
                         </div>
                     </div>
                     <input id="slug" type="hidden" class="form-control" name="slug" placeholder="Enter content slug..." required="required" aria-required="true" invalid="true">
@@ -134,30 +131,12 @@
 
                     <div class="form-group row">
                         <label for="manufacturer" class="col-form-label col-lg-2">Manufacturer <span class="text-danger">*</span></label>
-                        <div class="col-lg-4">
+                        <div class="col-lg-10">
                             <select id="manufacturer" name="manufacturer" required="required" class="form-control text-capitalize">
                                 @foreach(App\TermTaxonomy::where('taxonomy', 'manufacturer')->get() as $value)
                                     <option value="{{ $value->term->name }}">{{ $value->term->name }}</option>
                                 @endforeach
                             </select>
-                        </div>
-                        <label for="carCondition" class="col-form-label col-lg-2">Car condition <span class="text-danger">*</span></label>
-                        <div class="col-lg-4">
-
-                            @foreach(App\TermTaxonomy::where('taxonomy', 'car-condition')->get() as $key=>$value)
-                                <label class="radio-inline">
-                                    <input type="radio" name="carCondition" class="form-control" value="{{$value->term->name}}" onchange="carConditionChanged('{{$value->term->name}}')"
-                                    @if($key == 0) 
-                                        checked
-                                    @endif>
-                                    {{ $value->term->name }}
-                                </label>
-                                @if($value->term->name == 'Used') 
-                                <label class="radio-inline">
-                                    <input id="plateNumber" type="text" class="form-control" name="plateNumber" placeholder="Enter number plate..." style="visibility: hidden">
-                                </label>
-                                @endif
-                            @endforeach
                         </div>
                     </div>
 
@@ -210,13 +189,14 @@
                     <h4 class="text-center">Car section /More information/</h4>
 
                     <div class="form-group row">
-                        <label for="manufacturer" class="col-form-label col-lg-2">Manufacturer <span class="text-danger">*</span></label>
+                        <label for="mileage" class="col-form-label col-lg-2">Mileage <span class="text-danger">*</span></label>
                         <div class="col-lg-4">
-                            <select id="manufacturer" name="manufacturer" required="required" class="form-control text-capitalize">
-                                @foreach(App\TermTaxonomy::where('taxonomy', 'manufacturer')->get() as $value)
-                                    <option value="{{ $value->term->name }}">{{ $value->term->name }}</option>
-                                @endforeach
-                            </select>
+                            <div class="input-group">
+                                <input id="mileage" type="number" class="form-control" name="mileage" placeholder="Enter mileage..." required="required" aria-required="true" invalid="true" class="touchspin-postfix">
+                                <span class="input-group-append">
+                                    <span class="input-group-text">km</span>
+                                </span>
+                            </div>
                         </div>
                         <label for="transmission" class="col-form-label col-lg-2">Transmission <span class="text-danger">*</span></label>
                         <div class="col-lg-4">
@@ -260,26 +240,6 @@
                         <div class="col-lg-4">
                             <select id="wheelDrive" name="wheelDrive" required="required" class="form-control text-capitalize">
                                 @foreach(App\TermTaxonomy::where('taxonomy', 'wheel-drive')->get() as $value)
-                                    <option value="{{ $value->term->name }}">{{ $value->term->name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label for="mileage" class="col-form-label col-lg-2">Mileage <span class="text-danger">*</span></label>
-                        <div class="col-lg-4">
-                            <div class="input-group">
-                                <input id="mileage" type="number" class="form-control" name="mileage" placeholder="Enter mileage..." required="required" aria-required="true" invalid="true" class="touchspin-postfix">
-                                <span class="input-group-append">
-                                    <span class="input-group-text">km</span>
-                                </span>
-                            </div>
-                        </div>
-                        <label for="manufacturer1" class="col-form-label col-lg-2">Manufacturer <span class="text-danger">*</span></label>
-                        <div class="col-lg-4">
-                            <select id="manufacturer1" name="manufacturer1" required="required" class="form-control text-capitalize">
-                                @foreach(App\TermTaxonomy::where('taxonomy', 'manufacturer')->get() as $value)
                                     <option value="{{ $value->term->name }}">{{ $value->term->name }}</option>
                                 @endforeach
                             </select>

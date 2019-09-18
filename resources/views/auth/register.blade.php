@@ -115,6 +115,8 @@
 
             <button type="submit" class="btn bg-teal btn-block btn-lg">Register</button>
             <a href="{{ route('login') }}" class="btn btn-default btn-block">Back to Login</a>
+            <a href="{{ route('login.provider', 'google') }}" class="btn btn-default btn-block">Google Login</a>
+            <a href="{{ route('login.provider', 'facebook') }}" class="btn btn-default btn-block">Facebook Login</a>
         </div>
     </form>
     <!-- /advanced login -->

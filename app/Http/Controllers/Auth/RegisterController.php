@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Auth;
 use App\User;
 use App\Group;
 use App\Config;
@@ -9,6 +10,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+
+use Socialite;
 
 class RegisterController extends Controller
 {
@@ -74,12 +77,16 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
             'name' => $data['name'],
-            // 'avatar' => $avatar,
+            'avatar' => $data['avatar'],
             // 'language' => $data['language'],
             'language' => 'en'
         ]);
+        if (array_key_exists('emailVerifiedAt', $data)) {
+            $user->email_verified_at = now();
+            $user->save();
+        }
 
-        $groupId = Config::getValue('system.register.defaultGroup');
+        $groupId = (array_key_exists('group', $data) && $data['group']) || Config::getValue('system.register.defaultGroup');
         if (!empty($groupId)) {
             $user->groups()->attach($groupId);
         }
@@ -102,5 +109,43 @@ class RegisterController extends Controller
         }
 
         return $path;
+    }
+
+    /*
+    * Social Register Handlers
+    * See more at: https://laravel.com/docs/5.8/socialite
+    */
+    public function redirectToProvider($driver) {
+        return Socialite::driver($driver)->redirect();
+    }
+
+    public function handleProviderCallback($driver)
+    {
+        try {
+            $user = Socialite::driver($driver)->user();
+        } catch (\Exception $e) {
+            return redirect()->route('register');
+        }
+
+        $existingUser = User::where('email', $user->getEmail())->first();
+
+        if ($existingUser) {
+            auth()->login($existingUser, true);
+        } else {
+            // Sample User Registration
+            $newUser = $this->create([
+                'username' => $user->getEmail(),
+                'email' => $user->getEmail(),
+                'emailVerifiedAt' => now(),
+                'password' => $user->getId(),//sample password
+                'name' => $user->getName(),
+                'avatar' => $user->getAvatar(),
+                'language' => 'mn',
+                'group' => '1'
+            ]);
+            auth()->login($newUser, true);
+        }
+
+        return redirect($this->redirectPath());
     }
 }

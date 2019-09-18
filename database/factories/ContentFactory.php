@@ -10,7 +10,7 @@ $factory->define(Content::class, function (Faker $faker) {
     $status = Content::STATUS_ARRAY[array_rand(Content::STATUS_ARRAY)];
     $visibility = Content::VISIBILITY_ARRAY[array_rand(Content::VISIBILITY_ARRAY)];
 
-    $title = $faker->company;
+    $title = $faker->text(50);
     $slug = \Str::slug($title, '-');
     $author_id = 1;
 
