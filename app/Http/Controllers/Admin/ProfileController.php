@@ -113,13 +113,6 @@ class ProfileController extends Controller
         return view('admin.profile.permissions.index', ['user' => $user]);
     }
 
-    public function settings()
-    {
-        $user = Auth::user();
-
-        return view('admin.profile.settings.index', ['user' => $user]);
-    }
-
     public function notifications()
     {
         $user = Auth::user();

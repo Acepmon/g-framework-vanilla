@@ -16,14 +16,15 @@ class CreateBannersTable extends Migration
         Schema::create('banners', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('title', 191);
-            $table->boolean('btn_show')->default(false);
-            $table->string('btn_text')->nullable();
-            $table->string('btn_link')->nullable();
-            $table->string('banner_img_mobile')->nullable();
-            $table->string('banner_img_web')->nullable();
-            $table->integer('order')->default(0);
-            $table->boolean('active')->default(false);
+            $table->string('banner');
+            $table->string('link');
+            $table->unsignedBigInteger('location_id')->nullable();
+            $table->string('status')->default('draft');
+            $table->timestamp('starts_at')->nullable();
+            $table->timestamp('ends_at')->nullable();
             $table->timestamps();
+
+            $table->foreign('location_id')->references('id')->on('banner_locations')->onDelete('cascade');
         });
     }
 

@@ -43,7 +43,6 @@ Route::middleware(['installed'])->group(function () {
                     Route::put('/', 'ProfileController@update')->name('admin.profile.update');
                     Route::get('contents', 'ProfileController@contents')->name('admin.profile.contents.index');
                     Route::get('permissions', 'ProfileController@permissions')->name('admin.profile.permissions.index');
-                    Route::get('settings', 'ProfileController@settings')->name('admin.profile.settings.index');
                     Route::get('notifications', 'ProfileController@notifications')->name('admin.profile.notifications.index');
                     Route::get('notifications/read', 'ProfileController@readNotifications')->name('admin.profile.notifications.read');
                     Route::get('edit', 'ProfileController@edit')->name('admin.profile.edit');
@@ -248,16 +247,28 @@ Route::middleware(['installed'])->group(function () {
                     'edit' => 'admin.cars.edit',
                     'update' => 'admin.cars.update',
                     'destroy' => 'admin.cars.destroy'
-                ]);
-                Route::resource('banners', 'BannerController')->names([
-                    'index' => 'admin.banners.index',
-                    'create' => 'admin.banners.create',
-                    'store' => 'admin.banners.store',
-                    'show' => 'admin.banners.show',
-                    'edit' => 'admin.banners.edit',
-                    'update' => 'admin.banners.update',
-                    'destroy' => 'admin.banners.destroy'
-                ]);
+                    ]);
+                Route::prefix('banners')->group(function () {
+                    Route::resource('locations', 'BannerLocationController')->names([
+                        'index' => 'admin.banners.locations.index',
+                        'create' => 'admin.banners.locations.create',
+                        'store' => 'admin.banners.locations.store',
+                        'show' => 'admin.banners.locations.show',
+                        'edit' => 'admin.banners.locations.edit',
+                        'update' => 'admin.banners.locations.update',
+                        'destroy' => 'admin.banners.locations.destroy'
+                    ]);
+
+                    Route::resource('', 'BannerController')->names([
+                        'index' => 'admin.banners.index',
+                        'create' => 'admin.banners.create',
+                        'store' => 'admin.banners.store',
+                        'show' => 'admin.banners.show',
+                        'edit' => 'admin.banners.edit',
+                        'update' => 'admin.banners.update',
+                        'destroy' => 'admin.banners.destroy'
+                    ]);
+                });
                 Route::get('/contents/{id}/revisions/{revision}/revert', 'ContentController@revert')->name('admin.contents.revisions.revert');
                 Route::get('/contents/{id}/revisions/{revision}', 'ContentController@viewRevision')->name('admin.contents.revisions.show');
                 Route::put('/contents/{id}/revisions', 'ContentController@updateRevision')->name('admin.contents.revisions.update');
@@ -288,13 +299,6 @@ Route::middleware(['installed'])->group(function () {
                     'update' => 'admin.taxonomy.update',
                     'destroy' => 'admin.taxonomy.destroy'
                 ]);
-
-                Route::get('/users/{user}/settings', 'UserSettingController@index')->name('admin.users.settings.index');
-                Route::get('/users/{user}/settings/create', 'UserSettingController@create')->name('admin.users.settings.create');
-                Route::post('/users/{user}/settings', 'UserSettingController@store')->name('admin.users.settings.store');
-                Route::get('/users/{user}/settings/{setting}/edit', 'UserSettingController@edit')->name('admin.users.settings.edit');
-                Route::put('/users/{user}/settings/{setting}', 'UserSettingController@update')->name('admin.users.settings.update');
-                Route::delete('/users/{user}/settings/{setting}', 'UserSettingController@destroy')->name('admin.users.settings.destroy');
 
                 Route::get('/contents/{content}/metas', 'ContentMetaController@index')->name('admin.contents.metas.index');
                 Route::get('/contents/{content}/metas/create', 'ContentMetaController@create')->name('admin.contents.metas.create');

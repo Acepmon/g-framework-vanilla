@@ -132,6 +132,11 @@ class PermissionsSeeder extends Seeder
             ['title' => 'admin_banners_read', 'type' => Permission::TYPE_READ, 'description' => 'read permission for banner'],
             ['title' => 'admin_banners_update', 'type' => Permission::TYPE_UPDATE, 'description' => 'update permission for banner'],
             ['title' => 'admin_banners_delete', 'type' => Permission::TYPE_DELETE, 'description' => 'delete permission for banner'],
+            // banner location CRUD
+            ['title' => 'admin_banners_locations_create', 'type' => Permission::TYPE_CREATE, 'description' => 'create permission for banner location'],
+            ['title' => 'admin_banners_locations_read', 'type' => Permission::TYPE_READ, 'description' => 'read permission for banner location'],
+            ['title' => 'admin_banners_locations_update', 'type' => Permission::TYPE_UPDATE, 'description' => 'update permission for banner location'],
+            ['title' => 'admin_banners_locations_delete', 'type' => Permission::TYPE_DELETE, 'description' => 'delete permission for banner location'],
             // comment CRUD
             ['title' => 'admin_comments_create', 'type' => Permission::TYPE_CREATE, 'description' => 'create permission for comment'],
             ['title' => 'admin_comments_read', 'type' => Permission::TYPE_READ, 'description' => 'read permission for comment'],
@@ -142,11 +147,6 @@ class PermissionsSeeder extends Seeder
             ['title' => 'admin_taxonomy_read', 'type' => Permission::TYPE_READ, 'description' => 'read permission for taxonomy'],
             ['title' => 'admin_taxonomy_update', 'type' => Permission::TYPE_UPDATE, 'description' => 'update permission for taxonomy'],
             ['title' => 'admin_taxonomy_delete', 'type' => Permission::TYPE_DELETE, 'description' => 'delete permission for taxonomy'],
-            // users_settings CRUD
-            ['title' => 'admin_users_settings_create', 'type' => Permission::TYPE_CREATE, 'description' => 'create permission for users_settings'],
-            ['title' => 'admin_users_settings_read', 'type' => Permission::TYPE_READ, 'description' => 'read permission for users_settings'],
-            ['title' => 'admin_users_settings_update', 'type' => Permission::TYPE_UPDATE, 'description' => 'update permission for users_settings'],
-            ['title' => 'admin_users_settings_delete', 'type' => Permission::TYPE_DELETE, 'description' => 'delete permission for users_settings'],
             // contents_metas CRUD
             ['title' => 'admin_contents_metas_create', 'type' => Permission::TYPE_CREATE, 'description' => 'create permission for contents_metas'],
             ['title' => 'admin_contents_metas_read', 'type' => Permission::TYPE_READ, 'description' => 'read permission for contents_metas'],

@@ -15,13 +15,29 @@ class BannerController extends Controller
      */
     public function index(Request $request)
     {
-        $active = $request->input('active', null);
+        $status = $request->input('status', 'active');
 
-        if ($active != null) {
-            $banners = Banner::where('active', $active)->orderBy('order', 'asc')->get();
-        } else {
-            $banners = Banner::orderBy('order', 'asc')->get();
+        $banners = Banner::where('status', $status);
+
+        if ($request->has('location_id')) {
+            $banners = $banners->where('location_id', $request->input('location_id'));
         }
+
+        $banners = $banners->get();
+        $banners->transform(function ($banner) {
+            return [
+                "id" => $banner->id,
+                "title" => $banner->title,
+                "banner" => $banner->banner,
+                "link" => $banner->link,
+                "status" => $banner->status,
+                "starts_at" => $banner->starts_at,
+                "ends_at" => $banner->ends_at,
+                "created_at" => $banner->created_at,
+                "updated_at" => $banner->updated_at,
+                "location" => $banner->location
+            ];
+        });
 
         return response()->json($banners);
     }

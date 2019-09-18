@@ -25,7 +25,6 @@
                         <li class="nav-item"><a class="nav-link" href="{{ route('admin.profile.contents.index', ['type' => 'page']) }}"><i class="icon-files-empty2"></i> <span>Pages</span></a></li>
                         <li class="nav-item"><a class="nav-link" href="{{ route('admin.profile.contents.index', ['type' => 'post']) }}"><i class="icon-blog"></i> <span>Blog Posts</span></a></li>
                         <li class="nav-item"><a class="nav-link" href="{{ route('admin.profile.permissions.index') }}"><i class="icon-key"></i> Permissions</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{{ route('admin.profile.settings.index') }}"><i class="icon-gear"></i> Settings</a></li>
                         @auth
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('admin.profile.notifications.index') }}"><i class="icon-bell2"></i> Notifications
