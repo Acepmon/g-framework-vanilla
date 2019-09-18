@@ -26,60 +26,52 @@
 
         <ul class="navbar-nav ml-xl-auto">
             <li class="nav-item dropdown">
-                <a href="#" class="navbar-nav-link dropdown-toggle" data-toggle="dropdown" id="notificationsDropdownToggle" aria-expanded="false">
+                <a href="#" class="navbar-nav-link dropdown-toggle caret-0" data-toggle="dropdown" id="notificationsDropdownToggle">
                     <i class="icon-bell2"></i>
-                    <span class="visible-xs-inline-block position-right">Notifications</span>
+                    <span class="d-md-none ml-2">Notifications</span>
                     @if (Auth::user()->unreadNotifications->count() > 0)
-                    <span id="notificationsCount" class="badge bg-warning-400">{{ Auth::user()->unreadNotifications->count() }}</span>
+                    <span id="notificationsCount" class="badge badge-pill bg-warning-400 ml-auto ml-md-0">{{ Auth::user()->unreadNotifications->count() }}</span>
                     @endif
                 </a>
 
-                <div class="dropdown-menu dropdown-menu-right dropdown-content wmin-md-350" id="notificationsDropdown">
-                    <div class="dropdown-content-heading">
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <h6 class="font-weight-semibold">Notifications</h6>
-                            </div>
-                            <div class="col-lg-6 text-right">
-                                <button onclick="markAsRead()" id="notificationsMarkReadBtn" class="text-white btn btn-primary btn-sm" {{ Auth::user()->unreadNotifications->count() > 0 ? '' : 'disabled' }}>Mark as Read</button>
-                            </div>
-                        </div>
+                <div class="dropdown-menu dropdown-menu-right dropdown-content wmin-md-350">
+                    <div class="dropdown-content-header">
+                        <span class="font-weight-semibold">Notifications</span>
+                        {{-- <a href="#" class="text-default"><i class="icon-compose"></i></a> --}}
+                        <button onclick="markAsRead()" id="notificationsMarkReadBtn" class="text-white btn btn-primary btn-sm" {{ Auth::user()->unreadNotifications->count() > 0 ? '' : 'disabled' }}>Mark as Read</button>
                     </div>
 
-                    <ul class="media-list dropdown-content-body" id="notificationsList">
-                        @foreach(Auth::user()->unreadNotifications as $notification)
-                        <li class="media">
-                            @if (!empty($notification->data['thumbnail']))
-                            <div class="media-left">
-                                <img src="{{ $notification->data['thumbnail'] }}" class="img-circle img-sm" alt="">
-                            </div>
+                    <div class="dropdown-content-body dropdown-scrollable">
+                        <ul class="media-list">
+                            @foreach(Auth::user()->unreadNotifications as $notification)
+                                <li class="media">
+                                    @if (!empty($notification->data['thumbnail']))
+                                    <div class="media-left">
+                                        <img src="{{ $notification->data['thumbnail'] }}" class="img-circle img-sm" alt="">
+                                    </div>
+                                    @endif
+
+                                    <div class="media-body">
+                                        <a href="#" class="media-heading">
+                                            <span class="text-semibold">{{ $notification->data['title'] }}</span>
+                                            <span class="media-annotation pull-right">{{ $notification->created_at }}</span>
+                                        </a>
+
+                                        <span class="text-muted">{{ $notification->data['body'] }}</span>
+                                    </div>
+                                </li>
+                            @endforeach
+
+                            @if(count(Auth::user()->unreadNotifications) == 0)
+                                <div class="text-center">You do not have any notifications</div>
                             @endif
+                        </ul>
+                    </div>
 
-                            <div class="media-body">
-                                <a href="#" class="media-heading">
-                                    <span class="text-semibold">{{ $notification->data['title'] }}</span>
-                                    <span class="media-annotation pull-right">{{ $notification->created_at }}</span>
-                                </a>
-
-                                <span class="text-muted">{{ $notification->data['body'] }}</span>
-                            </div>
-                        </li>
-                        @endforeach
-
-                        @if(count(Auth::user()->unreadNotifications) == 0)
-                        <div class="text-center">You do not have any notifications</div>
-                        @endif
-                    </ul>
-
-                    <div class="dropdown-content-footer justify-content-center p-0">
+                    <div class="dropdown-content-footer justify-content-center p-2">
                         <a href="{{ route('admin.profile.notifications.index') }}" data-popup="tooltip" title="All Notifications"><i class="icon-menu display-block"></i></a>
                     </div>
                 </div>
-            </li>
-
-
-            <li class="nav-item">
-                <a class="navbar-nav-link" href="{{ route('admin.configs.index') }}">Configurations</a>
             </li>
 
             <li class="nav-item dropdown dropdown-user">
@@ -89,10 +81,7 @@
                 </a>
                 <div class="dropdown-menu dropdown-menu-right">
                     <a href="{{ route('admin.profile.index') }}" class="dropdown-item"><i class="icon-user-plus"></i> My profile</a>
-                    <a href="#" class="dropdown-item"><i class="icon-coins"></i> My balance</a>
-                    <a href="#" class="dropdown-item"><i class="icon-comment-discussion"></i>Messages<span class="badge badge-pill bg-blue ml-auto">58</span></a>
                     <div class="dropdown-divider"></div>
-                    <a href="#" class="dropdown-item"><i class="icon-cog5"></i> Account settings</a>
                     <div>
                         <a href="{{ route('logout') }}" class="dropdown-item" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="icon-switch2"></i> Logout</a>
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">

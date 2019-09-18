@@ -7,7 +7,7 @@
 @endsection
 
 @section('load')
-
+<script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/plugins/tables/datatables/datatables.min.js') }}"></script>
 @endsection
 
 @section('pageheader')

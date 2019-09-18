@@ -15,6 +15,13 @@ if (!file_exists(base_path('.env')) && config('app.env_install')) {
     \Artisan::call('env:install');
 }
 
+Route::get('redirect/{driver}', 'Auth\RegisterController@redirectToProvider')
+->name('login.provider')
+->where('driver', 'google|facebook');
+Route::get('callback/{driver}', 'Auth\RegisterController@handleProviderCallback')
+->name('login.callback')
+->where('driver', 'google|facebook');
+
 Route::middleware(['installed'])->group(function () {
 
     Route::middleware(['auth', 'admin'])->group(function () {
@@ -33,7 +40,7 @@ Route::middleware(['installed'])->group(function () {
                 Route::get('install','PluginController@installPlugin')->name('admin.plugins.install');
                 Route::get('installTheme','ThemeController@installTheme')->name('admin.themes.install');
 
-                Route::get('databaseRestore','backupController@databaseRestore')->name('admin.backups.databaseRestore');
+                Route::get('databaseRestore','BackupController@databaseRestore')->name('admin.backups.databaseRestore');
 
                 Route::get('/menus/tree', 'MenuController@tree')->name('admin.menus.tree');
                 Route::put('/menus/tree', 'MenuController@updateTree')->name('admin.menus.tree.update');
