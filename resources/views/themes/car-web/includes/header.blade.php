@@ -23,7 +23,18 @@
                 </li>
                 @endforeach
             </ul>
+            @if(Auth::user())
+            <a class="btn btn-main btn-round my-2 my-sm-0 shadow" href="#">My Page</a>
+            @else
             <a class="btn btn-danger btn-round my-2 my-sm-0" href="#">Login</a>
+            @endif
         </div>
     </div>
 </nav>
+<style>
+.btn-main {
+color: #2B3651;
+background-color: #E0E5EB;
+border-color: #E0E5EB;
+}
+</style>
