@@ -254,28 +254,25 @@ Route::middleware(['installed'])->group(function () {
                     'edit' => 'admin.cars.edit',
                     'update' => 'admin.cars.update',
                     'destroy' => 'admin.cars.destroy'
-                    ]);
-                Route::prefix('banners')->group(function () {
-                    Route::resource('locations', 'BannerLocationController')->names([
-                        'index' => 'admin.banners.locations.index',
-                        'create' => 'admin.banners.locations.create',
-                        'store' => 'admin.banners.locations.store',
-                        'show' => 'admin.banners.locations.show',
-                        'edit' => 'admin.banners.locations.edit',
-                        'update' => 'admin.banners.locations.update',
-                        'destroy' => 'admin.banners.locations.destroy'
-                    ]);
-
-                    Route::resource('', 'BannerController')->names([
-                        'index' => 'admin.banners.index',
-                        'create' => 'admin.banners.create',
-                        'store' => 'admin.banners.store',
-                        'show' => 'admin.banners.show',
-                        'edit' => 'admin.banners.edit',
-                        'update' => 'admin.banners.update',
-                        'destroy' => 'admin.banners.destroy'
-                    ]);
-                });
+                ]);
+                Route::resource('banners/locations', 'BannerLocationController')->names([
+                    'index' => 'admin.banners.locations.index',
+                    'create' => 'admin.banners.locations.create',
+                    'store' => 'admin.banners.locations.store',
+                    'show' => 'admin.banners.locations.show',
+                    'edit' => 'admin.banners.locations.edit',
+                    'update' => 'admin.banners.locations.update',
+                    'destroy' => 'admin.banners.locations.destroy'
+                ]);
+                Route::resource('banners', 'BannerController')->names([
+                    'index' => 'admin.banners.index',
+                    'create' => 'admin.banners.create',
+                    'store' => 'admin.banners.store',
+                    'show' => 'admin.banners.show',
+                    'edit' => 'admin.banners.edit',
+                    'update' => 'admin.banners.update',
+                    'destroy' => 'admin.banners.destroy'
+                ]);
                 Route::get('/contents/{id}/revisions/{revision}/revert', 'ContentController@revert')->name('admin.contents.revisions.revert');
                 Route::get('/contents/{id}/revisions/{revision}', 'ContentController@viewRevision')->name('admin.contents.revisions.show');
                 Route::put('/contents/{id}/revisions', 'ContentController@updateRevision')->name('admin.contents.revisions.update');
