@@ -75,20 +75,20 @@
                     <fieldset class="content-group">
                         <legend class="font-weight-bold">Banner</legend>
 
-                        <div class="form-group @error('location_id') has-error @enderror">
-                            <label for="location_id" class="col-form-label">Location <span class="text-danger">*</span></label>
-                            <select name="location_id" id="location_id" class="form-control">
+                        <div class="form-group @error('location') has-error @enderror">
+                            <label for="location" class="col-form-label">Location <span class="text-danger">*</span></label>
+                            <select name="location" id="location" class="form-control">
                                 @foreach ($locations as $location)
                                     <option value="{{ $location->id }}">{{ $location->title }}</option>
                                 @endforeach
                             </select>
-                            @error('location_id')
+                            @error('location')
                                 <div class="help-block text-danger">{{ $message }}</div>
                             @enderror
                         </div>
 
                         <div class="form-group @error('banner') has-error @enderror">
-                            <label for="banner" class="col-form-label">Image</label>
+                            <label for="banner" class="col-form-label">Image <span class="text-danger">*</span></label>
                             <div class="uniform-uploader">
                                 <input type="file" class="form-control-uniform" name="banner" id="banner" onchange="showWebCropper(this)">
                                 <span class="filename" style="user-select: none;">No file selected</span>
@@ -129,7 +129,7 @@
                         <div class="form-group @error('schedule') has-error @enderror">
                             <label for="schedule" class="col-form-label">Start & End Date <span class="text-danger">*</span></label>
                             <div class="input-group">
-                                <input type="text" name="schedule" id="schedule" class="form-control daterange-increments" value="08/01/2013 1:00 PM - 08/01/2013 1:30 PM">
+                                <input type="text" name="schedule" id="schedule" class="form-control daterange-increments" value="{{ \Carbon\Carbon::now()->format('mm/dd/YYYY h:mm a') . ' - ' . \Carbon\Carbon::now()->add('7 days')->format('mm/dd/YYYY h:mm a') }}">
                                 <span class="input-group-append">
                                     <span class="input-group-text"><i class="icon-calendar22"></i></span>
                                 </span>
@@ -147,29 +147,6 @@
                 </div>
             </div>
         </form>
-    </div>
-</div>
-
-<div id="modal_mobile_crop" class="modal fade">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header header-elements-inline">
-                <h6 class="modal-title">Crop Banner Image</h6>
-                <div class="header-elements">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                </div>
-            </div>
-
-            <div class="modal-body">
-                <div class="image-cropper-container">
-                    <img src="{{ asset('limitless/bootstrap4/images/placeholder.jpg') }}" alt="" class="crop-16-9" id="modal_mobile_crop_image">
-                </div>
-            </div>
-
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" onclick="cropMobileImage()">Crop Image</button>
-            </div>
-        </div>
     </div>
 </div>
 
@@ -235,55 +212,29 @@
 
 @section('script')
 <script>
-    var mobileElement = $("#modal_mobile_crop_image");
     var webElement = $("#modal_banner_crop_image");
     var options = {
         responsive: true,
-        center: true,
-        aspectRatio: 16/9
+        center: true
     };
 
-    mobileElement.cropper(options);
     webElement.cropper(options);
 
-    var mobileCropper = mobileElement.data('cropper');
     var webCropper = webElement.data('cropper');
 
-    function showMobileCropper(input) {
-        if (input.files && input.files[0]) {
-            var reader = new FileReader();
+    var locations = JSON.parse('{!! json_encode($locations) !!}');
 
-            reader.onload = function(e) {
-                mobileElement.attr('src', e.target.result);
-                mobileCropper.replace(e.target.result);
-            }
-
-            reader.readAsDataURL(input.files[0]);
-
-            $("#modal_mobile_crop").modal('toggle');
-        }
+    function gcd (a, b) {
+        return (b == 0) ? a : gcd (b, a%b);
     }
 
-    function cropMobileImage() {
-        var canvas = mobileCropper.getCroppedCanvas().toBlob((blob) => {
-            var reader = new FileReader();
-            reader.readAsDataURL(blob);
-            reader.onloadend = function() {
-                var base64data = reader.result;
-                $("#modal_mobile_crop").modal('toggle');
-                $("#banner_img_mobile_preview_container").show();
-                $("#banner_img_mobile_preview").attr('src', base64data);
-                $("#banner_img_mobile_cropped").val(base64data);
+    function selectLocation(locationId) {
+        locations.forEach(location => {
+            if (location.id == locationId) {
+                var ratio = gcd(location.width, location.height);
+                var aspect = (location.width/ratio) / (location.height/ratio)
+                webCropper.setAspectRatio(aspect);
             }
-        });
-    }
-
-    function removeMobilePreview() {
-        $("#banner_img_mobile_preview_container").hide();
-        $("#banner_img_mobile").val('');
-
-        $(".file-styled").uniform({
-            fileButtonClass: 'action btn btn-default'
         });
     }
 
@@ -352,6 +303,12 @@
             locale: {
                 format: 'MM/DD/YYYY h:mm a'
             }
+        });
+
+        selectLocation($("#location").val());
+
+        $("#location").on('change', function () {
+            selectLocation($(this).val());
         });
     });
 </script>
