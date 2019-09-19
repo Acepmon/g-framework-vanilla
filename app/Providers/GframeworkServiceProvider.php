@@ -32,7 +32,8 @@ class GframeworkServiceProvider extends ServiceProvider
     {
         view()->composer('pages.*', function ($view) {
             $content = Content::where('slug', \Request::path())->first();
-            return $view->with('content', $content);
+            $banners = Banner::all();
+            return $view->with('content', $content)->with('banners', $banners);
         });
 
         Blade::directive('contents', function ($expression) {
