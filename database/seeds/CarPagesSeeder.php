@@ -110,7 +110,7 @@ class CarPagesSeeder extends Seeder
         $content_meta->save();
 
         $file_content = file_get_contents(resource_path('stubs/carHomeRvrPwd.stub'));
-        $file_name = $rootPath . DIRECTORY_SEPARATOR . 'car-web-rvrpwd' . \App\Content::NAMING_CONVENTION . $content->status . \App\Content::NAMING_CONVENTION . $time;
+        $file_name = $rootPath . DIRECTORY_SEPARATOR . 'car-web-rvr-pwd' . \App\Content::NAMING_CONVENTION . $content->status . \App\Content::NAMING_CONVENTION . $time;
         $file_ext = 'blade.php';
         $file_path = $file_name . '.' . $file_ext;
 
