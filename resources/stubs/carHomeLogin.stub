@@ -102,5 +102,17 @@
                     </div>
                 </div>
             </div>
-    </header>r
+    </header>
+@endsection
+
+@section('script')
+    <script>
+        $('.scrollDown').click(function(event){
+            // Preventing default action of the event
+            event.preventDefault();
+            // Getting the height of the document
+            var n = $(document).height();
+            $('html, body').animate({ scrollTop: 1200 }, 400);
+        });
+    </script>
 @endsection
