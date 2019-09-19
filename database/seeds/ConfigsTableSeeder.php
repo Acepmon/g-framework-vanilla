@@ -13,24 +13,6 @@ class ConfigsTableSeeder extends Seeder
     {
         DB::table('configs')->insert([
             [
-                'title' => 'Plugin Storage Path',
-                'key' => 'plugins.install.storagePath',
-                'value' => storage_path('app' . DIRECTORY_SEPARATOR . 'plugins'),
-                'autoload' => true
-            ],
-            [
-                'title' => 'Plugin Apps Install Path',
-                'key' => 'plugins.install.appPath',
-                'value' => app_path('Plugins'),
-                'autoload' => true
-            ],
-            [
-                'title' => 'Plugin Databases Install Path',
-                'key' => 'plugins.install.databasePath',
-                'value' => database_path(),
-                'autoload' => true
-            ],
-            [
                 'title' => 'Theme Storage Path',
                 'key' => 'themes.install.storagePath',
                 'value' => storage_path('app' . DIRECTORY_SEPARATOR . 'themes'),
@@ -70,12 +52,6 @@ class ConfigsTableSeeder extends Seeder
                 'title' => 'Content pages view path',
                 'key' => 'content.pages.viewPath',
                 'value' => 'pages',
-                'autoload' => true
-            ],
-            [
-                'title' => 'Current Admin Panel Theme',
-                'key' => 'admin.theme.current',
-                'value' => 'limitless',
                 'autoload' => true
             ],
             [
