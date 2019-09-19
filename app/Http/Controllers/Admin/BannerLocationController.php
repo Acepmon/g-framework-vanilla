@@ -44,33 +44,33 @@ class BannerLocationController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\BannerLocation  $bannerLocation
+     * @param  \App\BannerLocation  $location
      * @return \Illuminate\Http\Response
      */
-    public function show(BannerLocation $bannerLocation)
+    public function show(BannerLocation $location)
     {
-        return view('admin.banners.locations.show', ['location' => $bannerLocation]);
+        return view('admin.banners.locations.show', ['location' => $location]);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\BannerLocation  $bannerLocation
+     * @param  \App\BannerLocation  $location
      * @return \Illuminate\Http\Response
      */
-    public function edit(BannerLocation $bannerLocation)
+    public function edit(BannerLocation $location)
     {
-        return view('admin.banners.locations.edit', ['location' => $bannerLocation]);
+        return view('admin.banners.locations.edit', ['location' => $location]);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\BannerLocation  $bannerLocation
+     * @param  \App\BannerLocation  $location
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, BannerLocation $bannerLocation)
+    public function update(Request $request, BannerLocation $location)
     {
         //
     }
@@ -78,10 +78,10 @@ class BannerLocationController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\BannerLocation  $bannerLocation
+     * @param  \App\BannerLocation  $location
      * @return \Illuminate\Http\Response
      */
-    public function destroy(BannerLocation $bannerLocation)
+    public function destroy(BannerLocation $location)
     {
         //
     }
