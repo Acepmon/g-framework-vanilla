@@ -109,18 +109,6 @@ class ConfigsTableSeeder extends Seeder
                 'autoload' => false
             ],
             [
-                'title' => 'Bitcoin is Volatile - Enabled',
-                'key' => 'bitcoin.volatile.enabled',
-                'value' => false,
-                'autoload' => false
-            ],
-            [
-                'title' => 'Bitcoin is Volatile - Path',
-                'key' => 'bitcoin.volatile.path',
-                'value' => url('assets/system/volatile.mp3'),
-                'autoload' => false
-            ],
-            [
                 'title' => 'Maintenance mode email notification addresses',
                 'key' => 'system.maintenance.emails',
                 'value' => '',
