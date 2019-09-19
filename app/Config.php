@@ -39,6 +39,6 @@ class Config extends Model
 
     public static function getStorage()
     {
-        return self::getValue('content.storage.host') . ':' . self::getValue('content.storage.port') . '/';
+        return config('content.storage.host') . ':' . config('content.storage.port') . '/';
     }
 }

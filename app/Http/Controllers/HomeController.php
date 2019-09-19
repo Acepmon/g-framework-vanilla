@@ -30,7 +30,7 @@ class HomeController extends Controller
                 return redirect('login');
             }
 
-            $viewPath = Config::where('key', 'content.'.$content->type.'s.viewPath')->first()->value;
+            $viewPath = config('content.'.$content->type.'s.viewPath');
             return view($viewPath . '.' . $content->currentView());
         }
     }

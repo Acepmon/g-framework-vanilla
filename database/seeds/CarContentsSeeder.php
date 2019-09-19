@@ -12,7 +12,7 @@ class CarContentsSeeder extends Seeder
     public function run()
     {
         $time = time();
-        $rootPath = \App\Config::where('key', 'content.cars.rootPath')->first()->value;
+        $rootPath = config('content.cars.rootPath');
 
         factory(App\Content::class, 50)->create(['type' => App\Content::TYPE_CAR])->each(function ($content) use($time, $rootPath) {
 

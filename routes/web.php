@@ -64,11 +64,11 @@ Route::middleware(['installed'])->group(function () {
                     Route::post('maintenance', 'ConfigController@setMaintenance')->name('admin.configs.maintenance.set');
                     Route::get('base', 'ConfigController@base')->name('admin.configs.base');
                     Route::put('base', 'ConfigController@updateBase')->name('admin.configs.base.update');
-                    Route::get('system', 'ConfigController@system')->name('admin.configs.system');
-                    Route::get('themes', 'ConfigController@themes')->name('admin.configs.themes');
-                    Route::get('plugins', 'ConfigController@plugins')->name('admin.configs.plugins');
-                    Route::get('security', 'ConfigController@security')->name('admin.configs.security');
-                    Route::get('contents', 'ConfigController@contents')->name('admin.configs.contents');
+                    // Route::get('system', 'ConfigController@system')->name('admin.configs.system');
+                    // Route::get('themes', 'ConfigController@themes')->name('admin.configs.themes');
+                    // Route::get('plugins', 'ConfigController@plugins')->name('admin.configs.plugins');
+                    // Route::get('security', 'ConfigController@security')->name('admin.configs.security');
+                    // Route::get('contents', 'ConfigController@contents')->name('admin.configs.contents');
                 });
 
                 Route::prefix('logs')->group(function () {
