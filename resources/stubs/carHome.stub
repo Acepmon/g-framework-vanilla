@@ -1,30 +1,16 @@
 @extends('themes.car-web.layouts.default')
 @section('load')
-    <div class="col-1 full-height" style="position: absolute; left: 79%; top:125%; height: 4000px">
-        <div class="sidebar-item">
-            <div class="make-me-sticky float-right">
-                <div class="hero-slider owl-carousel owl-theme" style="width: 120px;">
-                    @banners([{"field":"location_id", "key":4}])
-                    @php
-                        $bannerStickyList=json_decode($banners);
-                    @endphp
-                    @if(count($bannerStickyList) > 1)
-                        @foreach($bannerStickyList as $bnr)
-                            <div class="slider-item" style="height: 160px; min-height: 160px; width: 120px;">
-                                <a href="{{$bnr->link}}" target="_blank">
-                                    <img src="{{$bnr->banner}}" alt="">
-                                </a>
-                            </div>
-                        @endforeach
-                    @else
-                        <a href="{{$bnr->link}}" target="_blank">
-                            <img src="{{$bnr->banner}}" alt="">
-                        </a>
-                    @endif
-                </div>
-            </div>
-        </div>
-    </div>
+
+@php
+// HOT Deals
+$hotDeals=App\Content::where('type', App\Content::TYPE_CAR)->paginate(5);
+// $sideBanners = App\Banner::where('location_id', 4)->where('status', 'active')->get();
+$sideBanners = App\Banner::where('location_id', 4)->get();
+@endphp
+
+<div class="mainPage-items col-1 full-height" style="position: absolute; left: 79%; top:125%; height: 4000px; padding-left: 0%; width:0%">
+    @include('themes.car-web.includes.fixed-right-sidebar', array('sideBanners'=>$sideBanners, 'premium'=>$hotDeals))
+</div>
 
 @endsection
 @section('title')
@@ -39,9 +25,9 @@
                     <div class="col-md-7">
                         <div class="hero-slider owl-carousel owl-theme">
 
-                            @banners([{"field":"location_id", "key":1}])
-                            @php
-                                $bannerList=json_decode($banners);
+                                @banners([{"field":"location_id", "key":1}])
+                                @php
+                                    $bannerList=json_decode($banners);
                             @endphp
                             @if(count($bannerList) > 0)
                                 @foreach($bannerList as $bnr)
@@ -125,9 +111,9 @@
                             <div class="tab-content p-5" id="heroTabFilter">
                                 <div class="tab-pane fade show active" id="allVehicles" role="tabpanel"
                                      aria-labelledby="imported-tab">
-                                    <form>
+                                    <form method="GET" action="/car-search">
                                         <div class="form-group">
-                                            <select class="form-control">
+                                            <select class="form-control" name="manufacturer">
                                                 @getTaxonomys([{"field":"taxonomy", "key":"manufacturer"}])
                                                 @php
                                                     $manufacturers=json_decode($manufacturer);
@@ -138,7 +124,7 @@
                                             </select>
                                         </div>
                                         <div class="form-group">
-                                            <select class="form-control">
+                                            <select class="form-control" name="model">
                                                 @getTaxonomys([{"field":"taxonomy", "key":"model"}])
                                                 @php
                                                     $models=json_decode($model);
@@ -149,14 +135,14 @@
                                             </select>
                                         </div>
                                         <div class="form-group">
-                                            <select class="form-control">
+                                            <select class="form-control" name="buildYear">
                                                 @for ($i = \Carbon\Carbon::now()->year; $i >= \Carbon\Carbon::now()->year - 50; $i--)
                                                     <option value="{{$i}}">{{$i}}</option>
                                                 @endfor
                                             </select>
                                         </div>
                                         <div class="form-group">
-                                            <select class="form-control">
+                                            <select class="form-control" name="importDate">
                                                 @for ($i = \Carbon\Carbon::now()->year; $i >= \Carbon\Carbon::now()->year - 50; $i--)
                                                     <option value="{{$i}}">{{$i}}</option>
                                                 @endfor
@@ -167,9 +153,9 @@
                                     </form>
                                 </div>
                                 <div class="tab-pane fade" id="auction" role="tabpanel" aria-labelledby="used-tab">
-                                    <form>
+                                    <form method="GET" action="/car-search">
                                         <div class="form-group">
-                                            <select class="form-control">
+                                            <select class="form-control" name="manufacturer">
                                                 @getTaxonomys([{"field":"taxonomy", "key":"manufacturer"}])
                                                 @php
                                                     $manufacturers=json_decode($manufacturer);
@@ -180,7 +166,7 @@
                                             </select>
                                         </div>
                                         <div class="form-group">
-                                            <select class="form-control">
+                                            <select class="form-control" name="model">
                                                 @getTaxonomys([{"field":"taxonomy", "key":"model"}])
                                                 @php
                                                     $models=json_decode($model);
@@ -191,14 +177,14 @@
                                             </select>
                                         </div>
                                         <div class="form-group">
-                                            <select class="form-control">
+                                            <select class="form-control" name="buildYear">
                                                 @for ($i = \Carbon\Carbon::now()->year; $i >= \Carbon\Carbon::now()->year - 50; $i--)
                                                     <option value="{{$i}}">{{$i}}</option>
                                                 @endfor
                                             </select>
                                         </div>
                                         <div class="form-group">
-                                            <select class="form-control">
+                                            <select class="form-control" name="importDate">
                                                 @for ($i = \Carbon\Carbon::now()->year; $i >= \Carbon\Carbon::now()->year - 50; $i--)
                                                     <option value="{{$i}}">{{$i}}</option>
                                                 @endfor
@@ -209,10 +195,10 @@
                                     </form>
                                 </div>
                                 <div class="tab-pane fade" id="budget" role="tabpanel" aria-labelledby="auction-tab">
-                                    <form method="POST" action="{{ route('car-search') }}>
+                                    <form method="GET" action="/car-search">
                                     @csrf
                                         <div class="form-group">
-                                            <select class="form-control">
+                                            <select class="form-control" name="manufacturer">
                                                 @getTaxonomys([{"field":"taxonomy", "key":"manufacturer"}])
                                                 @php
                                                     $manufacturers=json_decode($manufacturer);
@@ -223,7 +209,7 @@
                                             </select>
                                         </div>
                                         <div class="form-group">
-                                            <select class="form-control">
+                                            <select class="form-control" name="model">
                                                 @getTaxonomys([{"field":"taxonomy", "key":"model"}])
                                                 @php
                                                     $models=json_decode($model);
