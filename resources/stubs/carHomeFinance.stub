@@ -1,0 +1,78 @@
+@extends('themes.car-web.layouts.default')
+@section('load')
+
+@endsection
+@section('title')
+
+@endsection
+
+@section('content')
+    <!-- Masthead -->
+    <header class="masthead text-center">
+        <div class="container">
+                <div class="row">
+                    <div class="col-md-7">
+                        <div class="hero-slider owl-carousel owl-theme">
+
+                            @banners([{"field":"location_id", "key":1}])
+                            @php
+                                $bannerList=json_decode($banners);
+                            @endphp
+                            @if(count($bannerList) > 0)
+                                @foreach($bannerList as $bnr)
+                                    <div class="slider-item">
+                                        <div class="slider-img animated slideInLeft" style="bottom: 0; left: -50px;">
+                                            <a href="{{$bnr->link}}" target="_blank">
+                                                <img src="{{$bnr->banner}}" alt="">
+                                            </a>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            @else
+                                <div class="slider-item">
+                                    <div class="slider-text animated slideInLeft" style="top: 0; left: 100px">
+                                        <h1>Зээлийн хүү</h1>
+                                    </div>
+                                    <div class="slider-text animated slideInLeft slider-highlight"
+                                         style="top: 50px; left: 50px">3%
+                                    </div>
+                                    <div class="slider-text animated slideInLeft" style="top: 200px; left: 200px">
+                                        <h1>Жилийн</h1>
+                                    </div>
+                                    <div class="slider-img animated slideInLeft" style="bottom: 0; left: -50px;">
+                                        <img src="{{asset('car-web/img/slider-1.png')}}" alt="">
+                                    </div>
+                                </div>
+                                <div class="slider-item">
+                                    <div class="slider-text" style="top: 5%; left: 90px">
+                                        <h1>Авто машины</h1>
+                                    </div>
+                                    <div class="slider-text" style="top: 18%; left: 100px; ">
+                                        <h1 style="font-size: 2rem;">Дуудлага худалдаа</h1>
+                                    </div>
+                                    <div class="slider-img" style="top: 50%; left: 50px;">
+                                        <img src="{{asset('car-web/img/slider-2.png')}}" alt="" class="img-fluid">
+                                    </div>
+                                    <div class="slider-img" style="top: 25%; left: 0; z-index:-1;">
+                                        <img src="{{asset('car-web/img/auction.png')}}" alt="" class="img-fluid">
+                                    </div>
+                                </div>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </header>
+@endsection
+
+@section('script')
+    <script>
+        $('.scrollDown').click(function(event){
+            // Preventing default action of the event
+            event.preventDefault();
+            // Getting the height of the document
+            var n = $(document).height();
+            $('html, body').animate({ scrollTop: 1200 }, 400);
+        });
+    </script>
+@endsection
