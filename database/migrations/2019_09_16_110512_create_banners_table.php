@@ -17,7 +17,7 @@ class CreateBannersTable extends Migration
             $table->bigIncrements('id');
             $table->string('title', 191);
             $table->string('banner');
-            $table->string('link');
+            $table->string('link')->nullable();
             $table->unsignedBigInteger('location_id')->nullable();
             $table->string('status')->default('draft');
             $table->timestamp('starts_at')->nullable();
