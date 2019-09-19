@@ -14,7 +14,7 @@
                     <div class="col-md-7">
                         <div class="hero-slider owl-carousel owl-theme">
 
-                            @banners([{"field":"location_id", "key":1}])
+                            @banners([{"field":"location_id", "key":3}])
                             @php
                                 $bannerList=json_decode($banners);
                             @endphp
