@@ -125,7 +125,7 @@
                             <div class="tab-content p-5" id="heroTabFilter">
                                 <div class="tab-pane fade show active" id="allVehicles" role="tabpanel"
                                      aria-labelledby="imported-tab">
-                                    <form method="POST" action="/car-search">
+                                    <form method="GET" action="/car-search">
                                         <div class="form-group">
                                             <select class="form-control" name="manufacturer">
                                                 @getTaxonomys([{"field":"taxonomy", "key":"manufacturer"}])
@@ -167,7 +167,7 @@
                                     </form>
                                 </div>
                                 <div class="tab-pane fade" id="auction" role="tabpanel" aria-labelledby="used-tab">
-                                    <form method="POST" action="/car-search">
+                                    <form method="GET" action="/car-search">
                                         <div class="form-group">
                                             <select class="form-control" name="manufacturer">
                                                 @getTaxonomys([{"field":"taxonomy", "key":"manufacturer"}])
@@ -209,7 +209,7 @@
                                     </form>
                                 </div>
                                 <div class="tab-pane fade" id="budget" role="tabpanel" aria-labelledby="auction-tab">
-                                    <form method="POST" action="/car-search">
+                                    <form method="GET" action="/car-search">
                                     @csrf
                                         <div class="form-group">
                                             <select class="form-control" name="manufacturer">
