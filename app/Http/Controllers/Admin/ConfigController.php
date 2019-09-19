@@ -88,7 +88,7 @@ class ConfigController extends Controller
         $days = "";
         $hours = "";
         $minutes = "";
-        $emails = Config::getValue('system.maintenance.emails');
+        $emails = config('system.maintenance.emails');
 
         if ($exists) {
             $content = json_decode(file_get_contents(storage_path('framework/down')), true);

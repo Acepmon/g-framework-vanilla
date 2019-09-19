@@ -54,42 +54,42 @@ class ConfigsTableSeeder extends Seeder
                 'value' => 'pages',
                 'autoload' => true
             ],
-            [
-                'title' => 'Default Group for newly registered Users',
-                'key' => 'system.register.defaultGroup',
-                'value' => '3',
-                'autoload' => false
-            ],
-            [
-                'title' => 'Redirect path for Administrator group after authentication',
-                'key' => 'system.auth.adminRedirectPath',
-                'value' => '/admin',
-                'autoload' => false
-            ],
-            [
-                'title' => 'Redirect path for Operator group after authentication',
-                'key' => 'system.auth.operatorRedirectPath',
-                'value' => '/admin',
-                'autoload' => false
-            ],
-            [
-                'title' => 'Redirect path for Member group after authentication',
-                'key' => 'system.auth.memberRedirectPath',
-                'value' => '/home',
-                'autoload' => false
-            ],
-            [
-                'title' => 'Redirect path for Guest group after authentication',
-                'key' => 'system.auth.guestRedirectPath',
-                'value' => '/home',
-                'autoload' => false
-            ],
-            [
-                'title' => 'Maintenance mode email notification addresses',
-                'key' => 'system.maintenance.emails',
-                'value' => '',
-                'autoload' => false
-            ]
+            // [
+            //     'title' => 'Default Group for newly registered Users',
+            //     'key' => 'system.register.defaultGroup',
+            //     'value' => '3',
+            //     'autoload' => false
+            // ],
+            // [
+            //     'title' => 'Redirect path for Administrator group after authentication',
+            //     'key' => 'system.auth.adminRedirectPath',
+            //     'value' => '/admin',
+            //     'autoload' => false
+            // ],
+            // [
+            //     'title' => 'Redirect path for Operator group after authentication',
+            //     'key' => 'system.auth.operatorRedirectPath',
+            //     'value' => '/admin',
+            //     'autoload' => false
+            // ],
+            // [
+            //     'title' => 'Redirect path for Member group after authentication',
+            //     'key' => 'system.auth.memberRedirectPath',
+            //     'value' => '/home',
+            //     'autoload' => false
+            // ],
+            // [
+            //     'title' => 'Redirect path for Guest group after authentication',
+            //     'key' => 'system.auth.guestRedirectPath',
+            //     'value' => '/home',
+            //     'autoload' => false
+            // ],
+            // [
+            //     'title' => 'Maintenance mode email notification addresses',
+            //     'key' => 'system.maintenance.emails',
+            //     'value' => '',
+            //     'autoload' => false
+            // ]
         ]);
     }
 }
