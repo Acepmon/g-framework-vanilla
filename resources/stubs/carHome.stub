@@ -127,7 +127,7 @@
                                      aria-labelledby="imported-tab">
                                     <form>
                                         <div class="form-group">
-                                            <select class="form-control">
+                                            <select class="form-control" name="manufacturer">
                                                 @getTaxonomys([{"field":"taxonomy", "key":"manufacturer"}])
                                                 @php
                                                     $manufacturers=json_decode($manufacturer);
@@ -138,7 +138,7 @@
                                             </select>
                                         </div>
                                         <div class="form-group">
-                                            <select class="form-control">
+                                            <select class="form-control" name="model">
                                                 @getTaxonomys([{"field":"taxonomy", "key":"model"}])
                                                 @php
                                                     $models=json_decode($model);
@@ -149,14 +149,14 @@
                                             </select>
                                         </div>
                                         <div class="form-group">
-                                            <select class="form-control">
+                                            <select class="form-control" name="buildYear">
                                                 @for ($i = \Carbon\Carbon::now()->year; $i >= \Carbon\Carbon::now()->year - 50; $i--)
                                                     <option value="{{$i}}">{{$i}}</option>
                                                 @endfor
                                             </select>
                                         </div>
                                         <div class="form-group">
-                                            <select class="form-control">
+                                            <select class="form-control" name="importDate">
                                                 @for ($i = \Carbon\Carbon::now()->year; $i >= \Carbon\Carbon::now()->year - 50; $i--)
                                                     <option value="{{$i}}">{{$i}}</option>
                                                 @endfor
@@ -169,7 +169,7 @@
                                 <div class="tab-pane fade" id="auction" role="tabpanel" aria-labelledby="used-tab">
                                     <form>
                                         <div class="form-group">
-                                            <select class="form-control">
+                                            <select class="form-control" name="manufacturer">
                                                 @getTaxonomys([{"field":"taxonomy", "key":"manufacturer"}])
                                                 @php
                                                     $manufacturers=json_decode($manufacturer);
@@ -180,7 +180,7 @@
                                             </select>
                                         </div>
                                         <div class="form-group">
-                                            <select class="form-control">
+                                            <select class="form-control" name="model">
                                                 @getTaxonomys([{"field":"taxonomy", "key":"model"}])
                                                 @php
                                                     $models=json_decode($model);
@@ -191,14 +191,14 @@
                                             </select>
                                         </div>
                                         <div class="form-group">
-                                            <select class="form-control">
+                                            <select class="form-control" name="buildYear">
                                                 @for ($i = \Carbon\Carbon::now()->year; $i >= \Carbon\Carbon::now()->year - 50; $i--)
                                                     <option value="{{$i}}">{{$i}}</option>
                                                 @endfor
                                             </select>
                                         </div>
                                         <div class="form-group">
-                                            <select class="form-control">
+                                            <select class="form-control" name="importDate">
                                                 @for ($i = \Carbon\Carbon::now()->year; $i >= \Carbon\Carbon::now()->year - 50; $i--)
                                                     <option value="{{$i}}">{{$i}}</option>
                                                 @endfor
@@ -209,10 +209,10 @@
                                     </form>
                                 </div>
                                 <div class="tab-pane fade" id="budget" role="tabpanel" aria-labelledby="auction-tab">
-                                    <form method="POST" action="{{ route('car-search') }}>
+                                    <form method="POST" action="/car-search>
                                     @csrf
                                         <div class="form-group">
-                                            <select class="form-control">
+                                            <select class="form-control" name="manufacturer">
                                                 @getTaxonomys([{"field":"taxonomy", "key":"manufacturer"}])
                                                 @php
                                                     $manufacturers=json_decode($manufacturer);
@@ -223,7 +223,7 @@
                                             </select>
                                         </div>
                                         <div class="form-group">
-                                            <select class="form-control">
+                                            <select class="form-control" name="model">
                                                 @getTaxonomys([{"field":"taxonomy", "key":"model"}])
                                                 @php
                                                     $models=json_decode($model);
