@@ -733,11 +733,11 @@ header.masthead .master-head-bg {
   min-height: 100%;
 }
 
-.detail-page .vehicle-imgSlider {
+.vehicle-imgSlider-container .vehicle-imgSlider {
   position: relative;
 }
 
-.detail-page .vehicle-imgSlider .owl-nav {
+.vehicle-imgSlider-container .vehicle-imgSlider .owl-nav {
   text-align: right;
   -webkit-tap-highlight-color: transparent;
   position: absolute;
@@ -746,7 +746,7 @@ header.masthead .master-head-bg {
   transform: translateY(-50%);
 }
 
-.detail-page .vehicle-imgSlider .owl-nav .owl-prev {
+.vehicle-imgSlider-container .vehicle-imgSlider .owl-nav .owl-prev {
   position: absolute;
   left: 0;
   width: 40px;
@@ -758,12 +758,12 @@ header.masthead .master-head-bg {
   transition: all .3s ease;
 }
 
-.detail-page .vehicle-imgSlider .owl-nav .owl-prev:hover {
+.vehicle-imgSlider-container .vehicle-imgSlider .owl-nav .owl-prev:hover {
   background: #858994;
   color: #fff;
 }
 
-.detail-page .vehicle-imgSlider .owl-nav .owl-next {
+.vehicle-imgSlider-container .vehicle-imgSlider .owl-nav .owl-next {
   position: absolute;
   right: 0;
   width: 40px;
@@ -775,7 +775,7 @@ header.masthead .master-head-bg {
   transition: all .3s ease;
 }
 
-.detail-page .vehicle-imgSlider .owl-nav .owl-next:hover {
+.vehicle-imgSlider-container .vehicle-imgSlider .owl-nav .owl-next:hover {
   background: #858994;
   color: #fff;
 }

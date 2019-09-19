@@ -1,5 +1,5 @@
 @if ($content)
-<div class="card border-0">
+<div class="card border-0 vehicle-imgSlider-container">
     <div class="vehicle-imgSlider owl-carousel owl-theme" data-slider-id="1">
         @foreach ($content->metaArray('medias') as $media)
         <div class="vi-slider-item">
