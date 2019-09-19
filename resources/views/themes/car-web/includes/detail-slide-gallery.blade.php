@@ -7,6 +7,6 @@
         </div>
         @endforeach
     </div>
-    <div class="owl-thumbs" data-slider-id="1"> </div>
+    <div class="owl-thumbs" data-slider-id="1"></div>
 </div>
 @endif
