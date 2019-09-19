@@ -24,7 +24,7 @@
             </div>
             @endforeach
         </div>
-        
+
         @foreach($sideBanners as $bnr)
         <a href="{{ $bnr->link }}" target="_blank">
             <img src="{{ $bnr->banner }}">
