@@ -47,13 +47,16 @@ $items = metaHas($items, $key, $value);
 }
 }
 
-// Post items filtering
-$itemCount = count($items->get());
-if ($itemCount < $page * $itemsPerPage) {
-  $page=intval(ceil($itemCount / $itemsPerPage)) || 1;
-}
 // HOT Deals
-$hotDeals=App\Content::where('type', App\Content::TYPE_CAR)->paginate(5);
+$hotDeals=App\Content::where('type', App\Content::TYPE_CAR)->inRandomOrder()->paginate(5);
+$items = $hotDeals->merge($items->get());
+
+// Post items filtering
+$itemCount = count($items->all());
+$maxPage = intval(ceil($itemCount / $itemsPerPage));
+if ($itemCount < $page * $itemsPerPage) {
+  $page= $maxPage;
+}
 
 // Banner
 $banner = App\Banner::where('location_id', 5)->where('status', 'active')->inRandomOrder()->first();
@@ -101,12 +104,12 @@ Car dealer
     @include('themes.car-web.includes.fixed-right-sidebar', array('sideBanners'=>$sideBanners, 'premium'=>$hotDeals))
     <div class="row">
       <div class="col-md-3">
-        <form action="search" id="searchForm">
+        <form action="car-search" id="searchForm">
         </form>
         <form action="buy" id="mainForm">
           <div class="left-bar-title">
             <input type="text" class="search" id="searchInput" placeholder="VEHICLE SEARCH" />
-            <button class="btn" id="searchBtn"><i class="fab fa fa-search"></i></button>
+            <button class="btn shadow-none" id="searchBtn"><i class="fab fa fa-search"></i></button>
           </div>
           <div class="accordion shadow-soft-blue" id="accordionExample">
             @foreach($categories as $index=>$category)
@@ -163,10 +166,10 @@ Car dealer
                 <button onclick="formSubmit('orderBy', 'updated_at')" class="btn btn-sm btn-link text-decoration-none small {{ ($orderBy=='updated_at')?'text-dark':'text-muted' }}">Recent Car</button>
               </li> |
               <li class="list-inline-item mr-0">
-                <button onclick="formSubmit('orderBy', 'buildYear')" class="btn btn-sm btn-link text-decoration-none {{ ($orderBy=='popularity')?'text-dark':'text-muted' }}">Product Year</button>
+                <button onclick="formSubmit('orderBy', 'buildYear')" class="btn btn-sm btn-link text-decoration-none {{ ($orderBy=='buildYear')?'text-dark':'text-muted' }}">Product Year</button>
               </li> |
               <li class="list-inline-item mr-0">
-                <button onclick="formSubmit('orderBy', 'importDate')" class="btn btn-sm btn-link text-decoration-none {{ ($orderBy=='interest')?'text-dark':'text-muted' }}">Income Year</button>
+                <button onclick="formSubmit('orderBy', 'importDate')" class="btn btn-sm btn-link text-decoration-none {{ ($orderBy=='importDate')?'text-dark':'text-muted' }}">Income Year</button>
               </li> |
               <li class="list-inline-item mr-0">
                 <button onclick="formSubmit('orderBy', 'price')" class="btn btn-sm btn-link text-decoration-none {{ ($orderBy=='price')?'text-dark':'text-muted' }}">Low Price</button>
@@ -176,57 +179,13 @@ Car dealer
         </div>
         <div class="container">
           <div class="row">
-            @if ($items->get() && sizeof($items->get()) != 0)
+            @if ($items->all() && sizeof($items->all()) != 0)
             <div class="car-list mt-2">
               <input type="hidden" name="search" id="search">
               <input type="hidden" name="advantage" id="advantage" value="{{ $request['advantages'] }}" />
-              @foreach($items->paginate($itemsPerPage, ['*'], 'page', $page) as $car)
+              @foreach($items->forPage($page, $itemsPerPage) as $car)
               <!-- card start -->
-              <div class="card">
-                <div class="card-body">
-                  <div class="card-img">
-                    <img src="{{ (substr($car->metaValue('thumbnail'), 0, 4) !== 'http')?(App\Config::getStorage() . $car->metaValue('thumbnail')):$car->metaValue('thumbnail') }}" class="img-fluid" alt="alt">
-                  </div>
-                  <div class="card-description">
-                    <div class="card-caption">
-                      <div class="card-title">{{ $car->title }}</div>
-                      <div class="meta">{{ $car->metaValue('buildYear') }}/{{ $car->metaValue('importDate') }} | {{ $car->metaValue('mileage') }}km</div>
-                      <div class="price">{{ $car->metaValue('price') }} ₮</div>
-                      <div class="favorite">
-                        <i class="icon-heart"></i> Add to interest list
-                      </div>
-                    </div>
-                    <div class="info">
-                      <span class="carIcon-engine">
-                        <p>{{ ucfirst($car->metaValue('displacement')) }} L</p>
-                      </span>
-                      <span class="carIcon-car-6">
-                        <p>{{ $car->metaValue('mileage') }} KM</p>
-                      </span>
-                      <span class="carIcon-gas-station">
-                        <p>{{ ucfirst($car->metaValue('fuelType')) }} </p>
-                      </span>
-                      <span class="carIcon-gearshift">
-                        <p>{{ ucfirst($car->metaValue('transmission')) }}</p>
-                      </span>
-                      <span class="carIcon-steering-wheel">
-                        <p>{{ ucfirst($car->metaValue('wheelPosition')) }} wheel</p>
-                      </span>
-                      <span class="color" data-color="black">
-                        <p>{{ ucfirst($car->metaValue('colorName')) }}</p>
-                      </span>
-
-                      <div class="tag">
-                        @foreach($car->metas->where('key', 'advantages') as $advantage)
-                        <a onclick="formSubmit('advantage', '{{$advantage->value}}')" href="#">{{ $advantage->value }}</a>
-                        @endforeach
-                      </div>
-                    </div>
-
-                  </div>
-
-                </div>
-              </div>
+              @include('themes.car-web.includes.car-list-card', array('car'=>$car))
               <!-- card end -->
               @endforeach
             </div>
@@ -247,10 +206,10 @@ Car dealer
                 <span aria-hidden="true">&laquo;</span>
               </button>
             </li>
-            @for($i = 1; $i <= $items->paginate($itemsPerPage)->lastPage(); $i++)
+            @for($i = 1; $i <= $maxPage; $i++)
               <li class="page-item {{ ($i == $page)?'active':'' }}"><button class="page-link" onclick="formSubmit('page', {{$i}})">{{ $i }}</button></li>
               @endfor
-              <li class="page-item {{ ($page >= $items->paginate($itemsPerPage)->lastPage())?'disabled':'' }}">
+              <li class="page-item {{ ($page >= $maxPage)?'disabled':'' }}">
                 <button class="page-link" onclick="formSubmit('page', {{$page+1}})" aria-label="Next">
                   <span aria-hidden="true">&raquo;</span>
                 </button>
@@ -300,6 +259,11 @@ Car dealer
             <div class="brand-name"></div>
             <div class="card-img">
               <img src="{{ (substr($car->metaValue('thumbnail'), 0, 4) !== 'http')?(App\Config::getStorage() . $car->metaValue('thumbnail')):$car->metaValue('thumbnail') }}" class="img-fluid" alt="alt">
+              <div class="bestDeal"
+                      style="position: absolute; top:5px; left: 5px; background-color: white; border-radius: 3px; padding: 1px 3px">
+                  <i class="fas fa-crown" style="color: #FEC400"></i>
+              </div>
+              
               <div class="info">
                 <span class="carIcon-engine">
                   <p>{{ ucfirst($car->metaValue('displacement')) }} L</p>
@@ -333,7 +297,7 @@ Car dealer
 
             <div class="card-body shadow">
               <div class="card-description">
-                <a href="detail-page.html" class="card-title">{{ $car->title }}</a>
+                <a href="{{ $car->slug }}" class="card-title">{{ $car->title }}</a>
                 <div class="card-meta">
                   <div class="status">{{ ucfirst($car->metaValue('priceType')) }} </div>
                   <div class="price">{{ $car->metaValue('price') }} ₮</div>
@@ -375,9 +339,14 @@ Car dealer
 
   $("#searchBtn").click(function(event) {
     event.preventDefault();
-    $("#search").val($("#searchInput").val());
-    console.log($("#search").val());
-    $("#searchForm").submit();
+    var value = $("#searchInput").val();
+    if (value) {
+      $("#search").val(value);
+      console.log($("#search").val());
+      $("#searchForm").submit();
+    } else {
+      $("#searchInput").focus();
+    }
   });
 </script>
 @endsection
