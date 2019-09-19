@@ -12,24 +12,24 @@ class ConfigsTableSeeder extends Seeder
     public function run()
     {
         DB::table('configs')->insert([
-            [
-                'title' => 'Theme Storage Path',
-                'key' => 'themes.install.storagePath',
-                'value' => storage_path('app' . DIRECTORY_SEPARATOR . 'themes'),
-                'autoload' => true
-            ],
-            [
-                'title' => 'Theme Assets Install Path',
-                'key' => 'themes.install.assetPath',
-                'value' => public_path(config('app.asset_url')),
-                'autoload' => true
-            ],
-            [
-                'title' => 'Theme Views Install Path',
-                'key' => 'themes.install.viewPath',
-                'value' => resource_path('views' . DIRECTORY_SEPARATOR . 'themes'),
-                'autoload' => true
-            ],
+            // [
+            //     'title' => 'Theme Storage Path',
+            //     'key' => 'themes.install.storagePath',
+            //     'value' => storage_path('app' . DIRECTORY_SEPARATOR . 'themes'),
+            //     'autoload' => true
+            // ],
+            // [
+            //     'title' => 'Theme Assets Install Path',
+            //     'key' => 'themes.install.assetPath',
+            //     'value' => public_path(config('app.asset_url')),
+            //     'autoload' => true
+            // ],
+            // [
+            //     'title' => 'Theme Views Install Path',
+            //     'key' => 'themes.install.viewPath',
+            //     'value' => resource_path('views' . DIRECTORY_SEPARATOR . 'themes'),
+            //     'autoload' => true
+            // ],
             [
                 'title' => 'Content posts root path',
                 'key' => 'content.posts.rootPath',
