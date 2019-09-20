@@ -224,8 +224,28 @@ class PermissionsSeeder extends Seeder
             ['title' => 'admin_profile_settings_read', 'type' => Permission::TYPE_READ, 'description' => 'read permission for profile_settings_read'],
             ['title' => 'admin_profile_notifications_read', 'type' => Permission::TYPE_READ, 'description' => 'read permission for profile_notifications_read'],
             ['title' => 'password_update', 'type' => Permission::TYPE_UPDATE, 'description' => 'update permission for password_update'],
+            ['title' => 'password_request', 'type' => Permission::TYPE_UPDATE, 'description' => 'update permission for password_request'],
 
         ]);
-        App\Group::findOrFail(1)->permissions()->attach(Permission::all(), array('is_granted' => true));
+        // Admin Permissions
+        App\Group::findOrFail(1)->permissions()->attach(Permission::all(), ['is_granted' => true]);
+
+        // Operator Permissions
+        App\Group::findOrFail(2)->permissions()->attach(Permission::where('title', '')->get(), ['is_granted' => true]);
+        App\Group::findOrFail(2)->permissions()->attach(Permission::where('title', 'logout')->get(), ['is_granted' => true]);
+        App\Group::findOrFail(2)->permissions()->attach(Permission::where('title', 'register')->get(), ['is_granted' => true]);
+        App\Group::findOrFail(2)->permissions()->attach(Permission::where('title', 'login')->get(), ['is_granted' => true]);
+        App\Group::findOrFail(2)->permissions()->attach(Permission::where('title', 'LIKE', 'password_%')->get(), ['is_granted' => true]);
+        App\Group::findOrFail(2)->permissions()->attach(Permission::where('title', 'LIKE', 'admin_contents_%')->get(), ['is_granted' => true]);
+        App\Group::findOrFail(2)->permissions()->attach(Permission::where('title', 'LIKE', 'admin_cars_%')->get(), ['is_granted' => true]);
+        App\Group::findOrFail(2)->permissions()->attach(Permission::where('title', 'LIKE', 'admin_menus_%')->get(), ['is_granted' => true]);
+        App\Group::findOrFail(2)->permissions()->attach(Permission::where('title', 'LIKE', 'admin_profile_%')->get(), ['is_granted' => true]);
+
+        // Member Permissions
+        App\Group::findOrFail(3)->permissions()->attach(Permission::where('title', '')->get(), ['is_granted' => true]);
+        App\Group::findOrFail(3)->permissions()->attach(Permission::where('title', 'logout')->get(), ['is_granted' => true]);
+        App\Group::findOrFail(3)->permissions()->attach(Permission::where('title', 'register')->get(), ['is_granted' => true]);
+        App\Group::findOrFail(3)->permissions()->attach(Permission::where('title', 'login')->get(), ['is_granted' => true]);
+        App\Group::findOrFail(3)->permissions()->attach(Permission::where('title', 'LIKE', 'password_%')->get(), ['is_granted' => true]);
     }
 }

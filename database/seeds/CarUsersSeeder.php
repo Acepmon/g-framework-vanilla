@@ -16,6 +16,7 @@ class CarUsersSeeder extends Seeder
             $randomGroup = $carGroups->random();
             $randomGroupId = $randomGroup->id;
 
+            $user->groups()->attach(3);
             $user->groups()->attach($randomGroupId);
 
             $user->metas()->saveMany([
