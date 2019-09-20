@@ -10,7 +10,6 @@
                         <p>{!! $content->metaValue('sellerDescription') !!}</p>
                     </div>
                 </div>
-                </div>
             </div>
             <hr>
         </div>

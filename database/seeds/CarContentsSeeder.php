@@ -31,7 +31,7 @@ class CarContentsSeeder extends Seeder
             $lorempixelUrl = 'http://lorempixel.com';
             $thumbnail = $lorempixelUrl . '/' . $thumbWidth . '/' . $thumbHeight . '/' . $lorempixelType . '/?=' . rand(1, 50000);
             $medias = [];
-            $mediasLimit = rand(1, 50);
+            $mediasLimit = rand(1, 20);
             for ($i=0; $i < $mediasLimit; $i++) {
                 $media = $lorempixelUrl . '/' . $mediaWidth . '/' . $mediaHeight . '/' . $lorempixelType . '/?=' . rand(1, 50000);
                 $meta = new App\ContentMeta(['key' => 'medias', 'value' => $media]);
