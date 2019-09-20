@@ -5,10 +5,6 @@
             <i class="icon-more"></i>
         </a>
     </div>
-
-    <div class="header-elements">
-        <a href="{{ route('admin.configs.create') }}" class="btn bg-blue">Register New Configuration</a>
-    </div>
 </div>
 
 <div class="breadcrumb-line breadcrumb-line-light header-elements-md-inline">
@@ -24,7 +20,7 @@
             <a href="#" class="breadcrumb-elements-item"><i class="icon-comment-discussion mr-2"></i>Link</a>
             <div class="breadcrumb-elements-item dropdown p-0">
                 <a href="#" class="breadcrumb-elements-item dropdown-toggle" data-toggle="dropdown" aria-expanded="true"><i class="icon-gear mr-2"></i>Dropdown</a>
-                <div class="dropdown-menu dropdown-menu-right" x-placement="bottom-end" 
+                <div class="dropdown-menu dropdown-menu-right" x-placement="bottom-end"
                     style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(-84px, 40px, 0px);">
                     <a href="#" class="dropdown-item"><i class="icon-user-lock"></i> Account security</a>
                     <a href="#" class="dropdown-item"><i class="icon-statistics"></i> Analytics</a>
