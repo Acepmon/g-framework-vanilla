@@ -14,7 +14,7 @@ class CarContentsSeeder extends Seeder
         $time = time();
         $rootPath = config('content.cars.rootPath');
 
-        factory(App\Content::class, 50)->create(['type' => App\Content::TYPE_CAR])->each(function ($content) use($time, $rootPath) {
+        factory(App\Content::class, 30)->create(['type' => App\Content::TYPE_CAR])->each(function ($content) use($time, $rootPath) {
 
             $carUserRandomId = \App\User::whereHas('groups', function ($query) {
                 $query->where('type', \App\Group::TYPE_DYNAMIC);
@@ -81,6 +81,74 @@ class CarContentsSeeder extends Seeder
                 new App\ContentMeta(['key' => 'maxBid', 'value' => '14000000']),
                 new App\ContentMeta(['key' => 'startsAt', 'value' => '2019-09-15']),
                 new App\ContentMeta(['key' => 'endsAt', 'value' => '2019-09-18']),
+
+                // Retail
+                new App\ContentMeta(['key' => 'retailName', 'value' => 'Amgalan Auto Plaza']),
+                new App\ContentMeta(['key' => 'retailAddress', 'value' => 'БЗД, Амгалангийн тойрог / Нохойны хөшөөтэй/ зүүн тийш өнгөрөөд 300м яваад төв замын хойд талд']),
+                new App\ContentMeta(['key' => 'retailOpenHours', 'value' => 'Monday to Saturday 9:00am to 18:00 pm Lunch 12:00 to 13:00']),
+                new App\ContentMeta(['key' => 'retailWebsite', 'value' => 'www.yourdomain.com']),
+                new App\ContentMeta(['key' => 'retailPhone', 'value' => '+976 99999999']),
+                new App\ContentMeta(['key' => 'retailVehicles', 'value' => '132']),
+                new App\ContentMeta(['key' => 'retailImage', 'value' => url('assets/car-web/img/retail.png')]),
+
+                // Seller
+                new App\ContentMeta(['key' => 'sellerDescription', 'value' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum ullam, explicabo iure delectus asperiores sed aliquam provident magnam similique accusantium magni! Neque dolorum similique aliquam id recusandae aliquid nihil sit, blanditiis corporis? Odit, repudiandae recusandae. Libero rem aliquid, distinctio vel ad ab nostrum nulla repellendus modi officia eligendi officiis ducimus labore? Ad, praesentium laborum fugiat vitae doloremque qui beatae consectetur.']),
+
+                // Diagnostic
+                new App\ContentMeta(['key' => 'diagnosticConditionImage', 'value' => url('assets/car-web/img/retail.png')]),
+
+                // Options - Exterior
+                new App\ContentMeta(['key' => 'optionExteriorSunroof', 'value' => true]),
+                new App\ContentMeta(['key' => 'optionExteriorAluminumWheel', 'value' => true]),
+                new App\ContentMeta(['key' => 'optionExterior4SeasonTire', 'value' => true]),
+                new App\ContentMeta(['key' => 'optionExteriorElectricSideMirror', 'value' => true]),
+                new App\ContentMeta(['key' => 'optionExteriorRearWiper', 'value' => true]),
+
+                // Options - Guts
+                new App\ContentMeta(['key' => 'optionGutsSteerRemoteControl', 'value' => true]),
+                new App\ContentMeta(['key' => 'optionGutsPowerSteering', 'value' => true]),
+                new App\ContentMeta(['key' => 'optionGutsLeatherSeat', 'value' => true]),
+                new App\ContentMeta(['key' => 'optionGutsElectricSeatDriverSeat', 'value' => true]),
+                new App\ContentMeta(['key' => 'optionGutsElectricSeatPassengerSeat', 'value' => true]),
+                new App\ContentMeta(['key' => 'optionGutsHeatedSeatDriverSeat', 'value' => true]),
+                new App\ContentMeta(['key' => 'optionGutsHeatedSeatRearSeat', 'value' => true]),
+                new App\ContentMeta(['key' => 'optionGutsMemorySeatDriverSeat', 'value' => true]),
+                new App\ContentMeta(['key' => 'optionGutsPowerDoorLock', 'value' => true]),
+
+                // Options - Safety
+                new App\ContentMeta(['key' => 'optionSafetyAirbagDriverSeat', 'value' => true]),
+                new App\ContentMeta(['key' => 'optionSafetyAirbagPassengerSeat', 'value' => true]),
+                new App\ContentMeta(['key' => 'optionSafetyAirbagSide', 'value' => true]),
+                new App\ContentMeta(['key' => 'optionSafetyAirbagCurtains', 'value' => true]),
+                new App\ContentMeta(['key' => 'optionSafetyCameraFront', 'value' => true]),
+                new App\ContentMeta(['key' => 'optionSafetyCameraRear', 'value' => true]),
+                new App\ContentMeta(['key' => 'optionSafetyCameraSide', 'value' => true]),
+                new App\ContentMeta(['key' => 'optionSafetyParkingSenseRear', 'value' => true]),
+                new App\ContentMeta(['key' => 'optionSafetyParkingSenseFront', 'value' => true]),
+                new App\ContentMeta(['key' => 'optionSafetyABS', 'value' => true]),
+                new App\ContentMeta(['key' => 'optionSafetyElectricParkingBrake', 'value' => true]),
+
+                // Options - Convenience
+                new App\ContentMeta(['key' => 'optionConvenienceSmartKey', 'value' => true]),
+                new App\ContentMeta(['key' => 'optionConvenienceCruiseControl', 'value' => true]),
+                new App\ContentMeta(['key' => 'optionConvenienceAutoAirCondition', 'value' => true]),
+                new App\ContentMeta(['key' => 'optionConveniencePowerWindow', 'value' => true]),
+                new App\ContentMeta(['key' => 'optionConvenienceCDPlayer', 'value' => true]),
+                new App\ContentMeta(['key' => 'optionConvenienceNavigation', 'value' => true]),
+                new App\ContentMeta(['key' => 'optionConvenienceUSBTerminal', 'value' => true]),
+                new App\ContentMeta(['key' => 'optionConvenienceAUXTerminal', 'value' => true]),
+                new App\ContentMeta(['key' => 'optionConvenienceBluetooth', 'value' => true]),
+                new App\ContentMeta(['key' => 'optionConvenienceAutoLight', 'value' => true]),
+                new App\ContentMeta(['key' => 'optionConvenienceRainSenser', 'value' => true]),
+                new App\ContentMeta(['key' => 'optionConvenienceAVMonitorFront', 'value' => true]),
+                new App\ContentMeta(['key' => 'optionConvenienceAVMonitorRear', 'value' => true]),
+                new App\ContentMeta(['key' => 'optionConvenienceBlinderRear', 'value' => true]),
+                new App\ContentMeta(['key' => 'optionConvenienceBlackBox', 'value' => true]),
+
+                // Options - Clean
+                new App\ContentMeta(['key' => 'optionCleanOnePersonDrive', 'value' => true]),
+                new App\ContentMeta(['key' => 'optionCleanNoSmoking', 'value' => true]),
+                new App\ContentMeta(['key' => 'optionCleanWomanDriver', 'value' => true]),
             ]);
 
             $content->metas()->saveMany($medias);

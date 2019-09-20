@@ -60,7 +60,7 @@
                                 @include('themes.car-web.includes.detail-car-stats', ['content' => $content])
                             </div>
                             <div class="col-md-12 px-5">
-                                <a class="btn btn-danger btn-round btn-block my-4 shadow-red p-3" href="#">Online purchase</a>
+                                <a class="btn btn-danger btn-round btn-block my-4 shadow-red p-3" href="#">Зээлийн боломжийг шалгах</a>
                                 <a class="btn btn-light btn-round btn-block my-4 shadow-soft-blue p-3 btn-icon-left" href="#">
                                     <i class="icon-heart"></i>
                                     Save to interested
