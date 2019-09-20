@@ -15,12 +15,8 @@ if (!file_exists(base_path('.env')) && config('app.env_install')) {
     \Artisan::call('env:install');
 }
 
-Route::get('redirect/{driver}', 'Auth\RegisterController@redirectToProvider')
-->name('login.provider')
-->where('driver', 'google|facebook');
-Route::get('callback/{driver}', 'Auth\RegisterController@handleProviderCallback')
-->name('login.callback')
-->where('driver', 'google|facebook');
+Route::get('redirect/{driver}', 'Auth\RegisterController@redirectToProvider')->name('login.provider')->where('driver', 'google|facebook');
+Route::get('callback/{driver}', 'Auth\RegisterController@handleProviderCallback')->name('login.callback')->where('driver', 'google|facebook');
 
 Route::middleware(['installed'])->group(function () {
 
