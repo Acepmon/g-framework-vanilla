@@ -88,7 +88,7 @@ class ConfigController extends Controller
         $days = "";
         $hours = "";
         $minutes = "";
-        $emails = Config::getValue('system.maintenance.emails');
+        $emails = config('system.maintenance.emails');
 
         if ($exists) {
             $content = json_decode(file_get_contents(storage_path('framework/down')), true);
@@ -189,6 +189,9 @@ class ConfigController extends Controller
             'session',
             'tinker',
             'view',
+            'system',
+            'themes',
+            'content'
         ];
 
         return view('admin.configs.base', ['configs' => $configs]);
@@ -209,35 +212,5 @@ class ConfigController extends Controller
         } catch (\Exception $e) {
             abort(400);
         }
-    }
-
-    public function system()
-    {
-        $configs = Config::where('key', 'LIKE', 'system.%')->get();
-        return view('admin.configs.system', ['configs' => $configs]);
-    }
-
-    public function themes()
-    {
-        $configs = Config::where('key', 'LIKE', 'themes.%')->get();
-        return view('admin.configs.themes', ['configs' => $configs]);
-    }
-
-    public function plugins()
-    {
-        $configs = Config::where('key', 'LIKE', 'plugins.%')->get();
-        return view('admin.configs.plugins', ['configs' => $configs]);
-    }
-
-    public function security()
-    {
-        $configs = Config::where('key', 'LIKE', 'security.%')->get();
-        return view('admin.configs.security', ['configs' => $configs]);
-    }
-
-    public function contents()
-    {
-        $configs = Config::where('key', 'LIKE', 'content.%')->get();
-        return view('admin.configs.contents', ['configs' => $configs]);
     }
 }

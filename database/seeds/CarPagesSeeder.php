@@ -15,7 +15,7 @@ class CarPagesSeeder extends Seeder
 
 
         $time = time();
-        $rootPath = \App\Config::where('key', 'content.pages.rootPath')->first()->value;
+        $rootPath = config('content.pages.rootPath');
 
         $content = new \App\Content;
         $content->title = 'Car web';
@@ -50,7 +50,7 @@ class CarPagesSeeder extends Seeder
 
 
         $time = time();
-        $rootPath = \App\Config::where('key', 'content.pages.rootPath')->first()->value;
+        $rootPath = config('content.pages.rootPath');
 
         $content = new \App\Content;
         $content->title = 'Car web login';
@@ -85,7 +85,7 @@ class CarPagesSeeder extends Seeder
         //        ------------- car web home forget password page -----------------------
 
         $time = time();
-        $rootPath = \App\Config::where('key', 'content.pages.rootPath')->first()->value;
+        $rootPath = config('content.pages.rootPath');
 
         $content = new \App\Content;
         $content->title = 'Car web recover password';
@@ -120,7 +120,7 @@ class CarPagesSeeder extends Seeder
         //        ------------- car web home forget password page -----------------------
 
         $time = time();
-        $rootPath = \App\Config::where('key', 'content.pages.rootPath')->first()->value;
+        $rootPath = config('content.pages.rootPath');
 
         $content = new \App\Content;
         $content->title = 'Car web finance';
@@ -155,7 +155,7 @@ class CarPagesSeeder extends Seeder
         //        ------------- car search page -----------------------
 
         $time = time();
-        $rootPath = \App\Config::where('key', 'content.pages.rootPath')->first()->value;
+        $rootPath = config('content.pages.rootPath');
 
         $content = new \App\Content;
         $content->title = 'Car Search';

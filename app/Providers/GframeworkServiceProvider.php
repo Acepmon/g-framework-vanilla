@@ -30,7 +30,7 @@ class GframeworkServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        view()->composer('pages.*', function ($view) {
+        view()->composer(config('content.pages.viewPath') . '.*', function ($view) {
             $content = Content::where('slug', \Request::path())->first();
             $banners = Banner::all();
             return $view->with('content', $content)->with('banners', $banners);

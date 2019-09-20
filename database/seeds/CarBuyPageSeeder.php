@@ -15,7 +15,7 @@ class CarBuyPageSeeder extends Seeder
         try{
             DB::beginTransaction();
             $time = time();
-            $rootPath = \App\Config::where('key', 'content.pages.rootPath')->first()->value;
+            $rootPath = config('content.pages.rootPath');
 
             $content = new \App\Content;
             $content->title = 'Buy';
