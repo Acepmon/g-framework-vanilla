@@ -81,9 +81,6 @@
         <!-- Option information -->
         @include('themes.car-web.includes.section-options', ['content' => $content])
 
-        <!-- Diagnostic summary -->
-        @include('themes.car-web.includes.section-diagnostic', ['content' => $content])
-
         <!-- Seller Description -->
         @include('themes.car-web.includes.section-seller-description', ['content' => $content])
 

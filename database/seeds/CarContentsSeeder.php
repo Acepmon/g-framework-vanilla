@@ -71,7 +71,6 @@ class CarContentsSeeder extends Seeder
                 new App\ContentMeta(['key' => 'wheelDrive', 'value' => 'back']),
                 new App\ContentMeta(['key' => 'mileage', 'value' => '5000km']),
                 new App\ContentMeta(['key' => 'advantages', 'value' => 'used in womans hand']),
-                new App\ContentMeta(['key' => 'SellerDescription', 'value' => 'there is nothing to change']),
                 new App\ContentMeta(['key' => 'price', 'value' => '10000000']),
                 new App\ContentMeta(['key' => 'priceType', 'value' => 'loan']),
                 new App\ContentMeta(['key' => 'thumbnail', 'value' => $thumbnail]),
@@ -81,6 +80,13 @@ class CarContentsSeeder extends Seeder
                 new App\ContentMeta(['key' => 'maxBid', 'value' => '14000000']),
                 new App\ContentMeta(['key' => 'startsAt', 'value' => '2019-09-15']),
                 new App\ContentMeta(['key' => 'endsAt', 'value' => '2019-09-18']),
+
+                new App\ContentMeta(['key' => 'engine', 'value' => '1499 L']),
+                new App\ContentMeta(['key' => 'chassis', 'value' => '4 WD']),
+                new App\ContentMeta(['key' => 'speedLimit', 'value' => '180 km/h']),
+                new App\ContentMeta(['key' => 'colorNameInterior', 'value' => 'beige']),
+                new App\ContentMeta(['key' => 'colorNameExterior', 'value' => 'black']),
+                new App\ContentMeta(['key' => 'doorCount', 'value' => '4']),
 
                 // Retail
                 new App\ContentMeta(['key' => 'retailName', 'value' => 'Amgalan Auto Plaza']),
