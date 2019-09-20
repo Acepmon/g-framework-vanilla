@@ -86,7 +86,7 @@ class RegisterController extends Controller
             $user->save();
         }
 
-        $groupId = (array_key_exists('group', $data) && $data['group']) || config('system.register.defaultGroup');
+        $groupId = array_key_exists('group', $data) ? $data['group'] : config('system.register.defaultGroup');
         if (!empty($groupId)) {
             $user->groups()->attach($groupId);
         }
