@@ -15,6 +15,13 @@ if (!file_exists(base_path('.env')) && config('app.env_install')) {
     \Artisan::call('env:install');
 }
 
+Route::get('redirect/{driver}', 'Auth\RegisterController@redirectToProvider')
+->name('login.provider')
+->where('driver', 'google|facebook');
+Route::get('callback/{driver}', 'Auth\RegisterController@handleProviderCallback')
+->name('login.callback')
+->where('driver', 'google|facebook');
+
 Route::middleware(['installed'])->group(function () {
 
     Route::middleware(['auth', 'admin'])->group(function () {
@@ -33,7 +40,7 @@ Route::middleware(['installed'])->group(function () {
                 Route::get('install','PluginController@installPlugin')->name('admin.plugins.install');
                 Route::get('installTheme','ThemeController@installTheme')->name('admin.themes.install');
 
-                Route::get('databaseRestore','backupController@databaseRestore')->name('admin.backups.databaseRestore');
+                Route::get('databaseRestore','BackupController@databaseRestore')->name('admin.backups.databaseRestore');
 
                 Route::get('/menus/tree', 'MenuController@tree')->name('admin.menus.tree');
                 Route::put('/menus/tree', 'MenuController@updateTree')->name('admin.menus.tree.update');
@@ -49,19 +56,19 @@ Route::middleware(['installed'])->group(function () {
                 });
 
                 Route::prefix('configs')->group(function () {
-                    Route::post('/', 'ConfigController@store')->name('admin.configs.store');
-                    Route::get('create', 'ConfigController@create')->name('admin.configs.create');
-                    Route::get('{id}/edit', 'ConfigController@edit')->name('admin.configs.edit');
-                    Route::put('{id}', 'ConfigController@update')->name('admin.configs.update');
+                    // Route::post('/', 'ConfigController@store')->name('admin.configs.store');
+                    // Route::get('create', 'ConfigController@create')->name('admin.configs.create');
+                    // Route::get('{id}/edit', 'ConfigController@edit')->name('admin.configs.edit');
+                    // Route::put('{id}', 'ConfigController@update')->name('admin.configs.update');
                     Route::get('maintenance', 'ConfigController@maintenance')->name('admin.configs.maintenance');
                     Route::post('maintenance', 'ConfigController@setMaintenance')->name('admin.configs.maintenance.set');
                     Route::get('base', 'ConfigController@base')->name('admin.configs.base');
                     Route::put('base', 'ConfigController@updateBase')->name('admin.configs.base.update');
-                    Route::get('system', 'ConfigController@system')->name('admin.configs.system');
-                    Route::get('themes', 'ConfigController@themes')->name('admin.configs.themes');
-                    Route::get('plugins', 'ConfigController@plugins')->name('admin.configs.plugins');
-                    Route::get('security', 'ConfigController@security')->name('admin.configs.security');
-                    Route::get('contents', 'ConfigController@contents')->name('admin.configs.contents');
+                    // Route::get('system', 'ConfigController@system')->name('admin.configs.system');
+                    // Route::get('themes', 'ConfigController@themes')->name('admin.configs.themes');
+                    // Route::get('plugins', 'ConfigController@plugins')->name('admin.configs.plugins');
+                    // Route::get('security', 'ConfigController@security')->name('admin.configs.security');
+                    // Route::get('contents', 'ConfigController@contents')->name('admin.configs.contents');
                 });
 
                 Route::prefix('logs')->group(function () {
@@ -247,28 +254,25 @@ Route::middleware(['installed'])->group(function () {
                     'edit' => 'admin.cars.edit',
                     'update' => 'admin.cars.update',
                     'destroy' => 'admin.cars.destroy'
-                    ]);
-                Route::prefix('banners')->group(function () {
-                    Route::resource('locations', 'BannerLocationController')->names([
-                        'index' => 'admin.banners.locations.index',
-                        'create' => 'admin.banners.locations.create',
-                        'store' => 'admin.banners.locations.store',
-                        'show' => 'admin.banners.locations.show',
-                        'edit' => 'admin.banners.locations.edit',
-                        'update' => 'admin.banners.locations.update',
-                        'destroy' => 'admin.banners.locations.destroy'
-                    ]);
-
-                    Route::resource('', 'BannerController')->names([
-                        'index' => 'admin.banners.index',
-                        'create' => 'admin.banners.create',
-                        'store' => 'admin.banners.store',
-                        'show' => 'admin.banners.show',
-                        'edit' => 'admin.banners.edit',
-                        'update' => 'admin.banners.update',
-                        'destroy' => 'admin.banners.destroy'
-                    ]);
-                });
+                ]);
+                Route::resource('banners/locations', 'BannerLocationController')->names([
+                    'index' => 'admin.banners.locations.index',
+                    'create' => 'admin.banners.locations.create',
+                    'store' => 'admin.banners.locations.store',
+                    'show' => 'admin.banners.locations.show',
+                    'edit' => 'admin.banners.locations.edit',
+                    'update' => 'admin.banners.locations.update',
+                    'destroy' => 'admin.banners.locations.destroy'
+                ]);
+                Route::resource('banners', 'BannerController')->names([
+                    'index' => 'admin.banners.index',
+                    'create' => 'admin.banners.create',
+                    'store' => 'admin.banners.store',
+                    'show' => 'admin.banners.show',
+                    'edit' => 'admin.banners.edit',
+                    'update' => 'admin.banners.update',
+                    'destroy' => 'admin.banners.destroy'
+                ]);
                 Route::get('/contents/{id}/revisions/{revision}/revert', 'ContentController@revert')->name('admin.contents.revisions.revert');
                 Route::get('/contents/{id}/revisions/{revision}', 'ContentController@viewRevision')->name('admin.contents.revisions.show');
                 Route::put('/contents/{id}/revisions', 'ContentController@updateRevision')->name('admin.contents.revisions.update');

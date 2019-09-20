@@ -66,8 +66,6 @@ class CarController extends Controller
             'visibility' => 'required|max:50',
             'author_id' => 'required|integer|exists:users,id',
             'manufacturer' => 'required|max:255',
-            'carCondition' => 'required|max:255',
-            'plateNumber' => 'max:10',
             'modelName' => 'required|max:255',
             'colorName' => 'required|max:255',
             'displacement' => 'required|max:255',
@@ -98,8 +96,6 @@ class CarController extends Controller
             $content->save();
 
             $content->attachMeta('manufacturer', $request->manufacturer);
-            $content->attachMeta('carCondition', $request->carCondition);
-            $content->attachMeta('plateNumber', $request->plateNumber);
             $content->attachMeta('modelName', $request->modelName);
             $content->attachMeta('colorName', $request->colorName);
             $content->attachMeta('displacement', $request->displacement);
@@ -226,7 +222,6 @@ class CarController extends Controller
             'author_id' => 'required|integer|exists:users,id',
             'carTitle' => 'required|max:255',
             'manufacturer' => 'required|max:255',
-            'carCondition' => 'required|max:255',
             'modelName' => 'required|max:255',
             'colorName' => 'required|max:255',
             'displacement' => 'required|max:255',
@@ -257,7 +252,6 @@ class CarController extends Controller
 
             $content->updateMeta('carTitle', $request->carTitle);
             $content->updateMeta('manufacturer', $request->manufacturer);
-            $content->updateMeta('carCondition', $request->carCondition);
             $content->updateMeta('modelName', $request->modelName);
             $content->updateMeta('colorName', $request->colorName);
             $content->updateMeta('displacement', $request->displacement);
@@ -332,7 +326,7 @@ class CarController extends Controller
             $content_meta->value = json_encode($revision_value);
             $content_meta->save();
 
-            $viewPath = str_replace('.', '/', 'views.' . Config::where('key', 'content.'.$revision->content->type.'s.viewPath')->first()->value);
+            $viewPath = str_replace('.', '/', 'views.' . config('content.'.$revision->content->type.'s.viewPath'));
             $filename = $viewPath . '/' . $revision->content->slug . Content::NAMING_CONVENTION . $revision->content->status . Content::NAMING_CONVENTION . $revision_value->datetime . '.blade.php';
             $newname = $viewPath . '/' . $revision->content->slug . Content::NAMING_CONVENTION . $revision->content->status . Content::NAMING_CONVENTION . $time . '.blade.php';
             copy(resource_path($filename), resource_path($newname));
@@ -350,7 +344,7 @@ class CarController extends Controller
         $content = Content::findOrFail($id);
         $revision = ContentMeta::findOrFail(Route::current()->parameter('revision'));
 
-        $viewPath = Config::where('key', 'content.'.$content->type.'s.rootPath')->first()->value;
+        $viewPath = config('content.'.$content->type.'s.rootPath');
         $path = $viewPath . DIRECTORY_SEPARATOR . $revision->revisionView();
         $revision_path = $path . '.blade.php';
         return view('admin.contents.revisions.show', ['content' => $content, 'revision' => $revision, 'revision_path' => $revision_path]);
@@ -383,12 +377,12 @@ class CarController extends Controller
             $content_meta->value = json_encode($value);
             $content_meta->save();
 
-            $viewPath = Config::where('key', 'content.'.$content->type.'s.viewPath')->first()->value;
+            $viewPath = config('content.'.$content->type.'s.viewPath');
             $name = $content->slug . Content::NAMING_CONVENTION . $content->status . Content::NAMING_CONVENTION . $time;
             $extension =  'blade.php';
             $this->create_view($content->type, $viewPath . '.' . $name, $extension);
 
-            $viewPath = Config::where('key', 'content.'.$content->type.'s.rootPath')->first()->value;
+            $viewPath = config('content.'.$content->type.'s.rootPath');
             $revision_path = $viewPath . DIRECTORY_SEPARATOR . $name . '.' . $extension;
             file_put_contents(base_path($revision_path), $revision_content);
 

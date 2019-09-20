@@ -7,7 +7,7 @@
 @endsection
 
 @section('load')
-
+<script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/plugins/tables/datatables/datatables.min.js') }}"></script>
 @endsection
 
 @section('pageheader')
@@ -19,13 +19,17 @@
     <div class="card-header header-elements-inline">
         <h5 class="card-title">Banners Datatable</h5>
         <div class="header-elements">
-            <div class="list-icons">
-                <a class="list-icons-item" data-action="collapse"></a>
-                <a class="list-icons-item" data-action="reload"></a>
-                <a class="list-icons-item" data-action="remove"></a>
-            </div>
+            <a href="{{ route('admin.banners.locations.create') }}" class="btn btn-light"><span class="icon-plus3 mr-2"></span> New Location</a>
         </div>
     </div>
+
+    @if (session('status'))
+        <div class="card-body">
+            <div class="alert alert-success">
+                {!! session('status') !!}
+            </div>
+        </div>
+    @endif
 
     <table class="table table-condensed table-hover datatable-basic">
         <thead>

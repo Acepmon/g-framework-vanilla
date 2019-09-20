@@ -32,7 +32,7 @@ class Theme extends Model
 
     public function layouts() {
         $layouts = [];
-        $path = Config::getValue('themes.install.viewPath');
+        $path = config('themes.install.viewPath');
         $fullPath = $path . DIRECTORY_SEPARATOR . $this->package . DIRECTORY_SEPARATOR . 'layouts';
         if (File::exists($fullPath)) {
             foreach(File::files($fullPath) as $path) {
@@ -49,7 +49,7 @@ class Theme extends Model
 
     public function includes() {
         $includes = [];
-        $path = Config::getValue('themes.install.viewPath');
+        $path = config('themes.install.viewPath');
         $fullPath = $path . DIRECTORY_SEPARATOR . $this->package . DIRECTORY_SEPARATOR . 'includes';
         if (File::exists($fullPath)) {
             foreach(File::files($fullPath) as $path) {

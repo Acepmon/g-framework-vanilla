@@ -11,30 +11,29 @@
 @endsection
 
 @section('content')
-    <div class="row">
-        @foreach ($configs as $config)
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-header header-elements-inline">
-                    <h5 class="card-title">
-                        <span class="font-weight-semibold">{{$config}}.php</span>
-                    </h5>
-                    <div class="header-elements">
-                        <button type="button" data-target="{{$config}}" data-loading-text="<i class='icon-spinner4 spinner position-left'></i> Saving" class="btn btn-primary btn-sm btn-loading">Save Configuration</button>
-                    </div>
-                </div>
+<div class="card-group-control card-group-control-left" id="accordion-control">
+    @foreach ($configs as $config)
+    <div class="card">
+        <div class="card-header header-elements-inline">
+            <h6 class="card-title">
+                <a data-toggle="collapse" class="text-default collapsed" href="#accordion-control-group-{{$config}}">{{$config}}.php</a>
+            </h6>
 
-                <div class="card-body">
-                    <div class="content-group">
-                        <div id="{{$config}}_editor">
-                            {{ Storage::disk('config')->get($config . '.php') }}
-                        </div>
-                    </div>
-                </div>
+            <div class="header-elements">
+                <button type="button" data-target="{{$config}}" data-initial-text="<span class='icon-floppy-disk mr-2'></span> Save" data-loading-text="<span class='icon-spinner4 spinner mr-2'></span> Saving" class="btn btn-light btn-sm btn-save">
+                    <span class='icon-floppy-disk mr-2'></span> Save
+                </button>
             </div>
         </div>
-        @endforeach
+
+        <div id="accordion-control-group-{{$config}}" class="collapse" data-parent="#accordion-control">
+            <div class="card-body">
+                <div id="{{$config}}_editor">{{ Storage::disk('config')->get($config . '.php') }}</div>
+            </div>
+        </div>
     </div>
+    @endforeach
+</div>
 @endsection
 
 @section('script')
@@ -55,11 +54,13 @@
         // ------------------------------
 
         // Initialize on button click
-        $('.btn-loading').click(function () {
+        $('.btn-save').click(function () {
             var btn = $(this);
             var target = $(this).data("target");
             var content = objects[target].getSession().getValue();
-            btn.button('loading');
+            var initialText = btn.data('initial-text');
+            var loadingText = btn.data('loading-text');
+            btn.html(loadingText).addClass('disabled');
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -73,7 +74,7 @@
                     content: content
                 },
                 success: function () {
-                    btn.button('reset');
+                    btn.html(initialText).removeClass('disabled');
                 }
             });
         });

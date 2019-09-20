@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Banner;
+use App\BannerLocation;
 use App\Content;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use File;
 use Storage;
+use Carbon\Carbon;
 
 class BannerController extends Controller
 {
@@ -16,11 +18,20 @@ class BannerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $banners = Banner::all();
+        if ($request->has('location_id')) {
+            $data = [
+                'banners' => Banner::where('location_id', $request->input('location_id'))->get(),
+                'location' => BannerLocation::find($request->input('location_id'))
+            ];
+        } else {
+            $data = [
+                'banners' => Banner::all(),
+            ];
+        }
 
-        return view('admin.banners.index', ['banners' => $banners]);
+        return view('admin.banners.index', $data);
     }
 
     /**
@@ -30,10 +41,10 @@ class BannerController extends Controller
      */
     public function create()
     {
+        $locations = BannerLocation::all();
         $pages = Content::where('type', Content::TYPE_PAGE)->get();
-        $lastOrder = Banner::orderBy('order', 'desc')->first()->order;
 
-        return view('admin.banners.create', ['pages' => $pages, 'lastOrder' => $lastOrder]);
+        return view('admin.banners.create', ['locations' => $locations, 'pages' => $pages]);
     }
 
     /**
@@ -46,19 +57,26 @@ class BannerController extends Controller
     {
         $request->validate([
             'title' => 'required|max:191',
+            'banner' => 'required|file',
+            'link' => 'nullable',
+            'location' => 'required|exists:banner_locations,id',
+            'status' => 'nullable',
+            'schedule' => 'required',
         ]);
+
+        $schedule = explode('-', $request->input('schedule'));
 
         $banner = new Banner();
         $banner->title = $request->input('title');
+        $banner->link = $request->input('link');
+        $banner->location_id = $request->input('location');
+        $banner->status = $request->input('status', 'draft');
+        $banner->starts_at = Carbon::parse(trim($schedule[0]));
+        $banner->ends_at = Carbon::parse(trim($schedule[1]));
 
-        if ($request->hasFile('banner_img_mobile') && $request->has('banner_img_mobile_cropped')) {
-            $filename = $this->saveBase64Image($request->input('banner_img_mobile_cropped'), $request->banner_img_mobile->getMimeType(), $request->banner_img_mobile->extension());
-            $banner->banner_img_mobile = url(Storage::url($filename));
-        }
-
-        if ($request->hasFile('banner_img_web') && $request->has('banner_img_web_cropped')) {
-            $filename = $this->saveBase64Image($request->input('banner_img_web_cropped'), $request->banner_img_web->getMimeType(), $request->banner_img_web->extension());
-            $banner->banner_img_web = url(Storage::url($filename));
+        if ($request->hasFile('banner') && $request->has('banner_cropped')) {
+            $filename = $this->saveBase64Image($request->input('banner_cropped'), $request->banner->getMimeType(), $request->banner->extension());
+            $banner->banner = url(Storage::url($filename));
         }
 
         $banner->save();
@@ -85,10 +103,10 @@ class BannerController extends Controller
      */
     public function edit(Banner $banner)
     {
+        $locations = BannerLocation::all();
         $pages = Content::where('type', Content::TYPE_PAGE)->get();
-        $lastOrder = Banner::orderBy('order', 'desc')->first()->order;
 
-        return view('admin.banners.edit', ['pages' => $pages, 'lastOrder' => $lastOrder, 'banner' => $banner]);
+        return view('admin.banners.edit', ['locations' => $locations, 'pages' => $pages, 'banner' => $banner]);
     }
 
     /**
@@ -108,38 +126,31 @@ class BannerController extends Controller
             $banner->title = $request->input('title');
         }
 
-        if ($request->has('btn_show')) {
-            $banner->btn_show = $request->input('btn_show');
+        if ($request->has('link')) {
+            $banner->link = $request->input('link');
         }
 
-        if ($request->has('btn_text')) {
-            $banner->btn_text = $request->input('btn_text');
+        if ($request->has('location')) {
+            $banner->location = $request->input('location');
         }
 
-        if ($request->has('btn_link')) {
-            $banner->btn_link = $request->input('btn_link');
+        if ($request->has('status')) {
+            $banner->status = $request->input('status');
         }
 
-        if ($request->has('order')) {
-            $banner->order = $request->input('order');
+        if ($request->has('starts_at')) {
+            $banner->starts_at = $request->input('starts_at');
         }
 
-        if ($request->has('active')) {
-            $banner->active = $request->input('active');
+        if ($request->has('ends_at')) {
+            $banner->ends_at = $request->input('ends_at');
         }
 
-        if ($request->has('banner_img_mobile_remove')) {
-            $banner->banner_img_mobile = null;
-        } else if ($request->hasFile('banner_img_mobile') && $request->has('banner_img_mobile_cropped')) {
-            $filename = $this->saveBase64Image($request->input('banner_img_mobile_cropped'), $request->banner_img_mobile->getMimeType(), $request->banner_img_mobile->extension());
-            $banner->banner_img_mobile = url(Storage::url($filename));
-        }
-
-        if ($request->has('banner_img_web_remove')) {
-            $banner->banner_img_web = null;
-        } else if ($request->hasFile('banner_img_web') && $request->has('banner_img_web_cropped')) {
-            $filename = $this->saveBase64Image($request->input('banner_img_web_cropped'), $request->banner_img_web->getMimeType(), $request->banner_img_web->extension());
-            $banner->banner_img_web = url(Storage::url($filename));
+        if ($request->has('banner_remove')) {
+            $banner->banner = null;
+        } else if ($request->hasFile('banner') && $request->has('banner_cropped')) {
+            $filename = $this->saveBase64Image($request->input('banner_cropped'), $request->banner->getMimeType(), $request->banner->extension());
+            $banner->banner = url(Storage::url($filename));
         }
 
         $banner->save();

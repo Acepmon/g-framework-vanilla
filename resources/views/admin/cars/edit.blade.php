@@ -93,11 +93,8 @@
                     @endif
                     <div class="form-group row">
                         <label class="col-form-label col-lg-2">Title <span class="text-danger">*</span></label>
-                        <div class="col-lg-8">
+                        <div class="col-lg-10">
                             <input id="title" type="text" class="form-control" name="title" placeholder="Enter content title..." value="{{$content->title}}" required="required" aria-required="true" invalid="true" onfocusout="create_slug()">
-                        </div>
-                        <div class="col-lg-2">
-                            <button type="button" class="btn btn-light" onclick="create_slug()">Create Slug</button>
                         </div>
                     </div>
                     <input id="slug" type="hidden" class="form-control" name="slug" placeholder="Enter content slug..." value="{{$content->slug}}" required="required" aria-required="true" invalid="true">
@@ -132,30 +129,12 @@
 
                     <div class="form-group row">
                         <label for="manufacturer" class="col-form-label col-lg-2">Manufacturer</label>
-                        <div class="col-lg-4">
+                        <div class="col-lg-10">
                             <select id="manufacturer" name="manufacturer" class="form-control text-capitalize">
                                 @foreach(App\TermTaxonomy::where('taxonomy', 'manufacturer')->get() as $value)
                                     <option value="{{ $value->term->name }}" {{ $value->term->name==$content->metaValue('manufacturer')?'selected':'' }}>{{ $value->term->name }}</option>
                                 @endforeach
                             </select>
-                        </div>
-                        <label for="carCondition" class="col-form-label col-lg-2">Car condition</label>
-                        <div class="col-lg-4">
-
-                            @foreach(App\TermTaxonomy::where('taxonomy', 'car-condition')->get() as $key=>$value)
-                                <label class="radio-inline">
-                                    <input type="radio" name="carCondition" class="styled" value="{{$value->term->name}}" onchange="carConditionChanged('{{$value->term->name}}')"
-                                    @if($key == 0) 
-                                        checked
-                                    @endif>
-                                    {{ $value->term->name }}
-                                </label>
-                                @if($value->term->name == 'Used') 
-                                <label class="radio-inline">
-                                    <input id="plateNumber" type="text" class="form-control" name="plateNumber" placeholder="Enter number plate..." style="visibility: hidden" value="{{$content->metaValue('plateNumber')}}">
-                                </label>
-                                @endif
-                            @endforeach
                         </div>
                     </div>
 
