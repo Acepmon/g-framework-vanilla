@@ -223,6 +223,8 @@ class PermissionsSeeder extends Seeder
             ['title' => 'admin_profile_permissions_read', 'type' => Permission::TYPE_READ, 'description' => 'read permission for profile_permissions_read'],
             ['title' => 'admin_profile_settings_read', 'type' => Permission::TYPE_READ, 'description' => 'read permission for profile_settings_read'],
             ['title' => 'admin_profile_notifications_read', 'type' => Permission::TYPE_READ, 'description' => 'read permission for profile_notifications_read'],
+            ['title' => 'password_update', 'type' => Permission::TYPE_UPDATE, 'description' => 'update permission for password_update'],
+
         ]);
         App\Group::findOrFail(1)->permissions()->attach(Permission::all(), array('is_granted' => true));
     }
