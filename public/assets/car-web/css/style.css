@@ -816,6 +816,12 @@ header.masthead .master-head-bg {
   color: #2B3651;
 }
 
+.detail-page .dealer-information .dealer-more {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+
 .detail-page .dealer-information .dealer-more .value {
   width: 70px;
   height: 70px;

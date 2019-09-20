@@ -81,12 +81,21 @@ class CarContentsSeeder extends Seeder
                 new App\ContentMeta(['key' => 'startsAt', 'value' => '2019-09-15']),
                 new App\ContentMeta(['key' => 'endsAt', 'value' => '2019-09-18']),
 
+                new App\ContentMeta(['key' => 'viewed', 'value' => '419']),
+                new App\ContentMeta(['key' => 'interested', 'value' => '51']),
+
                 new App\ContentMeta(['key' => 'engine', 'value' => '1499 L']),
                 new App\ContentMeta(['key' => 'chassis', 'value' => '4 WD']),
                 new App\ContentMeta(['key' => 'speedLimit', 'value' => '180 km/h']),
                 new App\ContentMeta(['key' => 'colorNameInterior', 'value' => 'beige']),
                 new App\ContentMeta(['key' => 'colorNameExterior', 'value' => 'black']),
                 new App\ContentMeta(['key' => 'doorCount', 'value' => '4']),
+
+                // Doctor Service Verification
+                new App\ContentMeta(['key' => 'doctorVerified', 'value' => true]),
+                new App\ContentMeta(['key' => 'doctorVerifiedBy', 'value' => '1']),
+                new App\ContentMeta(['key' => 'doctorVerificationRequest', 'value' => false]),
+                new App\ContentMeta(['key' => 'doctorVerificationFile', 'value' => '']),
 
                 // Retail
                 new App\ContentMeta(['key' => 'retailName', 'value' => 'Amgalan Auto Plaza']),
