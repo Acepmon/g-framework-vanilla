@@ -1,367 +1,352 @@
 @extends('themes.car-web.layouts.default')
 
-@section('title')
-Car dealer
-@endsection
-
-@section('load')
-<link href="{{ asset('car-web/vendor/bootstrap-slider/css/bootstrap-slider.min.css') }}" rel="stylesheet">
-
-@endsection
-
-@section('content')
-
-<div class="bg-page-header"></div>
-
 @php
-function metaHas($items, $key, $value) {
-  return $items->whereHas('metas', function($query) use($key, $value) {
-    $query->where('key', $key)->where('value', $value);
-  });
+function metaHas($items, $key, $value)
+{
+return $items->whereHas('metas', function ($query) use ($key, $value) {
+$query->where('key', $key)->where('value', $value);
+});
 }
-function idize($value) {
-  return str_replace(' ', '_', strtolower($value));
+function idize($value)
+{
+return str_replace(' ', '_', strtolower($value));
 }
 $categories = [
-  'Car Type', 'Manufacturer', 'Color', 'Fuel', 'Transmission', 'Option', 'An accident', 'Passenger', 'Steering Wheel', 'Area'
-  ];
+'Car Type', 'Manufacturer', 'Color', 'Fuel', 'Transmission', 'Option', 'An accident', 'Passenger', 'Steering Wheel', 'Area'
+];
 
+// Get All items
 $orderBy = request('orderBy', "updated_at");
 $order = request('order', "desc");
 $page = request('page', "1");
 $itemsPerPage = request('itemsPerPage', "10");
 $allItems = App\Content::with('metas')->where('type', App\Content::TYPE_CAR);
 if ($orderBy != 'updated_at') {
-    $allItems = $allItems->join('content_metas', 'contents.id', '=', 'content_metas.content_id')
-    ->where('content_metas.key', '=', $orderBy)->select('contents.*')->addSelect('content_metas.value');
-    $allItems = $allItems->orderBy('value', $order);
+$allItems = $allItems->join('content_metas', 'contents.id', '=', 'content_metas.content_id')
+->where('content_metas.key', '=', $orderBy)->select('contents.*')->addSelect('content_metas.value');
+$allItems = $allItems->orderBy('value', $order);
 } else {
-    $allItems = $allItems->orderBy($orderBy, $order);
+$allItems = $allItems->orderBy($orderBy, $order);
 }
 $items = $allItems;
 
+// Items filtering
 $request = [];
-// $request['carCondition'] = request('carCondition', 'new');
 $request['type'] = request('car_type', 'Sedan');
 $request['markName'] = request('manufacturer', Null);
 $request['colorName'] = request('color', Null);
 $request['fuelType'] = request('fuel', Null);
 $request['transmission'] = request('transmission', Null);
-$request['advantages'] = request('option', Null);
+$request['advantages'] = request('advantage', Null);
 $request['manCount'] = request('passenger', Null);
 $request['wheelPosition'] = request('steering_wheel', Null);
 $request['countryName'] = request('area', Null);
-foreach($request as $key=>$value) {
-    if ($value != Null) {
-        $items = metaHas($items, $key, $value);
-    }
+foreach ($request as $key => $value) {
+if ($value != Null) {
+$items = metaHas($items, $key, $value);
+}
 }
 
-//$items = metaHas($items, 'wheelPosition', 'left');
-//{{ \\count(metaHas($allItems, 'Car Type', $taxonomy->term->name)->get()) }}
-
-/*TODO
-* Change idize function name
-* Fix request parameters on top and left page-top-navbar 50%
-* Add Year slider
-* Make taxonomy count iterable
-*/
-
 // HOT Deals
-$hotDeals = App\Content::where('type', App\Content::TYPE_CAR)->paginate(5);
+$hotDeals=App\Content::where('type', App\Content::TYPE_CAR)->inRandomOrder()->paginate(5);
+$items = $hotDeals->merge($items->get());
+
+// Post items filtering
+$itemCount = count($items->all());
+$maxPage = intval(ceil($itemCount / $itemsPerPage));
+if ($itemCount < $page * $itemsPerPage) {
+  $page= $maxPage;
+}
 
 // Banner
-$banner = App\Banner::where('status', 'active')->inRandomOrder()->first();
+$banner = App\Banner::where('location_id', 5)->where('status', 'active')->inRandomOrder()->first();
+// $sideBanners = App\Banner::where('location_id', 4)->where('status', 'active')->get();
+$sideBanners = App\Banner::where('location_id', 4)->get();
+
 @endphp
+
+@section('title')
+Car dealer
+@endsection
+
+@section('load')
+<link href="{{ asset('car-web/vendor/bootstrap-slider/css/bootstrap-slider.min.css') }}" rel="stylesheet">
+<style>
+.banner {
+  width: 100%;
+  padding-bottom: 15%;
+  background-image: url({{ $banner->banner }});
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.search {
+  background: transparent;
+  border: none;
+  outline: none;
+  font-weight: 700;
+  color: #2b3651;
+}
+
+.search::placeholder {
+  color: #2b3651;
+}
+</style>
+@endsection
+
+@section('content')
+
+<div class="bg-page-header"></div>
+
 <section class="section detail-page">
   <div class="container">
+    @include('themes.car-web.includes.fixed-right-sidebar', array('sideBanners'=>$sideBanners, 'premium'=>$hotDeals))
     <div class="row">
       <div class="col-md-3">
-        <form action="search" id="searchForm">
-            <input type="hidden" name="search" id="search">
+        <form action="car-search" id="searchForm">
         </form>
-        <form action="car-list">
-        <div class="left-bar-title">
-            <input type="text" class="search" id="searchInput" placeholder="VEHICLE SEARCH"/>
-            <button class="btn" id="searchBtn"><i class="fab fa fa-search"></i></button>
-        </div>
+        <form action="buy" id="mainForm">
+          <div class="left-bar-title">
+            <input type="text" class="search" id="searchInput" placeholder="VEHICLE SEARCH" />
+            <button class="btn shadow-none" id="searchBtn"><i class="fab fa fa-search"></i></button>
+          </div>
           <div class="accordion shadow-soft-blue" id="accordionExample">
-                @foreach($categories as $index=>$category)
-                <div class="card">
-                <div class="accordian-head" id="{{ $category }}">
-                  <h2 class="mb-0">
-                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#{{ idize($category) }}" aria-expanded="false" aria-controls="{{ idize($category) }}">
-                        {{ $category }}<i class="fab fa fa-angle-down"></i>
-                    </button>
-                  </h2>
-                </div>
-
-                <div id="{{ idize($category) }}" class="collapse {{ request(idize($category), False)?'show':'' }}" aria-labelledby="{{ $category }}" data-parent="#accordionExample">
-                  <div class="card-body bg-light">
-                      @foreach(App\TermTaxonomy::where('taxonomy', $category)->get() as $taxonomy)
-                      <div class="custom-control custom-radio">
-                        <!-- <a href="/car-list?{{ idize($category) . '=' . $taxonomy->term->name }}" class="text-body text-decoration-none"> -->
-                          <input type="radio" id="{{$taxonomy->term->name}}" name="{{ idize($category) }}" class="custom-control-input" value="{{ $taxonomy->term->name }}" {{ (request(idize($category), Null)==$taxonomy->term->name)?'checked':'' }} onclick="this.form.submit()">
-                          <label class="custom-control-label  d-flex justify-content-between" for="{{$taxonomy->term->name}}">{{ $taxonomy->term->name }} 
-                          <div class="text-muted">{{ $taxonomy->count }}</div></label>
-                        </div>
-                      @endforeach
-                  </div>
-                </div>
+            @foreach($categories as $index=>$category)
+            <div class="card">
+              <div class="accordian-head" id="{{ $category }}">
+                <h2 class="mb-0">
+                  <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#{{ idize($category) }}" aria-expanded="false" aria-controls="{{ idize($category) }}">
+                    {{ $category }}<i class="fab fa fa-angle-down"></i>
+                  </button>
+                </h2>
               </div>
-              @endforeach
 
-              <div class="card">
-                <div class="accordian-head" id="year-accordian">
-                  <h2 class="mb-0">
-                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#year" aria-expanded="false" aria-controls="year">
-                        Year <i class="fab fa fa-angle-down"></i>
-                    </button>
-                  </h2>
-                </div>
-                <div id="year" class="collapse" aria-labelledby="year-accordian" data-parent="#accordionExample">
-                  <div class="card-body bg-light">
-                      <span id="ex18-label-2a" class="d-none">1990</span>
-                      <span id="ex18-label-2b" class="d-none">2019</span>
-                      <input id="ex18b" type="text"/>
+              <div id="{{ idize($category) }}" class="collapse {{ request(idize($category), False)?'show':'' }}" aria-labelledby="{{ $category }}">
+                <div class="card-body bg-light">
+                  @foreach(App\TermTaxonomy::where('taxonomy', $category)->get() as $taxonomy)
+                  <div class="custom-control custom-radio">
+                    <!-- <a href="/car-list?{{ idize($category) . '=' . $taxonomy->term->name }}" class="text-body text-decoration-none"> -->
+                    <input type="radio" id="{{$taxonomy->term->name}}" name="{{ idize($category) }}" class="custom-control-input" value="{{ $taxonomy->term->name }}" {{ (request(idize($category), Null)==$taxonomy->term->name)?'checked':'' }}>
+                    <label class="custom-control-label  d-flex justify-content-between" for="{{$taxonomy->term->name}}">{{ $taxonomy->term->name }}
+                      <div class="text-muted">{{ $taxonomy->count }}</div>
+                    </label>
                   </div>
+                  @endforeach
                 </div>
               </div>
             </div>
+            @endforeach
+
+            <div class="card">
+              <div class="accordian-head" id="year-accordian">
+                <h2 class="mb-0">
+                  <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#year" aria-expanded="false" aria-controls="year">
+                    Year <i class="fab fa fa-angle-down"></i>
+                  </button>
+                </h2>
+              </div>
+              <div id="year" class="collapse" aria-labelledby="year-accordian">
+                <div class="card-body bg-light">
+                  <span id="ex18-label-2a" class="d-none">1990</span>
+                  <span id="ex18-label-2b" class="d-none">2019</span>
+                  <input id="ex18b" type="text" />
+                </div>
+              </div>
+            </div>
+          </div>
       </div>
       <div class="col-md-9">
-          <div class="card shadow-soft-blue container">
-              <div class="row pl-1 m-2">
-                <b class="mt-1">{{ count($allItems->get()) }} VEHICLES</b>
-                <input type="hidden" name="orderBy" id="orderBy" value="{{ $orderBy }}"/>
-                <ul class="list-inline text-muted mb-0" style="font-size: 0.6em!important">
-                    <li class="list-inline-item mr-0">
-                        <button onclick="formSubmit('orderBy', 'updated_at')" class="btn btn-sm btn-link text-decoration-none small {{ ($orderBy=='updated_at')?'text-dark':'text-muted' }}">Recent Car</button>
-                    </li> | 
-                    <li class="list-inline-item mr-0">
-                        <button onclick="formSubmit('orderBy', 'buildYear')" class="btn btn-sm btn-link text-decoration-none {{ ($orderBy=='popularity')?'text-dark':'text-muted' }}">Product Year</button>
-                    </li> | 
-                    <li class="list-inline-item mr-0">
-                        <button onclick="formSubmit('orderBy', 'importDate')" class="btn btn-sm btn-link text-decoration-none {{ ($orderBy=='interest')?'text-dark':'text-muted' }}">Income Year</button>
-                    </li> | 
-                    <li class="list-inline-item mr-0">
-                        <button onclick="formSubmit('orderBy', 'price')" class="btn btn-sm btn-link text-decoration-none {{ ($orderBy=='price')?'text-dark':'text-muted' }}">Low Price</button>
-                    </li>
-                </ul>
-              </div>
+        <div class="card shadow-soft-blue container">
+          <div class="row pl-1 m-2">
+            <b class="mt-1">{{ count($allItems->get()) }} VEHICLES</b>
+            <input type="hidden" name="orderBy" id="orderBy" value="{{ $orderBy }}" />
+            <ul class="list-inline text-muted mb-0" style="font-size: 0.6em!important">
+              <li class="list-inline-item mr-0">
+                <button onclick="formSubmit('orderBy', 'updated_at')" class="btn btn-sm btn-link text-decoration-none small {{ ($orderBy=='updated_at')?'text-dark':'text-muted' }}">Recent Car</button>
+              </li> |
+              <li class="list-inline-item mr-0">
+                <button onclick="formSubmit('orderBy', 'buildYear')" class="btn btn-sm btn-link text-decoration-none {{ ($orderBy=='buildYear')?'text-dark':'text-muted' }}">Product Year</button>
+              </li> |
+              <li class="list-inline-item mr-0">
+                <button onclick="formSubmit('orderBy', 'importDate')" class="btn btn-sm btn-link text-decoration-none {{ ($orderBy=='importDate')?'text-dark':'text-muted' }}">Income Year</button>
+              </li> |
+              <li class="list-inline-item mr-0">
+                <button onclick="formSubmit('orderBy', 'price')" class="btn btn-sm btn-link text-decoration-none {{ ($orderBy=='price')?'text-dark':'text-muted' }}">Low Price</button>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="container">
+          <div class="row">
+            @if ($items->all() && sizeof($items->all()) != 0)
+            <div class="car-list mt-2">
+              <input type="hidden" name="search" id="search">
+              <input type="hidden" name="advantage" id="advantage" value="{{ $request['advantages'] }}" />
+              @foreach($items->forPage($page, $itemsPerPage) as $car)
+              <!-- card start -->
+              @include('themes.car-web.includes.car-list-card', array('car'=>$car))
+              <!-- card end -->
+              @endforeach
             </div>
-              <div class="container">
-                <div class="row">
-                    @if ($items->get() && sizeof($items->get()) != 0)
-                      <div class="car-list mt-2">
-                        @foreach($items->paginate($itemsPerPage) as $car)
-                        <!-- card start -->
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="card-img">
-                                    <img src="{{ (substr($car->metaValue('thumbnail'), 0, 4) !== 'http')?(App\Config::getStorage() . $car->metaValue('thumbnail')):$car->metaValue('thumbnail') }}" class="img-fluid" alt="alt">
-                                </div>
-                                <div class="card-description">
-                                    <div class="card-caption">
-                                        <div class="card-title">{{ $car->title }}</div>
-                                        <div class="meta">{{ $car->metaValue('buildYear') }}/{{ $car->metaValue('importDate') }} | {{ $car->metaValue('mileage') }}km</div>
-                                        <div class="price">{{ $car->metaValue('price') }} ₮</div>
-                                        <div class="favorite">
-                                        <i class="icon-heart"></i> Add to interest list
-                                        </div>
-                                    </div>
-                                <div class="info">
-                                    <span class="carIcon-engine">
-                                        <p>{{ ucfirst($car->metaValue('displacement')) }} L</p>
-                                    </span>
-                                    <span class="carIcon-car-6">
-                                        <p>{{ $car->metaValue('mileage') }} KM</p>
-                                    </span>
-                                    <span class="carIcon-gas-station">
-                                        <p>{{ ucfirst($car->metaValue('fuelType')) }} </p>
-                                    </span>
-                                    <span class="carIcon-gearshift">
-                                        <p>{{ ucfirst($car->metaValue('transmission')) }}</p>
-                                    </span>
-                                    <span class="carIcon-steering-wheel">
-                                        <p>{{ ucfirst($car->metaValue('wheelPosition')) }} wheel</p>
-                                    </span>
-                                    <span class="color" data-color="black">
-                                        <p>{{ ucfirst($car->metaValue('colorName')) }}</p>
-                                    </span>
-
-                                    <div class="tag">
-                                        @foreach($car->metas->where('key', 'advantages') as $advantage)
-                                            <a href="#">{{ $advantage->value }}</a>
-                                        @endforeach
-                                        </div>
-                                    </div>
-
-                                </div>
-
-                            </div>
-                        </div>
-                        <!-- card end -->
-                        @endforeach
-                    </div>   
-                    @else
-                    <div class="text-center text-muted col-lg-12 mt-3"><p>No results found</p></div>
-                    @endif
-              </div>
+            @else
+            <div class="text-center text-muted col-lg-12 mt-3">
+              <p>No results found</p>
             </div>
+            @endif
+          </div>
+        </div>
 
-            <!-- Pagination -->
-            <nav aria-label="Page navigation">
-                <input type="hidden" value="{{ $page }}" name="page" id="page" />
-                <ul class="pagination d-flex justify-content-end">
-                  <li class="page-item {{ ($page <= 1)?'disabled':'' }}">
-                    <button class="page-link" onclick="formSubmit('page', {{$page-1}})" aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
-                    </button>
-                  </li>
-                  @for($i = 1; $i <= $items->paginate($itemsPerPage)->lastPage(); $i++)
-                  <li class="page-item {{ ($i == $page)?'active':'' }}"><button class="page-link" onclick="formSubmit('page', {{$i}})">{{ $i }}</button></li>
-                  @endfor
-                  <li class="page-item {{ ($page >= $items->paginate($itemsPerPage)->lastPage())?'disabled':'' }}">
-                    <button class="page-link" onclick="formSubmit('page', {{$page+1}})" aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
-                    </button>
-                  </li>
-                </ul>
-              </nav>
-              <!-- Pagination end -->
-            </form>
+        <!-- Pagination -->
+        <nav aria-label="Page navigation">
+          <input type="hidden" value="{{ $page }}" name="page" id="page" />
+          <ul class="pagination d-flex justify-content-end">
+            <li class="page-item {{ ($page <= 1)?'disabled':'' }}">
+              <button class="page-link" onclick="formSubmit('page', {{$page-1}})" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+              </button>
+            </li>
+            @for($i = 1; $i <= $maxPage; $i++)
+              <li class="page-item {{ ($i == $page)?'active':'' }}"><button class="page-link" onclick="formSubmit('page', {{$i}})">{{ $i }}</button></li>
+              @endfor
+              <li class="page-item {{ ($page >= $maxPage)?'disabled':'' }}">
+                <button class="page-link" onclick="formSubmit('page', {{$page+1}})" aria-label="Next">
+                  <span aria-hidden="true">&raquo;</span>
+                </button>
+              </li>
+          </ul>
+        </nav>
+        <!-- Pagination end -->
+        </form>
       </div>
     </div>
   </div>
+
 </section>
 
 <!-- Banner start -->
 <section class="mainPage-items bg-white">
-    <div class="container">
-        <a href="{{ $banner->link }}" class="text-primary text-decoration-none">
-            <div class="banner">
-                <!-- {{ $banner->title }} -->
-            </div>
-        </a>
-    </div>
+  <div class="container">
+    <a href="{{ $banner->link }}" class="text-primary text-decoration-none">
+      <div class="banner">
+        <!-- {{ $banner->title }} -->
+      </div>
+    </a>
+  </div>
 </section>
 <!-- Banner end -->
 
 <!-- Hot deal Grid -->
 <section class="mainPage-items bg-white">
-<div class="container">
+  <div class="container">
     <div class="row">
-    <div class="section-title">
+      <div class="section-title">
         <h2>Hot deal</h2>
         <span>
-        <a href="#">See all ({{ count($hotDeals) }})</a>
-        <div class="more-arrow"></div>
+          <a href="#">See all ({{ count($hotDeals) }})</a>
+          <div class="more-arrow"></div>
         </span>
+      </div>
     </div>
-    </div>
-</div>
-<div class="card-list hot-deal">
+  </div>
+  <div class="card-list hot-deal">
     <div class="container">
-    <div class="row">
+      <div class="row">
         <div class="card-slide owl-carousel owl-theme">
-        @foreach($hotDeals as $car)
-        <!-- card start -->
-        <div class="card">
+          @foreach($hotDeals as $car)
+          <!-- card start -->
+          <div class="card">
             <div class="brand-name"></div>
             <div class="card-img">
-            <img src="{{ (substr($car->metaValue('thumbnail'), 0, 4) !== 'http')?(App\Config::getStorage() . $car->metaValue('thumbnail')):$car->metaValue('thumbnail') }}" class="img-fluid" alt="alt">
-            <div class="info">
+              <img src="{{ (substr($car->metaValue('thumbnail'), 0, 4) !== 'http')?(App\Config::getStorage() . $car->metaValue('thumbnail')):$car->metaValue('thumbnail') }}" class="img-fluid" alt="alt">
+              <div class="bestDeal"
+                      style="position: absolute; top:5px; left: 5px; background-color: white; border-radius: 3px; padding: 1px 3px">
+                  <i class="fas fa-crown" style="color: #FEC400"></i>
+              </div>
+              
+              <div class="info">
                 <span class="carIcon-engine">
-                <p>{{ ucfirst($car->metaValue('displacement')) }} L</p>
+                  <p>{{ ucfirst($car->metaValue('displacement')) }} L</p>
                 </span>
                 <span class="carIcon-car-6">
-                <p>{{ $car->metaValue('mileage') }} KM</p>
+                  <p>{{ $car->metaValue('mileage') }} KM</p>
                 </span>
                 <span class="carIcon-gas-station">
-                <p>{{ ucfirst($car->metaValue('fuelType')) }}</p>
+                  <p>{{ ucfirst($car->metaValue('fuelType')) }}</p>
                 </span>
                 <span class="carIcon-gearshift">
-                <p>{{ ucfirst($car->metaValue('transmission')) }}</p>
+                  <p>{{ ucfirst($car->metaValue('transmission')) }}</p>
                 </span>
                 <span class="carIcon-steering-wheel">
-                <p>{{ ucfirst($car->metaValue('wheelPosition')) }} wheel</p>
+                  <p>{{ ucfirst($car->metaValue('wheelPosition')) }} wheel</p>
                 </span>
                 <span class="color" data-color="white">
-                <p>{{ ucfirst($car->metaValue('colorName')) }}</p>
+                  <p>{{ ucfirst($car->metaValue('colorName')) }}</p>
                 </span>
-            </div>
-            <div class="card-caption">
+              </div>
+              <div class="card-caption">
                 <div class="meta">
-                {{ $car->metaValue('buildYear') }}/{{ $car->metaValue('importDate') }} | {{ $car->metaValue('mileage') }}km | {{ ucfirst($car->metaValue('fuelType')) }}
-                    <i class="show-more fab fa fa-angle-up"></i>
+                  {{ $car->metaValue('buildYear') }}/{{ $car->metaValue('importDate') }} | {{ $car->metaValue('mileage') }}km | {{ ucfirst($car->metaValue('fuelType')) }}
+                  <i class="show-more fab fa fa-angle-up"></i>
                 </div>
                 <div class="favorite">
-                <i class="icon-heart"></i>
+                  <i class="icon-heart"></i>
                 </div>
-            </div>
+              </div>
             </div>
 
             <div class="card-body shadow">
-            <div class="card-description">
-                <a href="detail-page.html" class="card-title">{{ $car->title }}</a>
+              <div class="card-description">
+                <a href="{{ $car->slug }}" class="card-title">{{ $car->title }}</a>
                 <div class="card-meta">
-                <div class="status">{{ ucfirst($car->metaValue('priceType')) }} </div>
-                <div class="price">{{ $car->metaValue('price') }} ₮</div>
+                  <div class="status">{{ ucfirst($car->metaValue('priceType')) }} </div>
+                  <div class="price">{{ $car->metaValue('price') }} ₮</div>
                 </div>
-            </div>
+              </div>
             </div>
 
-        </div>
-        <!-- card end -->
-        @endforeach
+          </div>
+          <!-- card end -->
+          @endforeach
 
         </div>
+      </div>
     </div>
-    </div>
-</div>
+  </div>
 </section>
 <!-- 
-<nav class="nav flex-column fixed">
-    Thank
-</nav> -->
+  <nav class="nav flex-column fixed">
+      Thank
+  </nav> -->
 @endsection
 
 @section('script')
-<style>
-.banner {
-    width: 100%;
-    padding-bottom: 15%;
-    background-image: url({{ $banner->banner }});
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-}
-.search {
-    background: transparent;
-    border: none;
-    outline: none;
-    font-weight: 700;
-    color: #2b3651;
-}
-.search::placeholder {
-    color: #2b3651;
-}
-</style>
 <script src="{{ asset('car-web/vendor/bootstrap-slider/bootstrap-slider.min.js') }}"></script>
 <script src="{{ asset('car-web/vendor/owl.carousel.thumbs/owl.carousel2.thumbs.min.js') }}"></script>
 <script>
-    function formSubmit(id, value) {
-        document.getElementById(id).value = value;
-        $('form').submit();
-    }
+  function formSubmit(id, value) {
+    document.getElementById(id).value = value;
+    $('#mainForm').submit();
+  }
 
-    $("#searchBtn").click(function(event) {
-        event.preventDefault();
-        $("#search").val($("#searchInput").val());
-        console.log($("#search").val());
-        $("#searchForm").submit();
-    });
+  $("input[type=radio]").click(function(event) {
+    event.preventDefault();
+    if (event.target.defaultChecked) {
+      event.target.checked = false;
+    }
+    $('#mainForm').submit();
+  });
+
+  $("#searchBtn").click(function(event) {
+    event.preventDefault();
+    var value = $("#searchInput").val();
+    if (value) {
+      $("#search").val(value);
+      console.log($("#search").val());
+      $("#searchForm").submit();
+    } else {
+      $("#searchInput").focus();
+    }
+  });
 </script>
 @endsection
-

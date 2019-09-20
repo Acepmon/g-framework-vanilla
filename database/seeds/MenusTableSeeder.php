@@ -27,11 +27,11 @@ class MenusTableSeeder extends Seeder
             ['Configurations', '', 'icon-gear', 'system', [
                 ['Maintenance Mode', '/admin/configs/maintenance', '', 'system'],
                 ['Base Configurations', '/admin/configs/base', '', 'system'],
-                ['System Configurations', '/admin/configs/system', '', 'system'],
-                ['Themes Configurations', '/admin/configs/themes', '', 'system'],
+                // ['System Configurations', '/admin/configs/system', '', 'system'],
+                // ['Themes Configurations', '/admin/configs/themes', '', 'system'],
                 // ['Plugins Configurations', '/admin/configs/plugins', '', 'system'],
                 // ['Security Configurations', '/admin/configs/security', '', 'system'],
-                ['Content Configurations', '/admin/configs/contents', '', 'system']
+                // ['Content Configurations', '/admin/configs/contents', '', 'system']
             ]],
             // ['Plugins', '', 'icon-puzzle2', 'system', [
             //     ['Installed Plugins', '/admin/plugins', '', 'system'],

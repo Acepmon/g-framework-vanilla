@@ -61,7 +61,6 @@
                         </div>
                     </div>
                     <div class="col-md-5" style="z-index: 1">
-
                         <div class="card masthead-search shadow-lg-3d">
                             <div class="">
                                 <div class="card-header px-5 pt-5 pb-3 mb-3">
@@ -89,18 +88,69 @@
                                             </span>
                                             @enderror
                                         </div>
-                                        <button type="submit" class="btn col-12 btn-danger btn-lg btn-round shadow mt-4">Login</button>
+                                        <button type="submit" class="btn col-12 btn-danger btn-lg btn-round shadow mt-4 mb-3">Login</button>
                                     </form>
-                                    <a class="" href="#">Forget password</a>
+                                    <a data-toggle="modal" data-target="#myModal">Forget password</a>
                                     <div class="col-12 mt-5">
                                         <button type="button" class="btn bg-secondary col-9 btn-default btn-lg btn-round mt-4">Sign up</button>
                                     </div>
-
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-    </header>r
+    </header>
+
+    <!-- The Modal -->
+    <div class="modal" id="myModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Forget password</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <form method="POST" >
+                        @csrf
+                        <div class="form-group mb-3 text-left form-group-feedback form-group-feedback-left">
+                            <span class="font-weight-bold">E-mail</span>
+
+                            <input class="form-control mt-2 @error('email') is-invalid @enderror" id="email" type="text" placeholder="E-mail" name="email" value="{{ old('username', env('APP_ENV') == 'development' ? 'admin' : '') }}" required autocomplete="email" autofocus>
+                            @error('email')
+                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                            @enderror
+                        </div>
+                        <button type="submit" class="btn col-12 btn-danger btn-lg btn-round shadow mt-4 mb-4">Recover password</button>
+                        <a class="" data-dismiss="modal">Login</a>
+                    </form>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+@endsection
+
+@section('script')
+    <script>
+        $('.scrollDown').click(function(event){
+            // Preventing default action of the event
+            event.preventDefault();
+            // Getting the height of the document
+            var n = $(document).height();
+            $('html, body').animate({ scrollTop: 1200 }, 400);
+        });
+    </script>
 @endsection

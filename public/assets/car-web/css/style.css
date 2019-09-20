@@ -685,10 +685,10 @@ header.masthead .master-head-bg {
 }
 
 .detail-page .vi-slider-item img {
-  min-width: 100%;
+  max-width: 100%;
   width: auto;
   height: auto;
-  min-height: 100%;
+  max-height: 100%;
 }
 
 .detail-page .vi-slider .owl-thumbs {
@@ -733,11 +733,11 @@ header.masthead .master-head-bg {
   min-height: 100%;
 }
 
-.detail-page .vehicle-imgSlider {
+.vehicle-imgSlider-container .vehicle-imgSlider {
   position: relative;
 }
 
-.detail-page .vehicle-imgSlider .owl-nav {
+.vehicle-imgSlider-container .vehicle-imgSlider .owl-nav {
   text-align: right;
   -webkit-tap-highlight-color: transparent;
   position: absolute;
@@ -746,7 +746,7 @@ header.masthead .master-head-bg {
   transform: translateY(-50%);
 }
 
-.detail-page .vehicle-imgSlider .owl-nav .owl-prev {
+.vehicle-imgSlider-container .vehicle-imgSlider .owl-nav .owl-prev {
   position: absolute;
   left: 0;
   width: 40px;
@@ -758,12 +758,12 @@ header.masthead .master-head-bg {
   transition: all .3s ease;
 }
 
-.detail-page .vehicle-imgSlider .owl-nav .owl-prev:hover {
+.vehicle-imgSlider-container .vehicle-imgSlider .owl-nav .owl-prev:hover {
   background: #858994;
   color: #fff;
 }
 
-.detail-page .vehicle-imgSlider .owl-nav .owl-next {
+.vehicle-imgSlider-container .vehicle-imgSlider .owl-nav .owl-next {
   position: absolute;
   right: 0;
   width: 40px;
@@ -775,7 +775,7 @@ header.masthead .master-head-bg {
   transition: all .3s ease;
 }
 
-.detail-page .vehicle-imgSlider .owl-nav .owl-next:hover {
+.vehicle-imgSlider-container .vehicle-imgSlider .owl-nav .owl-next:hover {
   background: #858994;
   color: #fff;
 }
@@ -1417,31 +1417,39 @@ section .section-title:hover .more-arrow {
 }
 
 section .owl-carousel .owl-nav button.owl-next, section .owl-carousel .owl-nav button.owl-prev {
-  background: #fff;
-  color: inherit;
+  background: #2b3651;
+  color: #fff;
   border: none;
   padding: 0 !important;
   line-height: 0.5rem;
   font-size: 1.125rem;
   outline: none;
-  height: 30px;
+  height: 60px;
   width: 30px;
   margin: 0;
   border-radius: 0;
-  border: 1px solid #E0E5EB;
+  border: 1px solid #2b3651;
+  position: absolute;
+}
+section .owl-carousel .owl-nav button.owl-prev {
+  left: -29px;
+}
+section .owl-carousel .owl-nav button.owl-next {
+  right: -29px;
 }
 
 section .owl-theme .owl-nav [class*='owl-']:hover {
-  background: #E0E5EB;
-  color: #2B3651;
+  background: #3d4c72;
+  color: #E0E5EB;
   text-decoration: none;
 }
 
 section .owl-theme .owl-nav {
-  text-align: right;
+  /* text-align: right; */
   -webkit-tap-highlight-color: transparent;
   position: absolute;
-  top: -60px;
+  width: 100%;
+  top: 10%;
   right: 0;
 }
 
