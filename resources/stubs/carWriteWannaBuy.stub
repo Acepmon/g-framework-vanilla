@@ -1,0 +1,897 @@
+@extends('themes.car-web.layouts.default')
+
+@php
+function metaHas($items, $key, $value)
+{
+return $items->whereHas('metas', function ($query) use ($key, $value) {
+$query->where('key', $key)->where('value', $value);
+});
+}
+function idize($value)
+{
+return str_replace(' ', '_', strtolower($value));
+}
+$categories = [
+'Car Type', 'Manufacturer', 'Color', 'Fuel', 'Transmission', 'Option', 'An accident', 'Passenger', 'Steering Wheel', 'Area'
+];
+
+// Get All items
+$orderBy = request('orderBy', "updated_at");
+$order = request('order', "desc");
+$page = request('page', "1");
+$itemsPerPage = request('itemsPerPage', "10");
+$allItems = App\Content::with('metas')->where('type', App\Content::TYPE_CAR);
+if ($orderBy != 'updated_at') {
+$allItems = $allItems->join('content_metas', 'contents.id', '=', 'content_metas.content_id')
+->where('content_metas.key', '=', $orderBy)->select('contents.*')->addSelect('content_metas.value');
+$allItems = $allItems->orderBy('value', $order);
+} else {
+$allItems = $allItems->orderBy($orderBy, $order);
+}
+$items = $allItems;
+
+// Items filtering
+$request = [];
+$request['type'] = request('car_type', 'Sedan');
+$request['markName'] = request('manufacturer', Null);
+$request['colorName'] = request('color', Null);
+$request['fuelType'] = request('fuel', Null);
+$request['transmission'] = request('transmission', Null);
+$request['advantages'] = request('advantage', Null);
+$request['manCount'] = request('passenger', Null);
+$request['wheelPosition'] = request('steering_wheel', Null);
+$request['countryName'] = request('area', Null);
+foreach ($request as $key => $value) {
+if ($value != Null) {
+$items = metaHas($items, $key, $value);
+}
+}
+
+// HOT Deals
+$hotDeals=App\Content::where('type', App\Content::TYPE_CAR)->inRandomOrder()->paginate(5);
+$items = $hotDeals->merge($items->get());
+
+// Post items filtering
+$itemCount = count($items->all());
+$maxPage = intval(ceil($itemCount / $itemsPerPage));
+if ($itemCount < $page * $itemsPerPage) {
+  $page= $maxPage;
+}
+
+// Banner
+$banner = App\Banner::where('location_id', 5)->where('status', 'active')->inRandomOrder()->first();
+// $sideBanners = App\Banner::where('location_id', 4)->where('status', 'active')->get();
+$sideBanners = App\Banner::where('location_id', 4)->get();
+
+@endphp
+
+@section('title')
+
+@endsection
+
+@section('load')
+
+@endsection
+
+@section('content')
+<div class="bg-page-header"></div>
+
+<section class="section">
+    <div class="container">
+    @include('themes.car-web.includes.fixed-right-sidebar', array('sideBanners'=>$sideBanners, 'premium'=>$hotDeals))
+        <div class="row">
+            <div class="col-md-3">
+                <div class="left-bar-title">
+                    Sort Vehicle <i class="fab fa fa-search"></i>
+                </div>
+                <div class="accordion shadow-soft-blue" id="accordionExample">
+                    <div class="card">
+                    <div class="accordian-head" id="carType">
+                        <h2 class="mb-0">
+                        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#car-type" aria-expanded="true" aria-controls="car-type">
+                            Car type<i class="fab fa fa-angle-down"></i>
+                        </button>
+                        </h2>
+                    </div>
+                
+                    <div id="car-type" class="collapse show" aria-labelledby="carType" data-parent="#accordionExample">
+                        <div class="card-body bg-light">
+                            <div class="custom-control custom-radio">
+                                <input type="radio" id="sedan" name="carTyoe" class="custom-control-input">
+                                <label class="custom-control-label  d-flex justify-content-between" for="sedan">Sedan <div class="text-muted">65</div></label>
+                            </div>
+                            <div class="custom-control custom-radio">
+                                <input type="radio" id="suv" name="carTyoe" class="custom-control-input">
+                                <label class="custom-control-label d-flex justify-content-between" for="suv">SUV <div class="text-muted">128</div></label>
+                            </div>
+                            <div class="custom-control custom-radio">
+                                <input type="radio" id="sport" name="carTyoe" class="custom-control-input">
+                                <label class="custom-control-label  d-flex justify-content-between" for="sport">Sport <div class="text-muted">98</div></label>
+                            </div>
+                            <div class="custom-control custom-radio">
+                                <input type="radio" id="trucks" name="carTyoe" class="custom-control-input">
+                                <label class="custom-control-label  d-flex justify-content-between" for="trucks">Trucks <div class="text-muted">7</div></label>
+                            </div>
+                            <div class="custom-control custom-radio">
+                                <input type="radio" id="vans" name="carTyoe" class="custom-control-input">
+                                <label class="custom-control-label  d-flex justify-content-between" for="vans">Vans <div class="text-muted">154</div></label>
+                            </div>
+                            <div class="custom-control custom-radio">
+                                <input type="radio" id="bus" name="carTyoe" class="custom-control-input">
+                                <label class="custom-control-label  d-flex justify-content-between" for="bus">Bus <div class="text-muted">25</div></label>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="card">
+                    <div class="accordian-head" id="model">
+                        <h2 class="mb-0">
+                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#manufacture" aria-expanded="false" aria-controls="manufacture">
+                            Manufacturer / Model <i class="fab fa fa-angle-down"></i>
+                        </button>
+                        </h2>
+                    </div>
+                    <div id="manufacture" class="collapse" aria-labelledby="model" data-parent="#accordionExample">
+                        <div class="card-body bg-light">
+                            <div class="custom-control custom-radio">
+                                <input type="radio" id="Toyota" name="carTyoe" class="custom-control-input">
+                                <label class="custom-control-label d-flex justify-content-between" for="Toyota">Toyota <div class="text-muted">0</div></label>
+                            </div>
+                            <div class="custom-control custom-radio">
+                                <input type="radio" id="Lexus" name="carTyoe" class="custom-control-input">
+                                <label class="custom-control-label d-flex justify-content-between" for="Lexus">Lexus <div class="text-muted">0</div></label>
+                            </div>
+                            <div class="custom-control custom-radio">
+                                <input type="radio" id="Nissan" name="carTyoe" class="custom-control-input">
+                                <label class="custom-control-label d-flex justify-content-between" for="Nissan">Nissan <div class="text-muted">0</div></label>
+                            </div>
+                            <div class="custom-control custom-radio">
+                                <input type="radio" id="Mercedes benz" name="carTyoe" class="custom-control-input">
+                                <label class="custom-control-label d-flex justify-content-between" for="Mercedes benz">Mercedes benz <div class="text-muted">0</div></label>
+                            </div>
+                            <div class="custom-control custom-radio">
+                                <input type="radio" id="Volkswagen" name="carTyoe" class="custom-control-input">
+                                <label class="custom-control-label d-flex justify-content-between" for="Volkswagen">Volkswagen <div class="text-muted">0</div></label>
+                            </div>
+                            <div class="custom-control custom-radio">
+                                <input type="radio" id="Mini" name="carTyoe" class="custom-control-input">
+                                <label class="custom-control-label d-flex justify-content-between" for="Mini">Mini <div class="text-muted">0</div></label>
+                            </div>
+                            <div class="custom-control custom-radio">
+                                <input type="radio" id="Audi" name="carTyoe" class="custom-control-input">
+                                <label class="custom-control-label d-flex justify-content-between" for="Audi">Audi <div class="text-muted">0</div></label>
+                            </div>
+                            <div class="custom-control custom-radio">
+                                <input type="radio" id="BMW" name="carTyoe" class="custom-control-input">
+                                <label class="custom-control-label d-flex justify-content-between" for="BMW">BMW <div class="text-muted">0</div></label>
+                            </div>
+                            <div class="custom-control custom-radio">
+                                <input type="radio" id="Ford" name="carTyoe" class="custom-control-input">
+                                <label class="custom-control-label d-flex justify-content-between" for="Ford">Ford <div class="text-muted">0</div></label>
+                            </div>
+                            <div class="custom-control custom-radio">
+                                <input type="radio" id="Land Rover" name="carTyoe" class="custom-control-input">
+                                <label class="custom-control-label d-flex justify-content-between" for="Land Rover">Land Rover <div class="text-muted">0</div></label>
+                            </div>
+                            <div class="custom-control custom-radio">
+                                <input type="radio" id="Daihatsu" name="carTyoe" class="custom-control-input">
+                                <label class="custom-control-label d-flex justify-content-between" for="Daihatsu">Daihatsu <div class="text-muted">0</div></label>
+                            </div>
+                            <div class="custom-control custom-radio">
+                                <input type="radio" id="Dodge" name="carTyoe" class="custom-control-input">
+                                <label class="custom-control-label d-flex justify-content-between" for="Dodge">Dodge <div class="text-muted">0</div></label>
+                            </div>
+                            <div class="custom-control custom-radio">
+                                <input type="radio" id="Honda" name="carTyoe" class="custom-control-input">
+                                <label class="custom-control-label d-flex justify-content-between" for="Honda">Honda <div class="text-muted">0</div></label>
+                            </div>
+                            <div class="custom-control custom-radio">
+                                <input type="radio" id="Hyundai" name="carTyoe" class="custom-control-input">
+                                <label class="custom-control-label d-flex justify-content-between" for="Hyundai">Hyundai <div class="text-muted">0</div></label>
+                            </div>
+                            <div class="custom-control custom-radio">
+                                <input type="radio" id="Kia" name="carTyoe" class="custom-control-input">
+                                <label class="custom-control-label d-flex justify-content-between" for="Kia">Kia <div class="text-muted">0</div></label>
+                            </div>
+                            <div class="custom-control custom-radio">
+                                <input type="radio" id="Jeep" name="carTyoe" class="custom-control-input">
+                                <label class="custom-control-label d-flex justify-content-between" for="Jeep">Jeep <div class="text-muted">0</div></label>
+                            </div>
+                            <div class="custom-control custom-radio">
+                                <input type="radio" id="Subaru" name="carTyoe" class="custom-control-input">
+                                <label class="custom-control-label d-flex justify-content-between" for="Subaru">Subaru <div class="text-muted">0</div></label>
+                            </div>
+                            <div class="custom-control custom-radio">
+                                <input type="radio" id="Suzuki" name="carTyoe" class="custom-control-input">
+                                <label class="custom-control-label d-flex justify-content-between" for="Suzuki">Suzuki <div class="text-muted">0</div></label>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="card">
+                    <div class="accordian-head" id="year-accordian">
+                        <h2 class="mb-0">
+                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#year" aria-expanded="false" aria-controls="year">
+                            Year <i class="fab fa fa-angle-down"></i>
+                        </button>
+                        </h2>
+                    </div>
+                    <div id="year" class="collapse" aria-labelledby="year-accordian" data-parent="#accordionExample">
+                        <div class="card-body bg-light">
+                            <span id="ex18-label-2a" class="d-none">Example low value</span>
+                            <span id="ex18-label-2b" class="d-none">Example high value</span>
+                            <div class="slider slider-horizontal" id=""><div class="slider-track"><div class="slider-track-low" style="left: 0px; width: 30%;"></div><div class="slider-selection" style="left: 30%; width: 30%;"></div><div class="slider-track-high" style="right: 0px; width: 40%;"></div></div><div class="tooltip tooltip-main top" role="presentation" style="left: 45%;"><div class="tooltip-arrow"></div><div class="tooltip-inner">3 : 6</div></div><div class="tooltip tooltip-min top" role="presentation" style="left: 30%;"><div class="tooltip-arrow"></div><div class="tooltip-inner">3</div></div><div class="tooltip tooltip-max top" role="presentation" style="left: 60%;"><div class="tooltip-arrow"></div><div class="tooltip-inner">6</div></div><div class="slider-handle min-slider-handle round" role="slider" aria-valuemin="0" aria-valuemax="10" aria-labelledby="ex18-label-2a" aria-valuenow="3" tabindex="0" style="left: 30%;"></div><div class="slider-handle max-slider-handle round" role="slider" aria-valuemin="0" aria-valuemax="10" aria-labelledby="ex18-label-2b" aria-valuenow="6" tabindex="0" style="left: 60%;"></div></div><input id="ex18b" type="text" data-value="3,6" value="3,6" style="display: none;">
+                        </div>
+                    </div>
+                    </div>
+                    <div class="card">
+                    <div class="accordian-head" id="price-accordian">
+                        <h2 class="mb-0">
+                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#price" aria-expanded="false" aria-controls="price">
+                            Price / Installment <i class="fab fa fa-angle-down"></i>
+                        </button>
+                        </h2>
+                    </div>
+                    <div id="price" class="collapse" aria-labelledby="price-accordian" data-parent="#accordionExample">
+                        <div class="card-body bg-light">
+                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid.
+                        </div>
+                    </div>
+                    </div>
+                    <div class="card">
+                    <div class="accordian-head" id="area-accordian">
+                        <h2 class="mb-0">
+                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#area" aria-expanded="false" aria-controls="area">
+                            Area <i class="fab fa fa-angle-down"></i>
+                        </button>
+                        </h2>
+                    </div>
+                    <div id="area" class="collapse" aria-labelledby="area-accordian" data-parent="#accordionExample">
+                        <div class="card-body bg-light">
+                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid.
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-9">
+                <div class="card shadow-soft-blue container">
+                    <div class="row pl-1 m-2">
+                        <b class="mt-1">2375 VEHICLES</b>
+                        <input type="hidden" name="orderBy" id="orderBy" value="updated_at">
+                        <ul class="list-inline text-muted mb-0" style="font-size: 0.6em!important">
+                            <li class="list-inline-item mr-0">
+                                <button onclick="formSubmit('orderBy', 'updated_at')" class="btn btn-sm btn-link text-decoration-none small text-dark">Recent Car</button>
+                            </li> |
+                            <li class="list-inline-item mr-0">
+                                <button onclick="formSubmit('orderBy', 'price')" class="btn btn-sm btn-link text-decoration-none text-muted">Low Price</button>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+        <div class="card-list usedInMn">
+            <div class="container">
+                <div class="row mt-2">
+                    <div class="col-md-4 p-0">
+                        <div class="card">
+                            <div class="card-header wish-title bg-dark text-white font-weight-bold rounded-top">
+                                <div class="brand-name"></div>
+                                <span class=font-size-lg>"</span>TOYOTA CROWN 210 ХУДАЛДАЖ АВНА
+                            </div>
+                            <div class="wish-detail text-black rounded-bottom border pl-4 pr-4"
+                                style="background-color: #f8f9fa">
+                                <div class="wl-detail-row mt-2">
+                                    <i class="icon-tag mr-4"></i>12 сая ~ 15,5 сая
+                                </div>
+                                <div class="wl-detail-row">
+                                    <i class="icon-phone mr-4"></i>9999 ....
+                                    <button class="btn btn-sm btn-outline-dark float-right">Watch</button>
+                                </div>
+                                <div class="wl-detail-row mt-2">
+                                    <img src="{{asset('car-web/img/Cars/4.jpg')}}"
+                                        class="rounded-circle float-left mr-2 mt-2" width="32px" height="32"
+                                        style="width: 32px" alt="alt">
+                                    <p class="">Enkhtuvshin
+                                        <br>
+                                        <span>2019-03-01</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 p-0">
+                        <div class="card">
+                            <div class="card-header wish-title bg-dark text-white font-weight-bold rounded-top">
+                                <div class="brand-name"></div>
+                                <span class=font-size-lg>"</span>TOYOTA CROWN 210 ХУДАЛДАЖ АВНА
+                            </div>
+                            <div class="wish-detail text-black rounded-bottom border pl-4 pr-4"
+                                style="background-color: #f8f9fa">
+                                <div class="wl-detail-row mt-2">
+                                    <i class="icon-tag mr-4"></i>12 сая ~ 15,5 сая
+                                </div>
+                                <div class="wl-detail-row">
+                                    <i class="icon-phone mr-4"></i>9999 ....
+                                    <button class="btn btn-sm btn-outline-dark float-right">Watch</button>
+                                </div>
+                                <div class="wl-detail-row mt-2">
+                                    <img src="{{asset('car-web/img/Cars/4.jpg')}}"
+                                        class="rounded-circle float-left mr-2 mt-2" width="32px" height="32"
+                                        style="width: 32px" alt="alt">
+                                    <p class="">Enkhtuvshin
+                                        <br>
+                                        <span>2019-03-01</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 p-0">
+                        <div class="card">
+                            <div class="card-header wish-title bg-dark text-white font-weight-bold rounded-top">
+                                <div class="brand-name"></div>
+                                <span class=font-size-lg>"</span>TOYOTA CROWN 210 ХУДАЛДАЖ АВНА
+                            </div>
+                            <div class="wish-detail text-black rounded-bottom border pl-4 pr-4"
+                                style="background-color: #f8f9fa">
+                                <div class="wl-detail-row mt-2">
+                                    <i class="icon-tag mr-4"></i>12 сая ~ 15,5 сая
+                                </div>
+                                <div class="wl-detail-row">
+                                    <i class="icon-phone mr-4"></i>9999 ....
+                                    <button class="btn btn-sm btn-outline-dark float-right">Watch</button>
+                                </div>
+                                <div class="wl-detail-row mt-2">
+                                    <img src="{{asset('car-web/img/Cars/4.jpg')}}"
+                                        class="rounded-circle float-left mr-2 mt-2" width="32px" height="32"
+                                        style="width: 32px" alt="alt">
+                                    <p class="">Enkhtuvshin
+                                        <br>
+                                        <span>2019-03-01</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>  
+                </div>
+
+                <div class="row mt-2">
+                    <div class="col-md-4 p-0">
+                        <div class="card">
+                            <div class="card-header wish-title bg-dark text-white font-weight-bold rounded-top">
+                                <div class="brand-name"></div>
+                                <span class=font-size-lg>"</span>TOYOTA CROWN 210 ХУДАЛДАЖ АВНА
+                            </div>
+                            <div class="wish-detail text-black rounded-bottom border pl-4 pr-4"
+                                style="background-color: #f8f9fa">
+                                <div class="wl-detail-row mt-2">
+                                    <i class="icon-tag mr-4"></i>12 сая ~ 15,5 сая
+                                </div>
+                                <div class="wl-detail-row">
+                                    <i class="icon-phone mr-4"></i>9999 ....
+                                    <button class="btn btn-sm btn-outline-dark float-right">Watch</button>
+                                </div>
+                                <div class="wl-detail-row mt-2">
+                                    <img src="{{asset('car-web/img/Cars/4.jpg')}}"
+                                        class="rounded-circle float-left mr-2 mt-2" width="32px" height="32"
+                                        style="width: 32px" alt="alt">
+                                    <p class="">Enkhtuvshin
+                                        <br>
+                                        <span>2019-03-01</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 p-0">
+                        <div class="card">
+                            <div class="card-header wish-title bg-dark text-white font-weight-bold rounded-top">
+                                <div class="brand-name"></div>
+                                <span class=font-size-lg>"</span>TOYOTA CROWN 210 ХУДАЛДАЖ АВНА
+                            </div>
+                            <div class="wish-detail text-black rounded-bottom border pl-4 pr-4"
+                                style="background-color: #f8f9fa">
+                                <div class="wl-detail-row mt-2">
+                                    <i class="icon-tag mr-4"></i>12 сая ~ 15,5 сая
+                                </div>
+                                <div class="wl-detail-row">
+                                    <i class="icon-phone mr-4"></i>9999 ....
+                                    <button class="btn btn-sm btn-outline-dark float-right">Watch</button>
+                                </div>
+                                <div class="wl-detail-row mt-2">
+                                    <img src="{{asset('car-web/img/Cars/4.jpg')}}"
+                                        class="rounded-circle float-left mr-2 mt-2" width="32px" height="32"
+                                        style="width: 32px" alt="alt">
+                                    <p class="">Enkhtuvshin
+                                        <br>
+                                        <span>2019-03-01</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 p-0">
+                        <div class="card">
+                            <div class="card-header wish-title bg-dark text-white font-weight-bold rounded-top">
+                                <div class="brand-name"></div>
+                                <span class=font-size-lg>"</span>TOYOTA CROWN 210 ХУДАЛДАЖ АВНА
+                            </div>
+                            <div class="wish-detail text-black rounded-bottom border pl-4 pr-4"
+                                style="background-color: #f8f9fa">
+                                <div class="wl-detail-row mt-2">
+                                    <i class="icon-tag mr-4"></i>12 сая ~ 15,5 сая
+                                </div>
+                                <div class="wl-detail-row">
+                                    <i class="icon-phone mr-4"></i>9999 ....
+                                    <button class="btn btn-sm btn-outline-dark float-right">Watch</button>
+                                </div>
+                                <div class="wl-detail-row mt-2">
+                                    <img src="{{asset('car-web/img/Cars/4.jpg')}}"
+                                        class="rounded-circle float-left mr-2 mt-2" width="32px" height="32"
+                                        style="width: 32px" alt="alt">
+                                    <p class="">Enkhtuvshin
+                                        <br>
+                                        <span>2019-03-01</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>  
+                </div>
+
+                <div class="row mt-2">
+                    <div class="col-md-4 p-0">
+                        <div class="card">
+                            <div class="card-header wish-title bg-dark text-white font-weight-bold rounded-top">
+                                <div class="brand-name"></div>
+                                <span class=font-size-lg>"</span>TOYOTA CROWN 210 ХУДАЛДАЖ АВНА
+                            </div>
+                            <div class="wish-detail text-black rounded-bottom border pl-4 pr-4"
+                                style="background-color: #f8f9fa">
+                                <div class="wl-detail-row mt-2">
+                                    <i class="icon-tag mr-4"></i>12 сая ~ 15,5 сая
+                                </div>
+                                <div class="wl-detail-row">
+                                    <i class="icon-phone mr-4"></i>9999 ....
+                                    <button class="btn btn-sm btn-outline-dark float-right">Watch</button>
+                                </div>
+                                <div class="wl-detail-row mt-2">
+                                    <img src="{{asset('car-web/img/Cars/4.jpg')}}"
+                                        class="rounded-circle float-left mr-2 mt-2" width="32px" height="32"
+                                        style="width: 32px" alt="alt">
+                                    <p class="">Enkhtuvshin
+                                        <br>
+                                        <span>2019-03-01</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 p-0">
+                        <div class="card">
+                            <div class="card-header wish-title bg-dark text-white font-weight-bold rounded-top">
+                                <div class="brand-name"></div>
+                                <span class=font-size-lg>"</span>TOYOTA CROWN 210 ХУДАЛДАЖ АВНА
+                            </div>
+                            <div class="wish-detail text-black rounded-bottom border pl-4 pr-4"
+                                style="background-color: #f8f9fa">
+                                <div class="wl-detail-row mt-2">
+                                    <i class="icon-tag mr-4"></i>12 сая ~ 15,5 сая
+                                </div>
+                                <div class="wl-detail-row">
+                                    <i class="icon-phone mr-4"></i>9999 ....
+                                    <button class="btn btn-sm btn-outline-dark float-right">Watch</button>
+                                </div>
+                                <div class="wl-detail-row mt-2">
+                                    <img src="{{asset('car-web/img/Cars/4.jpg')}}"
+                                        class="rounded-circle float-left mr-2 mt-2" width="32px" height="32"
+                                        style="width: 32px" alt="alt">
+                                    <p class="">Enkhtuvshin
+                                        <br>
+                                        <span>2019-03-01</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 p-0">
+                        <div class="card">
+                            <div class="card-header wish-title bg-dark text-white font-weight-bold rounded-top">
+                                <div class="brand-name"></div>
+                                <span class=font-size-lg>"</span>TOYOTA CROWN 210 ХУДАЛДАЖ АВНА
+                            </div>
+                            <div class="wish-detail text-black rounded-bottom border pl-4 pr-4"
+                                style="background-color: #f8f9fa">
+                                <div class="wl-detail-row mt-2">
+                                    <i class="icon-tag mr-4"></i>12 сая ~ 15,5 сая
+                                </div>
+                                <div class="wl-detail-row">
+                                    <i class="icon-phone mr-4"></i>9999 ....
+                                    <button class="btn btn-sm btn-outline-dark float-right">Watch</button>
+                                </div>
+                                <div class="wl-detail-row mt-2">
+                                    <img src="{{asset('car-web/img/Cars/4.jpg')}}"
+                                        class="rounded-circle float-left mr-2 mt-2" width="32px" height="32"
+                                        style="width: 32px" alt="alt">
+                                    <p class="">Enkhtuvshin
+                                        <br>
+                                        <span>2019-03-01</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>  
+                </div>
+
+                <div class="row mt-2">
+                    <div class="col-md-4 p-0">
+                        <div class="card">
+                            <div class="card-header wish-title bg-dark text-white font-weight-bold rounded-top">
+                                <div class="brand-name"></div>
+                                <span class=font-size-lg>"</span>TOYOTA CROWN 210 ХУДАЛДАЖ АВНА
+                            </div>
+                            <div class="wish-detail text-black rounded-bottom border pl-4 pr-4"
+                                style="background-color: #f8f9fa">
+                                <div class="wl-detail-row mt-2">
+                                    <i class="icon-tag mr-4"></i>12 сая ~ 15,5 сая
+                                </div>
+                                <div class="wl-detail-row">
+                                    <i class="icon-phone mr-4"></i>9999 ....
+                                    <button class="btn btn-sm btn-outline-dark float-right">Watch</button>
+                                </div>
+                                <div class="wl-detail-row mt-2">
+                                    <img src="{{asset('car-web/img/Cars/4.jpg')}}"
+                                        class="rounded-circle float-left mr-2 mt-2" width="32px" height="32"
+                                        style="width: 32px" alt="alt">
+                                    <p class="">Enkhtuvshin
+                                        <br>
+                                        <span>2019-03-01</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 p-0">
+                        <div class="card">
+                            <div class="card-header wish-title bg-dark text-white font-weight-bold rounded-top">
+                                <div class="brand-name"></div>
+                                <span class=font-size-lg>"</span>TOYOTA CROWN 210 ХУДАЛДАЖ АВНА
+                            </div>
+                            <div class="wish-detail text-black rounded-bottom border pl-4 pr-4"
+                                style="background-color: #f8f9fa">
+                                <div class="wl-detail-row mt-2">
+                                    <i class="icon-tag mr-4"></i>12 сая ~ 15,5 сая
+                                </div>
+                                <div class="wl-detail-row">
+                                    <i class="icon-phone mr-4"></i>9999 ....
+                                    <button class="btn btn-sm btn-outline-dark float-right">Watch</button>
+                                </div>
+                                <div class="wl-detail-row mt-2">
+                                    <img src="{{asset('car-web/img/Cars/4.jpg')}}"
+                                        class="rounded-circle float-left mr-2 mt-2" width="32px" height="32"
+                                        style="width: 32px" alt="alt">
+                                    <p class="">Enkhtuvshin
+                                        <br>
+                                        <span>2019-03-01</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 p-0">
+                        <div class="card">
+                            <div class="card-header wish-title bg-dark text-white font-weight-bold rounded-top">
+                                <div class="brand-name"></div>
+                                <span class=font-size-lg>"</span>TOYOTA CROWN 210 ХУДАЛДАЖ АВНА
+                            </div>
+                            <div class="wish-detail text-black rounded-bottom border pl-4 pr-4"
+                                style="background-color: #f8f9fa">
+                                <div class="wl-detail-row mt-2">
+                                    <i class="icon-tag mr-4"></i>12 сая ~ 15,5 сая
+                                </div>
+                                <div class="wl-detail-row">
+                                    <i class="icon-phone mr-4"></i>9999 ....
+                                    <button class="btn btn-sm btn-outline-dark float-right">Watch</button>
+                                </div>
+                                <div class="wl-detail-row mt-2">
+                                    <img src="{{asset('car-web/img/Cars/4.jpg')}}"
+                                        class="rounded-circle float-left mr-2 mt-2" width="32px" height="32"
+                                        style="width: 32px" alt="alt">
+                                    <p class="">Enkhtuvshin
+                                        <br>
+                                        <span>2019-03-01</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>  
+                </div>
+
+                <div class="row mt-2">
+                    <div class="col-md-4 p-0">
+                        <div class="card">
+                            <div class="card-header wish-title bg-dark text-white font-weight-bold rounded-top">
+                                <div class="brand-name"></div>
+                                <span class=font-size-lg>"</span>TOYOTA CROWN 210 ХУДАЛДАЖ АВНА
+                            </div>
+                            <div class="wish-detail text-black rounded-bottom border pl-4 pr-4"
+                                style="background-color: #f8f9fa">
+                                <div class="wl-detail-row mt-2">
+                                    <i class="icon-tag mr-4"></i>12 сая ~ 15,5 сая
+                                </div>
+                                <div class="wl-detail-row">
+                                    <i class="icon-phone mr-4"></i>9999 ....
+                                    <button class="btn btn-sm btn-outline-dark float-right">Watch</button>
+                                </div>
+                                <div class="wl-detail-row mt-2">
+                                    <img src="{{asset('car-web/img/Cars/4.jpg')}}"
+                                        class="rounded-circle float-left mr-2 mt-2" width="32px" height="32"
+                                        style="width: 32px" alt="alt">
+                                    <p class="">Enkhtuvshin
+                                        <br>
+                                        <span>2019-03-01</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 p-0">
+                        <div class="card">
+                            <div class="card-header wish-title bg-dark text-white font-weight-bold rounded-top">
+                                <div class="brand-name"></div>
+                                <span class=font-size-lg>"</span>TOYOTA CROWN 210 ХУДАЛДАЖ АВНА
+                            </div>
+                            <div class="wish-detail text-black rounded-bottom border pl-4 pr-4"
+                                style="background-color: #f8f9fa">
+                                <div class="wl-detail-row mt-2">
+                                    <i class="icon-tag mr-4"></i>12 сая ~ 15,5 сая
+                                </div>
+                                <div class="wl-detail-row">
+                                    <i class="icon-phone mr-4"></i>9999 ....
+                                    <button class="btn btn-sm btn-outline-dark float-right">Watch</button>
+                                </div>
+                                <div class="wl-detail-row mt-2">
+                                    <img src="{{asset('car-web/img/Cars/4.jpg')}}"
+                                        class="rounded-circle float-left mr-2 mt-2" width="32px" height="32"
+                                        style="width: 32px" alt="alt">
+                                    <p class="">Enkhtuvshin
+                                        <br>
+                                        <span>2019-03-01</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 p-0">
+                        <div class="card">
+                            <div class="card-header wish-title bg-dark text-white font-weight-bold rounded-top">
+                                <div class="brand-name"></div>
+                                <span class=font-size-lg>"</span>TOYOTA CROWN 210 ХУДАЛДАЖ АВНА
+                            </div>
+                            <div class="wish-detail text-black rounded-bottom border pl-4 pr-4"
+                                style="background-color: #f8f9fa">
+                                <div class="wl-detail-row mt-2">
+                                    <i class="icon-tag mr-4"></i>12 сая ~ 15,5 сая
+                                </div>
+                                <div class="wl-detail-row">
+                                    <i class="icon-phone mr-4"></i>9999 ....
+                                    <button class="btn btn-sm btn-outline-dark float-right">Watch</button>
+                                </div>
+                                <div class="wl-detail-row mt-2">
+                                    <img src="{{asset('car-web/img/Cars/4.jpg')}}"
+                                        class="rounded-circle float-left mr-2 mt-2" width="32px" height="32"
+                                        style="width: 32px" alt="alt">
+                                    <p class="">Enkhtuvshin
+                                        <br>
+                                        <span>2019-03-01</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>  
+                </div>
+
+                <div class="row mt-2">
+                    <div class="col-md-4 p-0">
+                        <div class="card">
+                            <div class="card-header wish-title bg-dark text-white font-weight-bold rounded-top">
+                                <div class="brand-name"></div>
+                                <span class=font-size-lg>"</span>TOYOTA CROWN 210 ХУДАЛДАЖ АВНА
+                            </div>
+                            <div class="wish-detail text-black rounded-bottom border pl-4 pr-4"
+                                style="background-color: #f8f9fa">
+                                <div class="wl-detail-row mt-2">
+                                    <i class="icon-tag mr-4"></i>12 сая ~ 15,5 сая
+                                </div>
+                                <div class="wl-detail-row">
+                                    <i class="icon-phone mr-4"></i>9999 ....
+                                    <button class="btn btn-sm btn-outline-dark float-right">Watch</button>
+                                </div>
+                                <div class="wl-detail-row mt-2">
+                                    <img src="{{asset('car-web/img/Cars/4.jpg')}}"
+                                        class="rounded-circle float-left mr-2 mt-2" width="32px" height="32"
+                                        style="width: 32px" alt="alt">
+                                    <p class="">Enkhtuvshin
+                                        <br>
+                                        <span>2019-03-01</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 p-0">
+                        <div class="card">
+                            <div class="card-header wish-title bg-dark text-white font-weight-bold rounded-top">
+                                <div class="brand-name"></div>
+                                <span class=font-size-lg>"</span>TOYOTA CROWN 210 ХУДАЛДАЖ АВНА
+                            </div>
+                            <div class="wish-detail text-black rounded-bottom border pl-4 pr-4"
+                                style="background-color: #f8f9fa">
+                                <div class="wl-detail-row mt-2">
+                                    <i class="icon-tag mr-4"></i>12 сая ~ 15,5 сая
+                                </div>
+                                <div class="wl-detail-row">
+                                    <i class="icon-phone mr-4"></i>9999 ....
+                                    <button class="btn btn-sm btn-outline-dark float-right">Watch</button>
+                                </div>
+                                <div class="wl-detail-row mt-2">
+                                    <img src="{{asset('car-web/img/Cars/4.jpg')}}"
+                                        class="rounded-circle float-left mr-2 mt-2" width="32px" height="32"
+                                        style="width: 32px" alt="alt">
+                                    <p class="">Enkhtuvshin
+                                        <br>
+                                        <span>2019-03-01</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 p-0">
+                        <div class="card">
+                            <div class="card-header wish-title bg-dark text-white font-weight-bold rounded-top">
+                                <div class="brand-name"></div>
+                                <span class=font-size-lg>"</span>TOYOTA CROWN 210 ХУДАЛДАЖ АВНА
+                            </div>
+                            <div class="wish-detail text-black rounded-bottom border pl-4 pr-4"
+                                style="background-color: #f8f9fa">
+                                <div class="wl-detail-row mt-2">
+                                    <i class="icon-tag mr-4"></i>12 сая ~ 15,5 сая
+                                </div>
+                                <div class="wl-detail-row">
+                                    <i class="icon-phone mr-4"></i>9999 ....
+                                    <button class="btn btn-sm btn-outline-dark float-right">Watch</button>
+                                </div>
+                                <div class="wl-detail-row mt-2">
+                                    <img src="{{asset('car-web/img/Cars/4.jpg')}}"
+                                        class="rounded-circle float-left mr-2 mt-2" width="32px" height="32"
+                                        style="width: 32px" alt="alt">
+                                    <p class="">Enkhtuvshin
+                                        <br>
+                                        <span>2019-03-01</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>  
+                </div>
+            </div>
+            <nav aria-label="Page navigation">
+                <ul class="pagination d-flex justify-content-end">
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#" aria-label="Previous">
+                            <span aria-hidden="true">«</span>
+                        </a>
+                    </li>
+                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item">
+                        <a class="page-link" href="#" aria-label="Next">
+                            <span aria-hidden="true">»</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+      </div>
+    </div>
+</section>
+
+<!-- Banner start -->
+<section class="mainPage-items bg-white">
+  <div class="container">
+    <a href="{{ $banner->link }}" class="text-primary text-decoration-none">
+      <div class="banner">
+        <!-- {{ $banner->title }} -->
+      </div>
+    </a>
+  </div>
+</section>
+<!-- Banner end -->
+
+<!-- Hot deal Grid start -->
+<section class="mainPage-items bg-white">
+    <div class="container">
+        <div class="row">
+        <div class="section-title">
+            <h2>Hot deal</h2>
+            <span>
+            <a href="#">See all ({{ count($hotDeals) }})</a>
+            <div class="more-arrow"></div>
+            </span>
+        </div>
+        </div>
+    </div>
+    <div class="card-list hot-deal">
+        <div class="container">
+        <div class="row">
+            <div class="card-slide owl-carousel owl-theme">
+            @foreach($hotDeals as $car)
+            <!-- card start -->
+            <div class="card">
+                <div class="brand-name"></div>
+                <div class="card-img">
+                <img src="{{ (substr($car->metaValue('thumbnail'), 0, 4) !== 'http')?(App\Config::getStorage() . $car->metaValue('thumbnail')):$car->metaValue('thumbnail') }}" class="img-fluid" alt="alt">
+                <div class="bestDeal"
+                        style="position: absolute; top:5px; left: 5px; background-color: white; border-radius: 3px; padding: 1px 3px">
+                    <i class="fas fa-crown" style="color: #FEC400"></i>
+                </div>
+                
+                <div class="info">
+                    <span class="carIcon-engine">
+                    <p>{{ ucfirst($car->metaValue('displacement')) }} L</p>
+                    </span>
+                    <span class="carIcon-car-6">
+                    <p>{{ $car->metaValue('mileage') }} KM</p>
+                    </span>
+                    <span class="carIcon-gas-station">
+                    <p>{{ ucfirst($car->metaValue('fuelType')) }}</p>
+                    </span>
+                    <span class="carIcon-gearshift">
+                    <p>{{ ucfirst($car->metaValue('transmission')) }}</p>
+                    </span>
+                    <span class="carIcon-steering-wheel">
+                    <p>{{ ucfirst($car->metaValue('wheelPosition')) }} wheel</p>
+                    </span>
+                    <span class="color" data-color="white">
+                    <p>{{ ucfirst($car->metaValue('colorName')) }}</p>
+                    </span>
+                </div>
+                <div class="card-caption">
+                    <div class="meta">
+                    {{ $car->metaValue('buildYear') }}/{{ $car->metaValue('importDate') }} | {{ $car->metaValue('mileage') }}km | {{ ucfirst($car->metaValue('fuelType')) }}
+                    <i class="show-more fab fa fa-angle-up"></i>
+                    </div>
+                    <div class="favorite">
+                    <i class="icon-heart"></i>
+                    </div>
+                </div>
+                </div>
+
+                <div class="card-body shadow">
+                <div class="card-description">
+                    <a href="{{ $car->slug }}" class="card-title">{{ $car->title }}</a>
+                    <div class="card-meta">
+                    <div class="status">{{ ucfirst($car->metaValue('priceType')) }} </div>
+                    <div class="price">{{ $car->metaValue('price') }} ₮</div>
+                    </div>
+                </div>
+                </div>
+
+            </div>
+            <!-- card end -->
+            @endforeach
+
+            </div>
+        </div>
+        </div>
+    </div>
+</section>
+    <!-- card end -->
+
+<!-- Hot deal Grid start -->
+@endsection
+
+@section('script')
+
+@endsection

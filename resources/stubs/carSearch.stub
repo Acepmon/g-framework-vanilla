@@ -1,5 +1,71 @@
 @extends('themes.car-web.layouts.default')
 
+
+@php
+function metaHas($items, $key, $value)
+{
+return $items->whereHas('metas', function ($query) use ($key, $value) {
+$query->where('key', $key)->where('value', $value);
+});
+}
+function idize($value)
+{
+return str_replace(' ', '_', strtolower($value));
+}
+$categories = [
+'Car Type', 'Manufacturer', 'Color', 'Fuel', 'Transmission', 'Option', 'An accident', 'Passenger', 'Steering Wheel', 'Area'
+];
+
+// Get All items
+$orderBy = request('orderBy', "updated_at");
+$order = request('order', "desc");
+$page = request('page', "1");
+$itemsPerPage = request('itemsPerPage', "10");
+$allItems = App\Content::with('metas')->where('type', App\Content::TYPE_CAR);
+if ($orderBy != 'updated_at') {
+$allItems = $allItems->join('content_metas', 'contents.id', '=', 'content_metas.content_id')
+->where('content_metas.key', '=', $orderBy)->select('contents.*')->addSelect('content_metas.value');
+$allItems = $allItems->orderBy('value', $order);
+} else {
+$allItems = $allItems->orderBy($orderBy, $order);
+}
+$items = $allItems;
+
+// Items filtering
+$request = [];
+$request['type'] = request('car_type', 'Sedan');
+$request['markName'] = request('manufacturer', Null);
+$request['colorName'] = request('color', Null);
+$request['fuelType'] = request('fuel', Null);
+$request['transmission'] = request('transmission', Null);
+$request['advantages'] = request('advantage', Null);
+$request['manCount'] = request('passenger', Null);
+$request['wheelPosition'] = request('steering_wheel', Null);
+$request['countryName'] = request('area', Null);
+foreach ($request as $key => $value) {
+if ($value != Null) {
+$items = metaHas($items, $key, $value);
+}
+}
+
+// HOT Deals
+$hotDeals=App\Content::where('type', App\Content::TYPE_CAR)->inRandomOrder()->paginate(5);
+$items = $hotDeals->merge($items->get());
+
+// Post items filtering
+$itemCount = count($items->all());
+$maxPage = intval(ceil($itemCount / $itemsPerPage));
+if ($itemCount < $page * $itemsPerPage) {
+  $page= $maxPage;
+}
+
+// Banner
+$banner = App\Banner::where('location_id', 5)->where('status', 'active')->inRandomOrder()->first();
+// $sideBanners = App\Banner::where('location_id', 4)->where('status', 'active')->get();
+$sideBanners = App\Banner::where('location_id', 4)->get();
+
+@endphp
+
 @section('title')
 
 @endsection
@@ -13,135 +79,40 @@
 
 <section class="section">
     <div class="container">
+    @include('themes.car-web.includes.fixed-right-sidebar', array('sideBanners'=>$sideBanners, 'premium'=>$hotDeals))
         <div class="row">
             <div class="col-md-3">
+        <form action="search" id="mainForm">
                 <div class="left-bar-title">
                     Sort Vehicle <i class="fab fa fa-search"></i>
                 </div>
                 <div class="accordion shadow-soft-blue" id="accordionExample">
+                    @foreach($categories as $index=>$category)
                     <div class="card">
-                    <div class="accordian-head" id="carType">
+                    <div class="accordian-head" id="{{ $category }}">
                         <h2 class="mb-0">
-                        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#car-type" aria-expanded="true" aria-controls="car-type">
-                            Car type<i class="fab fa fa-angle-down"></i>
+                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#{{ idize($category) }}" aria-expanded="false" aria-controls="{{ idize($category) }}">
+                            {{ $category }}<i class="fab fa fa-angle-down"></i>
                         </button>
                         </h2>
                     </div>
-                
-                    <div id="car-type" class="collapse show" aria-labelledby="carType" data-parent="#accordionExample">
+
+                    <div id="{{ idize($category) }}" class="collapse {{ request(idize($category), False)?'show':'' }}" aria-labelledby="{{ $category }}">
                         <div class="card-body bg-light">
-                            <div class="custom-control custom-radio">
-                                <input type="radio" id="sedan" name="carTyoe" class="custom-control-input">
-                                <label class="custom-control-label  d-flex justify-content-between" for="sedan">Sedan <div class="text-muted">65</div></label>
-                            </div>
-                            <div class="custom-control custom-radio">
-                                <input type="radio" id="suv" name="carTyoe" class="custom-control-input">
-                                <label class="custom-control-label d-flex justify-content-between" for="suv">SUV <div class="text-muted">128</div></label>
-                            </div>
-                            <div class="custom-control custom-radio">
-                                <input type="radio" id="sport" name="carTyoe" class="custom-control-input">
-                                <label class="custom-control-label  d-flex justify-content-between" for="sport">Sport <div class="text-muted">98</div></label>
-                            </div>
-                            <div class="custom-control custom-radio">
-                                <input type="radio" id="trucks" name="carTyoe" class="custom-control-input">
-                                <label class="custom-control-label  d-flex justify-content-between" for="trucks">Trucks <div class="text-muted">7</div></label>
-                            </div>
-                            <div class="custom-control custom-radio">
-                                <input type="radio" id="vans" name="carTyoe" class="custom-control-input">
-                                <label class="custom-control-label  d-flex justify-content-between" for="vans">Vans <div class="text-muted">154</div></label>
-                            </div>
-                            <div class="custom-control custom-radio">
-                                <input type="radio" id="bus" name="carTyoe" class="custom-control-input">
-                                <label class="custom-control-label  d-flex justify-content-between" for="bus">Bus <div class="text-muted">25</div></label>
-                            </div>
+                        @foreach(App\TermTaxonomy::where('taxonomy', $category)->get() as $taxonomy)
+                        <div class="custom-control custom-radio">
+                            <!-- <a href="/car-list?{{ idize($category) . '=' . $taxonomy->term->name }}" class="text-body text-decoration-none"> -->
+                            <input type="radio" id="{{$taxonomy->term->name}}" name="{{ idize($category) }}" class="custom-control-input" value="{{ $taxonomy->term->name }}" {{ (request(idize($category), Null)==$taxonomy->term->name)?'checked':'' }}>
+                            <label class="custom-control-label  d-flex justify-content-between" for="{{$taxonomy->term->name}}">{{ $taxonomy->term->name }}
+                            <div class="text-muted">{{ $taxonomy->count }}</div>
+                            </label>
+                        </div>
+                        @endforeach
                         </div>
                     </div>
                     </div>
-                    <div class="card">
-                    <div class="accordian-head" id="model">
-                        <h2 class="mb-0">
-                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#manufacture" aria-expanded="false" aria-controls="manufacture">
-                            Manufacturer / Model <i class="fab fa fa-angle-down"></i>
-                        </button>
-                        </h2>
-                    </div>
-                    <div id="manufacture" class="collapse" aria-labelledby="model" data-parent="#accordionExample">
-                        <div class="card-body bg-light">
-                            <div class="custom-control custom-radio">
-                                <input type="radio" id="Toyota" name="carTyoe" class="custom-control-input">
-                                <label class="custom-control-label d-flex justify-content-between" for="Toyota">Toyota <div class="text-muted">0</div></label>
-                            </div>
-                            <div class="custom-control custom-radio">
-                                <input type="radio" id="Lexus" name="carTyoe" class="custom-control-input">
-                                <label class="custom-control-label d-flex justify-content-between" for="Lexus">Lexus <div class="text-muted">0</div></label>
-                            </div>
-                            <div class="custom-control custom-radio">
-                                <input type="radio" id="Nissan" name="carTyoe" class="custom-control-input">
-                                <label class="custom-control-label d-flex justify-content-between" for="Nissan">Nissan <div class="text-muted">0</div></label>
-                            </div>
-                            <div class="custom-control custom-radio">
-                                <input type="radio" id="Mercedes benz" name="carTyoe" class="custom-control-input">
-                                <label class="custom-control-label d-flex justify-content-between" for="Mercedes benz">Mercedes benz <div class="text-muted">0</div></label>
-                            </div>
-                            <div class="custom-control custom-radio">
-                                <input type="radio" id="Volkswagen" name="carTyoe" class="custom-control-input">
-                                <label class="custom-control-label d-flex justify-content-between" for="Volkswagen">Volkswagen <div class="text-muted">0</div></label>
-                            </div>
-                            <div class="custom-control custom-radio">
-                                <input type="radio" id="Mini" name="carTyoe" class="custom-control-input">
-                                <label class="custom-control-label d-flex justify-content-between" for="Mini">Mini <div class="text-muted">0</div></label>
-                            </div>
-                            <div class="custom-control custom-radio">
-                                <input type="radio" id="Audi" name="carTyoe" class="custom-control-input">
-                                <label class="custom-control-label d-flex justify-content-between" for="Audi">Audi <div class="text-muted">0</div></label>
-                            </div>
-                            <div class="custom-control custom-radio">
-                                <input type="radio" id="BMW" name="carTyoe" class="custom-control-input">
-                                <label class="custom-control-label d-flex justify-content-between" for="BMW">BMW <div class="text-muted">0</div></label>
-                            </div>
-                            <div class="custom-control custom-radio">
-                                <input type="radio" id="Ford" name="carTyoe" class="custom-control-input">
-                                <label class="custom-control-label d-flex justify-content-between" for="Ford">Ford <div class="text-muted">0</div></label>
-                            </div>
-                            <div class="custom-control custom-radio">
-                                <input type="radio" id="Land Rover" name="carTyoe" class="custom-control-input">
-                                <label class="custom-control-label d-flex justify-content-between" for="Land Rover">Land Rover <div class="text-muted">0</div></label>
-                            </div>
-                            <div class="custom-control custom-radio">
-                                <input type="radio" id="Daihatsu" name="carTyoe" class="custom-control-input">
-                                <label class="custom-control-label d-flex justify-content-between" for="Daihatsu">Daihatsu <div class="text-muted">0</div></label>
-                            </div>
-                            <div class="custom-control custom-radio">
-                                <input type="radio" id="Dodge" name="carTyoe" class="custom-control-input">
-                                <label class="custom-control-label d-flex justify-content-between" for="Dodge">Dodge <div class="text-muted">0</div></label>
-                            </div>
-                            <div class="custom-control custom-radio">
-                                <input type="radio" id="Honda" name="carTyoe" class="custom-control-input">
-                                <label class="custom-control-label d-flex justify-content-between" for="Honda">Honda <div class="text-muted">0</div></label>
-                            </div>
-                            <div class="custom-control custom-radio">
-                                <input type="radio" id="Hyundai" name="carTyoe" class="custom-control-input">
-                                <label class="custom-control-label d-flex justify-content-between" for="Hyundai">Hyundai <div class="text-muted">0</div></label>
-                            </div>
-                            <div class="custom-control custom-radio">
-                                <input type="radio" id="Kia" name="carTyoe" class="custom-control-input">
-                                <label class="custom-control-label d-flex justify-content-between" for="Kia">Kia <div class="text-muted">0</div></label>
-                            </div>
-                            <div class="custom-control custom-radio">
-                                <input type="radio" id="Jeep" name="carTyoe" class="custom-control-input">
-                                <label class="custom-control-label d-flex justify-content-between" for="Jeep">Jeep <div class="text-muted">0</div></label>
-                            </div>
-                            <div class="custom-control custom-radio">
-                                <input type="radio" id="Subaru" name="carTyoe" class="custom-control-input">
-                                <label class="custom-control-label d-flex justify-content-between" for="Subaru">Subaru <div class="text-muted">0</div></label>
-                            </div>
-                            <div class="custom-control custom-radio">
-                                <input type="radio" id="Suzuki" name="carTyoe" class="custom-control-input">
-                                <label class="custom-control-label d-flex justify-content-between" for="Suzuki">Suzuki <div class="text-muted">0</div></label>
-                            </div>
-                        </div>
-                    </div>
-                    </div>
+                    @endforeach
+
                     <div class="card">
                     <div class="accordian-head" id="year-accordian">
                         <h2 class="mb-0">
@@ -150,165 +121,11 @@
                         </button>
                         </h2>
                     </div>
-                    <div id="year" class="collapse" aria-labelledby="year-accordian" data-parent="#accordionExample">
+                    <div id="year" class="collapse" aria-labelledby="year-accordian">
                         <div class="card-body bg-light">
-                            <span id="ex18-label-2a" class="d-none">Example low value</span>
-                            <span id="ex18-label-2b" class="d-none">Example high value</span>
-                            <div class="slider slider-horizontal" id=""><div class="slider-track"><div class="slider-track-low" style="left: 0px; width: 30%;"></div><div class="slider-selection" style="left: 30%; width: 30%;"></div><div class="slider-track-high" style="right: 0px; width: 40%;"></div></div><div class="tooltip tooltip-main top" role="presentation" style="left: 45%;"><div class="tooltip-arrow"></div><div class="tooltip-inner">3 : 6</div></div><div class="tooltip tooltip-min top" role="presentation" style="left: 30%;"><div class="tooltip-arrow"></div><div class="tooltip-inner">3</div></div><div class="tooltip tooltip-max top" role="presentation" style="left: 60%;"><div class="tooltip-arrow"></div><div class="tooltip-inner">6</div></div><div class="slider-handle min-slider-handle round" role="slider" aria-valuemin="0" aria-valuemax="10" aria-labelledby="ex18-label-2a" aria-valuenow="3" tabindex="0" style="left: 30%;"></div><div class="slider-handle max-slider-handle round" role="slider" aria-valuemin="0" aria-valuemax="10" aria-labelledby="ex18-label-2b" aria-valuenow="6" tabindex="0" style="left: 60%;"></div></div><input id="ex18b" type="text" data-value="3,6" value="3,6" style="display: none;">
-                        </div>
-                    </div>
-                    </div>
-                    <div class="card">
-                    <div class="accordian-head" id="manufacturer-accordian">
-                        <h2 class="mb-0">
-                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#manufacturer" aria-expanded="false" aria-controls="manufacturer">
-                            Manufacturer  <i class="fab fa fa-angle-down"></i>
-                        </button>
-                        </h2>
-                    </div>
-                    <div id="manufacturer" class="collapse" aria-labelledby="manufacturer-accordian" data-parent="#accordionExample">
-                        <div class="card-body bg-light">
-                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid.
-                        </div>
-                    </div>
-                    </div>
-                    <div class="card">
-                    <div class="accordian-head" id="distance">
-                        <h2 class="mb-0">
-                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#distance" aria-expanded="false" aria-controls="distance">
-                            Distance driven <i class="fab fa fa-angle-down"></i>
-                        </button>
-                        </h2>
-                    </div>
-                    <div id="distance" class="collapse" aria-labelledby="distance" data-parent="#accordionExample">
-                        <div class="card-body bg-light">
-                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid.
-                        </div>
-                    </div>
-                    </div>
-                    <div class="card">
-                    <div class="accordian-head" id="price-accordian">
-                        <h2 class="mb-0">
-                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#price" aria-expanded="false" aria-controls="price">
-                            Price / Installment <i class="fab fa fa-angle-down"></i>
-                        </button>
-                        </h2>
-                    </div>
-                    <div id="price" class="collapse" aria-labelledby="price-accordian" data-parent="#accordionExample">
-                        <div class="card-body bg-light">
-                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid.
-                        </div>
-                    </div>
-                    </div>
-                    <div class="card">
-                    <div class="accordian-head" id="color-accordian">
-                        <h2 class="mb-0">
-                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#color" aria-expanded="false" aria-controls="color">
-                            Color <i class="fab fa fa-angle-down"></i>
-                        </button>
-                        </h2>
-                    </div>
-                    <div id="color" class="collapse" aria-labelledby="color-accordian" data-parent="#accordionExample">
-                        <div class="card-body bg-light">
-                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid.
-                        </div>
-                    </div>
-                    </div>
-                    <div class="card">
-                    <div class="accordian-head" id="fuel-accordian">
-                        <h2 class="mb-0">
-                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#fuel" aria-expanded="false" aria-controls="fuel">
-                            Fuel <i class="fab fa fa-angle-down"></i>
-                        </button>
-                        </h2>
-                    </div>
-                    <div id="fuel" class="collapse" aria-labelledby="fuel-accordian" data-parent="#accordionExample">
-                        <div class="card-body bg-light">
-                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid.
-                        </div>
-                    </div>
-                    </div>
-                    <div class="card">
-                    <div class="accordian-head" id="transmission-accordian">
-                        <h2 class="mb-0">
-                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#transmission" aria-expanded="false" aria-controls="transmission">
-                            Transmission <i class="fab fa fa-angle-down"></i>
-                        </button>
-                        </h2>
-                    </div>
-                    <div id="transmission" class="collapse" aria-labelledby="transmission-accordian" data-parent="#accordionExample">
-                        <div class="card-body bg-light">
-                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid.
-                        </div>
-                    </div>
-                    </div>
-                    <div class="card">
-                    <div class="accordian-head" id="option-accordian">
-                        <h2 class="mb-0">
-                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#option" aria-expanded="false" aria-controls="option">
-                            Option <i class="fab fa fa-angle-down"></i>
-                        </button>
-                        </h2>
-                    </div>
-                    <div id="option" class="collapse" aria-labelledby="option-accordian" data-parent="#accordionExample">
-                        <div class="card-body bg-light">
-                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid.
-                        </div>
-                    </div>
-                    </div>
-                    <div class="card">
-                    <div class="accordian-head" id="accident-accordian">
-                        <h2 class="mb-0">
-                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#accident" aria-expanded="false" aria-controls="accident">
-                            An accident <i class="fab fa fa-angle-down"></i>
-                        </button>
-                        </h2>
-                    </div>
-                    <div id="accident" class="collapse" aria-labelledby="accident-accordian" data-parent="#accordionExample">
-                        <div class="card-body bg-light">
-                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid.
-                        </div>
-                    </div>
-                    </div>
-                    <div class="card">
-                    <div class="accordian-head" id="passenger-accordian">
-                        <h2 class="mb-0">
-                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#passenger" aria-expanded="false" aria-controls="passenger">
-                            Passenger <i class="fab fa fa-angle-down"></i>
-                        </button>
-                        </h2>
-                    </div>
-                    <div id="passenger" class="collapse" aria-labelledby="passenger-accordian" data-parent="#accordionExample">
-                        <div class="card-body bg-light">
-                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid.
-                        </div>
-                    </div>
-                    </div>
-                    <div class="card">
-                    <div class="accordian-head" id="steeringWheel-accordian">
-                        <h2 class="mb-0">
-                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#sterringWheel" aria-expanded="false" aria-controls="sterringWheel">
-                            Steering wheel <i class="fab fa fa-angle-down"></i>
-                        </button>
-                        </h2>
-                    </div>
-                    <div id="sterringWheel" class="collapse" aria-labelledby="steeringWheel-accordian" data-parent="#accordionExample">
-                        <div class="card-body bg-light">
-                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid.
-                        </div>
-                    </div>
-                    </div>
-                    <div class="card">
-                    <div class="accordian-head" id="area-accordian">
-                        <h2 class="mb-0">
-                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#area" aria-expanded="false" aria-controls="area">
-                            Area <i class="fab fa fa-angle-down"></i>
-                        </button>
-                        </h2>
-                    </div>
-                    <div id="area" class="collapse" aria-labelledby="area-accordian" data-parent="#accordionExample">
-                        <div class="card-body bg-light">
-                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid.
+                        <span id="ex18-label-2a" class="d-none">1990</span>
+                        <span id="ex18-label-2b" class="d-none">2019</span>
+                        <input id="ex18b" type="text" />
                         </div>
                     </div>
                     </div>
@@ -323,168 +140,178 @@
                         <input type="text" class="form-control" placeholder="Enter search text">
                     </div>
                 </div>
+                
                 <div class="container">
                     <div class="row">
-                    <div class="car-list">
+                        @if ($items->all() && sizeof($items->all()) != 0)
+                        <div class="car-list mt-2">
+                        <input type="hidden" name="search" id="search">
+                        <input type="hidden" name="advantage" id="advantage" value="{{ $request['advantages'] }}" />
+                        @foreach($items->forPage($page, $itemsPerPage) as $car)
                         <!-- card start -->
-                        <div class="card">
-                        <div class="card-body">
-                            <div class="card-img">
-                                <img src="/assets/car-web/img/Cars/3.jpg" class="img-fluid" alt="alt">
-                            </div>
-                            <div class="card-description">
-                                <div class="card-caption">
-                                    <div class="card-title">Santa fe The Prime diesel 2.0 2wd</div>
-                                    <div class="meta">2006/2013 | 17,820km</div>
-                                    <div class="price">12 Сая ₮</div>
-                                    <div class="favorite">
-                                    <i class="icon-heart"></i> Add to interest list
-                                    </div>
-                                </div>
-                            <div class="info">
-                                <span class="carIcon-engine">
-                                    <p>1499 L</p>
-                                </span>
-                                <span class="carIcon-car-6">
-                                    <p>52,000 KM</p>
-                                </span>
-                                <span class="carIcon-gas-station">
-                                    <p>Gasoline</p>
-                                </span>
-                                <span class="carIcon-gearshift">
-                                    <p>Automatic</p>
-                                </span>
-                                <span class="carIcon-steering-wheel">
-                                    <p>Right wheel</p>
-                                </span>
-                                <span class="color" data-color="black">
-                                    <p>Black</p>
-                                </span>
-
-                                <div class="tag">
-                                    <a href="#">1 person</a>
-                                    <a href="#">In Garage</a>
-                                    <a href="#">4 Season tire</a>
-                                    <a href="#">Bank Loan</a>
-                                    </div>
-                                </div>
-
-                            </div>
-            
-                        </div>
-            
-                        </div>
+                        @include('themes.car-web.includes.car-list-card', array('car'=>$car))
                         <!-- card end -->
-                    </div>   
+                        @endforeach
+                        </div>
+                        @else
+                        <div class="text-center text-muted col-lg-12 mt-3">
+                        <p>No results found</p>
+                        </div>
+                        @endif
+                    </div>
                 </div>
-            </div>
-            <nav aria-label="Page navigation">
+
+                <!-- Pagination -->
+                <nav aria-label="Page navigation">
+                <input type="hidden" value="{{ $page }}" name="page" id="page" />
                 <ul class="pagination d-flex justify-content-end">
-                    <li class="page-item disabled">
-                        <a class="page-link" href="#" aria-label="Previous">
-                            <span aria-hidden="true">«</span>
-                        </a>
+                    <li class="page-item {{ ($page <= 1)?'disabled':'' }}">
+                    <button class="page-link" onclick="formSubmit('page', {{$page-1}})" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </button>
                     </li>
-                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item">
-                        <a class="page-link" href="#" aria-label="Next">
-                            <span aria-hidden="true">»</span>
-                        </a>
+                    @for($i = 1; $i <= $maxPage; $i++)
+                    <li class="page-item {{ ($i == $page)?'active':'' }}"><button class="page-link" onclick="formSubmit('page', {{$i}})">{{ $i }}</button></li>
+                    @endfor
+                    <li class="page-item {{ ($page >= $maxPage)?'disabled':'' }}">
+                        <button class="page-link" onclick="formSubmit('page', {{$page+1}})" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                        </button>
                     </li>
                 </ul>
-            </nav>
+                </nav>
+                <!-- Pagination end -->
+                </form>
+            </div>
+            
         </div>
       </div>
     </div>
 </section>
 
-    <section class="mainPage-items bg-white">
-        <div class="container">
-            <div class="row">
-                <div class="section-title">
-                    <h2>Hot deal</h2>
-                    <span>
-            <a href="#">See all (123)</a>
+<!-- Banner start -->
+<section class="mainPage-items bg-white">
+  <div class="container">
+    <a href="{{ $banner->link }}" class="text-primary text-decoration-none">
+      <div class="banner">
+        <!-- {{ $banner->title }} -->
+      </div>
+    </a>
+  </div>
+</section>
+<!-- Banner end -->
+
+<!-- Hot deal Grid start -->
+<section class="mainPage-items bg-white">
+    <div class="container">
+        <div class="row">
+        <div class="section-title">
+            <h2>Hot deal</h2>
+            <span>
+            <a href="#">See all ({{ count($hotDeals) }})</a>
             <div class="more-arrow"></div>
-          </span>
-                </div>
-            </div>
+            </span>
         </div>
-        <div class="card-list hot-deal">
-            <div class="container">
-                <div class="row">
-                    <div class="card-slide owl-carousel owl-theme">
-                        @contents([{"field":"type", "key":"car"}, {"field":"status", "key":"draft"} ])
-                        @php
-                        $carDataHotList=json_decode($carDataHot);
-
-                        function getValue($rr,$key){
-                            foreach($rr->metas as $metas){
-                                if($metas->key==$key){
-                                return $metas->value;
-                                }
-                            }
-                        }
-                        @endphp
-                        {{--{{$carDataHot}}--}}
-                        @foreach($carDataHotList as $rr)
-                        <div class="card">
-
-                            <div class="brand-name"><?php echo getValue($rr, 'manufacturer') ?></div>
-                            <div class="card-img">
-                                {{--<img src="{{(getValue($rr, 'thumbnail'))}}" class="img-fluid" alt="alt">--}}
-                                <img src="{{asset('car-web/img/Cars/3.jpg')}}" class="img-fluid" alt="alt">
-                                <div class="info">
-                              <span class="carIcon-engine">
-                                <p><?php echo getValue($rr, 'displacement') ?></p>
-                              </span>
-                                    <span class="carIcon-car-6">
-                                <p><?php echo getValue($rr, 'mileage') ?></p>
-                              </span>
-                                    <span class="carIcon-gas-station">
-                                <p><?php echo getValue($rr, 'fuel') ?></p>
-                              </span>
-                                    <span class="carIcon-gearshift">
-                                <p><?php echo getValue($rr, 'transmission') ?></p>
-                              </span>
-                                    <span class="carIcon-steering-wheel">
-                                <p><?php echo getValue($rr, 'wheelDrive') ?></p>
-                              </span>
-                                    <span class="color" data-color="white">
-                                <p><?php echo getValue($rr, 'colorName') ?></p>
-                              </span>
-                                </div>
-                                <div class="card-caption">
-                                    <div class="meta"><?php echo getValue($rr, 'buildYear') ?>/<?php echo getValue($rr, 'importDate') ?> | <?php echo getValue($rr, 'mileage') ?> | <?php echo getValue($rr, 'fuel') ?> <i class="show-more fab fa fa-angle-up"></i></div>
-                                    <div class="favorite">
-                                        <i class="icon-heart"></i>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card-body shadow">
-                                <div class="card-description">
-                                    <a href="detail-page.html" class="card-title">{{$rr->title}}</a>
-                                    <div class="card-meta">
-                                        <div class="status"><?php echo getValue($rr, 'priceType') ?> / finance</div>
-                                        <div class="price"><?php echo getValue($rr, 'price') ?></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        @endforeach
-                         <!-- card end -->
-
+        </div>
+    </div>
+    <div class="card-list hot-deal">
+        <div class="container">
+        <div class="row">
+            <div class="card-slide owl-carousel owl-theme">
+            @foreach($hotDeals as $car)
+            <!-- card start -->
+            <div class="card">
+                <div class="brand-name"></div>
+                <div class="card-img">
+                <img src="{{ (substr($car->metaValue('thumbnail'), 0, 4) !== 'http')?(App\Config::getStorage() . $car->metaValue('thumbnail')):$car->metaValue('thumbnail') }}" class="img-fluid" alt="alt">
+                <div class="bestDeal"
+                        style="position: absolute; top:5px; left: 5px; background-color: white; border-radius: 3px; padding: 1px 3px">
+                    <i class="fas fa-crown" style="color: #FEC400"></i>
+                </div>
+                
+                <div class="info">
+                    <span class="carIcon-engine">
+                    <p>{{ ucfirst($car->metaValue('displacement')) }} L</p>
+                    </span>
+                    <span class="carIcon-car-6">
+                    <p>{{ $car->metaValue('mileage') }} KM</p>
+                    </span>
+                    <span class="carIcon-gas-station">
+                    <p>{{ ucfirst($car->metaValue('fuelType')) }}</p>
+                    </span>
+                    <span class="carIcon-gearshift">
+                    <p>{{ ucfirst($car->metaValue('transmission')) }}</p>
+                    </span>
+                    <span class="carIcon-steering-wheel">
+                    <p>{{ ucfirst($car->metaValue('wheelPosition')) }} wheel</p>
+                    </span>
+                    <span class="color" data-color="white">
+                    <p>{{ ucfirst($car->metaValue('colorName')) }}</p>
+                    </span>
+                </div>
+                <div class="card-caption">
+                    <div class="meta">
+                    {{ $car->metaValue('buildYear') }}/{{ $car->metaValue('importDate') }} | {{ $car->metaValue('mileage') }}km | {{ ucfirst($car->metaValue('fuelType')) }}
+                    <i class="show-more fab fa fa-angle-up"></i>
+                    </div>
+                    <div class="favorite">
+                    <i class="icon-heart"></i>
                     </div>
                 </div>
+                </div>
+
+                <div class="card-body shadow">
+                <div class="card-description">
+                    <a href="{{ $car->slug }}" class="card-title">{{ $car->title }}</a>
+                    <div class="card-meta">
+                    <div class="status">{{ ucfirst($car->metaValue('priceType')) }} </div>
+                    <div class="price">{{ $car->metaValue('price') }} ₮</div>
+                    </div>
+                </div>
+                </div>
+
+            </div>
+            <!-- card end -->
+            @endforeach
+
             </div>
         </div>
-    </section>
+        </div>
+    </div>
+</section>
+    <!-- card end -->
 
+<!-- Hot deal Grid start -->
 
 @endsection
 
 @section('script')
+<script src="{{ asset('car-web/vendor/bootstrap-slider/bootstrap-slider.min.js') }}"></script>
+<script src="{{ asset('car-web/vendor/owl.carousel.thumbs/owl.carousel2.thumbs.min.js') }}"></script>
+<script>
+  function formSubmit(id, value) {
+    document.getElementById(id).value = value;
+    $('#mainForm').submit();
+  }
 
+  $("input[type=radio]").click(function(event) {
+    event.preventDefault();
+    if (event.target.defaultChecked) {
+      event.target.checked = false;
+    }
+    $('#mainForm').submit();
+  });
+
+  $("#searchBtn").click(function(event) {
+    event.preventDefault();
+    var value = $("#searchInput").val();
+    if (value) {
+      $("#search").val(value);
+      console.log($("#search").val());
+      $("#searchForm").submit();
+    } else {
+      $("#searchInput").focus();
+    }
+  });
+</script>
 @endsection
