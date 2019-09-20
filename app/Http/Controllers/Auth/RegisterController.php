@@ -86,7 +86,7 @@ class RegisterController extends Controller
             $user->save();
         }
 
-        $groupId = (array_key_exists('group', $data) && $data['group']) || Config::getValue('system.register.defaultGroup');
+        $groupId = (array_key_exists('group', $data) && $data['group']) || config('system.register.defaultGroup');
         if (!empty($groupId)) {
             $user->groups()->attach($groupId);
         }
@@ -99,13 +99,13 @@ class RegisterController extends Controller
         $path = '/home';
 
         if (Auth::user()->is_admin()) {
-            $path = Config::getValue('system.auth.adminRedirectPath');
+            $path = config('system.auth.adminRedirectPath');
         } else if (Auth::user()->is_operator()) {
-            $path = Config::getValue('system.auth.operatorRedirectPath');
+            $path = config('system.auth.operatorRedirectPath');
         } else if (Auth::user()->is_member()) {
-            $path = Config::getValue('system.auth.memberRedirectPath');
+            $path = config('system.auth.memberRedirectPath');
         } else {
-            $path = Config::getValue('system.auth.guestRedirectPath');
+            $path = config('system.auth.guestRedirectPath');
         }
 
         return $path;

@@ -12,7 +12,7 @@ class PagesSeeder extends Seeder
     public function run()
     {
         $time = time();
-        $rootPath = \App\Config::where('key', 'content.pages.rootPath')->first()->value;
+        $rootPath = config('content.pages.rootPath');
 
         if (!file_exists(base_path($rootPath))) {
             mkdir(base_path($rootPath));

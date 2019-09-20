@@ -33,6 +33,14 @@
         </div>
     @endif
 
+    @if (session('status'))
+        <div class="card-body">
+            <div class="alert alert-success">
+                {!! session('status') !!}
+            </div>
+        </div>
+    @endif
+
     <table class="table table-condensed table-hover datatable-basic">
         <thead>
             <tr>
@@ -50,12 +58,16 @@
             @foreach ($banners as $index => $banner)
                 <tr>
                     <td>{{ $index + 1 }}</td>
-                    <td>{{ $banner->title }}</td>
+                    <td>
+                        <a href="{{ route('admin.banners.show', $banner->id) }}">
+                            {{ $banner->title }}
+                        </a>
+                    </td>
                     <td>
                         @if ($banner->status == \App\Banner::STATUS_ACTIVE)
-                        <span class="text-success">{{ $banner->status }}</span>
+                            <span class="text-success">{{ $banner->status }}</span>
                         @else
-                        <span class="text-muted">{{ $banner->status }}</span>
+                            <span class="text-muted">{{ $banner->status }}</span>
                         @endif
                     </td>
                     <td>

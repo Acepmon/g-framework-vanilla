@@ -12,18 +12,6 @@ function system_asset(string $string)
     return asset($path);
 }
 
-function admin_asset(string $string)
-{
-    $name = $string;
-    if (substr($string, 0, 1) == '/' || substr($string, 0, 1) == '\\') {
-        $name = DIRECTORY_SEPARATOR . substr($string, 1);
-    } else {
-        $name = DIRECTORY_SEPARATOR . $string;
-    }
-    $path = \App\Config::getValue('admin.theme.current') . $name;
-    return asset($path);
-}
-
 function get_string_between($string, $start, $end)
 {
     $string = ' ' . $string;

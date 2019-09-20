@@ -6,7 +6,7 @@ use App;
 use Storage;
 use Artisan;
 use Notification;
-use App\Config;
+// use App\Config;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Notifications\MaintenanceModeEnabled;
@@ -19,64 +19,64 @@ class ConfigController extends Controller
         return redirect()->route('admin.configs.base');
     }
 
-    public function create()
-    {
-        return view('admin.configs.create');
-    }
+    // public function create()
+    // {
+    //     return view('admin.configs.create');
+    // }
 
-    public function store(Request $request)
-    {
-        $request->validate([
-            'title' => 'required|max:191',
-            'description' => 'nullable|max:255',
-            'key_module' => 'required|max:50',
-            'key_component' => 'required|max:50',
-            'key_function' => 'required|max:50',
-            'value' => 'required|max:255',
-            'autoload' => 'nullable|boolean'
-        ]);
+    // public function store(Request $request)
+    // {
+    //     $request->validate([
+    //         'title' => 'required|max:191',
+    //         'description' => 'nullable|max:255',
+    //         'key_module' => 'required|max:50',
+    //         'key_component' => 'required|max:50',
+    //         'key_function' => 'required|max:50',
+    //         'value' => 'required|max:255',
+    //         'autoload' => 'nullable|boolean'
+    //     ]);
 
-        $config = new Config();
-        $config->title = $request->input('title');
-        $config->description = $request->input('description');
-        $config->key = implode('.', [
-            $request->input('key_module'),
-            $request->input('key_component'),
-            $request->input('key_function')
-        ]);
-        $config->value = $request->input('value');
-        $config->autoload = $request->input('autoload', false);
-        $config->save();
+    //     $config = new Config();
+    //     $config->title = $request->input('title');
+    //     $config->description = $request->input('description');
+    //     $config->key = implode('.', [
+    //         $request->input('key_module'),
+    //         $request->input('key_component'),
+    //         $request->input('key_function')
+    //     ]);
+    //     $config->value = $request->input('value');
+    //     $config->autoload = $request->input('autoload', false);
+    //     $config->save();
 
-        return redirect()->route('admin.configs.edit', ['id' => $config->id])->with('status', 'Successfuly registered new configuration');
-    }
+    //     return redirect()->route('admin.configs.edit', ['id' => $config->id])->with('status', 'Successfuly registered new configuration');
+    // }
 
-    public function edit(Request $request, $id)
-    {
-        $config = Config::findOrFail($id);
-        return view('admin.configs.edit', ['config' => $config]);
-    }
+    // public function edit(Request $request, $id)
+    // {
+    //     $config = Config::findOrFail($id);
+    //     return view('admin.configs.edit', ['config' => $config]);
+    // }
 
-    public function update(Request $request, $id)
-    {
-        $config = Config::findOrFail($id);
-        $request->validate([
-            'title' => 'required|max:191',
-            'description' => 'nullable|max:255',
-            'key' => 'required|max:100',
-            'value' => 'required|max:255',
-            'autoload' => 'nullable|boolean'
-        ]);
+    // public function update(Request $request, $id)
+    // {
+    //     $config = Config::findOrFail($id);
+    //     $request->validate([
+    //         'title' => 'required|max:191',
+    //         'description' => 'nullable|max:255',
+    //         'key' => 'required|max:100',
+    //         'value' => 'required|max:255',
+    //         'autoload' => 'nullable|boolean'
+    //     ]);
 
-        $config->title = $request->input('title');
-        $config->description = $request->input('description');
-        $config->key = $request->input('key');
-        $config->value = $request->input('value');
-        $config->autoload = $request->input('autoload', false);
-        $config->save();
+    //     $config->title = $request->input('title');
+    //     $config->description = $request->input('description');
+    //     $config->key = $request->input('key');
+    //     $config->value = $request->input('value');
+    //     $config->autoload = $request->input('autoload', false);
+    //     $config->save();
 
-        return redirect()->route('admin.configs.edit', ['id' => $config->id])->with('status', 'Successfuly updated configuration');
-    }
+    //     return redirect()->route('admin.configs.edit', ['id' => $config->id])->with('status', 'Successfuly updated configuration');
+    // }
 
     public function maintenance()
     {
@@ -88,7 +88,7 @@ class ConfigController extends Controller
         $days = "";
         $hours = "";
         $minutes = "";
-        $emails = Config::getValue('system.maintenance.emails');
+        $emails = config('system.maintenance.emails');
 
         if ($exists) {
             $content = json_decode(file_get_contents(storage_path('framework/down')), true);
@@ -189,6 +189,9 @@ class ConfigController extends Controller
             'session',
             'tinker',
             'view',
+            'system',
+            'themes',
+            'content'
         ];
 
         return view('admin.configs.base', ['configs' => $configs]);
@@ -209,35 +212,5 @@ class ConfigController extends Controller
         } catch (\Exception $e) {
             abort(400);
         }
-    }
-
-    public function system()
-    {
-        $configs = Config::where('key', 'LIKE', 'system.%')->get();
-        return view('admin.configs.system', ['configs' => $configs]);
-    }
-
-    public function themes()
-    {
-        $configs = Config::where('key', 'LIKE', 'themes.%')->get();
-        return view('admin.configs.themes', ['configs' => $configs]);
-    }
-
-    public function plugins()
-    {
-        $configs = Config::where('key', 'LIKE', 'plugins.%')->get();
-        return view('admin.configs.plugins', ['configs' => $configs]);
-    }
-
-    public function security()
-    {
-        $configs = Config::where('key', 'LIKE', 'security.%')->get();
-        return view('admin.configs.security', ['configs' => $configs]);
-    }
-
-    public function contents()
-    {
-        $configs = Config::where('key', 'LIKE', 'content.%')->get();
-        return view('admin.configs.contents', ['configs' => $configs]);
     }
 }

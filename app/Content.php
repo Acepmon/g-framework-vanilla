@@ -41,6 +41,14 @@ class Content extends Model
 
     const NAMING_CONVENTION = '_';
 
+    public static function getByMetas($key, $value, $operator = '=')
+    {
+        return self::whereHas('metas', function ($query) use ($key, $value, $operator) {
+            $query->where('key', $key);
+            $query->where('value', $operator, $value);
+        })->get();
+    }
+
     public function metas()
     {
         return $this->hasMany('App\ContentMeta', 'content_id');
