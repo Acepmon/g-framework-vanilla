@@ -189,7 +189,7 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
             return Storage::disk('local')->url($imagepath);
         }
 
-        return asset('limitless/bootstrap4/images/placeholder.jpg');
+        return asset('user.png');
     }
 
     public function created_at_carbon()

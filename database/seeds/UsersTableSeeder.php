@@ -20,7 +20,7 @@ class UsersTableSeeder extends Seeder
             $systemUsers = [
                 [
                     'username' => 'admin',
-                    'email' => 'admin@example.com',
+                    'email' => 'dtsogtbayar123@gmail.com',
                     'password' => Hash::make('admin'),
                     'name' => 'Administrator',
                     'language' => 'en',
