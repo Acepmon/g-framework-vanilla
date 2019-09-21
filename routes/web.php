@@ -300,6 +300,16 @@ Route::middleware(['installed'])->group(function () {
 
                 Route::get('/users/{user}/contents', 'UserContentController@index')->name('admin.users.contents.index');
                 Route::get('/users/{user}/contents/{content}', 'UserContentController@show')->name('admin.users.contents.show');
+
+                Route::resource('localizations', 'LocalizationController')->names([
+                    'index' => 'admin.localizations.index',
+                    'create' => 'admin.localizations.create',
+                    'store' => 'admin.localizations.store',
+                    'show' => 'admin.localizations.show',
+                    'edit' => 'admin.localizations.edit',
+                    'update' => 'admin.localizations.update',
+                    'destroy' => 'admin.localizations.destroy'
+                ]);
             });
         });
 

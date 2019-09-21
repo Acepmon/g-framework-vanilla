@@ -53,7 +53,7 @@ class MenusTableSeeder extends Seeder
             ['Blog Posts', '/admin/contents?type=post', 'icon-blog', 'Content'],
             // ['Comments', '/admin/comments', 'icon-comment', 'Content'],
             ['Media & Assets', '/admin/media', 'icon-media', 'Content'],
-            // ['Localization', '/admin/localization', 'icon-flag3', 'Content'],
+            ['Localization', '/admin/localizations', 'icon-flag3', 'Content'],
             ['Categories', '/admin/taxonomy?taxonomy=category', 'icon-grid6', 'Content'],
             ['Tags', '/admin/taxonomy?taxonomy=tag', 'icon-price-tag2', 'Content'],
             // Banner
