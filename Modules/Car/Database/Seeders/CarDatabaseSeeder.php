@@ -16,7 +16,6 @@ class CarDatabaseSeeder extends Seeder
     {
         Model::unguard();
 
-        // $this->call(CarConfigsSeeder::class);
         $this->call(CarGroupsTableSeeder::class);
         $this->call(CarMenusTableSeeder::class);
         $this->call(CarGroupMenuTableSeeder::class);
