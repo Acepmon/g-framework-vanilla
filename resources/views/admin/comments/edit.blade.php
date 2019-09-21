@@ -69,7 +69,7 @@
                             <input id="title" type="text" class="form-control" name="title" placeholder="Enter content title..." value="{{$content->title}}" required="required" aria-required="true" invalid="true">
                         </div>
                         <div class="col-lg-2">
-                            <button type="button" class="btn btn-default" onclick="create_slug()">Create Slug</button>
+                            <button type="button" class="btn btn-light" onclick="create_slug()">Create Slug</button>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -123,8 +123,8 @@
                     </div>
 
                     <div class="text-right">
-                        <a href="javascript:history.back()" class="btn btn-default">Back</a>
-                        <a href="{{ route('admin.contents.index') }}" class="btn btn-default">List</a>
+                        <a href="javascript:history.back()" class="btn btn-light">Back</a>
+                        <a href="{{ route('admin.contents.index') }}" class="btn btn-light">List</a>
                         <button type="submit" class="btn btn-primary">Save</button>
                     </div>
                 </form>
@@ -156,9 +156,9 @@
                             <td width="250px">
                                 <div class="btn-group">
                                     <form action="{{ route('admin.contents.metas.edit', ['content' => $content->id, 'meta' => $meta->id]) }}" method="GET" style="float: left; margin-right: 5px">
-                                        <button type="submit" class="btn btn-default">Edit</button>
+                                        <button type="submit" class="btn btn-light">Edit</button>
                                     </form>
-                                    <button data-toggle="modal" data-target="#modal_theme_danger" class="btn btn-default" onclick="delete_meta( {{$meta->id}} , {{$content->id}})">Delete</button>
+                                    <button data-toggle="modal" data-target="#modal_theme_danger" class="btn btn-light" onclick="delete_meta( {{$meta->id}} , {{$content->id}})">Delete</button>
                                 </div>
                             </td>
                         </tr>

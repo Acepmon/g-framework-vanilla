@@ -172,12 +172,12 @@
 
                     <div class="row">
                         <div class="col-lg-4">
-                                <div class="text-left"><a href="{{ route('admin.users.index') }}" class="btn btn-default"><i class="icon-arrow-left52 position-left"></i> Back</a>
+                                <div class="text-left"><a href="{{ route('admin.users.index') }}" class="btn btn-light"><i class="icon-arrow-left52 position-left"></i> Back</a>
                             </div>
                         </div>
                         <div class="col-lg-8">
                             <div class="text-right">
-                                <button type="reset" class="btn btn-default" id="reset">Reset <i class="icon-reload-alt ml-2"></i></button>
+                                <button type="reset" class="btn btn-light" id="reset">Reset <i class="icon-reload-alt ml-2"></i></button>
                                 <button type="submit" class="btn btn-primary">Submit form <i class="icon-arrow-right14 ml-2"></i></button>
                         </div>
                     </div>

@@ -100,7 +100,7 @@
                         <div class="input-group">
                             <input type="text" class="form-control @error('link') is-invalid @enderror" name="link" placeholder="https://..." value="{{ old('link') }}" autocomplete="link">
                             <span class="input-group-btn">
-                                <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal_choose_page">Choose From Pages</button>
+                                <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_choose_page">Choose From Pages</button>
                             </span>
                         </div>
                     </div>
@@ -110,7 +110,7 @@
                         <div class="input-group">
                             <input type="text" class="form-control @error('icon') is-invalid @enderror" name="icon" placeholder="Menu icon" value="{{ old('icon') }}" autocomplete="icon">
                             <span class="input-group-btn">
-                                <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal_choose_icon">Choose Icon</button>
+                                <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_choose_icon">Choose Icon</button>
                             </span>
                         </div>
                     </div>
@@ -121,7 +121,7 @@
                     </div>
 
                     <div class="text-right">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
                         <button type="submit" class="btn btn-primary btn-loading" data-loading-text="<i class='icon-spinner4 spinner position-left'></i> Saving">Submit</button>
                     </div>
                 </form>
@@ -164,7 +164,7 @@
                             <div class="input-group">
                                 <input type="text" class="form-control @error('link') is-invalid @enderror" name="link" placeholder="https://..." value="{{ old('link') }}" autocomplete="link">
                                 <span class="input-group-btn">
-                                    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal_choose_page">Choose From Pages</button>
+                                    <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_choose_page">Choose From Pages</button>
                                 </span>
                             </div>
                         </div>
@@ -174,7 +174,7 @@
                             <div class="input-group">
                                 <input type="text" class="form-control @error('icon') is-invalid @enderror" name="icon" placeholder="Menu icon" value="{{ old('icon') }}" autocomplete="icon">
                                 <span class="input-group-btn">
-                                    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal_choose_icon">Choose Icon</button>
+                                    <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_choose_icon">Choose Icon</button>
                                 </span>
                             </div>
                         </div>
@@ -186,7 +186,7 @@
                     </fieldset>
 
                     <div class="text-right">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
                         <button type="submit" class="btn btn-primary btn-loading" data-loading-text="<i class='icon-spinner4 spinner position-left'></i> Saving">Submit</button>
                     </div>
                 </form>
@@ -217,7 +217,7 @@
                         <div class="input-group">
                             <input type="text" class="form-control @error('link') is-invalid @enderror" name="link" placeholder="https://..." value="{{ old('link') }}" autocomplete="link">
                             <span class="input-group-btn">
-                                <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal_choose_page">Choose From Pages</button>
+                                <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_choose_page">Choose From Pages</button>
                             </span>
                         </div>
                     </div>
@@ -227,7 +227,7 @@
                         <div class="input-group">
                             <input type="text" class="form-control @error('icon') is-invalid @enderror" name="icon" placeholder="Menu icon" value="{{ old('icon') }}" autocomplete="icon">
                             <span class="input-group-btn">
-                                <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal_choose_icon">Choose Icon</button>
+                                <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_choose_icon">Choose Icon</button>
                             </span>
                         </div>
                     </div>
@@ -238,7 +238,7 @@
                     </div>
 
                     <div class="text-right">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
                         <button type="submit" class="btn btn-primary btn-loading" data-loading-text="<i class='icon-spinner4 spinner position-left'></i> Saving">Submit</button>
                     </div>
                 </form>
@@ -269,7 +269,7 @@
                         </div>
 
                         <div class="media-right">
-                            <button type="button" class="btn btn-default" onclick="choosePage('{{ url($page->slug) }}')">Choose</button>
+                            <button type="button" class="btn btn-light" onclick="choosePage('{{ url($page->slug) }}')">Choose</button>
                         </div>
                     </li>
                     @endforeach
@@ -434,11 +434,11 @@
                 $tdList.eq(3).addClass('text-left').html(node.data.group ? "<span class='label label-default label-striped'>" + node.data.group + "</a>" : "");
                 $tdList.eq(4).addClass('text-center').html(`
                     <div class='btn-group'>
-                    <a href='#modal_menu_edit' data-toggle="modal" onclick='menu_edit(` + node.data.id + `)' class='btn btn-default btn-sm'><span class='icon-pencil'></span></a>
-                    <a href='#modal_theme_danger' data-toggle='modal' onclick='delete_confirm(` + node.data.id + `)' class='btn btn-default btn-sm'><span class='icon-trash'></span></a>
+                    <a href='#modal_menu_edit' data-toggle="modal" onclick='menu_edit(` + node.data.id + `)' class='btn btn-light btn-sm'><span class='icon-pencil'></span></a>
+                    <a href='#modal_theme_danger' data-toggle='modal' onclick='delete_confirm(` + node.data.id + `)' class='btn btn-light btn-sm'><span class='icon-trash'></span></a>
                     </div>
 
-                    <a href='#modal_menu_add_submenu' data-toggle="modal" onclick='menu_add_submenu(` + node.data.id + `)' class='btn btn-default btn-sm'><span class='icon-plus-circle2'></span></a>
+                    <a href='#modal_menu_add_submenu' data-toggle="modal" onclick='menu_add_submenu(` + node.data.id + `)' class='btn btn-light btn-sm'><span class='icon-plus-circle2'></span></a>
                 `);
 
                 // Style checkboxes

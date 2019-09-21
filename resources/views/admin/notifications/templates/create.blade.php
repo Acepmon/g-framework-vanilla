@@ -36,7 +36,7 @@
 
                     <div class="row">
                         <div class="col-xs-6">
-                            <a href="{{ route('admin.notifications.templates.index') }}" class="btn btn-default">List</a>
+                            <a href="{{ route('admin.notifications.templates.index') }}" class="btn btn-light">List</a>
                         </div>
                         <div class="col-xs-6 text-right">
                             <button type="submit" class="btn btn-primary">Submit</button>

@@ -165,7 +165,7 @@
                     </fieldset>
 
                     <div class="text-right">
-                        <a href="{{ route('admin.banners.show', $banner->id) }}" class="btn btn-default">Cancel</a>
+                        <a href="{{ route('admin.banners.show', $banner->id) }}" class="btn btn-light">Cancel</a>
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </div>
                 </div>
@@ -335,7 +335,7 @@
         $("#banner_img_mobile_remove").prop('checked', true);
 
         $(".file-styled").uniform({
-            fileButtonClass: 'action btn btn-default'
+            fileButtonClass: 'action btn btn-light'
         });
     }
 
@@ -375,7 +375,7 @@
         $("#banner_img_web_remove").prop('checked', true);
 
         $(".file-styled").uniform({
-            fileButtonClass: 'action btn btn-default'
+            fileButtonClass: 'action btn btn-light'
         });
     }
 
@@ -399,7 +399,7 @@
 
         // File input
         $(".file-styled").uniform({
-            fileButtonClass: 'action btn btn-default'
+            fileButtonClass: 'action btn btn-light'
         });
 
         $("#modal_banner_remove").on('show.bs.modal', function (e) {

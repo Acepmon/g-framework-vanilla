@@ -86,7 +86,7 @@
                                 <td>{{ $content->created_at }}</td>
                                 <!---->
                                 <td class="text-center">
-                                    <a href="{{ route('admin.users.contents.show', ['user' => $user->id, 'content' => $content->id]) }}" class="btn btn-default">Show more</a>
+                                    <a href="{{ route('admin.users.contents.show', ['user' => $user->id, 'content' => $content->id]) }}" class="btn btn-light">Show more</a>
                                 </td>
                             </tr>
                             @endforeach

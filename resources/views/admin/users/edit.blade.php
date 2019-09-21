@@ -188,7 +188,7 @@
                         </div>
 
                         <div class="text-right">
-                            <button type="button" class="btn btn-default" onclick="cancel()">Cancel</button>
+                            <button type="button" class="btn btn-light" onclick="cancel()">Cancel</button>
                             <button type="submit" class="btn btn-primary">Submit form <i class="icon-arrow-right14 ml-2"></i></button>
                         </div>
                     </form>

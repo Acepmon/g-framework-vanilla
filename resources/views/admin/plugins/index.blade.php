@@ -92,10 +92,10 @@
                     <td>{{ $data->description}}</td>
                     <td>{{ $data->version }}</td>
                     @if($data->status=='available')
-                    <td><button data-target="{{ $data->id  }}" data-loading-text="<i class='icon-spinner4 spinner'></i> Downloading..." class="btn btn-default plugin-install">Install</button></td>
+                    <td><button data-target="{{ $data->id  }}" data-loading-text="<i class='icon-spinner4 spinner'></i> Downloading..." class="btn btn-light plugin-install">Install</button></td>
 
                     @else
-                    <td><button data-target="{{ $data->id  }}" data-loading-text="<i class='icon-spinner4 spinner'></i> Downloading..." disabled class="btn btn-default plugin-install">Install</button></td>
+                    <td><button data-target="{{ $data->id  }}" data-loading-text="<i class='icon-spinner4 spinner'></i> Downloading..." disabled class="btn btn-light plugin-install">Install</button></td>
 
                     @endif
 
@@ -111,7 +111,7 @@
                     <td></td>
 
                     @endif
-                    <td><a href='{{ route('admin.plugins.edit', ['id' => $data->id]) }}' type="btn btn-default">Edit</a></td>
+                    <td><a href='{{ route('admin.plugins.edit', ['id' => $data->id]) }}' type="btn btn-light">Edit</a></td>
                     <td>
                         <a href="#" data-toggle="modal" data-target="#modal_theme_danger" onclick="delete_confirm({{ $data->id }})"><i class="icon-trash"></i> Delete</a>
 

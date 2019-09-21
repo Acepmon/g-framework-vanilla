@@ -127,7 +127,7 @@
                 <form action="#" method="POST">
                     @csrf
                     @method('DELETE')
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
                     <button type="submit" class="btn btn-danger">Remove</button>
                 </form>
             </div>

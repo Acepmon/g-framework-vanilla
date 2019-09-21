@@ -82,15 +82,15 @@
                     </p>
 
                     @if($theme->status == \App\Theme::AVAILABLE)
-                        <button type="button" data-target="{{ $theme->id  }}" data-loading-text="<i class='icon-spinner4 spinner'></i> Downloading..." class="btn btn-default theme-install">Install</button>
+                        <button type="button" data-target="{{ $theme->id  }}" data-loading-text="<i class='icon-spinner4 spinner'></i> Downloading..." class="btn btn-light theme-install">Install</button>
                     @elseif($theme->status == \App\Theme::DEACTIVATED)
                         <button type="button" data-target="{{ $theme->id  }}" class="btn btn-success theme-activate">Activate</button>
                     @elseif($theme->status == \App\Theme::ACTIVATED)
                         <button type="button" data-target="{{ $theme->id  }}" class="btn btn-danger theme-deactivate">Deactivate</button>
                     @elseif($theme->status == \App\Theme::INSTALLED)
-                        <a href="{{ route('admin.themes.edit', $theme->id) }}" class="btn btn-default theme-customize">Customize</a>
+                        <a href="{{ route('admin.themes.edit', $theme->id) }}" class="btn btn-light theme-customize">Customize</a>
                     @else
-                        <button data-target="{{ $theme->id  }}" data-loading-text="<i class='icon-spinner4 spinner'></i> Downloading..." disabled class="btn btn-default theme-install">Install</button>
+                        <button data-target="{{ $theme->id  }}" data-loading-text="<i class='icon-spinner4 spinner'></i> Downloading..." disabled class="btn btn-light theme-install">Install</button>
                     @endif
 
                     <small class="text-muted pull-right">v{{ $theme->version }}</small>
