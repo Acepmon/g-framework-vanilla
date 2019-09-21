@@ -47,10 +47,6 @@ class MenusTableSeeder extends Seeder
             ['Users', '/admin/users', 'icon-user', 'User Management'],
             ['Permissions', '/admin/permissions', 'icon-key', 'User Management'],
             ['Groups', '/admin/groups', 'icon-users2', 'User Management'],
-            // Auction
-            ['Auctions', '/admin/auctions', 'icon-hammer2', 'Auction'],
-            ['Buyers / Sellers', '/admin/buyers', 'icon-people', 'Auction'],
-            ['Items', '/admin/items', 'icon-cart2', 'Auction'],
             // Content
             ['Menus', '/admin/menus', 'icon-menu2', 'Content'],
             ['Pages', '/admin/contents?type=page', 'icon-files-empty2', 'Content'],
@@ -70,8 +66,14 @@ class MenusTableSeeder extends Seeder
 
     private function iterate($array, $sublevel, $parent = null) {
         for ($i=0; $i < count($array); $i++) {
-            // dd($array[$i]);
-            $menu = $this->insertMenu($array[$i][0], $array[$i][1], $array[$i][2], $array[$i][3], $sublevel, $i + 1, $parent);
+            
+            $order = $i + 1;
+
+            if (isset($parent)) {
+                $order = Menu::where('parent_id', $parent)->count() + 1;
+            }
+
+            $menu = $this->insertMenu($array[$i][0], $array[$i][1], $array[$i][2], $array[$i][3], $sublevel, $order, $parent);
             if (array_key_exists(4, $array[$i]) && count($array[$i][4]) > 0) {
                 $this->iterate($array[$i][4], $sublevel + 1, $menu->id);
             }
