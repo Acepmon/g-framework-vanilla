@@ -6,7 +6,7 @@ use App\Content;
 use App\ContentMeta;
 use App\User;
 
-class PagesSeeder extends Seeder
+class ContentsTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.

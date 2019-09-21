@@ -1,10 +1,10 @@
 <?php
 
-use App\Group;
-use App\Permission;
 use Illuminate\Database\Seeder;
 
-class PermissionsSeeder extends Seeder
+use App\Permission;
+
+class PermissionsTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -213,24 +213,5 @@ class PermissionsSeeder extends Seeder
             ['title' => 'password_request', 'type' => Permission::TYPE_UPDATE, 'description' => 'update permission for password_request'],
 
         ]);
-        // Admin Permissions
-        Group::findOrFail(1)->permissions()->attach(Permission::all(), ['is_granted' => true]);
-
-        // Operator Permissions
-        Group::findOrFail(2)->permissions()->attach(Permission::where('title', '')->get(), ['is_granted' => true]);
-        Group::findOrFail(2)->permissions()->attach(Permission::where('title', 'logout')->get(), ['is_granted' => true]);
-        Group::findOrFail(2)->permissions()->attach(Permission::where('title', 'register')->get(), ['is_granted' => true]);
-        Group::findOrFail(2)->permissions()->attach(Permission::where('title', 'login')->get(), ['is_granted' => true]);
-        Group::findOrFail(2)->permissions()->attach(Permission::where('title', 'LIKE', 'password_%')->get(), ['is_granted' => true]);
-        Group::findOrFail(2)->permissions()->attach(Permission::where('title', 'LIKE', 'admin_contents_%')->get(), ['is_granted' => true]);
-        Group::findOrFail(2)->permissions()->attach(Permission::where('title', 'LIKE', 'admin_menus_%')->get(), ['is_granted' => true]);
-        Group::findOrFail(2)->permissions()->attach(Permission::where('title', 'LIKE', 'admin_profile_%')->get(), ['is_granted' => true]);
-
-        // Member Permissions
-        Group::findOrFail(3)->permissions()->attach(Permission::where('title', '')->get(), ['is_granted' => true]);
-        Group::findOrFail(3)->permissions()->attach(Permission::where('title', 'logout')->get(), ['is_granted' => true]);
-        Group::findOrFail(3)->permissions()->attach(Permission::where('title', 'register')->get(), ['is_granted' => true]);
-        Group::findOrFail(3)->permissions()->attach(Permission::where('title', 'login')->get(), ['is_granted' => true]);
-        Group::findOrFail(3)->permissions()->attach(Permission::where('title', 'LIKE', 'password_%')->get(), ['is_granted' => true]);
     }
 }

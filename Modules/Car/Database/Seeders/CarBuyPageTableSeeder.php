@@ -6,6 +6,9 @@ use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 
 use DB;
+use App\Content;
+use App\ContentMeta;
+use App\User;
 
 class CarBuyPageTableSeeder extends Seeder
 {
@@ -23,12 +26,12 @@ class CarBuyPageTableSeeder extends Seeder
             $time = time();
             $rootPath = config('content.pages.rootPath');
 
-            $content = new \App\Content;
+            $content = new Content;
             $content->title = 'Buy';
             $content->slug = 'buy';
-            $content->type = \App\Content::TYPE_PAGE;
-            $content->status = \App\Content::STATUS_PUBLISHED;
-            $content->visibility = \App\Content::VISIBILITY_PUBLIC;
+            $content->type = Content::TYPE_PAGE;
+            $content->status = Content::STATUS_PUBLISHED;
+            $content->visibility = Content::VISIBILITY_PUBLIC;
             $content->author_id = 1;
             $content->save();
 
@@ -37,16 +40,16 @@ class CarBuyPageTableSeeder extends Seeder
             $value->filename_changed = true;
             $value->before = $content;
             $value->after = $content;
-            $value->user = \App\User::find(1);
+            $value->user = User::find(1);
 
-            $content_meta = new \App\ContentMeta();
+            $content_meta = new ContentMeta();
             $content_meta->content_id = $content->id;
             $content_meta->key = 'initial';
             $content_meta->value = json_encode($value);
             $content_meta->save();
 
             $file_content = file_get_contents(resource_path('stubs/carBuy.stub'));
-            $file_name = $rootPath . DIRECTORY_SEPARATOR . 'buy' . \App\Content::NAMING_CONVENTION . $content->status . \App\Content::NAMING_CONVENTION . $time;
+            $file_name = $rootPath . DIRECTORY_SEPARATOR . 'buy' . Content::NAMING_CONVENTION . $content->status . Content::NAMING_CONVENTION . $time;
             $file_ext = 'blade.php';
             $file_path = $file_name . '.' . $file_ext;
 
@@ -56,7 +59,6 @@ class CarBuyPageTableSeeder extends Seeder
         } catch (\Exception $e) {
             DB::rollBack();
             throw $e;
-            // return redirect()->route('admin.cars.create')->with('error', $e->getMessage());
         }
     }
 }

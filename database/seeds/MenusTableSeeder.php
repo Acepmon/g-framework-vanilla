@@ -65,11 +65,7 @@ class MenusTableSeeder extends Seeder
             ['Create Banner', '/admin/banners/create', 'icon-plus3', 'Banner']
         ]];
 
-        $menus = [
-            $adminMenus
-        ];
-
-        $this->iterate($menus, 1);
+        $this->iterate([$adminMenus], 1);
     }
 
     private function iterate($array, $sublevel, $parent = null) {
