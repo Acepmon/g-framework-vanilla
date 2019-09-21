@@ -16,7 +16,7 @@
     <div class="card">
         <div class="card-header header-elements-inline">
             <h6 class="card-title">
-                <a data-toggle="collapse" class="text-default collapsed" href="#accordion-control-group-{{$config}}">{{$config}}.php</a>
+                <a data-toggle="collapse" class="text-default text-capitalize collapsed" href="#accordion-control-group-{{$config}}">{{$config}}</a>
             </h6>
 
             <div class="header-elements">
