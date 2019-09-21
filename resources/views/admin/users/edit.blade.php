@@ -128,7 +128,7 @@
                             <div class="col-lg-10">
                             <div class="col-lg-10">
                                 <div class="row">
-                                    <img id="avatar" src="{{ asset('limitless/bootstrap4/images/placeholder.jpg') }}" class="rounded-circle mr-2" height="34"/>
+                                    <img id="avatar" src="{{ asset('placeholder.jpg') }}" class="rounded-circle mr-2" height="34"/>
                                     <div class="uniform-uploader col-lg-11"><input type="file" class="form-control-uniform" data-fouc=""><span class="filename" style="user-select: none;">No file selected</span><span class="action btn btn-light" style="user-select: none;">Choose File</span></div>
                                 </div>
                             </div>

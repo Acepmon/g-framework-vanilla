@@ -167,7 +167,7 @@
 
             <div class="modal-body">
                 <div class="image-cropper-container">
-                    <img src="{{ asset('limitless/bootstrap4/images/placeholder.jpg') }}" alt="" id="modal_banner_crop_image">
+                    <img src="{{ asset('placeholder.jpg') }}" alt="" id="modal_banner_crop_image">
                 </div>
             </div>
 
