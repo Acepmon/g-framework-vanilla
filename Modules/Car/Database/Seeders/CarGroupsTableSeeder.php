@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Group;
 use DB;
 
-class CarGroupsSeeder extends Seeder
+class CarGroupsTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.

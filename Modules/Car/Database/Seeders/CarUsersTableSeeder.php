@@ -9,7 +9,7 @@ use App\User;
 use App\UserMeta;
 use App\Group;
 
-class CarUsersSeeder extends Seeder
+class CarUsersTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.

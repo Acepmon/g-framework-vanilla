@@ -11,7 +11,7 @@ use App\ContentMeta;
 use App\User;
 use App\Group;
 
-class CarContentsSeeder extends Seeder
+class CarContentsTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -25,7 +25,7 @@ class CarContentsSeeder extends Seeder
         $time = time();
         $rootPath = config('content.cars.rootPath');
 
-        factory(Content::class, 30)->create(['type' => Content::TYPE_CAR])->each(function ($content) use($time, $rootPath) {
+        factory(Content::class, 10)->create(['type' => Content::TYPE_CAR])->each(function ($content) use($time, $rootPath) {
 
             $carUserRandomId = User::whereHas('groups', function ($query) {
                 $query->where('type', Group::TYPE_DYNAMIC);

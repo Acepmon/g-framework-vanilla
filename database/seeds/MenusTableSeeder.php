@@ -13,86 +13,60 @@ class MenusTableSeeder extends Seeder
     public function run()
     {
         // Structure
-        // [Title, Link, Icon, Group, Children[]?]
+        // [Title, Link, Icon, Module, Children[]?]
 
-        $adminMenus = ['Admin', '/admin', '', '', [
-            // Overview
-            ['Dashboard', '/admin/dashboard', 'icon-home4', 'overview'],
-            ['Changelog', '/admin/changelog', 'icon-list-unordered', 'overview'],
+        $adminMenus = ['Admin', '/admin', '', 'Admin', [
+            // Admin
+            ['Dashboard', '/admin/dashboard', 'icon-home4', 'Admin'],
+            ['Changelog', '/admin/changelog', 'icon-list-unordered', 'Admin'],
             // System
-            ['System Users', '', 'icon-user-tie', 'system', [
-                ['Administrators', '/admin/users/administrators', '', 'system'],
-                ['Operators', '/admin/users/operators', '', 'system']
+            ['System Users', '', 'icon-user-tie', 'System', [
+                ['Administrators', '/admin/users/administrators', '', 'System'],
+                ['Operators', '/admin/users/operators', '', 'System']
             ]],
-            ['Configurations', '', 'icon-gear', 'system', [
-                ['Maintenance Mode', '/admin/configs/maintenance', '', 'system'],
-                ['Base Configurations', '/admin/configs/base', '', 'system'],
-                // ['System Configurations', '/admin/configs/system', '', 'system'],
-                // ['Themes Configurations', '/admin/configs/themes', '', 'system'],
-                // ['Plugins Configurations', '/admin/configs/plugins', '', 'system'],
-                // ['Security Configurations', '/admin/configs/security', '', 'system'],
-                // ['Content Configurations', '/admin/configs/contents', '', 'system']
+            ['Configurations', '', 'icon-gear', 'System', [
+                ['Maintenance Mode', '/admin/configs/maintenance', '', 'System'],
+                ['Base Configurations', '/admin/configs/base', '', 'System'],
+                // ['System Configurations', '/admin/configs/system', '', 'System'],
+                // ['Themes Configurations', '/admin/configs/themes', '', 'System'],
+                // ['Plugins Configurations', '/admin/configs/plugins', '', 'System'],
+                // ['Security Configurations', '/admin/configs/security', '', 'System'],
+                // ['Content Configurations', '/admin/configs/contents', '', 'System']
             ]],
-            // ['Plugins', '', 'icon-puzzle2', 'system', [
-            //     ['Installed Plugins', '/admin/plugins', '', 'system'],
-            //     ['Add New', '/admin/plugins/create', '', 'system']
+            // ['Plugins', '', 'icon-puzzle2', 'System', [
+            //     ['Installed Plugins', '/admin/plugins', '', 'System'],
+            //     ['Add New', '/admin/plugins/create', '', 'System']
             // ]],
-            ['Themes', '', 'icon-brush', 'system', [
-                ['Installed Themes', '/admin/themes', '', 'system', 'parent_id' => 6],
-                ['Add New', '/admin/themes/create', '', 'system', 'parent_id' => 6]
+            ['Themes', '', 'icon-brush', 'System', [
+                ['Installed Themes', '/admin/themes', '', 'System'],
+                ['Add New', '/admin/themes/create', '', 'System']
             ]],
-            ['Backups', '/admin/backups', 'icon-database', 'system'],
-            ['Logs', '/admin/logs', 'icon-archive', 'system'],
-            // User management
-            ['Users', '/admin/users', 'icon-user', 'user management'],
-            ['Permissions', '/admin/permissions', 'icon-key', 'user management'],
-            ['Groups', '/admin/groups', 'icon-users2', 'user management'],
+            ['Backups', '/admin/backups', 'icon-database', 'System'],
+            ['Logs', '/admin/logs', 'icon-archive', 'System'],
+            // User Management
+            ['Users', '/admin/users', 'icon-user', 'User Management'],
+            ['Permissions', '/admin/permissions', 'icon-key', 'User Management'],
+            ['Groups', '/admin/groups', 'icon-users2', 'User Management'],
             // Auction
-            ['Auctions', '/admin/auctions', 'icon-hammer2', 'auction'],
-            ['Buyers / Sellers', '/admin/buyers', 'icon-people', 'auction'],
-            ['Items', '/admin/items', 'icon-cart2', 'auction'],
-            // Content management
-            ['Menus', '/admin/menus', 'icon-menu2', 'content management'],
-            ['Pages', '/admin/contents?type=page', 'icon-files-empty2', 'content management'],
-            ['Blog Posts', '/admin/contents?type=post', 'icon-blog', 'content management'],
-            // ['Comments', '/admin/comments', 'icon-comment', 'content management'],
-            ['Media & Assets', '/admin/media', 'icon-media', 'content management'],
-            // ['Localization', '/admin/localization', 'icon-flag3', 'content management'],
-            ['Categories', '/admin/taxonomy?taxonomy=category', 'icon-grid6', 'content management'],
-            ['Tags', '/admin/taxonomy?taxonomy=tag', 'icon-price-tag2', 'content management'],
-            // Car Management
-            ['Cars', '/admin/cars', 'icon-car', 'car management'],
-            ['Specials', '/admin/cars/specials', 'icon-fire', 'car management'],
-            ['Car Options', '/admin/cars/options', 'icon-cog', 'car management'],
-            ['Add Car', '/admin/cars/create', 'icon-plus3', 'car management'],
-            // Banner Management
-            ['Banners', '/admin/banners', 'icon-printer4', 'banner management'],
-            ['Create Banner', '/admin/banners/create', 'icon-plus3', 'banner management']
-        ]];
-        $carMainMenus = ['Car Main', '', '', '', [
-            ['Home', '/', '', ''],
-            ['Buy', '/buy', '', ''],
-            ['Sell', '/sell', '', ''],
-            ['Finance', '/finance', '', ''],
-            ['Auction', '/auction', '', '']
-        ]];
-        $carTopbarMenus = ['Car Topbar', '', '', '', [
-            ['About', '/about-us', '', ''],
-            ['Contact Us', '/contact-us', '', ''],
-            ['Write wanna buy', '/wanna-buy', '', ''],
-            ['Sign Up', '/register', '', '']
-        ]];
-        $carFooterMenus = ['Car Footer', '', '', '', [
-            ['About', '/about-us', '', ''],
-            ['Contact Us', '/contact-us', '', ''],
-            ['Write wanna buy', '/wanna-buy', '', '']
+            ['Auctions', '/admin/auctions', 'icon-hammer2', 'Auction'],
+            ['Buyers / Sellers', '/admin/buyers', 'icon-people', 'Auction'],
+            ['Items', '/admin/items', 'icon-cart2', 'Auction'],
+            // Content
+            ['Menus', '/admin/menus', 'icon-menu2', 'Content'],
+            ['Pages', '/admin/contents?type=page', 'icon-files-empty2', 'Content'],
+            ['Blog Posts', '/admin/contents?type=post', 'icon-blog', 'Content'],
+            // ['Comments', '/admin/comments', 'icon-comment', 'Content'],
+            ['Media & Assets', '/admin/media', 'icon-media', 'Content'],
+            // ['Localization', '/admin/localization', 'icon-flag3', 'Content'],
+            ['Categories', '/admin/taxonomy?taxonomy=category', 'icon-grid6', 'Content'],
+            ['Tags', '/admin/taxonomy?taxonomy=tag', 'icon-price-tag2', 'Content'],
+            // Banner
+            ['Banners', '/admin/banners', 'icon-printer4', 'Banner'],
+            ['Create Banner', '/admin/banners/create', 'icon-plus3', 'Banner']
         ]];
 
         $menus = [
-            $adminMenus,
-            $carMainMenus,
-            $carTopbarMenus,
-            $carFooterMenus
+            $adminMenus
         ];
 
         $this->iterate($menus, 1);
@@ -108,12 +82,12 @@ class MenusTableSeeder extends Seeder
         }
     }
 
-    private function insertMenu($title, $link, $icon, $group, $sublevel, $order, $parent = null) {
+    private function insertMenu($title, $link, $icon, $module, $sublevel, $order, $parent = null) {
         $menu = new Menu();
         $menu->title = $title;
         $menu->link = $link;
         $menu->icon = $icon;
-        $menu->group = $group;
+        $menu->module = $module;
         $menu->sublevel = $sublevel;
         $menu->order = $order;
         $menu->parent_id = $parent;

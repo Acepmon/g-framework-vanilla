@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 use DB;
 
-class CarBuyPageSeeder extends Seeder
+class CarBuyPageTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.

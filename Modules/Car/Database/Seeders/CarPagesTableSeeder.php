@@ -9,7 +9,7 @@ use App\Content;
 use App\ContentMeta;
 use App\User;
 
-class CarPagesSeeder extends Seeder
+class CarPagesTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.

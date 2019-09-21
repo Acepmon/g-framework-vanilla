@@ -5,7 +5,10 @@ namespace Modules\Car\Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 
-class CarTestSeederTableSeeder extends Seeder
+use App\Menu;
+use App\Group;
+
+class CarGroupMenuTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -16,6 +19,7 @@ class CarTestSeederTableSeeder extends Seeder
     {
         Model::unguard();
 
-        // $this->call("OthersTableSeeder");
+        // Administrator Menus;
+        Group::findOrFail(1)->menus()->attach(Menu::where('module', 'Car')->get());
     }
 }

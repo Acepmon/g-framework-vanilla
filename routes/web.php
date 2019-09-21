@@ -300,10 +300,6 @@ Route::middleware(['installed'])->group(function () {
 
                 Route::get('/users/{user}/contents', 'UserContentController@index')->name('admin.users.contents.index');
                 Route::get('/users/{user}/contents/{content}', 'UserContentController@show')->name('admin.users.contents.show');
-
-                Route::delete('/menus/{menu}/groups/{group}', 'MenuController@destroyGroup')->name('admin.menus.groups.destroy');
-                Route::get('/menus/{menu}/groups/create', 'MenuController@createGroup')->name('admin.menus.groups.create');
-                Route::post('/menus/{menu}/groups', 'MenuController@storeGroup')->name('admin.menus.groups.store');
             });
         });
 

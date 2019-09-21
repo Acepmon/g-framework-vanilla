@@ -17,12 +17,15 @@ class CarDatabaseSeeder extends Seeder
         Model::unguard();
 
         // $this->call(CarConfigsSeeder::class);
-        $this->call(CarGroupsSeeder::class);
-        $this->call(CarUsersSeeder::class);
-        $this->call(CarPagesSeeder::class);
-        $this->call(CarContentsSeeder::class);
+        $this->call(CarGroupsTableSeeder::class);
+        $this->call(CarMenusTableSeeder::class);
+        $this->call(CarGroupMenuTableSeeder::class);
+        $this->call(CarPermissionsTableSeeder::class);
+        $this->call(CarUsersTableSeeder::class);
+        $this->call(CarPagesTableSeeder::class);
+        $this->call(CarContentsTableSeeder::class);
         $this->call(CarBannerLocationsTableSeeder::class);
         $this->call(CarBannersTableSeeder::class);
-        $this->call(CarBuyPageSeeder::class);
+        $this->call(CarBuyPageTableSeeder::class);
     }
 }
