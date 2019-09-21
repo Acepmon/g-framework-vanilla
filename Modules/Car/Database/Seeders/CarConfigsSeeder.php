@@ -1,6 +1,11 @@
 <?php
 
+namespace Modules\Car\Database\Seeders;
+
 use Illuminate\Database\Seeder;
+use Illuminate\Database\Eloquent\Model;
+
+use DB;
 
 class CarConfigsSeeder extends Seeder
 {
@@ -11,6 +16,8 @@ class CarConfigsSeeder extends Seeder
      */
     public function run()
     {
+        Model::unguard();
+        
         DB::table('configs')->insert([
             [
                 'title' => 'Content cars root path',

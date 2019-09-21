@@ -1,6 +1,12 @@
 <?php
 
+namespace Modules\Car\Database\Seeders;
+
 use Illuminate\Database\Seeder;
+use Illuminate\Database\Eloquent\Model;
+
+use App\Group;
+use DB;
 
 class CarGroupsSeeder extends Seeder
 {
@@ -11,16 +17,18 @@ class CarGroupsSeeder extends Seeder
      */
     public function run()
     {
+        Model::unguard();
+
         DB::table('groups')->insert([
             [
                 "title" => "Auto Dealer",
                 "description" => "This is auto dealer",
-                "type" => App\Group::TYPE_DYNAMIC
+                "type" => Group::TYPE_DYNAMIC
             ],
             [
                 "title" => "Driver",
                 "description" => "Basic user",
-                "type" => App\Group::TYPE_DYNAMIC
+                "type" => Group::TYPE_DYNAMIC
             ],
         ]);
     }

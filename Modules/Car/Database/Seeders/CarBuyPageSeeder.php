@@ -1,6 +1,11 @@
 <?php
 
+namespace Modules\Car\Database\Seeders;
+
 use Illuminate\Database\Seeder;
+use Illuminate\Database\Eloquent\Model;
+
+use DB;
 
 class CarBuyPageSeeder extends Seeder
 {
@@ -11,6 +16,7 @@ class CarBuyPageSeeder extends Seeder
      */
     public function run()
     {
+        Model::unguard();
         //        ------------- car web buy page -----------------------
         try{
             DB::beginTransaction();
