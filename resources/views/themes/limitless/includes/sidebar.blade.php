@@ -7,7 +7,7 @@
             <ul class="nav nav-sidebar" data-nav-type="accordion">
                 @foreach(Auth::user()->menus->where('parent_id', 1)->groupBy('group')->sortBy('order') as $key => $group)
                     <li class="nav-item-header">
-                        <span>{{ $key }}</span>
+                        <div class="text-uppercase font-size-xs line-height-xs">{{ $key }}</div>
                         <i class="icon-menu" title="{{ $key }}"></i>
                     </li>
 
