@@ -1,0 +1,222 @@
+header.masthead {
+  font-family: $segoe;
+  position: relative;
+  background-color: $gray-800;
+  background: linear-gradient(5deg, $gray-300 20%, $white 100%);
+  height: 100vh;
+  @include background-cover;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  color: $secondary;
+  padding-top: $spacer * 5;
+
+  &:before{
+    content: '';
+    position: absolute;
+    width: 110%;
+    height: calc(100% - 75%);
+    background: #fff;
+    left: -5%;
+    bottom: -25%;
+    transform: rotate(-4deg);
+    transform-origin: left;
+    pointer-events: none;
+  }
+
+  .slider-item{
+    min-height: 600px;
+    height: 100%;
+    position: relative;
+
+    .slider-text{
+      color: $secondary;
+      position: absolute;
+  
+      h1 {
+        font-size: 3rem;
+        font-family: $segoe;
+        color: $secondary;
+        text-transform: uppercase;
+      }
+      
+      &.slider-highlight{
+        background: $red;
+        font-family: helvetica;
+        padding: 0 1.5rem;
+        line-height: 10rem;
+        font-size: 10rem;
+        font-weight: 800;
+        color: $white;
+        width: auto;
+        height: auto;
+        position: absolute;
+        z-index: -1;
+      }
+
+      .slider-img{
+        position: absolute;
+        margin-top: 250px;
+      }
+    }
+    .slider-img{
+      position: absolute;
+      bottom: 0;
+    }
+    
+    @media (min-width: 768px) {
+  
+      h1 {
+        font-size: 3rem;
+      }
+    }
+  }
+  .owl-theme .owl-dots .owl-dot.active span, .owl-theme .owl-dots .owl-dot:hover span {
+    background: $primary;
+    outline: none;
+}
+.owl-carousel .owl-nav button.owl-next, .owl-carousel .owl-nav button.owl-prev, .owl-carousel button.owl-dot {
+    outline: none;
+}
+
+  .masthead-search{
+
+    border: none;
+
+    .mh-search-input{
+
+      position: absolute;
+      width: calc(100% - 2.5rem);
+      height: 50px;
+      top: 35px;
+      left: 0;
+      right: 0;
+
+      .search{
+        position: absolute;
+        box-sizing: border-box;
+        border: 1px solid $gray-300;
+        border-radius: $spacer * 3;
+        padding: $spacer/2 $spacer*1.5;
+        overflow: hidden;
+        width: 50px;
+        height: 50px;
+        right: 0;
+        transform-origin: center center;
+        transition: all .7s cubic-bezier(.32,1.33,.43,1.01);
+
+        &:focus{
+          outline: none;
+        }
+      }
+
+      .search-button{
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        width: 50px;
+        background: 0 0;
+        border: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        outline: none;
+        transition: all .7s cubic-bezier(.32,1.33,.43,1.01);
+    }
+
+    &.expand{
+      .search{
+        width: calc(100% - 2.5rem);
+        padding: $spacer/2 $spacer*1.5 $spacer/2 $spacer*3;
+      }
+      .search-button{
+        right: calc(100% - 5.5rem);
+      }
+    }
+      
+    }
+
+    .card-header{
+      background: $white;
+      border-bottom: none;
+    }
+    h1{
+      font-family: $segoe-bold;
+      color: $secondary;
+      font-size: 1.5rem;
+      margin-bottom: 0; 
+      text-transform: uppercase;
+      text-align: left;
+    }
+
+    .nav-tabs{
+
+      display: flex;
+      justify-content: space-around;
+
+      .nav-item{
+
+        a{
+          font-size: 1rem !important;
+        }
+      }
+
+      .nav-link.active,
+      .nav-item.show .nav-link {
+        color: $secondary !important;
+        background-color: transparent;
+        border-color: $secondary;
+        border-bottom: 2px;
+        border-style: solid;
+        border-left: none;
+        border-right: none;
+        border-top: none;
+        font-family: $segoe-semibold;
+        font-size: 1.125rem !important;
+
+        &:hover {
+          color: $primary;
+          border-color: $primary;
+          border-bottom: 2px;
+          border-style: solid;
+          border-left: none;
+          border-right: none;
+          border-top: none;
+          opacity: 1;
+        }
+      }
+      .nav-link {
+        color: $secondary;
+        padding-right: 0 !important;
+        padding-left: 0!important;
+        font-family: $segoe-light;
+        transition: all .2s ease;
+
+        &:hover {
+          border: 1px solid transparent;
+          color: $primary;
+          transition: all .2s ease-out;
+        }
+      }
+    }
+
+    .tab-content{
+
+      .form-control {
+        height: auto;
+        padding: .75rem;
+        border-color: $gray-300;
+        color: $secondary;
+    }
+    }
+  }
+
+  .master-head-bg{
+    position: absolute;
+    width: 650px;
+    bottom: 0;
+    right: -100px;
+    z-index: 0;
+    pointer-events: none;
+  }
+  
+}
