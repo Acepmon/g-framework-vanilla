@@ -159,8 +159,8 @@
                         </td>
                         <td>
                             <div class="btn-group">
-                                <a href='{{ route('admin.groups.edit', ['id' => $group->id]) }}' class="btn btn-default btn-sm">Edit</a>
-                                <button data-toggle="modal" data-target="#modal_theme_danger" class="btn btn-default btn-sm" onclick="choose_group({{ $group->id }})">Delete</button>
+                                <a href='{{ route('admin.groups.edit', ['id' => $group->id]) }}' class="btn btn-light btn-sm">Edit</a>
+                                <button data-toggle="modal" data-target="#modal_theme_danger" class="btn btn-light btn-sm" onclick="choose_group({{ $group->id }})">Delete</button>
                             </div>
                         </td>
                     </tr>

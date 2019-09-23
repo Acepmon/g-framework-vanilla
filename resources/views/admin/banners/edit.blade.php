@@ -167,7 +167,7 @@
 
             <div class="modal-body">
                 <div class="image-cropper-container">
-                    <img src="{{ asset('limitless/bootstrap4/images/placeholder.jpg') }}" alt="" id="modal_banner_crop_image">
+                    <img src="{{ asset('placeholder.jpg') }}" alt="" id="modal_banner_crop_image">
                 </div>
             </div>
 
@@ -204,7 +204,7 @@
                         </div>
 
                         <div class="ml-3">
-                            <button type="button" class="btn btn-default" onclick="choosePage('{{ url($page->slug) }}')">Choose</button>
+                            <button type="button" class="btn btn-light" onclick="choosePage('{{ url($page->slug) }}')">Choose</button>
                         </div>
                     </li>
                     @endforeach
@@ -307,7 +307,7 @@
         $("#banner_remove").prop('checked', true);
 
         $(".file-styled").uniform({
-            fileButtonClass: 'action btn btn-default'
+            fileButtonClass: 'action btn btn-light'
         });
     }
 
@@ -326,7 +326,7 @@
 
         // File input
         $(".file-styled").uniform({
-            fileButtonClass: 'action btn btn-default'
+            fileButtonClass: 'action btn btn-light'
         });
 
         // 10 minute increments

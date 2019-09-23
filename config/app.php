@@ -14,6 +14,7 @@ return [
     */
 
     'name' => env('APP_NAME', 'G-Framework'),
+    'logo' => env('APP_LOGO', '/assets/limitless/bootstrap4/images/logo_light.png'),
 
     /*
     |--------------------------------------------------------------------------

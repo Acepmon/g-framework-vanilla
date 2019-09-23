@@ -127,7 +127,7 @@
 
                             <br/>
                             <div class="text-left">
-                                <a href="{{ route('admin.users.contents.index', ['user' => $user->id]) }}" class="btn btn-default"><i class="icon-arrow-left52 position-left"></i> Back</a>
+                                <a href="{{ route('admin.users.contents.index', ['user' => $user->id]) }}" class="btn btn-light"><i class="icon-arrow-left52 position-left"></i> Back</a>
                             </div>
 						</div>
 					</div>

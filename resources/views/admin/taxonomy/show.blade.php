@@ -83,8 +83,8 @@
                     </div>
                 </div>
                 <div class="text-right" style="padding-bottom: 5px">
-                    <a href="{{ route('admin.taxonomy.index', ['taxonomy' => $term_taxonomy->taxonomy]) }}" class="btn btn-default">Back</a>
-                    <a href="{{ route('admin.taxonomy.edit', ['id' => $term_taxonomy->id]) }}" class="btn btn-default">Edit</a>
+                    <a href="{{ route('admin.taxonomy.index', ['taxonomy' => $term_taxonomy->taxonomy]) }}" class="btn btn-light">Back</a>
+                    <a href="{{ route('admin.taxonomy.edit', ['id' => $term_taxonomy->id]) }}" class="btn btn-light">Edit</a>
                 </div>
             </div>
         </div>
@@ -115,9 +115,9 @@
                             <td width="250px">
                                 <div class="btn-group">
                                     <form action="{{ route('admin.taxonomy.metas.edit', ['taxonomy' => $term_taxonomy->id, 'meta' => $meta->id, 'taxonomy_type' => $term_taxonomy->taxonomy]) }}" method="GET" style="float: left; margin-right: 5px">
-                                        <button type="submit" class="btn btn-default">Edit</button>
+                                        <button type="submit" class="btn btn-light">Edit</button>
                                     </form>
-                                    <button data-toggle="modal" data-target="#modal_theme_danger" class="btn btn-default" onclick="delete_meta( {{$meta->id}} , {{$term_taxonomy->id}})">Delete</button>
+                                    <button data-toggle="modal" data-target="#modal_theme_danger" class="btn btn-light" onclick="delete_meta( {{$meta->id}} , {{$term_taxonomy->id}})">Delete</button>
                                 </div>
                             </td>
                         </tr>

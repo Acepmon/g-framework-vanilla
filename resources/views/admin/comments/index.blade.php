@@ -72,7 +72,7 @@
                 <tr>
                     <td>{{$comment->id}}</td>
                     <td>
-                        <a href="#" class="media-left"><img src="{{ ($comment->author_avatar)?$comment->author_avatar:asset('limitless/bootstrap4/images/placeholder.jpg')}}" class="img-sm img-circle" alt=""></a>
+                        <a href="#" class="media-left"><img src="{{ ($comment->author_avatar)?$comment->author_avatar:asset('placeholder.jpg')}}" class="img-sm img-circle" alt=""></a>
                         <div class="media-body">
                             <span class="media-heading font-weight-semibold">{{ $comment->author_name }}</span>
                             <span class="text-size-mini text-muted display-block">{{ $comment->author_id?'@'.$comment->author_id:$comment->author_email }}</span>
@@ -91,8 +91,8 @@
                     </td>
                     <td width="250px">
                         <div class="btn-group">
-                            <a href="{{ route('admin.comments.show', ['id' => $comment->id]) }}" class="btn btn-default">Show</a>
-                            <button data-toggle="modal" data-target="#modal_theme_danger" class="btn btn-default" onclick="delete_comment({{ $comment->id }})">Delete</button>
+                            <a href="{{ route('admin.comments.show', ['id' => $comment->id]) }}" class="btn btn-light">Show</a>
+                            <button data-toggle="modal" data-target="#modal_theme_danger" class="btn btn-light" onclick="delete_comment({{ $comment->id }})">Delete</button>
                         </div>
                     </td>
                 </tr>

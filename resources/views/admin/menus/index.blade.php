@@ -3,9 +3,9 @@
 @section('title', 'All Menus')
 
 @section('load')
-<script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/plugins/extensions/core/jquery_ui/core.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/plugins/extensions/core/jquery_ui/effects.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/plugins/extensions/core/jquery_ui/interactions.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/plugins/extensions/jquery_ui/core.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/plugins/extensions/jquery_ui/effects.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/plugins/extensions/jquery_ui/interactions.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/plugins/extensions/cookie.js') }}"></script>
 <script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/plugins/forms/styling/switchery.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/plugins/forms/styling/uniform.min.js') }}"></script>
@@ -43,7 +43,7 @@
                     <th style="width: 30px;">#</th>
                     <th>Title</th>
                     <th style="width: 40px;">Link</th>
-                    <th style="width: 40px;">Group</th>
+                    <th style="width: 40px;">Module</th>
                     <th style="width: 200px;">Actions</th>
                 </tr>
             </thead>
@@ -100,7 +100,7 @@
                         <div class="input-group">
                             <input type="text" class="form-control @error('link') is-invalid @enderror" name="link" placeholder="https://..." value="{{ old('link') }}" autocomplete="link">
                             <span class="input-group-btn">
-                                <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal_choose_page">Choose From Pages</button>
+                                <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_choose_page">Choose From Pages</button>
                             </span>
                         </div>
                     </div>
@@ -110,18 +110,18 @@
                         <div class="input-group">
                             <input type="text" class="form-control @error('icon') is-invalid @enderror" name="icon" placeholder="Menu icon" value="{{ old('icon') }}" autocomplete="icon">
                             <span class="input-group-btn">
-                                <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal_choose_icon">Choose Icon</button>
+                                <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_choose_icon">Choose Icon</button>
                             </span>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="group" class="control-label">Group</label>
-                        <input type="text" class="form-control @error('group') is-invalid @enderror typeahead-group" name="group" placeholder="Menu group" value="{{ old('group') }}" autocomplete="group">
+                        <label for="module" class="control-label">Module</label>
+                        <input type="text" class="form-control @error('module') is-invalid @enderror typeahead-module" name="module" placeholder="Menu group" value="{{ old('group') }}" autocomplete="group">
                     </div>
 
                     <div class="text-right">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
                         <button type="submit" class="btn btn-primary btn-loading" data-loading-text="<i class='icon-spinner4 spinner position-left'></i> Saving">Submit</button>
                     </div>
                 </form>
@@ -164,7 +164,7 @@
                             <div class="input-group">
                                 <input type="text" class="form-control @error('link') is-invalid @enderror" name="link" placeholder="https://..." value="{{ old('link') }}" autocomplete="link">
                                 <span class="input-group-btn">
-                                    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal_choose_page">Choose From Pages</button>
+                                    <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_choose_page">Choose From Pages</button>
                                 </span>
                             </div>
                         </div>
@@ -174,19 +174,19 @@
                             <div class="input-group">
                                 <input type="text" class="form-control @error('icon') is-invalid @enderror" name="icon" placeholder="Menu icon" value="{{ old('icon') }}" autocomplete="icon">
                                 <span class="input-group-btn">
-                                    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal_choose_icon">Choose Icon</button>
+                                    <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_choose_icon">Choose Icon</button>
                                 </span>
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label for="group" class="control-label">Group</label>
-                            <input type="text" class="form-control @error('group') is-invalid @enderror typeahead-group" name="group" placeholder="Menu group" value="{{ old('group') }}" autocomplete="group">
+                            <label for="module" class="control-label">Module</label>
+                            <input type="text" class="form-control @error('module') is-invalid @enderror typeahead-module" name="module" placeholder="Menu module" value="{{ old('module') }}" autocomplete="module">
                         </div>
                     </fieldset>
 
                     <div class="text-right">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
                         <button type="submit" class="btn btn-primary btn-loading" data-loading-text="<i class='icon-spinner4 spinner position-left'></i> Saving">Submit</button>
                     </div>
                 </form>
@@ -217,7 +217,7 @@
                         <div class="input-group">
                             <input type="text" class="form-control @error('link') is-invalid @enderror" name="link" placeholder="https://..." value="{{ old('link') }}" autocomplete="link">
                             <span class="input-group-btn">
-                                <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal_choose_page">Choose From Pages</button>
+                                <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_choose_page">Choose From Pages</button>
                             </span>
                         </div>
                     </div>
@@ -227,18 +227,18 @@
                         <div class="input-group">
                             <input type="text" class="form-control @error('icon') is-invalid @enderror" name="icon" placeholder="Menu icon" value="{{ old('icon') }}" autocomplete="icon">
                             <span class="input-group-btn">
-                                <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal_choose_icon">Choose Icon</button>
+                                <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_choose_icon">Choose Icon</button>
                             </span>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="group" class="control-label">Group</label>
-                        <input type="text" class="form-control @error('group') is-invalid @enderror typeahead-group" name="group" placeholder="Menu group" value="{{ old('group') }}" autocomplete="group">
+                        <label for="module" class="control-label">Module</label>
+                        <input type="text" class="form-control @error('module') is-invalid @enderror typeahead-module" name="module" placeholder="Menu module" value="{{ old('module') }}" autocomplete="module">
                     </div>
 
                     <div class="text-right">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
                         <button type="submit" class="btn btn-primary btn-loading" data-loading-text="<i class='icon-spinner4 spinner position-left'></i> Saving">Submit</button>
                     </div>
                 </form>
@@ -269,7 +269,7 @@
                         </div>
 
                         <div class="media-right">
-                            <button type="button" class="btn btn-default" onclick="choosePage('{{ url($page->slug) }}')">Choose</button>
+                            <button type="button" class="btn btn-light" onclick="choosePage('{{ url($page->slug) }}')">Choose</button>
                         </div>
                     </li>
                     @endforeach
@@ -314,12 +314,12 @@
             var title = data.title;
             var link = data.link;
             var icon = data.icon;
-            var group = data.group;
+            var module = data.module;
 
             $("#menu_edit_form").find('[name="title"]').val(title);
             $("#menu_edit_form").find('[name="link"]').val(link);
             $("#menu_edit_form").find('[name="icon"]').val(icon);
-            $("#menu_edit_form").find('[name="group"]').val(group);
+            $("#menu_edit_form").find('[name="module"]').val(module);
         });
     }
 
@@ -333,7 +333,7 @@
             var icon = data.icon;
             var title = data.title;
             var link = data.link;
-            var group = data.group;
+            var module = data.module;
 
             parentMedia.html('');
 
@@ -350,8 +350,8 @@
                 parentMedia.append(bodyStr);
             }
 
-            if (group && group.length) {
-                parentMedia.append('<div class="media-right"><span class="label label-default label-striped">'+group+'</span></div>');
+            if (module && module.length) {
+                parentMedia.append('<div class="media-right"><span class="badge badge-light badge-striped">'+module+'</span></div>');
             }
         });
     }
@@ -431,14 +431,14 @@
                 $tdList.eq(0).text(node.getIndexHier()).addClass("alignRight");
 
                 $tdList.eq(2).addClass('text-left').html(node.data.link ? "<a href='" + node.data.link + "' style='display: block;max-width: 150px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden;'>" + node.data.link + "</a>" : "");
-                $tdList.eq(3).addClass('text-left').html(node.data.group ? "<span class='label label-default label-striped'>" + node.data.group + "</a>" : "");
+                $tdList.eq(3).addClass('text-left').html(node.data.module ? "<span class='badge badge-light badge-striped'>" + node.data.module + "</a>" : "");
                 $tdList.eq(4).addClass('text-center').html(`
                     <div class='btn-group'>
-                    <a href='#modal_menu_edit' data-toggle="modal" onclick='menu_edit(` + node.data.id + `)' class='btn btn-default btn-sm'><span class='icon-pencil'></span></a>
-                    <a href='#modal_theme_danger' data-toggle='modal' onclick='delete_confirm(` + node.data.id + `)' class='btn btn-default btn-sm'><span class='icon-trash'></span></a>
+                    <a href='#modal_menu_edit' data-toggle="modal" onclick='menu_edit(` + node.data.id + `)' class='btn btn-light btn-sm'><span class='icon-pencil'></span></a>
+                    <a href='#modal_theme_danger' data-toggle='modal' onclick='delete_confirm(` + node.data.id + `)' class='btn btn-light btn-sm'><span class='icon-trash'></span></a>
                     </div>
 
-                    <a href='#modal_menu_add_submenu' data-toggle="modal" onclick='menu_add_submenu(` + node.data.id + `)' class='btn btn-default btn-sm'><span class='icon-plus-circle2'></span></a>
+                    <a href='#modal_menu_add_submenu' data-toggle="modal" onclick='menu_add_submenu(` + node.data.id + `)' class='btn btn-light btn-sm'><span class='icon-plus-circle2'></span></a>
                 `);
 
                 // Style checkboxes
@@ -564,22 +564,20 @@
         };
 
         // Add data
-        var groupsJson = '{!! json_encode($groupsArray) !!}';
-        var groups = JSON.parse(groupsJson);
-
-        console.log(groups);
+        var modulesJson = '{!! json_encode($modulesArray) !!}';
+        var modules = JSON.parse(modulesJson);
 
         // Initialize
-        $('.typeahead-group').typeahead(
+        $('.typeahead-module').typeahead(
             {
                 hint: true,
                 highlight: true,
                 minLength: 1
             },
             {
-                name: 'groups',
+                name: 'modules',
                 displayKey: 'value',
-                source: substringMatcher(groups)
+                source: substringMatcher(modules)
             }
         );
     });

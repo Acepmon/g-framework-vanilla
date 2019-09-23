@@ -74,7 +74,7 @@
                         </div>
 
                         <div class="text-right">
-                            <a href="javascript:history.back()" class="btn btn-default">Back</a>
+                            <a href="javascript:history.back()" class="btn btn-light">Back</a>
                             <button type="submit" class="btn btn-primary">Save</button>
                         </div>
                     </form>
@@ -105,7 +105,7 @@
                             </div>
                         </div>
                         <div class="text-right">
-                            <a href="javascript:history.back()" class="btn btn-default">Back</a>
+                            <a href="javascript:history.back()" class="btn btn-light">Back</a>
                             <button type="submit" class="btn btn-primary">Save</button>
                         </div>
                     </form>
