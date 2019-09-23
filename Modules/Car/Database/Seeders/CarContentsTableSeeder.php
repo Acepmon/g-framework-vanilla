@@ -2,14 +2,12 @@
 
 namespace Modules\Car\Database\Seeders;
 
-use Illuminate\Database\Seeder;
-use Illuminate\Database\Eloquent\Model;
-
-use DB;
 use App\Content;
 use App\ContentMeta;
-use App\User;
 use App\Group;
+use App\User;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Seeder;
 
 class CarContentsTableSeeder extends Seeder
 {
@@ -25,7 +23,7 @@ class CarContentsTableSeeder extends Seeder
         $time = time();
         $rootPath = config('content.cars.rootPath');
 
-        factory(Content::class, 10)->create(['type' => Content::TYPE_CAR])->each(function ($content) use($time, $rootPath) {
+        factory(Content::class, 100)->create(['type' => Content::TYPE_CAR])->each(function ($content) use ($time, $rootPath) {
 
             $carUserRandomId = User::whereHas('groups', function ($query) {
                 $query->where('type', Group::TYPE_DYNAMIC);
@@ -43,7 +41,7 @@ class CarContentsTableSeeder extends Seeder
             $thumbnail = $lorempixelUrl . '/' . $thumbWidth . '/' . $thumbHeight . '/' . $lorempixelType . '/?=' . rand(1, 50000);
             $medias = [];
             $mediasLimit = rand(1, 20);
-            for ($i=0; $i < $mediasLimit; $i++) {
+            for ($i = 0; $i < $mediasLimit; $i++) {
                 $media = $lorempixelUrl . '/' . $mediaWidth . '/' . $mediaHeight . '/' . $lorempixelType . '/?=' . rand(1, 50000);
                 $meta = new ContentMeta(['key' => 'medias', 'value' => $media]);
                 array_push($medias, $meta);
