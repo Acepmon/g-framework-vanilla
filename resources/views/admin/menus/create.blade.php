@@ -48,7 +48,7 @@
                         <div class="input-group">
                             <input id="link" type="text" class="form-control @error('link') is-invalid @enderror" name="link" placeholder="https://..." value="{{ old('link') }}" required autocomplete="link">
                             <span class="input-group-btn">
-                                <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal_choose_page">Choose From Pages</button>
+                                <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_choose_page">Choose From Pages</button>
                             </span>
                         </div>
                         @error('link')
@@ -63,7 +63,7 @@
                         <div class="input-group">
                             <input id="icon" type="text" class="form-control @error('icon') is-invalid @enderror" name="icon" placeholder="Menu icon" value="{{ old('icon') }}" required autocomplete="icon">
                             <span class="input-group-btn">
-                                <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal_choose_icon">Choose Icon</button>
+                                <button type="button" class="btn btn-light" data-toggle="modal" data-target="#modal_choose_icon">Choose Icon</button>
                             </span>
                         </div>
                         @error('icon')
@@ -74,7 +74,7 @@
                     </div>
 
                     <div class="text-right">
-                        <a class="btn btn-default" href="javascript:history.back()" type="btn btn-primary"><i class="icon-arrow-left13 ml-2"></i>Back</a>
+                        <a class="btn btn-light" href="javascript:history.back()" type="btn btn-primary"><i class="icon-arrow-left13 ml-2"></i>Back</a>
                         <button type="submit" class="btn btn-success">Submit
                             <i class="icon-arrow-right14 mr-2"></i>
                         </button>
@@ -107,7 +107,7 @@
                         </div>
 
                         <div class="media-right">
-                            <button type="button" class="btn btn-default" onclick="choosePage('{{ url($page->slug) }}')">Choose</button>
+                            <button type="button" class="btn btn-light" onclick="choosePage('{{ url($page->slug) }}')">Choose</button>
                         </div>
                     </li>
                     @endforeach

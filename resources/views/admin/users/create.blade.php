@@ -137,7 +137,7 @@
                         <label class="col-form-label col-lg-2">Avatar</label>
                         <div class="col-lg-10">
                             <div class="row">
-                                <img id="avatar" src="{{ asset('limitless/bootstrap4/images/placeholder.jpg') }}" class="rounded-circle mr-2" height="34"/>
+                                <img id="avatar" src="{{ asset('placeholder.jpg') }}" class="rounded-circle mr-2" height="34"/>
                                 <div class="uniform-uploader col-lg-11"><input type="file" class="form-control-uniform" data-fouc=""><span class="filename" style="user-select: none;">No file selected</span><span class="action btn btn-light" style="user-select: none;">Choose File</span></div>
                             </div>
                         </div>
@@ -172,12 +172,12 @@
 
                     <div class="row">
                         <div class="col-lg-4">
-                                <div class="text-left"><a href="{{ route('admin.users.index') }}" class="btn btn-default"><i class="icon-arrow-left52 position-left"></i> Back</a>
+                                <div class="text-left"><a href="{{ route('admin.users.index') }}" class="btn btn-light"><i class="icon-arrow-left52 position-left"></i> Back</a>
                             </div>
                         </div>
                         <div class="col-lg-8">
                             <div class="text-right">
-                                <button type="reset" class="btn btn-default" id="reset">Reset <i class="icon-reload-alt ml-2"></i></button>
+                                <button type="reset" class="btn btn-light" id="reset">Reset <i class="icon-reload-alt ml-2"></i></button>
                                 <button type="submit" class="btn btn-primary">Submit form <i class="icon-arrow-right14 ml-2"></i></button>
                         </div>
                     </div>

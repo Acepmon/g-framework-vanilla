@@ -79,7 +79,7 @@
                         </div>
                     </div>
                     <div class="text-right" style="padding-bottom: 5px">
-                        <a href="javascript:history.back()" class="btn btn-default">Back</a>
+                        <a href="javascript:history.back()" class="btn btn-light">Back</a>
                     </div>
                 </form>
             </div>
@@ -146,7 +146,7 @@
                 <td>{{$user->language}}</td>
                 <td class="text-center">
                     <div class="btn-group">
-                        <a type="" class="btn btn-button" href="{{ route('admin.groups.createUser', ['group' => $group->id, 'user' => $user->id]) }}" class="btn btn-default">Attach</a>
+                        <a type="" class="btn btn-button" href="{{ route('admin.groups.createUser', ['group' => $group->id, 'user' => $user->id]) }}" class="btn btn-light">Attach</a>
                     </div>
                 </td>
             </tr>

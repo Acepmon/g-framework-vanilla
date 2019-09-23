@@ -92,8 +92,8 @@
                     <td>{{ $data->title}}</td>
                     <td>{{ $data->type}}</td>
                     <td>{{ $data->description}}</td>
-                    <td><a href='{{ route('admin.permissions.show', ['id' => $data->id]) }}' type="btn btn-default">Show</a></td>
-                    <td><a href='{{ route('admin.permissions.edit', ['id' => $data->id]) }}' type="btn btn-default">Edit</a></td>
+                    <td><a href='{{ route('admin.permissions.show', ['id' => $data->id]) }}' type="btn btn-light">Show</a></td>
+                    <td><a href='{{ route('admin.permissions.edit', ['id' => $data->id]) }}' type="btn btn-light">Edit</a></td>
                     <td>
                         <a href="#" data-toggle="modal" data-target="#modal_theme_danger" onclick="delete_confirm({{ $data->id }})"><i class="icon-trash"></i> Delete</a>
                     </td>

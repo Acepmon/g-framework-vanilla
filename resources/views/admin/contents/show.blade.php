@@ -124,8 +124,8 @@
                         </div>
                     </div>
                     <div class="text-right" style="padding-bottom: 5px">
-                        <a href="{{ route('admin.contents.index', ['type' => $content->type]) }}" class="btn btn-default">Back</a>
-                        <a href="{{ route('admin.contents.edit', ['id' => $content->id]) }}" class="btn btn-default">Edit</a>
+                        <a href="{{ route('admin.contents.index', ['type' => $content->type]) }}" class="btn btn-light">Back</a>
+                        <a href="{{ route('admin.contents.edit', ['id' => $content->id]) }}" class="btn btn-light">Edit</a>
                     </div>
                 </div>
             </div>
@@ -159,9 +159,9 @@
                     <span class="badge bg-blue heading-text">{{ date('Y-m-d H:i:s', json_decode($revision->value)->datetime) }}</span>
                     <div class="header-elements">
                         @if($key < count($content->metas->whereIn('key', ['initial', 'revision', 'revert']))-1)
-                        <a href="{{ route('admin.contents.revisions.revert', ['id' => $content->id, 'revision' => $revision->id]) }}" class="btn btn-default"><i class="icon-reload-alt position-left"></i> Revert</a>
+                        <a href="{{ route('admin.contents.revisions.revert', ['id' => $content->id, 'revision' => $revision->id]) }}" class="btn btn-light"><i class="icon-reload-alt position-left"></i> Revert</a>
                         @endif
-                        <a href="{{ route('admin.contents.revisions.show', ['id' => $content->id, 'revision' => $revision->id]) }}" class="btn btn-default"><i class="icon-eye position-left"></i> View in Editor</a>
+                        <a href="{{ route('admin.contents.revisions.show', ['id' => $content->id, 'revision' => $revision->id]) }}" class="btn btn-light"><i class="icon-eye position-left"></i> View in Editor</a>
                     </div>
                 </div>
 

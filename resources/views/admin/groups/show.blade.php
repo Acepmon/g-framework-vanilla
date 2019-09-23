@@ -119,7 +119,7 @@
                                             <td>{{$menu->visibility}}</td>
                                             <td class="text-center">
                                                 <div class="btn-group">
-                                                    <a type="button" class="btn btn-button" href="{{ route('admin.groups.removeMenu', ['group' => $group->id, 'menu' => $menu->id]) }}"  class="btn btn-default">Remove</a>
+                                                    <a type="button" class="btn btn-button" href="{{ route('admin.groups.removeMenu', ['group' => $group->id, 'menu' => $menu->id]) }}"  class="btn btn-light">Remove</a>
                                                 </div>
                                             </td>
                                         </tr>

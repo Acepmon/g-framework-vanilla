@@ -107,7 +107,7 @@
                     <div class="form-group row">
                         <label class="col-form-label col-lg-2">Author Avatar <span class="text-danger">*</span></label>
                         <div class="col-lg-10">
-                            <input type="text" class="form-control" name="author_avatar" placeholder="Enter author avatar..." required="required" aria-required="true" invalid="true" value="{{ asset('limitless/images/placeholder.jpg') }}">
+                            <input type="text" class="form-control" name="author_avatar" placeholder="Enter author avatar..." required="required" aria-required="true" invalid="true" value="{{ asset('placeholder.jpg') }}">
                         </div>
                     </div>
 
@@ -147,7 +147,7 @@
                     </div>
 
                     <div class="text-right">
-                        <a href="javascript:history.back()" class="btn btn-default">Back</a>
+                        <a href="javascript:history.back()" class="btn btn-light">Back</a>
                         <button type="submit" class="btn btn-primary">Create</button>
                     </div>
                 </form>

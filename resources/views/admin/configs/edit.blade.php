@@ -95,17 +95,17 @@
                     <div class="row">
                         <div class="col-md-6">
                             @if (\Str::startsWith($config->key, 'system'))
-                            <a href="{{ route('admin.configs.system') }}" class="btn btn-default">List</a>
+                            <a href="{{ route('admin.configs.system') }}" class="btn btn-light">List</a>
                             @elseif (\Str::startsWith($config->key, 'themes'))
-                            <a href="{{ route('admin.configs.themes') }}" class="btn btn-default">List</a>
+                            <a href="{{ route('admin.configs.themes') }}" class="btn btn-light">List</a>
                             @elseif (\Str::startsWith($config->key, 'plugins'))
-                            <a href="{{ route('admin.configs.plugins') }}" class="btn btn-default">List</a>
+                            <a href="{{ route('admin.configs.plugins') }}" class="btn btn-light">List</a>
                             @elseif (\Str::startsWith($config->key, 'security'))
-                            <a href="{{ route('admin.configs.security') }}" class="btn btn-default">List</a>
+                            <a href="{{ route('admin.configs.security') }}" class="btn btn-light">List</a>
                             @elseif (\Str::startsWith($config->key, 'content'))
-                            <a href="{{ route('admin.configs.contents') }}" class="btn btn-default">List</a>
+                            <a href="{{ route('admin.configs.contents') }}" class="btn btn-light">List</a>
                             @else
-                            <a href="javascript:history.back()" class="btn btn-default">Back</a>
+                            <a href="javascript:history.back()" class="btn btn-light">Back</a>
                             @endif
                         </div>
                         <div class="col-md-6">

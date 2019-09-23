@@ -2,6 +2,8 @@
 
 use Illuminate\Database\Seeder;
 
+use App\Theme;
+
 class ThemesTableSeeder extends Seeder
 {
     /**
@@ -18,7 +20,7 @@ class ThemesTableSeeder extends Seeder
                 'description' => 'Responsive Web Application Kit',
                 'repository' => 'https://github.com/acepmon/g-framework-limitless/archive/master.zip',
                 'version' => '2.2',
-                'status' => \App\Theme::INSTALLED
+                'status' => Theme::INSTALLED
             ],
             [
                 'package' => 'canvas',
@@ -26,7 +28,7 @@ class ThemesTableSeeder extends Seeder
                 'description' => 'The Multi-Purpose HTML5 Template',
                 'repository' => 'https://github.com/acepmon/g-framework-canvas/archive/master.zip',
                 'version' => '5.9',
-                'status' => \App\Theme::AVAILABLE
+                'status' => Theme::AVAILABLE
             ],
             [
                 'package' => 'future-imperfect',
@@ -34,7 +36,7 @@ class ThemesTableSeeder extends Seeder
                 'description' => 'Another Fine Responsive Site Template by HTML5 UP',
                 'repository' => 'https://github.com/acepmon/g-framework-future-imperfect/archive/master.zip',
                 'version' => '1.0',
-                'status' => \App\Theme::INSTALLED
+                'status' => Theme::INSTALLED
             ],
             [
                 'package' => 'car-web',
@@ -42,7 +44,7 @@ class ThemesTableSeeder extends Seeder
                 'description' => 'Web version of Car Dealership Template',
                 'repository' => 'https://github.com/acepmon/carweb-theme/archive/master.zip',
                 'version' => '1.0',
-                'status' => \App\Theme::INSTALLED
+                'status' => Theme::INSTALLED
             ]
         ]);
     }

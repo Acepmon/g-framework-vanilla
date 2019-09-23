@@ -126,7 +126,7 @@
                         </div>
                     </div>
                     <div class="text-right">
-                        <a class="btn btn-default" href='javascript:history.back()'><i class="icon-arrow-left13 position-left"></i>Back</a>
+                        <a class="btn btn-light" href='javascript:history.back()'><i class="icon-arrow-left13 position-left"></i>Back</a>
                         <button type="submit" class="btn btn-primary">Edit menu<i class="icon-arrow-right14 position-right"></i></button>
                     </div>
                 </form>
@@ -156,7 +156,7 @@
                             <td>{{ $data->title}}</td>
                             <td>{{ $data->description}}</td>
                             <td>
-                                <a href='#' data-toggle='modal' data-target='#modal_theme_danger' onclick="delete_confirm({{$data->id}})" class='btn btn-default'><span class='icon-trash'></span></a>
+                                <a href='#' data-toggle='modal' data-target='#modal_theme_danger' onclick="delete_confirm({{$data->id}})" class='btn btn-light'><span class='icon-trash'></span></a>
                             </td>
                         </tr>
                         @endforeach

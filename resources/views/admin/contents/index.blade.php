@@ -80,12 +80,12 @@
                     <td width="250px">
                         <div class="btn-group">
                             <form action="{{ route('admin.contents.show', ['id' => $content->id]) }}" method="GET" style="float: left; margin-right: 5px">
-                                <button type="submit" class="btn btn-default">View</button>
+                                <button type="submit" class="btn btn-light">View</button>
                             </form>
                             <form action="{{ route('admin.contents.edit', ['id' => $content->id]) }}" method="GET" style="float: left; margin-right: 5px">
-                                <button type="submit" class="btn btn-default">Edit</button>
+                                <button type="submit" class="btn btn-light">Edit</button>
                             </form>
-                            <button data-toggle="modal" data-target="#modal_theme_danger" class="btn btn-default" onclick="delete_content({{ $content->id }})">Delete</button>
+                            <button data-toggle="modal" data-target="#modal_theme_danger" class="btn btn-light" onclick="delete_content({{ $content->id }})">Delete</button>
                         </div>
                     </td>
                 </tr>
