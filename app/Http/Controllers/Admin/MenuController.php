@@ -6,7 +6,6 @@ use Route;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Menu;
-use App\Group;
 use App\Content;
 use Illuminate\Support\Facades\Validator;
 use phpDocumentor\Reflection\DocBlock\Tags\Uses;
@@ -25,13 +24,13 @@ class MenuController extends Controller
         $menus = Menu::all();
         $pages = Content::where('type', Content::TYPE_PAGE)->get();
         $icons = $this->icomoonIconSet;
-        $groupsArray = Menu::select('group')->groupBy('group')->get()->filter(function ($item) {
-            return !empty($item->group);
+        $modulesArray = Menu::select('module')->groupBy('module')->get()->filter(function ($item) {
+            return !empty($item->module);
         })->transform(function ($item) {
-            return $item->group;
+            return $item->module;
         })->toArray();
 
-        return view('admin.menus.index', ['menus' => $menus, 'pages' => $pages, 'icons' => $icons, 'groupsArray' => $groupsArray]);
+        return view('admin.menus.index', ['menus' => $menus, 'pages' => $pages, 'icons' => $icons, 'modulesArray' => $modulesArray]);
     }
 
     public function subtree($id)
@@ -45,7 +44,7 @@ class MenuController extends Controller
             $menu->title = $value["title"];
             $menu->link = $value["link"];
             $menu->icon = $value["icon"];
-            $menu->group = $value["group"];
+            $menu->module = $value["module"];
 
             $menu->children = $this->subtree($value["id"]);
 
@@ -159,7 +158,7 @@ class MenuController extends Controller
             'title' => 'required|max:191',
             'link' => 'nullable|max:255',
             'icon' => 'nullable|max:50',
-            'group' => 'nullable|max:100',
+            'module' => 'nullable|max:100',
             'parent_id' => 'nullable|integer|exists:menus,id'
         ]);
 
@@ -174,7 +173,7 @@ class MenuController extends Controller
         $menu->title = $request->input('title');
         $menu->link = $request->input('link');
         $menu->icon = $request->input('icon');
-        $menu->group = $request->input('group');
+        $menu->module = $request->input('module');
         $menu->parent_id = $parentId;
         $menu->order = $order;
         $menu->sublevel = $sublevel;
@@ -279,28 +278,5 @@ class MenuController extends Controller
         Menu::destroy($id);
 
         return redirect()->route('admin.menus.index');
-    }
-
-    public function destroyGroup($id){
-        $groupId = Route::current()->parameter('group');
-        $menus = Menu::all();
-        $menu = Menu::findOrFail($id);
-
-        $menu->groups()->detach($groupId);
-        return view('admin.menus.edit', ['menu' => $menu, 'menus' => $menus]);
-    }
-
-    public function createGroup(){
-        $menu = Route::current()->parameter('menu');
-        $groups = Group::all();
-        return view('admin.menus.groups.create', ['groups' => $groups, 'menu' => $menu]);
-    }
-
-    public function storeGroup(Request $request){
-        $menus = Menu::all();
-        $menu = Menu::findOrFail(Route::current()->parameter('menu'));
-
-        $menu->groups()->attach($request->group);
-        return redirect()->route('admin.menus.edit', ['menu' => $menu, 'menus' => $menus]);
     }
 }

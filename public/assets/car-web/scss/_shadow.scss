@@ -1,0 +1,23 @@
+// stylelint-disable declaration-no-important
+
+.shadow-sm { box-shadow: $box-shadow-sm !important; }
+.shadow { box-shadow: $box-shadow !important; }
+.shadow-lg { box-shadow: $box-shadow-lg !important; }
+.shadow-lg-3d { box-shadow: $box-shadow-lg-3d !important; }
+.shadow-none { box-shadow: none !important; }
+.shadow-soft-blue {
+    box-shadow: 0 5px 10px 0 rgba(43, 54, 81, .1) !important;
+    transition: all .3s ease; 
+
+    &:hover{
+        box-shadow: 0 10px 20px -5px rgba(43, 54, 81, .1) !important;
+    }
+}
+.shadow-red{ 
+    box-shadow: 0 5px 10px 0 rgba(199, 11, 11, .3) !important;
+    transition: all .3s ease; 
+
+    &:hover{
+        box-shadow: 0 10px 20px -5px rgba(199, 11, 11, .3) !important;
+    }
+}

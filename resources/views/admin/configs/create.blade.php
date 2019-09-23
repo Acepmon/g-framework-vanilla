@@ -114,7 +114,7 @@
 
                     <div class="row">
                         <div class="col-md-6">
-                            <a href="javascript:history.back()" class="btn btn-default">Back</a>
+                            <a href="javascript:history.back()" class="btn btn-light">Back</a>
                         </div>
                         <div class="col-md-6">
                             <div class="text-right">

@@ -15,12 +15,8 @@ if (!file_exists(base_path('.env')) && config('app.env_install')) {
     \Artisan::call('env:install');
 }
 
-Route::get('redirect/{driver}', 'Auth\RegisterController@redirectToProvider')
-->name('login.provider')
-->where('driver', 'google|facebook');
-Route::get('callback/{driver}', 'Auth\RegisterController@handleProviderCallback')
-->name('login.callback')
-->where('driver', 'google|facebook');
+Route::get('redirect/{driver}', 'Auth\RegisterController@redirectToProvider')->name('login.provider')->where('driver', 'google|facebook');
+Route::get('callback/{driver}', 'Auth\RegisterController@handleProviderCallback')->name('login.callback')->where('driver', 'google|facebook');
 
 Route::middleware(['installed'])->group(function () {
 
@@ -86,50 +82,6 @@ Route::middleware(['installed'])->group(function () {
                     Route::get('thumbnails', 'MediaController@thumbnails')->name('admin.media.thumbnails');
                     Route::get('assets', 'MediaController@assets')->name('admin.media.assets');
                     Route::get('upload', 'MediaController@upload')->name('admin.media.upload');
-                });
-
-                Route::prefix('notifications')->group(function () {
-                    Route::get('/', 'NotificationController@index')->name('admin.notifications.index');
-
-                    Route::resource('triggers', 'NotificationTriggerController')->names([
-                        'index' => 'admin.notifications.triggers.index',
-                        'create' => 'admin.notifications.triggers.create',
-                        'store' => 'admin.notifications.triggers.store',
-                        'show' => 'admin.notifications.triggers.show',
-                        'edit' => 'admin.notifications.triggers.edit',
-                        'update' => 'admin.notifications.triggers.update',
-                        'destroy' => 'admin.notifications.triggers.destroy',
-                    ]);
-
-                    Route::resource('channels', 'NotificationChannelController')->names([
-                        'index' => 'admin.notifications.channels.index',
-                        'create' => 'admin.notifications.channels.create',
-                        'store' => 'admin.notifications.channels.store',
-                        'show' => 'admin.notifications.channels.show',
-                        'edit' => 'admin.notifications.channels.edit',
-                        'update' => 'admin.notifications.channels.update',
-                        'destroy' => 'admin.notifications.channels.destroy',
-                    ]);
-
-                    Route::resource('events', 'NotificationEventController')->names([
-                        'index' => 'admin.notifications.events.index',
-                        'create' => 'admin.notifications.events.create',
-                        'store' => 'admin.notifications.events.store',
-                        'show' => 'admin.notifications.events.show',
-                        'edit' => 'admin.notifications.events.edit',
-                        'update' => 'admin.notifications.events.update',
-                        'destroy' => 'admin.notifications.events.destroy',
-                    ]);
-
-                    Route::resource('templates', 'NotificationTemplateController')->names([
-                        'index' => 'admin.notifications.templates.index',
-                        'create' => 'admin.notifications.templates.create',
-                        'store' => 'admin.notifications.templates.store',
-                        'show' => 'admin.notifications.templates.show',
-                        'edit' => 'admin.notifications.templates.edit',
-                        'update' => 'admin.notifications.templates.update',
-                        'destroy' => 'admin.notifications.templates.destroy',
-                    ]);
                 });
 
                 Route::resource('menus', 'MenuController')->names([
@@ -349,9 +301,15 @@ Route::middleware(['installed'])->group(function () {
                 Route::get('/users/{user}/contents', 'UserContentController@index')->name('admin.users.contents.index');
                 Route::get('/users/{user}/contents/{content}', 'UserContentController@show')->name('admin.users.contents.show');
 
-                Route::delete('/menus/{menu}/groups/{group}', 'MenuController@destroyGroup')->name('admin.menus.groups.destroy');
-                Route::get('/menus/{menu}/groups/create', 'MenuController@createGroup')->name('admin.menus.groups.create');
-                Route::post('/menus/{menu}/groups', 'MenuController@storeGroup')->name('admin.menus.groups.store');
+                Route::resource('localizations', 'LocalizationController')->names([
+                    'index' => 'admin.localizations.index',
+                    'create' => 'admin.localizations.create',
+                    'store' => 'admin.localizations.store',
+                    'show' => 'admin.localizations.show',
+                    'edit' => 'admin.localizations.edit',
+                    'update' => 'admin.localizations.update',
+                    'destroy' => 'admin.localizations.destroy'
+                ]);
             });
         });
 

@@ -49,7 +49,7 @@
                     </h4>
 
                     <div class="header-elements">
-                        <button type="button" data-toggle="modal" data-target="#modal_theme_danger" onclick="choose_log('{{ $filename }}')" class="btn btn-default"><span class="icon-trash position-left"></span> Delete File</button>
+                        <button type="button" data-toggle="modal" data-target="#modal_theme_danger" onclick="choose_log('{{ $filename }}')" class="btn btn-light"><span class="icon-trash position-left"></span> Delete File</button>
                     </div>
                 </div>
 

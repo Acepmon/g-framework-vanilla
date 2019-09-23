@@ -161,7 +161,7 @@
                     </div>
 
                     <div class="text-right">
-                        <a href="javascript:history.back()" class="btn btn-default">Back</a>
+                        <a href="javascript:history.back()" class="btn btn-light">Back</a>
                         <button type="submit" class="btn btn-primary">Save</button>
                     </div>
                 </form>
@@ -227,9 +227,9 @@
                             <td width="250px">
                                 <div class="btn-group">
                                     <form action="{{ route('admin.contents.metas.edit', ['content' => $content->id, 'meta' => $meta->id]) }}" method="GET" style="float: left; margin-right: 5px">
-                                        <button type="submit" class="btn btn-default">Edit</button>
+                                        <button type="submit" class="btn btn-light">Edit</button>
                                     </form>
-                                    <button data-toggle="modal" data-target="#modal_theme_danger" class="btn btn-default" onclick="delete_meta( {{$meta->id}} , {{$content->id}})">Delete</button>
+                                    <button data-toggle="modal" data-target="#modal_theme_danger" class="btn btn-light" onclick="delete_meta( {{$meta->id}} , {{$content->id}})">Delete</button>
                                 </div>
                             </td>
                         </tr>

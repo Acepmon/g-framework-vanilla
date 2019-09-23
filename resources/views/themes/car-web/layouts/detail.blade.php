@@ -34,9 +34,6 @@
 
     <body class="detail-page">
 
-        <!-- Sticky Sidebar -->
-        @include('themes.car-web.includes.fixed-right-sidebar', array('sideBanners' => \App\Banner::where('location_id', 4)->get(), 'premium' => \App\Content::where('type', \App\Content::TYPE_CAR)->limit(5)->get()))
-
         <!-- Header -->
         @include('themes.car-web.includes.header')
 
@@ -47,6 +44,9 @@
         <!-- Detail page Grid -->
         <section class="detail-items bg-white">
             <div class="container">
+                <!-- Sticky Sidebar -->
+                @include('themes.car-web.includes.fixed-right-sidebar', array('sideBanners' => \App\Banner::where('location_id', 4)->get(), 'premium' => \App\Content::where('type', \App\Content::TYPE_CAR)->limit(5)->get()))
+
                 <div class="row">
                     <div class="col-md-8">
                         @include('themes.car-web.includes.detail-slide-gallery', ['content', $content])
@@ -60,7 +60,7 @@
                                 @include('themes.car-web.includes.detail-car-stats', ['content' => $content])
                             </div>
                             <div class="col-md-12 px-5">
-                                <a class="btn btn-danger btn-round btn-block my-4 shadow-red p-3" href="#">Online purchase</a>
+                                <a class="btn btn-danger btn-round btn-block my-4 shadow-red p-3" href="#section-finance">Зээлийн боломжийг шалгах</a>
                                 <a class="btn btn-light btn-round btn-block my-4 shadow-soft-blue p-3 btn-icon-left" href="#">
                                     <i class="icon-heart"></i>
                                     Save to interested
@@ -80,9 +80,6 @@
 
         <!-- Option information -->
         @include('themes.car-web.includes.section-options', ['content' => $content])
-
-        <!-- Diagnostic summary -->
-        @include('themes.car-web.includes.section-diagnostic', ['content' => $content])
 
         <!-- Seller Description -->
         @include('themes.car-web.includes.section-seller-description', ['content' => $content])

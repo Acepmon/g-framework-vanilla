@@ -95,7 +95,7 @@
                     </div>
                 </div>
                 <div class="text-right" style="padding-bottom: 5px">
-                    <a href="{{ route('admin.comments.index') }}" class="btn btn-default">Back to List</a>
+                    <a href="{{ route('admin.comments.index') }}" class="btn btn-light">Back to List</a>
                 </div>
             </div>
         </div>
@@ -126,9 +126,9 @@
                             <td width="250px">
                                 <div class="btn-group">
                                     <form action="{{ route('admin.comments.metas.edit', ['comment' => $comment->id, 'meta' => $meta->id]) }}" method="GET" style="float: left; margin-right: 5px">
-                                        <button type="submit" class="btn btn-default">Edit</button>
+                                        <button type="submit" class="btn btn-light">Edit</button>
                                     </form>
-                                    <button data-toggle="modal" data-target="#modal_theme_danger" class="btn btn-default" onclick="delete_meta( {{$meta->id}} , {{$comment->id}})">Delete</button>
+                                    <button data-toggle="modal" data-target="#modal_theme_danger" class="btn btn-light" onclick="delete_meta( {{$meta->id}} , {{$comment->id}})">Delete</button>
                                 </div>
                             </td>
                         </tr>
