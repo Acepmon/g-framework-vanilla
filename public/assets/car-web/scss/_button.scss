@@ -1,0 +1,52 @@
+.btn-round{
+  border-radius: 100px;
+  padding-left: $spacer * 3;
+  padding-right: $spacer * 3;
+  position: relative;
+}
+
+.btn{
+  &.btn-icon-left  {
+    transition: all .3s ease;
+
+    i{
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  }
+
+  &.btn-icon-right  {
+    i{
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: all .7s ease;
+  }
+  &:hover{
+    i{
+      right: 15px;
+    }
+  }
+  }
+
+  &.btn-white {
+    color: $secondary;
+    background-color: $white;
+    border-color: none;
+  }
+  
+  &.btn-danger {
+    color: #fff;
+    background-color: $red;
+    border-color: $red;
+  }
+
+  &.btn-primary {
+    color: #fff;
+    background-color: $primary;
+    border-color: $primary;
+  }
+}

@@ -1,0 +1,29 @@
+.title-mid-line{
+  font-family: $segoe;
+  height: 100%;
+  position: relative;
+
+  h2{
+    background: $secondary;;
+    position: absolute;
+    display: block;
+    width: auto;
+    top: -1.5rem;
+    padding-right: 1rem;
+  }
+
+  &.white{
+    color: $white;
+
+    &:before{
+      content: '';
+      position: absolute;
+      top: 50%;
+      width: 100%;
+      height: 1px;
+      background: $white;
+      opacity: .5;
+      z-index: 0;
+    }
+  }
+}

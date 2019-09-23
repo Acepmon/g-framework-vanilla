@@ -1,0 +1,47 @@
+.slider-item{
+  min-height: 600px;
+  height: 100%;
+  position: relative;
+
+  .slider-text{
+    color: $secondary;
+    position: absolute;
+
+    h1 {
+      font-size: 3rem;
+      font-family: $segoe;
+      color: $secondary;
+      text-transform: uppercase;
+    }
+    
+    &.slider-highlight{
+      background: $red;
+      font-family: helvetica;
+      padding: 0 1.5rem;
+      line-height: 10rem;
+      font-size: 10rem;
+      font-weight: 800;
+      color: $white;
+      width: auto;
+      height: auto;
+      position: absolute;
+      z-index: -1;
+    }
+
+    .slider-img{
+      position: absolute;
+      margin-top: 250px;
+    }
+  }
+  .slider-img{
+    position: absolute;
+    bottom: 0;
+  }
+  
+  @media (min-width: 768px) {
+
+    h1 {
+      font-size: 3rem;
+    }
+  }
+}

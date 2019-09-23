@@ -78,7 +78,6 @@ class CarContentsTableSeeder extends Seeder
                 new ContentMeta(['key' => 'length', 'value' => '4m']),
                 new ContentMeta(['key' => 'archiveNumber', 'value' => 'A598WDY987']),
                 new ContentMeta(['key' => 'carCondition', 'value' => 'used']),
-                new ContentMeta(['key' => 'importDate', 'value' => '2006']),
                 new ContentMeta(['key' => 'wheelDrive', 'value' => 'back']),
                 new ContentMeta(['key' => 'mileage', 'value' => '5000km']),
                 new ContentMeta(['key' => 'advantages', 'value' => 'used in womans hand']),
