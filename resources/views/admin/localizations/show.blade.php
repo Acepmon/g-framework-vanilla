@@ -193,6 +193,13 @@
                 php_editor.setTheme("ace/theme/monokai");
                 php_editor.getSession().setMode("ace/mode/php");
                 php_editor.setShowPrintMargin(false);
+                php_editor.commands.addCommand({
+                    name: 'save',
+                    bindKey: {win: "Ctrl-S", "mac": "Cmd-S"},
+                    exec: function() {
+                        $("#saveLocaleBtn").trigger('click');
+                    }
+                });
             objects[item.name] = php_editor;
         });
 
