@@ -1,5 +1,5 @@
 @if($car)
-<div class="card">
+<div class="card" onclick="window.open('{{ $car->slug }}','_blank');" style="cursor: pointer">
     <div class="card-body">
         <div class="card-img">
             @if($car->metaValue('publish_type') == 'best_premium' || $car->metaValue('publish_type') == 'premium')

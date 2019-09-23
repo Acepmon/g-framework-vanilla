@@ -48,7 +48,13 @@ $items = metaHas($items, $key, $value);
 }
 
 // HOT Deals
-$hotDeals=App\Content::where('type', App\Content::TYPE_CAR)->inRandomOrder()->paginate(5);
+$best_premium = App\Content::where('type', App\Content::TYPE_CAR);
+$premium = App\Content::where('type', App\Content::TYPE_CAR);
+$best_premium = metaHas($best_premium, 'publish_type', 'best_premium')->get();
+$premium = metaHas($premium, 'publish_type', 'premium')->get();
+$hotDeals = $best_premium->merge($premium);
+//dd($hotDeals);
+//$hotDeals = $hotDeals->paginate(5);
 $items = $hotDeals->merge($items->get());
 
 // Post items filtering
@@ -129,7 +135,8 @@ Car dealer
                       <div class="cd-radio">
                         <input type="radio" id="{{ $taxonomy->term->name }}" name="{{ idize($category) }}" class="custom-control-input" value="{{ $taxonomy->term->name }}">
                         <label class="custom-control-label " for="{{ $taxonomy->term->name }}">
-                          <img src="{{ asset('car-web/img/icons/'.strtolower($taxonomy->term->name).'.svg') }}" alt="">{{ $taxonomy->term->name }}
+                          <img src="{{ asset('car-web/img/icons/'.strtolower($taxonomy->term->name).'.svg') }}"  style="{{ (request(idize($category), Null)==$taxonomy->term->name)?'filter: none':'' }}">
+                          {{ $taxonomy->term->name }}
                         </label>
                       </div>
                       @endforeach

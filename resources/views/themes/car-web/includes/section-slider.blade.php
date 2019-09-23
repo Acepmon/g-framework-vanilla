@@ -10,14 +10,14 @@
             </div>
         </div>
     </div>
-    <div class="card-list usedInMn">
+    <div class="card-list usedInMn section-slider">
         <div class="container">
             <div class="row">
                 <div class="card-slide owl-carousel owl-theme">
                     @foreach($contents as $car)
                     <!-- card start -->
                     <div class="card cd-box auto-height">
-                        @if($car->metaValue('premium'))
+                        @if($car->metaValue('publish_type') == 'best_premium' || $car->metaValue('publish_type') == 'premium')
                         <div class="premium-tag shadow-soft-blue"><img src="{{ asset('car-web/img/icons/corona.svg') }}" alt=""></div>
                         @endif
                         <div class="brand-name"></div>
@@ -77,7 +77,7 @@
 </section>
 
 <style>
-.owl-stage {
+.section-slider .owl-stage {
     display: -webkit-flex;
     display: -ms-flexbox;
     display: flex;
@@ -86,7 +86,7 @@
     -ms-flex-wrap: wrap;
     flex-wrap: wrap;
 }
-.owl-item{
+.section-slider .owl-item {
     display: -webkit-flex;
     display: -ms-flexbox;
     display: flex;
