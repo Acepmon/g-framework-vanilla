@@ -18,13 +18,19 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function login()
+    public function login(Request $request)
     {
-        if (Auth::attempt(['email' => request('username'), 'password' => request('password')])) {
+        $remember = false;
+
+        if ($request->has('remember')) {
+            $remember = true;
+        }
+
+        if (Auth::attempt(['email' => request('username'), 'password' => request('password')], $remember)) {
             $user = Auth::user();
             $success['token'] = $user->createToken('MyApp')->accessToken;
             return response()->json(['success' => $success], $this->successStatus);
-        } else if (Auth::attempt(['username' => request('username'), 'password' => request('password')])) {
+        } else if (Auth::attempt(['username' => request('username'), 'password' => request('password')], $remember)) {
             $user = Auth::user();
             $success['token'] = $user->createToken('MyApp')->accessToken;
             return response()->json(['success' => $success], $this->successStatus);

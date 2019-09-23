@@ -78,7 +78,7 @@
                     </div>
 
                     <div class="text-right">
-                        <a href="{{ route('admin.comments.show', ['comment' => $comment->id]) }}" class="btn btn-default">Back</a>
+                        <a href="{{ route('admin.comments.show', ['comment' => $comment->id]) }}" class="btn btn-light">Back</a>
                         <button type="submit" class="btn btn-primary">Save</button>
                     </div>
                 </form>

@@ -86,9 +86,16 @@ class RegisterController extends Controller
             $user->save();
         }
 
-        $groupId = (array_key_exists('group', $data) && $data['group']) || config('system.register.defaultGroup');
+        $groupId = array_key_exists('group', $data) ? $data['group'] : config('system.register.defaultGroup');
         if (!empty($groupId)) {
             $user->groups()->attach($groupId);
+        }
+
+        if (array_key_exists('social_id', $data) && array_key_exists('social_provider', $data) && array_key_exists('social_token', $data)) {
+            $user->social_id = $data['social_id'];
+            $user->social_provider = $data['social_provider'];
+            $user->social_token = $data['social_token'];
+            $user->save();
         }
 
         return $user;
@@ -141,7 +148,9 @@ class RegisterController extends Controller
                 'name' => $user->getName(),
                 'avatar' => $user->getAvatar(),
                 'language' => 'mn',
-                'group' => '1'
+                'social_id' => $user->getId(),
+                'social_provider' => $driver,
+                'social_token' => $user->token
             ]);
             auth()->login($newUser, true);
         }

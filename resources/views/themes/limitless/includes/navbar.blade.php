@@ -2,26 +2,15 @@
 <div class="navbar navbar-expand-md navbar-dark">
     <div class="navbar-header navbar-dark d-none d-md-flex align-items-md-center">
         <div class="navbar-brand">
-            <a class="d-inline-block" href="{{ route('admin.dashboard') }}"><img src="{{ asset('limitless/bootstrap4/images/logo_light.png') }}" alt></a>
+            <a class="d-inline-block" href="{{ route('admin.dashboard') }}"><img src="{{ config('app.logo') }}" alt="{{ config('app.name') }}"></a>
         </div>
-
-        <!-- <ul class="nav navbar-nav visible-xs-block">
-            <li><a data-toggle="collapse" data-target="#navbar-mobile"><i class="icon-tree5"></i></a></li>
-            <li><a class="sidebar-mobile-main-toggle"><i class="icon-paragraph-justify3"></i></a></li>
-        </ul> -->
     </div>
 
     <div class="collapse navbar-collapse" id="navbar-mobile">
         <ul class="navbar-nav">
             <li class="nav-item"><a class="navbar-nav-link sidebar-control sidebar-main-toggle d-none d-md-block"><i class="icon-paragraph-justify3"></i></a></li>
 
-            @if (file_exists(storage_path('framework/down')))
-            <li class="nav-item">
-                <a href="{{ route('admin.configs.maintenance') }}">
-                    <span class="label label-inline bg-warning-400 position-right">Maintenance Mode Enabled</span>
-                </a>
-            </li>
-            @endif
+            @include('admin.configs.includes.maintenance-menu-item')
         </ul>
 
         <ul class="navbar-nav ml-xl-auto">
