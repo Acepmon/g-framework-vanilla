@@ -5,6 +5,10 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
+use File;
+use Str;
+use App\Locale;
+
 class LocalizationController extends Controller
 {
     /**
@@ -14,7 +18,8 @@ class LocalizationController extends Controller
      */
     public function index()
     {
-        $localizations = $this->langs(resource_path('lang'));
+        $localizations = Locale::getAll();
+
         return view('admin.localizations.index', ['localizations' => $localizations]);
     }
 
@@ -36,7 +41,39 @@ class LocalizationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required'
+        ]);
+
+        if ($request->has('locale')) {
+            $locale = $request->input('locale');
+            $name = Str::snake($request->input('name'));
+            $path = resource_path('lang/' . $locale . '/' . $name . '.php');
+            $content = '<?php
+
+return [
+
+    "' . $name . '" => "Translation Text Here",
+
+];';
+
+            if (File::exists($path)) {
+                abort(500, 'File Name Exists');
+            } else {
+                file_put_contents($path, $content);
+                return back()->with('status', 'Successfully created new locale file!');
+            }
+        } else {
+            $name = Str::snake($request->input('name'));
+            $path = resource_path('lang/' . $name . '/');
+
+            if (File::exists($path)) {
+                abort(500, 'Locale already exists');
+            } else {
+                File::makeDirectory($path);
+                return back()->with('status', 'Successfully created new localization!');
+            }
+        }
     }
 
     /**
@@ -45,9 +82,11 @@ class LocalizationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($locale)
     {
-        return view('admin.localizations.show');
+        $localization = Locale::get($locale);
+
+        return view('admin.localizations.show', ['localization' => $localization]);
     }
 
     /**
@@ -68,9 +107,21 @@ class LocalizationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $locale)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'content' => 'required'
+        ]);
+
+        $file = resource_path('lang/' . $locale . '/' . $request->input('name') . '.php');
+        try {
+            if (File::exists($file)) {
+                File::put($file, $request->input('content'));
+            }
+        } catch (Exception $ex) {
+            abort(400);
+        }
     }
 
     /**
@@ -79,32 +130,25 @@ class LocalizationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $locale)
     {
-        //
-    }
+        if ($request->has('name')) {
+            $name = $request->input('name');
+            $path = resource_path('lang/' . $locale . '/' . $name . '.php');
 
-    private function recursiveTree($dir)
-    {
-        $data = array();
-        foreach ( $dir as $node )
-        {
-            if ( $node->isDir() && !$node->isDot() )
-            {
-                $data[$node->getFilename()] = $this->recursiveTree( new \DirectoryIterator( $node->getPathname() ) );
+            if (File::exists($path)) {
+                File::delete($path);
+
+                return back()->with('status', 'Successfully deleted locale file!');
             }
-            else if ( $node->isFile() )
-            {
-                $data[] = $node->getFilename();
+        } else {
+            $path = resource_path('lang/' . $locale . '/');
+
+            if (File::exists($path)) {
+                File::deleteDirectory($path);
+
+                return redirect()->route('admin.localizations.index')->with('status', 'Successfully deleted localization!');
             }
         }
-        return $data;
-    }
-
-    private function langs($langPath)
-    {
-        $fileData = $this->recursiveTree( new \DirectoryIterator($langPath) );
-
-        return $fileData;
     }
 }
