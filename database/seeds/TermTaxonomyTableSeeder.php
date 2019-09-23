@@ -15,1360 +15,312 @@ class TermTaxonomyTableSeeder extends Seeder
         //
         /* Car Type Table START */
 
-        $term_id1 = DB::table('terms')->insertGetId([
-            'name' => 'Sedan',
-            'slug' => 'Sedan',
-        ]);
-        DB::table('term_taxonomy')->insert([
+        $CarType = ['Sedan', 'SUV', 'Sport', 'Trucks', 'Vans', 'Bus',];
 
-            'term_id' => $term_id1,
-            'taxonomy' => 'Car Type',
-            'description' => 'Sedan',
-            'count' => 0
-        ]);
-        $term_id1 = DB::table('terms')->insertGetId([
-            'name' => 'SUV',
-            'slug' => 'SUV',
-        ]);
-        DB::table('term_taxonomy')->insert([
-
-            'term_id' => $term_id1,
-            'taxonomy' => 'Car Type',
-            'description' => 'SUV',
-            'count' => 0
-        ]);
-        $term_id1 = DB::table('terms')->insertGetId([
-            'name' => 'Sport',
-            'slug' => 'Sport',
-        ]);
-        DB::table('term_taxonomy')->insert([
-
-            'term_id' => $term_id1,
-            'taxonomy' => 'Car Type',
-            'description' => 'Sport',
-            'count' => 0
-        ]);
-        $term_id1 = DB::table('terms')->insertGetId([
-            'name' => 'Trucks',
-            'slug' => 'Trucks',
-        ]);
-        DB::table('term_taxonomy')->insert([
-
-            'term_id' => $term_id1,
-            'taxonomy' => 'Car Type',
-            'description' => 'Trucks',
-            'count' => 0
-        ]);
-        $term_id1 = DB::table('terms')->insertGetId([
-            'name' => 'Vans',
-            'slug' => 'Vans',
-        ]);
-        DB::table('term_taxonomy')->insert([
-
-            'term_id' => $term_id1,
-            'taxonomy' => 'Car Type',
-            'description' => 'Vans',
-            'count' => 0
-        ]);
-        $term_id1 = DB::table('terms')->insertGetId([
-            'name' => 'Bus',
-            'slug' => 'Bus',
-        ]);
-        DB::table('term_taxonomy')->insert([
-
-            'term_id' => $term_id1,
-            'taxonomy' => 'Car Type',
-            'description' => 'Bus',
-            'count' => 0
-        ]);
-
+        foreach($CarType as &$type){
+            $term_id1 = DB::table('terms')->insertGetId([
+                'name' => $type,
+                'slug' => $type,
+            ]);
+            DB::table('term_taxonomy')->insert([
+                'term_id' => $term_id1,
+                'taxonomy' => $type,
+                'description' => $type,
+                'count' => 0
+            ]);
+        }
         /* Car Type Table END */
 
         /* Manufacturer Table START */
-        $term_id2 = DB::table('terms')->insertGetId([
-            'name' => 'Toyota',
-            'slug' => 'Toyota',
-        ]);
-        DB::table('term_taxonomy')->insert([
 
-            'term_id' => $term_id2,
-            'taxonomy' => 'Manufacturer',
-            'description' => 'Toyota',
-            'count' => 0
-        ]);
-        $term_id2 = DB::table('terms')->insertGetId([
-            'name' => 'Lexus',
-            'slug' => 'Lexus',
-        ]);
-        DB::table('term_taxonomy')->insert([
+        $Factory = ['Toyota', 'Lexus', 'Nissan', 'Mercedes-benz', 'Volkswagen', 'Mini', 'Audi', 'BMW', 'Ford', 'Land Rover', 'Daihatsu', 'Dodge', 'Honda', 'Hyundai', 'Kia', 
+        'Jeep', 'Subaru', 'Suzuki'];
 
-            'term_id' => $term_id2,
-            'taxonomy' => 'Manufacturer',
-            'description' => 'Lexus',
-            'count' => 0
-        ]);
-        $term_id2 = DB::table('terms')->insertGetId([
-            'name' => 'Nissan',
-            'slug' => 'Nissan',
-        ]);
-        DB::table('term_taxonomy')->insert([
+        foreach($Factory as &$manufacture){
+            $term_id1 = DB::table('terms')->insertGetId([
+                'name' => $manufacture,
+                'slug' => $manufacture,
+            ]);
+            DB::table('term_taxonomy')->insert([
+                'term_id' => $term_id1,
+                'taxonomy' => $manufacture,
+                'description' => $manufacture,
+                'count' => 0
+            ]);
+        }
 
-            'term_id' => $term_id2,
-            'taxonomy' => 'Manufacturer',
-            'description' => 'Nissan',
-            'count' => 0
-        ]);
-        $term_id2 = DB::table('terms')->insertGetId([
-            'name' => 'Mercedes-benz',
-            'slug' => 'Mercedes-benz',
-        ]);
-        DB::table('term_taxonomy')->insert([
-
-            'term_id' => $term_id2,
-            'taxonomy' => 'Manufacturer',
-            'description' => 'Mercedes-benz',
-            'count' => 0
-        ]);
-        $term_id2 = DB::table('terms')->insertGetId([
-            'name' => 'Volkswagen',
-            'slug' => 'Volkswagen',
-        ]);
-        DB::table('term_taxonomy')->insert([
-
-            'term_id' => $term_id2,
-            'taxonomy' => 'Manufacturer',
-            'description' => 'Volkswagen',
-            'count' => 0
-        ]);
-        $term_id2 = DB::table('terms')->insertGetId([
-            'name' => 'Mini',
-            'slug' => 'Mini',
-        ]);
-        DB::table('term_taxonomy')->insert([
-
-            'term_id' => $term_id2,
-            'taxonomy' => 'Manufacturer',
-            'description' => 'Mini',
-            'count' => 0
-        ]);
-        $term_id2 = DB::table('terms')->insertGetId([
-            'name' => 'Audi',
-            'slug' => 'Audi',
-        ]);
-        DB::table('term_taxonomy')->insert([
-
-            'term_id' => $term_id2,
-            'taxonomy' => 'Manufacturer',
-            'description' => 'Audi',
-            'count' => 0
-        ]);
-        $term_id2 = DB::table('terms')->insertGetId([
-            'name' => 'BMW',
-            'slug' => 'BMW',
-        ]);
-        DB::table('term_taxonomy')->insert([
-
-            'term_id' => $term_id2,
-            'taxonomy' => 'Manufacturer',
-            'description' => 'BMW',
-            'count' => 0
-        ]);
-        $term_id2 = DB::table('terms')->insertGetId([
-            'name' => 'Ford',
-            'slug' => 'Ford',
-        ]);
-        DB::table('term_taxonomy')->insert([
-
-            'term_id' => $term_id2,
-            'taxonomy' => 'Manufacturer',
-            'description' => 'Ford',
-            'count' => 0
-        ]);
-        $term_id2 = DB::table('terms')->insertGetId([
-            'name' => 'Land Rover',
-            'slug' => 'Land Rover',
-        ]);
-        DB::table('term_taxonomy')->insert([
-
-            'term_id' => $term_id2,
-            'taxonomy' => 'Manufacturer',
-            'description' => 'Land Rover',
-            'count' => 0
-        ]);
-        $term_id2 = DB::table('terms')->insertGetId([
-            'name' => 'Daihatsu',
-            'slug' => 'Daihatsu',
-        ]);
-        DB::table('term_taxonomy')->insert([
-
-            'term_id' => $term_id2,
-            'taxonomy' => 'Manufacturer',
-            'description' => 'Daihatsu',
-            'count' => 0
-        ]);
-        $term_id2 = DB::table('terms')->insertGetId([
-            'name' => 'Dodge',
-            'slug' => 'Dodge',
-        ]);
-        DB::table('term_taxonomy')->insert([
-
-            'term_id' => $term_id2,
-            'taxonomy' => 'Manufacturer',
-            'description' => 'Dodge',
-            'count' => 0
-        ]);
-        $term_id2 = DB::table('terms')->insertGetId([
-            'name' => 'Honda',
-            'slug' => 'Honda',
-        ]);
-        DB::table('term_taxonomy')->insert([
-
-            'term_id' => $term_id2,
-            'taxonomy' => 'Manufacturer',
-            'description' => 'Honda',
-            'count' => 0
-        ]);
-        $term_id2 = DB::table('terms')->insertGetId([
-            'name' => 'Hyundai',
-            'slug' => 'Hyundai',
-        ]);
-        DB::table('term_taxonomy')->insert([
-
-            'term_id' => $term_id2,
-            'taxonomy' => 'Manufacturer',
-            'description' => 'Hyundai',
-            'count' => 0
-        ]);
-        $term_id2 = DB::table('terms')->insertGetId([
-            'name' => 'Kia',
-            'slug' => 'Kia',
-        ]);
-        DB::table('term_taxonomy')->insert([
-
-            'term_id' => $term_id2,
-            'taxonomy' => 'Manufacturer',
-            'description' => 'Kia',
-            'count' => 0
-        ]);
-        $term_id2 = DB::table('terms')->insertGetId([
-            'name' => 'Jeep',
-            'slug' => 'Jeep',
-        ]);
-        DB::table('term_taxonomy')->insert([
-
-            'term_id' => $term_id2,
-            'taxonomy' => 'Manufacturer',
-            'description' => 'Jeep',
-            'count' => 0
-        ]);
-        $term_id2 = DB::table('terms')->insertGetId([
-            'name' => 'Subaru',
-            'slug' => 'Subaru',
-        ]);
-        DB::table('term_taxonomy')->insert([
-
-            'term_id' => $term_id2,
-            'taxonomy' => 'Manufacturer',
-            'description' => 'Subaru',
-            'count' => 0
-        ]);
-        $term_id2 = DB::table('terms')->insertGetId([
-            'name' => 'Suzuki',
-            'slug' => 'Suzuki',
-        ]);
-        DB::table('term_taxonomy')->insert([
-
-            'term_id' => $term_id2,
-            'taxonomy' => 'Manufacturer',
-            'description' => 'Suzuki',
-            'count' => 0
-        ]);
         /* Manufacturer Table END*/
 
         /* Fuel Table Start*/
-        $term_id3 = DB::table('terms')->insertGetId([
-            'name' => 'Gasoline',
-            'slug' => 'Gasoline',
-        ]);
-        DB::table('term_taxonomy')->insert([
-            'term_id' => $term_id3,
-            'taxonomy' => 'Fuel',
-            'description' => 'Gasoline',
-            'count' => 0
-        ]);
-        $term_id3 = DB::table('terms')->insertGetId([
-            'name' => 'Diesel',
-            'slug' => 'Diesel',
-        ]);
-        DB::table('term_taxonomy')->insert([
-            'term_id' => $term_id3,
-            'taxonomy' => 'Fuel',
-            'description' => 'Diesel',
-            'count' => 0
-        ]);
-        $term_id3 = DB::table('terms')->insertGetId([
-            'name' => 'LPG',
-            'slug' => 'LPG',
-        ]);
-        DB::table('term_taxonomy')->insert([
-            'term_id' => $term_id3,
-            'taxonomy' => 'Fuel',
-            'description' => 'LPG',
-            'count' => 0
-        ]);
-        $term_id3 = DB::table('terms')->insertGetId([
-            'name' => 'Gasoline + Electricity',
-            'slug' => 'Gasoline + Electricity',
-        ]);
-        DB::table('term_taxonomy')->insert([
-            'term_id' => $term_id3,
-            'taxonomy' => 'Fuel',
-            'description' => 'Gasoline + Electricity',
-            'count' => 0
-        ]);
-        $term_id3 = DB::table('terms')->insertGetId([
-            'name' => 'LPG + Electricity',
-            'slug' => 'LPG + Electricity',
-        ]);
-        DB::table('term_taxonomy')->insert([
-            'term_id' => $term_id3,
-            'taxonomy' => 'Fuel',
-            'description' => 'LPG + Electricity',
-            'count' => 0
-        ]);
-        $term_id3 = DB::table('terms')->insertGetId([
-            'name' => 'Gasoline + CNG',
-            'slug' => 'Gasoline + CNG',
-        ]);
-        DB::table('term_taxonomy')->insert([
-            'term_id' => $term_id3,
-            'taxonomy' => 'Fuel',
-            'description' => 'Gasoline + CNG',
-            'count' => 0
-        ]);
-        $term_id3 = DB::table('terms')->insertGetId([
-            'name' => 'Diesel + Electricity',
-            'slug' => 'Diesel + Electricity',
-        ]);
-        DB::table('term_taxonomy')->insert([
-            'term_id' => $term_id3,
-            'taxonomy' => 'Fuel',
-            'description' => 'Diesel + Electricity',
-            'count' => 0
-        ]);
-        $term_id3 = DB::table('terms')->insertGetId([
-            'name' => 'Electricity',
-            'slug' => 'Electricity',
-        ]);
-        DB::table('term_taxonomy')->insert([
-            'term_id' => $term_id3,
-            'taxonomy' => 'Fuel',
-            'description' => 'Electricity',
-            'count' => 0
-        ]);
-        $term_id3 = DB::table('terms')->insertGetId([
-            'name' => 'LNG',
-            'slug' => 'LNG',
-        ]);
-        DB::table('term_taxonomy')->insert([
-            'term_id' => $term_id3,
-            'taxonomy' => 'Fuel',
-            'description' => 'LNG',
-            'count' => 0
-        ]);
+
+        $FuelType = ['Gasoline', 'Diesel', 'LPG', 'Gasoline + Electricity', 'LPG + Electricity', 'Gasoline + CNG', 'Diesel + Electricity', 'Electricity', 'LNG'];
+
+        foreach($FuelType as &$fuel){
+            $term_id1 = DB::table('terms')->insertGetId([
+                'name' => $fuel,
+                'slug' => $fuel,
+            ]);
+            DB::table('term_taxonomy')->insert([
+                'term_id' => $term_id1,
+                'taxonomy' => $fuel,
+                'description' => $fuel,
+                'count' => 0
+            ]);
+        }
+        
         /* Fuel Table END*/
 
         /* Transmission Table START */
 
-        $term_id4 = DB::table('terms')->insertGetId([
-            'name' => 'Auto',
-            'slug' => 'Auto',
-        ]);
-        DB::table('term_taxonomy')->insert([
-            'term_id' => $term_id4,
-            'taxonomy' => 'Transmission',
-            'description' => 'Auto',
-            'count' => 0
-        ]);
-        $term_id4 = DB::table('terms')->insertGetId([
-            'name' => 'Semi Auto',
-            'slug' => 'Semi Auto',
-        ]);
-        DB::table('term_taxonomy')->insert([
-            'term_id' => $term_id4,
-            'taxonomy' => 'Transmission',
-            'description' => 'Semi Auto',
-            'count' => 0
-        ]);
-        $term_id4 = DB::table('terms')->insertGetId([
-            'name' => 'Manual',
-            'slug' => 'Manual',
-        ]);
-        DB::table('term_taxonomy')->insert([
-            'term_id' => $term_id4,
-            'taxonomy' => 'Transmission',
-            'description' => 'Manual',
-            'count' => 0
-        ]);
-        $term_id4 = DB::table('terms')->insertGetId([
-            'name' => 'CVT',
-            'slug' => 'CVT',
-        ]);
-        DB::table('term_taxonomy')->insert([
-            'term_id' => $term_id4,
-            'taxonomy' => 'Transmission',
-            'description' => 'CVT',
-            'count' => 0
-        ]);
+        $Transmission = ['Auto', 'Semi Auto', 'Manual', 'CVT'];
+
+        foreach($Transmission as &$trans){
+            $term_id1 = DB::table('terms')->insertGetId([
+                'name' => $trans,
+                'slug' => $trans,
+            ]);
+            DB::table('term_taxonomy')->insert([
+                'term_id' => $term_id1,
+                'taxonomy' => $trans,
+                'description' => $trans,
+                'count' => 0
+            ]);
+        }
 
         /* Transmission Table END */
 
         /* Area Table START */
 
-        $term_id7 = DB::table('terms')->insertGetId([
-            'name' => 'Ulaanbaatar',
-            'slug' => 'Ulaanbaatar',
-        ]);
-        DB::table('term_taxonomy')->insert([
-            'term_id' => $term_id7,
-            'taxonomy' => 'Area',
-            'description' => 'Ulaanbaatar',
-            'count' => 0
-        ]);
-        $term_id7 = DB::table('terms')->insertGetId([
-            'name' => 'Darkhan',
-            'slug' => 'Darkhan',
-        ]);
-        DB::table('term_taxonomy')->insert([
-            'term_id' => $term_id7,
-            'taxonomy' => 'Area',
-            'description' => 'Darkhan',
-            'count' => 0
-        ]);
-        $term_id7 = DB::table('terms')->insertGetId([
-            'name' => 'Erdenet',
-            'slug' => 'Erdenet',
-        ]);
-        DB::table('term_taxonomy')->insert([
-            'term_id' => $term_id7,
-            'taxonomy' => 'Area',
-            'description' => 'Erdenet',
-            'count' => 0
-        ]);
-        $term_id7 = DB::table('terms')->insertGetId([
-            'name' => 'Arkhangai',
-            'slug' => 'Arkhangai',
-        ]);
-        DB::table('term_taxonomy')->insert([
-            'term_id' => $term_id7,
-            'taxonomy' => 'Area',
-            'description' => 'Arkhangai',
-            'count' => 0
-        ]);
-        $term_id7 = DB::table('terms')->insertGetId([
-            'name' => 'Bayan-Ulgii',
-            'slug' => 'Bayan-Ulgii',
-        ]);
-        DB::table('term_taxonomy')->insert([
-            'term_id' => $term_id7,
-            'taxonomy' => 'Area',
-            'description' => 'Bayan-Ulgii',
-            'count' => 0
-        ]);
-        $term_id7 = DB::table('terms')->insertGetId([
-            'name' => 'Bayankhongor',
-            'slug' => 'Bayankhongor',
-        ]);
-        DB::table('term_taxonomy')->insert([
-            'term_id' => $term_id7,
-            'taxonomy' => 'Area',
-            'description' => 'Bayankhongor',
-            'count' => 0
-        ]);
-        $term_id7 = DB::table('terms')->insertGetId([
-            'name' => 'Bulgan',
-            'slug' => 'Bulgan',
-        ]);
-        DB::table('term_taxonomy')->insert([
-            'term_id' => $term_id7,
-            'taxonomy' => 'Area',
-            'description' => 'Bulgan',
-            'count' => 0
-        ]);
-        $term_id7 = DB::table('terms')->insertGetId([
-            'name' => 'Gobi-Altai',
-            'slug' => 'Gobi-Altai',
-        ]);
-        DB::table('term_taxonomy')->insert([
-            'term_id' => $term_id7,
-            'taxonomy' => 'Area',
-            'description' => 'Gobi-Altai',
-            'count' => 0
-        ]);
-        $term_id7 = DB::table('terms')->insertGetId([
-            'name' => 'Gobisumber',
-            'slug' => 'Gobisumber',
-        ]);
-        DB::table('term_taxonomy')->insert([
-            'term_id' => $term_id7,
-            'taxonomy' => 'Area',
-            'description' => 'Gobisumber',
-            'count' => 0
-        ]);
-        $term_id7 = DB::table('terms')->insertGetId([
-            'name' => 'Darkhan-Uul',
-            'slug' => 'Darkhan-Uul',
-        ]);
-        DB::table('term_taxonomy')->insert([
-            'term_id' => $term_id7,
-            'taxonomy' => 'Area',
-            'description' => 'Darkhan-Uul',
-            'count' => 0
-        ]);
-        $term_id7 = DB::table('terms')->insertGetId([
-            'name' => 'Dornogobi',
-            'slug' => 'Dornogobi',
-        ]);
-        DB::table('term_taxonomy')->insert([
-            'term_id' => $term_id7,
-            'taxonomy' => 'Area',
-            'description' => 'Dornogobi',
-            'count' => 0
-        ]);
-        $term_id7 = DB::table('terms')->insertGetId([
-            'name' => 'Dornod',
-            'slug' => 'Dornod',
-        ]);
-        DB::table('term_taxonomy')->insert([
-            'term_id' => $term_id7,
-            'taxonomy' => 'Area',
-            'description' => 'Dornod',
-            'count' => 0
-        ]);
-        $term_id7 = DB::table('terms')->insertGetId([
-            'name' => 'Dundgobi',
-            'slug' => 'Dundgobi',
-        ]);
-        DB::table('term_taxonomy')->insert([
-            'term_id' => $term_id7,
-            'taxonomy' => 'Area',
-            'description' => 'Dundgobi',
-            'count' => 0
-        ]);
-        $term_id7 = DB::table('terms')->insertGetId([
-            'name' => 'Zavkhan',
-            'slug' => 'Zavkhan',
-        ]);
-        DB::table('term_taxonomy')->insert([
-            'term_id' => $term_id7,
-            'taxonomy' => 'Area',
-            'description' => 'Zavkhan',
-            'count' => 0
-        ]);
-        $term_id7 = DB::table('terms')->insertGetId([
-            'name' => 'Orkhon',
-            'slug' => 'Orkhon',
-        ]);
-        DB::table('term_taxonomy')->insert([
-            'term_id' => $term_id7,
-            'taxonomy' => 'Area',
-            'description' => 'Orkhon',
-            'count' => 0
-        ]);
-        $term_id7 = DB::table('terms')->insertGetId([
-            'name' => 'Uvurkhangai',
-            'slug' => 'Uvurkhangai',
-        ]);
-        DB::table('term_taxonomy')->insert([
-            'term_id' => $term_id7,
-            'taxonomy' => 'Area',
-            'description' => 'Uvurkhangai',
-            'count' => 0
-        ]);
-        $term_id7 = DB::table('terms')->insertGetId([
-            'name' => 'Umnugobi',
-            'slug' => 'Umnugobi',
-        ]);
-        DB::table('term_taxonomy')->insert([
-            'term_id' => $term_id7,
-            'taxonomy' => 'Area',
-            'description' => 'Umnugobi',
-            'count' => 0
-        ]);
-        $term_id7 = DB::table('terms')->insertGetId([
-            'name' => 'Sukhbaatar',
-            'slug' => 'Sukhbaatar',
-        ]);
-        DB::table('term_taxonomy')->insert([
-            'term_id' => $term_id7,
-            'taxonomy' => 'Area',
-            'description' => 'Sukhbaatar',
-            'count' => 0
-        ]);
-        $term_id7 = DB::table('terms')->insertGetId([
-            'name' => 'Selenge',
-            'slug' => 'Selenge',
-        ]);
-        DB::table('term_taxonomy')->insert([
-            'term_id' => $term_id7,
-            'taxonomy' => 'Area',
-            'description' => 'Selenge',
-            'count' => 0
-        ]);
-        $term_id7 = DB::table('terms')->insertGetId([
-            'name' => 'Tuv',
-            'slug' => 'Tuv',
-        ]);
-        DB::table('term_taxonomy')->insert([
-            'term_id' => $term_id7,
-            'taxonomy' => 'Area',
-            'description' => 'Tuv',
-            'count' => 0
-        ]);
-        $term_id7 = DB::table('terms')->insertGetId([
-            'name' => 'Uvs',
-            'slug' => 'Uvs',
-        ]);
-        DB::table('term_taxonomy')->insert([
-            'term_id' => $term_id7,
-            'taxonomy' => 'Area',
-            'description' => 'Uvs',
-            'count' => 0
-        ]);
-        $term_id7 = DB::table('terms')->insertGetId([
-            'name' => 'Khovd',
-            'slug' => 'Khovd',
-        ]);
-        DB::table('term_taxonomy')->insert([
-            'term_id' => $term_id7,
-            'taxonomy' => 'Area',
-            'description' => 'Khovd',
-            'count' => 0
-        ]);
-        $term_id7 = DB::table('terms')->insertGetId([
-            'name' => 'Khuvsgul',
-            'slug' => 'Khuvsgul',
-        ]);
-        DB::table('term_taxonomy')->insert([
-            'term_id' => $term_id7,
-            'taxonomy' => 'Area',
-            'description' => 'Khuvsgul',
-            'count' => 0
-        ]);
-        $term_id7 = DB::table('terms')->insertGetId([
-            'name' => 'Khentii',
-            'slug' => 'Khentii',
-        ]);
-        DB::table('term_taxonomy')->insert([
-            'term_id' => $term_id7,
-            'taxonomy' => 'Area',
-            'description' => 'Khentii',
-            'count' => 0
-        ]);
+        $location = ['Ulaanbaatar', 'Darkhan', 'Erdenet', 'Arkhangai', 'Bayan-Ulgii', 'Bayankhongor', 'Bulgan', 'Gobi-Altai', 'Gobisumber', 'Darkhan-Uul', 'Dornogobi', 'Dornod'
+    , 'Dundgobi', 'Zavkhan', 'Orkhon', 'Uvurkhangai', 'Umnugobi', 'Sukhbaatar', 'Selenge', 'Tuv', 'Uvs', 'Khovd', 'Khuvsgul', 'Khentii'];
+
+        foreach($location as &$area){
+            $term_id1 = DB::table('terms')->insertGetId([
+                'name' => $area,
+                'slug' => $area,
+            ]);
+            DB::table('term_taxonomy')->insert([
+                'term_id' => $term_id1,
+                'taxonomy' => $area,
+                'description' => $area,
+                'count' => 0
+            ]);
+        }
 
         /* Area Table END */
 
         /* Color Table START */
 
-        $term_id2 = DB::table('terms')->insertGetId([
-            'name' => 'White',
-            'slug' => 'White',
-        ]);
-        DB::table('term_taxonomy')->insert([
-            'term_id' => $term_id2,
-            'taxonomy' => 'Color',
-            'description' => 'White',
-            'count' => 0
-        ]);
-        $term_id2 = DB::table('terms')->insertGetId([
-            'name' => 'Black',
-            'slug' => 'Black',
-        ]);
-        DB::table('term_taxonomy')->insert([
-            'term_id' => $term_id2,
-            'taxonomy' => 'Color',
-            'description' => 'Black',
-            'count' => 0
-        ]);
-        $term_id2 = DB::table('terms')->insertGetId([
-            'name' => 'Rusty',
-            'slug' => 'Rusty',
-        ]);
-        DB::table('term_taxonomy')->insert([
-            'term_id' => $term_id2,
-            'taxonomy' => 'Color',
-            'description' => 'Rusty',
-            'count' => 0
-        ]);
-        $term_id2 = DB::table('terms')->insertGetId([
-            'name' => 'Pearl gray',
-            'slug' => 'Pearl gray',
-        ]);
-        DB::table('term_taxonomy')->insert([
-            'term_id' => $term_id2,
-            'taxonomy' => 'Color',
-            'description' => 'Pearl gray',
-            'count' => 0
-        ]);
-        $term_id2 = DB::table('terms')->insertGetId([
-            'name' => 'Silver',
-            'slug' => 'Silver',
-        ]);
-        DB::table('term_taxonomy')->insert([
-            'term_id' => $term_id2,
-            'taxonomy' => 'Color',
-            'description' => 'Silver',
-            'count' => 0
-        ]);
+        $colour = ['White', 'Black', 'Rusty', 'Pearl gray', 'Silver', 'Aluminum', 'Beige', 'Blue', 'Brown', 'Bronze', 'Claret', 'Copper'
+    , 'Cream', 'Gold', 'Gray', 'Green', 'Maroon', 'Metallic', 'Navy', 'Orange', 'Pink', 'Purple', 'Red', 'Rose', 'Tan', 'RoTurquoisese', 'Yellow'];
+
+        foreach($colour as &$color){
+            $term_id1 = DB::table('terms')->insertGetId([
+                'name' => $color,
+                'slug' => $color,
+            ]);
+            DB::table('term_taxonomy')->insert([
+                'term_id' => $term_id1,
+                'taxonomy' => $color,
+                'description' => $color,
+                'count' => 0
+            ]);
+        }
 
         /* Color Table END */
 
         /* Steering Wheel Table START */
 
-        $term_id8 = DB::table('terms')->insertGetId([
-            'name' => 'Right',
-            'slug' => 'Right',
-        ]);
-        DB::table('term_taxonomy')->insert([
-            'term_id' => $term_id8,
-            'taxonomy' => 'WheelPosition',
-            'description' => 'Right',
-            'count' => 0
-        ]);
-        $term_id8 = DB::table('terms')->insertGetId([
-            'name' => 'Left',
-            'slug' => 'Left',
-        ]);
-        DB::table('term_taxonomy')->insert([
-            'term_id' => $term_id8,
-            'taxonomy' => 'WheelPosition',
-            'description' => 'Left',
-            'count' => 0
-        ]);
+        $WheelPosition = ['Right', 'Left'];
+
+        foreach($WheelPosition as &$position){
+            $term_id1 = DB::table('terms')->insertGetId([
+                'name' => $position,
+                'slug' => $position,
+            ]);
+            DB::table('term_taxonomy')->insert([
+                'term_id' => $term_id1,
+                'taxonomy' => $position,
+                'description' => $position,
+                'count' => 0
+            ]);
+        }
 
         /* Steering Wheel Table END */
 
         /* An accident Table START */
 
-        $term_id6 = DB::table('terms')->insertGetId([
-            'name' => 'Unassuming',
-            'slug' => 'Unassuming',
-        ]);
-        DB::table('term_taxonomy')->insert([
-            'term_id' => $term_id6,
-            'taxonomy' => 'An accident',
-            'description' => 'Unassuming',
-            'count' => 0
-        ]);
-        $term_id6 = DB::table('terms')->insertGetId([
-            'name' => 'Simple exchange',
-            'slug' => 'Simple exchange',
-        ]);
-        DB::table('term_taxonomy')->insert([
-            'term_id' => $term_id6,
-            'taxonomy' => 'An accident',
-            'description' => 'Simple exchange',
-            'count' => 0
-        ]);
-        $term_id6 = DB::table('terms')->insertGetId([
-            'name' => 'Simple accident',
-            'slug' => 'Simple accident',
-        ]);
-        DB::table('term_taxonomy')->insert([
-            'term_id' => $term_id6,
-            'taxonomy' => 'An accident',
-            'description' => 'Simple accident',
-            'count' => 0
-        ]);
+        $accidents = ['Unassuming', 'Simple exchange', 'Simple accident'];
 
-        /* An accident Table END */
-
-        /* An accident Table START */
-
-        $term_id6 = DB::table('terms')->insertGetId([
-            'name' => 'Unassuming',
-            'slug' => 'Unassuming',
-        ]);
-        DB::table('term_taxonomy')->insert([
-            'term_id' => $term_id6,
-            'taxonomy' => 'An accident',
-            'description' => 'Unassuming',
-            'count' => 0
-        ]);
-        $term_id6 = DB::table('terms')->insertGetId([
-            'name' => 'Simple exchange',
-            'slug' => 'Simple exchange',
-        ]);
-        DB::table('term_taxonomy')->insert([
-            'term_id' => $term_id6,
-            'taxonomy' => 'An accident',
-            'description' => 'Simple exchange',
-            'count' => 0
-        ]);
-        $term_id6 = DB::table('terms')->insertGetId([
-            'name' => 'Simple accident',
-            'slug' => 'Simple accident',
-        ]);
-        DB::table('term_taxonomy')->insert([
-            'term_id' => $term_id6,
-            'taxonomy' => 'An accident',
-            'description' => 'Simple accident',
-            'count' => 0
-        ]);
+        foreach($accidents as &$accident){
+            $term_id1 = DB::table('terms')->insertGetId([
+                'name' => $accident,
+                'slug' => $accident,
+            ]);
+            DB::table('term_taxonomy')->insert([
+                'term_id' => $term_id1,
+                'taxonomy' => $accident,
+                'description' => $accident,
+                'count' => 0
+            ]);
+        }
 
         /* An accident Table END */
 
         /* Passenger Table START */
 
-        $term_id5 = DB::table('terms')->insertGetId([
-            'name' => 'Four seater',
-            'slug' => 'Four seater',
-        ]);
-        DB::table('term_taxonomy')->insert([
-            'term_id' => $term_id5,
-            'taxonomy' => 'manCount',
-            'description' => 'Four seater',
-            'count' => 0
-        ]);
-        $term_id5 = DB::table('terms')->insertGetId([
-            'name' => '5 passengers',
-            'slug' => '5 passengers',
-        ]);
-        DB::table('term_taxonomy')->insert([
-            'term_id' => $term_id5,
-            'taxonomy' => 'manCount',
-            'description' => '5 passengers',
-            'count' => 0
-        ]);
-        $term_id5 = DB::table('terms')->insertGetId([
-            'name' => '7 passengers',
-            'slug' => '7 passengers',
-        ]);
-        DB::table('term_taxonomy')->insert([
-            'term_id' => $term_id5,
-            'taxonomy' => 'manCount',
-            'description' => '7 passengers',
-            'count' => 0
-        ]);
-        $term_id5 = DB::table('terms')->insertGetId([
-            'name' => '9 passengers',
-            'slug' => '9 passengers',
-        ]);
-        DB::table('term_taxonomy')->insert([
-            'term_id' => $term_id5,
-            'taxonomy' => 'manCount',
-            'description' => '9 passengers',
-            'count' => 0
-        ]);
-        $term_id5 = DB::table('terms')->insertGetId([
-            'name' => '11 passengers',
-            'slug' => '11 passengers',
-        ]);
-        DB::table('term_taxonomy')->insert([
-            'term_id' => $term_id5,
-            'taxonomy' => 'manCount',
-            'description' => '11 passengers',
-            'count' => 0
-        ]);
-        $term_id5 = DB::table('terms')->insertGetId([
-            'name' => '15 passengers',
-            'slug' => '15 passengers',
-        ]);
-        DB::table('term_taxonomy')->insert([
-            'term_id' => $term_id5,
-            'taxonomy' => 'manCount',
-            'description' => '15 passengers',
-            'count' => 0
-        ]);
-        $term_id5 = DB::table('terms')->insertGetId([
-            'name' => '+ Direct input',
-            'slug' => '+ Direct input',
-        ]);
-        DB::table('term_taxonomy')->insert([
-            'term_id' => $term_id5,
-            'taxonomy' => 'manCount',
-            'description' => '+ Direct input',
-            'count' => 0
-        ]);
+        $manCount = ['Four seater', '5 passengers', '7 passengers', '9 passengers', '11 passengers', '13 passengers', '15 passengers', 'Direct input'];
 
+        foreach($manCount as &$seat){
+            $term_id1 = DB::table('terms')->insertGetId([
+                'name' => $seat,
+                'slug' => $seat,
+            ]);
+            DB::table('term_taxonomy')->insert([
+                'term_id' => $term_id1,
+                'taxonomy' => $seat,
+                'description' => $seat,
+                'count' => 0
+            ]);
+        }
 
         /* Passenger Table END */
 
         /* Option Table START */
 
-        $term_id5 = DB::table('terms')->insertGetId([
-            'name' => 'Sunroof',
-            'slug' => 'Exterior',
-        ]);
-        DB::table('term_taxonomy')->insert([
-            'term_id' => $term_id5,
-            'taxonomy' => 'Option',
-            'description' => 'Sunroof',
-            'count' => 0
-        ]);
-        $term_id5 = DB::table('terms')->insertGetId([
-            'name' => 'Aluminum wheel',
-            'slug' => 'Exterior',
-        ]);
-        DB::table('term_taxonomy')->insert([
-            'term_id' => $term_id5,
-            'taxonomy' => 'Option',
-            'description' => 'Aluminum wheel',
-            'count' => 0
-        ]);
-        $term_id5 = DB::table('terms')->insertGetId([
-            'name' => '4 season tire',
-            'slug' => 'Exterior',
-        ]);
-        DB::table('term_taxonomy')->insert([
-            'term_id' => $term_id5,
-            'taxonomy' => 'Option',
-            'description' => '4 season tire',
-            'count' => 0
-        ]);
-        $term_id5 = DB::table('terms')->insertGetId([
-            'name' => 'Electric folding side mirror',
-            'slug' => 'Exterior',
-        ]);
-        DB::table('term_taxonomy')->insert([
-            'term_id' => $term_id5,
-            'taxonomy' => 'Option',
-            'description' => 'Electric folding side mirror',
-            'count' => 0
-        ]);
-        $term_id5 = DB::table('terms')->insertGetId([
-            'name' => 'Rear wiper',
-            'slug' => 'Exterior',
-        ]);
-        DB::table('term_taxonomy')->insert([
-            'term_id' => $term_id5,
-            'taxonomy' => 'Option',
-            'description' => 'Rear wiper',
-            'count' => 0
-        ]);
+        $options = ['Exterior', 'Guts', 'Safety', 'Convenience', 'Clean'];
 
-        /* guts */
-        $term_id5 = DB::table('terms')->insertGetId([
-            'name' => 'Steering wheel remote control',
-            'slug' => 'Guts',
-        ]);
-        DB::table('term_taxonomy')->insert([
-            'term_id' => $term_id5,
-            'taxonomy' => 'Option',
-            'description' => 'Steering wheel remote control',
-            'count' => 0
-        ]);
-        $term_id5 = DB::table('terms')->insertGetId([
-            'name' => 'Power steering',
-            'slug' => 'Guts',
-        ]);
-        DB::table('term_taxonomy')->insert([
-            'term_id' => $term_id5,
-            'taxonomy' => 'Option',
-            'description' => 'Power steering',
-            'count' => 0
-        ]);
-        $term_id5 = DB::table('terms')->insertGetId([
-            'name' => 'Leather seat',
-            'slug' => 'Guts',
-        ]);
-        DB::table('term_taxonomy')->insert([
-            'term_id' => $term_id5,
-            'taxonomy' => 'Option',
-            'description' => 'Leather seat',
-            'count' => 0
-        ]);
-        $term_id5 = DB::table('terms')->insertGetId([
-            'name' => 'Electric seat : driver’s seat',
-            'slug' => 'Guts',
-        ]);
-        DB::table('term_taxonomy')->insert([
-            'term_id' => $term_id5,
-            'taxonomy' => 'Option',
-            'description' => 'Electric seat : driver’s seat',
-            'count' => 0
-        ]);
-        $term_id5 = DB::table('terms')->insertGetId([
-            'name' => 'Electric seat : Passenger seat',
-            'slug' => 'Guts',
-        ]);
-        DB::table('term_taxonomy')->insert([
-            'term_id' => $term_id5,
-            'taxonomy' => 'Option',
-            'description' => 'Electric seat : Passenger seat',
-            'count' => 0
-        ]);
-        $term_id5 = DB::table('terms')->insertGetId([
-            'name' => 'Heated Seat: Driver’s Seat',
-            'slug' => 'Guts',
-        ]);
-        DB::table('term_taxonomy')->insert([
-            'term_id' => $term_id5,
-            'taxonomy' => 'Option',
-            'description' => 'Heated Seat: Driver’s Seat',
-            'count' => 0
-        ]);
-        $term_id5 = DB::table('terms')->insertGetId([
-            'name' => 'Heated Seat: Rear Seat',
-            'slug' => 'Guts',
-        ]);
-        DB::table('term_taxonomy')->insert([
-            'term_id' => $term_id5,
-            'taxonomy' => 'Option',
-            'description' => 'Heated Seat: Rear Seat',
-            'count' => 0
-        ]);
-        $term_id5 = DB::table('terms')->insertGetId([
-            'name' => 'Memory seat : driver’s seat',
-            'slug' => 'Guts',
-        ]);
-        DB::table('term_taxonomy')->insert([
-            'term_id' => $term_id5,
-            'taxonomy' => 'Option',
-            'description' => 'Memory seat : driver’s seat',
-            'count' => 0
-        ]);
-        $term_id5 = DB::table('terms')->insertGetId([
-            'name' => 'Power Door lock',
-            'slug' => 'Guts',
-        ]);
-        DB::table('term_taxonomy')->insert([
-            'term_id' => $term_id5,
-            'taxonomy' => 'Option',
-            'description' => 'Power Door lock',
-            'count' => 0
-        ]);
+        foreach($options as &$option){
+            $term_id1 = DB::table('terms')->insertGetId([
+                'name' => $option,
+                'slug' => $option,
+            ]);
+            DB::table('term_taxonomy')->insert([
+                'term_id' => $term_id1,
+                'taxonomy' => $option,
+                'description' => 'options',
+                'count' => 0
+            ]);
+        }
 
-        $term_id5 = DB::table('terms')->insertGetId([
-            'name' => 'Airbag : Driver’s seat',
-            'slug' => 'Safety',
-        ]);
-        DB::table('term_taxonomy')->insert([
-            'term_id' => $term_id5,
-            'taxonomy' => 'Option',
-            'description' => 'Airbag : Driver’s seat',
-            'count' => 0
-        ]);
-        $term_id5 = DB::table('terms')->insertGetId([
-            'name' => 'Airbag : Passenger’s seat',
-            'slug' => 'Safety',
-        ]);
-        DB::table('term_taxonomy')->insert([
-            'term_id' => $term_id5,
-            'taxonomy' => 'Option',
-            'description' => 'Airbag : Passenger’s seat',
-            'count' => 0
-        ]);
-        $term_id5 = DB::table('terms')->insertGetId([
-            'name' => 'Airbag : Side',
-            'slug' => 'Safety',
-        ]);
-        DB::table('term_taxonomy')->insert([
-            'term_id' => $term_id5,
-            'taxonomy' => 'Option',
-            'description' => 'Airbag : Side',
-            'count' => 0
-        ]);
-        $term_id5 = DB::table('terms')->insertGetId([
-            'name' => 'Airbag : Side',
-            'slug' => 'Safety',
-        ]);
-        DB::table('term_taxonomy')->insert([
-            'term_id' => $term_id5,
-            'taxonomy' => 'Option',
-            'description' => 'Airbag : Side',
-            'count' => 0
-        ]);
-        $term_id5 = DB::table('terms')->insertGetId([
-            'name' => 'Airbag : Curtains',
-            'slug' => 'Safety',
-        ]);
-        DB::table('term_taxonomy')->insert([
-            'term_id' => $term_id5,
-            'taxonomy' => 'Option',
-            'description' => 'Airbag : Curtains',
-            'count' => 0
-        ]);
-        $term_id5 = DB::table('terms')->insertGetId([
-            'name' => 'Camera : Front',
-            'slug' => 'Safety',
-        ]);
-        DB::table('term_taxonomy')->insert([
-            'term_id' => $term_id5,
-            'taxonomy' => 'Option',
-            'description' => 'Camera : Front',
-            'count' => 0
-        ]);
-        $term_id5 = DB::table('terms')->insertGetId([
-            'name' => 'Camera : Rear',
-            'slug' => 'Safety',
-        ]);
-        DB::table('term_taxonomy')->insert([
-            'term_id' => $term_id5,
-            'taxonomy' => 'Option',
-            'description' => 'Camera : Rear',
-            'count' => 0
-        ]);
-        $term_id5 = DB::table('terms')->insertGetId([
-            'name' => 'Camera : Side',
-            'slug' => 'Safety',
-        ]);
-        DB::table('term_taxonomy')->insert([
-            'term_id' => $term_id5,
-            'taxonomy' => 'Option',
-            'description' => 'Camera : Side',
-            'count' => 0
-        ]);
-        $term_id5 = DB::table('terms')->insertGetId([
-            'name' => 'Parking Sense : rear',
-            'slug' => 'Safety',
-        ]);
-        DB::table('term_taxonomy')->insert([
-            'term_id' => $term_id5,
-            'taxonomy' => 'Option',
-            'description' => 'Parking Sense : rear',
-            'count' => 0
-        ]);
-        $term_id5 = DB::table('terms')->insertGetId([
-            'name' => 'Parking sense : Front',
-            'slug' => 'Safety',
-        ]);
-        DB::table('term_taxonomy')->insert([
-            'term_id' => $term_id5,
-            'taxonomy' => 'Option',
-            'description' => 'Parking sense : Front',
-            'count' => 0
-        ]);
-        $term_id5 = DB::table('terms')->insertGetId([
-            'name' => 'ABS',
-            'slug' => 'Safety',
-        ]);
-        DB::table('term_taxonomy')->insert([
-            'term_id' => $term_id5,
-            'taxonomy' => 'Option',
-            'description' => 'ABS',
-            'count' => 0
-        ]);
-        $term_id5 = DB::table('terms')->insertGetId([
-            'name' => 'Electric parking brake',
-            'slug' => 'Safety',
-        ]);
-        DB::table('term_taxonomy')->insert([
-            'term_id' => $term_id5,
-            'taxonomy' => 'Option',
-            'description' => 'Electric parking brake',
-            'count' => 0
-        ]);
+        /* option table end*/
 
-        $term_id5 = DB::table('terms')->insertGetId([
-            'name' => 'Smart Key',
-            'slug' => 'Convenience',
-        ]);
-        DB::table('term_taxonomy')->insert([
-            'term_id' => $term_id5,
-            'taxonomy' => 'Option',
-            'description' => 'Smart Key',
-            'count' => 0
-        ]);
-        $term_id5 = DB::table('terms')->insertGetId([
-            'name' => 'Cruise control',
-            'slug' => 'Convenience',
-        ]);
-        DB::table('term_taxonomy')->insert([
-            'term_id' => $term_id5,
-            'taxonomy' => 'Option',
-            'description' => 'Cruise control',
-            'count' => 0
-        ]);
-        $term_id5 = DB::table('terms')->insertGetId([
-            'name' => 'Auto air conditioner',
-            'slug' => 'Convenience',
-        ]);
-        DB::table('term_taxonomy')->insert([
-            'term_id' => $term_id5,
-            'taxonomy' => 'Option',
-            'description' => 'Auto air conditioner',
-            'count' => 0
-        ]);
-        $term_id5 = DB::table('terms')->insertGetId([
-            'name' => 'Power window',
-            'slug' => 'Convenience',
-        ]);
-        DB::table('term_taxonomy')->insert([
-            'term_id' => $term_id5,
-            'taxonomy' => 'Option',
-            'description' => 'Power window',
-            'count' => 0
-        ]);
-        $term_id5 = DB::table('terms')->insertGetId([
-            'name' => 'CD player',
-            'slug' => 'Convenience',
-        ]);
-        DB::table('term_taxonomy')->insert([
-            'term_id' => $term_id5,
-            'taxonomy' => 'Option',
-            'description' => 'CD player',
-            'count' => 0
-        ]);
-        $term_id5 = DB::table('terms')->insertGetId([
-            'name' => 'Navigation',
-            'slug' => 'Convenience',
-        ]);
-        DB::table('term_taxonomy')->insert([
-            'term_id' => $term_id5,
-            'taxonomy' => 'Option',
-            'description' => 'Navigation',
-            'count' => 0
-        ]);
-        $term_id5 = DB::table('terms')->insertGetId([
-            'name' => 'USB Terminal',
-            'slug' => 'Convenience',
-        ]);
-        DB::table('term_taxonomy')->insert([
-            'term_id' => $term_id5,
-            'taxonomy' => 'Option',
-            'description' => 'USB Terminal',
-            'count' => 0
-        ]);
-        $term_id5 = DB::table('terms')->insertGetId([
-            'name' => 'AUX terminal',
-            'slug' => 'Convenience',
-        ]);
-        DB::table('term_taxonomy')->insert([
-            'term_id' => $term_id5,
-            'taxonomy' => 'Option',
-            'description' => 'AUX terminal',
-            'count' => 0
-        ]);
-        $term_id5 = DB::table('terms')->insertGetId([
-            'name' => 'Bluetooth',
-            'slug' => 'Convenience',
-        ]);
-        DB::table('term_taxonomy')->insert([
-            'term_id' => $term_id5,
-            'taxonomy' => 'Option',
-            'description' => 'Bluetooth',
-            'count' => 0
-        ]);
-        $term_id5 = DB::table('terms')->insertGetId([
-            'name' => 'Auto light',
-            'slug' => 'Convenience',
-        ]);
-        DB::table('term_taxonomy')->insert([
-            'term_id' => $term_id5,
-            'taxonomy' => 'Option',
-            'description' => 'Auto light',
-            'count' => 0
-        ]);
-        $term_id5 = DB::table('terms')->insertGetId([
-            'name' => 'Rain senser',
-            'slug' => 'Convenience',
-        ]);
-        DB::table('term_taxonomy')->insert([
-            'term_id' => $term_id5,
-            'taxonomy' => 'Option',
-            'description' => 'Rain senser',
-            'count' => 0
-        ]);
-        $term_id5 = DB::table('terms')->insertGetId([
-            'name' => 'AV monitor : Front',
-            'slug' => 'Convenience',
-        ]);
-        DB::table('term_taxonomy')->insert([
-            'term_id' => $term_id5,
-            'taxonomy' => 'Option',
-            'description' => 'AV monitor : Front',
-            'count' => 0
-        ]);
-        $term_id5 = DB::table('terms')->insertGetId([
-            'name' => 'AV monitor : Rear',
-            'slug' => 'Convenience',
-        ]);
-        DB::table('term_taxonomy')->insert([
-            'term_id' => $term_id5,
-            'taxonomy' => 'Option',
-            'description' => 'AV monitor : Rear',
-            'count' => 0
-        ]);
-        $term_id5 = DB::table('terms')->insertGetId([
-            'name' => 'Blinder : rear',
-            'slug' => 'Convenience',
-        ]);
-        DB::table('term_taxonomy')->insert([
-            'term_id' => $term_id5,
-            'taxonomy' => 'Option',
-            'description' => 'Blinder : rear',
-            'count' => 0
-        ]);
-        $term_id5 = DB::table('terms')->insertGetId([
-            'name' => 'Black box',
-            'slug' => 'Convenience',
-        ]);
-        DB::table('term_taxonomy')->insert([
-            'term_id' => $term_id5,
-            'taxonomy' => 'Option',
-            'description' => 'Black box',
-            'count' => 0
-        ]);
+        /* exterior table start*/
 
-        $term_id5 = DB::table('terms')->insertGetId([
-            'name' => 'One person drive',
-            'slug' => 'Clean',
-        ]);
-        DB::table('term_taxonomy')->insert([
-            'term_id' => $term_id5,
-            'taxonomy' => 'Option',
-            'description' => 'One person drive',
-            'count' => 0
-        ]);
-        $term_id5 = DB::table('terms')->insertGetId([
-            'name' => 'No smoking',
-            'slug' => 'Clean',
-        ]);
-        DB::table('term_taxonomy')->insert([
-            'term_id' => $term_id5,
-            'taxonomy' => 'Option',
-            'description' => 'No smoking',
-            'count' => 0
-        ]);
-        $term_id5 = DB::table('terms')->insertGetId([
-            'name' => 'Woman driver',
-            'slug' => 'Clean',
-        ]);
-        DB::table('term_taxonomy')->insert([
-            'term_id' => $term_id5,
-            'taxonomy' => 'Option',
-            'description' => 'Woman driver',
-            'count' => 0
-        ]);
+        $Exteriors = ['Rear wiper', 'Electric folding side mirror', '4 season tire', 'Aluminum wheel', 'Sunroof'];
 
-        /* Option Table END */
+        foreach($Exteriors as &$Exterior){
+            $term_id5 = DB::table('terms')->insertGetId([
+                'name' => $Exterior,
+                'slug' => $Exterior,
+            ]);
+            DB::table('term_taxonomy')->insert([
+                'term_id' => $term_id5,
+                'taxonomy' => $Exterior,
+                'description' => 'exterior',
+                'count' => 0
+            ]);
+        }
 
-        /* Model Table START */
+        /* exterior table end*/
 
-        $term_id5 = DB::table('terms')->insertGetId([
-            'name' => 'Front',
-            'slug' => 'Front',
-        ]);
-        DB::table('term_taxonomy')->insert([
-            'term_id' => $term_id5,
-            'taxonomy' => 'wheelDrive',
-            'description' => 'Front',
-            'count' => 0
-        ]);
+        /* guts table start*/
+        
+        $Guts = ['Power Door lock', 'Memory seat : driver’s seat', 'Heated Seat: Rear Seat', 'Heated Seat: Driver’s Seat', 'Electric seat : Passenger seat', 'Electric seat : driver’s seat'
+        , 'Leather seat', 'Power steering', 'Steering wheel remote control'];
 
-        $term_id5 = DB::table('terms')->insertGetId([
-            'name' => 'Back',
-            'slug' => 'Back',
-        ]);
-        DB::table('term_taxonomy')->insert([
-            'term_id' => $term_id5,
-            'taxonomy' => 'wheelDrive',
-            'description' => 'Back',
-            'count' => 0
-        ]);
+        foreach($Guts as &$Gut){
+            $term_id5 = DB::table('terms')->insertGetId([
+                'name' => $Gut,
+                'slug' => $Gut,
+            ]);
+            DB::table('term_taxonomy')->insert([
+                'term_id' => $term_id5,
+                'taxonomy' => $Gut,
+                'description' => 'Gut',
+                'count' => 0
+            ]);
+        }
 
-        /* Model Table END */
+        /* guts table end */
+
+        /* safety table start */
+
+        $safetys = ['Electric parking brake', 'ABS', 'Parking sense : Front', 'Parking Sense : rear', 'Camera : Side', 'Camera : Rear', 'Camera : Front', 'Airbag : Curtains'
+        , 'Airbag : Side', 'Passenger’s seat', 'Airbag : Driver’s seat'];
+
+        foreach($safetys as &$safety){
+            $term_id5 = DB::table('terms')->insertGetId([
+                'name' => $safety,
+                'slug' => $safety,
+            ]);
+            DB::table('term_taxonomy')->insert([
+                'term_id' => $term_id5,
+                'taxonomy' => $safety,
+                'description' => 'safety',
+                'count' => 0
+            ]);
+        }
+
+        /* safety table end */
+
+        /* convenience table start */
+
+        $Convenience = ['Black box', 'Blinder : rear', 'AV monitor : Rear', 'AV monitor : Front', 'Rain senser', 'Auto light', 'Bluetooth', 'AUX terminal', 'USB Terminal'
+        , 'Navigation', 'CD player', 'Power window', 'Auto air conditioner', 'Cruise control', 'Smart Key'];
+
+        foreach($Convenience as &$model){
+            $term_id5 = DB::table('terms')->insertGetId([
+                'name' => $model,
+                'slug' => $model,
+            ]);
+            DB::table('term_taxonomy')->insert([
+                'term_id' => $term_id5,
+                'taxonomy' => $model,
+                'description' => 'model',
+                'count' => 0
+            ]);
+        }
+
+        /* convenience table end */
+
+        /* clean table start */
+
+        $clean = ['Woman driver', 'No smoking', 'One person drive'];
+
+        foreach($clean as &$model){
+            $term_id5 = DB::table('terms')->insertGetId([
+                'name' => $model,
+                'slug' => $model,
+            ]);
+            DB::table('term_taxonomy')->insert([
+                'term_id' => $term_id5,
+                'taxonomy' => $model,
+                'description' => $model,
+                'count' => 0
+            ]);
+        }
+
+        /* convenience Table END */
+
+        /* Wheel Table START */
+
+        $Wheels = ['Front', 'Back'];
+
+        foreach($Wheels as &$Wheel){
+            $term_id5 = DB::table('terms')->insertGetId([
+                'name' => $Wheel,
+                'slug' => $Wheel,
+            ]);
+            DB::table('term_taxonomy')->insert([
+                'term_id' => $term_id5,
+                'taxonomy' => $Wheel,
+                'description' => $Wheel,
+                'count' => 0
+            ]);
+        }
+
+        /* Wheel Table END */
 
         /* Model Table START */
 
@@ -1388,6 +340,7 @@ class TermTaxonomyTableSeeder extends Seeder
                 'term_id' => $term_id5,
                 'taxonomy' => 'Model',
                 'description' => $model,
+                'parent_id' => '7',
                 'count' => 0
             ]);
         }
@@ -1406,11 +359,11 @@ class TermTaxonomyTableSeeder extends Seeder
                 'term_id' => $term_id5,
                 'taxonomy' => 'Model',
                 'description' => $model,
+                'parent_id' => '9',
                 'count' => 0
             ]);
         }
         
-
         /* Model Table END */
     }
 }
