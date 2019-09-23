@@ -73,7 +73,7 @@
                     </div>
 
                     <div class="text-right">
-                        <a type="button" href="javascript:history.back()" class="btn btn-default" ><i class="icon-arrow-left13 ml-2"></i> Back</a>
+                        <a type="button" href="javascript:history.back()" class="btn btn-light" ><i class="icon-arrow-left13 ml-2"></i> Back</a>
 
                         <!-- <a type="submit" class="btn btn-danger">Delete form </i></a> -->
                         <a type="button" href="{{ route('admin.menus.edit', ['id' => $menu->id]) }}" class="btn btn-primary">Edit</i> <i class="icon-arrow-right14 ml-2"></i> </a>
@@ -207,9 +207,9 @@
                 $tdList.eq(3).addClass('text-left').html("<span class='label label-default label-striped'>" + node.data.group + "</a>");
                 $tdList.eq(4).addClass('text-center').html(`
                     <div class='btn-group'>
-                    <a href='/admin/menus/` + node.data.id + `' class='btn btn-default btn-xs'><span class='icon-eye'></span></a>
-                    <a href='/admin/menus/` + node.data.id + `/edit' class='btn btn-default btn-xs'><span class='icon-pencil'></span></a>
-                    <a href='#' data-toggle='modal' data-target='#modal_theme_danger' onclick='delete_confirm(` + node.data.id + `)' class='btn btn-default btn-xs'><span class='icon-trash'></span></a>
+                    <a href='/admin/menus/` + node.data.id + `' class='btn btn-light btn-xs'><span class='icon-eye'></span></a>
+                    <a href='/admin/menus/` + node.data.id + `/edit' class='btn btn-light btn-xs'><span class='icon-pencil'></span></a>
+                    <a href='#' data-toggle='modal' data-target='#modal_theme_danger' onclick='delete_confirm(` + node.data.id + `)' class='btn btn-light btn-xs'><span class='icon-trash'></span></a>
                     </div>`);
 
                 // Style checkboxes

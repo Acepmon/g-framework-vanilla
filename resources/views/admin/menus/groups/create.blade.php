@@ -65,7 +65,7 @@
                         </div>
                     </div>
                     <div class="text-right">
-                        <a class="btn btn-default" href="javascript:history.back()" type="btn btn-primary"><i class="icon-arrow-left13 mr-2"></i>Back</a>
+                        <a class="btn btn-light" href="javascript:history.back()" type="btn btn-primary"><i class="icon-arrow-left13 mr-2"></i>Back</a>
                         <button type="submit" class="btn btn-success">Add group<i class="icon-arrow-right14 mr-2"></i></button>
                     </div>
                 </form>

@@ -82,7 +82,7 @@
                             <input id="title" type="text" class="form-control" name="name" placeholder="Enter title..." required="required" aria-required="true" invalid="true" value="{{ $term_taxonomy->term->name }}">
                         </div>
                         <div class="col-lg-2">
-                            <button type="button" class="btn btn-default" onclick="create_slug()">Create Slug</button>
+                            <button type="button" class="btn btn-light" onclick="create_slug()">Create Slug</button>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -114,7 +114,7 @@
                     @endif
 
                     <div class="text-right">
-                        <a href="javascript:history.back()" class="btn btn-default">Back</a>
+                        <a href="javascript:history.back()" class="btn btn-light">Back</a>
                         <button type="submit" class="btn btn-primary">Save</button>
                     </div>
                 </form>
@@ -146,9 +146,9 @@
                             <td width="250px">
                                 <div class="btn-group">
                                     <form action="{{ route('admin.taxonomy.metas.edit', ['taxonomy' => $term_taxonomy->id, 'meta' => $meta->id, 'taxonomy_type' => $term_taxonomy->taxonomy]) }}" method="GET" style="float: left; margin-right: 5px">
-                                        <button type="submit" class="btn btn-default">Edit</button>
+                                        <button type="submit" class="btn btn-light">Edit</button>
                                     </form>
-                                    <button data-toggle="modal" data-target="#modal_theme_danger" class="btn btn-default" onclick="delete_meta( {{$meta->id}} , {{$term_taxonomy->id}})">Delete</button>
+                                    <button data-toggle="modal" data-target="#modal_theme_danger" class="btn btn-light" onclick="delete_meta( {{$meta->id}} , {{$term_taxonomy->id}})">Delete</button>
                                 </div>
                             </td>
                         </tr>

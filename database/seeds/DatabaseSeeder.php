@@ -11,24 +11,15 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call(ConfigsTableSeeder::class);
         $this->call(GroupsTableSeeder::class);
         $this->call(MenusTableSeeder::class);
+        $this->call(PermissionsTableSeeder::class);
         $this->call(UsersTableSeeder::class);
-        $this->call(TermTaxonomyTableSeeder::class);
-        $this->call(AdministratorMenusSeeder::class);
-        $this->call(ThemesTableSeeder::class);
-        $this->call(PagesSeeder::class);
-        $this->call(PermissionsSeeder::class);
-        // $this->call(FileConfigsSeeder::class);
+        $this->call(GroupMenuTableSeeder::class);
+        $this->call(GroupPermissionTableSeeder::class);
 
-        // $this->call(CarConfigsSeeder::class);
-        $this->call(CarGroupsSeeder::class);
-        $this->call(CarUsersSeeder::class);
-        $this->call(CarPagesSeeder::class);
-        $this->call(CarContentsSeeder::class);
-        $this->call(CarBannerLocationsTableSeeder::class);
-        $this->call(CarBannersTableSeeder::class);
-        $this->call(CarBuyPageSeeder::class);
+        $this->call(TermTaxonomyTableSeeder::class);
+        $this->call(ThemesTableSeeder::class);
+        $this->call(ContentsTableSeeder::class);
     }
 }

@@ -97,7 +97,7 @@
                             <input type="text" name="banner_cropped" id="banner_cropped" hidden>
                             <div class="card" id="banner_preview_container" style="display: none;">
                                 <div class="card-img-actions m-1">
-                                    <img class="card-img img-fluid" src="{{ asset('limitless/bootstrap4/images/placeholder.jpg') }}" alt="" id="banner_preview">
+                                    <img class="card-img img-fluid" src="{{ asset('placeholder.jpg') }}" alt="" id="banner_preview">
                                     <div class="card-img-actions-overlay card-img">
                                         <span>
                                             <button type="button" class="btn btn-info btn-sm" onclick="removeWebPreview()">Remove</button>
@@ -162,7 +162,7 @@
 
             <div class="modal-body">
                 <div class="image-cropper-container">
-                    <img src="{{ asset('limitless/bootstrap4/images/placeholder.jpg') }}" alt="" id="modal_banner_crop_image">
+                    <img src="{{ asset('placeholder.jpg') }}" alt="" id="modal_banner_crop_image">
                 </div>
             </div>
 
@@ -199,7 +199,7 @@
                         </div>
 
                         <div class="ml-3">
-                            <button type="button" class="btn btn-default" onclick="choosePage('{{ url($page->slug) }}')">Choose</button>
+                            <button type="button" class="btn btn-light" onclick="choosePage('{{ url($page->slug) }}')">Choose</button>
                         </div>
                     </li>
                     @endforeach
@@ -272,7 +272,7 @@
         $("#banner").val('');
 
         $(".file-styled").uniform({
-            fileButtonClass: 'action btn btn-default'
+            fileButtonClass: 'action btn btn-light'
         });
     }
 
@@ -291,7 +291,7 @@
 
         // File input
         $(".file-styled").uniform({
-            fileButtonClass: 'action btn btn-default'
+            fileButtonClass: 'action btn btn-light'
         });
 
         // 10 minute increments
