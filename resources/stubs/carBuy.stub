@@ -122,19 +122,35 @@ Car dealer
                 </h2>
               </div>
 
-              <div id="{{ idize($category) }}" class="collapse {{ request(idize($category), False)?'show':'' }}" aria-labelledby="{{ $category }}">
-                <div class="card-body bg-light">
-                  @foreach(App\TermTaxonomy::where('taxonomy', $category)->get() as $taxonomy)
-                  <div class="custom-control custom-radio">
-                    <!-- <a href="/car-list?{{ idize($category) . '=' . $taxonomy->term->name }}" class="text-body text-decoration-none"> -->
-                    <input type="radio" id="{{$taxonomy->term->name}}" name="{{ idize($category) }}" class="custom-control-input" value="{{ $taxonomy->term->name }}" {{ (request(idize($category), Null)==$taxonomy->term->name)?'checked':'' }}>
-                    <label class="custom-control-label  d-flex justify-content-between" for="{{$taxonomy->term->name}}">{{ $taxonomy->term->name }}
-                      <div class="text-muted">{{ $taxonomy->count }}</div>
-                    </label>
+              @if($category == 'Car Type')
+                <div id="{{ idize($category) }}" class="collapse {{ request(idize($category), False)?'show':'' }}" aria-labelledby="{{ $category }}">
+                  <div class="card-body bg-light">
+                    <div class="d-flex flex-row bd-highlight mb-3 flex-wrap">
+                      @foreach(App\TermTaxonomy::where('taxonomy', $category)->get() as $taxonomy)
+                        <div class="p-2 bd-highlight flex-fill">
+                          <span class="carIcon-engine">
+                            {{ $taxonomy->term->name }}
+                            </span>
+                        </div>
+                      @endforeach
+                    </div>
                   </div>
-                  @endforeach
                 </div>
-              </div>
+              @else
+                <div id="{{ idize($category) }}" class="collapse {{ request(idize($category), False)?'show':'' }}" aria-labelledby="{{ $category }}">
+                  <div class="card-body bg-light">
+                    @foreach(App\TermTaxonomy::where('taxonomy', $category)->get() as $taxonomy)
+                    <div class="custom-control custom-radio">
+                      <!-- <a href="/car-list?{{ idize($category) . '=' . $taxonomy->term->name }}" class="text-body text-decoration-none"> -->
+                      <input type="radio" id="{{$taxonomy->term->name}}" name="{{ idize($category) }}" class="custom-control-input" value="{{ $taxonomy->term->name }}" {{ (request(idize($category), Null)==$taxonomy->term->name)?'checked':'' }}>
+                      <label class="custom-control-label  d-flex justify-content-between" for="{{$taxonomy->term->name}}">{{ $taxonomy->term->name }}
+                        <div class="text-muted">{{ $taxonomy->count }}</div>
+                      </label>
+                    </div>
+                    @endforeach
+                  </div>
+                </div>
+              @endif
             </div>
             @endforeach
 
