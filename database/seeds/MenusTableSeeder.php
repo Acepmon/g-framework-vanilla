@@ -45,6 +45,7 @@ class MenusTableSeeder extends Seeder
             ['Logs', '/admin/logs', 'icon-archive', 'System'],
             // User Management
             ['Users', '/admin/users', 'icon-user', 'User Management'],
+            ['Guests', '/admin/users/guests', 'icon-person', 'User Management'],
             ['Permissions', '/admin/permissions', 'icon-key', 'User Management'],
             ['Groups', '/admin/groups', 'icon-users2', 'User Management'],
             // Content
@@ -53,7 +54,7 @@ class MenusTableSeeder extends Seeder
             ['Blog Posts', '/admin/contents?type=post', 'icon-blog', 'Content'],
             // ['Comments', '/admin/comments', 'icon-comment', 'Content'],
             ['Media & Assets', '/admin/media', 'icon-media', 'Content'],
-            ['Localization', '/admin/localizations', 'icon-flag3', 'Content'],
+            ['Localization', '/admin/localizations', 'icon-sphere', 'Content'],
             ['Categories', '/admin/taxonomy?taxonomy=category', 'icon-grid6', 'Content'],
             ['Tags', '/admin/taxonomy?taxonomy=tag', 'icon-price-tag2', 'Content'],
             // Banner
@@ -66,7 +67,7 @@ class MenusTableSeeder extends Seeder
 
     private function iterate($array, $sublevel, $parent = null) {
         for ($i=0; $i < count($array); $i++) {
-            
+
             $order = $i + 1;
 
             if (isset($parent)) {
