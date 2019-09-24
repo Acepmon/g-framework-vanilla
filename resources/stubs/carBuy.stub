@@ -76,6 +76,7 @@ Car dealer
 @endsection
 
 @section('load')
+<link href="{{ asset('car-web/vendor/simple-line-icons/css/simple-line-icons.css') }}" rel="stylesheet" type="text/css">
 <link href="{{ asset('car-web/vendor/bootstrap-slider/css/bootstrap-slider.min.css') }}" rel="stylesheet">
 <style>
 .banner {
@@ -114,7 +115,7 @@ Car dealer
         </form>
         <form action="buy" id="mainForm">
           <div class="left-bar-title">
-            <input type="text" class="search" id="searchInput" placeholder="VEHICLE SEARCH" />
+            <input type="text" class="search" id="searchInput" placeholder="SEARCH VEHICLE" />
             <button class="btn shadow-none" id="searchBtn"><i class="fab fa fa-search"></i></button>
           </div>
           <div class="car-filter accordion shadow-soft-blue" id="accordionExample">
@@ -179,37 +180,35 @@ Car dealer
           </div>
       </div>
       <div class="col-md-9">
-        <div class="card shadow-soft-blue page-top-navbar">
-          <div class="d-flex justify-content-start">
-            <span class="total-cars">{{ count($allItems->get()) }} VEHICLES</span>
-            <input type="hidden" name="orderBy" id="orderBy" value="{{ $orderBy }}" />
+        <div class="row">
+          <div class="card shadow-soft-blue page-top-navbar">
+            <div class="d-flex justify-content-start">
+              <span class="total-cars">{{ count($allItems->get()) }} VEHICLES</span>
+              <input type="hidden" name="orderBy" id="orderBy" value="{{ $orderBy }}" />
 
-            <div class="sort-cars">
-              <ul>
-                <li class="{{ ($orderBy=='updated_at')?'active':'' }}"><a href="#" onclick="formSubmit('orderBy', 'updated_at')">Recent cars</a></li>
-                <li class="{{ ($orderBy=='buildYear')?'active':'' }}"><a href="#" onclick="formSubmit('orderBy', 'buildYear')">Product year</a></li>
-                <li class="{{ ($orderBy=='importDate')?'active':'' }}"><a href="#" onclick="formSubmit('orderBy', 'importDate')">Income year</a></li>
-                <li class="{{ ($orderBy=='price')?'active':'' }}"><a href="#" onclick="formSubmit('orderBy', 'price')">Low price</a></li>
-              </ul>
+              <div class="sort-cars">
+                <ul>
+                  <li class="{{ ($orderBy=='updated_at')?'active':'' }}"><a href="#" onclick="formSubmit('orderBy', 'updated_at')">Recent cars</a></li>
+                  <li class="{{ ($orderBy=='buildYear')?'active':'' }}"><a href="#" onclick="formSubmit('orderBy', 'buildYear')">Product year</a></li>
+                  <li class="{{ ($orderBy=='importDate')?'active':'' }}"><a href="#" onclick="formSubmit('orderBy', 'importDate')">Income year</a></li>
+                  <li class="{{ ($orderBy=='price')?'active':'' }}"><a href="#" onclick="formSubmit('orderBy', 'price')">Low price</a></li>
+                </ul>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="container">
-          <div class="row">
-            @if ($items->all() && sizeof($items->all()) != 0)
-            <div class="car-list">
-              <input type="hidden" name="search" id="search">
-              <input type="hidden" name="advantage" id="advantage" value="{{ $request['advantages'] }}" />
-              @foreach($items->forPage($page, $itemsPerPage) as $car)
-                @include('themes.car-web.includes.car-list-card', array('car'=>$car))
-              @endforeach
-            </div>
-            @else
-            <div class="text-center text-muted col-lg-12 mt-3">
-              <p>No results found</p>
-            </div>
-            @endif
+          @if ($items->all() && sizeof($items->all()) != 0)
+          <div class="car-list">
+            <input type="hidden" name="search" id="search">
+            <input type="hidden" name="advantage" id="advantage" value="{{ $request['advantages'] }}" />
+            @foreach($items->forPage($page, $itemsPerPage) as $car)
+              @include('themes.car-web.includes.car-list-card', array('car'=>$car))
+            @endforeach
           </div>
+          @else
+          <div class="text-center text-muted col-lg-12 mt-3">
+            <p>No results found</p>
+          </div>
+          @endif
         </div>
 
         <!-- Pagination -->
