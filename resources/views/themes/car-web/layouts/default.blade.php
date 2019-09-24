@@ -25,7 +25,7 @@
     <link href="{{ asset('car-web/css/animate.css') }}" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="{{ asset('car-web/css/style.css') }}" rel="stylesheet">
+    <link href="{{ asset('car-web/css/style.min.css') }}" rel="stylesheet">
 
 	<!-- /global stylesheets -->
 

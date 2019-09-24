@@ -1,15 +1,21 @@
 .btn-round{
   border-radius: 100px;
-  padding-left: $spacer * 3;
-  padding-right: $spacer * 3;
   position: relative;
 }
 
 .btn{
   &.btn-icon-left  {
+    padding-left: 40px !important;
     transition: all .3s ease;
 
     i{
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  svg{
     position: absolute;
     left: 20px;
     top: 50%;
@@ -36,6 +42,14 @@
     color: $secondary;
     background-color: $white;
     border-color: none;
+  }
+  &.btn-light {
+    color: $secondary;
+    background-color: $gray-200;
+    border-color: $gray-200;
+    &:hover{
+      background-color: $gray-300;
+    }
   }
   
   &.btn-danger {

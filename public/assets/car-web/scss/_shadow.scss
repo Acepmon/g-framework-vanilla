@@ -6,11 +6,11 @@
 .shadow-lg-3d { box-shadow: $box-shadow-lg-3d !important; }
 .shadow-none { box-shadow: none !important; }
 .shadow-soft-blue {
-    box-shadow: 0 5px 10px 0 rgba(43, 54, 81, .1) !important;
+    box-shadow: 0 5px 10px 0 rgba(43, 54, 81, .2) !important;
     transition: all .3s ease; 
 
     &:hover{
-        box-shadow: 0 10px 20px -5px rgba(43, 54, 81, .1) !important;
+        box-shadow: 0 5px 10px -5px rgba(43, 54, 81, .2) !important;
     }
 }
 .shadow-red{ 

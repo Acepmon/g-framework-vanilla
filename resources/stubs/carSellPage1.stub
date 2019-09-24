@@ -1,0 +1,45 @@
+@extends('themes.car-web.layouts.default')
+
+@section('title')
+
+@endsection
+
+@section('load')
+
+@endsection
+
+@section('content')
+
+<div class="bg-page-header full-height"></div>
+
+<section class="bg-transparent p-5 position-relative">
+    <div class="container">
+
+        <div class="sell-selection">
+            <div class="sell-type">
+                <h1>By normal</h1>
+                <div class="sell-type-img">
+                    <a href="/sellcar?type=normal">
+                        <img src="{{ asset('car-web/img/normal-sell.png') }}" alt="">
+                    </a>
+                </div>
+            </div>
+
+            <div class="sell-type">
+                <h1>By Auction</h1>
+                <div class="sell-type-img">
+                    <a href="/sellcar?type=auction">
+                        <img src="{{ asset('car-web/img/auction-sell.png') }}" alt="">
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+@endsection
+
+@section('script')
+
+@endsection

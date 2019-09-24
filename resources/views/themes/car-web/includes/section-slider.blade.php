@@ -1,5 +1,5 @@
 @if($contents)
-<section class="mainPage-items bg-white">
+<section class="section card-list my-5">
     <div class="container">
         <div class="row">
             <div class="section-title">
