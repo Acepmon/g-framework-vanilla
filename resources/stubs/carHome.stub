@@ -8,7 +8,7 @@ $hotDeals=App\Content::where('type', App\Content::TYPE_CAR)->paginate(5);
 $sideBanners = App\Banner::where('location_id', 4)->get();
 @endphp
 
-<div class="mainPage-items col-1 full-height" style="position: absolute; left: 79%; top:125%; height: 4000px; padding-left: 0%; width:0%">
+<div class="mainPage-items col-1 full-height" style="position: absolute; left: 80%; top:123%; height: 4000px; padding-left: 0%; width:0%">
     @include('themes.car-web.includes.fixed-right-sidebar', array('sideBanners'=>$sideBanners, 'premium'=>$hotDeals))
 </div>
 
@@ -21,7 +21,7 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
     <!-- Masthead -->
     <header class="masthead text-center">
         <div class="container">
-                <div class="row">
+            <div class="row">
                     <div class="col-md-7">
                         <div class="hero-slider owl-carousel owl-theme">
 
@@ -239,7 +239,7 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
                         <img src="{{asset('car-web/img/hero_bg.png')}}" class="img-fluid" alt="">
                     </div>
                 </div>
-            </div>
+        </div>
     </header>
     <div class="col-md-12 text-center">
         <a class="scrollDown" href="javascript:;"> DISCOVER CARS </a>
@@ -249,13 +249,14 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
         <div class="container">
             <div class="row">
                 <div class="section-title">
-                    <h2>Best deal</h2>
+                    <h2>Hot deal</h2>
+                    <span>
+                        <a href="#">See all (123) <i class="fab fa fa-angle-right"></i></a>
+                    </span>
                 </div>
-            </div>
-        </div>
-        <div class="card-list">
-            <div class="container">
-                <div class="row">
+
+                <div class="card-list">
+                    <div class="row">
                     @contents({"filter":[{"field":"type", "key":"car"}, {"field":"status", "key":"published"}],
                     "metasFilter": [{"key": "markName", "value": "toyota"}], "limit":12,
                     "returnVariable":"carDataPremium"})
@@ -271,46 +272,42 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
                             }
                         }
                     @endphp
-
-                    {{--{{$carDataHot}}--}}
                     @foreach($carDataPremium as $rr)
-                        <div class="card col-md-3 mb-3">
-                            <div class="brand-name"><?php echo getValue($rr, 'manufacturer') ?></div>
-                            <div class="card-img">
-                                <img src="{{(getValue($rr, 'thumbnail'))}}" class="img-fluid" alt="alt">
-                                {{--<img src="{{asset('car-web/img/Cars/3.jpg')}}" class="img-fluid" alt="alt">--}}
-                                <div class="bestDeal"
-                                     style="position: absolute; top:5px; left: 5px; background-color: white; border-radius: 3px; padding: 3px">
-                                    ci
-                                </div>
-                                <div class="card-caption">
-                                    <div class="meta"><?php echo getValue($rr, 'buildYear') ?>
-                                        /<?php echo getValue($rr, 'importDate') ?>
-                                        | <?php echo getValue($rr, 'mileage') ?>
-                                        | <?php echo getValue($rr, 'fuel') ?></div>
-                                    <div class="favorite">
-                                        <i class="icon-heart"></i>
+                        <div class="col-md-3 px-2">
+                            <!-- card start -->
+                            <div class="card cd-box">
+                                <div class="premium-tag shadow-soft-blue"><img src="{{asset('car-web/img/icons/corona.svg')}}" alt=""></div>
+                                <div class="card-img">
+                                    <img src="{{(getValue($rr, 'thumbnail'))}}" class="img-fluid" alt="alt">
+
+                                    <div class="card-caption">
+                                        <div class="meta"><?php echo getValue($rr, 'mileage') ?> | <?php echo getValue($rr, 'fuelType') ?> | <?php echo getValue($rr, 'capacity') ?></div>
+                                        <div class="favorite">
+                                            <i class="icon-heart"></i>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="card-body">
-                                <div class="card-description">
-                                    <a href="detail-page.html" class="card-title">{{$rr->title}}</a>
-                                    <div class="card-meta">
-                                        <div class="status"><?php echo getValue($rr, 'priceType') ?> / finance</div>
-                                        <div class="price"><?php echo getValue($rr, 'price') ?></div>
+
+                                <div class="card-body py-2">
+                                    <div class="card-description">
+                                        <div class="card-desc-top">
+                                            <a href="detail-page.html" class="card-title">{{$rr->title}}</a>
+                                            <div class="price"><?php echo getValue($rr, 'price') ?></div>
+                                        </div>
+
+                                        <div class="card-meta">
+                                            <div class="year"><?php echo getValue($rr, 'buildYear') ?> / <?php echo getValue($rr, 'importDate') ?></div>
+                                        </div>
+                                        <div class="status"><?php echo getValue($rr, 'priceType') ?> / Finance</div>
                                     </div>
+
                                 </div>
+
                             </div>
+                            <!-- card end -->
                         </div>
-                @endforeach
-                {{--<div class="card-slide owl-carousel owl-theme">--}}
-
-                {{----}}
-
-                {{--</div>--}}
-                <!-- card end -->
-
+                    @endforeach
+                    </div>
                 </div>
             </div>
         </div>
@@ -318,263 +315,297 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
 
 
     <!-- Auction Grid -->
+
     <section class="mainPage-items bg-dark">
         <div class="container">
             <div class="row">
-                <div class="section-title">
-                    <h2 class="text-white">Auction</h2>
+                <div class="section-title text-light">
+                    <h2>Auction cars</h2>
                     <span>
-            <a href="#" class="text-white">See all (123)</a>
-            <div class="more-arrow"></div>
-          </span>
+                    <a href="#">See all (123) <i class="fab fa fa-angle-right"></i></a>
+                    </span>
                 </div>
-            </div>
-        </div>
-        <div class="card-list">
-            <div class="container">
-                <div class="row">
-                    @contents({"filter":[{"field":"type", "key":"car"}, {"field":"status", "key":"published"}],
-                    "metasFilter": [{"key": "markName", "value": "Toyota"}], "limit":12,
-                    "returnVariable":"carAuctionPremium"})
-                    @php
-                        $carAuctionPremium=json_decode($carAuctionPremium);
-                        function getValueAuction($actionPrmCars,$key){
-                            foreach($actionPrmCars->metas as $metas){
-                                if($metas->key==$key){
-                                return $metas->value;
+                <div class="card-list auction">
+                    <div class="row">
+                        <!-- col-end -->
+                        @contents({"filter":[{"field":"type", "key":"car"}, {"field":"status", "key":"published"}],
+                        "metasFilter": [{"key": "markName", "value": "Toyota"}], "limit":12,
+                        "returnVariable":"carAuctionPremium"})
+                        @php
+                            $carAuctionPremium=json_decode($carAuctionPremium);
+                            function getValueAuction($actionPrmCars,$key){
+                                foreach($actionPrmCars->metas as $metas){
+                                    if($metas->key==$key){
+                                    return $metas->value;
+                                    }
                                 }
                             }
-                        }
-                    @endphp
-                    @foreach($carAuctionPremium as $auctionPrmCars)
-                        <div class="card col-md-3 mb-3">
-                            <div class="brand-name"><?php echo getValueAuction($auctionPrmCars, 'manufacturer') ?></div>
-                            <div class="card-img">
-                                <img src="{{(getValue($rr, 'thumbnail'))}}" class="img-fluid" alt="alt">
-                                {{--<img src="{{asset('car-web/img/Cars/3.jpg')}}" class="img-fluid" alt="alt">--}}
-                                <div class="bestDeal"
-                                     style="position: absolute; top:5px; left: 5px; background-color: white; border-radius: 3px; padding: 3px">
-                                    ci
-                                </div>
-                                <div class="card-caption">
-                                    <div class="meta"><?php echo getValueAuction($auctionPrmCars, 'buildYear') ?>
-                                        /<?php echo getValueAuction($auctionPrmCars, 'importDate') ?>
-                                        | <?php echo getValueAuction($auctionPrmCars, 'mileage') ?>
-                                        | <?php echo getValueAuction($auctionPrmCars, 'fuel') ?></div>
-                                    <div class="favorite">
-                                        <i class="icon-heart"></i>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card-body">
-                                <div class="card-description">
-                                    <a href="detail-page.html" class="card-title">{{$auctionPrmCars->title}}</a>
-                                    <div class="card-meta">
-                                        <div class="status"><?php echo getValueAuction($auctionPrmCars, 'priceType') ?>/
-                                            finance
+                        @endphp
+                        @foreach($carAuctionPremium as $auctionPrmCars)
+                            <div class="col-md-3 px-2">
+                                <!-- card start -->
+                                <div class="card cd-box">
+                                    <div class="premium-tag shadow-soft-blue"><img src="{{asset('car-web/img/icons/corona.svg')}}" alt=""></div>
+                                    <div class="card-img">
+                                        <img src="{{(getValue($auctionPrmCars, 'thumbnail'))}}" class="img-fluid" alt="alt">
+                                        <div class="info">
+                                        <span class="carIcon-engine">
+                                          <p>1499 L</p>
+                                        </span>
+                                        <span class="carIcon-car-6">
+                                          <p>{{(getValue($auctionPrmCars, 'mileage'))}}</p>
+                                        </span>
+                                                            <span class="carIcon-gas-station">
+                                          <p>{{(getValue($auctionPrmCars, 'fuelType'))}}</p>
+                                        </span>
+                                                            <span class="carIcon-gearshift">
+                                          <p>{{(getValue($auctionPrmCars, 'transmission'))}}</p>
+                                        </span>
+                                                            <span class="carIcon-steering-wheel">
+                                          <p>{{(getValue($auctionPrmCars, 'wheelPosition'))}}</p>
+                                        </span>
+                                                            <span class="color" data-color="white">
+                                          <p>{{(getValue($auctionPrmCars, 'color'))}}</p>
+                                        </span>
                                         </div>
-                                        <div class="price"><?php echo getValueAuction($auctionPrmCars, 'price') ?></div>
+                                        <div class="card-caption">
+                                            <div class="countdown">00h:00m:00s</div>
+                                            <div class="favorite">
+                                                <i class="icon-heart"></i>
+                                            </div>
+                                        </div>
                                     </div>
+
+                                    <div class="card-body py-2">
+                                        <div class="card-description">
+                                            <div class="card-desc-top">
+                                                <a href="detail-page.html" class="card-title">{{$auctionPrmCars->title}}</a>
+                                                <div class="price">{{(getValue($auctionPrmCars, 'price'))}}</div>
+                                            </div>
+                                            <div class="card-meta">
+                                                <div class="year">{{(getValue($auctionPrmCars, 'buildYear'))}} / {{(getValue($auctionPrmCars, 'importDate'))}} </div>
+                                                <div class="bids">0 Bids</div>
+                                            </div>
+                                            <div class="overall">{{(getValue($auctionPrmCars, 'mileage'))}} | {{(getValue($auctionPrmCars, 'fuelType'))}} | {{(getValue($auctionPrmCars, 'capacity'))}}</div>
+                                        </div>
+
+                                    </div>
+
                                 </div>
+                                <!-- card end -->
                             </div>
-                        </div>
-                    @endforeach
+                            <!-- col-end -->
+                        @endforeach
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- wish list -->
+
     <section class="mainPage-items bg-white">
         <div class="container">
             <div class="row">
                 <div class="section-title">
                     <h2>People's wish list</h2>
                     <span>
-            <a href="#">See all (123)</a>
-            <div class="more-arrow"></div>
-          </span>
+                        <a href="#">See all (123) <i class="fab fa fa-angle-right"></i></a>
+                    </span>
                 </div>
             </div>
         </div>
-        <div class="card-list usedInMn">
+        <div class="people-wish-list">
             <div class="container">
                 <div class="row">
                     <div class="card-slide owl-carousel owl-theme">
                         <!-- card start -->
                         <div class="card">
-                            <div class="brand-name"></div>
-                            <div class="wish-title bg-dark text-white font-weight-bold rounded-top"><span
-                                    class="display-2">" </span><span style="margin-top: -35px">mashin awna</span></div>
-                            <div class="wish-detail text-black rounded-bottom border pl-4 pr-4"
-                                 style="background-color: #f8f9fa">
-                                <div class="wl-detail-row mt-2">
-                                    <i class="icon-tag mr-4"></i>12 сая ~ 15,5 сая
-                                </div>
-                                <div class="wl-detail-row">
-                                    <i class="icon-phone mr-4"></i>9999 ....
-                                    <button class="btn btn-sm btn-outline-dark float-right">Watch</button>
-                                </div>
-                                <div class="wl-detail-row mt-2">
-                                    <img src="{{asset('car-web/img/Cars/4.jpg')}}"
-                                         class="rounded-circle float-left mr-2 mt-2" width="32px" height="32"
-                                         style="width: 32px" alt="alt">
-                                    <p class="">Enkhtuvshin
-                                        </br>
-                                        <span>2019-03-01</span>
-                                    </p>
-                                </div>
+                            <div class="card-top">
+                                <h2 class="title">Toyota Crown 210 Худалдаж авна</h2>
                             </div>
+                            <div class="card-body py-2">
+                                <div class="wish-detail">
+                                    <div class="price"><i class="icon-tag"></i> 12сая ~ 15.5сая</div>
+                                    <div class="phone"><i class="icon-phone"></i> 9999-9999 <button class="btn btn-sm btn-outline-dark float-right">Watch</button></div>
+                                </div>
+                                <div class="wish-user">
+                                    <div class="profile-img"><img src="{{asset('car-web/img/blog/4.jpg')}}" alt=""></div>
+                                    <div class="username">Enkhtuvshin <div class="date">2019-09-20</div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
                         </div>
+                        <!-- card end -->
+                        <!-- card start -->
                         <div class="card">
-                            <div class="brand-name"></div>
-                            <div class="wish-title bg-dark text-white font-weight-bold rounded-top"><span
-                                    class=font-size-lg>"</span>mashin awna
+                            <div class="card-top">
+                                <h2 class="title">Toyota Crown 210 Худалдаж авна</h2>
                             </div>
-                            <div class="wish-detail text-black rounded-bottom border pl-4 pr-4"
-                                 style="background-color: #f8f9fa">
-                                <div class="wl-detail-row mt-2">
-                                    <i class="icon-tag mr-4"></i>12 сая ~ 15,5 сая
+                            <div class="card-body py-2">
+                                <div class="wish-detail">
+                                    <div class="price"><i class="icon-tag"></i> 12сая ~ 15.5сая</div>
+                                    <div class="phone"><i class="icon-phone"></i> 9999-9999 <button class="btn btn-sm btn-outline-dark float-right">Watch</button></div>
                                 </div>
-                                <div class="wl-detail-row">
-                                    <i class="icon-phone mr-4"></i>9999 ....
-                                    <button class="btn btn-sm btn-outline-dark float-right">Watch</button>
+                                <div class="wish-user">
+                                    <div class="profile-img"><img src="{{asset('car-web/img/blog/4.jpg')}}" alt=""></div>
+                                    <div class="username">Enkhtuvshin <div class="date">2019-09-20</div>
+                                    </div>
+
                                 </div>
-                                <div class="wl-detail-row mt-2">
-                                    <img src="{{asset('car-web/img/Cars/4.jpg')}}"
-                                         class="rounded-circle float-left mr-2 mt-2" width="32px" height="32"
-                                         style="width: 32px" alt="alt">
-                                    <p class="">Enkhtuvshin
-                                        </br>
-                                        <span>2019-03-01</span>
-                                    </p>
-                                </div>
+
                             </div>
+
                         </div>
+                        <!-- card end -->
+                        <!-- card start -->
                         <div class="card">
-                            <div class="brand-name"></div>
-                            <div class="wish-title bg-dark text-white font-weight-bold rounded-top"><span
-                                    class=font-size-lg>"</span>mashin awna
+                            <div class="card-top">
+                                <h2 class="title">Toyota Crown 210 Худалдаж авна</h2>
                             </div>
-                            <div class="wish-detail text-black rounded-bottom border pl-4 pr-4"
-                                 style="background-color: #f8f9fa">
-                                <div class="wl-detail-row mt-2">
-                                    <i class="icon-tag mr-4"></i>12 сая ~ 15,5 сая
+                            <div class="card-body py-2">
+                                <div class="wish-detail">
+                                    <div class="price"><i class="icon-tag"></i> 12сая ~ 15.5сая</div>
+                                    <div class="phone"><i class="icon-phone"></i> 9999-9999 <button class="btn btn-sm btn-outline-dark float-right">Watch</button></div>
                                 </div>
-                                <div class="wl-detail-row">
-                                    <i class="icon-phone mr-4"></i>9999 ....
-                                    <button class="btn btn-sm btn-outline-dark float-right">Watch</button>
+                                <div class="wish-user">
+                                    <div class="profile-img"><img src="{{asset('car-web/img/blog/4.jpg')}}" alt=""></div>
+                                    <div class="username">Enkhtuvshin <div class="date">2019-09-20</div>
+                                    </div>
+
                                 </div>
-                                <div class="wl-detail-row mt-2">
-                                    <img src="{{asset('car-web/img/Cars/4.jpg')}}"
-                                         class="rounded-circle float-left mr-2 mt-2" width="32px" height="32"
-                                         style="width: 32px" alt="alt">
-                                    <p class="">Enkhtuvshin
-                                        </br>
-                                        <span>2019-03-01</span>
-                                    </p>
-                                </div>
+
                             </div>
+
                         </div>
+                        <!-- card end -->
+                        <!-- card start -->
                         <div class="card">
-                            <div class="brand-name"></div>
-                            <div class="wish-title bg-dark text-white font-weight-bold rounded-top"><span
-                                    class=font-size-lg>"</span>mashin awna
+                            <div class="card-top">
+                                <h2 class="title">Toyota Crown 210 Худалдаж авна</h2>
                             </div>
-                            <div class="wish-detail text-black rounded-bottom border pl-4 pr-4"
-                                 style="background-color: #f8f9fa">
-                                <div class="wl-detail-row mt-2">
-                                    <i class="icon-tag mr-4"></i>12 сая ~ 15,5 сая
+                            <div class="card-body py-2">
+                                <div class="wish-detail">
+                                    <div class="price"><i class="icon-tag"></i> 12сая ~ 15.5сая</div>
+                                    <div class="phone"><i class="icon-phone"></i> 9999-9999 <button class="btn btn-sm btn-outline-dark float-right">Watch</button></div>
                                 </div>
-                                <div class="wl-detail-row">
-                                    <i class="icon-phone mr-4"></i>9999 ....
-                                    <button class="btn btn-sm btn-outline-dark float-right">Watch</button>
+                                <div class="wish-user">
+                                    <div class="profile-img"><img src="{{asset('car-web/img/blog/4.jpg')}}" alt=""></div>
+                                    <div class="username">Enkhtuvshin <div class="date">2019-09-20</div>
+                                    </div>
+
                                 </div>
-                                <div class="wl-detail-row mt-2">
-                                    <img src="{{asset('car-web/img/Cars/4.jpg')}}"
-                                         class="rounded-circle float-left mr-2 mt-2" width="32px" height="32"
-                                         style="width: 32px" alt="alt">
-                                    <p class="">Enkhtuvshin
-                                        </br>
-                                        <span>2019-03-01</span>
-                                    </p>
-                                </div>
+
                             </div>
+
                         </div>
+                        <!-- card end -->
+                        <!-- card start -->
                         <div class="card">
-                            <div class="brand-name"></div>
-                            <div class="wish-title bg-dark text-white font-weight-bold rounded-top"><span
-                                    class=font-size-lg>"</span>mashin awna
+                            <div class="card-top">
+                                <h2 class="title">Toyota Crown 210 Худалдаж авна</h2>
                             </div>
-                            <div class="wish-detail text-black rounded-bottom border pl-4 pr-4"
-                                 style="background-color: #f8f9fa">
-                                <div class="wl-detail-row mt-2">
-                                    <i class="icon-tag mr-4"></i>12 сая ~ 15,5 сая
+                            <div class="card-body py-2">
+                                <div class="wish-detail">
+                                    <div class="price"><i class="icon-tag"></i> 12сая ~ 15.5сая</div>
+                                    <div class="phone"><i class="icon-phone"></i> 9999-9999 <button class="btn btn-sm btn-outline-dark float-right">Watch</button></div>
                                 </div>
-                                <div class="wl-detail-row">
-                                    <i class="icon-phone mr-4"></i>9999 ....
-                                    <button class="btn btn-sm btn-outline-dark float-right">Watch</button>
+                                <div class="wish-user">
+                                    <div class="profile-img"><img src="{{asset('car-web/img/blog/4.jpg')}}" alt=""></div>
+                                    <div class="username">Enkhtuvshin <div class="date">2019-09-20</div>
+                                    </div>
+
                                 </div>
-                                <div class="wl-detail-row mt-2">
-                                    <img src="{{asset('car-web/img/Cars/4.jpg')}}"
-                                         class="rounded-circle float-left mr-2 mt-2" width="32px" height="32"
-                                         style="width: 32px" alt="alt">
-                                    <p class="">Enkhtuvshin
-                                        </br>
-                                        <span>2019-03-01</span>
-                                    </p>
-                                </div>
+
                             </div>
+
                         </div>
+                        <!-- card end -->
+                        <!-- card start -->
                         <div class="card">
-                            <div class="brand-name"></div>
-                            <div class="wish-title bg-dark text-white font-weight-bold rounded-top"><span
-                                    class=font-size-lg>"</span>mashin awna
+                            <div class="card-top">
+                                <h2 class="title">Toyota Crown 210 Худалдаж авна</h2>
                             </div>
-                            <div class="wish-detail text-black rounded-bottom border pl-4 pr-4"
-                                 style="background-color: #f8f9fa">
-                                <div class="wl-detail-row mt-2">
-                                    <i class="icon-tag mr-4"></i>12 сая ~ 15,5 сая
+                            <div class="card-body py-2">
+                                <div class="wish-detail">
+                                    <div class="price"><i class="icon-tag"></i> 12сая ~ 15.5сая</div>
+                                    <div class="phone"><i class="icon-phone"></i> 9999-9999 <button class="btn btn-sm btn-outline-dark float-right">Watch</button></div>
                                 </div>
-                                <div class="wl-detail-row">
-                                    <i class="icon-phone mr-4"></i>9999 ....
-                                    <button class="btn btn-sm btn-outline-dark float-right">Watch</button>
+                                <div class="wish-user">
+                                    <div class="profile-img"><img src="{{asset('car-web/img/blog/4.jpg')}}" alt=""></div>
+                                    <div class="username">Enkhtuvshin <div class="date">2019-09-20</div>
+                                    </div>
+
                                 </div>
-                                <div class="wl-detail-row mt-2">
-                                    <img src="{{asset('car-web/img/Cars/4.jpg')}}"
-                                         class="rounded-circle float-left mr-2 mt-2" width="32px" height="32"
-                                         style="width: 32px" alt="alt">
-                                    <p class="">Enkhtuvshin
-                                        </br>
-                                        <span>2019-03-01</span>
-                                    </p>
-                                </div>
+
                             </div>
+
                         </div>
+                        <!-- card end -->
+                        <!-- card start -->
                         <div class="card">
-                            <div class="brand-name"></div>
-                            <div class="wish-title bg-dark text-white font-weight-bold rounded-top"><span
-                                    class=font-size-lg>"</span>mashin awna
+                            <div class="card-top">
+                                <h2 class="title">Toyota Crown 210 Худалдаж авна</h2>
                             </div>
-                            <div class="wish-detail text-black rounded-bottom border pl-4 pr-4"
-                                 style="background-color: #f8f9fa">
-                                <div class="wl-detail-row mt-2">
-                                    <i class="icon-tag mr-4"></i>12 сая ~ 15,5 сая
+                            <div class="card-body py-2">
+                                <div class="wish-detail">
+                                    <div class="price"><i class="icon-tag"></i> 12сая ~ 15.5сая</div>
+                                    <div class="phone"><i class="icon-phone"></i> 9999-9999 <button class="btn btn-sm btn-outline-dark float-right">Watch</button></div>
                                 </div>
-                                <div class="wl-detail-row">
-                                    <i class="icon-phone mr-4"></i>9999 ....
-                                    <button class="btn btn-sm btn-outline-dark float-right">Watch</button>
+                                <div class="wish-user">
+                                    <div class="profile-img"><img src="{{asset('car-web/img/blog/4.jpg')}}" alt=""></div>
+                                    <div class="username">Enkhtuvshin <div class="date">2019-09-20</div>
+                                    </div>
+
                                 </div>
-                                <div class="wl-detail-row mt-2">
-                                    <img src="{{asset('car-web/img/Cars/4.jpg')}}"
-                                         class="rounded-circle float-left mr-2 mt-2" width="32px" height="32"
-                                         style="width: 32px" alt="alt">
-                                    <p class="">Enkhtuvshin
-                                        </br>
-                                        <span>2019-03-01</span>
-                                    </p>
-                                </div>
+
                             </div>
+
+                        </div>
+                        <!-- card end -->
+                        <!-- card start -->
+                        <div class="card">
+                            <div class="card-top">
+                                <h2 class="title">Toyota Crown 210 Худалдаж авна</h2>
+                            </div>
+                            <div class="card-body py-2">
+                                <div class="wish-detail">
+                                    <div class="price"><i class="icon-tag"></i> 12сая ~ 15.5сая</div>
+                                    <div class="phone"><i class="icon-phone"></i> 9999-9999</div>
+                                </div>
+                                <div class="wish-user">
+                                    <div class="profile-img"><img src="{{asset('car-web/img/blog/4.jpg')}}" alt=""></div>
+                                    <div class="username">Enkhtuvshin <div class="date">2019-09-20</div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <!-- card end -->
+                        <!-- card start -->
+                        <div class="card">
+                            <div class="card-top">
+                                <h2 class="title">Toyota Crown 210 Худалдаж авна</h2>
+                            </div>
+                            <div class="card-body py-2">
+                                <div class="wish-detail">
+                                    <div class="price"><i class="icon-tag"></i> 12сая ~ 15.5сая</div>
+                                    <div class="phone"><i class="icon-phone"></i> 9999-9999</div>
+                                </div>
+                                <div class="wish-user">
+                                    <div class="profile-img"><img src="{{asset('car-web/img/blog/4.jpg')}}" alt=""></div>
+                                    <div class="username">Enkhtuvshin <div class="date">2019-09-20</div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
                         </div>
                         <!-- card end -->
 
@@ -583,10 +614,12 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
             </div>
         </div>
     </section>
+
     {{-- banner section 1 --}}
-    <section>
-        <div class="container p-0 mb-5">
-            <div class="banner">
+
+    <section class="banner mb-5">
+        <div class="container">
+            <div class="row">
                 <div class="hero-slider owl-carousel owl-theme">
                     @banners([{"field":"location_id", "key":5}])
                     @php
@@ -610,108 +643,100 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
         </div>
     </section>
 
+
     <!-- Other cars -->
+
     <section class="mainPage-items bg-light">
         <div class="container">
             <div class="row">
                 <div class="section-title">
-                    <h2>Other cars</h2>
+                    <h2>Normal cars</h2>
                     <span>
-            <a href="#">See all (123)</a>
-            <div class="more-arrow"></div>
-          </span>
+                        <a href="#">See all (123) <i class="fab fa fa-angle-right"></i></a>
+                    </span>
                 </div>
-            </div>
-        </div>
-        <div class="card-list auction">
-            <div class="container">
-                <div class="row">
-                    <div class="car-list">
 
+                <div class="car-list">
+                    <div class="row">
                         @contents({"filter":[{"field":"type", "key":"car"}, {"field":"status", "key":"published"}],
                         "metasFilter": [{"key": "markName", "value": "Toyota"}], "limit":10,
                         "returnVariable":"carsOther"})
-                    @php
-                        $carsOther=json_decode($carsOther);
-                        function getValueOtherCar($othCars,$key){
-                            foreach($othCars->metas as $metas){
-                                if($metas->key==$key){
-                                return $metas->value;
+                        @php
+                            $carsOther=json_decode($carsOther);
+                            function getValueOtherCar($othCars,$key){
+                                foreach($othCars->metas as $metas){
+                                    if($metas->key==$key){
+                                    return $metas->value;
+                                    }
                                 }
                             }
-                        }
-                    @endphp
+                        @endphp
 
-                    @foreach($carsOther as $othCars)
-
-                        <!-- card start -->
-                            <div class="card col-md-6 float-left" style="margin-right: 0">
-                                <div class="card-body">
+                        @foreach($carsOther as $othCars)
+                        <div class="col-md-6">
+                            <!-- card start -->
+                            <div class="card">
+                                <div class="card-body m-0" >
                                     <div class="card-img">
-                                        {{--<img src="{{asset('car-web/img/Cars/4.jpg')}}" class="img-fluid" alt="alt">--}}
-                                        <img src="<?php echo getValueOtherCar($othCars, 'thumbnail') ?>"
-                                             class="img-fluid" alt="alt">
+                                        <img src="<?php echo getValueOtherCar($othCars, 'thumbnail') ?>" class="img-fluid" alt="alt">
                                     </div>
-                                    <div class="card-description d-inline">
-                                        <div class="col-md-12">
+                                    <div class="card-description">
+                                        <div class="card-caption">
                                             <div class="card-title">{{$othCars->title}}</div>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <div class="meta"><span
-                                                    class="font-weight-bold text-dark"><?php echo getValueOtherCar($othCars, 'buildYear') ?>
-                                                    / <?php echo getValueOtherCar($othCars, 'importDate') ?></span>
-                                                | <?php echo getValueOtherCar($othCars, 'mileage') ?>
-                                                | <?php echo getValueOtherCar($othCars, 'fuelType') ?>
-                                                | <?php echo getValueOtherCar($othCars, 'capacity') ?></div>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <div class="price"><span
-                                                    class="font-weight-bold"><?php echo getValueOtherCar($othCars, 'price') ?></span>
+                                            <div class="meta"> <?php echo getValueOtherCar($othCars, 'buildYear') ?> / <?php echo getValueOtherCar($othCars, 'importDate') ?> | <?php echo getValueOtherCar($othCars, 'mileage') ?></div>
+                                            <div class="price"><?php echo getValueOtherCar($othCars, 'price') ?></div>
+                                            <div class="favorite">
+                                                <i class="icon-heart"></i> Add to interest list
                                             </div>
                                         </div>
-                                        <div class="col-md-12">
-                                            <i class="icon-heart"></i> Add to interest list
-                                        </div>
                                     </div>
+
                                 </div>
+
                             </div>
                             <!-- card end -->
-
+                        </div>
                         @endforeach
-
-
-                    </div>
-                    <div class="col-md-12 text-center">
-                        <button class="btn btn-danger font-weight-bolder text-center">See all vehicles</button>
+                        <a class="btn btn-danger btn-round shadow-red mx-auto my-3" href="#">See all vehicles</a>
                     </div>
                 </div>
+                {{--<div class="container mt-3">--}}
+                    {{--<div class="row">--}}
+                        {{--<img src="img/banner.png" class="img-fluid" alt="">--}}
+                    {{--</div>--}}
+                {{--</div>--}}
             </div>
         </div>
     </section>
 
-    {{-- banner section 1 --}}
-    <section>
-        <div class="container p-0 mb-5">
-            <div class="banner">
-                <div class="hero-slider owl-carousel owl-theme">
-                    @banners([{"field":"location_id", "key":5}])
-                    @php
-                        $bannerMidList=json_decode($banners);
-                    @endphp
-                    @if(count($bannerMidList) > 1)
-                        @foreach($bannerMidList as $bnr)
-                            <div class="slider-item" style="height: 160px; min-height: 160px;">
-                                <a href="{{$bnr->link}}" target="_blank">
-                                    <img src="{{$bnr->banner}}" alt="">
-                                </a>
-                            </div>
-                        @endforeach
-                    @else
-                        <a href="{{$bnr->link}}" target="_blank">
-                            <img src="{{$bnr->banner}}" alt="">
-                        </a>
-                    @endif
-                </div>
+
+
+
+
+
+
+
+    {{-- banner section 2 --}}
+    <section class="banner mb-5">
+        <div class="container">
+            <div class="hero-slider owl-carousel owl-theme">
+                @banners([{"field":"location_id", "key":5}])
+                @php
+                    $bannerMidList=json_decode($banners);
+                @endphp
+                @if(count($bannerMidList) > 1)
+                    @foreach($bannerMidList as $bnr)
+                        <div class="slider-item" style="height: 160px; min-height: 160px;">
+                            <a href="{{$bnr->link}}" target="_blank">
+                                <img src="{{$bnr->banner}}" alt="">
+                            </a>
+                        </div>
+                    @endforeach
+                @else
+                    <a href="{{$bnr->link}}" target="_blank">
+                        <img src="{{$bnr->banner}}" alt="">
+                    </a>
+                @endif
             </div>
         </div>
     </section>
