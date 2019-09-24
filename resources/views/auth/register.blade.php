@@ -113,10 +113,24 @@
                 </div>
             </div> --}}
 
-            <button type="submit" class="btn bg-teal btn-block btn-lg">Register</button>
-            <a href="{{ route('login') }}" class="btn btn-default btn-block">Back to Login</a>
-            <a href="{{ route('login.provider', 'google') }}" class="btn btn-default btn-block">Google Login</a>
-            <a href="{{ route('login.provider', 'facebook') }}" class="btn btn-default btn-block">Facebook Login</a>
+            <div class="form-group">
+                <button type="submit" class="btn bg-teal btn-block btn-lg">Register</button>
+            </div>
+
+            <div class="form-group text-center text-muted content-divider">
+                <span class="px-2">or register with</span>
+            </div>
+
+            <div class="form-group text-center">
+                <a href="{{ route('login.provider', 'facebook') }}" class="btn btn-outline bg-indigo border-indigo text-indigo btn-icon rounded-round border-2"><i class="icon-facebook"></i></a>
+                <a href="{{ route('login.provider', 'google') }}" class="btn btn-outline bg-pink-300 border-pink-300 text-pink-300 btn-icon rounded-round border-2 ml-2"><i class="icon-google"></i></a>
+            </div>
+
+            <div class="form-group text-center text-muted content-divider">
+                <span class="px-2">Already have an account?</span>
+            </div>
+
+            <a href="{{ route('login') }}" class="btn btn-light btn-block">Back to Login</a>
         </div>
     </form>
     <!-- /advanced login -->
