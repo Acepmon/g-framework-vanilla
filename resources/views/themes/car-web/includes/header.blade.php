@@ -5,6 +5,7 @@
             @foreach ($topbarMenus as $menu)
             <li class="nav-item"><a href="{{ $menu->link }}">{{ $menu->title }}</a></li>
             @endforeach
+            <li class="nav-item"><a href="#"><img src="{{ asset('car-web/img/en.png') }}" alt=""></a></li>
         </ul>
     </div>
 </div>

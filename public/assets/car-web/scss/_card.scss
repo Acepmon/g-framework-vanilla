@@ -9,7 +9,7 @@
 
     &.hot-deal{
 
-        .card{
+        a.card{
             font-family: $segoe;
             position: relative;
             border-color: transparent;
@@ -65,13 +65,16 @@
                     .card-title{
                         line-height: $spacer * 1.2;
                         color: $gray-900;
-                        font-family: $segoe-semibold;
+                        font-family: $segoe;
+                        font-weight: 700;
+                        font-size: 1rem;
                         text-align: left;
                         text-decoration: none;
                         transition: all .3s ease;
+                        margin: 0;
 
                     &:hover{
-                        color: $primary;
+                        color: $red;
                     }
                     }
 
@@ -90,7 +93,6 @@
                             font-size: 1.25rem;
                             font-weight: 700;
                             text-align: right;
-                            width: 50%;
                         }
                     }
                 }
@@ -121,6 +123,10 @@
             pointer-events: none;
             justify-content: center;
             align-items: center;
+
+            img{
+                width: auto !important;
+            }
         }
         .card-img{
             display: block;
@@ -189,28 +195,6 @@
                 .color {
                     text-align: left;
                 }
-                .color[data-color^="black"] {
-                    &:before{
-                        content: '';
-                        width: 20px;
-                        height: 20px;
-                        background:  radial-gradient(90deg, rgb(0, 0, 0) 0%, rgb(217, 217, 217) 100%,);
-                        border-radius: 50%;
-                        display: inline-block;
-                        position: relative;
-                    }
-                }
-                .color[data-color^="white"] {
-                    &:before{
-                        content: '';
-                        width: 20px;
-                        height: 20px;
-                        background:  linear-gradient(45deg, rgb(235, 233, 231) 0%, rgb(233, 226, 220) 40%, rgb(255, 255, 255) 50%, rgb(235, 233, 231) 80%);
-                        border-radius: 50%;
-                        display: inline-block;
-                        position: relative;
-                    }
-                }
             }
 
             .card-caption{
@@ -276,24 +260,24 @@
                     align-items: center;
 
                     .card-title{
-                        width: 70%;
                         line-height: $spacer * 1.2;
                         color: $gray-900;
-                        font-family: $segoe-semibold;
+                        font-family: $segoe;
+                        font-weight: 700;
+                        font-size: 1rem;
                         text-align: left;
-                        margin: 0;
                         text-decoration: none;
                         transition: all .3s ease;
-    
-                        &:hover{
-                            color: $primary;
-                        }
+                        margin: 0;
+
+                    &:hover{
+                        color: $red;
+                    }
                     }
                     .price{
                         font-size: 1.25rem;
                         font-weight: 700;
                         text-align: right;
-                        width: 50%;
                     }
                 }
 
@@ -394,7 +378,6 @@
                             font-size: 1rem;
                             font-weight: 700;
                             text-align: right;
-                            width: 50%;
                             color: $red;
                         }
                     }

@@ -1,0 +1,37 @@
+.sell-selection{
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-column-gap: 20px;
+
+  .sell-type{
+    background: linear-gradient(180deg, rgba(255, 255, 255, 1) 50%, rgba(255, 255, 255, 0) 100%,);
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    font-family: $segoe;
+    padding: $spacer * 3 $spacer * 3 $spacer * 8;
+    height: 100%;
+    border-radius: 8px;
+    box-shadow: 0 0 0 0 rgba(43, 54, 81, 0) ;
+    transition: all .3s ease-in-out;
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    transition: all .3s ease-in-out;
+  
+    .sell-type-img{
+      width: 100%;
+      position: relative;
+      left: 0;
+      transition: all .1s ease-in-out .3s;
+    }
+    
+    &:hover{
+      box-shadow: 0 -20px 30px -10px rgba(43, 54, 81, .2) ;
+    }
+  
+    h1{
+      margin-bottom: 5rem;
+    }
+  }
+}

@@ -1,5 +1,5 @@
 <!-- Footer -->
-<footer class="footer bg-dark">
+<footer class="footer">
     <div class="container">
         <div class="row">
             <div class="col-md-6">
@@ -55,5 +55,8 @@
         </div>
 
     </div>
+    <svg class="footer-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 370">
+        <polygon points="1920 9.56 0 82.45 0 370 1920 370 1920 9.56" />
+    </svg>
 </footer>
 <!-- /footer -->
