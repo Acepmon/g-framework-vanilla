@@ -53,6 +53,69 @@ class CarSellPagesTableSeeder extends Seeder
             $file_path = $file_name . '.' . $file_ext;
 
             file_put_contents(base_path($file_path), $file_content);
+
+
+            // --- car sell page 2 ---
+            $content = new Content;
+            $content->title = 'Sell Car Page 2';
+            $content->slug = 'sell-car-page-2';
+            $content->type = Content::TYPE_PAGE;
+            $content->status = Content::STATUS_PUBLISHED;
+            $content->visibility = Content::VISIBILITY_PUBLIC;
+            $content->author_id = 1;
+            $content->save();
+
+            $value = new \stdClass;
+            $value->datetime = $time;
+            $value->filename_changed = true;
+            $value->before = $content;
+            $value->after = $content;
+            $value->user = User::find(1);
+
+            $content_meta = new ContentMeta();
+            $content_meta->content_id = $content->id;
+            $content_meta->key = 'initial';
+            $content_meta->value = json_encode($value);
+            $content_meta->save();
+
+            $file_content = file_get_contents(resource_path('stubs/carSellPage2.stub'));
+            $file_name = $rootPath . DIRECTORY_SEPARATOR . 'sell-car-page-2' . Content::NAMING_CONVENTION . $content->status . Content::NAMING_CONVENTION . $time;
+            $file_ext = 'blade.php';
+            $file_path = $file_name . '.' . $file_ext;
+
+            file_put_contents(base_path($file_path), $file_content);
+
+            // --- car sell page 2 step 2 ---
+            $content = new Content;
+            $content->title = 'Sell Car Page 2 step 2';
+            $content->slug = 'sell-car-page-2-step-2';
+            $content->type = Content::TYPE_PAGE;
+            $content->status = Content::STATUS_PUBLISHED;
+            $content->visibility = Content::VISIBILITY_PUBLIC;
+            $content->author_id = 1;
+            $content->save();
+
+            $value = new \stdClass;
+            $value->datetime = $time;
+            $value->filename_changed = true;
+            $value->before = $content;
+            $value->after = $content;
+            $value->user = User::find(1);
+
+            $content_meta = new ContentMeta();
+            $content_meta->content_id = $content->id;
+            $content_meta->key = 'initial';
+            $content_meta->value = json_encode($value);
+            $content_meta->save();
+
+            $file_content = file_get_contents(resource_path('stubs/carSellPage2Step2.stub'));
+            $file_name = $rootPath . DIRECTORY_SEPARATOR . 'sell-car-page-2-step-2' . Content::NAMING_CONVENTION . $content->status . Content::NAMING_CONVENTION . $time;
+            $file_ext = 'blade.php';
+            $file_path = $file_name . '.' . $file_ext;
+
+            file_put_contents(base_path($file_path), $file_content);
+
+
             
             // --- car sell auction page ---
             $content = new Content;
