@@ -3,6 +3,11 @@
   grid-template-columns: auto auto;
   grid-column-gap: 20px;
 
+  a{
+    text-decoration: none;
+    color: $secondary;
+  }
+
   .sell-type{
     background: linear-gradient(180deg, rgba(255, 255, 255, 1) 50%, rgba(255, 255, 255, 0) 100%,);
     display: flex;
@@ -18,19 +23,59 @@
     width: 100%;
     overflow: hidden;
     transition: all .3s ease-in-out;
+    cursor: pointer;
   
     .sell-type-img{
       width: 100%;
       position: relative;
       left: 0;
       transition: all .1s ease-in-out .3s;
+
+      &.auction-car{
+        &:after{
+          position: absolute;
+          top: -20px;
+          left: 230px;
+          content:  url(../img/auction-tag.png);
+          transform-origin: left center;
+          transform: rotate(45deg) scale(0);
+          transition: all .5s cubic-bezier(.32,1.33,.43,1.01);
+        }
+      }
+      &.sell-car{
+        &:after{
+          position: absolute;
+          top: -25px;
+          right: 250px;
+          content:  url(../img/sell-tag.png);
+          transform-origin: right center;
+          transform: rotate(45deg) scale(0);
+          transition: all .5s cubic-bezier(.32,1.33,.43,1.01);
+        }
+      }
     }
     
     &:hover{
       box-shadow: 0 -20px 30px -10px rgba(43, 54, 81, .2) ;
+
+      .sell-type-img{
+
+        &.auction-car{
+          &:after{
+            transform: rotate(0) scale(1);
+          }
+        }
+        &.sell-car{
+          &:after{
+            transform: rotate(0) scale(1);
+          }
+        }
+      }
+
     }
   
     h1{
+      text-decoration: none;
       margin-bottom: 5rem;
     }
   }

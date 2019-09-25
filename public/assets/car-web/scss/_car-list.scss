@@ -17,12 +17,16 @@
         row-gap: 10px;
 
         .cd-radio {
+            
             .custom-control-label {
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             color: $gray-500;
+            cursor: pointer;
+            position: relative;
+            height: 60px;
 
             img{
                 opacity: .7;
@@ -30,6 +34,11 @@
                 margin-bottom: -8px;
                 transition: all .3s ease-out;
                 width: 40px;
+                transform: skewX(0);
+                transition: transform .3s ease-in-out;
+                transform-origin: left bottom;
+                position: absolute;
+                top: 0;
             }
             &:before{
                 display: none;
@@ -37,10 +46,14 @@
             &:after{
                 display: none;
             }
+
+            span{
+                position: absolute;
+                bottom: 0;
+            }
         }
         }
     }
-
     .custom-control-input {
         position: absolute;
         z-index: -1; // Put the input behind the label so it doesn't overlay text
@@ -52,6 +65,8 @@
             img{
                 filter: grayscale(0);
                 opacity: 1;
+                position: absolute;
+                animation: floatRight 1s linear infinite;
             }
         }
     }
