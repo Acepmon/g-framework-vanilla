@@ -25,9 +25,9 @@
                 @endforeach
             </ul>
             @if(Auth::user())
-            <a class="btn btn-main btn-round my-2 my-sm-0 shadow" href="#">My Page</a>
+            <a class="btn btn-main btn-round my-2 my-sm-0 px-5 shadow" href="#">My Page</a>
             @else
-            <a class="btn btn-danger btn-round my-2 my-sm-0" href="#">Login</a>
+            <a class="btn btn-danger btn-round my-2 my-sm-0 px-5" href="#">Login</a>
             @endif
         </div>
     </div>
