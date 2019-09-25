@@ -1,12 +1,14 @@
 <?php
 
+namespace Modules\Car\Database\Seeders;
+
+use Illuminate\Database\Seeder;
+use Illuminate\Database\Eloquent\Model;
 use App\Content;
 use App\ContentMeta;
 use App\User;
-use Illuminate\Database\Seeder;
-use Illuminate\Database\Eloquent\Model;
 
-class CarSellPagesSeeder extends Seeder
+class CarSellPagesTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -16,9 +18,9 @@ class CarSellPagesSeeder extends Seeder
     public function run()
     {
         Model::unguard();
+
         //        ------------- car web buy page -----------------------
         try{
-            DB::beginTransaction();
             $time = time();
             $rootPath = config('content.pages.rootPath');
 
@@ -81,10 +83,8 @@ class CarSellPagesSeeder extends Seeder
             $file_path = $file_name . '.' . $file_ext;
 
             file_put_contents(base_path($file_path), $file_content);
-            DB::commit();
             return redirect()->route('admin.cars.index', ['type' => $content->type]);
         } catch (\Exception $e) {
-            DB::rollBack();
             throw $e;
         }
     }

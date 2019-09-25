@@ -14,9 +14,15 @@
                 <div class="card-title"><a href="{{ $car->slug }}" style="color: inherit">{{ $car->title }}</a></div>
                 <div class="meta">{{ $car->metaValue('buildYear') }}/{{ $car->metaValue('importDate') }} | {{ $car->metaValue('mileage') }}km</div>
                 <div class="price">{{ $car->metaValue('price') }} ₮</div>
-                <div class="favorite">
-                    <i class="icon-heart"></i> Add to interest list
+                @if($car->metaValue('interset'))
+                <div class="favorite" onclick="addToInterest(event, '{{$car->slug}}')">
+                    <span class="text-danger"><i class="fas fa-heart"></i> Added to interest list</span>
                 </div>
+                @else
+                <div class="favorite" onclick="addToInterest(event, '{{$car->slug}}')">
+                    <span class=""><i class="far fa-heart"></i> Add to interest list</span>
+                </div>
+                @endif
             </div>
             <div class="info">
                 <span class="info-icon">
