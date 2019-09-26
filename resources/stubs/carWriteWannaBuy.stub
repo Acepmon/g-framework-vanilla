@@ -797,18 +797,6 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
     </div>
 </section>
 
-<!-- Banner start -->
-<section class="mainPage-items bg-white">
-  <div class="container">
-    <a href="{{ $banner->link }}" class="text-primary text-decoration-none">
-      <div class="banner">
-        <!-- {{ $banner->title }} -->
-      </div>
-    </a>
-  </div>
-</section>
-<!-- Banner end -->
-
 <!-- Hot deal Grid start -->
 <section class="mainPage-items bg-white">
     <div class="container">

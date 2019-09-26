@@ -48,9 +48,12 @@ $items = metaHas($items, $key, $value);
 }
 }
 
+// Search
+$search = request('search', "");
+$items = $items->where('title', 'LIKE', '%'.$search.'%')->get();
+
 // HOT Deals
 $hotDeals=App\Content::where('type', App\Content::TYPE_CAR)->inRandomOrder()->paginate(5);
-$items = $hotDeals->merge($items->get());
 
 // Post items filtering
 $itemCount = count($items->all());
@@ -59,9 +62,6 @@ if ($itemCount < $page * $itemsPerPage) {
   $page= $maxPage;
 }
 
-// Banner
-$banner = App\Banner::where('location_id', 5)->where('status', 'active')->inRandomOrder()->first();
-// $sideBanners = App\Banner::where('location_id', 4)->where('status', 'active')->get();
 $sideBanners = App\Banner::where('location_id', 4)->get();
 
 @endphp
@@ -82,7 +82,7 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
     @include('themes.car-web.includes.fixed-right-sidebar', array('sideBanners'=>$sideBanners, 'premium'=>$hotDeals))
         <div class="row">
             <div class="col-md-3">
-        <form action="search" id="mainForm">
+        <form action="car-search" id="mainForm">
                 <div class="left-bar-title">
                     Sort Vehicle <i class="fab fa fa-search"></i>
                 </div>
@@ -137,7 +137,8 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
                         <span class="d-flex justify-content-between">
                             Search result
                         </span>
-                        <input type="text" class="form-control" placeholder="Enter search text">
+                        <input name="search" type="text" class="form-control" placeholder="Enter search text" value="{{$search}}">
+                        <button type="submit" hidden>Search</button>
                     </div>
                 </div>
                 
@@ -145,7 +146,6 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
                     <div class="row">
                         @if ($items->all() && sizeof($items->all()) != 0)
                         <div class="car-list mt-2">
-                        <input type="hidden" name="search" id="search">
                         <input type="hidden" name="advantage" id="advantage" value="{{ $request['advantages'] }}" />
                         @foreach($items->forPage($page, $itemsPerPage) as $car)
                         <!-- card start -->
@@ -188,18 +188,6 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
       </div>
     </div>
 </section>
-
-<!-- Banner start -->
-<section class="mainPage-items bg-white">
-  <div class="container">
-    <a href="{{ $banner->link }}" class="text-primary text-decoration-none">
-      <div class="banner">
-        <!-- {{ $banner->title }} -->
-      </div>
-    </a>
-  </div>
-</section>
-<!-- Banner end -->
 
 <!-- Hot deal Grid start -->
 <section class="mainPage-items bg-white">
