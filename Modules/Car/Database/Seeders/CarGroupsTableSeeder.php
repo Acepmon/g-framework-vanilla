@@ -24,12 +24,7 @@ class CarGroupsTableSeeder extends Seeder
                 "title" => "Auto Dealer",
                 "description" => "This is auto dealer",
                 "type" => Group::TYPE_DYNAMIC
-            ],
-            [
-                "title" => "Driver",
-                "description" => "Basic user",
-                "type" => Group::TYPE_DYNAMIC
-            ],
+            ]
         ]);
     }
 }

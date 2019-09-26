@@ -88,7 +88,7 @@ class Content extends Model
     public function currentView()
     {
         $slug = $this->slug;
-        if (\Str::contains($slug, '/')) {
+        if (\Str::contains($slug, '/') && $slug != '/') {
             $slug = explode('/', $slug)[0];
             $container = self::where('slug', $slug)->firstOrFail();
             $time = $container->metas->whereIn('key', ['initial', 'revision', 'revert'])->sortByDesc('id')->first()->value;
