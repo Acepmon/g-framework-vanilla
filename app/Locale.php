@@ -2,6 +2,8 @@
 
 namespace App;
 
+use File;
+
 class Locale
 {
     const LOCALES = [
@@ -445,8 +447,63 @@ class Locale
         "zu" => "Zulu"
     ];
 
-    public static function getByCode($code)
+    public static function get($locale)
     {
-        return array_key_exists($code, self::LOCALES) ? self::LOCALES[$code] : $code;
+        return self::getAll()->first(function ($val) use ($locale) {
+            return $val->locale == $locale;
+        });
+    }
+
+    public static function getAll()
+    {
+        $langs = self::langs(resource_path('lang'));
+        $localizations = [];
+
+        foreach ($langs as $locale => $files) {
+            $img = asset('limitless/bootstrap4/images/lang/' . $locale . '.png');
+
+            $localization = new \stdclass;
+            $localization->locale = $locale;
+            $localization->localeImg = File::exists(public_path($img)) ? url($img) : null;
+            $localization->localeName = array_key_exists($locale, self::LOCALES) ? self::LOCALES[$locale] : $locale;
+            $localization->files = collect($files);
+
+            array_push($localizations, $localization);
+        }
+
+        return collect($localizations);
+    }
+
+    public static function getContents($locale, $filename)
+    {
+        return file_get_contents(resource_path('lang/'.$locale.'/'.$filename));
+    }
+
+    private static function recursiveTree($dir)
+    {
+        $data = array();
+        foreach ( $dir as $node )
+        {
+            if ( $node->isDir() && !$node->isDot() )
+            {
+                $data[$node->getFilename()] = self::recursiveTree( new \DirectoryIterator( $node->getPathname() ) );
+            }
+            else if ( $node->isFile() )
+            {
+                $file = new \stdclass;
+                $file->name = $node->getBasename('.php');
+                $file->filename = $node->getFilename();
+                $file->filepath = $node->getPathname();
+                $data[] = $file;
+            }
+        }
+        return $data;
+    }
+
+    private static function langs($langPath)
+    {
+        $fileData = self::recursiveTree( new \DirectoryIterator($langPath) );
+
+        return $fileData;
     }
 }

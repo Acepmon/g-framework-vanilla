@@ -27,7 +27,7 @@ class HomeController extends Controller
             abort(404);
         } else {
             if ($content->visibility == Content::VISIBILITY_AUTH && !Auth::check()) {
-                return redirect('login');
+                $this->middleware('auth');
             }
 
             $viewPath = config('content.'.$content->type.'s.viewPath');

@@ -26,5 +26,6 @@ class CarDatabaseSeeder extends Seeder
         $this->call(CarBannerLocationsTableSeeder::class);
         $this->call(CarBannersTableSeeder::class);
         $this->call(CarBuyPageTableSeeder::class);
+        $this->call(CarSellPagesTableSeeder::class);
     }
 }

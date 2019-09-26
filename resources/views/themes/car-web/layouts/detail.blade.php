@@ -61,10 +61,8 @@
                             </div>
                             <div class="col-md-12 px-5">
                                 <a class="btn btn-danger btn-round btn-block my-4 shadow-red p-3" href="#section-finance">Зээлийн боломжийг шалгах</a>
-                                <a class="btn btn-light btn-round btn-block my-4 shadow-soft-blue p-3 btn-icon-left" href="#">
-                                    <i class="icon-heart"></i>
-                                    Save to interested
-                                </a>
+
+                                @include('themes.car-web.includes.save-to-interested-btn', ['content' => $content])
                             </div>
                         </div>
                     </div>
@@ -105,6 +103,8 @@
         <script src="{{ asset('car-web/js/script.js') }}"></script>
 
         @yield('script')
+
+        @stack('scripts')
     </body>
 
 </html>
