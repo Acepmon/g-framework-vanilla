@@ -5,6 +5,7 @@
             @foreach ($topbarMenus as $menu)
             <li class="nav-item"><a href="{{ $menu->link }}">{{ $menu->title }}</a></li>
             @endforeach
+            <li class="nav-item"><a href="#"><img src="{{ asset('car-web/img/en.png') }}" alt=""></a></li>
         </ul>
     </div>
 </div>
@@ -24,9 +25,9 @@
                 @endforeach
             </ul>
             @if(Auth::user())
-            <a class="btn btn-main btn-round my-2 my-sm-0 shadow" href="#">My Page</a>
+            <a class="btn btn-main btn-round my-2 my-sm-0 px-5 shadow" href="#">My Page</a>
             @else
-            <a class="btn btn-danger btn-round my-2 my-sm-0" href="#">Login</a>
+            <a class="btn btn-danger btn-round my-2 my-sm-0 px-5" href="#">Login</a>
             @endif
         </div>
     </div>

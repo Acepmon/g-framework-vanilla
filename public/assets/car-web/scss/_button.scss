@@ -1,0 +1,68 @@
+.btn-round{
+  border-radius: 100px;
+  position: relative;
+}
+
+.btn{
+  font-family: $segoe;
+  font-weight: 600;
+  &.btn-icon-left  {
+    padding-left: 40px !important;
+    transition: all .3s ease;
+
+    i{
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  svg{
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  }
+
+  &.btn-icon-right  {
+    i{
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: all .7s ease;
+  }
+  &:hover{
+    i{
+      right: 15px;
+    }
+  }
+  }
+
+  &.btn-white {
+    color: $secondary;
+    background-color: $white;
+    border-color: none;
+  }
+  &.btn-light {
+    color: $secondary;
+    background-color: $gray-200;
+    border-color: $gray-200;
+    &:hover{
+      background-color: $gray-300;
+    }
+  }
+  
+  &.btn-danger {
+    color: #fff;
+    background-color: $red;
+    border-color: $red;
+  }
+
+  &.btn-primary {
+    color: #fff;
+    background-color: $primary;
+    border-color: $primary;
+  }
+}

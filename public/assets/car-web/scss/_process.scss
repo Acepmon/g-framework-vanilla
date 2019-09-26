@@ -1,0 +1,73 @@
+.sell-car{
+  font-family: $segoe;
+
+  .card-header{
+    padding: 1.25rem;
+    background: $white;
+    border-bottom: 1px solid $gray-300;
+  }
+}
+
+.step-process{
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+  flex-wrap: wrap;
+  position: relative;
+  text-align: center;
+
+  .progress_inner_step{
+    position: relative;
+    padding-top: 4rem;
+    color: $gray-400;
+    cursor: pointer;
+
+    &::after{
+      content: '';
+      position: absolute;
+      width: $spacer / 1.2;
+      height: $spacer / 1.2;
+      background: $gray-400;
+      border-radius: 50%;
+      top: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      transform-origin: center center;
+      border: 3px solid $white;
+    }
+    &::before{
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 1px;
+      left: 50%;
+      background: $gray-300;
+      top: 40%;
+    }
+
+    &.active{
+      font-weight: 700;
+      color: $secondary;
+
+      &::after{
+        content: '';
+        position: absolute;
+        width: $spacer * 2.3;
+        height: $spacer * 2.3;
+        background: $secondary;
+        border-radius: 50%;
+        top: 1.2rem;
+        background-image:url('data:image/svg+xml;base64,PHN2ZyBpZD0iTGF5ZXJfMSIgZGF0YS1uYW1lPSJMYXllciAxIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMCAzMCI+PGRlZnM+PHN0eWxlPi5jbHMtMXtmaWxsOiNmZmY7fTwvc3R5bGU+PC9kZWZzPjx0aXRsZT5jaGVjay1pY29uPC90aXRsZT48ZyBpZD0iUGF0aF8yMTgyLTIiIGRhdGEtbmFtZT0iUGF0aCAyMTgyLTIiPjxwYXRoIGNsYXNzPSJjbHMtMSIgZD0iTTEzLjg2LDIwYTEuMjMsMS4yMywwLDAsMS0uODYtLjM0TDguOSwxNS43OEExLjI1LDEuMjUsMCwwLDEsMTAuNjIsMTRsMy4yMSwzLDYtNi4xMmExLjI1LDEuMjUsMCwxLDEsMS43OCwxLjc1bC02LjksN0ExLjIyLDEuMjIsMCwwLDEsMTMuODYsMjBaIi8+PC9nPjwvc3ZnPg==');
+        left: 50%;
+        transform: translateX(-50%);
+        transform-origin: center center;
+        border: 3px solid $white;
+      }
+    }
+
+    &:last-child{
+      &:before{
+        display: none;
+      }
+    }
+  }
+}

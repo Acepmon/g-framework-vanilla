@@ -21,5 +21,9 @@ class DatabaseSeeder extends Seeder
         $this->call(TermTaxonomyTableSeeder::class);
         $this->call(ThemesTableSeeder::class);
         $this->call(ContentsTableSeeder::class);
+
+        // Run Car Module Seeder
+        Artisan::call('module:seed Car');
+        echo Artisan::output();
     }
 }

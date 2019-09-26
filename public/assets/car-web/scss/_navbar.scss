@@ -1,0 +1,97 @@
+.navbar {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap; // allow us to do the line break for collapsing content
+  align-items: center;
+  justify-content: space-between; // space out brand from logo
+  padding: $navbar-padding-y $navbar-padding-x;
+  margin-top: $spacer * 2;
+  transition: all 350ms ease;
+  transform: translateY(0%);
+  z-index: 1030;
+  left: 0;
+  right: 0;
+  background: transparent;
+
+  // Because flex properties aren't inherited, we need to redeclare these first
+  // few properties so that content nested within behave properly.
+  > .container,
+  > .container-fluid {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &.sticky {
+    background: #fff;
+    margin-top: 0;
+    position: fixed !important;
+    transform: translateY(0);
+    padding: 1rem 0;
+    box-shadow: 0 5px 10px 0 rgba(43, 54, 81, .1) !important;
+  }
+}
+
+.navbar-brand {
+  font-size: 2rem;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: $secondary;
+  font-family: $segoe;
+}
+
+.navbar-collapse {
+  flex-basis: 100%;
+  flex-grow: 0;
+  align-items: center;
+  justify-content: end;
+}
+
+.nav-link {
+  color: $secondary !important;
+  font-family: $segoe-semibold;
+  font-size: 1.125rem;
+  padding-right: $navbar-nav-link-padding-x * 4 !important;
+  padding-left: $navbar-nav-link-padding-x * 4 !important;
+  transition: all .3s ease;
+
+  &:hover{
+    opacity: .5;
+  }
+}
+
+.show > .nav-link,
+    .active > .nav-link,
+    .nav-link.show,
+    .nav-link.active {
+      color: $primary !important;
+    }
+.navbar-top{
+  position: absolute;
+  top: $spacer;
+  right: 0;
+  width: 100%;
+  height: auto;
+  z-index: 1031;
+  display: flex;
+  justify-content: end;
+
+  .navbar-nav{
+    flex-direction: row;
+    justify-content: flex-end;
+
+    .nav-item{
+      padding: 0 $spacer;
+      
+      a{
+        color: $secondary;
+        transition: all .3s ease;
+        &:hover{
+          text-decoration: none;
+          opacity: .5;
+        }
+      }
+    }
+  }
+}

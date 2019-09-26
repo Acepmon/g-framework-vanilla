@@ -1,0 +1,653 @@
+// Detail page style
+
+.detail-page{
+  font-family: $segoe !important;
+
+  .detail-items{
+    margin-top: 1.825rem;
+    background: transparent !important;
+  }
+
+  .vehicle-info-top{
+    border-radius: 4px;
+    border: 0px solid $gray-300;
+
+    .vehicle-title{
+      font-size: 1.5rem;
+      font-family: $segoe;
+      color: $gray-900;
+    }
+
+    .vehicle-price{
+      font-family: $segoe;
+      color: $gray-400;
+      i{
+        margin-right: 5px;
+      }
+      span{
+        font-family: $segoe;
+        color: $secondary;
+        margin-left: .5rem;
+        font-size: 1.5rem;
+        font-weight: 700;
+      }
+    }
+
+    .vehicle-brand{
+      font-size: 1.2rem;
+      font-family: $segoe;
+      font-weight: 600;
+      color: $gray-500;
+      text-transform: uppercase;
+    }
+
+    .control-ad{
+      display: flex;
+    }
+
+    .vehicle-id{
+      margin-top: .5rem;
+      margin-left: 1.5rem;
+      color: $secondary;
+      font-weight: 600;
+      font-size: 1rem;
+
+      span{
+        color: $gray-400;
+        font-size: 1rem;
+        border-radius: 25px;
+        margin-left: 10px;
+      }
+    }
+  }
+
+  .vi-slider-item {
+    width: 100%;
+    height: 430px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    img{
+      min-width: 100%;
+      width: auto;
+      height: auto;
+      min-height: 100%;
+    }
+    
+  }
+  
+  .vi-slider .owl-thumbs {
+    white-space: nowrap;
+    overflow: auto;
+  }
+  
+  .owl-thumbs  {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: left;
+
+    .owl-thumb-item{
+      opacity: .3;
+
+      &.active{
+        opacity: 1;
+      }
+    }
+
+    button{
+      text-align: left;
+    background: transparent;
+    border: 0;
+    border-left: 1px solid #fff;
+    margin: 0;
+    padding: 0;
+    width: calc(100% / 8);
+    height: 60px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: left;
+    }
+    
+
+    img{
+      min-width: 100%;
+      width: auto;
+      height: 100%;
+      min-height: 100%;
+    }
+    
+  }
+
+  .vehicle-imgSlider{
+    position: relative;
+
+      .owl-nav {
+        text-align: right;
+        -webkit-tap-highlight-color: transparent;
+        position: absolute;
+        width: 100%;
+        top: 40%;
+        transform: translateY(-50%);
+
+        .owl-prev {
+          position: absolute;
+          left: 0;
+          width: 40px;
+          height: 60px;
+          background: $gray-600;
+          border: 0;
+          color: $white;
+          font-size: .875rem;
+          transition: all .3s ease;
+
+          &:hover{
+            background: $gray-500;
+            color: $white;
+          }
+      }
+        .owl-next {
+          position: absolute;
+          right: 0;
+          width: 40px;
+          height: 60px;
+          background: $gray-600;
+          border: 0;
+          color: $white;
+          font-size: .875rem;
+          transition: all .3s ease;
+
+          &:hover{
+            background: $gray-500;
+            color: $white;
+          }
+      }
+    }
+  }
+
+  .dealer-information{
+    font-family: $segoe;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    .dealer-img{
+      width: 110px;
+      height: 110px;
+      overflow: hidden;
+      border-radius: 100%;
+      margin-right: 10px;
+    }
+    .dealer-meta{
+      text-align: left;
+      .dealer-name{
+        font-size: 1.125rem;
+        text-transform: uppercase;
+        font-weight: 700;
+        color: $secondary;
+      }
+      .dealer-status{
+        font-size: 0.875rem;
+        font-weight: 600;
+        color: $gray-400;
+      }
+      .dealer-contact{
+        margin-top: 20px;
+        font-size: 1.125rem;
+        font-weight: 700;
+        color: $secondary;
+      }
+    }
+
+    .dealer-more{
+
+      .value{
+        width: 70px;
+        height: 70px;
+        background: $gray-200;
+        border-radius: 50%;
+        display: flex;
+        align-content: center;
+        justify-content: center;
+        font-weight: 600;
+        font-size: 1.25rem;
+        position: relative;
+
+        i{
+          font-size: 2rem;
+          position: absolute;
+          display: block;
+          top: 50%;
+          transform-origin: center, center;
+          transform: translateY(-50%);
+        }
+        p{
+          position: absolute;
+          display: block;
+          top: 50%;
+          transform-origin: center center;
+          transform: translateY(-50%);
+        }
+      }
+      .title{
+        margin-top: 10px;
+        font-size: 1rem;
+        font-weight: 600;
+        text-align: center;
+      }
+    }
+  }
+
+  .detail-section-title{
+    position: absolute;
+    top: -1.6rem;
+    font-size: 1.25rem;
+    font-weight: 700;
+    background: $white;
+    padding: .5rem 1rem .5rem 0;
+  }
+
+  .detail-basic-information{
+    border-top: 1px solid $gray-200;
+    margin-top: 50px;
+    padding-top: 30px;
+    font-family: $segoe;
+    position: relative;
+    color: $secondary;
+
+    .title{
+      font-size: 1.125rem;
+      text-align: left;
+      font-weight: 600;
+    }
+
+    .info-list{
+      margin-top: 1rem;
+      ul{
+        display: grid;
+        grid-template-columns: auto auto auto;
+        grid-template-rows: auto;
+        grid-row-gap: 1.875rem;
+        padding: 0;
+        align-items: center;
+        li{
+          text-align: left;
+          list-style: none;
+          color: $secondary;
+          line-height: 2rem;
+
+          .info-icon{
+            margin-right: 20px;
+            margin-bottom: $spacer * 1.5;
+            font-size: 1.25rem;
+            color: $secondary;
+            align-items: center;
+            position: relative;
+
+            img{
+              background: $gray-200;
+              padding: 6px;
+              border-radius: 15px;
+              box-sizing: content-box;
+                width: 30px;
+                height: 30px;
+            }
+
+            p{
+                font-family: "Segoe UI","Open Sans",Helvetica,sans-serif;
+                font-size: .875rem;
+                display: inline-block;
+                color: $secondary;
+                text-align: left;
+                margin-left: 10px;
+                margin-bottom: 0;
+            }
+        }
+          span.color{
+            position: relative;
+            font-size: 1.25rem;
+            margin-right: 20px;
+            top: 7px;
+            left: 8px;
+            &:before{
+              width: 26px;
+              height: 26px;
+
+            }
+            &:after{
+              top: -2px;
+              width: 22px;
+              height: 18px;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .finance-section{
+
+    .finance-title{
+      width: 33%;
+      margin: 0 auto 2rem;
+
+      h1{
+        color: $secondary;
+        font-size: 1.25rem;
+        font-weight: 700;
+        font-family: $segoe;
+        padding: 0 2rem;
+      }
+      p{
+        color: $gray-500;
+      }
+      
+    }
+
+    form{
+      p{
+        font-family: $segoe;
+        color: $secondary;
+        font-weight: 600;
+        margin-bottom: .5rem;
+      }
+
+      .form-control{
+        height: auto;
+        padding: .75rem;
+        border-color: #e0e5eb;
+        color: $secondary;
+
+        &::placeholder {
+          color: $gray-400;;
+          opacity: 1;
+        }
+      }
+    }
+
+    .select-month{
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+
+      .custom-control {
+        position: relative;
+        display: block;
+        text-align: center;
+        width: calc(100% / 4);
+        min-height: 1.5rem;
+        padding-right: .5rem;
+        padding-left: 0;
+        margin-right: 0;
+
+        &:last-child{
+          padding-right: 0;
+        }
+    }
+    .custom-control-label{
+      width: 100%;
+      padding: .8rem;
+      z-index: 1;
+      outline: none;
+    }
+
+      .custom-control-label::before {
+        color: #fff;
+        border-color: $gray-300;
+        background-color: transparent;
+        border-radius: 4px;
+        height: 100%;
+        width: 100%;
+        /* padding: 1rem; */
+        left: 0;
+        top: 0;
+        z-index: -1;
+    }
+
+    .custom-control-input:checked~.custom-control-label{
+      color: #fff;
+    }
+
+      .custom-control-input:checked~.custom-control-label::before {
+        color: #fff;
+        border-color: $red;
+        background-color: $red;
+        border-radius: 4px;
+        height: 100%;
+        width: 100%;
+        /* padding: 1rem; */
+        left: 0;
+        top: 0;
+        z-index: -1;
+        box-shadow: 0 5px 10px 0 rgba(199, 11, 11, .3) !important;
+    }
+    .custom-control-label::after {
+      display: none;
+  }
+    }
+
+    .select-first-price{
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+
+      .custom-control {
+        position: relative;
+        display: block;
+        text-align: center;
+        width: calc(100% / 7);
+        min-height: 1.5rem;
+        padding-right: .5rem;
+        padding-left: 0;
+        margin-right: 0;
+
+        &:last-child{
+          padding-right: 0;
+        }
+    }
+    .custom-control-label{
+      width: 100%;
+      padding: .8rem;
+      z-index: 1;
+      outline: none;
+    }
+
+      .custom-control-label::before {
+        color: #fff;
+        border-color: $gray-300;
+        background-color: transparent;
+        border-radius: 4px;
+        height: 100%;
+        width: 100%;
+        /* padding: 1rem; */
+        left: 0;
+        top: 0;
+        z-index: -1;
+    }
+
+    .custom-control-input:checked~.custom-control-label{
+      color: #fff;
+    }
+
+      .custom-control-input:checked~.custom-control-label::before {
+        color: #fff;
+        border-color: $red;
+        background-color: $red;
+        border-radius: 4px;
+        height: 100%;
+        width: 100%;
+        /* padding: 1rem; */
+        left: 0;
+        top: 0;
+        z-index: -1;
+        box-shadow: 0 5px 10px 0 rgba(199, 11, 11, .3) !important;
+    }
+    .custom-control-label::after {
+      display: none;
+  }
+    }
+
+    .monthly-payment{
+      background: $secondary;
+      color: $white;
+
+      h3{
+        font-size: 1rem;
+        text-transform: uppercase;
+      }
+
+      .payment-information{
+        display: flex;
+        justify-content: space-around;
+      }
+
+
+      .info{
+        margin-top: 1rem;
+      
+        p{
+          margin-bottom: 1rem;
+          margin: 0;
+          padding: 0;
+          color: $gray-500;
+
+          &:nth-child(2){
+            color: $white;
+            padding: 1rem 0;
+          }
+        }
+        .monthly{
+          font-family: $segoe;
+          font-size: 2.125rem;
+          font-weight: 700;
+          line-height: 2rem;
+        }
+      }
+    }
+  }
+
+  .detail-option-information{
+        border-top: 1px solid #eaeef1;
+        margin-top: 50px;
+        padding-top: 30px;
+        font-family: "Segoe UI","Open Sans",Helvetica,sans-serif;
+        position: relative;
+        color: #2b3651;
+    .title{
+      text-align: center;
+      width: 100%;
+      background: $gray-200;
+      font-size: 1.125rem;
+      font-family: $segoe;
+      font-weight: 700;
+      padding: .75rem 0;
+    }
+    .info-list{
+      margin-top: 1rem;
+      ul{
+        display: flex;
+        flex-direction: column;
+        padding: 0;
+        li{
+          text-align: left;
+          list-style: none;
+          width: 100%;
+          display: flex;
+          align-items: center;
+          color: $secondary;
+          font-size: .875rem;
+          line-height: 2rem;
+          padding-left: 1.25rem;
+
+          i{
+            padding: .5rem;
+            background: $gray-300;
+            border-radius: 50%;
+            font-size: 0.5rem;
+            margin-right: 20px;
+          }
+
+        }
+      }
+    }
+  }
+
+  .diagmostic-information{
+    h1{
+      color: $secondary;
+      font-size: 1.25rem;
+      font-weight: 700;
+      font-family: $segoe;
+      padding: 0 2rem;
+    }
+
+    ul{
+      display: flex;
+      justify-content: space-between;
+      &.diagmostic-list{
+        margin-top: 2rem;
+      }
+      li{
+        list-style: none;
+        display: flex;
+        align-items: center;
+
+        span{
+          position: relative;
+           display:block;
+          width: 20px;
+          height: 20px;
+          border-radius: 50%;
+          background: inherit;
+          margin-right: .5rem;
+        }
+        span[data-type='Sheet'] {
+          background: rgba(120, 188, 17, 0.5);
+          border: 1px solid #78BC11;
+        }
+        
+        span[data-type='Exchange'] {
+          background: rgba(226, 49, 73, 0.5);
+          border: 1px solid #E23149;
+        }
+        
+        span[data-type='Corrosion'] {
+          background: rgba(38, 127, 235, 0.5);
+          border: 1px solid #2680EB;
+        }
+        span[data-type='Scrathes'] {
+          background: rgba(255, 103, 1, 0.5);
+          border: 1px solid #FF6701;
+        }
+        span[data-type='Uneveness'] {
+          background: rgba(135, 14, 187, 0.5);
+          border: 1px solid #880EBB;
+        }
+        span[data-type='Damage'] {
+          background: rgba(255, 196, 0, 0.5);
+          border: 1px solid #FFC400;
+        }
+      }
+    }
+  }
+
+  .retail-information{
+
+    .retail-head{
+      border-bottom: 1px solid $gray-200;
+      margin-bottom: 1.25rem;
+      .retail-name{
+        font-weight: 700;
+        color: $secondary;
+        font-size: 1.25rem;
+      }
+      .retail-phone{
+        font-weight: 700;
+        color: $red;
+        font-size: 1.25rem;
+      }
+    }
+  }
+}

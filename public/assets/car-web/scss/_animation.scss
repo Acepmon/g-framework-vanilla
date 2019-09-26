@@ -1,0 +1,10 @@
+@keyframes floatRight {
+    0% {transform: translateX(0px)}
+    50% {transform: translateX(2px)}
+    100% {transform: translateX(0px)}
+}
+
+@keyframes searchExpand{
+    0% {transform: rotate(0) translateY(-0.875rem);}
+    100% {transform: rotate(360deg) translateY(-0.875rem);}
+}

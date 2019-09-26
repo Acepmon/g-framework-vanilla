@@ -25,7 +25,10 @@ class CarContentsTableSeeder extends Seeder
         $time = time();
         $rootPath = config('content.cars.rootPath');
 
-        factory(Content::class, 10)->create(['type' => Content::TYPE_CAR])->each(function ($content) use($time, $rootPath) {
+        factory(Content::class, 20)->create(['type' => Content::TYPE_CAR])->each(function ($content) use($time, $rootPath) {
+
+            $content->slug = config('content.cars.containerPage') . '/' . $content->slug;
+            $content->save();
 
             $carUserRandomId = User::whereHas('groups', function ($query) {
                 $query->where('type', Group::TYPE_DYNAMIC);
@@ -78,7 +81,6 @@ class CarContentsTableSeeder extends Seeder
                 new ContentMeta(['key' => 'length', 'value' => '4m']),
                 new ContentMeta(['key' => 'archiveNumber', 'value' => 'A598WDY987']),
                 new ContentMeta(['key' => 'carCondition', 'value' => 'used']),
-                new ContentMeta(['key' => 'importDate', 'value' => '2006']),
                 new ContentMeta(['key' => 'wheelDrive', 'value' => 'back']),
                 new ContentMeta(['key' => 'mileage', 'value' => '5000km']),
                 new ContentMeta(['key' => 'advantages', 'value' => 'used in womans hand']),
@@ -192,12 +194,12 @@ class CarContentsTableSeeder extends Seeder
             $content_meta->value = json_encode($value);
             $content_meta->save();
 
-            $file_content = file_get_contents(resource_path('stubs/car.stub'));
-            $file_name = $rootPath . DIRECTORY_SEPARATOR . $content->slug . Content::NAMING_CONVENTION . $content->status . Content::NAMING_CONVENTION . $time;
-            $file_ext = 'blade.php';
-            $file_path = $file_name . '.' . $file_ext;
+            // $file_content = file_get_contents(resource_path('stubs/carPost.stub'));
+            // $file_name = $rootPath . DIRECTORY_SEPARATOR . $content->slug . Content::NAMING_CONVENTION . $content->status . Content::NAMING_CONVENTION . $time;
+            // $file_ext = 'blade.php';
+            // $file_path = $file_name . '.' . $file_ext;
 
-            file_put_contents(base_path($file_path), $file_content);
+            // file_put_contents(base_path($file_path), $file_content);
         });
     }
 }
