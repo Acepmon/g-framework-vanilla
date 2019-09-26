@@ -465,17 +465,17 @@ header.masthead .master-head-bg {
   pointer-events: none;
 }
 
-.vehicle-sell {
+.maz-form {
   padding: 0 4rem 1rem 4rem;
 }
 
-.vehicle-sell .grid-radio {
+.maz-form .grid-radio {
   display: grid;
   grid-template-columns: auto auto auto auto auto auto;
   row-gap: 10px;
 }
 
-.vehicle-sell .grid-radio .cd-radio .custom-control-label {
+.maz-form .grid-radio .cd-radio .custom-control-label {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -486,7 +486,7 @@ header.masthead .master-head-bg {
   height: 60px;
 }
 
-.vehicle-sell .grid-radio .cd-radio .custom-control-label img {
+.maz-form .grid-radio .cd-radio .custom-control-label img {
   opacity: .7;
   -webkit-filter: grayscale(0.8);
           filter: grayscale(0.8);
@@ -500,31 +500,31 @@ header.masthead .master-head-bg {
   top: 0;
 }
 
-.vehicle-sell .grid-radio .cd-radio .custom-control-label:before {
+.maz-form .grid-radio .cd-radio .custom-control-label:before {
   display: none;
 }
 
-.vehicle-sell .grid-radio .cd-radio .custom-control-label:after {
+.maz-form .grid-radio .cd-radio .custom-control-label:after {
   display: none;
 }
 
-.vehicle-sell .grid-radio .cd-radio .custom-control-label span {
+.maz-form .grid-radio .cd-radio .custom-control-label span {
   position: absolute;
   bottom: 0;
 }
 
-.vehicle-sell .custom-control-input {
+.maz-form .custom-control-input {
   position: absolute;
   z-index: -1;
   opacity: 0;
 }
 
-.vehicle-sell .custom-control-input:checked ~ .custom-control-label {
+.maz-form .custom-control-input:checked ~ .custom-control-label {
   color: #2B3651;
   font-weight: 600;
 }
 
-.vehicle-sell .custom-control-input:checked ~ .custom-control-label img {
+.maz-form .custom-control-input:checked ~ .custom-control-label img {
   -webkit-filter: grayscale(0);
           filter: grayscale(0);
   opacity: 1;
@@ -533,7 +533,7 @@ header.masthead .master-head-bg {
           animation: floatRight 1s linear infinite;
 }
 
-.vehicle-sell .form-title {
+.maz-form .form-title {
   font-family: "Segoe UI", "Open Sans", Helvetica, sans-serif;
   font-size: 1.25rem;
   font-weight: 700;
@@ -544,12 +544,12 @@ header.masthead .master-head-bg {
   padding: 0 1rem 0 0;
 }
 
-.vehicle-sell .form-title span {
+.maz-form .form-title span {
   background: white;
   padding: 0 1.5rem 0 0;
 }
 
-.vehicle-sell .form-title:before {
+.maz-form .form-title:before {
   position: absolute;
   content: '';
   top: 50%;
@@ -561,12 +561,12 @@ header.masthead .master-head-bg {
   z-index: -1;
 }
 
-.vehicle-sell .custom-checkbox-cd {
+.maz-form .custom-checkbox-cd {
   margin-left: 1rem;
   margin-bottom: 1rem;
 }
 
-.vehicle-sell .custom-checkbox-cd .custom-control-label::before {
+.maz-form .custom-checkbox-cd .custom-control-label::before {
   position: absolute;
   top: 0;
   left: -2rem;
@@ -581,12 +581,12 @@ header.masthead .master-head-bg {
   box-shadow: none;
 }
 
-.vehicle-sell .custom-checkbox-cd .custom-control-input:checked ~ .custom-control-label::before {
+.maz-form .custom-checkbox-cd .custom-control-input:checked ~ .custom-control-label::before {
   background: #EAEEF1;
   outline: none;
 }
 
-.vehicle-sell .custom-checkbox-cd .custom-control-input:checked ~ .custom-control-label::after {
+.maz-form .custom-checkbox-cd .custom-control-input:checked ~ .custom-control-label::after {
   width: 1.3rem;
   height: 1.3rem;
   top: 2px;
@@ -682,7 +682,6 @@ select {
 }
 
 .btn.btn-icon-left {
-  padding-left: 40px !important;
   transition: all .3s ease;
 }
 
@@ -694,10 +693,14 @@ select {
 }
 
 .btn.btn-icon-left svg {
-  position: absolute;
-  left: 20px;
+  position: relative;
+  margin-right: 15px;
+  left: 5px;
   top: 50%;
   transform: translateY(-50%);
+  width: 15px;
+  height: 15px;
+  float: left;
 }
 
 .btn.btn-icon-right i {
@@ -738,6 +741,16 @@ select {
   color: #fff;
   background-color: #2680EB;
   border-color: #2680EB;
+}
+
+.btn.btn-facebook {
+  color: #fff;
+  background-color: #29487d;
+  border-color: #29487d;
+}
+
+.btn.btn-facebook:hover {
+  background-color: #3c5898;
 }
 
 .left-bar-title {
@@ -2567,7 +2580,7 @@ section .owl-carousel .owl-nav button.owl-next, section .owl-carousel .owl-nav b
   position: absolute;
   top: -20px;
   left: 230px;
-  content: url(../img/auction-tag.png);
+  content: url(../img/auction-tag-r.png);
   transform-origin: left center;
   transform: rotate(45deg) scale(0);
   transition: all 0.5s cubic-bezier(0.32, 1.33, 0.43, 1.01);
@@ -2612,17 +2625,48 @@ section .owl-carousel .owl-nav button.owl-next, section .owl-carousel .owl-nav b
 
 .step-process {
   display: grid;
-  grid-template-columns: auto auto auto auto;
   flex-wrap: wrap;
   position: relative;
   text-align: center;
 }
 
+.step-process.sp-2 {
+  grid-template-columns: 1fr 1fr;
+}
+
+.step-process.sp-3 {
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.step-process.sp-4 {
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
+.step-process.sp-5 {
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+}
+
+.step-process.sp-6 {
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+
 .step-process .progress_inner_step {
+  font-family: "Segoe UI", "Open Sans", Helvetica, sans-serif;
   position: relative;
   padding-top: 4rem;
   color: #AAAEB9;
   cursor: pointer;
+}
+
+.step-process .progress_inner_step label {
+  font-family: "Segoe UI","Open Sans",Helvetica,sans-serif;
+  display: inline-block;
+  margin-bottom: .5rem;
+  position: relative;
+  left: 0;
+  right: 0;
+  font-size: .875rem;
+  margin: 0 auto;
 }
 
 .step-process .progress_inner_step::after {
@@ -2632,9 +2676,9 @@ section .owl-carousel .owl-nav button.owl-next, section .owl-carousel .owl-nav b
   height: 0.83333rem;
   background: #AAAEB9;
   border-radius: 50%;
-  top: 2rem;
+  top: 50%;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translateX(-50%) translateY(-50%);
   transform-origin: center center;
   border: 3px solid #fff;
 }
@@ -2645,11 +2689,12 @@ section .owl-carousel .owl-nav button.owl-next, section .owl-carousel .owl-nav b
   width: 100%;
   height: 1px;
   left: 50%;
+  top: 50%;
   background: #E0E5EB;
-  top: 40%;
 }
 
 .step-process .progress_inner_step.active {
+  font-family: "Segoe UI", "Open Sans", Helvetica, sans-serif;
   font-weight: 700;
   color: #2B3651;
 }
@@ -2661,16 +2706,157 @@ section .owl-carousel .owl-nav button.owl-next, section .owl-carousel .owl-nav b
   height: 2.3rem;
   background: #2B3651;
   border-radius: 50%;
-  top: 1.2rem;
+  top: 50%;
   background-image: url("data:image/svg+xml;base64,PHN2ZyBpZD0iTGF5ZXJfMSIgZGF0YS1uYW1lPSJMYXllciAxIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMCAzMCI+PGRlZnM+PHN0eWxlPi5jbHMtMXtmaWxsOiNmZmY7fTwvc3R5bGU+PC9kZWZzPjx0aXRsZT5jaGVjay1pY29uPC90aXRsZT48ZyBpZD0iUGF0aF8yMTgyLTIiIGRhdGEtbmFtZT0iUGF0aCAyMTgyLTIiPjxwYXRoIGNsYXNzPSJjbHMtMSIgZD0iTTEzLjg2LDIwYTEuMjMsMS4yMywwLDAsMS0uODYtLjM0TDguOSwxNS43OEExLjI1LDEuMjUsMCwwLDEsMTAuNjIsMTRsMy4yMSwzLDYtNi4xMmExLjI1LDEuMjUsMCwxLDEsMS43OCwxLjc1bC02LjksN0ExLjIyLDEuMjIsMCwwLDEsMTMuODYsMjBaIi8+PC9nPjwvc3ZnPg==");
   left: 50%;
-  transform: translateX(-50%);
+  transform: translateX(-50%) translateY(-50%);
   transform-origin: center center;
   border: 3px solid #fff;
 }
 
+.step-process .progress_inner_step.done {
+  font-weight: 400;
+  color: #07C78C;
+}
+
+.step-process .progress_inner_step.done::after {
+  content: '';
+  position: absolute;
+  width: 2.3rem;
+  height: 2.3rem;
+  background: #07C78C;
+  border-radius: 50%;
+  top: 50%;
+  background-image: url("data:image/svg+xml;base64,PHN2ZyBpZD0iTGF5ZXJfMSIgZGF0YS1uYW1lPSJMYXllciAxIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMCAzMCI+PGRlZnM+PHN0eWxlPi5jbHMtMXtmaWxsOiNmZmY7fTwvc3R5bGU+PC9kZWZzPjx0aXRsZT5jaGVjay1pY29uPC90aXRsZT48ZyBpZD0iUGF0aF8yMTgyLTIiIGRhdGEtbmFtZT0iUGF0aCAyMTgyLTIiPjxwYXRoIGNsYXNzPSJjbHMtMSIgZD0iTTEzLjg2LDIwYTEuMjMsMS4yMywwLDAsMS0uODYtLjM0TDguOSwxNS43OEExLjI1LDEuMjUsMCwwLDEsMTAuNjIsMTRsMy4yMSwzLDYtNi4xMmExLjI1LDEuMjUsMCwxLDEsMS43OCwxLjc1bC02LjksN0ExLjIyLDEuMjIsMCwwLDEsMTMuODYsMjBaIi8+PC9nPjwvc3ZnPg==");
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  transform-origin: center center;
+  border: 3px solid #fff;
+}
+
+.step-process .progress_inner_step.done::before {
+  content: '';
+  background: #07C78C;
+  height: 2px;
+}
+
 .step-process .progress_inner_step:last-child:before {
   display: none;
+}
+
+.terms-text {
+  overflow: hidden;
+  box-sizing: border-box;
+  padding: 1rem;
+  border-radius: 4px;
+  border: 1px solid #E0E5EB;
+  height: 150px;
+  width: 96%;
+  left: 4%;
+  text-align: right;
+  overflow-y: auto;
+  margin: .5rem 0 2rem;
+  color: #2B3651;
+  position: relative;
+}
+
+.social-login {
+  text-align: center;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding: 1rem;
+  border-left: 1px solid #EAEEF1;
+}
+
+.social-login .social-login-title {
+  position: absolute;
+  font-size: 1rem;
+  top: 2rem;
+  font-family: "Segoe UI", "Open Sans", Helvetica, sans-serif;
+  font-weight: bold;
+}
+
+.profile-upload {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.profile-upload .profile-pic {
+  max-width: 200px;
+  max-height: 200px;
+  display: block;
+}
+
+.profile-upload .file-upload {
+  display: none;
+}
+
+.profile-upload .circle {
+  position: relative;
+  border-radius: 1000px !important;
+  overflow: hidden;
+  width: 128px;
+  height: 128px;
+  border: 4px solid rgba(255, 255, 255, 0.7);
+  top: 0;
+  background: #E0E5EB;
+}
+
+.profile-upload img {
+  max-width: 100%;
+  height: auto;
+}
+
+.profile-upload .upload-image {
+  margin-top: 1rem;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.profile-upload .p-image:hover {
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.pageType-footer {
+  position: relative;
+  bottom: -6rem;
+  z-index: 9999;
+}
+
+.pageType-footer .sell-type-img {
+  width: 100%;
+  position: relative;
+  left: 0;
+  transition: all .1s ease-in-out .3s;
+}
+
+.pageType-footer .sell-type-img.auction-car:after {
+  position: absolute;
+  top: -20px;
+  left: 230px;
+  content: url(../img/auction-tag.png);
+}
+
+.pageType-footer .sell-type-img.sell-car:after {
+  position: absolute;
+  top: -25px;
+  left: 20px;
+  content: url(../img/sell-tag.png);
+}
+
+.pageType-footer .sell-type-img.reg-car:after {
+  position: absolute;
+  top: -25px;
+  left: 20px;
+  content: url(../img/reg-tag.png);
 }
 
 footer.footer {
