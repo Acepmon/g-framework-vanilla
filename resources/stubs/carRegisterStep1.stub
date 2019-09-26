@@ -1,0 +1,12 @@
+@extends('themes.car-web.layouts.default')
+
+@section('title', 'Car')
+
+@section('load')
+
+@endsection
+
+@section('script')
+
+@endsection
+

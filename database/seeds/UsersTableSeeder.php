@@ -24,13 +24,13 @@ class UsersTableSeeder extends Seeder
                     'password' => Hash::make('admin'),
                     'name' => 'Administrator',
                     'language' => 'en',
-                    'avatar' => asset('user.png'),
+                    'avatar' => url(asset('user.png')),
                     'created_at' => now(),
                     'updated_at' => now(),
                 ]
             ];
             $adminGroupId = 1;
-    
+
             foreach ($systemUsers as $systemUser) {
                 $user = new User();
                 $user->username = $systemUser['username'];
@@ -42,7 +42,7 @@ class UsersTableSeeder extends Seeder
                 $user->created_at = $systemUser['created_at'];
                 $user->updated_at = $systemUser['updated_at'];
                 $user->save();
-    
+
                 $user->groups()->attach($adminGroupId);
             }
         }

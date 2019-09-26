@@ -1,3 +1,42 @@
+.pageType-footer{
+
+  position: relative;
+  bottom: -6rem;
+  z-index: 9999;
+
+  .sell-type-img{
+    width: 100%;
+    position: relative;
+    left: 0;
+    transition: all .1s ease-in-out .3s;
+
+    &.auction-car{
+      &:after{
+        position: absolute;
+        top: -20px;
+        left: 230px;
+        content:  url(../img/auction-tag.png);
+      }
+    }
+    &.sell-car{
+      &:after{
+        position: absolute;
+        top: -25px;
+        left: 20px;
+        content:  url(../img/sell-tag.png);
+      }
+    }
+    &.reg-car{
+      &:after{
+        position: absolute;
+        top: -25px;
+        left: 20px;
+        content:  url(../img/reg-tag.png);
+      }
+    }
+  }
+}
+
 footer.footer {
   background: #2B3651;
   background: transparent;
