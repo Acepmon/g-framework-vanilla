@@ -4,7 +4,8 @@ return [
     'name' => 'Content',
     'posts' => [
         'rootPath' => '' . DIRECTORY_SEPARATOR . 'resources' . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'posts',
-        'viewPath' => 'posts'
+        'viewPath' => 'posts',
+        'containerPage' => 'posts'
     ],
     'pages' => [
         'rootPath' => '' . DIRECTORY_SEPARATOR . 'resources' . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'pages',
@@ -16,6 +17,7 @@ return [
     ],
     'cars' => [
         'rootPath' => '' . DIRECTORY_SEPARATOR . 'resources' . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'pages',
-        'viewPath' => 'pages'
+        'viewPath' => 'pages',
+        'containerPage' => 'car-posts'
     ]
 ];

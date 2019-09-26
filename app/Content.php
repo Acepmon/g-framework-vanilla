@@ -87,10 +87,20 @@ class Content extends Model
 
     public function currentView()
     {
-        $time = $this->metas->whereIn('key', ['initial', 'revision', 'revert'])->sortByDesc('id')->first()->value;
-        $time = json_decode($time)->datetime;
-        $name = ($this->slug == '/' || $this->slug == '') ? 'root' : $this->slug;
-        return $name . self::NAMING_CONVENTION . $this->status . self::NAMING_CONVENTION . $time;
+        $slug = $this->slug;
+        if (\Str::contains($slug, '/')) {
+            $slug = explode('/', $slug)[0];
+            $container = self::where('slug', $slug)->firstOrFail();
+            $time = $container->metas->whereIn('key', ['initial', 'revision', 'revert'])->sortByDesc('id')->first()->value;
+            $time = json_decode($time)->datetime;
+            $name = ($slug == '/' || $slug == '') ? 'root' : $slug;
+            return $name . self::NAMING_CONVENTION . $container->status . self::NAMING_CONVENTION . $time;
+        } else {
+            $time = $this->metas->whereIn('key', ['initial', 'revision', 'revert'])->sortByDesc('id')->first()->value;
+            $time = json_decode($time)->datetime;
+            $name = ($slug == '/' || $slug == '') ? 'root' : $slug;
+            return $name . self::NAMING_CONVENTION . $this->status . self::NAMING_CONVENTION . $time;
+        }
     }
 
     public function attachMeta($key, $value)
