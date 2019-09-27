@@ -34,7 +34,9 @@ class TermTaxonomyTableSeeder extends Seeder
         /* Manufacturer Table START */
 
         $Factory = ['Toyota', 'Lexus', 'Nissan', 'Mercedes-benz', 'Volkswagen', 'Mini', 'Audi', 'BMW', 'Ford', 'Land Rover', 'Daihatsu', 'Dodge', 'Honda', 'Hyundai', 'Kia', 
-        'Jeep', 'Subaru', 'Suzuki'];
+        'Jeep', 'Subaru', 'Suzuki', 'Mitsubishi', 'Infiniti', 'Mazda', 'Chevrolet', 'isuzu', 'Acura', 'Porsche', 'Tesla', 'Volvo', 'Daewoo', 'Mitsuoka', 'Eunos', 'CT T',
+        , 'AM General', 'Alfa Romeo', 'Aston Martin', 'Bentley', 'Bugatti', 'Buick', 'Cadillac', 'Chrysler', 'Eagle', 'Jaguar', 'Lamborghini', 'Lincoln', 'Lotus', 'Maserati'
+        , 'Maybach', 'McLaren', 'Panoz', 'Ram', 'Rolls-Royce', 'Saab', 'Scion', 'Smart', 'Spyker'];
 
         foreach($Factory as &$manufacture){
             $term_id1 = DB::table('terms')->insertGetId([
@@ -503,7 +505,7 @@ class TermTaxonomyTableSeeder extends Seeder
             ]);
         }
 
-        $Mini = ['Mini Mark I (1969 to 2000)', 'Mini Mark II (1967 to 1970)', 'Mini Marks III (1969 to 2000)', 'Mini Marks IV (1969 to 2000)', 'Mini Marks V (1969 to 2000)', 'Mini Marks VI (1969 to 2000)', 'Mini Marks VII (1969 to 2000)'
+        $Mini = ['Mini Mark I (1969 to 2000)', 'Mini Mark II (1967 to 1970)', 'Mini Marks III (1969 to 2000)', 'Mini Marks IV (1969 to 2000)', 'Mini Marks V (1969 to 2000)', 'Mini Marks VI (1969 to 2000)', 'Mini Marks VII (1969 to 2000)',
          'Mini Hatch/Hardtop (2001 to 2006)', 'Mini Convertible/Cabrio (2005 to 2008)', 'Mini Hatch/Hardtop (2007 to 2014)', 'Mini Clubman (2008 to 2014)', 'Mini Convertible (2009 to 2015)', 'Mini Countryman (2011 to 2016)', 
          'Mini Coupé (2012 to 2015)', 'Mini Roadster (2012 to 2015)', 'Mini Paceman (2013 to 2016)', 'Mini Hatch/Hardtop (2014 to present)'];
 
@@ -813,8 +815,347 @@ class TermTaxonomyTableSeeder extends Seeder
             ]);
         }
 
+        $Mitsubishi = ['Mitsubishi 360', 'Mitsubishi 380', 'Mitsubishi 500', 'Mitsubishi 3000GT', 'Mitsubishi Adventure', 'Mitsubishi Airtrek', 'Mitsubishi Aspire', 'Mitsubishi Attrage', 'Mitsubishi Carisma'
+        , 'Mitsubishi Celeste', 'Mitsubishi Champ', 'Mitsubishi Chariot', 'Chrysler Regal', 'Mitsubishi Colt', 'Mitsubishi Colt 11-F', 'Mitsubishi Colt 600', 'Mitsubishi Colt 800'
+        , 'Mitsubishi Colt 1000', 'Mitsubishi Colt 1100', 'Mitsubishi Colt 1100F', 'Mitsubishi Colt 1200', 'Mitsubishi Colt 1500', 'Mitsubishi Colt Bakkie', 'Mitsubishi Colt Galant'
+        , 'Mitsubishi Colt Rodeo', 'Mitsubishi Colt T120SS', 'Mitsubishi Cordia', 'Mitsubishi Debonair', 'Mitsubishi Delica', 'Mitsubishi Diamante', 'Mitsubishi Dignity', 'Mitsubishi Mirage Dingo'
+        , 'Mitsubishi Dion', 'Mitsubishi Eclipse', 'Mitsubishi Eclipse Cross', 'Mitsubishi eK', 'Mitsubishi Emeraude', 'Mitsubishi Endeavor', 'Mitsubishi Eterna', 'Mitsubishi Expo'
+        , 'Mitsubishi Expo LRV', 'Mitsubishi Express', 'Mitsubishi Forte', 'Mitsubishi Freeca', 'Mitsubishi FTO', 'Mitsubishi Fuzion', 'Mitsubishi G-Wagon', 'Mitsubishi Galant', 'Mitsubishi Galant Fortis'
+        , 'Mitsubishi Galant FTO', 'Mitsubishi Galant GTO', 'Mitsubishi Galant Lambda', 'Mitsubishi Galant VR-4', 'Mitsubishi Go', 'Mitsubishi Grandis', 'Mitsubishi Grunder', 'Mitsubishi GTO'
+        , 'Mitsubishi Henry J', 'Mitsubishi i', 'Mitsubishi i-MiEV', 'Mitsubishi Jeep', 'Mitsubishi Jolie', 'Mitsubishi Kuda', 'Mitsubishi L100', 'Mitsubishi L200', 'Mitsubishi L300'
+        , 'Mitsubishi Lancer', 'Mitsubishi Lancer (A70)', 'Mitsubishi Lancer Celeste', 'Mitsubishi Lancer Evolution', 'Mitsubishi Lancer Evolution X', 'Mitsubishi Lancer WRC', 'Mitsubishi Legnum'
+        , 'Mitsubishi Leo', 'Mitsubishi Lettuce', 'Mitsubishi Libero', 'Mitsubishi Magna', 'Mitsubishi Magnum', 'Mitsubishi Maven', 'Mazda-Go', 'Mitsubishi Mighty Max', 'Mitsubishi Minica'
+        , 'Mitsubishi Minicab', 'Mitsubishi Mirage', 'Mitsubishi MiEV Evolution', 'Mitsubishi Mizushima', 'Mitsubishi Model A', 'Mitsubishi Montero', 'Mitsubishi Montero iO', 'Mitsubishi Montero Sport'
+        , 'Mitsubishi Nativa', 'Mitsubishi Nimbus', 'Mitsubishi Outlander', 'Mitsubishi Outlander Sport', 'Mitsubishi Pajero', 'Mitsubishi Pajero Evolution', 'Mitsubishi Pajero iO'
+        , 'Mitsubishi Pajero Junior', 'Mitsubishi Pajero Mini', 'Mitsubishi Pajero Pinin', 'Mitsubishi Pajero Sport', 'Mitsubishi Pajero TR4', 'Mitsubishi Pinin', 'Mitsubishi Pistachio'
+        , 'Mitsubishi Precis', 'Mitsubishi Proudia', 'Mitsubishi Racing Lancer', 'Mitsubishi Raider', 'Mitsubishi Rodeo', 'Mitsubishi RVR', 'Mitsubishi Sapporo', 'Mitsubishi Savrin'
+        , 'Mitsubishi Scorpion', 'Mitsubishi Shogun', 'Mitsubishi Shogun Pinin', 'Mitsubishi Shogun Sport', 'Mitsubishi Sigma', 'Mitsubishi Sigma Scorpion', 'Mitsubishi Space Gear'
+        , 'Mitsubishi Space Runner', 'Mitsubishi Space Star', 'Mitsubishi Space Wagon', 'Mitsubishi Sportero', 'Mitsubishi Star Wagon', 'Mitsubishi Starion', 'Mitsubishi Storm'
+        , 'Mitsubishi Strada', 'Mitsubishi Toppo', 'Mitsubishi Town Bee', 'Mitsubishi Town Box', 'Mitsubishi Towny', 'Mitsubishi Tredia', 'Mitsubishi Triton', 'Mitsubishi Type 73 Light Truck'
+        , 'Mitsubishi V3000', 'Mitsubishi Verada', 'Mitsubishi Warrior', 'Mitsubishi Xpander', 'CMC Zinger'];
+
+        foreach($Mitsubishi as &$model){
+            $term_id5 = DB::table('terms')->insertGetId([
+                'name' => $model,
+                'slug' => 'Mitsubishi',
+            ]);
+            DB::table('term_taxonomy')->insert([
+                'term_id' => $term_id5,
+                'taxonomy' => 'Model',
+                'description' => $model,
+                'parent_id' => '20',
+                'count' => 0
+            ]);
+        }
+
+        $Infiniti = ['Infiniti Q50 (Q50 2.0t Pure, 2.0t Luxe, 3.0t Luxe, 3.0t Sport, Red Sport 400, Hybrid)', 'Infiniti Q60 (Q60 2.0t Pure, 2.0t Luxe, 3.0t Luxe, 3.0t Sport, Red Sport 400)'
+        , 'Infiniti Q70 (M25, M30d, M35h, M37/M37x AWD and M56/M56x AWD variations, all sedans)', 'Infiniti QX50 (EX30d and EX37 in Europe)', 'Infiniti QX60 (3.5, Hybrid variant discontinued)'
+        , 'Infiniti QX80 (SUV)', 'Infiniti M30 (coupe and convertible) and M35/M45 (sedan)', 'Infiniti Q30', 'Infiniti QX30 (Base, Luxury, Premium, and Sport)', 'Infiniti QX4 (SUV)'
+        , 'Infiniti J30 (sedan)', 'Infiniti I30 and I35 (sedan)', 'Infiniti Q40 (sedan)', 'Infiniti Q45 (sedan)', 'Infiniti QX70 (3.7, 3.7 AWD, 5.0 AWD)', 'Infiniti ESQ (rebadged Nissan Juke sold exclusively in China)'
+        , 'Infiniti Triant (2003)', 'Infiniti Kuraza (2005)', 'Infiniti Coupe Concept (2006)', 'Infiniti Essence (2009)', 'Infiniti Etherea (2011)', 'Infiniti Emerg-e (2012)'
+        , 'Infiniti LE (2012)', 'Infiniti Q80 Inspiration (2014)', 'Infiniti Concept Vision Gran Turismo (2014)', 'Infiniti QX Sport Inspiration (2016)', 'Infiniti Prototype 9 (2017)'
+        , 'Infiniti Q Inspiration (2018)', 'Infiniti Prototype 10 (2018)'];
+
+        foreach($Infiniti as &$model){
+            $term_id5 = DB::table('terms')->insertGetId([
+                'name' => $model,
+                'slug' => 'Infiniti',
+            ]);
+            DB::table('term_taxonomy')->insert([
+                'term_id' => $term_id5,
+                'taxonomy' => 'Model',
+                'description' => $model,
+                'parent_id' => '20',
+                'count' => 0
+            ]);
+        }
+
+        $Mazda = ['1931–1960 Mazdago three-wheel truck', '1958–1964 Romper truck', '1959–1965 D1100/D1500 truck', '1959–1969 K360 three-wheel truck', '1959–1971 T600 three-wheel truck'
+        , '1960–1966 R360 kei car sedan', '1961–1962 P360/P600 "Carol" kei car sedan', '1961–1964 B1500/Proceed pickup truck', '1961–1966 B360/B600 kei car pickup truck'
+        , '1962–1965 D2000 truck', '1964–1966 Familia/800/1000 compact car', '1964–2010 E2000 truck', '1965–1977 Kraft truck', '1965–1972 Light Bus Type A minibus'
+        , '1966–1972 Light Bus Type C minibus', '1965–1971 B1500/Proceed pickup truck', '1966–1973 Luce/1500/1800/R130 luxury car', '1966–1977 Bongo small minivan'
+        , '1967–1972 Familia/1000/1200/1300/R100 compact car', '1967–1972 Cosmo Sport 110S sports car', '1968–1976 E360/Porter small pickup truck', '1968–1980 Boxer truck'
+        , '1968–1989 Porter CAB small pickup truck', '1970–1976 Capella/616/RX-2 mid-size car', '1971–1978 Savanna/RX-3 coupé', '1971–2014 Titan truck'
+        , '1971–1978 Grand Familia/808/818/Mizer compact car', '1972–1977 Chantez kei car', '1972–1997 Parkway 26 minibus', '1972–1977 Familia Presto/1000/1300'
+        , '1972–1977 Luce/RX-4 luxury car', '1974–1977 Rotary Pickup (REPU) pickup truck', '1974–1981 T3000 minibus', '1975–1978 Roadpacer full-size car'
+        , '1975–1980 Cosmo/RX-5 luxury car', '1976–1984 121 compact car', '1977–1981 Luce Legato luxury car', '1977–1982 Capella/626/Montrose mid-size car'
+        , '1977–1983 Familia/323/GLC compact car', '1978–1982 Bongo small minivan', '1978–1984 Savanna/RX-7 sports car', '1980–1984 Familia/323 compact car'
+        , '1981–1986 929/Luce luxury car', '1982–1986 Mazda T3000 minibus', '1983–1987 Capella/626 mid-size car', '1983–1988 Bongo small minivan', '1985–1988 Familia/323 compact car'
+        , '1985–1992 Savanna/RX-7 sports car', '1985–1995 121/Demio compact car', '1986–1991 929/Luce luxury car', '1986–1992 Mazda T3500 minibus', '1987–1990 Etude compact car'
+        , '1988–1992 Capella/626 mid-size car', '1988–1992 Persona mid-size car', '1988–1992 MX-6 coupé', '1988–1998 MPV minivan', '1989–1990 Carol kei car', '1989–1994 Familia/323/Protegé compact car'
+        , '1989–1994 Bongo small minivan', '1989–1998 MX-5/Miata convertible sports car', '1989–1995 Mazda Custom Cab', '1990–1994 Carol kei car', '1990–1998 929/Sentia luxury car'
+        , '1991–1994 Mazda Navajo SUV', '1990–1998 AZ-3/MX-3 coupé', '1993–1997 MX-6 coupé', '1993–1997 Cronos/626 mid-size car', '1993–1997 Lantis/Astina compact car', '1993–2002 Millenia/Xedos9/Eunos 800 luxury car'
+        , '1993–2002 RX-7 sports car', '1994–1999 Familia/Protegé/Etude/323 compact car', '1994–1998 AZ-Wagon station wagon', '1995–1998 Bongo small minivan', '1995–1998 Carol kei car'
+        , '1996–2005 121/Demio/Mazda2 compact car', '1998–2003 AZ-Wagon station wagon', '1998–2002 Capella/626 mid-size car', '1998–2014 AZ-Offroad SUV', '1998–2005 MX-5/Miata convertible sports car'
+        , '1999–2000 Carol kei car', '1999–2000 Laputa kei car', '1999–2001 Bongo small minivan', '1999–2005 Premacy small minivan', '1999–2006 MPV minivan', '2000–2003 Familia/Protegé/323 compact car'
+        , '2001–2005 Carol kei car', '2001–2011 Mazda Tribute SUV', '2001–2006 Laputa kei car', '2002–2008 Spiano kei car', '2003–2009 RX-8 sports car', '2003–2008 AZ-Wagon station wagon'
+        , '2004–2009 Carol kei car', '2004–2015 Mazda Verisa Subcompact car', '2005–2015 MX-5 convertible sports car', '2006–2016 MPV minivan', '2007–2012 CX-7 crossover SUV'
+        , '2007–2016 CX-9 crossover SUV', '2008–2012 AZ-Wagon station wagon', '2009–2014 Carol kei car', '2009–2012 RX-8 sports car', '2010–2015 Premacy/Mazda5 minivan'
+        , '2008–2016 Biante — minivan', '2006–2016 Mazda8/MPV — minivan', '1999–2017 Bongo – Commercial van', 'Mazda Activehicle (1999)', 'Mazda AZ550 (1989)', 'Mazda BU-X (1995)'
+        , 'Mazda Chantez EV (1972)', 'Mazda CU-X (1995)', 'Mazda CVS (1974)', 'Mazda Deep Orange 3 (2013)', 'Mazda Furai (2008)', 'Mazda Gissya (1991)', 'Mazda Hakaze Concept (2007)'
+        , 'Mazda Hazumi (2014)', 'Mazda HR-X (1991)', 'Mazda HR-X 2 (1993)', 'Mazda Ibuki (2003)', 'Mazda Kaan', 'Mazda Kabura (2006)', 'Mazda Kai (2017)', 'Mazda Kazamai (2008)'
+        , 'Mazda Kiyora (2008)', 'Mazda Koeru (2015)', 'Mazda Le Mans Prototype (1983)', 'Mazda London Taxi (1993)', 'Mazda Miata Mono-Posto (1999)', 'Mazda Minagi (2011)'
+        , 'Mazda MS-X (1997)', 'Mazda MV-X (1997)', 'Mazda MX-02 (1983)', 'Mazda MX-03 (1985)', 'Mazda MX-04 (1987)', 'Mazda MX-5 Superlight (2009)', 'Mazda MX-81 (1981)'
+        , 'Mazda MX-Crossport (2005)', 'Mazda MX-Flexa (2004)', 'Mazda MX-Micro Sport (2004)', 'Mazda MX Sport Tourer (2001)', 'Mazda MX Sportif (2003)', 'Mazda Nagare (2006)'
+        , 'Mazda Neospace (1999)', 'Mazda Nextourer (1999)', 'Mazda RX-01 (1995)', 'Mazda RX 87 (1967)', 'Mazda RX-500 (1970)', 'Mazda RX-510 (1971)', 'Mazda RX-Evolv (1999)'
+        , 'Mazda RX-Vision (2015)', 'Mazda Ryuga (2007)', 'Mazda Sassou (2005)', 'Mazda Secret Hideout (2001)', 'Mazda Senku (2005)', 'Mazda Shinari (2010)', 'Mazda SU-V (1995)'
+        , 'Mazda SW-X (1999)', 'Mazda Taiki (2007)', 'Mazda Takeri (2011)', 'Mazda TD-R (1989)', 'Mazda Vision Coupe (2017)', 'Mazda Washu (2003)'];
+
+        foreach($Mazda as &$model){
+            $term_id5 = DB::table('terms')->insertGetId([
+                'name' => $model,
+                'slug' => 'Mazda',
+            ]);
+            DB::table('term_taxonomy')->insert([
+                'term_id' => $term_id5,
+                'taxonomy' => 'Model',
+                'description' => $model,
+                'parent_id' => '20',
+                'count' => 0
+            ]);
+        }
+
+        $Mazda = ['1931–1960 Mazdago three-wheel truck', '1958–1964 Romper truck', '1959–1965 D1100/D1500 truck', '1959–1969 K360 three-wheel truck', '1959–1971 T600 three-wheel truck'
+        , '1960–1966 R360 kei car sedan', '1961–1962 P360/P600 "Carol" kei car sedan', '1961–1964 B1500/Proceed pickup truck', '1961–1966 B360/B600 kei car pickup truck'
+        , '1962–1965 D2000 truck', '1964–1966 Familia/800/1000 compact car', '1964–2010 E2000 truck', '1965–1977 Kraft truck', '1965–1972 Light Bus Type A minibus'
+        , '1966–1972 Light Bus Type C minibus', '1965–1971 B1500/Proceed pickup truck', '1966–1973 Luce/1500/1800/R130 luxury car', '1966–1977 Bongo small minivan'
+        , '1967–1972 Familia/1000/1200/1300/R100 compact car', '1967–1972 Cosmo Sport 110S sports car', '1968–1976 E360/Porter small pickup truck', '1968–1980 Boxer truck'
+        , '1968–1989 Porter CAB small pickup truck', '1970–1976 Capella/616/RX-2 mid-size car', '1971–1978 Savanna/RX-3 coupé', '1971–2014 Titan truck'
+        , '1971–1978 Grand Familia/808/818/Mizer compact car', '1972–1977 Chantez kei car', '1972–1997 Parkway 26 minibus', '1972–1977 Familia Presto/1000/1300'
+        , '1972–1977 Luce/RX-4 luxury car', '1974–1977 Rotary Pickup (REPU) pickup truck', '1974–1981 T3000 minibus', '1975–1978 Roadpacer full-size car'
+        , '1975–1980 Cosmo/RX-5 luxury car', '1976–1984 121 compact car', '1977–1981 Luce Legato luxury car', '1977–1982 Capella/626/Montrose mid-size car'
+        , '1977–1983 Familia/323/GLC compact car', '1978–1982 Bongo small minivan', '1978–1984 Savanna/RX-7 sports car', '1980–1984 Familia/323 compact car'
+        , '1981–1986 929/Luce luxury car', '1982–1986 Mazda T3000 minibus', '1983–1987 Capella/626 mid-size car', '1983–1988 Bongo small minivan', '1985–1988 Familia/323 compact car'
+        , '1985–1992 Savanna/RX-7 sports car', '1985–1995 121/Demio compact car', '1986–1991 929/Luce luxury car', '1986–1992 Mazda T3500 minibus', '1987–1990 Etude compact car'
+        , '1988–1992 Capella/626 mid-size car', '1988–1992 Persona mid-size car', '1988–1992 MX-6 coupé', '1988–1998 MPV minivan', '1989–1990 Carol kei car', '1989–1994 Familia/323/Protegé compact car'
+        , '1989–1994 Bongo small minivan', '1989–1998 MX-5/Miata convertible sports car', '1989–1995 Mazda Custom Cab', '1990–1994 Carol kei car', '1990–1998 929/Sentia luxury car'
+        , '1991–1994 Mazda Navajo SUV', '1990–1998 AZ-3/MX-3 coupé', '1993–1997 MX-6 coupé', '1993–1997 Cronos/626 mid-size car', '1993–1997 Lantis/Astina compact car', '1993–2002 Millenia/Xedos9/Eunos 800 luxury car'
+        , '1993–2002 RX-7 sports car', '1994–1999 Familia/Protegé/Etude/323 compact car', '1994–1998 AZ-Wagon station wagon', '1995–1998 Bongo small minivan', '1995–1998 Carol kei car'
+        , '1996–2005 121/Demio/Mazda2 compact car', '1998–2003 AZ-Wagon station wagon', '1998–2002 Capella/626 mid-size car', '1998–2014 AZ-Offroad SUV', '1998–2005 MX-5/Miata convertible sports car'
+        , '1999–2000 Carol kei car', '1999–2000 Laputa kei car', '1999–2001 Bongo small minivan', '1999–2005 Premacy small minivan', '1999–2006 MPV minivan', '2000–2003 Familia/Protegé/323 compact car'
+        , '2001–2005 Carol kei car', '2001–2011 Mazda Tribute SUV', '2001–2006 Laputa kei car', '2002–2008 Spiano kei car', '2003–2009 RX-8 sports car', '2003–2008 AZ-Wagon station wagon'
+        , '2004–2009 Carol kei car', '2004–2015 Mazda Verisa Subcompact car', '2005–2015 MX-5 convertible sports car', '2006–2016 MPV minivan', '2007–2012 CX-7 crossover SUV'
+        , '2007–2016 CX-9 crossover SUV', '2008–2012 AZ-Wagon station wagon', '2009–2014 Carol kei car', '2009–2012 RX-8 sports car', '2010–2015 Premacy/Mazda5 minivan'
+        , '2008–2016 Biante — minivan', '2006–2016 Mazda8/MPV — minivan', '1999–2017 Bongo – Commercial van', 'Mazda Activehicle (1999)', 'Mazda AZ550 (1989)', 'Mazda BU-X (1995)'
+        , 'Mazda Chantez EV (1972)', 'Mazda CU-X (1995)', 'Mazda CVS (1974)', 'Mazda Deep Orange 3 (2013)', 'Mazda Furai (2008)', 'Mazda Gissya (1991)', 'Mazda Hakaze Concept (2007)'
+        , 'Mazda Hazumi (2014)', 'Mazda HR-X (1991)', 'Mazda HR-X 2 (1993)', 'Mazda Ibuki (2003)', 'Mazda Kaan', 'Mazda Kabura (2006)', 'Mazda Kai (2017)', 'Mazda Kazamai (2008)'
+        , 'Mazda Kiyora (2008)', 'Mazda Koeru (2015)', 'Mazda Le Mans Prototype (1983)', 'Mazda London Taxi (1993)', 'Mazda Miata Mono-Posto (1999)', 'Mazda Minagi (2011)'
+        , 'Mazda MS-X (1997)', 'Mazda MV-X (1997)', 'Mazda MX-02 (1983)', 'Mazda MX-03 (1985)', 'Mazda MX-04 (1987)', 'Mazda MX-5 Superlight (2009)', 'Mazda MX-81 (1981)'
+        , 'Mazda MX-Crossport (2005)', 'Mazda MX-Flexa (2004)', 'Mazda MX-Micro Sport (2004)', 'Mazda MX Sport Tourer (2001)', 'Mazda MX Sportif (2003)', 'Mazda Nagare (2006)'
+        , 'Mazda Neospace (1999)', 'Mazda Nextourer (1999)', 'Mazda RX-01 (1995)', 'Mazda RX 87 (1967)', 'Mazda RX-500 (1970)', 'Mazda RX-510 (1971)', 'Mazda RX-Evolv (1999)'
+        , 'Mazda RX-Vision (2015)', 'Mazda Ryuga (2007)', 'Mazda Sassou (2005)', 'Mazda Secret Hideout (2001)', 'Mazda Senku (2005)', 'Mazda Shinari (2010)', 'Mazda SU-V (1995)'
+        , 'Mazda SW-X (1999)', 'Mazda Taiki (2007)', 'Mazda Takeri (2011)', 'Mazda TD-R (1989)', 'Mazda Vision Coupe (2017)', 'Mazda Washu (2003)'];
+
+        foreach($Mazda as &$model){
+            $term_id5 = DB::table('terms')->insertGetId([
+                'name' => $model,
+                'slug' => 'Mazda',
+            ]);
+            DB::table('term_taxonomy')->insert([
+                'term_id' => $term_id5,
+                'taxonomy' => 'Model',
+                'description' => $model,
+                'parent_id' => '20',
+                'count' => 0
+            ]);
+        }
+
+        $Chevrolet = ['150 (1953-1957)', '210 (1953-1957)', '400 (1962-1974)', '454 SS (1990-1993)', '500 (1983-1995)', '1700 (1972-1978)', '2500 (1973-1978)', '3800 (1972-1978)', '4100 (1972-1978)'
+        , 'A-10 (1981-1985)', 'A-20 (1985-1996)', 'Advance Design (1947-1955)', 'AK Series (1941-1942)', 'Agile (2009–2015)', 'Ajax (1994-2009)', 'Alero (1999–2004)', 'Apache (1955-1960)'
+        , 'Astro (1985–2005)', 'Avalanche (2002–2013)', 'Baby Grand/H-4 (1914-1922)', 'Beauville station wagon (1955-1957)', 'Beauville (van) (1971–1996)', 'B-Series (1966-2003)'
+        , 'Bel Air (1950–1975 for US and 1950-1981 for Canada)', 'Beretta (1987–1996)', 'Biscayne (1958–1972 for US and 1958-1975 for Canada)', 'Bison (1977–1980)', 'BJN (1961-1986 for US and 1962-1999 for Canada)'
+        , 'Blazer (1995-2005 in most markets and 1997-2012 for Brazil)', 'Brookwood (1958–1961, 1969–1972)', 'Bruin (1978–1988)', 'C-10 (1964-1985)', 'C-20 (1985-1996)', 'Calibra (1989-1997)'
+        , 'Camaro (1967–2002)', 'Camby (1989-2013)', 'Cameo (1955-1959)', 'Caprice (2000–2017 for the Middle East, 1965–1996 and 2011–2017 for North America)', 'Cassia (1998-2002)'
+        , 'Cavalier (1982–2005)', 'Cebra (1984-1994 for Brazil and 1985-2015 for Mexico)', 'Celebrity (1982–1990)', 'Celta (2000–2015)', 'Celtic (1991-2009 for Canada)', 'Chevair (1976-1985)'
+        , 'Chevelle (1964–1977)', 'Chevelle Laguna (1973–1976)', 'Chevette (1976–1987 for US, Venezuela, and Argentina, 1973-1993 for Brazil, 1976-1996 for Ecuador, and 1976-1998 for Colombia)'
+        , 'Chevy (1969-1978)', 'Chevy (1994-2012)', 'Chevy II (1962-1968)', 'Chevy Malibu (1968–1982)', 'Citation (1980–1985)'
+        , 'C/K (1960-2000 for US, 1965-2000 for Canada, 1964-2001 for Brazil, 1975-1982 for Chile, and 1960-1978/1986-1994 for Argentina)', 'CMP (1991–2013)', 'CMV (1991–2013)'
+        , 'Cobalt (2005–2010)', 'Cobalt SS (2005–2010)', 'Commodore (1978-1982)', 'Confederate Series BA (1932)', 'Constantia (1969-1978)', 'Corsa (1994-2011)', 'Corsa Classic (2000-2010)'
+        , 'Corsa Plus (2005-2010)', 'Corsica (1987–1996)', 'Corvair (1960–1969)', 'Corvan (1960–1969)', 'Cruze (2001-2008)', 'D-10 (1980-1985)', 'D-20 (1985–1996)', 'Delray (1958)'
+        , 'Deluxe (1941-1942, 1945-1952)', 'D-Max (2002-2008)', 'Eagle (1933)', 'El Camino (1959–1960, 1964–1987)', 'Epica (2004-2006)', 'Epica (2006–2011)', 'Evanda (2005-2006)'
+        , 'FA Series (1918)', 'FB Series (1919-1922)', 'Fleetline (1941-1942, 1945-1952)', 'Fleetmaster (1946–1948)', 'Forester (2002-2005)', 'Frontera (1989-2004)', 'G506 (1941-1945)'
+        , 'Gemini (1985-1990)', 'Greenbrier (1961–1972)', 'Greenbrier (1961-1965, 1969-1972)', 'G-series (1964-1996)', 'HHR (2006–2011)', 'Independence Series AE (1931)'
+        , 'International Series AC (1929)', 'Joy (2005-2009)', 'K5 Blazer (1969-1994 for North America and 1995-2001 for Brazil and Argentina)', 'Kadett (1979-1991)', 'Kalos (2005-2008)'
+        , 'Kingswood (1959–1960, 1969–1972)', 'Kingswood Estate (1969–1972)', 'Kodiak (1980–2009)', 'Kommando (1968-1980)', 'Lakewood (1961-1962)', 'Lee (1963-1980)', 'Light Six (1914-1915)'
+        , 'Lova (2006–2010)', 'Lumina (1990–2001 for North America and 1998–2017 for the Middle East and South Africa)', 'Lumina APV (1990-1996)'
+        , 'LUV (1972-1982 for North America and 1981-2005 for South America)', 'Marajó (1980-1989)', 'Master (1933-1942)', 'Mayano (1987-2017)', 'Meriva (2002-2010 for Latin America and 2002-2011 for Brazil)'
+        , 'Matiz (2005-2010)', 'Mercury (1933)', 'Metro (1998–2001)', 'Monte Carlo (1970–1988, 1995–2007)', 'Monza (1975–1980)', 'National Series AB (1928)', 'Nomad (station wagon) (1955–1961, 1968–1972)'
+        , 'Nomad (SUV) (1973-1982)', 'Nova (1969–1979, 1985-1988)', 'Nubira (2004)', 'Opala (1969-1992)', 'Optra Wagon (Japan)', 'Omega (1992-2008, 2010–present)'
+        , 'Optra (2004-2013 for Colombia, 2004–2008 for Canada, 2006–2009 for Mexico, 2002-2008 for India, and 2002-2010 for Vietnam)', 'Orlando (2010–2014 for Canada and Europe)'
+        , 'Parkwood (1959–1961)', 'Prizm (1998–2002)', 'Rezzo (2002-2008)', 'Rodeo (1989-2004)', 'S-10 Blazer (1983-1994)', 'S-10 EV (1997–1998)', 'Senator (1978-1982)'
+        , 'Series 490 (1915-1922)', 'Series AA Capitol (1927)', 'Series C Classic Six (1911-1913)', 'Series D (1917-1918)', 'Series F (1917)', 'Series H (1914-1916)', 'Series M Copper-Cooled (1923)'
+        , 'Special (1949-1957)', 'Spectrum (1985–1988)', 'Sprint (1985–1988 for North America and 1987-2004 for Colombia)', 'SSR (2003–2006)', 'Chevrolet SS (2013-2017)'
+        , 'Stamp (1981-2009 for Canada)', 'Standard (1933-1936)', 'Styleline (1941-1942)', 'Stylemaster (1945-1948)', 'Superior Series B (1923)', 'Superior Series F (1924)', 'Superior Series K (1925)'
+        , 'Superior Series V (1926)', 'Swift (1991-2004)', 'Tacuma (2002-2008)', 'Task Force Series (1955-1959)', 'Tigra (1994-2000)', 'Titan (1969–1980)', 'Tosca (2006-2011)', 'Townsman (1953–1957, 1969–1972)'
+        , 'Trafic (1997-2000)', 'Trans Sport (1997-2005)', 'Universal Series AD (1930)', 'Uplander (2005–2008 for US, Chile, and Middle East, and 2005-2009 for Canada and Mexico)'
+        , 'Van (1964-1996)', 'Vectra (1993-2008)', 'Vega (1971–1977)', 'Veraneio (1964-1993)', 'Vitara (1988-1998)', 'Viva (2004-2008)', 'Vivant (2002-2008)', 'Venture (1997–2005)'
+        , 'Viking', 'Yeoman (1958)', 'Zafira (2001-2011 South America)', 'Chevrolet Aero 2003A (1987)', 'Aerovette (1976)', 'Astro I (1967)', 'Astro II (1968)', 'Astro III (1969)'
+        , 'Astrovette (1968)', 'Aveo RS (2010)', 'Beat (concept) (2007)', 'Bel Air Concept (2002)', 'Biscayne (concept) (1955)', 'Blazer XT-1 (1987)', 'Bob (2007)', 'Bolt (2015)'
+        , 'Borrego (2001)', 'California IROC Camaro (1989)', 'Camaro Black Concept (2008)', 'Camaro Chroma Concept (2009)', 'Camaro Concept (2006)', 'Camaro Convertible Concept (2007)'
+        , 'Camaro Convertible Concept (2010)', 'Camaro Dale Earnhardt Jr. Concept (2008)', 'Camaro Dusk Concept (2009)', 'Camaro GS Racecar Concept (2008)', 'Camaro LS7 Concept (2008)'
+        , 'Camaro LT5 Concept (1988)', 'Camaro SS (concept) (2003)', 'Camaro SSX (2010)', 'Camaro ZL1 (concept) (2011)', 'Caprice PPV (Concept) (2010)', 'Cheyenne (concept) (2003)'
+        , 'Citation IV (1984)', 'Cobalt (concept) (2011)', 'Code 130R (2012)', 'Colorado Concept (2011)', 'CERV (1960, 1964, 1990, 1992)', 'Corvair (concept) (1954)', 'Corvair (concept) (1960)'
+        , 'Corvair Coupe Speciale (1960, 1962, 1963)', 'Corvair Monza GT (1962)', 'Corvair Monza SS (1962)', 'Corvair Sebring Spyder (1961)', 'Corvair Super Spyder (1962)', 'Chevrolet Testudo (1963)'
+        , 'Corvette (concept) (1953)', 'Corvette C2 (concept) (1962)', 'Corvette Indy (1986)', 'Corvette Nivola (1990)', 'Corvette Stingray (concept) (1959)', 'Corvette Stingray (concept) (2009)'
+        , 'Corvette XP-700 (1958)', 'Corvette XP-819 Rear Engine (1964)', 'Corvette Z03 (2008)', 'Corvette Z06X (2010)', 'Corvette ZR1 (concept) (2008)', 'Corvette ZR2 (1989)'
+        , 'Cruze (concept) (2010)', 'Cruze Eco (concept) (2011)', 'Cruze RS (concept) (2011)', 'GPiX Concept (2008)', 'Equinox Xtreme Concept (2003)', 'E-Spark (2010)', 'Express (1987)'
+        , 'FNR (2015)', 'Groove (2007)', 'Highlander (1993)', 'HHR (concept) (2005)', 'Impala (concept) (1956)', 'Jay Leno Camaro (2009)', 'M3X (2004)', 'Mako Shark (1961)', 'Mako Shark II (1965)'
+        , 'Malibu (concept) (2011)', 'Malibu Maxx (concept) (2003)', 'Chevrolet Miray (2012)', 'Manta Ray (1969)', 'Mulsanne (1974)', 'Nomad (concept) (1954, 1999, 2004)', 'Orlando (concept) (2008)'
+        , 'Colorado Rally Concept (2011)', 'Q-Corvette (1957)', 'Ramarro (1984)', 'Rondine (1963)', 'S3X (2004)', 'Scirocco (1970)', 'Sequel (2005)', 'Silverado 427 Concept (2007)'
+        , 'Silverado Orange County Choppers Hauler Concept (2007)', 'Silverado ZR2 Concept (2010)', 'Sonic (concept) (2010)', 'Sonic Z-Spec Concept (2011)', 'SR-2 (1957)', 'SS (2003)'
+        , 'Suburban 75th Anniversary Diamond Edition (2010)', 'Super Carry (van)[citation needed]', 'Synergy Camaro concept (2009)', 'T2X (2005)', 'Tandem 2000 (1999)', 'Trailblazer SS Concept (2002)'
+        , 'Trax (2007)', 'Triax (2000)', 'Tru 140S (2012), images used for the Chevy Jolt prank[17][18][19]', 'Venture (1988)', 'Volt (concept) (2007)', 'Volt MPV5 Electric Concept (2010)'
+        , 'Wedge Corvette (1963)', 'WTCC ULTRA Concept (2006)', 'XP-882 Four Rotor (1973)', 'XP-895 Reynolds (1973)', 'XP-897GT Two-Rotor (1973)', 'XP-898 (1973)', 'XT-2 (1989)', 'YGM1 (1999)'];
+
+        foreach($Chevrolet as &$model){
+            $term_id5 = DB::table('terms')->insertGetId([
+                'name' => $model,
+                'slug' => 'Chevrolet',
+            ]);
+            DB::table('term_taxonomy')->insert([
+                'term_id' => $term_id5,
+                'taxonomy' => 'Model',
+                'description' => $model,
+                'parent_id' => '20',
+                'count' => 0
+            ]);
+        }
+
+        $Isuzu = ['Isuzu 117 Coupé', 'Isuzu 810', 'Isuzu 4200R', 'Isuzu Amigo', 'Isuzu Ascender', 'Isuzu Aska', 'Isuzu Axiom', 'Isuzu Bellel', 'Isuzu Bellett Gemini', 'Isuzu Bellett', 'Isuzu Trooper'
+        , 'Isuzu C-Series', 'Isuzu Como', 'Isuzu Cubic', 'Isuzu D-Max', 'Isuzu Duogongnengche', 'Isuzu Elf', 'Isuzu Fargo', 'Isuzu Faster', 'Isuzu Florian', 'Isuzu Forward', 'Isuzu Gala Mio'
+        , 'Isuzu Geminett II', 'Isuzu Gemini', 'Isuzu Giga', 'Isuzu Grafter', 'Isuzu H-Series', 'Isuzu Heavy Duty', 'Isuzu Hillman Minx', 'Isuzu Hombre', 'Isuzu I-Mark', 'Isuzu i-Series'
+        , 'Isuzu Impulse', 'Isuzu KB', 'Isuzu LB', 'Isuzu Leopard', 'Isuzu Lingqingka', 'Isuzu MU', 'Isuzu MU-7', 'Isuzu MU-X', 'Isuzu Oasis', 'Isuzu P up', 'Isuzu Panther', 'Isuzu Piazza'
+        , 'Isuzu Pika', 'Isuzu Reach', 'Isuzu Rodeo', 'Isuzu Rodeo Denver', 'Saehan BL064', 'Isuzu Spark', 'Isuzu Statesman De Ville', 'Isuzu Tiejingang', 'Isuzu Traga', 'Isuzu VehiCROSS'
+        , 'Isuzu Wasp', 'Isuzu WFR', 'Isuzu MU Wizard', 'Isuzu Wizard', 'Template:Isuzu cars timeline 1950–1979', 'Template:Isuzu modern timeline', 'Template:Isuzu United States'];
+
+        foreach($Isuzu as &$model){
+            $term_id5 = DB::table('terms')->insertGetId([
+                'name' => $model,
+                'slug' => 'Isuzu',
+            ]);
+            DB::table('term_taxonomy')->insert([
+                'term_id' => $term_id5,
+                'taxonomy' => 'Model',
+                'description' => $model,
+                'parent_id' => '20',
+                'count' => 0
+            ]);
+        }
+
+        $Acura = ['Acura CL-X', 'Acura ARX-01', 'Acura ARX-02a', 'Acura CDX', 'Acura CL', 'Acura CSX', 'Acura EL', 'Acura ILX', 'Acura Integra', 'Acura Legend', 'Acura MDX', 'Acura NSX'
+        , 'Acura RDX', 'Acura RL', 'Acura RLX', 'Acura RSX', 'Acura SLX', 'Acura TL', 'Acura TLX', 'Acura TSX', 'Acura Vigor', 'Acura ZDX', 'Template:Acura'];
+
+        foreach($Acura as &$model){
+            $term_id5 = DB::table('terms')->insertGetId([
+                'name' => $model,
+                'slug' => 'Acura',
+            ]);
+            DB::table('term_taxonomy')->insert([
+                'term_id' => $term_id5,
+                'taxonomy' => 'Model',
+                'description' => $model,
+                'parent_id' => '20',
+                'count' => 0
+            ]);
+        }
+
+        $Acura = ['Porsche 356 (1948–1965)', 'Porsche 550 (1953–1957)', 'Porsche 718 (1957–1962)', 'Porsche 904 (1963–1965)', 'Porsche 906 (1965–1966)', 'Porsche 911 (1963–present)'
+        , 'Porsche 912 (1965–1969, 1976)', 'Porsche 914 (1969–1976)', 'Porsche 924 (1976–1988)', 'Porsche 928 (1977–1995)', 'Porsche 930 (1974–1989)', 'Porsche 944 (1981–1991)'
+        , 'Porsche 959 (1986–1988, 1992–1993)', 'Porsche 968 (1992–1995)', 'Porsche Boxster (1996–present)', 'Porsche Cayenne (2002–present)', 'Porsche Carrera GT (2003–2007)'
+        , 'Porsche Cayman (2005–present)', 'Porsche Panamera (2009–present)', 'Porsche 918 Spyder (2013–2015)', 'Porsche Macan (2014–present)', 'Porsche Taycan (2019–present)'];
+
+        foreach($Acura as &$model){
+            $term_id5 = DB::table('terms')->insertGetId([
+                'name' => $model,
+                'slug' => 'Acura',
+            ]);
+            DB::table('term_taxonomy')->insert([
+                'term_id' => $term_id5,
+                'taxonomy' => 'Model',
+                'description' => $model,
+                'parent_id' => '20',
+                'count' => 0
+            ]);
+        }
+
+        $Tesla = ['Tesla Model S', 'Tesla Model S (40 kW-hr battery pack)', 'Tesla Model S AWD (85 kW-hr battery pack)', 'Tesla Model 3 Long Range', 'Tesla Model 3 Long Range AWD'
+        , 'Tesla Model 3 Long Range AWD Performance', 'Tesla Model 3 Long Range AWD', 'Tesla Model 3 Long Range AWD Performance', 'Tesla Model 3 Mid Range'
+        , 'Tesla Model 3 Standard Range', 'Tesla Model 3 Standard Range Plus', 'Tesla Model S (60 kW-hr battery pack)', 'Tesla Model S (70 kW-hr battery pack)'
+        , 'Tesla Model S (75 kW-hr battery pack)', 'Tesla Model S (85 kW-hr battery pack)', 'Tesla Model S (90 kW-hr battery pack)', 'Tesla Model S 100D'
+        , 'Tesla Model S 75D', 'Tesla Model S 75kWh', 'Tesla Model S AWD - 100D', 'Tesla Model S AWD - 60D', 'Tesla Model S AWD - 70D', 'Tesla Model S AWD - 75D'
+        , 'Tesla Model S AWD - 85D', 'Tesla Model S AWD - 90D', 'Tesla Model S AWD - P100D', 'Tesla Model S AWD - P85D', 'Tesla Model S AWD - P90D', 'Tesla Model S Long Range'
+        , 'Tesla Model S P100D', 'Tesla Model S Performance (19in Wheels)', 'Tesla Model S Performance (21in Wheels)', 'Tesla Model S Standard Range', 'Tesla Model X 100D'
+        , 'Tesla Model X 75D', 'Tesla Model X AWD - 100D', 'Tesla Model X AWD - 60D', 'Tesla Model X AWD - 75D', 'Tesla Model X AWD - 90D', 'Tesla Model X AWD - P100D'
+        , 'Tesla Model X AWD - P90D', 'Tesla Model X Long Range', 'Tesla Model X P100D', 'Tesla Model X Performance (22in Wheels)'];
+
+        foreach($Tesla as &$model){
+            $term_id5 = DB::table('terms')->insertGetId([
+                'name' => $model,
+                'slug' => 'Tesla',
+            ]);
+            DB::table('term_taxonomy')->insert([
+                'term_id' => $term_id5,
+                'taxonomy' => 'Model',
+                'description' => $model,
+                'parent_id' => '20',
+                'count' => 0
+            ]);
+        }
+
+        $Volvo = ['S60/V60', 'XC40', 'XC60', '	S90/V90', 'XC90', 'XC Classic', 'V40', 'S60/V60', 'XC60', 'V70/XC70', 'S80', 'C70', 'C30', 'S40/V50', 'XC90', 'V70/XC70', 
+        'S60', 'S80', 'C70', 'S90/V90', 'S70/V70', 'S40/V40', '850', '940/960', '440/460', '780', '480', '740/760', '262C'
+        , '340/360', '66', '240/260'];
+
+        foreach($Volvo as &$model){
+            $term_id5 = DB::table('terms')->insertGetId([
+                'name' => $model,
+                'slug' => 'Volvo',
+            ]);
+            DB::table('term_taxonomy')->insert([
+                'term_id' => $term_id5,
+                'taxonomy' => 'Model',
+                'description' => $model,
+                'parent_id' => '20',
+                'count' => 0
+            ]);
+        }
+
         /* Model Table END */
     }
 }
 
 
+'Chevrolet', 'isuzu', 'Acura', 'Porsche', 'Tesla', 'Volvo', 'Mitsuoka', 'Eunos', 'CT T',
+        , 'AM General', 'Alfa Romeo', 'Aston Martin', 'Bentley', 'Bugatti', 'Buick', 'Cadillac', 'Chrysler', 'Eagle', 'Jaguar', 'Lamborghini', 'Lincoln', 'Lotus', 'Maserati'
+        , 'Maybach', 'McLaren', 'Panoz', 'Ram', 'Rolls-Royce', 'Saab', 'Scion', 'Smart', 'Spyker'
+
+
+1996–present Galue
+2008–present Himiko
+2014–present Ryugi (based on the Toyota Corolla Axio and Toyota Corolla Fielder)
+1993–present Viewt
+2010–present Like-T3
+2018–present Rock Star (Chevrolet Corvette C2 inspiration based on the Mazda MX-5)
+1982 BUBU 50 Series (a series of three-wheeled microcars)[3]
+1989-1990 BUBU 356 Speedstar[4] (a copy of the Porsche 356 Speedster)
+1987 BUBU Classic SSK (copy of the Mercedes-Benz SSK roadster based on the Volkswagen Beetle)
+2008-2012 Galue 204 (based on the Toyota Corolla Axio)
+2010-2012 Galue Classic
+1991 Dore (similar to the Le-Seyde, based on the Ford Mustang)
+1990, 2000 Le-Seyde (a Nissan Silvia-based coupé in the spirit of the Zimmer)
+2010-2012 Like (based on the Mitsubishi i-MiEV)
+1998-2007 Mitsuoka Microcar
+1998-2007 Microcar K-1/MC-1
+1999-2007 MC-1T
+1998-? Microcar K-2 (based on the design of the FMR Tg500)
+2005-? Microcar K-3/Type F (design similar to the Zero1)
+2006-? Microcar K-4/Type R[5] (styling reminiscent of 1950s race cars)
+1999-2007 ME-1
+2002-2007 ME-2 (Convoy 88)
+2004-2012 Nouera (based on the Honda Accord and later the Toyota Corolla)
+2007-2014 Orochi (based on the Honda NSX)
+1996-2004 Ray (styling similar to the Riley Elf Mk.3, based on the Mazda Carol and later the Daihatsu Mira Gino)
+1998-2004 Ryoga a "classically" styled sedan originally based on the Primera and later on the smaller Sunny
+1996-2000 Type F (a restyled Zero1)
+2000-2001 Yuga (a London Taxi copy based on the Nissan Cube)
+1994-2000 Zero1[6] (a Lotus Super Seven copy with Eunos Roadster drivetrain)
