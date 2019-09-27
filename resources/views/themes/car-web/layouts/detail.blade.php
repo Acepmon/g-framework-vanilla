@@ -86,7 +86,7 @@
         @include('themes.car-web.includes.section-retail', ['content' => $content])
 
         <!-- Hot deals -->
-        @include('themes.car-web.includes.section-hot-deal', ['contents' => \App\Content::getByMetas('is_hot', true)])
+        @include('themes.car-web.includes.section-slider', array('title'=>'Hot Deals', 'contents'=> \App\Content::getByMetas('publishType', 'premium|best_premium', 'in'), 'morelink'=> url('/search?best_premium=true&premium=true')))
 
         <!-- Similar Price -->
         @include('themes.car-web.includes.section-similar-price', ['contents' => \App\Content::getByMetas('similar', true)])

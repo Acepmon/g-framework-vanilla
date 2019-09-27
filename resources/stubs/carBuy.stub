@@ -49,10 +49,10 @@ $items = metaHas($items, $key, $value);
 
 function getPremiumDeal($type, $now) {
   $deals = App\Content::where('type', App\Content::TYPE_CAR)->where('status', App\Content::STATUS_PUBLISHED)->where('visibility', App\Content::VISIBILITY_PUBLIC);
-  $deals = metaHas($deals, 'publish_type', $type);
-  $deals = metaHas($deals, 'publish_verified', True);
+  $deals = metaHas($deals, 'publishType', $type);
+  $deals = metaHas($deals, 'publishVerified', True);
   return $deals->whereHas('metas', function ($query) use ($now) {
-    $query->where([['key', 'publish_verified_end'],['value','>=',$now]]);
+    $query->where([['key', 'publishVerified_end'],['value','>=',$now]]);
   });
 }
 
