@@ -114,7 +114,7 @@ Car dealer
 
 <div class="bg-page-header"></div>
 
-<section class="section detail-page">
+<section class="section body-section detail-page">
   <div class="container">
     @include('themes.car-web.includes.fixed-right-sidebar', array('sideBanners'=>$sideBanners, 'premium'=>$hotDeals))
     <div class="row">

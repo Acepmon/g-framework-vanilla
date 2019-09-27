@@ -1303,6 +1303,14 @@ select {
   color: #2B3651;
 }
 
+.detail-page .dealer-information .dealer-more {
+  width: calc(100%/3);
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  flex-direction: column;
+}
+
 .detail-page .dealer-information .dealer-more .value {
   width: 70px;
   height: 70px;
@@ -1314,6 +1322,15 @@ select {
   font-weight: 600;
   font-size: 1.25rem;
   position: relative;
+}
+
+.detail-page .dealer-information .dealer-more .value img {
+  width: 30px;
+  position: absolute;
+  display: block;
+  top: 50%;
+  transform-origin: center, center;
+  transform: translateY(-50%);
 }
 
 .detail-page .dealer-information .dealer-more .value i {
@@ -1331,13 +1348,20 @@ select {
   top: 50%;
   transform-origin: center center;
   transform: translateY(-50%);
+  font-weight: 700;
 }
 
 .detail-page .dealer-information .dealer-more .title {
   margin-top: 10px;
-  font-size: 1rem;
+  font-size: .8rem;
   font-weight: 600;
   text-align: center;
+  line-height: 1.2rem;
+  text-transform: uppercase;
+}
+
+.detail-page .dealer-information .dealer-more .title span {
+  font-weight: 700;
 }
 
 .detail-page .detail-section-title {
@@ -1410,6 +1434,7 @@ select {
   text-align: left;
   margin-left: 10px;
   margin-bottom: 0;
+  font-weight: 600;
 }
 
 .detail-page .detail-basic-information .info-list ul li span.color {
@@ -1820,7 +1845,7 @@ select {
 }
 
 .navbar {
-  position: relative;
+  position: absolute;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -1830,6 +1855,7 @@ select {
   transition: all 350ms ease;
   transform: translateY(0%);
   z-index: 1030;
+  top: 0;
   left: 0;
   right: 0;
   background: transparent;
@@ -1850,6 +1876,7 @@ select {
   transform: translateY(0);
   padding: 1rem 0;
   box-shadow: 0 5px 10px 0 rgba(43, 54, 81, 0.1) !important;
+  z-index: 99999;
 }
 
 .navbar-brand {
@@ -1984,6 +2011,10 @@ select {
   top: 0;
   left: 0;
   opacity: 0.3;
+}
+
+section.body-section {
+  margin-top: 10rem;
 }
 
 section .section-title {
