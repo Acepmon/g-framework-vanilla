@@ -62,6 +62,7 @@ class CarContentsTableSeeder extends Seeder
                 new ContentMeta(['key' => 'type', 'value' => 'Sedan']),
                 new ContentMeta(['key' => 'className', 'value' => 'luxury']),
                 new ContentMeta(['key' => 'manCount', 'value' => '4']),
+
                 new ContentMeta(['key' => 'weightAmount', 'value' => '1200']),
                 new ContentMeta(['key' => 'weightUnit', 'value' => 'kg']),
                 new ContentMeta(['key' => 'massAmount', 'value' => '1200']),
@@ -89,7 +90,7 @@ class CarContentsTableSeeder extends Seeder
                 new ContentMeta(['key' => 'archiveNumber', 'value' => 'A598WDY987']),
                 new ContentMeta(['key' => 'carCondition', 'value' => 'used']),
                 new ContentMeta(['key' => 'wheelDrive', 'value' => 'back']),
-                new ContentMeta(['key' => 'mileage', 'value' => '5000km']),
+                new ContentMeta(['key' => 'mileage', 'value' => '5000 km']),
                 new ContentMeta(['key' => 'advantages', 'value' => 'used in womans hand']),
                 new ContentMeta(['key' => 'priceAmount', 'value' => '10000000']),
                 new ContentMeta(['key' => 'priceUnit', 'value' => 'tugrug']),
