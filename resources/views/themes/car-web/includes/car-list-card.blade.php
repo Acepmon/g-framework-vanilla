@@ -2,7 +2,7 @@
 <div class="card" onclick="window.open('{{ $car->slug }}','_blank');" style="cursor: pointer">
     <div class="card-body">
         <div class="card-img">
-            @if($car->metaValue('publish_type') == 'best_premium' || $car->metaValue('publish_type') == 'premium')
+            @if($car->metaValue('publishType') == 'best_premium' || $car->metaValue('publishType') == 'premium')
             <div class="premium-tag shadow-soft-blue"><img src="{{ asset('car-web/img/icons/corona.svg') }}" alt=""></div>
             @endif
             <a href="{{ $car->slug }}">
@@ -14,9 +14,15 @@
                 <div class="card-title"><a href="{{ $car->slug }}" style="color: inherit">{{ $car->title }}</a></div>
                 <div class="meta">{{ $car->metaValue('buildYear') }}/{{ $car->metaValue('importDate') }} | {{ $car->metaValue('mileage') }}km</div>
                 <div class="price">{{ $car->metaValue('price') }} ₮</div>
-                <div class="favorite">
-                    <i class="icon-heart"></i> Add to interest list
+                @if($car->metaValue('interset'))
+                <div class="favorite" onclick="addToInterest(event, '{{$car->slug}}')">
+                    <span class="text-danger"><i class="fas fa-heart"></i> Added to interest list</span>
                 </div>
+                @else
+                <div class="favorite" onclick="addToInterest(event, '{{$car->slug}}')">
+                    <span class=""><i class="far fa-heart"></i> Add to interest list</span>
+                </div>
+                @endif
             </div>
             <div class="info">
                 <span class="info-icon">

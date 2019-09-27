@@ -29,21 +29,20 @@
                 <input id="username" type="text" class="form-control @error('username') is-invalid @enderror" name="username" placeholder="Username" value="{{ old('username') }}" required autocomplete="username" autofocus>
                 @error('username')
                 <span class="invalid-feedback validation-error-label" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
+                    <strong>{{ $message }}</strong>
+                </span>
                 @enderror
                 <div class="form-control-feedback">
                     <i class="icon-user-check text-muted"></i>
                 </div>
-                <!--span class="help-block text-danger"><i class="icon-cancel-circle2 position-left"></i> This username is already taken</span-->
             </div>
 
             <div class="form-group form-group-feedback form-group-feedback-left">
                 <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" placeholder="Create password" name="password" value="{{ old('password') }}" required autocomplete="password" autofocus>
                 @error('password')
                 <span class="invalid-feedback validation-error-label" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
+                    <strong>{{ $message }}</strong>
+                </span>
                 @enderror
                 <div class="form-control-feedback">
                     <i class="icon-user-lock text-muted"></i>
@@ -62,8 +61,8 @@
                 <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" placeholder="Your email" name="email" value="{{ old('email') }}" required autocomplete="email">
                 @error('email')
                 <span class="invalid-feedback validation-error-label" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
+                    <strong>{{ $message }}</strong>
+                </span>
                 @enderror
                 <div class="form-control-feedback">
                     <i class="icon-mention text-muted"></i>
@@ -74,8 +73,8 @@
                 <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" placeholder="Name" value="{{ old('name') }}" autocomplete="name" autofocus>
                 @error('name')
                 <span class="invalid-feedback validation-error-label" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
+                    <strong>{{ $message }}</strong>
+                </span>
                 @enderror
                 <div class="form-control-feedback">
                     <i class="icon-user-check text-muted"></i>
@@ -113,10 +112,24 @@
                 </div>
             </div> --}}
 
-            <button type="submit" class="btn bg-teal btn-block btn-lg">Register</button>
-            <a href="{{ route('login') }}" class="btn btn-default btn-block">Back to Login</a>
-            <a href="{{ route('login.provider', 'google') }}" class="btn btn-default btn-block">Google Login</a>
-            <a href="{{ route('login.provider', 'facebook') }}" class="btn btn-default btn-block">Facebook Login</a>
+            <div class="form-group">
+                <button type="submit" class="btn bg-teal btn-block btn-lg">Register</button>
+            </div>
+
+            <div class="form-group text-center text-muted content-divider">
+                <span class="px-2">or register with</span>
+            </div>
+
+            <div class="form-group text-center">
+                <a href="{{ route('login.provider', 'facebook') }}" class="btn btn-outline bg-indigo border-indigo text-indigo btn-icon rounded-round border-2"><i class="icon-facebook"></i></a>
+                <a href="{{ route('login.provider', 'google') }}" class="btn btn-outline bg-pink-300 border-pink-300 text-pink-300 btn-icon rounded-round border-2 ml-2"><i class="icon-google"></i></a>
+            </div>
+
+            <div class="form-group text-center text-muted content-divider">
+                <span class="px-2">Already have an account?</span>
+            </div>
+
+            <a href="{{ route('login') }}" class="btn btn-light btn-block">Back to Login</a>
         </div>
     </form>
     <!-- /advanced login -->

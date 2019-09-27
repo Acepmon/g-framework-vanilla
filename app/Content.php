@@ -45,7 +45,13 @@ class Content extends Model
     {
         return self::whereHas('metas', function ($query) use ($key, $value, $operator) {
             $query->where('key', $key);
-            $query->where('value', $operator, $value);
+            if ($operator == 'in') {
+                $query->whereIn('value', explode('|', $value));
+            } else if ($operator == 'not in') {
+                $query->whereNotIn('value', explode('|', $value));
+            } else {
+                $query->where('value', $operator, $value);
+            }
         })->get();
     }
 
@@ -87,10 +93,20 @@ class Content extends Model
 
     public function currentView()
     {
-        $time = $this->metas->whereIn('key', ['initial', 'revision', 'revert'])->sortByDesc('id')->first()->value;
-        $time = json_decode($time)->datetime;
-        $name = ($this->slug == '/' || $this->slug == '') ? 'root' : $this->slug;
-        return $name . self::NAMING_CONVENTION . $this->status . self::NAMING_CONVENTION . $time;
+        $slug = $this->slug;
+        if (\Str::contains($slug, '/') && $slug != '/') {
+            $slug = explode('/', $slug)[0];
+            $container = self::where('slug', $slug)->firstOrFail();
+            $time = $container->metas->whereIn('key', ['initial', 'revision', 'revert'])->sortByDesc('id')->first()->value;
+            $time = json_decode($time)->datetime;
+            $name = ($slug == '/' || $slug == '') ? 'root' : $slug;
+            return $name . self::NAMING_CONVENTION . $container->status . self::NAMING_CONVENTION . $time;
+        } else {
+            $time = $this->metas->whereIn('key', ['initial', 'revision', 'revert'])->sortByDesc('id')->first()->value;
+            $time = json_decode($time)->datetime;
+            $name = ($slug == '/' || $slug == '') ? 'root' : $slug;
+            return $name . self::NAMING_CONVENTION . $this->status . self::NAMING_CONVENTION . $time;
+        }
     }
 
     public function attachMeta($key, $value)
@@ -142,6 +158,42 @@ class Content extends Model
         }
         return Null;
     }
+
+    public function setMetaValue($key, $value) {
+        try {
+            $meta = $this->metas->where('key', $key)->first();
+            if (isset($meta)) {
+                $meta->value = $value;
+                $meta->save();
+                return $meta;
+            } else {
+                $newMeta = new UserMeta();
+                $newMeta->user_id = $this->user_id;
+                $newMeta->key = $key;
+                $newMeta->value = $value;
+                $newMeta->save();
+                return $newMeta;
+            }
+        } catch (\Exception $ex) {
+            return Null;
+        }
+        return Null;
+    }
+
+    public function attachMetaArray($key, $value) {
+        try {
+            $newMeta = new UserMeta();
+            $newMeta->user_id = $this->user_id;
+            $newMeta->key = $key;
+            $newMeta->value = $value;
+            $newMeta->save();
+            return $newMeta;
+        } catch (\Exception $ex) {
+            return Null;
+        }
+        return Null;
+    }
+
     public function metaArray($key) {
         try {
             $meta = $this->metas->where('key', $key);

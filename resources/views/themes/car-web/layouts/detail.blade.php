@@ -61,10 +61,8 @@
                             </div>
                             <div class="col-md-12 px-5">
                                 <a class="btn btn-danger btn-round btn-block my-4 shadow-red p-3" href="#section-finance">Зээлийн боломжийг шалгах</a>
-                                <a class="btn btn-light btn-round btn-block my-4 shadow-soft-blue p-3 btn-icon-left" href="#">
-                                    <i class="icon-heart"></i>
-                                    Save to interested
-                                </a>
+
+                                @include('themes.car-web.includes.save-to-interested-btn', ['content' => $content])
                             </div>
                         </div>
                     </div>
@@ -88,7 +86,7 @@
         @include('themes.car-web.includes.section-retail', ['content' => $content])
 
         <!-- Hot deals -->
-        @include('themes.car-web.includes.section-hot-deal', ['contents' => \App\Content::getByMetas('is_hot', true)])
+        @include('themes.car-web.includes.section-slider', array('title'=>'Hot Deals', 'contents'=> \App\Content::getByMetas('publishType', 'premium|best_premium', 'in'), 'morelink'=> url('/search?best_premium=true&premium=true')))
 
         <!-- Similar Price -->
         @include('themes.car-web.includes.section-similar-price', ['contents' => \App\Content::getByMetas('similar', true)])
@@ -105,6 +103,8 @@
         <script src="{{ asset('car-web/js/script.js') }}"></script>
 
         @yield('script')
+
+        @stack('scripts')
     </body>
 
 </html>

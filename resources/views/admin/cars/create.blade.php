@@ -16,7 +16,6 @@
 <script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/plugins/forms/styling/switch.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/demo_pages/form_validation.js') }}"></script>
 
-
 <script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/plugins/ui/moment/moment.min.js')}}"></script>
 <script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/plugins/pickers/anytime.min.js')}}"></script>
 <script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/plugins/pickers/daterangepicker.js') }}"></script>
@@ -25,12 +24,14 @@
 <script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/plugins/pickers/pickadate/picker.time.js')}}"></script>
 <script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/plugins/pickers/pickadate/legacy.js')}}"></script>
 <script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/plugins/media/cropper.min.js') }}"></script>
+
+<script type="text/javascript" src="{{ asset('limitless/bootstrap3/js/core/libraries/jquery_ui/touch.min.js') }}"></script>
 @endsection
 
 @section('pageheader')
 <div class="page-header-content header-elements-inline">
     <div class="page-title d-flex">
-        <h4><i class="icon-arrow-left52 ml-2"></i> <span class="font-weight-semibold">Create Car</h4>
+        <h4><i class="icon-arrow-left52 ml-2"></i> <span class="font-weight-semibold">Create Car</span></h4>
     </div>
 
     <div class="header-elements">
@@ -424,90 +425,21 @@
                         <div class="col-lg-10" id="image-container"></div>
                     </div>
 
-                    <div class="form-group row">
+                    <div class="row">
                         <div class="col-lg-6">
                             <h4>Car Option</h4>
-                            <div class="form-group row">
-                                <div class="accordion shadow-soft-blue" id="accordionExample" style="width: 100%">
-                                    <div class="card">
-                                        <div class="accordian-head" id="guts-accordian">
-                                            <h2 class="mb-0">
-                                            <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#guts" aria-expanded="false" aria-controls="guts">
-                                                Guts <i class="fab fa fa-angle-down"></i>
-                                            </button>
-                                            </h2>
-                                        </div>
-                                        <div id="guts" class="collapse" aria-labelledby="guts-accordian" data-parent="#accordionExample">
-                                            <div class="card-body bg-light">
+                            <div class="row">
+
+                                <div class="panel-group panel-group-control panel-group-control-right content-group-lg" id="accordion-control-right">
+                                    <div class="panel panel-white">
+                                        <div class="panel-heading">
+                                            <h6 class="mb-0">
+                                            <a data-toggle="collapse" data-parent="#accordion-control-right" href="#accordion-control-right-group1">Accordion Item #1</a>
+										    </h6>
+									    </div>
+									    <div id="accordion-control-right-group1" class="panel-collapse collapse in">
+										    <div class="panel-body">
                                                 @foreach(App\Term::where('slug', 'Guts')->get() as $term)
-                                                <div class="custom-control custom-checkbox">
-                                                    <input type="checkbox" id="sedan" name="options" class="custom-control-input">
-                                                    <label class="custom-control-label  d-flex justify-content-between" for="sedan">{{ $term->name }}</label>
-                                                </div>
-                                                @endforeach
-                                            </div>
-                                        </div>
-                                        <div class="accordian-head" id="safety-accordian">
-                                            <h2 class="mb-0">
-                                            <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#safety" aria-expanded="false" aria-controls="safety">
-                                                Safety <i class="fab fa fa-angle-down"></i>
-                                            </button>
-                                            </h2>
-                                        </div>
-                                        <div id="safety" class="collapse" aria-labelledby="safety-accordian" data-parent="#accordionExample">
-                                            <div class="card-body bg-light">
-                                                @foreach(App\Term::where('slug', 'Safety')->get() as $term)
-                                                <div class="custom-control custom-checkbox">
-                                                    <input type="checkbox" id="sedan" name="options" class="custom-control-input">
-                                                    <label class="custom-control-label  d-flex justify-content-between" for="sedan">{{ $term->name }}</label>
-                                                </div>
-                                                @endforeach
-                                            </div>
-                                        </div>
-                                        <div class="accordian-head" id="exterior-accordian">
-                                            <h2 class="mb-0">
-                                            <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#exterior" aria-expanded="false" aria-controls="exterior">
-                                                Exterior <i class="fab fa fa-angle-down"></i>
-                                            </button>
-                                            </h2>
-                                        </div>
-                                        <div id="exterior" class="collapse" aria-labelledby="exterior-accordian" data-parent="#accordionExample">
-                                            <div class="card-body bg-light">
-                                                @foreach(App\Term::where('slug', 'Exterior')->get() as $term)
-                                                <div class="custom-control custom-checkbox">
-                                                    <input type="checkbox" id="sedan" name="options" class="custom-control-input">
-                                                    <label class="custom-control-label  d-flex justify-content-between" for="sedan">{{ $term->name }}</label>
-                                                </div>
-                                                @endforeach
-                                            </div>
-                                        </div>
-                                        <div class="accordian-head" id="convenience-accordian">
-                                            <h2 class="mb-0">
-                                            <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#convenience" aria-expanded="false" aria-controls="convenience">
-                                            Convenience <i class="fab fa fa-angle-down"></i>
-                                            </button>
-                                            </h2>
-                                        </div>
-                                        <div id="convenience" class="collapse" aria-labelledby="convenience-accordian" data-parent="#accordionExample">
-                                            <div class="card-body bg-light">
-                                                @foreach(App\Term::where('slug', 'Convenience')->get() as $term)
-                                                <div class="custom-control custom-checkbox">
-                                                    <input type="checkbox" id="sedan" name="options" class="custom-control-input">
-                                                    <label class="custom-control-label  d-flex justify-content-between" for="sedan">{{ $term->name }}</label>
-                                                </div>
-                                                @endforeach
-                                            </div>
-                                        </div>
-                                        <div class="accordian-head" id="clean-accordian">
-                                            <h2 class="mb-0">
-                                            <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#clean" aria-expanded="false" aria-controls="clean">
-                                            Clean <i class="fab fa fa-angle-down"></i>
-                                            </button>
-                                            </h2>
-                                        </div>
-                                        <div id="clean" class="collapse" aria-labelledby="clean-accordian" data-parent="#accordionExample">
-                                            <div class="card-body bg-light">
-                                                @foreach(App\Term::where('slug', 'Clean')->get() as $term)
                                                 <div class="custom-control custom-checkbox">
                                                     <input type="checkbox" id="sedan" name="options" class="custom-control-input">
                                                     <label class="custom-control-label  d-flex justify-content-between" for="sedan">{{ $term->name }}</label>

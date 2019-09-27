@@ -1,11 +1,11 @@
 .btn-round{
   border-radius: 100px;
-  padding-left: $spacer * 3;
-  padding-right: $spacer * 3;
   position: relative;
 }
 
 .btn{
+  font-family: $segoe;
+  font-weight: 600;
   &.btn-icon-left  {
     transition: all .3s ease;
 
@@ -14,6 +14,17 @@
     left: 20px;
     top: 50%;
     transform: translateY(-50%);
+  }
+
+  svg{
+    position: relative;
+    margin-right: 15px;
+    left: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 15px;
+    height: 15px;
+    float: left;
   }
   }
 
@@ -37,6 +48,14 @@
     background-color: $white;
     border-color: none;
   }
+  &.btn-light {
+    color: $secondary;
+    background-color: $gray-200;
+    border-color: $gray-200;
+    &:hover{
+      background-color: $gray-300;
+    }
+  }
   
   &.btn-danger {
     color: #fff;
@@ -48,5 +67,14 @@
     color: #fff;
     background-color: $primary;
     border-color: $primary;
+  }
+  &.btn-facebook{
+    color: #fff;
+    background-color: #29487d;
+    border-color: #29487d;
+
+    &:hover{
+      background-color: #3c5898;
+    }
   }
 }

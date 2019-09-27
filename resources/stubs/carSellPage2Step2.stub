@@ -1,0 +1,123 @@
+<form class="vehicle-sell">
+    <div class="form-title"><span>Upload images </span></div>
+    <div class="form-group row">
+
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
+            </div>
+            <div class="custom-file">
+                <input type="file" class="custom-file-input" id="media" invalid="true" onchange="previewMedia(this, 'image-container')" multiple aria-describedby="inputGroupFileAddon01">
+                <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+            </div>
+        </div>
+
+        {{--<label for="medias" class="col-form-label col-lg-2">Images</label>--}}
+        {{--<div class="col-lg-10">--}}
+            {{--<div class="uniform-uploader">--}}
+                {{--<input id="media" type="file" name="medias[]" class="form-control-uniform" invalid="true" onchange="previewMedia(this, 'image-container')" multiple data-fouc="">--}}
+                {{--<span class="filename" style="user-select: none;">No file selected</span>--}}
+                {{--<span class="action btn btn-light" style="user-select: none;">Choose File</span>--}}
+            {{--</div>--}}
+        {{--</div>--}}
+    </div>
+    <div class="row">
+        <div class="col-lg-10" id="image-container"></div>
+    </div>
+</form>
+<div class="modal fade docs-cropped" id="getCroppedCanvasModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h6 class="modal-title" id="getCroppedCanvasTitle">Crop your image</h6>
+            </div>
+            <div class="modal-body" id="cropBody">
+                <div class="img-cropper-container" class="col-lg-12">
+                    <img id="cropImage" class="croppable">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="cropImage()">Done</button>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+
+</style>
+
+<script type="text/javascript">
+
+    function cropImage() {
+        var cropData = [];
+        var container;
+        $("#cropBody img").each(function() {
+            var image = $(this);
+
+            container = image.attr('alt');
+            var cropped = image.cropper('getCroppedCanvas', {});
+
+            if (cropped) {
+                if (container == 'thumbnail-container') {
+                    $("#" + container).empty();
+                    $("#thumbnailCrop").val(JSON.stringify(image.cropper('getData')));
+                } else {
+                    cropData.push(image.cropper('getData'));
+                }
+                $("#" + container).append(' \
+                    <div class="col-lg-4 col-md-6 col-sm-12 mb-10"> \
+                        <img src="'+cropped.toDataURL('image/jpeg')+'" class="col-lg-12"> \
+                    </div>');
+
+                image.attr('src', '');
+            }
+        });
+        if (container != 'thumbnail-container') {
+            $("#imagesCrop").val(JSON.stringify(cropData));
+        }
+    }
+
+    function previewMedia(input, container) {
+        $("#cropBody").empty();
+        $(input.files).each(function(index, value) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $("#cropBody").append(' \
+                    <div class="image-cropper-container" class="col-lg-12""> \
+                        <img src="'+e.target.result+'" id="cropImage'+index+'" class="col-lg-12">\
+                    </div>');
+
+                $("#cropImage"+index).attr('src', e.target.result);
+                $("#cropImage"+index).attr('alt', container);
+                $('#cropImage'+index).cropper({
+                    dragMode: 'move',
+                    aspectRatio: 16 / 9,
+                    autoCropArea: 0.8,
+                    restore: false,
+                    guides: false,
+                    center: true,
+                    highlight: false,
+                    cropBoxMovable: false,
+                    cropBoxResizable: false,
+                    toggleDragModeOnDblclick: false,
+                });
+
+                $("#getCroppedCanvasModal").modal('show');
+            };
+            reader.readAsDataURL(value);
+        });
+    }
+
+    function embedLink(input) {
+        var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+        var match = input.value.match(regExp);
+
+        if (match && match[2].length == 11) {
+            $("#video-container").empty().append(' \
+            <iframe width="560" height="315" src="//www.youtube.com/embed/' + match[2]
+                +'" frameborder="0" allowfullscreen></iframe>');
+        }
+    }
+</script>

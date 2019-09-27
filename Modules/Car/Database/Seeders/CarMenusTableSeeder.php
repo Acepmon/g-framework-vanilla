@@ -23,10 +23,13 @@ class CarMenusTableSeeder extends Seeder
 
         $adminMenus = [
             // Car Management
-            ['Cars', '/admin/cars', 'icon-car', 'Car'],
-            ['Specials', '/admin/cars/specials', 'icon-fire', 'Car'],
-            ['Car Options', '/admin/cars/options', 'icon-cog', 'Car'],
             ['Add Car', '/admin/cars/create', 'icon-plus3', 'Car'],
+            ['Cars', '/admin/cars', 'icon-car', 'Car', [
+                ['Best Premium', '/admin/cars/best_premium', '', 'Car'],
+                ['Premium', '/admin/cars/premium', '', 'Car'],
+                ['Free', '/admin/cars/free', '', 'Car']
+            ]],
+            ['Car Options', '/admin/cars/options', 'icon-cog', 'Car'],
         ];
         $carMainMenus = ['Car Main', '', '', 'Car', [
             ['Home', '/', '', 'Car'],
@@ -38,8 +41,7 @@ class CarMenusTableSeeder extends Seeder
         $carTopbarMenus = ['Car Topbar', '', '', 'Car', [
             ['About', '/about-us', '', 'Car'],
             ['Contact Us', '/contact-us', '', 'Car'],
-            ['Write wanna buy', '/wanna-buy', '', 'Car'],
-            ['Sign Up', '/register', '', 'Car']
+            ['Write wanna buy', '/wanna-buy', '', 'Car']
         ]];
         $carFooterMenus = ['Car Footer', '', '', 'Car', [
             ['About', '/about-us', '', 'Car'],
