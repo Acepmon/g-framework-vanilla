@@ -2,14 +2,12 @@
 
 namespace Modules\Car\Database\Seeders;
 
-use Illuminate\Database\Seeder;
-use Illuminate\Database\Eloquent\Model;
-
-use DB;
 use App\Content;
 use App\ContentMeta;
-use App\User;
 use App\Group;
+use App\User;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Seeder;
 
 class CarContentsTableSeeder extends Seeder
 {
@@ -25,7 +23,7 @@ class CarContentsTableSeeder extends Seeder
         $time = time();
         $rootPath = config('content.cars.rootPath');
 
-        factory(Content::class, 50)->create(['type' => Content::TYPE_CAR])->each(function ($content) use($time, $rootPath) {
+        factory(Content::class, 50)->create(['type' => Content::TYPE_CAR])->each(function ($content) use ($time, $rootPath) {
 
             $content->slug = config('content.cars.containerPage') . '/' . $content->slug;
             $content->save();
@@ -46,7 +44,7 @@ class CarContentsTableSeeder extends Seeder
             $thumbnail = $lorempixelUrl . '/' . $thumbWidth . '/' . $thumbHeight . '/' . $lorempixelType . '/?=' . rand(1, 50000);
             $medias = [];
             $mediasLimit = rand(1, 20);
-            for ($i=0; $i < $mediasLimit; $i++) {
+            for ($i = 0; $i < $mediasLimit; $i++) {
                 $media = $lorempixelUrl . '/' . $mediaWidth . '/' . $mediaHeight . '/' . $lorempixelType . '/?=' . rand(1, 50000);
                 $meta = new ContentMeta(['key' => 'medias', 'value' => $media]);
                 array_push($medias, $meta);
@@ -59,8 +57,8 @@ class CarContentsTableSeeder extends Seeder
                 new ContentMeta(['key' => 'plateNumber', 'value' => '0035UNA']),
                 new ContentMeta(['key' => 'cabinNumber', 'value' => 'VF3 3CRFNC 12345678']),
                 new ContentMeta(['key' => 'countryName', 'value' => 'Korea']),
-                new ContentMeta(['key' => 'markName', 'value' => 'toyota']),
-                new ContentMeta(['key' => 'modelName', 'value' => 'prius']),
+                new ContentMeta(['key' => 'markName', 'value' => 'Toyota']),
+                new ContentMeta(['key' => 'modelName', 'value' => 'Prius']),
                 new ContentMeta(['key' => 'type', 'value' => 'Sedan']),
                 new ContentMeta(['key' => 'className', 'value' => 'luxury']),
                 new ContentMeta(['key' => 'manCount', 'value' => '4']),
