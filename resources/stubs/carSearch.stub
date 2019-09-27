@@ -1,5 +1,71 @@
 @extends('themes.car-web.layouts.default')
 
+
+@php
+function metaHas($items, $key, $value)
+{
+return $items->whereHas('metas', function ($query) use ($key, $value) {
+$query->where('key', $key)->where('value', $value);
+});
+}
+function idize($value)
+{
+return str_replace(' ', '_', strtolower($value));
+}
+$categories = [
+'Car Type', 'Manufacturer', 'Color', 'Fuel', 'Transmission', 'Option', 'An accident', 'Passenger', 'Steering Wheel', 'Area'
+];
+
+// Get All items
+$orderBy = request('orderBy', "updated_at");
+$order = request('order', "desc");
+$page = request('page', "1");
+$itemsPerPage = request('itemsPerPage', "10");
+$allItems = App\Content::with('metas')->where('type', App\Content::TYPE_CAR);
+if ($orderBy != 'updated_at') {
+$allItems = $allItems->join('content_metas', 'contents.id', '=', 'content_metas.content_id')
+->where('content_metas.key', '=', $orderBy)->select('contents.*')->addSelect('content_metas.value');
+$allItems = $allItems->orderBy('value', $order);
+} else {
+$allItems = $allItems->orderBy($orderBy, $order);
+}
+$items = $allItems;
+
+// Items filtering
+$request = [];
+$request['type'] = request('car_type', 'Sedan');
+$request['markName'] = request('manufacturer', Null);
+$request['colorName'] = request('color', Null);
+$request['fuelType'] = request('fuel', Null);
+$request['transmission'] = request('transmission', Null);
+$request['advantages'] = request('advantage', Null);
+$request['manCount'] = request('passenger', Null);
+$request['wheelPosition'] = request('steering_wheel', Null);
+$request['countryName'] = request('area', Null);
+foreach ($request as $key => $value) {
+if ($value != Null) {
+$items = metaHas($items, $key, $value);
+}
+}
+
+// Search
+$search = request('search', "");
+$items = $items->where('title', 'LIKE', '%'.$search.'%')->get();
+
+// HOT Deals
+$hotDeals=App\Content::where('type', App\Content::TYPE_CAR)->inRandomOrder()->paginate(5);
+
+// Post items filtering
+$itemCount = count($items->all());
+$maxPage = intval(ceil($itemCount / $itemsPerPage));
+if ($itemCount < $page * $itemsPerPage) {
+  $page= $maxPage;
+}
+
+$sideBanners = App\Banner::where('location_id', 4)->get();
+
+@endphp
+
 @section('title')
 
 @endsection
@@ -9,607 +75,231 @@
 @endsection
 
 @section('content')
+<div class="bg-page-header"></div>
 
+<section class="section">
+    <div class="container">
+    @include('themes.car-web.includes.fixed-right-sidebar', array('sideBanners'=>$sideBanners, 'premium'=>$hotDeals))
+        <div class="row">
+            <div class="col-md-3">
+        <form action="car-search" id="mainForm">
+                <div class="left-bar-title">
+                    Sort Vehicle <i class="fab fa fa-search"></i>
+                </div>
+                <div class="accordion shadow-soft-blue" id="accordionExample">
+                    @foreach($categories as $index=>$category)
+                    <div class="card">
+                    <div class="accordian-head" id="{{ $category }}">
+                        <h2 class="mb-0">
+                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#{{ idize($category) }}" aria-expanded="false" aria-controls="{{ idize($category) }}">
+                            {{ $category }}<i class="fab fa fa-angle-down"></i>
+                        </button>
+                        </h2>
+                    </div>
 
-    <!-- Masthead -->
-    <header class="masthead text-center">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-7">
-                    <div class="hero-slider owl-carousel owl-theme">
+                    <div id="{{ idize($category) }}" class="collapse {{ request(idize($category), False)?'show':'' }}" aria-labelledby="{{ $category }}">
+                        <div class="card-body bg-light">
+                        @foreach(App\TermTaxonomy::where('taxonomy', $category)->get() as $taxonomy)
+                        <div class="custom-control custom-radio">
+                            <!-- <a href="/car-list?{{ idize($category) . '=' . $taxonomy->term->name }}" class="text-body text-decoration-none"> -->
+                            <input type="radio" id="{{$taxonomy->term->name}}" name="{{ idize($category) }}" class="custom-control-input" value="{{ $taxonomy->term->name }}" {{ (request(idize($category), Null)==$taxonomy->term->name)?'checked':'' }}>
+                            <label class="custom-control-label  d-flex justify-content-between" for="{{$taxonomy->term->name}}">{{ $taxonomy->term->name }}
+                            <div class="text-muted">{{ $taxonomy->count }}</div>
+                            </label>
+                        </div>
+                        @endforeach
+                        </div>
+                    </div>
+                    </div>
+                    @endforeach
 
-                        @banners([{"field":"active", "key":"1"}])
-                        @php
-                            $bannerList=json_decode($banners);
-                        @endphp
-                        @if(count($bannerList) > 0)
-                            @foreach($bannerList as $bnr)
-                                <div class="slider-item">
-                                    {{--<div class="slider-text animated slideInLeft" style="top: 0; left: 100px">--}}
-                                        {{--<h1>Зээлийн хүү</h1>--}}
-                                    {{--</div>--}}
-                                    {{--<div class="slider-text animated slideInLeft slider-highlight" style="top: 50px; left: 50px">3%--}}
-                                    {{--</div>--}}
-                                    {{--<div class="slider-text animated slideInLeft" style="top: 200px; left: 200px">--}}
-                                        {{--<h1>Жилийн</h1>--}}
-                                    {{--</div>--}}
-                                    <div class="slider-img animated slideInLeft" style="bottom: 0; left: -50px;">
-                                        <img src="{{$bnr->banner_img_web}}" alt="">
-                                    </div>
-                                </div>
-                            @endforeach
+                    <div class="card">
+                    <div class="accordian-head" id="year-accordian">
+                        <h2 class="mb-0">
+                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#year" aria-expanded="false" aria-controls="year">
+                            Year <i class="fab fa fa-angle-down"></i>
+                        </button>
+                        </h2>
+                    </div>
+                    <div id="year" class="collapse" aria-labelledby="year-accordian">
+                        <div class="card-body bg-light">
+                        <span id="ex18-label-2a" class="d-none">1990</span>
+                        <span id="ex18-label-2b" class="d-none">2019</span>
+                        <input id="ex18b" type="text" />
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-9">
+                <div class="card shadow-soft-blue">
+                    <div class="card-body">
+                        <span class="d-flex justify-content-between">
+                            Search result
+                        </span>
+                        <input name="search" type="text" class="form-control" placeholder="Enter search text" value="{{$search}}">
+                        <button type="submit" hidden>Search</button>
+                    </div>
+                </div>
+                
+                <div class="container">
+                    <div class="row">
+                        @if ($items->all() && sizeof($items->all()) != 0)
+                        <div class="car-list mt-2">
+                        <input type="hidden" name="advantage" id="advantage" value="{{ $request['advantages'] }}" />
+                        @foreach($items->forPage($page, $itemsPerPage) as $car)
+                        <!-- card start -->
+                        @include('themes.car-web.includes.car-list-card', array('car'=>$car))
+                        <!-- card end -->
+                        @endforeach
+                        </div>
                         @else
-                            <div class="slider-item">
-                                <div class="slider-text animated slideInLeft" style="top: 0; left: 100px">
-                                    <h1>Зээлийн хүү</h1>
-                                </div>
-                                <div class="slider-text animated slideInLeft slider-highlight" style="top: 50px; left: 50px">3%
-                                </div>
-                                <div class="slider-text animated slideInLeft" style="top: 200px; left: 200px">
-                                    <h1>Жилийн</h1>
-                                </div>
-                                <div class="slider-img animated slideInLeft" style="bottom: 0; left: -50px;">
-                                    <img src="{{asset('car-web/img/slider-1.png')}}" alt="">
-                                </div>
-                            </div>
-                            <div class="slider-item">
-                                <div class="slider-text" style="top: 5%; left: 90px">
-                                    <h1>Авто машины</h1>
-                                </div>
-                                <div class="slider-text" style="top: 18%; left: 100px; ">
-                                    <h1 style="font-size: 2rem;">Дуудлага худалдаа</h1>
-                                </div>
-                                <div class="slider-img" style="top: 50%; left: 50px;">
-                                    <img src="{{asset('car-web/img/slider-2.png')}}" alt="" class="img-fluid">
-                                </div>
-                                <div class="slider-img" style="top: 25%; left: 0; z-index:-1;">
-                                    <img src="{{asset('car-web/img/auction.png')}}" alt="" class="img-fluid">
-                                </div>
-                            </div>
+                        <div class="text-center text-muted col-lg-12 mt-3">
+                        <p>No results found</p>
+                        </div>
                         @endif
                     </div>
                 </div>
-                <div class="col-md-5" style="z-index: 1">
 
-                    <div class="card masthead-search shadow-lg-3d">
-                        <div class="">
-                            <div class="card-header px-5 pt-5 pb-3">
-                                <h1>Vehicle search</h1>
-                                <div class="mh-search-input">
-                                    <input class="search" type="search" placeholder="Search" aria-label="Search">
-                                    <button type="button" class="search-button">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="20.4" height="20.4" viewBox="0 0 20.4 20.4">
-                                            <path
-                                                d="M152.734,14.153a5.385,5.385,0,1,1,5.417-5.385A5.379,5.379,0,0,1,152.734,14.153Zm7.223,0h-.963l-.361-.359a7.857,7.857,0,0,0,1.806-6.342A7.77,7.77,0,0,0,153.7,1.109a7.859,7.859,0,0,0-8.788,8.735,7.9,7.9,0,0,0,6.38,6.7,7.969,7.969,0,0,0,6.38-1.795l.361.359v.957l5.056,5.026a1.315,1.315,0,0,0,1.806,0,1.3,1.3,0,0,0,0-1.795Z"
-                                                transform="translate(-144.854 -1.052)" fill="#2b3651" />
-                                        </svg>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        <ul class="nav nav-tabs px-5" id="heroTab" role="tablist">
-                            <li class="nav-item">
-                                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab"
-                                   aria-controls="imported" aria-selected="true">Imported</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="used"
-                                   aria-selected="false">Used in MN</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab"
-                                   aria-controls="auction" aria-selected="false">Auction</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="budget"
-                                   aria-selected="false">Budget</a>
-                            </li>
-                        </ul>
-                        <div class="tab-content p-5" id="heroTabFilter">
-                            <div class="tab-pane fade show active" id="imported" role="tabpanel" aria-labelledby="imported-tab">
-                                <form>
-                                    <div class="form-group">
-                                        <select class="form-control">
-                                            <option>Default select</option>
-                                            <option>Default select</option>
-                                            <option>Default select</option>
-                                            <option>Default select</option>
-                                            <option>Default select</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <select class="form-control">
-                                            <option>Default select</option>
-                                            <option>Default select</option>
-                                            <option>Default select</option>
-                                            <option>Default select</option>
-                                            <option>Default select</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <select class="form-control">
-                                            <option>Default select</option>
-                                            <option>Default select</option>
-                                            <option>Default select</option>
-                                            <option>Default select</option>
-                                            <option>Default select</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <select class="form-control">
-                                            <option>Default select</option>
-                                            <option>Default select</option>
-                                            <option>Default select</option>
-                                            <option>Default select</option>
-                                            <option>Default select</option>
-                                        </select>
-                                    </div>
-                                    <button type="submit" class="btn btn-danger btn-lg btn-round shadow mt-4">Submit</button>
-                                </form>
-                            </div>
-                            <div class="tab-pane fade" id="used" role="tabpanel" aria-labelledby="used-tab">...</div>
-                            <div class="tab-pane fade" id="auction" role="tabpanel" aria-labelledby="auction-tab">...</div>
-                            <div class="tab-pane fade" id="budget" role="tabpanel" aria-labelledby="budget-tab">...</div>
-                        </div>
-
-                    </div>
-
-                </div>
-                <div class="master-head-bg">
-                    <img src="{{asset('car-web/img/hero_bg.png')}}" class="img-fluid" alt="">
-                </div>
+                <!-- Pagination -->
+                <nav aria-label="Page navigation">
+                <input type="hidden" value="{{ $page }}" name="page" id="page" />
+                <ul class="pagination d-flex justify-content-end">
+                    <li class="page-item {{ ($page <= 1)?'disabled':'' }}">
+                    <button class="page-link" onclick="formSubmit('page', {{$page-1}})" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </button>
+                    </li>
+                    @for($i = 1; $i <= $maxPage; $i++)
+                    <li class="page-item {{ ($i == $page)?'active':'' }}"><button class="page-link" onclick="formSubmit('page', {{$i}})">{{ $i }}</button></li>
+                    @endfor
+                    <li class="page-item {{ ($page >= $maxPage)?'disabled':'' }}">
+                        <button class="page-link" onclick="formSubmit('page', {{$page+1}})" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                        </button>
+                    </li>
+                </ul>
+                </nav>
+                <!-- Pagination end -->
+                </form>
             </div>
+            
         </div>
-    </header>
+      </div>
+    </div>
+</section>
 
-    <section class="mainPage-items bg-white">
-        <div class="container">
-            <div class="row">
-                <div class="section-title">
-                    <h2>Hot deal</h2>
-                    <span>
-            <a href="#">See all (123)</a>
+<!-- Hot deal Grid start -->
+<section class="mainPage-items bg-white">
+    <div class="container">
+        <div class="row">
+        <div class="section-title">
+            <h2>Hot deal</h2>
+            <span>
+            <a href="#">See all ({{ count($hotDeals) }})</a>
             <div class="more-arrow"></div>
-          </span>
-                </div>
-            </div>
+            </span>
         </div>
-        <div class="card-list hot-deal">
-            <div class="container">
-                <div class="row">
-                    <div class="card-slide owl-carousel owl-theme">
-                        @contents([{"field":"type", "key":"car"}, {"field":"status", "key":"draft"} ])
-                        @php
-                        $carDataHotList=json_decode($carDataHot);
-
-                        function getValue($rr,$key){
-                            foreach($rr->metas as $metas){
-                                if($metas->key==$key){
-                                return $metas->value;
-                                }
-                            }
-                        }
-                        @endphp
-                        {{--{{$carDataHot}}--}}
-                        @foreach($carDataHotList as $rr)
-                        <div class="card">
-
-                            <div class="brand-name"><?php echo getValue($rr, 'manufacturer') ?></div>
-                            <div class="card-img">
-                                {{--<img src="{{(getValue($rr, 'thumbnail'))}}" class="img-fluid" alt="alt">--}}
-                                <img src="{{asset('car-web/img/Cars/3.jpg')}}" class="img-fluid" alt="alt">
-                                <div class="info">
-                              <span class="carIcon-engine">
-                                <p><?php echo getValue($rr, 'displacement') ?></p>
-                              </span>
-                                    <span class="carIcon-car-6">
-                                <p><?php echo getValue($rr, 'mileage') ?></p>
-                              </span>
-                                    <span class="carIcon-gas-station">
-                                <p><?php echo getValue($rr, 'fuel') ?></p>
-                              </span>
-                                    <span class="carIcon-gearshift">
-                                <p><?php echo getValue($rr, 'transmission') ?></p>
-                              </span>
-                                    <span class="carIcon-steering-wheel">
-                                <p><?php echo getValue($rr, 'wheelDrive') ?></p>
-                              </span>
-                                    <span class="color" data-color="white">
-                                <p><?php echo getValue($rr, 'colorName') ?></p>
-                              </span>
-                                </div>
-                                <div class="card-caption">
-                                    <div class="meta"><?php echo getValue($rr, 'buildYear') ?>/<?php echo getValue($rr, 'importDate') ?> | <?php echo getValue($rr, 'mileage') ?> | <?php echo getValue($rr, 'fuel') ?> <i class="show-more fab fa fa-angle-up"></i></div>
-                                    <div class="favorite">
-                                        <i class="icon-heart"></i>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card-body shadow">
-                                <div class="card-description">
-                                    <a href="detail-page.html" class="card-title">{{$rr->title}}</a>
-                                    <div class="card-meta">
-                                        <div class="status"><?php echo getValue($rr, 'priceType') ?> / finance</div>
-                                        <div class="price"><?php echo getValue($rr, 'price') ?></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        @endforeach
-                         <!-- card end -->
-
-                    </div>
-                </div>
-            </div>
         </div>
-    </section>
-
-
-    <!-- Importation Grid -->
-    <section class="mainPage-items bg-light">
+    </div>
+    <div class="card-list hot-deal">
         <div class="container">
-            <div class="row">
-                <div class="section-title">
-                    <h2>Importation cars</h2>
-                    <span>
-            <a href="#">See all (123)</a>
-            <div class="more-arrow"></div>
-          </span>
+        <div class="row">
+            <div class="card-slide owl-carousel owl-theme">
+            @foreach($hotDeals as $car)
+            <!-- card start -->
+            <div class="card">
+                <div class="brand-name"></div>
+                <div class="card-img">
+                <img src="{{ (substr($car->metaValue('thumbnail'), 0, 4) !== 'http')?(App\Config::getStorage() . $car->metaValue('thumbnail')):$car->metaValue('thumbnail') }}" class="img-fluid" alt="alt">
+                <div class="bestDeal"
+                        style="position: absolute; top:5px; left: 5px; background-color: white; border-radius: 3px; padding: 1px 3px">
+                    <i class="fas fa-crown" style="color: #FEC400"></i>
                 </div>
+                
+                <div class="info">
+                    <span class="carIcon-engine">
+                    <p>{{ ucfirst($car->metaValue('displacement')) }} L</p>
+                    </span>
+                    <span class="carIcon-car-6">
+                    <p>{{ $car->metaValue('mileage') }} KM</p>
+                    </span>
+                    <span class="carIcon-gas-station">
+                    <p>{{ ucfirst($car->metaValue('fuelType')) }}</p>
+                    </span>
+                    <span class="carIcon-gearshift">
+                    <p>{{ ucfirst($car->metaValue('transmission')) }}</p>
+                    </span>
+                    <span class="carIcon-steering-wheel">
+                    <p>{{ ucfirst($car->metaValue('wheelPosition')) }} wheel</p>
+                    </span>
+                    <span class="color" data-color="white">
+                    <p>{{ ucfirst($car->metaValue('colorName')) }}</p>
+                    </span>
+                </div>
+                <div class="card-caption">
+                    <div class="meta">
+                    {{ $car->metaValue('buildYear') }}/{{ $car->metaValue('importDate') }} | {{ $car->metaValue('mileage') }}km | {{ ucfirst($car->metaValue('fuelType')) }}
+                    <i class="show-more fab fa fa-angle-up"></i>
+                    </div>
+                    <div class="favorite">
+                    <i class="icon-heart"></i>
+                    </div>
+                </div>
+                </div>
+
+                <div class="card-body shadow">
+                <div class="card-description">
+                    <a href="{{ $car->slug }}" class="card-title">{{ $car->title }}</a>
+                    <div class="card-meta">
+                    <div class="status">{{ ucfirst($car->metaValue('priceType')) }} </div>
+                    <div class="price">{{ $car->metaValue('price') }} ₮</div>
+                    </div>
+                </div>
+                </div>
+
+            </div>
+            <!-- card end -->
+            @endforeach
+
             </div>
         </div>
-        <div class="card-list importation">
-            <div class="container">
-                <div class="row">
-                    <div class="card-slide owl-carousel owl-theme">
-                        <!-- card start -->
-                        <div class="card">
-                            <div class="brand-name"></div>
-                            <div class="card-img">
-                                <img src="{{asset('car-web/img/Cars/2.jpg')}}" class="img-fluid" alt="alt">
-                                <div class="info">
-                  <span class="carIcon-engine">
-                    <p>1499 L</p>
-                  </span>
-                                    <span class="carIcon-car-6">
-                    <p>52,000 KM</p>
-                  </span>
-                                    <span class="carIcon-gas-station">
-                    <p>Gasoline</p>
-                  </span>
-                                    <span class="carIcon-gearshift">
-                    <p>Automatic</p>
-                  </span>
-                                    <span class="carIcon-steering-wheel">
-                    <p>Right wheel</p>
-                  </span>
-                                    <span class="color" data-color="black">
-                    <p>Black</p>
-                  </span>
-                                </div>
-                                <div class="card-caption">
-                                    <div class="meta">2006/2013 | 17,820km | Gasoline <i class="show-more fab fa fa-angle-up"></i></div>
-                                    <div class="favorite">
-                                        <i class="icon-heart"></i>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="card-body">
-                                <div class="card-description">
-                                    <a href="detail-page.html" class="card-title">
-                                        Santa fe The Prime diesel 2.0 2wd
-                                    </a>
-                                    <div class="card-meta">
-                                        <div class="status">Change / Finance</div>
-                                        <div class="price">12 Сая ₮</div>
-                                    </div>
-                                </div>
-
-                            </div>
-
-                        </div>
-                        <!-- card end -->
-
-                    </div>
-                </div>
-            </div>
         </div>
-    </section>
+    </div>
+</section>
+    <!-- card end -->
 
-    <!-- Used in Mongolia Grid -->
-    <section class="mainPage-items bg-white">
-        <div class="container">
-            <div class="row">
-                <div class="section-title">
-                    <h2>Used in Mongolia</h2>
-                    <span>
-            <a href="#">See all (123)</a>
-            <div class="more-arrow"></div>
-          </span>
-                </div>
-            </div>
-        </div>
-        <div class="card-list usedInMn">
-            <div class="container">
-                <div class="row">
-                    <div class="card-slide owl-carousel owl-theme">
-                        <!-- card start -->
-                        <div class="card">
-                            <div class="brand-name"></div>
-                            <div class="card-img">
-                                <img src="{{asset('car-web/img/Cars/3.jpg')}}" class="img-fluid" alt="alt">
-                                <div class="info">
-                  <span class="carIcon-engine">
-                    <p>1499 L</p>
-                  </span>
-                                    <span class="carIcon-car-6">
-                    <p>52,000 KM</p>
-                  </span>
-                                    <span class="carIcon-gas-station">
-                    <p>Gasoline</p>
-                  </span>
-                                    <span class="carIcon-gearshift">
-                    <p>Automatic</p>
-                  </span>
-                                    <span class="carIcon-steering-wheel">
-                    <p>Right wheel</p>
-                  </span>
-                                    <span class="color" data-color="black">
-                    <p>Black</p>
-                  </span>
-                                </div>
-                                <div class="card-caption">
-                                    <div class="meta">2006/2013 | 17,820km | Gasoline <i class="show-more fab fa fa-angle-up"></i></div>
-                                    <div class="favorite">
-                                        <i class="icon-heart"></i>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="card-body">
-                                <div class="card-description">
-                                    <a href="detail-page.html" class="card-title">Santa fe The Prime diesel 2.0 2wd</a>
-                                    <div class="card-meta">
-                                        <div class="status">Change / Finance</div>
-                                        <div class="price">12 Сая ₮</div>
-                                    </div>
-                                </div>
-
-                            </div>
-
-                        </div>
-                        <!-- card end -->
-
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Used in Mongolia Grid -->
-    <section class="mainPage-items bg-light">
-        <div class="container">
-            <div class="row">
-                <div class="section-title">
-                    <h2>Auction</h2>
-                    <span>
-            <a href="#">See all (123)</a>
-            <div class="more-arrow"></div>
-          </span>
-                </div>
-            </div>
-        </div>
-        <div class="card-list auction">
-            <div class="container">
-                <div class="row">
-                    <div class="card-slide owl-carousel owl-theme">
-                        <!-- card start -->
-                        <div class="card">
-                            <div class="brand-name"></div>
-                            <div class="card-img">
-                                <img src="{{asset('car-web/img/Cars/4.jpg')}}" class="img-fluid" alt="alt">
-                                <div class="info">
-                  <span class="carIcon-engine">
-                    <p>1499 L</p>
-                  </span>
-                                    <span class="carIcon-car-6">
-                    <p>52,000 KM</p>
-                  </span>
-                                    <span class="carIcon-gas-station">
-                    <p>Gasoline</p>
-                  </span>
-                                    <span class="carIcon-gearshift">
-                    <p>Automatic</p>
-                  </span>
-                                    <span class="carIcon-steering-wheel">
-                    <p>Right wheel</p>
-                  </span>
-                                    <span class="color" data-color="white">
-                    <p>White</p>
-                  </span>
-                                </div>
-                                <div class="card-caption">
-                                    <div class="countdown">00h:00m:00s</div>
-                                    <div class="favorite">
-                                        <i class="icon-heart"></i>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="card-body">
-                                <div class="card-description">
-                                    <a href="detail-page.html" class="card-title">Santa fe The Prime diesel 2.0 2wd</a>
-                                    <div class="meta">2006/2013 | 17,820km | Gasoline </div>
-                                    <div class="card-meta">
-                                        <div class="bids">0 Bids</div>
-                                        <div class="price">12 Сая ₮</div>
-                                    </div>
-                                </div>
-
-                            </div>
-
-                        </div>
-                        <!-- card end -->
-
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Blog post -->
-    <section class="mainPage-items bg-white">
-        <div class="container">
-            <div class="row">
-                <div class="section-title">
-                    <h2>Auto Magazine</h2>
-                    <span>
-            <a href="#">See all (123)</a>
-            <div class="more-arrow"></div>
-          </span>
-                </div>
-            </div>
-        </div>
-        <div class="card-list magazine">
-            <div class="container">
-                <div class="row mx-n4">
-
-                    <!-- card start -->
-                    <div class="card-magazine col-md-6 px-2 big-blog">
-                        <div class="brand-name"></div>
-                        <div class="card-img">
-                            <img src="{{asset('car-web/img/blog/1.jpg')}}" class="img-fluid h-100" alt="alt">
-                        </div>
-
-                        <div class="card-body">
-                            <div class="card-description">
-                                <div class="card-title">Нараа нараа ЦААШАА, сүүдэр сүүдэр НААШАА</div>
-                                <div class="card-meta">
-                                    <div class="date"><i class="icon-clock"></i> Aug 23</div>
-                                    <div class="views"><i class="icon-eye"></i> 132</div>
-                                </div>
-                            </div>
-
-                        </div>
-
-                    </div>
-                    <!-- card end -->
-                    <!-- card start -->
-                    <div class="card-magazine col-md-3 px-2">
-                        <div class="brand-name"></div>
-                        <div class="card-img">
-                            <img src="{{asset('car-web/img/blog/2.jpg')}}" class="img-fluid h-100" alt="alt">
-                        </div>
-
-                        <div class="card-body">
-                            <div class="card-description">
-                                <div class="card-title">Нараа нараа ЦААШАА, сүүдэр сүүдэр НААШАА</div>
-                                <div class="card-meta">
-                                    <div class="date"><i class="icon-clock"></i> Aug 23</div>
-                                    <div class="views"><i class="icon-eye"></i> 132</div>
-                                </div>
-                            </div>
-
-                        </div>
-
-                    </div>
-                    <!-- card end -->
-                    <!-- card start -->
-                    <div class="card-magazine col-md-3 px-2">
-                        <div class="brand-name"></div>
-                        <div class="card-img">
-                            <img src="{{asset('car-web/img/blog/3.jpg')}}" class="img-fluid h-100" alt="alt">
-                        </div>
-
-                        <div class="card-body">
-                            <div class="card-description">
-                                <div class="card-title">Нараа нараа ЦААШАА, сүүдэр сүүдэр НААШАА</div>
-                                <div class="card-meta">
-                                    <div class="date"><i class="icon-clock"></i> Aug 23</div>
-                                    <div class="views"><i class="icon-eye"></i> 132</div>
-                                </div>
-                            </div>
-
-                        </div>
-
-                    </div>
-                    <!-- card end -->
-
-                </div>
-            </div>
-            <div class="container mt-3">
-                <div class="row mx-n4">
-
-                    <!-- card start -->
-                    <div class="card-magazine col-md-3 px-2">
-                        <div class="brand-name"></div>
-                        <div class="card-img">
-                            <img src="{{asset('car-web/img/blog/6.jpg')}}" class="img-fluid h-100" alt="alt">
-                        </div>
-
-                        <div class="card-body">
-                            <div class="card-description">
-                                <div class="card-title">Нараа нараа ЦААШАА, сүүдэр сүүдэр НААШАА</div>
-                                <div class="card-meta">
-                                    <div class="date"><i class="icon-clock"></i> Aug 23</div>
-                                    <div class="views"><i class="icon-eye"></i> 132</div>
-                                </div>
-                            </div>
-
-                        </div>
-
-                    </div>
-                    <!-- card end -->
-                    <!-- card start -->
-                    <div class="card-magazine col-md-3 px-2">
-                        <div class="brand-name"></div>
-                        <div class="card-img">
-                            <img src="{{asset('car-web/img/blog/5.jpg')}}" class="img-fluid h-100" alt="alt">
-                        </div>
-
-                        <div class="card-body">
-                            <div class="card-description">
-                                <div class="card-title">Нараа нараа ЦААШАА, сүүдэр сүүдэр НААШАА</div>
-                                <div class="card-meta">
-                                    <div class="date"><i class="icon-clock"></i> Aug 23</div>
-                                    <div class="views"><i class="icon-eye"></i> 132</div>
-                                </div>
-                            </div>
-
-                        </div>
-
-                    </div>
-                    <!-- card end -->
-                    <!-- card start -->
-                    <div class="card-magazine col-md-6 px-2 big-blog">
-                        <div class="brand-name"></div>
-                        <div class="card-img">
-                            <img src="{{asset('car-web/img/blog/4.jpg')}}" class="img-fluid h-100" alt="alt">
-                        </div>
-
-                        <div class="card-body">
-                            <div class="card-description">
-                                <div class="card-title">Нараа нараа ЦААШАА, сүүдэр сүүдэр НААШАА</div>
-                                <div class="card-meta">
-                                    <div class="date"><i class="icon-clock"></i> Aug 23</div>
-                                    <div class="views"><i class="icon-eye"></i> 132</div>
-                                </div>
-                            </div>
-
-                        </div>
-
-                    </div>
-                    <!-- card end -->
-
-                </div>
-            </div>
-        </div>
-    </section>
-
+<!-- Hot deal Grid start -->
 
 @endsection
 
 @section('script')
+<script src="{{ asset('car-web/vendor/bootstrap-slider/bootstrap-slider.min.js') }}"></script>
+<script src="{{ asset('car-web/vendor/owl.carousel.thumbs/owl.carousel2.thumbs.min.js') }}"></script>
+<script>
+  function formSubmit(id, value) {
+    document.getElementById(id).value = value;
+    $('#mainForm').submit();
+  }
 
+  $("input[type=radio]").click(function(event) {
+    event.preventDefault();
+    if (event.target.defaultChecked) {
+      event.target.checked = false;
+    }
+    $('#mainForm').submit();
+  });
+
+  $("#searchBtn").click(function(event) {
+    event.preventDefault();
+    var value = $("#searchInput").val();
+    if (value) {
+      $("#search").val(value);
+      console.log($("#search").val());
+      $("#searchForm").submit();
+    } else {
+      $("#searchInput").focus();
+    }
+  });
+</script>
 @endsection

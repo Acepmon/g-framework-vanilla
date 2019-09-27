@@ -76,13 +76,21 @@ class RegisterController extends Controller
             'username' => $data['username'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
-            'name' => $data['name'],
-            'avatar' => $data['avatar'],
-            // 'language' => $data['language'],
             'language' => 'en'
         ]);
+
         if (array_key_exists('emailVerifiedAt', $data)) {
             $user->email_verified_at = now();
+            $user->save();
+        }
+
+        if (array_key_exists('name', $data)) {
+            $user->name = $data['name'];
+            $user->save();
+        }
+
+        if (array_key_exists('avatar', $data)) {
+            $user->avatar = $data['avatar'];
             $user->save();
         }
 
@@ -113,6 +121,10 @@ class RegisterController extends Controller
             $path = config('system.auth.memberRedirectPath');
         } else {
             $path = config('system.auth.guestRedirectPath');
+        }
+
+        if (request()->has('redirectto')) {
+            $path = request()->input('redirectto');
         }
 
         return $path;

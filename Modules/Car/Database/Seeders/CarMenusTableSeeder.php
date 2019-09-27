@@ -41,8 +41,7 @@ class CarMenusTableSeeder extends Seeder
         $carTopbarMenus = ['Car Topbar', '', '', 'Car', [
             ['About', '/about-us', '', 'Car'],
             ['Contact Us', '/contact-us', '', 'Car'],
-            ['Write wanna buy', '/wanna-buy', '', 'Car'],
-            ['Sign Up', '/register', '', 'Car']
+            ['Write wanna buy', '/wanna-buy', '', 'Car']
         ]];
         $carFooterMenus = ['Car Footer', '', '', 'Car', [
             ['About', '/about-us', '', 'Car'],

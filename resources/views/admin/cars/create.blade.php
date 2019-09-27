@@ -31,7 +31,7 @@
 @section('pageheader')
 <div class="page-header-content header-elements-inline">
     <div class="page-title d-flex">
-        <h4><i class="icon-arrow-left52 ml-2"></i> <span class="font-weight-semibold">Create Car</h4>
+        <h4><i class="icon-arrow-left52 ml-2"></i> <span class="font-weight-semibold">Create Car</span></h4>
     </div>
 
     <div class="header-elements">

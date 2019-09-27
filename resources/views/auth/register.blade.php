@@ -29,21 +29,20 @@
                 <input id="username" type="text" class="form-control @error('username') is-invalid @enderror" name="username" placeholder="Username" value="{{ old('username') }}" required autocomplete="username" autofocus>
                 @error('username')
                 <span class="invalid-feedback validation-error-label" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
+                    <strong>{{ $message }}</strong>
+                </span>
                 @enderror
                 <div class="form-control-feedback">
                     <i class="icon-user-check text-muted"></i>
                 </div>
-                <!--span class="help-block text-danger"><i class="icon-cancel-circle2 position-left"></i> This username is already taken</span-->
             </div>
 
             <div class="form-group form-group-feedback form-group-feedback-left">
                 <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" placeholder="Create password" name="password" value="{{ old('password') }}" required autocomplete="password" autofocus>
                 @error('password')
                 <span class="invalid-feedback validation-error-label" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
+                    <strong>{{ $message }}</strong>
+                </span>
                 @enderror
                 <div class="form-control-feedback">
                     <i class="icon-user-lock text-muted"></i>
@@ -62,8 +61,8 @@
                 <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" placeholder="Your email" name="email" value="{{ old('email') }}" required autocomplete="email">
                 @error('email')
                 <span class="invalid-feedback validation-error-label" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
+                    <strong>{{ $message }}</strong>
+                </span>
                 @enderror
                 <div class="form-control-feedback">
                     <i class="icon-mention text-muted"></i>
@@ -74,8 +73,8 @@
                 <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" placeholder="Name" value="{{ old('name') }}" autocomplete="name" autofocus>
                 @error('name')
                 <span class="invalid-feedback validation-error-label" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
+                    <strong>{{ $message }}</strong>
+                </span>
                 @enderror
                 <div class="form-control-feedback">
                     <i class="icon-user-check text-muted"></i>
