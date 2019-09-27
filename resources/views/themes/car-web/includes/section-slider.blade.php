@@ -61,7 +61,7 @@
                                 </div>
                                 <div class="card-meta">
                                     <div class="status">{{ ucfirst($car->metaValue('priceType')) }} </div>
-                                    <div class="price">{{ $car->metaValue('price') }} ₮</div>
+                                    <div class="price">{{ number_format($car->metaValue('priceAmount')) }} {{ $car->metaValue('priceUnit') }}</div>
                                 </div>
                             </div>
                         </div>

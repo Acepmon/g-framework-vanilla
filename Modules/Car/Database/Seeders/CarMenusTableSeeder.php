@@ -29,6 +29,7 @@ class CarMenusTableSeeder extends Seeder
                 ['Premium', '/admin/cars/premium', '', 'Car'],
                 ['Free', '/admin/cars/free', '', 'Car']
             ]],
+            ['Verification Requests', '/admin/cars/verifications', 'icon-clipboard2', 'Car'],
             ['Car Options', '/admin/cars/options', 'icon-cog', 'Car'],
         ];
         $carMainMenus = ['Car Main', '', '', 'Car', [

@@ -55,6 +55,15 @@ class Content extends Model
         })->get();
     }
 
+    public static function inRangeMetas($key, $min, $max)
+    {
+        return self::whereHas('metas', function ($query) use ($key, $min, $max) {
+            $query->where('key', $key);
+            $query->where('value', '>=', $min);
+            $query->where('value', '<=', $max);
+        })->get();
+    }
+
     public function metas()
     {
         return $this->hasMany('App\ContentMeta', 'content_id');
@@ -203,10 +212,10 @@ class Content extends Model
                 });
             }
         } catch (\Exception $ex) {
-            return Null;
+            return [];
 
         }
-        return Null;
+        return [];
     }
 
     public function metasTransform() {
