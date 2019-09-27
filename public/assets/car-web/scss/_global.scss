@@ -104,13 +104,68 @@ h6 {
       position: relative;
   }
 }
+.color[data-color^="gray"] {
+  &:before{
+      content: '';
+      width: 20px;
+      height: 20px;
+      background:  radial-gradient(circle at top center, #dadedf 20%, #888c8e 100%);
+      border-radius: 50%;
+      display: inline-block;
+      position: relative;
+  }
+}
+.color[data-color^="dark-gray"] {
+  &:before{
+      content: '';
+      width: 20px;
+      height: 20px;
+      background:  radial-gradient(circle at top center, #A5A5A5 20%, #646466 100%);
+      border-radius: 50%;
+      display: inline-block;
+      position: relative;
+  }
+}
+.color[data-color^="red"] {
+  &:before{
+      content: '';
+      width: 20px;
+      height: 20px;
+      background:  radial-gradient(circle at top center, #FFC9CE 20%, #DF2626 100%);
+      border-radius: 50%;
+      display: inline-block;
+      position: relative;
+  }
+}
+.color[data-color^="blue"] {
+  &:before{
+      content: '';
+      width: 20px;
+      height: 20px;
+      background:  radial-gradient(circle at top center, #84A3EF 20%, #2B3651 100%);
+      border-radius: 50%;
+      display: inline-block;
+      position: relative;
+  }
+}
+.color[data-color^="sea"] {
+  &:before{
+      content: '';
+      width: 20px;
+      height: 20px;
+      background:  radial-gradient(circle at top center, #D4EDEF 20%, #94ADAF 100%);
+      border-radius: 50%;
+      display: inline-block;
+      position: relative;
+  }
+}
 .color{
   &:after{
     content: '';
     width: 16px;
     height: 14px;
     left: 2px;
-    top: 3px;
+    top: 0;
     background-image: linear-gradient(180deg, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 100%);
     border-radius: 50%;
     position: absolute;

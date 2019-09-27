@@ -13,8 +13,24 @@
 .car-filter{
     .grid-radio{
         display: grid;
-        grid-template-columns: auto auto auto;
+        
         row-gap: 10px;
+
+        &.gr-2{
+            grid-template-columns: 1fr 1fr ;
+        }
+        &.gr-3{
+            grid-template-columns: 1fr 1fr 1fr;
+        }
+        &.gr-4{
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+        }
+        &.gr-5{
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+        }
+        &.gr-6{
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+        }
 
         .cd-radio {
             
@@ -68,6 +84,17 @@
                 position: absolute;
                 animation: floatRight 1s linear infinite;
             }
+        }
+    }
+
+    .color-icon{
+        display: inline-flex;
+        margin-top: 2px;
+        font-size: 1rem;
+        color: $secondary;
+        position: relative;
+        p{
+            margin-left: 5px;
         }
     }
 }
