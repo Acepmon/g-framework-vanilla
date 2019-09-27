@@ -12,7 +12,7 @@ function idize($value)
 return str_replace(' ', '_', strtolower($value));
 }
 $categories = [
-'Car Type', 'Manufacturer', 'Year', 'Distance Driven', 'Price', 'Color', 'Fuel', 'Transmission', 'Option', 'Passenger', 'Steering Wheel', 'Area', 'Doctor\'s Verified'
+'Car Type', 'Manufacturer', 'Year', 'Distance Driven', 'Price', 'Color', 'Fuel', 'Transmission', 'Option', 'Passenger', 'Steering Wheel', 'Area', 'Doctors Verified'
 ];
 
 // Get All items
@@ -41,18 +41,25 @@ $request['advantages'] = request('advantage', Null);
 $request['manCount'] = request('passenger', Null);
 $request['wheelPosition'] = request('steering_wheel', Null);
 $request['countryName'] = request('area', Null);
+$request['buildYear'] = request('year', Null);
+$request['distanceDriven'] = request('distanceDriven', Null);
+$request['doctorVerified'] = request('doctors_verified', Null);
+$request['doctorVerified'] = ($request['doctorVerified'] == 'Баталгаажсан')?'1':'0';
 foreach ($request as $key => $value) {
 if ($value != Null) {
 $items = metaHas($items, $key, $value);
 }
-}
+};
+$request['minPrice'] = request('minPrice', Null);
+$request['maxPrice'] = request('maxPrice', Null);
+
 
 function getPremiumDeal($type, $now) {
   $deals = App\Content::where('type', App\Content::TYPE_CAR)->where('status', App\Content::STATUS_PUBLISHED)->where('visibility', App\Content::VISIBILITY_PUBLIC);
-  $deals = metaHas($deals, 'publishType', $type);
-  $deals = metaHas($deals, 'publishVerified', True);
+  $deals = metaHas($deals, 'publish_type', $type);
+  $deals = metaHas($deals, 'publish_verified', True);
   return $deals->whereHas('metas', function ($query) use ($now) {
-    $query->where([['key', 'publishVerified_end'],['value','>=',$now]]);
+    $query->where([['key', 'publish_verified_end'],['value','>=',$now]]);
   });
 }
 
@@ -152,33 +159,39 @@ Car dealer
                 </div>
               @elseif($category == 'Year')
                 <div class="card-body bg-light grid-radio">
-                  <select id="min-year" class="form-control">
-                    <option selected>Select year</option>
+                  <select id="min-year" class="form-control" name="year" onchange="formSubmit('year','year')">
+                    <option value="">Select year</option>
                     @for($i=date('Y'); $i>=1990; $i--)
-                    <option value="{{ $i }}">{{ $i }}</option>
+                    <option value="{{ $i }}" {{ $request['buildYear']==$i?'selected':'' }}>{{ $i }}</option>
                     @endfor
                   </select>
                 </div>
               @elseif($category == 'Distance Driven')
                 <div class="card-body bg-light grid-radio">
-                  <select id="min-year" class="form-control">
-                    <option selected>Select distance</option>
-                    <option>...</option>
+                  <select id="distanceDriven" class="form-control" name="distanceDriven" onchange="formSubmit('distanceDriven','no-value')">
+                    <option value="">Select distance</option>
+                    @for($i=1; $i<=10; $i++)
+                    <option value="{{ $i }}" {{ $request['distanceDriven']==$i?'selected':'' }}>{{ $i }}km</option>
+                    @endfor
                   </select>
                 </div>
               @elseif($category == 'Price')
                 <div class="card-body bg-light grid-radio">
                   <div class="form-row">
                     <div class="col-md-6">
-                      <select id="min-year" class="form-control">
+                      <select id="minPrice" class="form-control" name="minPrice" onchange="formSubmit('minPrice','no-value')">
                         <option selected>Min</option>
-                        <option>...</option>
+                        @for($i=1; $i<=10; $i++)
+                        <option value="{{ $i }}" {{ $request['minPrice']==$i?'selected':'' }}>{{ $i }}</option>
+                        @endfor
                       </select>
                     </div>
                     <div class="col-md-6">
-                      <select id="min-year" class="form-control">
+                      <select id="minPrice" class="form-control" name="maxPrice" onchange="formSubmit('maxPrice','no-value')">
                         <option selected>Max</option>
-                        <option>...</option>
+                        @for($i=1; $i<=10; $i++)
+                        <option value="{{ $i }}" {{ $request['maxPrice']==$i?'selected':'' }}>{{ $i }}</option>
+                        @endfor
                       </select>
                     </div>
                   </div>
@@ -283,7 +296,9 @@ Car dealer
 <script src="{{ asset('car-web/vendor/owl.carousel.thumbs/owl.carousel2.thumbs.min.js') }}"></script>
 <script>
   function formSubmit(id, value) {
-    document.getElementById(id).value = value;
+    if (value != 'no-value') {
+      document.getElementById(id).value = value;
+    }
     $('#mainForm').submit();
   }
 

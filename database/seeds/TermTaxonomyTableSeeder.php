@@ -377,7 +377,7 @@ class TermTaxonomyTableSeeder extends Seeder
             ]);
             DB::table('term_taxonomy')->insert([
                 'term_id' => $term_id5,
-                'taxonomy' => 'Doctor\' Verified',
+                'taxonomy' => 'Doctors Verified',
                 'description' => $doctor,
                 'count' => 0
             ]);
