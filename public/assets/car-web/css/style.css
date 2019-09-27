@@ -1642,6 +1642,8 @@ select {
 .detail-page .finance-section .monthly-payment {
   background: #2B3651;
   color: #fff;
+  height: 100%;
+  border-radius: 6px;
 }
 
 .detail-page .finance-section .monthly-payment h3 {
@@ -1844,15 +1846,19 @@ select {
   box-shadow: 0 10px 20px -5px rgba(199, 11, 11, 0.3) !important;
 }
 
+header {
+  position: relative;
+  height: 10.25rem;
+}
+
 .navbar {
   position: absolute;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  padding: 2rem 1rem;
-  margin-top: 2rem;
-  transition: all 350ms ease;
+  margin-top: 4rem;
+  transition: all 350ms ease, margin-top 0s;
   transform: translateY(0%);
   z-index: 1030;
   top: 0;
@@ -2903,8 +2909,6 @@ section .owl-carousel .owl-nav button.owl-next, section .owl-carousel .owl-nav b
 }
 
 .profile-upload .profile-pic {
-  max-width: 200px;
-  max-height: 200px;
   display: block;
 }
 
@@ -2935,6 +2939,31 @@ section .owl-carousel .owl-nav button.owl-next, section .owl-carousel .owl-nav b
 
 .profile-upload .p-image:hover {
   transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.maz-modal-title {
+  text-align: center;
+  font-size: 1.375rem;
+  color: #2B3651;
+  font-weight: 700;
+}
+
+.maz-modal-desc {
+  text-align: center;
+  font-size: 1rem;
+  color: #AAAEB9;
+  margin-top: 1rem;
+}
+
+.modal-footer {
+  justify-content: center;
+  border: none;
+}
+
+.modal-header {
+  text-align: center;
+  justify-content: center;
+  border: none;
 }
 
 .pageType-footer {
