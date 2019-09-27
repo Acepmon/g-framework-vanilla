@@ -91,7 +91,11 @@ class UserController extends Controller
             return !in_array($key, $inputExcept);
         }, ARRAY_FILTER_USE_KEY);
 
+        if (count($metaInputs) > 0) {
+            foreach ($metaInputs as $input) {
 
+            }
+        }
     }
 
     /**

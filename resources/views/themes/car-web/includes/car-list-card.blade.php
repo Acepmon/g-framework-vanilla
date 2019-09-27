@@ -2,7 +2,7 @@
 <div class="card" onclick="window.open('{{ $car->slug }}','_blank');" style="cursor: pointer">
     <div class="card-body">
         <div class="card-img">
-            @if($car->metaValue('publish_type') == 'best_premium' || $car->metaValue('publish_type') == 'premium')
+            @if($car->metaValue('publishType') == 'best_premium' || $car->metaValue('publishType') == 'premium')
             <div class="premium-tag shadow-soft-blue"><img src="{{ asset('car-web/img/icons/corona.svg') }}" alt=""></div>
             @endif
             <a href="{{ $car->slug }}">

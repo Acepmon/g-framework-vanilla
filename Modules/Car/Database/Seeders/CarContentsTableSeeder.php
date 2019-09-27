@@ -52,6 +52,9 @@ class CarContentsTableSeeder extends Seeder
                 array_push($medias, $meta);
             }
 
+            // Publish Types
+            $publishTypes = ['free', 'premium', 'best_premium'];
+
             $content->metas()->saveMany([
                 new ContentMeta(['key' => 'plateNumber', 'value' => '0035UNA']),
                 new ContentMeta(['key' => 'cabinNumber', 'value' => 'VF3 3CRFNC 12345678']),
@@ -177,6 +180,16 @@ class CarContentsTableSeeder extends Seeder
                 new ContentMeta(['key' => 'optionCleanOnePersonDrive', 'value' => true]),
                 new ContentMeta(['key' => 'optionCleanNoSmoking', 'value' => true]),
                 new ContentMeta(['key' => 'optionCleanWomanDriver', 'value' => true]),
+
+                // Publishing
+                new ContentMeta(['key' => 'publishType', 'value' => $publishTypes[array_rand($publishTypes)]]),
+                new ContentMeta(['key' => 'publishPrice', 'value' => '']),
+                new ContentMeta(['key' => 'publishTotalPrice', 'value' => rand(100000, 500000)]),
+                new ContentMeta(['key' => 'publishDuration', 'value' => rand(1, 31)]),
+                new ContentMeta(['key' => 'publishVerified', 'value' => rand(0, 1) ? true : false]),
+                new ContentMeta(['key' => 'publishVerifiedBy', 'value' => 1]),
+                new ContentMeta(['key' => 'publishVerifiedAt', 'value' => now()]),
+                new ContentMeta(['key' => 'publishVerifiedEnd', 'value' => now()->addDays(rand(1, 31))]),
             ]);
 
             $content->metas()->saveMany($medias);

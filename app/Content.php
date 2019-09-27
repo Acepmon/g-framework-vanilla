@@ -45,7 +45,13 @@ class Content extends Model
     {
         return self::whereHas('metas', function ($query) use ($key, $value, $operator) {
             $query->where('key', $key);
-            $query->where('value', $operator, $value);
+            if ($operator == 'in') {
+                $query->whereIn('value', explode('|', $value));
+            } else if ($operator == 'not in') {
+                $query->whereNotIn('value', explode('|', $value));
+            } else {
+                $query->where('value', $operator, $value);
+            }
         })->get();
     }
 
