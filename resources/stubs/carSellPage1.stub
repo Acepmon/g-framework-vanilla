@@ -16,23 +16,19 @@
     <div class="container">
 
         <div class="sell-selection">
-            <div class="sell-type">
+            <a href="/sell-car-page-2?type=normal" class="sell-type">
                 <h1>By normal</h1>
-                <div class="sell-type-img">
-                    <a href="/sellcar?type=normal">
-                        <img src="{{ asset('car-web/img/normal-sell.png') }}" alt="">
-                    </a>
+                <div class="sell-type-img sell-car">
+                    <img src="{{ asset('car-web/img/sell-car.png') }}" alt="">
                 </div>
-            </div>
+            </a>
 
-            <div class="sell-type">
+            <a href="/sell-car-auction?type=auction" class="sell-type">
                 <h1>By Auction</h1>
-                <div class="sell-type-img">
-                    <a href="/sellcar?type=auction">
-                        <img src="{{ asset('car-web/img/auction-sell.png') }}" alt="">
-                    </a>
+                <div class="sell-type-img auction-car">
+                    <img src="{{ asset('car-web/img/auction-car.png') }}" alt="">
                 </div>
-            </div>
+            </a>
         </div>
 
     </div>

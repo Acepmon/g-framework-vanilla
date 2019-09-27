@@ -54,5 +54,18 @@
 @endsection
 
 @section('script')
+    <script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/plugins/media/cropper.min.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            document.getElementById('pro-image').addEventListener('change', readImage, false);
+
+            $( ".preview-images-zone" ).sortable();
+
+            $(document).on('click', '.image-cancel', function() {
+                let no = $(this).data('no');
+                $(".preview-image.preview-show-"+no).remove();
+            });
+        });
+    </script>
 
 @endsection

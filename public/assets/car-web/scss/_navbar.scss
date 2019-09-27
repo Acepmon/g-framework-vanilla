@@ -1,14 +1,19 @@
-.navbar {
+header{
   position: relative;
+  height: $spacer * 10.25;
+}
+
+.navbar {
+  position: absolute;
   display: flex;
   flex-wrap: wrap; // allow us to do the line break for collapsing content
   align-items: center;
   justify-content: space-between; // space out brand from logo
-  padding: $navbar-padding-y $navbar-padding-x;
-  margin-top: $spacer * 2;
-  transition: all 350ms ease;
+  margin-top: $spacer * 4;
+  transition: all 350ms ease, margin-top 0s;
   transform: translateY(0%);
   z-index: 1030;
+  top: 0;
   left: 0;
   right: 0;
   background: transparent;
@@ -30,6 +35,7 @@
     transform: translateY(0);
     padding: 1rem 0;
     box-shadow: 0 5px 10px 0 rgba(43, 54, 81, .1) !important;
+    z-index: 99999;
   }
 }
 

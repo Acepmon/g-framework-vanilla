@@ -17,7 +17,7 @@
                     @foreach($contents as $car)
                     <!-- card start -->
                     <div class="card cd-box auto-height">
-                        @if($car->metaValue('publish_type') == 'best_premium' || $car->metaValue('publish_type') == 'premium')
+                        @if($car->metaValue('publishType') == 'best_premium' || $car->metaValue('publishType') == 'premium')
                         <div class="premium-tag shadow-soft-blue"><img src="{{ asset('car-web/img/icons/corona.svg') }}" alt=""></div>
                         @endif
                         <div class="brand-name"></div>

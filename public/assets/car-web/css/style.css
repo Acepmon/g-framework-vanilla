@@ -112,12 +112,62 @@ h6 {
   position: relative;
 }
 
+.color[data-color^="gray"]:before {
+  content: '';
+  width: 20px;
+  height: 20px;
+  background: radial-gradient(circle at top center, #dadedf 20%, #888c8e 100%);
+  border-radius: 50%;
+  display: inline-block;
+  position: relative;
+}
+
+.color[data-color^="dark-gray"]:before {
+  content: '';
+  width: 20px;
+  height: 20px;
+  background: radial-gradient(circle at top center, #A5A5A5 20%, #646466 100%);
+  border-radius: 50%;
+  display: inline-block;
+  position: relative;
+}
+
+.color[data-color^="red"]:before {
+  content: '';
+  width: 20px;
+  height: 20px;
+  background: radial-gradient(circle at top center, #FFC9CE 20%, #DF2626 100%);
+  border-radius: 50%;
+  display: inline-block;
+  position: relative;
+}
+
+.color[data-color^="blue"]:before {
+  content: '';
+  width: 20px;
+  height: 20px;
+  background: radial-gradient(circle at top center, #84A3EF 20%, #2B3651 100%);
+  border-radius: 50%;
+  display: inline-block;
+  position: relative;
+}
+
+.color[data-color^="sea"]:before {
+  content: '';
+  width: 20px;
+  height: 20px;
+  background: radial-gradient(circle at top center, #D4EDEF 20%, #94ADAF 100%);
+  border-radius: 50%;
+  display: inline-block;
+  position: relative;
+}
+
 .color:after {
   content: '';
   width: 16px;
   height: 14px;
   left: 2px;
-  top: 3px;
+  top: 0;
   background-image: linear-gradient(180deg, white 0%, rgba(255, 255, 255, 0) 100%);
   border-radius: 50%;
   position: absolute;
@@ -766,8 +816,27 @@ select {
 
 .car-filter .grid-radio {
   display: grid;
-  grid-template-columns: auto auto auto;
   row-gap: 10px;
+}
+
+.car-filter .grid-radio.gr-2 {
+  grid-template-columns: 1fr 1fr;
+}
+
+.car-filter .grid-radio.gr-3 {
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.car-filter .grid-radio.gr-4 {
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
+.car-filter .grid-radio.gr-5 {
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
+.car-filter .grid-radio.gr-6 {
+  grid-template-columns: 1fr 1fr 1fr 1fr;
 }
 
 .car-filter .grid-radio .cd-radio .custom-control-label {
@@ -826,6 +895,18 @@ select {
   position: absolute;
   -webkit-animation: floatRight 1s linear infinite;
           animation: floatRight 1s linear infinite;
+}
+
+.car-filter .color-icon {
+  display: inline-flex;
+  margin-top: 2px;
+  font-size: 1rem;
+  color: #2B3651;
+  position: relative;
+}
+
+.car-filter .color-icon p {
+  margin-left: 5px;
 }
 
 .accordian-head .btn-link {
@@ -1222,6 +1303,14 @@ select {
   color: #2B3651;
 }
 
+.detail-page .dealer-information .dealer-more {
+  width: calc(100%/3);
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  flex-direction: column;
+}
+
 .detail-page .dealer-information .dealer-more .value {
   width: 70px;
   height: 70px;
@@ -1233,6 +1322,15 @@ select {
   font-weight: 600;
   font-size: 1.25rem;
   position: relative;
+}
+
+.detail-page .dealer-information .dealer-more .value img {
+  width: 30px;
+  position: absolute;
+  display: block;
+  top: 50%;
+  transform-origin: center, center;
+  transform: translateY(-50%);
 }
 
 .detail-page .dealer-information .dealer-more .value i {
@@ -1250,13 +1348,20 @@ select {
   top: 50%;
   transform-origin: center center;
   transform: translateY(-50%);
+  font-weight: 700;
 }
 
 .detail-page .dealer-information .dealer-more .title {
   margin-top: 10px;
-  font-size: 1rem;
+  font-size: .8rem;
   font-weight: 600;
   text-align: center;
+  line-height: 1.2rem;
+  text-transform: uppercase;
+}
+
+.detail-page .dealer-information .dealer-more .title span {
+  font-weight: 700;
 }
 
 .detail-page .detail-section-title {
@@ -1329,6 +1434,7 @@ select {
   text-align: left;
   margin-left: 10px;
   margin-bottom: 0;
+  font-weight: 600;
 }
 
 .detail-page .detail-basic-information .info-list ul li span.color {
@@ -1536,6 +1642,8 @@ select {
 .detail-page .finance-section .monthly-payment {
   background: #2B3651;
   color: #fff;
+  height: 100%;
+  border-radius: 6px;
 }
 
 .detail-page .finance-section .monthly-payment h3 {
@@ -1738,17 +1846,22 @@ select {
   box-shadow: 0 10px 20px -5px rgba(199, 11, 11, 0.3) !important;
 }
 
-.navbar {
+header {
   position: relative;
+  height: 10.25rem;
+}
+
+.navbar {
+  position: absolute;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  padding: 2rem 1rem;
-  margin-top: 2rem;
-  transition: all 350ms ease;
+  margin-top: 4rem;
+  transition: all 350ms ease, margin-top 0s;
   transform: translateY(0%);
   z-index: 1030;
+  top: 0;
   left: 0;
   right: 0;
   background: transparent;
@@ -1769,6 +1882,7 @@ select {
   transform: translateY(0);
   padding: 1rem 0;
   box-shadow: 0 5px 10px 0 rgba(43, 54, 81, 0.1) !important;
+  z-index: 99999;
 }
 
 .navbar-brand {
@@ -1903,6 +2017,10 @@ select {
   top: 0;
   left: 0;
   opacity: 0.3;
+}
+
+section.body-section {
+  margin-top: 10rem;
 }
 
 section .section-title {
@@ -2791,8 +2909,6 @@ section .owl-carousel .owl-nav button.owl-next, section .owl-carousel .owl-nav b
 }
 
 .profile-upload .profile-pic {
-  max-width: 200px;
-  max-height: 200px;
   display: block;
 }
 
@@ -2823,6 +2939,31 @@ section .owl-carousel .owl-nav button.owl-next, section .owl-carousel .owl-nav b
 
 .profile-upload .p-image:hover {
   transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.maz-modal-title {
+  text-align: center;
+  font-size: 1.375rem;
+  color: #2B3651;
+  font-weight: 700;
+}
+
+.maz-modal-desc {
+  text-align: center;
+  font-size: 1rem;
+  color: #AAAEB9;
+  margin-top: 1rem;
+}
+
+.modal-footer {
+  justify-content: center;
+  border: none;
+}
+
+.modal-header {
+  text-align: center;
+  justify-content: center;
+  border: none;
 }
 
 .pageType-footer {

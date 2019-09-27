@@ -12,8 +12,155 @@
 
 <div class="bg-page-header"></div>
 
+<section class="bg-transparent">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-10">
+        <div class="card sell-car shadow-soft-blue">
+          <div class="card-header">
+            <div class="step-process sp-4">
+              <div class='progress_inner_step step-1 done'>
+                <label for='step-1'>Add details</label>
+              </div>
+              <div class='progress_inner_step step-2 done'>
+                <label for='step-2'>Upload media</label>
+              </div>
+              <div class='progress_inner_step step-3 active'>
+                <label for='step-3'>Add price</label>
+              </div>
+              <div class='progress_inner_step step-4'>
+                <label for='step-4'>Publish type</label>
+              </div>
+            </div>
+          </div>
+          <div class="card-body pb-5">
+            <form id="step-1" class="maz-form">
+              <div class="form-title"><span>Duration </span></div>
+              <div class="form-row">
+                <div class="form-group col-md-4">
+                  <label for="durationDay">Duration Day:</label>
+                  <select id="durationDay" class="form-control">
+                    <option selected>Choose...</option>
+                    <option>...</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="col-md-6">
+                  <div class="custom-control custom-radio">
+                    <input type="radio" name="auction-start" class="custom-control-input" id="radioCheck-Auction-Start" value="start" checked>
+                    <label class="custom-control-label" for="radioCheck-Auction-Start">Start my listings when I submit them</label>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="custom-control custom-radio">
+                    <input type="radio" name="auction-start" class="custom-control-input" id="radioCheck-Auction-Schedule" value="schedule">
+                    <label class="custom-control-label" for="radioCheck-Auction-Schedule">Schedule to start on</label>
+                  </div>
+                </div>
+              </div>
+              <fieldset id="schedule" class="form-row form-group mt-2" disabled>
+                <div class="row pl-2 pr-2">
+                  <div class="form-group col-md-6">
+                    <label class="text-muted" for="scheduleDate">Date:</label>
+                    <select id="scheduleDate" class="form-control">
+                      <option selected>Choose...</option>
+                      <option>...</option>
+                    </select>
+                  </div>
+                  <div class="form-group col-md-3">
+                    <label class="text-muted" for="scheduleTime">Time:</label>
+                    <select id="scheduleTime" class="form-control">
+                      <option selected>Choose...</option>
+                      <option>...</option>
+                    </select>
+                  </div>
+                  <div class="form-group col-md-3">
+                    <label class="text-muted" for="scheduleMinute">Minute:</label>
+                    <select id="scheduleMinute" class="form-control">
+                      <option selected>Choose...</option>
+                      <option>...</option>
+                    </select>
+                  </div>
+                </div>
+              </fieldset>
+
+              <div class="form-title"><span>Price </span></div>
+
+              <div class="form-row">
+                <div class="form-group col-md-4">
+                  <label for="area">Starting price:</label>
+                  <div class="input-group">
+                    <input type="text" class="form-control" id="starting-price" placeholder="0.00">
+                    <div class="input-group-prepend">
+                      <div class="input-group-text-right">Сая ₮</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group col-md-4">
+                  <label for="transmission">Buy Out:</label>
+                  <div class="input-group">
+                    <input type="text" class="form-control" id="buyout" placeholder="0.00">
+                    <div class="input-group-prepend">
+                      <div class="input-group-text-right">Сая ₮</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group col-md-4">
+                  <label for="steeringWheel">Reserve price (fees apply):</label>
+                  <div class="input-group">
+                    <input type="text" class="form-control" id="reserve-price" placeholder="0.00">
+                    <div class="input-group-prepend">
+                      <div class="input-group-text-right">Сая ₮</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <br>
+
+              <!-- NEXT PREV BUTTON START -->
+              <div style="float:right;">
+                <button class="btn btn-light btn-round px-5 py-2 mr-3" type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
+                <button class="btn btn-danger btn-round shadow-red px-5 py-2" type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
+              </div>
+
+              <script>
+
+              </script>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="pageType-footer">
+  <div class="container">
+    <div class="row">
+      <div class="sell-type-img sell-car">
+        <img src="{{ asset('car-web/img/sell-car.png') }}" alt="">
+      </div>
+    </div>
+  </div>
+</section>
+
 @endsection
 
 @section('script')
-
+<script>
+  $('input[type=radio][name=auction-start]').change(function() {
+    if (this.value == 'start') {
+      $("#schedule").prop('disabled', true);
+      $("#schedule label").each(function() {
+        $(this).addClass('text-muted');
+      });
+    }
+    else if (this.value == 'schedule') {
+      $("#schedule").prop('disabled', false);
+      $("#schedule label").each(function() {
+        $(this).removeClass('text-muted');
+      });
+    }
+});
+</script>
 @endsection

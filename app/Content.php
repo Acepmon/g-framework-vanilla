@@ -45,7 +45,13 @@ class Content extends Model
     {
         return self::whereHas('metas', function ($query) use ($key, $value, $operator) {
             $query->where('key', $key);
-            $query->where('value', $operator, $value);
+            if ($operator == 'in') {
+                $query->whereIn('value', explode('|', $value));
+            } else if ($operator == 'not in') {
+                $query->whereNotIn('value', explode('|', $value));
+            } else {
+                $query->where('value', $operator, $value);
+            }
         })->get();
     }
 
@@ -152,6 +158,42 @@ class Content extends Model
         }
         return Null;
     }
+
+    public function setMetaValue($key, $value) {
+        try {
+            $meta = $this->metas->where('key', $key)->first();
+            if (isset($meta)) {
+                $meta->value = $value;
+                $meta->save();
+                return $meta;
+            } else {
+                $newMeta = new UserMeta();
+                $newMeta->user_id = $this->user_id;
+                $newMeta->key = $key;
+                $newMeta->value = $value;
+                $newMeta->save();
+                return $newMeta;
+            }
+        } catch (\Exception $ex) {
+            return Null;
+        }
+        return Null;
+    }
+
+    public function attachMetaArray($key, $value) {
+        try {
+            $newMeta = new UserMeta();
+            $newMeta->user_id = $this->user_id;
+            $newMeta->key = $key;
+            $newMeta->value = $value;
+            $newMeta->save();
+            return $newMeta;
+        } catch (\Exception $ex) {
+            return Null;
+        }
+        return Null;
+    }
+
     public function metaArray($key) {
         try {
             $meta = $this->metas->where('key', $key);

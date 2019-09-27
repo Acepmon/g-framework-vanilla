@@ -6,6 +6,7 @@ use Auth;
 use Str;
 use App\Menu;
 use App\Group;
+use App\UserMeta;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\CanResetPassword;
@@ -134,6 +135,61 @@ class User extends Authenticatable implements CanResetPassword
         } catch (\Exception $ex) {
             return Null;
 
+        }
+        return Null;
+    }
+
+    public function metasTransform() {
+        $arr = [];
+        foreach ($this->metas->groupBy('key')->toArray() as $key => $metaValues) {
+            if (count($metaValues) > 1) {
+                $arr[$key] = array_map(function ($meta) {
+                    return $this->isJson($meta['value']) ? json_decode($meta['value']) : $meta['value'];
+                }, $metaValues);
+            } else {
+                $arr[$key] = $this->isJson($metaValues[0]['value']) ? json_decode($metaValues[0]['value']) : $metaValues[0]['value'];
+            }
+        }
+        return $arr;
+    }
+
+    private function isJson($string) {
+        return ((is_string($string) &&
+                (is_object(json_decode($string)) ||
+                is_array(json_decode($string))))) ? true : false;
+    }
+
+    public function newMeta($key, $value) {
+        try {
+            $newMeta = new UserMeta();
+            $newMeta->user_id = $this->user_id;
+            $newMeta->key = $key;
+            $newMeta->value = $value;
+            $newMeta->save();
+            return $newMeta;
+        } catch (\Exception $ex) {
+            return Null;
+        }
+        return Null;
+    }
+
+    public function setMetaValue($key, $value) {
+        try {
+            $meta = $this->metas->where('key', $key)->first();
+            if (isset($meta)) {
+                $meta->value = $value;
+                $meta->save();
+                return $meta;
+            } else {
+                $newMeta = new UserMeta();
+                $newMeta->user_id = $this->user_id;
+                $newMeta->key = $key;
+                $newMeta->value = $value;
+                $newMeta->save();
+                return $newMeta;
+            }
+        } catch (\Exception $ex) {
+            return Null;
         }
         return Null;
     }
