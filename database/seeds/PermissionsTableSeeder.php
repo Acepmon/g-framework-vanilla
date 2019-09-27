@@ -211,11 +211,22 @@ class PermissionsTableSeeder extends Seeder
             ['title' => 'admin_profile_notifications_read', 'type' => Permission::TYPE_READ, 'description' => 'read permission for profile_notifications_read'],
             ['title' => 'password_update', 'type' => Permission::TYPE_UPDATE, 'description' => 'update permission for password_update'],
             ['title' => 'password_request', 'type' => Permission::TYPE_UPDATE, 'description' => 'update permission for password_request'],
+            ['title' => 'verification_verify', 'type' => Permission::TYPE_READ, 'description' => 'read permission for verification_verify'],
             // localization CRUD
             ['title' => 'admin_localizations_create', 'type' => Permission::TYPE_CREATE, 'description' => 'create permission for localization'],
             ['title' => 'admin_localizations_read', 'type' => Permission::TYPE_READ, 'description' => 'read permission for localization'],
             ['title' => 'admin_localizations_update', 'type' => Permission::TYPE_UPDATE, 'description' => 'update permission for localization'],
             ['title' => 'admin_localizations_delete', 'type' => Permission::TYPE_DELETE, 'description' => 'delete permission for localization'],
+            // ajax users API
+            ['title' => 'ajax_users_create', 'type' => Permission::TYPE_CREATE, 'description' => 'create permission for ajax users'],
+            ['title' => 'ajax_users_read', 'type' => Permission::TYPE_READ, 'description' => 'read permission for ajax users'],
+            ['title' => 'ajax_users_update', 'type' => Permission::TYPE_UPDATE, 'description' => 'update permission for ajax users'],
+            ['title' => 'ajax_users_delete', 'type' => Permission::TYPE_DELETE, 'description' => 'delete permission for ajax users'],
+            // ajax contents API
+            ['title' => 'ajax_contents_create', 'type' => Permission::TYPE_CREATE, 'description' => 'create permission for ajax contents'],
+            ['title' => 'ajax_contents_read', 'type' => Permission::TYPE_READ, 'description' => 'read permission for ajax contents'],
+            ['title' => 'ajax_contents_update', 'type' => Permission::TYPE_UPDATE, 'description' => 'update permission for ajax contents'],
+            ['title' => 'ajax_contents_delete', 'type' => Permission::TYPE_DELETE, 'description' => 'delete permission for ajax contents'],
         ]);
     }
 }

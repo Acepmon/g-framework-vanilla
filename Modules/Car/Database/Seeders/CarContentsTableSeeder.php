@@ -2,14 +2,12 @@
 
 namespace Modules\Car\Database\Seeders;
 
-use Illuminate\Database\Seeder;
-use Illuminate\Database\Eloquent\Model;
-
-use DB;
 use App\Content;
 use App\ContentMeta;
-use App\User;
 use App\Group;
+use App\User;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Seeder;
 
 class CarContentsTableSeeder extends Seeder
 {
@@ -25,7 +23,10 @@ class CarContentsTableSeeder extends Seeder
         $time = time();
         $rootPath = config('content.cars.rootPath');
 
-        factory(Content::class, 10)->create(['type' => Content::TYPE_CAR])->each(function ($content) use($time, $rootPath) {
+        factory(Content::class, 50)->create(['type' => Content::TYPE_CAR])->each(function ($content) use ($time, $rootPath) {
+
+            $content->slug = config('content.cars.containerPage') . '/' . $content->slug;
+            $content->save();
 
             $carUserRandomId = User::whereHas('groups', function ($query) {
                 $query->where('type', Group::TYPE_DYNAMIC);
@@ -43,27 +44,36 @@ class CarContentsTableSeeder extends Seeder
             $thumbnail = $lorempixelUrl . '/' . $thumbWidth . '/' . $thumbHeight . '/' . $lorempixelType . '/?=' . rand(1, 50000);
             $medias = [];
             $mediasLimit = rand(1, 20);
-            for ($i=0; $i < $mediasLimit; $i++) {
+            for ($i = 0; $i < $mediasLimit; $i++) {
                 $media = $lorempixelUrl . '/' . $mediaWidth . '/' . $mediaHeight . '/' . $lorempixelType . '/?=' . rand(1, 50000);
                 $meta = new ContentMeta(['key' => 'medias', 'value' => $media]);
                 array_push($medias, $meta);
             }
 
+            // Publish Types
+            $publishTypes = ['free', 'premium', 'best_premium'];
+
             $content->metas()->saveMany([
                 new ContentMeta(['key' => 'plateNumber', 'value' => '0035UNA']),
                 new ContentMeta(['key' => 'cabinNumber', 'value' => 'VF3 3CRFNC 12345678']),
                 new ContentMeta(['key' => 'countryName', 'value' => 'Korea']),
-                new ContentMeta(['key' => 'markName', 'value' => 'toyota']),
-                new ContentMeta(['key' => 'modelName', 'value' => 'prius']),
+                new ContentMeta(['key' => 'markName', 'value' => 'Toyota']),
+                new ContentMeta(['key' => 'modelName', 'value' => 'Prius']),
                 new ContentMeta(['key' => 'type', 'value' => 'Sedan']),
                 new ContentMeta(['key' => 'className', 'value' => 'luxury']),
                 new ContentMeta(['key' => 'manCount', 'value' => '4']),
-                new ContentMeta(['key' => 'weight', 'value' => '1200 kg']),
-                new ContentMeta(['key' => 'mass', 'value' => '1200 kg']),
+
+                new ContentMeta(['key' => 'weightAmount', 'value' => '1200']),
+                new ContentMeta(['key' => 'weightUnit', 'value' => 'kg']),
+                new ContentMeta(['key' => 'massAmount', 'value' => '1200']),
+                new ContentMeta(['key' => 'massUnit', 'value' => 'kg']),
                 new ContentMeta(['key' => 'fuelType', 'value' => 'gas']),
-                new ContentMeta(['key' => 'width', 'value' => '160 cm']),
-                new ContentMeta(['key' => 'height', 'value' => '120 cm']),
-                new ContentMeta(['key' => 'capacity', 'value' => '1500 cc']),
+                new ContentMeta(['key' => 'widthAmount', 'value' => '160']),
+                new ContentMeta(['key' => 'widthUnit', 'value' => 'cm']),
+                new ContentMeta(['key' => 'heightAmount', 'value' => '120']),
+                new ContentMeta(['key' => 'heightUnit', 'value' => 'cm']),
+                new ContentMeta(['key' => 'capacityAmount', 'value' => '1500']),
+                new ContentMeta(['key' => 'capacityUnit', 'value' => 'cc']),
                 new ContentMeta(['key' => 'motorNumber', 'value' => '2H2tXA598WDY987665']),
                 new ContentMeta(['key' => 'colorName', 'value' => 'black']),
                 new ContentMeta(['key' => 'axleCount', 'value' => '2']),
@@ -75,19 +85,24 @@ class CarContentsTableSeeder extends Seeder
                 new ContentMeta(['key' => 'buildYear', 'value' => '2003']),
                 new ContentMeta(['key' => 'archiveFirstNumber', 'value' => 'A598WDY987']),
                 new ContentMeta(['key' => 'wheelPosition', 'value' => 'left']),
-                new ContentMeta(['key' => 'length', 'value' => '4 m']),
+                new ContentMeta(['key' => 'lengthAmount', 'value' => '4']),
+                new ContentMeta(['key' => 'lengthUnit', 'value' => 'm']),
                 new ContentMeta(['key' => 'archiveNumber', 'value' => 'A598WDY987']),
                 new ContentMeta(['key' => 'carCondition', 'value' => 'used']),
                 new ContentMeta(['key' => 'wheelDrive', 'value' => 'back']),
                 new ContentMeta(['key' => 'mileage', 'value' => '5000 km']),
                 new ContentMeta(['key' => 'advantages', 'value' => 'used in womans hand']),
-                new ContentMeta(['key' => 'price', 'value' => '10000000']),
+                new ContentMeta(['key' => 'priceAmount', 'value' => '10000000']),
+                new ContentMeta(['key' => 'priceUnit', 'value' => 'tugrug']),
                 new ContentMeta(['key' => 'priceType', 'value' => 'loan']),
                 new ContentMeta(['key' => 'thumbnail', 'value' => $thumbnail]),
                 new ContentMeta(['key' => 'link', 'value' => 'https://www.youtube.com/watch?v=2RnGwkWL94I']),
-                new ContentMeta(['key' => 'buyout', 'value' => '10000000']),
-                new ContentMeta(['key' => 'startPrice', 'value' => '8000000']),
-                new ContentMeta(['key' => 'maxBid', 'value' => '14000000']),
+                new ContentMeta(['key' => 'buyoutAmount', 'value' => '10000000']),
+                new ContentMeta(['key' => 'buyoutUnit', 'value' => 'tugrug']),
+                new ContentMeta(['key' => 'startPriceAmount', 'value' => '8000000']),
+                new ContentMeta(['key' => 'startPriceUnit', 'value' => 'tugrug']),
+                new ContentMeta(['key' => 'maxBidAmount', 'value' => '14000000']),
+                new ContentMeta(['key' => 'maxBidUnit', 'value' => 'tugrug']),
                 new ContentMeta(['key' => 'startsAt', 'value' => '2019-09-15']),
                 new ContentMeta(['key' => 'endsAt', 'value' => '2019-09-18']),
 
@@ -96,7 +111,8 @@ class CarContentsTableSeeder extends Seeder
 
                 new ContentMeta(['key' => 'engine', 'value' => '1499 L']),
                 new ContentMeta(['key' => 'chassis', 'value' => '4 WD']),
-                new ContentMeta(['key' => 'speedLimit', 'value' => '180 km/h']),
+                new ContentMeta(['key' => 'speedLimitAmount', 'value' => '180']),
+                new ContentMeta(['key' => 'speedLimitUnit', 'value' => 'km/h']),
                 new ContentMeta(['key' => 'colorNameInterior', 'value' => 'beige']),
                 new ContentMeta(['key' => 'colorNameExterior', 'value' => 'black']),
                 new ContentMeta(['key' => 'doorCount', 'value' => '4']),
@@ -174,6 +190,18 @@ class CarContentsTableSeeder extends Seeder
                 new ContentMeta(['key' => 'optionCleanOnePersonDrive', 'value' => true]),
                 new ContentMeta(['key' => 'optionCleanNoSmoking', 'value' => true]),
                 new ContentMeta(['key' => 'optionCleanWomanDriver', 'value' => true]),
+
+                // Publishing
+                new ContentMeta(['key' => 'publishType', 'value' => $publishTypes[array_rand($publishTypes)]]),
+                new ContentMeta(['key' => 'publishPriceAmount', 'value' => rand(10000, 50000)]),
+                new ContentMeta(['key' => 'publishPriceUnit', 'value' => 'tugrug']),
+                new ContentMeta(['key' => 'publishTotalPriceAmount', 'value' => rand(100000, 500000)]),
+                new ContentMeta(['key' => 'publishTotalPriceUnit', 'value' => 'tugrug']),
+                new ContentMeta(['key' => 'publishDuration', 'value' => rand(1, 31)]),
+                new ContentMeta(['key' => 'publishVerified', 'value' => rand(0, 1) ? true : false]),
+                new ContentMeta(['key' => 'publishVerifiedBy', 'value' => 1]),
+                new ContentMeta(['key' => 'publishVerifiedAt', 'value' => now()]),
+                new ContentMeta(['key' => 'publishVerifiedEnd', 'value' => now()->addDays(rand(1, 31))]),
             ]);
 
             $content->metas()->saveMany($medias);
@@ -191,12 +219,12 @@ class CarContentsTableSeeder extends Seeder
             $content_meta->value = json_encode($value);
             $content_meta->save();
 
-            $file_content = file_get_contents(resource_path('stubs/car.stub'));
-            $file_name = $rootPath . DIRECTORY_SEPARATOR . $content->slug . Content::NAMING_CONVENTION . $content->status . Content::NAMING_CONVENTION . $time;
-            $file_ext = 'blade.php';
-            $file_path = $file_name . '.' . $file_ext;
+            // $file_content = file_get_contents(resource_path('stubs/carPost.stub'));
+            // $file_name = $rootPath . DIRECTORY_SEPARATOR . $content->slug . Content::NAMING_CONVENTION . $content->status . Content::NAMING_CONVENTION . $time;
+            // $file_ext = 'blade.php';
+            // $file_path = $file_name . '.' . $file_ext;
 
-            file_put_contents(base_path($file_path), $file_content);
+            // file_put_contents(base_path($file_path), $file_content);
         });
     }
 }

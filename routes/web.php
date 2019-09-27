@@ -20,6 +20,30 @@ Route::get('callback/{driver}', 'Auth\RegisterController@handleProviderCallback'
 
 Route::middleware(['installed'])->group(function () {
 
+    Route::middleware(['auth'])->group(function () {
+        Route::prefix('ajax')->group(function () {
+            Route::namespace('Ajax')->group(function () {
+
+                Route::apiResource('users', 'UserController')->names([
+                    'index' => 'ajax.users.index',
+                    'store' => 'ajax.users.store',
+                    'show' => 'ajax.users.show',
+                    'update' => 'ajax.users.update',
+                    'destroy' => 'ajax.users.destroy'
+                ]);
+
+                Route::apiResource('contents', 'ContentController')->names([
+                    'index' => 'ajax.contents.index',
+                    'store' => 'ajax.contents.store',
+                    'show' => 'ajax.contents.show',
+                    'update' => 'ajax.contents.update',
+                    'destroy' => 'ajax.contents.destroy'
+                ]);
+
+            });
+        });
+    });
+
     Route::middleware(['auth', 'admin'])->group(function () {
         Route::prefix('admin')->group(function () {
             Route::namespace('Admin')->group(function () {
