@@ -163,7 +163,6 @@ class Content extends Model
                 return $meta->value;
         } catch (\Exception $ex) {
             return Null;
-
         }
         return Null;
     }

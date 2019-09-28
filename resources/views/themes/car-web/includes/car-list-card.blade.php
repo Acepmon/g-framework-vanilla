@@ -1,11 +1,25 @@
+@php
+if (!function_exists('isPremium'))   {
+    function isPremium($car) {
+        return
+            $car->type == App\Content::TYPE_CAR &&
+            $car->status == App\Content::STATUS_PUBLISHED &&
+            $car->visibility == App\Content::VISIBILITY_PUBLIC &&
+            $car->metaValue('publishVerified') == True &&
+            $car->metaValue('publishVerifiedEnd') >= now() &&
+            ($car->metaValue('publishType') == 'best_premium' || $car->metaValue('publishType') == 'premium');
+    }
+}
+@endphp
+
 @if($car)
-<div class="card" onclick="window.open('{{ $car->slug }}','_blank');" style="cursor: pointer">
+<div class="card" onclick="window.open('{{ $car->slug }}','_blank');">
     <div class="card-body">
         <div class="card-img">
-            @if($car->metaValue('publishType') == 'best_premium' || $car->metaValue('publishType') == 'premium')
-            <div class="premium-tag shadow-soft-blue"><img src="{{ asset('car-web/img/icons/corona.svg') }}" alt=""></div>
-            @endif
             <a href="{{ $car->slug }}">
+                @if(isPremium($car))
+                <div class="premium-tag shadow-soft-blue"><img src="{{ asset('car-web/img/icons/corona.svg') }}" alt=""></div>
+                @endif
                 <img src="{{ (substr($car->metaValue('thumbnail'), 0, 4) !== 'http')?(App\Config::getStorage() . $car->metaValue('thumbnail')):$car->metaValue('thumbnail') }}" class="img-fluid" alt="alt">
             </a>
         </div>
@@ -13,8 +27,8 @@
             <div class="card-caption">
                 <div class="card-title"><a href="{{ $car->slug }}" style="color: inherit">{{ $car->title }}</a></div>
                 <div class="meta">{{ $car->metaValue('buildYear') }}/{{ $car->metaValue('importDate') }} | {{ $car->metaValue('mileage') }}km</div>
-                <div class="price">{{ $car->metaValue('price') }} ₮</div>
-                @if($car->metaValue('interset'))
+                <div class="price">{{ $car->metaValue('priceAmount') }} {{ $car->metaValue('priceUnit') }}</div>
+                @if($car->metaValue('interest')) <!-- TODO: Change this Conditional -->
                 <div class="favorite" onclick="addToInterest(event, '{{$car->slug}}')">
                     <span class="text-danger"><i class="fas fa-heart"></i> Added to interest list</span>
                 </div>
@@ -27,7 +41,7 @@
             <div class="info">
                 <span class="info-icon">
                     <img src="{{ asset('car-web/img/icons/engine.svg') }}" alt="">
-                    <p>{{ ucfirst($car->metaValue('capacity')) }}</p>
+                    <p>{{ ucfirst($car->metaValue('capacityAmount')) . ' ' . strtoupper($car->metaValue('capacityUnit')) }}</p>
                 </span>
                 <span class="info-icon">
                     <img src="{{ asset('car-web/img/icons/wheel.svg') }}" alt="">
@@ -55,9 +69,7 @@
                     @endforeach
                 </div>
             </div>
-
         </div>
-
     </div>
 </div>
 @endif
