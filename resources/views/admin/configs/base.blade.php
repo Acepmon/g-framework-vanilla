@@ -3,7 +3,7 @@
 @section('title', 'Base Configuration')
 
 @section('load')
-<script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/plugins/editors/ace/ace.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/plugins/editors/ace/ace.js') }}"></script>
 @endsection
 
 @section('pageheader')
@@ -42,6 +42,13 @@
         var str = '{!! json_encode($configs) !!}';
         var list = JSON.parse(str);
         var objects = {};
+
+        if (list instanceof Object) {
+            list = Object.keys(list).map(function (key) {
+                return list[key];
+            });
+        }
+
         list.forEach(config => {
             var php_editor = ace.edit(config + "_editor");
                 php_editor.setTheme("ace/theme/monokai");
