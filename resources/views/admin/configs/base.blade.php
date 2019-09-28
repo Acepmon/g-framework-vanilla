@@ -4,6 +4,7 @@
 
 @section('load')
     <script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/plugins/editors/ace/ace.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/plugins/notifications/noty.min.js') }}"></script>
 @endsection
 
 @section('pageheader')
@@ -37,6 +38,22 @@
 @endsection
 
 @section('script')
+<script>
+    $(document).ready(function () {
+        if (typeof Noty == 'undefined') {
+            console.warn('Warning - noty.min.js is not loaded.');
+            return;
+        }
+
+        // Override Noty defaults
+        Noty.overrideDefaults({
+            theme: 'limitless',
+            layout: 'topRight',
+            type: 'alert',
+            timeout: 2500
+        });
+    });
+</script>
 <script>
     $(document).ready(function () {
         var str = '{!! json_encode($configs) !!}';
@@ -82,6 +99,17 @@
                 },
                 success: function () {
                     btn.html(initialText).removeClass('disabled');
+
+                    new Noty({
+                        text: 'Successfully saved configuration file!',
+                        type: 'success'
+                    }).show();
+                },
+                error: function () {
+                    new Noty({
+                        text: 'Failed to save configuration file!',
+                        type: 'danger'
+                    }).show();
                 }
             });
         });
