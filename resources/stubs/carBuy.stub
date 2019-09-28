@@ -42,7 +42,7 @@ $request['manCount'] = request('passenger', Null);
 $request['wheelPosition'] = request('steering_wheel', Null);
 $request['countryName'] = request('area', Null);
 $request['buildYear'] = request('year', Null);
-$request['distanceDriven'] = request('distanceDriven', Null);
+$request['distanceDriven'] = request('distance_driven', Null);
 $request['doctorVerified'] = request('doctors_verified', Null);
 $request['doctorVerified'] = ($request['doctorVerified'] == 'Баталгаажсан')?'1':'0';
 foreach ($request as $key => $value) {
@@ -50,16 +50,27 @@ if ($value != Null) {
 $items = metaHas($items, $key, $value);
 }
 };
-$request['minPrice'] = request('minPrice', Null);
-$request['maxPrice'] = request('maxPrice', Null);
 
+$request['minPrice'] = request('min_price', 100);
+$request['maxPrice'] = request('max_price', Null);
+$minPrice = intVal($request['minPrice']) * 1000;
+$maxPrice = intVal($request['maxPrice']) * 1000;
+$items = $items->whereHas('metas', function ($query) use ($minPrice, $maxPrice) {
+  if ($minPrice && $maxPrice) {
+    return $query->where([['key', 'priceAmount'], ['value', '>=', $minPrice], ['value', '<=', $maxPrice]]);
+  } else if ($minPrice) {
+    return $query->where([['key', 'priceAmount'], ['value', '>=', $minPrice]]);
+  } else if ($maxPrice) {
+    return $query->where([['key', 'priceAmount'], ['value', '<=', $maxPrice]]);
+  }
+});
 
 function getPremiumDeal($type, $now) {
   $deals = App\Content::where('type', App\Content::TYPE_CAR)->where('status', App\Content::STATUS_PUBLISHED)->where('visibility', App\Content::VISIBILITY_PUBLIC);
-  $deals = metaHas($deals, 'publish_type', $type);
-  $deals = metaHas($deals, 'publish_verified', True);
+  $deals = metaHas($deals, 'publishType', $type);
+  $deals = metaHas($deals, 'publishVerified', True);
   return $deals->whereHas('metas', function ($query) use ($now) {
-    $query->where([['key', 'publish_verified_end'],['value','>=',$now]]);
+    $query->where([['key', 'publishVerifiedEnd'],['value','>=',$now]]);
   });
 }
 
@@ -127,6 +138,7 @@ Car dealer
     <div class="row">
       <div class="col-md-3">
         <form action="car-search" id="searchForm">
+          <input type="hidden" name="search" id="search">
         </form>
         <form action="buy" id="mainForm">
           <div class="left-bar-title">
@@ -144,8 +156,8 @@ Car dealer
                 </h2>
               </div>
 
-              <div id="{{ idize($category) }}" class="collapse {{ request(idize($category), False)?'show':'' }}" aria-labelledby="{{ $category }}">
               @if($category == 'Car Type')
+              <div id="{{ idize($category) }}" class="collapse {{ request(idize($category), False)?'show':'' }}" aria-labelledby="{{ $category }}">
                 <div class="card-body bg-light grid-radio gr-3">
                   @foreach(App\TermTaxonomy::where('taxonomy', $category)->get() as $taxonomy)
                   <div class="cd-radio">
@@ -157,7 +169,9 @@ Car dealer
                   </div>
                   @endforeach
                 </div>
+              </div>
               @elseif($category == 'Year')
+              <div id="{{ idize($category) }}" class="collapse {{ request(idize($category), False)?'show':'' }}" aria-labelledby="{{ $category }}">
                 <div class="card-body bg-light grid-radio">
                   <select id="min-year" class="form-control" name="year" onchange="formSubmit('year','year')">
                     <option value="">Select year</option>
@@ -166,37 +180,43 @@ Car dealer
                     @endfor
                   </select>
                 </div>
+              </div>
               @elseif($category == 'Distance Driven')
+              <div id="{{ idize($category) }}" class="collapse {{ request(idize($category), False)?'show':'' }}" aria-labelledby="{{ $category }}">
                 <div class="card-body bg-light grid-radio">
-                  <select id="distanceDriven" class="form-control" name="distanceDriven" onchange="formSubmit('distanceDriven','no-value')">
+                  <select id="distance_driven" class="form-control" name="distance_driven" onchange="formSubmit('distance_driven','no-value')">
                     <option value="">Select distance</option>
                     @for($i=1; $i<=10; $i++)
                     <option value="{{ $i }}" {{ $request['distanceDriven']==$i?'selected':'' }}>{{ $i }}km</option>
                     @endfor
                   </select>
                 </div>
+              </div>
               @elseif($category == 'Price')
+              <div id="{{ idize($category) }}" class="collapse {{ (request('min_price', False) || request('max_price'))?'show':'' }}" aria-labelledby="{{ $category }}">
                 <div class="card-body bg-light grid-radio">
                   <div class="form-row">
                     <div class="col-md-6">
-                      <select id="minPrice" class="form-control" name="minPrice" onchange="formSubmit('minPrice','no-value')">
-                        <option selected>Min</option>
-                        @for($i=1; $i<=10; $i++)
-                        <option value="{{ $i }}" {{ $request['minPrice']==$i?'selected':'' }}>{{ $i }}</option>
+                      <select id="min_price" class="form-control" name="min_price" onchange="formSubmit('min_price','no-value')">
+                        <option value="0">Min</option>
+                        @for($i=100; $i<=10000; $i+=100)
+                        <option value="{{ $i }}" {{ $request['minPrice']==$i?'selected':'' }}>{{ $i }} мянга</option>
                         @endfor
                       </select>
                     </div>
                     <div class="col-md-6">
-                      <select id="minPrice" class="form-control" name="maxPrice" onchange="formSubmit('maxPrice','no-value')">
-                        <option selected>Max</option>
-                        @for($i=1; $i<=10; $i++)
-                        <option value="{{ $i }}" {{ $request['maxPrice']==$i?'selected':'' }}>{{ $i }}</option>
+                      <select id="max_price" class="form-control" name="max_price" onchange="formSubmit('max_price','no-value')">
+                        <option value="">Max</option>
+                        @for($i=$request['minPrice']; $i<=10000; $i+=100)
+                        <option value="{{ $i }}" {{ $request['maxPrice']==$i?'selected':'' }}>{{ $i }} мянга</option>
                         @endfor
                       </select>
                     </div>
                   </div>
                 </div>
+              </div>
               @else
+              <div id="{{ idize($category) }}" class="collapse {{ request(idize($category), False)?'show':'' }}" aria-labelledby="{{ $category }}">
                 <div class="card-body bg-light">
                   @foreach(App\TermTaxonomy::where('taxonomy', $category)->get() as $taxonomy)
                   <div class="custom-control custom-radio">
@@ -208,8 +228,8 @@ Car dealer
                   </div>
                   @endforeach
                 </div>
-              @endif
               </div>
+              @endif
             </div>
             @endforeach
 
@@ -234,7 +254,6 @@ Car dealer
           </div>
           @if ($items->all() && sizeof($items->all()) != 0)
           <div class="car-list">
-            <input type="hidden" name="search" id="search">
             <input type="hidden" name="advantage" id="advantage" value="{{ $request['advantages'] }}" />
             @foreach($items->forPage($page, $itemsPerPage) as $car)
               @include('themes.car-web.includes.car-list-card', array('car'=>$car))
