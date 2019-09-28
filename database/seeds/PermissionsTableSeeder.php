@@ -48,6 +48,11 @@ class PermissionsTableSeeder extends Seeder
             ['title' => 'admin_media_read', 'type' => Permission::TYPE_READ, 'description' => 'read permission for media'],
             ['title' => 'admin_media_update', 'type' => Permission::TYPE_UPDATE, 'description' => 'update permission for media'],
             ['title' => 'admin_media_delete', 'type' => Permission::TYPE_DELETE, 'description' => 'delete permission for media'],
+            ['title' => 'admin_media_medias', 'type' => Permission::TYPE_READ, 'description' => 'read permission for media medias'],
+            ['title' => 'admin_media_avatars', 'type' => Permission::TYPE_READ, 'description' => 'read permission for media avatars'],
+            ['title' => 'admin_media_thumbnails', 'type' => Permission::TYPE_READ, 'description' => 'read permission for media thumbnails'],
+            ['title' => 'admin_media_assets', 'type' => Permission::TYPE_READ, 'description' => 'read permission for media assets'],
+            ['title' => 'admin_media_upload', 'type' => Permission::TYPE_READ, 'description' => 'read permission for media assets'],
             // notification CRUD
             ['title' => 'admin_notifications_create', 'type' => Permission::TYPE_CREATE, 'description' => 'create permission for notification'],
             ['title' => 'admin_notifications_read', 'type' => Permission::TYPE_READ, 'description' => 'read permission for notification'],

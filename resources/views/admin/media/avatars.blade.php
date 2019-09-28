@@ -21,10 +21,10 @@
 
 @section('content')
 <!-- Image grid -->
-<h6 class="content-group text-semibold">
+<h5 class="content-group font-weight-semibold">
     Users Avatars
-    <small class="display-block">There are about <strong>{{ number_format(count($avatars)) }}</strong> avatar files stored.</small>
-</h6>
+    <br><small class="display-block">There are about <strong>{{ number_format(count($avatars)) }}</strong> avatar files stored.</small>
+</h5>
 
 <div class="row">
     @foreach ($avatars as $avatar)
