@@ -65,10 +65,9 @@
                 @yield('content')
 
             </div>
-
-            @include('themes.limitless.includes.footer')
             <!-- /content area -->
-
+            
+            @include('themes.limitless.includes.footer')
         </div>
         <!-- /main content -->
 
