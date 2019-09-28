@@ -11,7 +11,7 @@
 
 
 <!-- Content area -->
-<div class="content d-flex justify-content-center align-items-center">
+<div class="content d-flex justify-content-left align-items-center">
 
     <!-- Advanced login -->
     <form class="login-form" method="POST" action="{{ route('register') }}" class="form-validate-jquery" enctype="multipart/form-data">
@@ -138,10 +138,6 @@
 
 </div>
 <!-- /content area -->
-
-    <!-- Footer -->
-    @include('themes.limitless.includes.footer')
-    <!-- /footer -->
 @endsection
 
 @section('script')
