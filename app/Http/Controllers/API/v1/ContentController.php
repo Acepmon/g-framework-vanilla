@@ -15,6 +15,8 @@ class ContentController extends Controller
      */
     public function index(Request $request)
     {
+        $authUser = auth('api')->user();
+
         $type = $request->input('type', Content::TYPE_POST);
         $status = $request->input('status', Content::STATUS_PUBLISHED);
         $visibility = $request->input('visibility', Content::VISIBILITY_PUBLIC);
@@ -42,19 +44,36 @@ class ContentController extends Controller
 
         $contents = $contents->paginate($limit);
 
-        $contents->getCollection()->transform(function ($content) {
-            return [
-                "id" => $content->id,
-                "title" => $content->title,
-                "slug" => $content->slug,
-                "type" => $content->type,
-                "status" => $content->status,
-                "visibility" => $content->visibility,
-                "author" => $content->author,
-                "created_at" => $content->created_at,
-                "updated_at" => $content->updated_at,
-                "meta" => $content->metasTransform(),
-            ];
+        $contents->getCollection()->transform(function ($content) use ($authUser) {
+            if (isset($authUser)) {
+                $interested = $authUser->metas()->where('key', 'interestedCars')->where('value', $content->id)->count();
+                return [
+                    "id" => $content->id,
+                    "title" => $content->title,
+                    "slug" => $content->slug,
+                    "type" => $content->type,
+                    "status" => $content->status,
+                    "visibility" => $content->visibility,
+                    "author" => $content->author,
+                    "created_at" => $content->created_at,
+                    "updated_at" => $content->updated_at,
+                    "authInterested" => $interested ? true : false,
+                    "meta" => $content->metasTransform(),
+                ];
+            } else {
+                return [
+                    "id" => $content->id,
+                    "title" => $content->title,
+                    "slug" => $content->slug,
+                    "type" => $content->type,
+                    "status" => $content->status,
+                    "visibility" => $content->visibility,
+                    "author" => $content->author,
+                    "created_at" => $content->created_at,
+                    "updated_at" => $content->updated_at,
+                    "meta" => $content->metasTransform(),
+                ];
+            }
         });
 
         return response()->json($contents);
