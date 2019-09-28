@@ -43,7 +43,6 @@
     @include('themes.car-web.includes.footer')
 
     @stack('modals')
-
     <script src="{{ asset('car-web/vendor/jquery/jquery.min.js') }}"></script>
     <script src="{{ asset('car-web/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('car-web/vendor/owl.carousel/owl.carousel.min.js') }}"></script>
