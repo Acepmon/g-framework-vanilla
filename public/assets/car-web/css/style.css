@@ -932,7 +932,8 @@ select {
   margin-top: 1.25rem;
 }
 
-.car-list .card {
+.car-list a.card {
+  text-decoration: none;
   background: transparent;
   border-radius: 4px;
   font-family: "Segoe UI", "Open Sans", Helvetica, sans-serif;
@@ -945,11 +946,11 @@ select {
   border: 1px solid #E0E5EB;
 }
 
-.car-list .card:hover {
+.car-list a.card:hover {
   box-shadow: 0 10px 20px -10px rgba(43, 54, 81, 0.2) !important;
 }
 
-.car-list .card .card-body {
+.car-list a.card .card-body {
   display: flex;
   border: none;
   box-sizing: border-box;
@@ -962,7 +963,7 @@ select {
   padding: 0.625rem;
 }
 
-.car-list .card .card-body .card-img {
+.car-list a.card .card-body .card-img {
   display: inline-block;
   position: relative;
   overflow: hidden;
@@ -972,7 +973,7 @@ select {
   border-radius: 0;
 }
 
-.car-list .card .card-body .card-img .premium-tag {
+.car-list a.card .card-body .card-img .premium-tag {
   position: absolute;
   top: 6px;
   left: 6px;
@@ -988,25 +989,25 @@ select {
   align-items: center;
 }
 
-.car-list .card .card-body .card-description {
+.car-list a.card .card-body .card-description {
   display: flex;
   width: 100%;
 }
 
-.car-list .card .card-body .card-caption {
+.car-list a.card .card-body .card-caption {
   z-index: 1;
   padding-top: 1rem;
   min-width: 30%;
 }
 
-.car-list .card .card-body .card-caption .meta {
+.car-list a.card .card-body .card-caption .meta {
   text-align: left;
   font-weight: 600;
   font-size: .75rem;
   color: #AAAEB9;
 }
 
-.car-list .card .card-body .card-caption .favorite {
+.car-list a.card .card-body .card-caption .favorite {
   margin-top: 5px;
   font-size: .75rem;
   text-align: left;
@@ -1014,7 +1015,7 @@ select {
   color: #AAAEB9;
 }
 
-.car-list .card .card-body .card-caption .card-title {
+.car-list a.card .card-body .card-caption .card-title {
   line-height: 1.2rem;
   color: #17191D;
   font-size: 1.125rem;
@@ -1025,17 +1026,18 @@ select {
   text-decoration: none;
 }
 
-.car-list .card .card-body .card-caption .card-title:hover {
+.car-list a.card .card-body .card-caption .card-title:hover {
   color: #2B3651;
 }
 
-.car-list .card .card-body .card-caption .price {
+.car-list a.card .card-body .card-caption .price {
   font-size: 1.25rem;
   font-weight: 700;
   text-align: left;
+  color: #17191D;
 }
 
-.car-list .card .card-body .info {
+.car-list a.card .card-body .info {
   margin-left: 10px;
   padding-top: 1rem;
   display: grid;
@@ -1044,7 +1046,7 @@ select {
   width: 100%;
 }
 
-.car-list .card .card-body .info .info-icon {
+.car-list a.card .card-body .info .info-icon {
   display: inline-flex;
   margin-right: 20px;
   margin-bottom: 1.5rem;
@@ -1054,12 +1056,12 @@ select {
   position: relative;
 }
 
-.car-list .card .card-body .info .info-icon img {
+.car-list a.card .card-body .info .info-icon img {
   width: 24px;
   height: 24px;
 }
 
-.car-list .card .card-body .info .info-icon p {
+.car-list a.card .card-body .info .info-icon p {
   font-family: "Segoe UI","Open Sans",Helvetica,sans-serif;
   font-size: .875rem;
   display: inline-block;
@@ -1069,14 +1071,14 @@ select {
   margin-bottom: 0;
 }
 
-.car-list .card .card-body .info .tag {
+.car-list a.card .card-body .info .tag {
   grid-column-start: 1;
   grid-column-end: 4;
   white-space: nowrap;
   overflow: hidden;
 }
 
-.car-list .card .card-body .info .tag a {
+.car-list a.card .card-body .info .tag div {
   display: inline-block;
   padding: .25rem .75rem;
   margin-bottom: .25rem;
@@ -1090,7 +1092,7 @@ select {
   color: #2B3651;
 }
 
-.car-list .card .card-body .info .tag a:hover {
+.car-list a.card .card-body .info .tag div:hover {
   background: #F8F9FB;
   box-shadow: 0 5px 10px 0 rgba(43, 54, 81, 0.1);
 }
@@ -1642,6 +1644,8 @@ select {
 .detail-page .finance-section .monthly-payment {
   background: #2B3651;
   color: #fff;
+  height: 100%;
+  border-radius: 6px;
 }
 
 .detail-page .finance-section .monthly-payment h3 {
@@ -1844,15 +1848,19 @@ select {
   box-shadow: 0 10px 20px -5px rgba(199, 11, 11, 0.3) !important;
 }
 
+header {
+  position: relative;
+  height: 10.25rem;
+}
+
 .navbar {
   position: absolute;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  padding: 2rem 1rem;
-  margin-top: 2rem;
-  transition: all 350ms ease;
+  margin-top: 4rem;
+  transition: all 350ms ease, margin-top 0s;
   transform: translateY(0%);
   z-index: 1030;
   top: 0;
@@ -2254,6 +2262,7 @@ section .owl-carousel .owl-nav button.owl-next, section .owl-carousel .owl-nav b
 }
 
 .card-list .card {
+  text-decoration: none;
   font-family: "Segoe UI", "Open Sans", Helvetica, sans-serif;
   position: relative;
   border-color: transparent;
@@ -2436,6 +2445,7 @@ section .owl-carousel .owl-nav button.owl-next, section .owl-carousel .owl-nav b
   font-size: 1.25rem;
   font-weight: 700;
   text-align: right;
+  color: #17191D;
 }
 
 .card-list .card .card-body .card-description .card-meta {
@@ -2903,8 +2913,6 @@ section .owl-carousel .owl-nav button.owl-next, section .owl-carousel .owl-nav b
 }
 
 .profile-upload .profile-pic {
-  max-width: 200px;
-  max-height: 200px;
   display: block;
 }
 
@@ -2935,6 +2943,31 @@ section .owl-carousel .owl-nav button.owl-next, section .owl-carousel .owl-nav b
 
 .profile-upload .p-image:hover {
   transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.maz-modal-title {
+  text-align: center;
+  font-size: 1.375rem;
+  color: #2B3651;
+  font-weight: 700;
+}
+
+.maz-modal-desc {
+  text-align: center;
+  font-size: 1rem;
+  color: #AAAEB9;
+  margin-top: 1rem;
+}
+
+.modal-footer {
+  justify-content: center;
+  border: none;
+}
+
+.modal-header {
+  text-align: center;
+  justify-content: center;
+  border: none;
 }
 
 .pageType-footer {
