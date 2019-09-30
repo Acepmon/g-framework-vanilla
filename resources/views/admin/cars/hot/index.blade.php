@@ -10,7 +10,7 @@
     </div>
 
     <div class="header-elements d-none">
-        <a href="{{ route('admin.cars.create', ['type' => Request::get('type')]) }}" class="btn btn-labeled bg-blue heading-btn">Create New Car</a>
+        <a href="{{ route('admin.cars.create', ['type' => \App\Content::TYPE_CAR]) }}" class="btn btn-labeled bg-blue heading-btn">Create New Car</a>
     </div>
 </div>
 
