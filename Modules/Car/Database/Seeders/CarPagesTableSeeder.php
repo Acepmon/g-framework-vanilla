@@ -327,5 +327,127 @@ class CarPagesTableSeeder extends Seeder
         $file_path = $file_name . '.' . $file_ext;
 
         file_put_contents(base_path($file_path), $file_content);
+
+
+        // --- car my page sell request on sell ---
+        $content = new Content;
+        $content->title = 'Car sell page on sale';
+        $content->slug = 'sell-page-on-sell';
+        $content->type = Content::TYPE_PAGE;
+        $content->status = Content::STATUS_PUBLISHED;
+        $content->visibility = Content::VISIBILITY_PUBLIC;
+        $content->author_id = 1;
+        $content->save();
+
+        $value = new \stdClass;
+        $value->datetime = $time;
+        $value->filename_changed = true;
+        $value->before = $content;
+        $value->after = $content;
+        $value->user = User::find(1);
+
+        $content_meta = new ContentMeta();
+        $content_meta->content_id = $content->id;
+        $content_meta->key = 'initial';
+        $content_meta->value = json_encode($value);
+        $content_meta->save();
+
+        $file_content = file_get_contents(resource_path('stubs/carSellPageOnSell.stub'));
+        $file_name = $rootPath . DIRECTORY_SEPARATOR . 'sell-page-on-sell' . Content::NAMING_CONVENTION . $content->status . Content::NAMING_CONVENTION . $time;
+        $file_ext = 'blade.php';
+        $file_path = $file_name . '.' . $file_ext;
+
+        file_put_contents(base_path($file_path), $file_content);
+
+        // --- car my page sell request sold ---
+        $content = new Content;
+        $content->title = 'Car sell page sold';
+        $content->slug = 'sell-page-sold';
+        $content->type = Content::TYPE_PAGE;
+        $content->status = Content::STATUS_PUBLISHED;
+        $content->visibility = Content::VISIBILITY_PUBLIC;
+        $content->author_id = 1;
+        $content->save();
+
+        $value = new \stdClass;
+        $value->datetime = $time;
+        $value->filename_changed = true;
+        $value->before = $content;
+        $value->after = $content;
+        $value->user = User::find(1);
+
+        $content_meta = new ContentMeta();
+        $content_meta->content_id = $content->id;
+        $content_meta->key = 'initial';
+        $content_meta->value = json_encode($value);
+        $content_meta->save();
+
+        $file_content = file_get_contents(resource_path('stubs/carSellPageSold.stub'));
+        $file_name = $rootPath . DIRECTORY_SEPARATOR . 'sell-page-sold' . Content::NAMING_CONVENTION . $content->status . Content::NAMING_CONVENTION . $time;
+        $file_ext = 'blade.php';
+        $file_path = $file_name . '.' . $file_ext;
+
+        file_put_contents(base_path($file_path), $file_content);
+
+        // --- car my page purchase request published ---
+        $content = new Content;
+        $content->title = 'Car purchase page published';
+        $content->slug = 'purchase-page-published';
+        $content->type = Content::TYPE_PAGE;
+        $content->status = Content::STATUS_PUBLISHED;
+        $content->visibility = Content::VISIBILITY_PUBLIC;
+        $content->author_id = 1;
+        $content->save();
+
+        $value = new \stdClass;
+        $value->datetime = $time;
+        $value->filename_changed = true;
+        $value->before = $content;
+        $value->after = $content;
+        $value->user = User::find(1);
+
+        $content_meta = new ContentMeta();
+        $content_meta->content_id = $content->id;
+        $content_meta->key = 'initial';
+        $content_meta->value = json_encode($value);
+        $content_meta->save();
+
+        $file_content = file_get_contents(resource_path('stubs/carPurchasePagePublished.stub'));
+        $file_name = $rootPath . DIRECTORY_SEPARATOR . 'purchase-page-published' . Content::NAMING_CONVENTION . $content->status . Content::NAMING_CONVENTION . $time;
+        $file_ext = 'blade.php';
+        $file_path = $file_name . '.' . $file_ext;
+
+        file_put_contents(base_path($file_path), $file_content);
+
+        // --- car my page purchase request published ---
+        $content = new Content;
+        $content->title = 'Car purchase page checking';
+        $content->slug = 'purchase-page-checking';
+        $content->type = Content::TYPE_PAGE;
+        $content->status = Content::STATUS_PUBLISHED;
+        $content->visibility = Content::VISIBILITY_PUBLIC;
+        $content->author_id = 1;
+        $content->save();
+
+        $value = new \stdClass;
+        $value->datetime = $time;
+        $value->filename_changed = true;
+        $value->before = $content;
+        $value->after = $content;
+        $value->user = User::find(1);
+
+        $content_meta = new ContentMeta();
+        $content_meta->content_id = $content->id;
+        $content_meta->key = 'initial';
+        $content_meta->value = json_encode($value);
+        $content_meta->save();
+
+        $file_content = file_get_contents(resource_path('stubs/carPurchasePageChecking.stub'));
+        $file_name = $rootPath . DIRECTORY_SEPARATOR . 'purchase-page-checking' . Content::NAMING_CONVENTION . $content->status . Content::NAMING_CONVENTION . $time;
+        $file_ext = 'blade.php';
+        $file_path = $file_name . '.' . $file_ext;
+
+        file_put_contents(base_path($file_path), $file_content);
+
     }
 }
