@@ -23,7 +23,7 @@ class DatabaseSeeder extends Seeder
         $this->call(ContentsTableSeeder::class);
 
         // Run Car Module Seeder
-        // Artisan::call('module:seed Car');
-        // echo Artisan::output();
+        Artisan::call('module:seed Car');
+        echo Artisan::output();
     }
 }
