@@ -20,6 +20,7 @@ class CarPermissionsTableSeeder extends Seeder
     {
         Model::unguard();
 
+        PermissionManager::newPermissionCrud('admin_modules_car');
         PermissionManager::newPermissionCrud('admin_modules_car_options');
         PermissionManager::newPermissionCrud('admin_modules_car_best_premium');
         PermissionManager::newPermissionCrud('admin_modules_car_premium');

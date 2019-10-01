@@ -55,7 +55,6 @@ class CarBuyPageTableSeeder extends Seeder
 
             file_put_contents(base_path($file_path), $file_content);
             DB::commit();
-            return redirect()->route('admin.cars.index', ['type' => $content->type]);
         } catch (\Exception $e) {
             DB::rollBack();
             throw $e;

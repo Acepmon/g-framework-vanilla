@@ -14,6 +14,8 @@ class BasicPermissionsTableSeeder extends Seeder
     public function run()
     {
         PermissionManager::newReadPermission('');
+        PermissionManager::newReadPermission('home');
+        PermissionManager::newReadPermission('page');
         PermissionManager::newReadPermission('login');
         PermissionManager::newReadPermission('register');
         PermissionManager::newReadPermission('logout');

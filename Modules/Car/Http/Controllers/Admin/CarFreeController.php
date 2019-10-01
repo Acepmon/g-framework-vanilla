@@ -14,7 +14,7 @@ class CarFreeController extends Controller
      */
     public function index()
     {
-        return view('car::index');
+        return view('car::admin.car.free.index');
     }
 
     /**
@@ -23,7 +23,7 @@ class CarFreeController extends Controller
      */
     public function create()
     {
-        return view('car::create');
+        return view('car::admin.car.free.create');
     }
 
     /**
@@ -43,7 +43,7 @@ class CarFreeController extends Controller
      */
     public function show($id)
     {
-        return view('car::show');
+        return view('car::admin.car.free.show');
     }
 
     /**
@@ -53,7 +53,7 @@ class CarFreeController extends Controller
      */
     public function edit($id)
     {
-        return view('car::edit');
+        return view('car::admin.car.free.edit');
     }
 
     /**

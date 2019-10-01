@@ -14,7 +14,7 @@ class CarBestPremiumController extends Controller
      */
     public function index()
     {
-        return view('car::index');
+        return view('car::admin.car.best_premium.index');
     }
 
     /**
@@ -23,7 +23,7 @@ class CarBestPremiumController extends Controller
      */
     public function create()
     {
-        return view('car::create');
+        return view('car::admin.car.best_premium.create');
     }
 
     /**
@@ -43,7 +43,7 @@ class CarBestPremiumController extends Controller
      */
     public function show($id)
     {
-        return view('car::show');
+        return view('car::admin.car.best_premium.show');
     }
 
     /**
@@ -53,7 +53,7 @@ class CarBestPremiumController extends Controller
      */
     public function edit($id)
     {
-        return view('car::edit');
+        return view('car::admin.car.best_premium.edit');
     }
 
     /**

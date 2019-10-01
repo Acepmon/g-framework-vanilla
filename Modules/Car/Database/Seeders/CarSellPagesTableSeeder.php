@@ -146,7 +146,7 @@ class CarSellPagesTableSeeder extends Seeder
             file_put_contents(base_path($file_path), $file_content);
 
 
-            
+
             // --- car sell auction page ---
             $content = new Content;
             $content->title = 'Sell Car Auction';
@@ -176,7 +176,6 @@ class CarSellPagesTableSeeder extends Seeder
             $file_path = $file_name . '.' . $file_ext;
 
             file_put_contents(base_path($file_path), $file_content);
-            return redirect()->route('admin.cars.index', ['type' => $content->type]);
         } catch (\Exception $e) {
             throw $e;
         }
