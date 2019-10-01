@@ -1,6 +1,8 @@
 @extends('themes.limitless.layouts.default')
 
-@section('title', 'Options')
+@section('title')
+
+@endsection
 
 @section('load-before')
 
@@ -11,7 +13,7 @@
 @endsection
 
 @section('pageheader')
-    @include('admin.cars.options.includes.pageheader')
+
 @endsection
 
 @section('content')

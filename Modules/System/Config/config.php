@@ -8,6 +8,12 @@ return [
         'memberRedirectPath' => '/home',
         'guestRedirectPath' => '/home'
     ],
+    'avatar' => [
+        'default' => asset('user.png'),
+        'storage' => [
+            'disk' => env('FILESYSTEM_DRIVER', 'local')
+        ]
+    ],
     'register' => [
         'defaultGroup' => '3'
     ],
