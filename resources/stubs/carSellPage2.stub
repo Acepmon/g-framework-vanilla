@@ -12,60 +12,60 @@
 
 <div class="bg-page-header"> </div>
 
-  <section class="bg-transparent">
-      <div class="container">
-        <div class="row justify-content-center">
-          <div class="col-md-10">
-            <div class="card sell-car shadow-soft-blue">
-              <div class="card-header">
-                <div class="step-process">
-                  <div class='progress_inner_step step-1 active'>
-                    <label for='step-1'>Add details</label>
-                  </div>
-                  <div class='progress_inner_step step-2'>
-                    <label for='step-2'>Upload media</label>
-                  </div>
-                  <div class='progress_inner_step step-3'>
-                    <label for='step-3'>Add price</label>
-                  </div>
-                  <div class='progress_inner_step step-4'>
-                    <label for='step-4'>Publish type</label>
-                  </div>
-                </div>
+<section class="bg-transparent">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-10">
+        <div class="card sell-car shadow-soft-blue">
+          <div class="card-header">
+            <div class="step-process sp-4">
+              <div class='progress_inner_step step-1 done'>
+                <label for='step-1'>Add details</label>
               </div>
-              <div class="card-body pb-5">
-                @include('pages.' . App\Content::where('slug', 'sell-car-page-2-step-2')->first()->currentView())
-                  <!-- NEXT PREV BUTTON START -->
-                  <div style="float:right;">
-                    <button class="btn btn-light btn-round px-5 py-2" type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
-                    <button class="btn btn-danger btn-round shadow-red px-5 py-2" type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
-                  </div>
-
-                  <script>
-
-                  </script>
-                </div>
+              <div class='progress_inner_step step-2 active'>
+                <label for='step-2'>Upload media</label>
+              </div>
+              <div class='progress_inner_step step-3'>
+                <label for='step-3'>Add price</label>
+              </div>
+              <div class='progress_inner_step step-4'>
+                <label for='step-4'>Publish type</label>
               </div>
             </div>
           </div>
+          <div class="card-body pb-5">
+            @include('pages.' . App\Content::where('slug', 'car-sell-page-2-step-1')->first()->currentView())
+            <!-- NEXT PREV BUTTON START -->
+            <div style="float:right;">
+              <button class="btn btn-light btn-round px-5 py-2" type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
+              <button class="btn btn-danger btn-round shadow-red px-5 py-2" type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
+            </div>
+
+            <script>
+
+            </script>
+          </div>
         </div>
-    </section>
+      </div>
+    </div>
+  </div>
+</section>
 
 @endsection
 
 @section('script')
-    <script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/plugins/media/cropper.min.js') }}"></script>
-    <script>
-        $(document).ready(function() {
-            document.getElementById('pro-image').addEventListener('change', readImage, false);
+<script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/plugins/media/cropper.min.js') }}"></script>
+<script>
+  $(document).ready(function() {
+    document.getElementById('pro-image').addEventListener('change', readImage, false);
 
-            $( ".preview-images-zone" ).sortable();
+    $(".preview-images-zone").sortable();
 
-            $(document).on('click', '.image-cancel', function() {
-                let no = $(this).data('no');
-                $(".preview-image.preview-show-"+no).remove();
-            });
-        });
-    </script>
+    $(document).on('click', '.image-cancel', function() {
+      let no = $(this).data('no');
+      $(".preview-image.preview-show-" + no).remove();
+    });
+  });
+</script>
 
 @endsection
