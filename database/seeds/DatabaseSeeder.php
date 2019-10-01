@@ -11,6 +11,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        $this->call(AuthPagesTableSeeder::class);
         $this->call(GroupsTableSeeder::class);
         $this->call(MenusTableSeeder::class);
         $this->call(PermissionsTableSeeder::class);
@@ -23,7 +24,7 @@ class DatabaseSeeder extends Seeder
         $this->call(ContentsTableSeeder::class);
 
         // Run Car Module Seeder
-        Artisan::call('module:seed Car');
-        echo Artisan::output();
+        // Artisan::call('module:seed Car');
+        // echo Artisan::output();
     }
 }
