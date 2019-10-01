@@ -26,7 +26,8 @@ class CarwebServiceProvider extends ServiceProvider
         view()->composer('themes.car-web.includes.header', function ($view) {
             $mainMenus = \App\Menu::where('title', 'Car Main')->first()->children;
             $topbarMenus = \App\Menu::where('title', 'Car Topbar')->first()->children;
-            return $view->with('mainMenus', $mainMenus)->with('topbarMenus', $topbarMenus);
+            $dropdownMenus = \App\Menu::where('title', 'Car Profile Dropdown')->first()->children;
+            return $view->with('mainMenus', $mainMenus)->with('topbarMenus', $topbarMenus)->with('dropdownMenus', $dropdownMenus);
         });
 
         view()->composer('themes.car-web.includes.footer', function ($view) {
