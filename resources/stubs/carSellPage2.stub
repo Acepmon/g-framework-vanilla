@@ -51,11 +51,20 @@
   </div>
 </section>
 
+<div class="spinner-border" id="demo-spinner" role="status" style="position: fixed; z-index: 1000; top: 50%; left: 50%; display: none">
+  <span class="sr-only">Loading...</span>
+</div>
 @endsection
 
 @section('script')
 <script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/plugins/media/cropper.min.js') }}"></script>
 <script>
+  $.ajaxSetup({
+    headers: {
+      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+});
+
   $(document).ready(function() {
     document.getElementById('pro-image').addEventListener('change', readImage, false);
 

@@ -24,14 +24,15 @@ Route::middleware(['installed'])->group(function () {
         Route::prefix('ajax')->group(function () {
             Route::namespace('Ajax')->group(function () {
 
+                Route::get('contents/', 'ContentController@index');
                 Route::post('contents/', 'ContentController@store');
                 Route::put('contents/{contentId}', 'ContentController@updateContent');
-                Route::post('contents/{contentId}/metas', 'ContentController@createMeta');
-                Route::put('contents/{contentId}/metas', 'ContentController@updateMeta');
-                Route::put('contents/{contentId}/metas/sync', 'ContentController@syncMetas');
-                Route::put('contents/{contentId}/metas/attach', 'ContentController@attachMetas');
-                Route::put('contents/{contentId}/metas/detach', 'ContentController@detachMetas');
-                Route::delete('contents/{contentId}/metas', 'ContentController@deleteMeta');
+                Route::post('contents/{contentId}/metas', 'ContentMetaController@createMeta');
+                Route::put('contents/{contentId}/metas', 'ContentMetaController@updateMeta');
+                Route::put('contents/{contentId}/metas/sync', 'ContentMetaController@syncMetas');
+                Route::put('contents/{contentId}/metas/attach', 'ContentMetaController@attachMetas');
+                Route::put('contents/{contentId}/metas/detach', 'ContentMetaController@detachMetas');
+                Route::delete('contents/{contentId}/metas', 'ContentMetaController@deleteMeta');
 
             });
         });

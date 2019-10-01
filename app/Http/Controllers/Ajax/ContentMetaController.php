@@ -2,24 +2,80 @@
 
 namespace App\Http\Controllers\Ajax;
 
+use App\Content;
 use App\ContentMeta;
+use App\Entities\ContentManager;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class ContentMetaController extends Controller
 {
-    public function createMeta(Request $request, ContentMeta $contentMeta)
-    {
-        //
-        // PUT /ajax/contents/:id/metas/
-        // key, value
 
-        // $request->key
-        // $request->value
-        // $request->newValue
+    public function createMeta(Request $request) {
+        $content_id = $request->route('contentId');
+        $content = Content::find($content_id);
 
-        $meta = ContentMeta::where('key', $request->key)->where('value', $request->value)->first();
-        $meta->value = $request->newValue;
-        $meta->save();
+        $data = ContentManager::discernMetasFromRequest($request->input());
+
+        foreach($data as $key=>$value) {
+            ContentManager::addMeta($content_id, $key, $value);
+        }
+
+        return response()->json($data);
+    }
+
+    public function updateMeta(Request $request) {
+        $content_id = $request->route('contentId');
+        $content = Content::find($content_id);
+
+        $key = $request->key;
+        $value = $request->value;
+        $newValue = $request->newValue;
+
+        $meta = ContentManager::updateMeta($content_id, $key, $value, $newValue);
+
+        return response()->json($meta);
+    }
+
+    public function deleteMeta(Request $request) {
+        $content_id = $request->route('contentId');
+        $content = Content::find($content_id);
+
+        $key = $request->key;
+        $value = $request->value;
+
+        ContentManager::deleteMeta($content_id, $key, $value);
+
+        return response()->json(["key"=>$key, "value"=>$value]);
+    }
+
+    public function syncMetas(Request $request) {
+        $content_id = $request->route('contentId');
+        $content = Content::find($content_id);
+
+        $data = ContentManager::discernMetasFromRequest($request->input());
+        ContentManager::syncMetas($content_id, $data);
+
+        return response()->json($data);
+    }
+
+    public function attachMetas(Request $request) {
+        $content_id = $request->route('contentId');
+        $content = Content::find($content_id);
+
+        $data = ContentManager::discernMetasFromRequest($request->input());
+        ContentManager::attachMetas($content_id, $data);
+
+        return response()->json($data);
+    }
+
+    public function detachMetas(Request $request) {
+        $content_id = $request->route('contentId');
+        $content = Content::find($content_id);
+
+        $data = ContentManager::discernMetasFromRequest($request->input());
+        ContentManager::detachMetas($content_id, $data);
+
+        return response()->json($data);
     }
 }
