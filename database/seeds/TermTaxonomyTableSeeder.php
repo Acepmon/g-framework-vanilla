@@ -1120,6 +1120,124 @@ class TermTaxonomyTableSeeder extends Seeder
             ]);
         }
 
+        $Mitsuoka = ['1996–present Galue', '2008–present Himiko', '2014–present Ryugi (based on the Toyota Corolla Axio and Toyota Corolla Fielder)', '1993–present Viewt', '2010–present Like-T3'
+        , '2018–present Rock Star (Chevrolet Corvette C2 inspiration based on the Mazda MX-5)', '1982 BUBU 50 Series (a series of three-wheeled microcars)[3]'
+        , '1989-1990 BUBU 356 Speedstar[4] (a copy of the Porsche 356 Speedster)', '1987 BUBU Classic SSK (copy of the Mercedes-Benz SSK roadster based on the Volkswagen Beetle)'
+        , '2008-2012 Galue 204 (based on the Toyota Corolla Axio)', '2010-2012 Galue Classic', '1991 Dore (similar to the Le-Seyde, based on the Ford Mustang)'
+        , '1990, 2000 Le-Seyde (a Nissan Silvia-based coupé in the spirit of the Zimmer)', '2010-2012 Like (based on the Mitsubishi i-MiEV)', '1998-2007 Mitsuoka Microcar'
+        , '1998-2007 Microcar K-1/MC-1', '1999-2007 MC-1T', '1998-? Microcar K-2 (based on the design of the FMR Tg500)', '2005-? Microcar K-3/Type F (design similar to the Zero1)'
+        , '2006-? Microcar K-4/Type R[5] (styling reminiscent of 1950s race cars)', '1999-2007 ME-1', '2002-2007 ME-2 (Convoy 88)', '2004-2012 Nouera (based on the Honda Accord and later the Toyota Corolla)'
+        , '2007-2014 Orochi (based on the Honda NSX)', '1996-2004 Ray (styling similar to the Riley Elf Mk.3, based on the Mazda Carol and later the Daihatsu Mira Gino)'
+        , '1998-2004 Ryoga a "classically" styled sedan originally based on the Primera and later on the smaller Sunny', '1996-2000 Type F (a restyled Zero1)'
+        , '2000-2001 Yuga (a London Taxi copy based on the Nissan Cube)', '1994-2000 Zero1[6] (a Lotus Super Seven copy with Eunos Roadster drivetrain)'];
+
+        foreach($Mitsuoka as &$model){
+            $term_id5 = DB::table('terms')->insertGetId([
+                'name' => $model,
+                'slug' => 'Mitsuoka',
+            ]);
+            DB::table('term_taxonomy')->insert([
+                'term_id' => $term_id5,
+                'taxonomy' => 'Model',
+                'description' => $model,
+                'parent_id' => '20',
+                'count' => 0
+            ]);
+        }
+
+        $Eunos = ['Eunos'];
+
+        foreach($Eunos as &$model){
+            $term_id5 = DB::table('terms')->insertGetId([
+                'name' => $model,
+                'slug' => 'Eunos',
+            ]);
+            DB::table('term_taxonomy')->insert([
+                'term_id' => $term_id5,
+                'taxonomy' => 'Model',
+                'description' => $model,
+                'parent_id' => '20',
+                'count' => 0
+            ]);
+        }
+
+        $AlfaRomeo = ['Alfa Romeo Spider', 'Alfa Romeo 8C Competizione', 'Alfa Romeo Brera', 'Alfa Romeo 159', 'Alfa Romeo 105 Series Coupes', 'Alfa Romeo 166', 
+        'Alfa Romeo 8C', 'Alfa Romeo 156', 'Alfa Romeo GTV6', 'Alfa Romeo MiTo', 'Alfa Romeo 2600', 'Alfa Romeo 145', 'Alfa Romeo 75', 'Alfa Romeo 147'
+        , 'Alfa Romeo 155', 'Alfa Romeo Disco Volante', 'Alfa Romeo 164', 'Alfa Romeo Arna', 'Alfa Romeo Giulia', 'Alfa Romeo Giulietta', 'Alfa Romeo GT', 'Alfa Romeo Tipo 33'
+        , 'Alfa Romeo 6C', 'Alfa Romeo GTV and Spider', 'Alfa Romeo Montreal', 'Alfa Romeo 90', 'Alfa Romeo Alfasud', 'Alfa Romeo RM', 'Alfa Romeo Alfa 6', 'Alfa Romeo Alfetta'
+        , 'Alfa Romeo Sprint', 'Alfa Romeo SZ', 'Alfa Romeo 1750', 'Alfa Romeo G1', 'Alfa Romeo 1900', 'Alfa Romeo 2000', 'Alfa Romeo Giulia TZ', 'Alfa Romeo Giulietta'
+        , 'Alfa Romeo 33', 'Alfa Romeo 33 Stradale', 'Alfa Romeo GTA', 'Alfa Romeo 12C', 'Alfa Romeo P3', 'Alfa Romeo Matta', 'Alfa Romeo RL', 'A.L.F.A 40/60 HP'
+        ,'Alfa Romeo Tipo A','A.L.F.A 24 HP','Alfa Romeo 20/30 HP ES Sport','Alfa Romeo Giulietta','Alfa Romeo Gran Sport Quattroruote','Alfa Romeo 33.2','A.L.F.A. 40/60 GP'
+        ,'Alfa Romeo P1','Alfa Romeo 169','Alfa Romeo 20/30 HP','Alfa Romeo P2','Alfa Romeo Kamal','Alfa Romeo Tipo 308','Alfa Romeo Tipo 512','Alfa Romeo Scighera'];
+
+        foreach($AlfaRomeo as &$model){
+            $term_id5 = DB::table('terms')->insertGetId([
+                'name' => $model,
+                'slug' => 'AlfaRomeo',
+            ]);
+            DB::table('term_taxonomy')->insert([
+                'term_id' => $term_id5,
+                'taxonomy' => 'Model',
+                'description' => $model,
+                'parent_id' => '20',
+                'count' => 0
+            ]);
+        }
+
+        $AstonMartin = ['1921–1925 Aston Martin Standard Sports', '1927–1932 Aston Martin First Series', '1929–1932 Aston Martin International', '1932–1932 Aston Martin International Le Mans'
+        , '1932–1934 Aston Martin Le Mans', '1933–1934 Aston Martin 12/50 Standard', '1934–1936 Aston Martin Mk II', '1934–1936 Aston Martin Ulster', '1936–1940 Aston Martin 2-litre Speed Models (23 built) The last 8 were fitted with C-type bodywork'
+        , '1937–1939 Aston Martin 15/98', '1948–1950 Aston Martin 2-Litre Sports (DB1)', '1950–1953 Aston Martin DB2', '1953–1957 Aston Martin DB2/4', '1957–1959 Aston Martin DB Mark III'
+        , '1958–1963 Aston Martin DB4', '1961–1963 Aston Martin DB4 GT Zagato', '1963–1965 Aston Martin DB5', '1965–1966 Aston Martin Short Chassis Volante', '1965–1969 Aston Martin DB6'
+        , '1967–1972 Aston Martin DBS', '1969–1989 Aston Martin V8', '1977–1989 Aston Martin V8 Vantage', '1986–1990 Aston Martin V8 Zagato', '1989–1996 Aston Martin Virage/Virage Volante'
+        , '1989–2000 Aston Martin Virage', '1993–2000 Aston Martin Vantage', '1996–2000 Aston Martin V8 Coupe/V8 Volante', '1993–2003 Aston Martin DB7/DB7 Vantage', '2001–2007 Aston Martin V12 Vanquish/Vanquish S'
+        , '2002–2003 Aston Martin DB7 Zagato', '2002–2004 Aston Martin DB AR1', '2004–2016 Aston Martin DB9', '2005–2018 Aston Martin V8 and V12 Vantage', '2007–2012 Aston Martin DBS V12'
+        , '2009–2012 Aston Martin One-77[95]', '2010–present Aston Martin Rapide/Rapide S', '2011–2012 Aston Martin Virage/Virage Volante', '2011–2013 Aston Martin Cygnet, based on the Toyota iQ[96][97]'
+        , '2012–2013 Aston Martin V12 Zagato', '2012–2018 Aston Martin Vanquish/Vanquish Volante', '2015–2016 Aston Martin Vulcan', '2016–present Aston Martin DB11', '2018–present Aston Martin Vantage'
+        , '2018–present Aston Martin DBS Superleggera', '1944 Aston Martin Atom (concept)', '1961–1964 Lagonda Rapide', '1976–1989 Aston Martin Lagonda', '1980 Aston Martin Bulldog (concept)'
+        , '1993 Lagonda Vignale (concept)', '2007 Aston Martin V12 Vantage RS (concept)', '2007–2008 Aston Martin V8 Vantage N400', '2009 Aston Martin Lagonda SUV (concept)[98]'
+        , '2010 Aston Martin V12 Vantage Carbon Black Edition[99]', '2010 Aston Martin DBS Carbon Black Edition[99]', '2013 Aston Martin Rapide Bertone Jet 2+2 (concept)'
+        , '2013 Aston Martin CC100 Speedster (concept)[100]', '2015 Aston Martin DB10 (concept)', 'Aston Martin DB11', 'Aston Martin DBS Superleggera', 'Aston Martin Rapide S', 'Aston Martin Vantage'];
+
+        foreach($AstonMartin as &$model){
+            $term_id5 = DB::table('terms')->insertGetId([
+                'name' => $model,
+                'slug' => 'AstonMartin',
+            ]);
+            DB::table('term_taxonomy')->insert([
+                'term_id' => $term_id5,
+                'taxonomy' => 'Model',
+                'description' => $model,
+                'parent_id' => '20',
+                'count' => 0
+            ]);
+        }
+
+        $AstonMartin = ['Bentley 3 Litre', 'Bentley 3.5 Litre', 'Bentley 4 Litre', 'Bentley 4½ Litre', 'Bentley Speed Six', 'Bentley 8 Litre', 'Bentley Arnage', 'Bentley Azure', 'Bentley Bentayga'
+        , 'Blue Train Bentley', 'Bentley Brooklands', 'Bentley Brooklands Coupé', 'Bentley Continental', 'Bentley Flying Spur (disambiguation)', 'Bentley Flying Spur (2005)'
+        , 'Bentley Continental GT', 'Bentley Continental GTC', 'Bentley Continental R', 'Bentley Continental S', 'Bentley Continental T', 'Bentley Corniche', 'Bentley Eight'
+        , 'Bentley Mark V', 'Bentley Mark VI', 'Bentley Mulsanne (1980–92)', 'Bentley Mulsanne (2010)', 'Bentley R Type', 'Bentley S1', 'Bentley S2', 'Bentley S3'
+        , 'Bentley State Limousine', 'Bentley T-series', 'Bentley Turbo R', 'Bentley Turbo RT', 'Bentley Turbo S'];
+
+        foreach($AstonMartin as &$model){
+            $term_id5 = DB::table('terms')->insertGetId([
+                'name' => $model,
+                'slug' => 'AstonMartin',
+            ]);
+            DB::table('term_taxonomy')->insert([
+                'term_id' => $term_id5,
+                'taxonomy' => 'Model',
+                'description' => $model,
+                'parent_id' => '20',
+                'count' => 0
+            ]);
+        }
+
         /* Model Table END */
     }
 }
+
+        'Aston Martin', 'Bentley', 'Bugatti', 'Buick', 'Cadillac', 'Chrysler', 'Eagle', 'Jaguar', 'Lamborghini', 'Lincoln', 'Lotus', 'Maserati'
+        , 'Maybach', 'McLaren', 'Panoz', 'Ram', 'Rolls-Royce', 'Saab', 'Scion', 'Smart', 'Spyker'
+
+
+
