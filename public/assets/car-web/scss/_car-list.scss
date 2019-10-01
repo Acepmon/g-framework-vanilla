@@ -124,7 +124,7 @@
     width: 100%;
     margin-top: 1.25rem;
     
-a.card{
+.card{
     text-decoration: none;
     background: transparent;
     border-radius: 4px;
@@ -206,6 +206,31 @@ a.card{
                 text-align: left;
                 cursor: pointer;
                 color: $gray-400;
+            }
+            .is-favorited{
+                margin-top: 5px;
+                font-size: .875rem;
+                text-align: left;
+                cursor: pointer;
+                color: $secondary;
+
+                i{
+                    color: $red;
+                    margin-right: 5px;
+                }
+            }
+            .is-premium{
+                height: 1.5rem;
+                display: flex;
+                align-items: center;
+                color: #D68417;
+                font-family: $segoe;
+                font-weight: 600;
+                margin-top: 1rem;
+
+                img{
+                    margin-right: 5px;
+                }
             }
             .card-title{
                 line-height: $spacer * 1.2;
@@ -289,5 +314,72 @@ a.card{
 
     }
 
+    &.sold{
+        .card-body{
+            .card-img{
+                display: inline-block;
+                position: relative;
+                overflow: hidden;
+                width: 290px;
+                min-height: 120px;
+                margin-right: 15px;
+                border-radius: 0;
+                &::before{
+                    content: '';
+                    background: $gray-900;
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    height: 100%;
+                    width: 100%;
+                    opacity: .8;
+                }
+    
+                &::after{
+                    content: 'SOLD OUT';
+                    position: absolute;
+                    text-align: center;
+                    background: $white;
+                    height: 1.5rem;
+                    width: 100%;
+                    color: $secondary;
+                    font-family: $segoe;
+                    font-weight: 700;
+                    left: -4rem;
+                    top: 1.8rem;
+                    transform: rotate(-45deg);
+                }
+            }
+        }
+    }
+
+}
+
+&.sell-car{
+
+    .card-body{
+        .info{
+            .sell-action{
+                grid-column-start: 1;
+                grid-column-end: 4;
+                white-space: nowrap;
+                overflow: hidden;
+                div{
+                    font-size: 1rem !important;
+                    display: inline-block;
+                    transition: all .3s ease;
+                    box-shadow: 0 0 0 0 rgba(43, 54, 81, .1);
+                    font-size: .75rem;
+                    color: $gray-500;
+                    margin: 0 1rem 0 0;
+                    &:hover{
+                        color: $secondary;
+                        text-decoration: underline;
+                    }
+                }
+            }
+        }
+
+    }
 }
 }

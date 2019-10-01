@@ -1,0 +1,133 @@
+
+.my-profile{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  margin-bottom: $spacer;
+  .pro-img{
+    height: 90px;
+    width: 90px;
+    border: 4px solid $white;
+    border-radius: 100%;
+    overflow: hidden; 
+    margin-right: 15px;
+    img{
+      max-width: 100%;
+    }
+  }
+  .pro-detail{
+    .username{
+      font-weight: 600;
+      font-size: 1.2rem;
+      color: $secondary;
+    }
+    .edit{
+      a{
+        color: $red;
+      }
+    }
+  }
+}
+.my-page-left{
+
+.list-group {
+  display: flex;
+  flex-direction: column;
+  padding-left: 0;
+  margin-bottom: 0;
+
+  .list-group-item {
+    width: 100%; 
+    color: $secondary;
+    text-align: inherit;
+    border: 1px solid $gray-200;
+    transition: all .3s linear;
+  
+    &.active {
+      color: $secondary;
+      font-weight: 600;
+      background-color: $gray-200;
+      border-color:  $gray-300;
+    }
+
+    a{
+      color: $secondary;
+      text-decoration: none;
+    }
+    &:hover{
+      background: $gray-100;
+      a{
+        color: $primary;
+      }
+    }
+  }
+}
+}
+
+.badge{
+  border-radius: 25px;
+
+  &.badge-danger{
+    padding: .25em .5em;
+    background: $danger;
+  }
+}
+
+.mypage-nav{
+  margin: 0 -.75rem;
+  
+  ul{
+    display: flex;
+    justify-content: space-around;
+    margin: 0;
+    padding: 0;
+    .list-item{
+      list-style: none;
+      display: inline;
+      width: 100%;
+      text-align: center;
+      
+      &.active{
+          position: relative;
+        &::before{
+          height: 2px;
+          width: 100%;
+          content: '';
+          position: absolute;
+          bottom: -.80rem;
+          left: 0;
+          background: $red;
+        }
+      }
+    }
+  }
+}
+
+.user-information{
+  width: 100%;
+  padding: 10px;
+
+  h2{
+    font-size: 1.5rem;
+    color: $secondary;
+    font-family: $segoe;
+  }
+  .pro-img{
+    width:90px;
+    height:90px;
+    border-radius: 100%;
+    overflow: hidden;
+
+    img{
+      width: 100%;
+    }
+  }
+  .form-control[readonly] {
+    background-color: #fff;
+    opacity: 1;
+    border: none;
+    padding: 0;
+    height: auto;
+    color: $gray-500;
+}
+}

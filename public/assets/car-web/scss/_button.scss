@@ -48,6 +48,13 @@
     background-color: $white;
     border-color: none;
   }
+  &.btn-secondary{
+    background: $secondary;
+
+    &.dropdown-toggle{
+      background: $gray-800;
+    }
+  }
   &.btn-light {
     color: $secondary;
     background-color: $gray-200;
