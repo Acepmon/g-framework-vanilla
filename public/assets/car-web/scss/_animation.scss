@@ -8,3 +8,21 @@
     0% {transform: rotate(0) translateY(-0.875rem);}
     100% {transform: rotate(360deg) translateY(-0.875rem);}
 }
+@keyframes scrollDown{
+    10% {transform: translateY(0)  scale(1) translateX(-50%);opacity: 1}
+    50% {transform: translateY(20px)  scale(0) translateX(-50%); opacity: 0;}
+    80% {transform: translateY(20px)  scale(0) translateX(-50%); opacity: 0;}
+    100% {transform: translateY(0)  scale(1) translateX(-50%); opacity: 1;}
+}
+@keyframes scrollDownMouse{
+    10% {transform: translateY(0)  translateX(-50%)}
+    50% {transform: translateY(5px) translateX(-50%);opacity: .6;}
+    80% {transform: translateY(5px) translateX(-50%); opacity: .6;}
+    100% {transform: translateY(0) translateX(-50%)}
+}
+@keyframes scrollDownText{
+    10% {opacity: 1;}
+    50% {opacity: .5;}
+    80% {opacity: .5;}
+    100% {opacity: 1;}
+}
