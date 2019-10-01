@@ -65,7 +65,7 @@ if (!function_exists('isPremium'))   {
 
                 <div class="tag">
                     @foreach($car->metas->where('key', 'advantages') as $advantage)
-                    <a onclick="formSubmit('advantage', '{{$advantage->value}}')" href="#">{{ $advantage->value }}</a>
+                    <div onclick="formSubmit('advantage', '{{$advantage->value}}')">{{ $advantage->value }}</div>
                     @endforeach
                 </div>
             </div>
