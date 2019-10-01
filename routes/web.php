@@ -44,19 +44,10 @@ Route::middleware(['installed'])->group(function () {
                     return redirect()->route('admin.dashboard');
                 });
 
-                Route::get('ajax/logs/list', 'LogController@ajaxLogsList')->name('admin.ajax.logs.list');
-                Route::get('ajax/logs/{id}', 'LogController@ajaxLogDetails')->name('admin.ajax.logs.details');
-
                 Route::get('dashboard', 'AdminController@dashboard')->name('admin.dashboard');
                 Route::get('changelog', 'ChangelogController@index')->name('admin.changelog.index');
 
-                Route::get('install','PluginController@installPlugin')->name('admin.plugins.install');
-                Route::get('installTheme','ThemeController@installTheme')->name('admin.themes.install');
-
                 Route::get('databaseRestore','BackupController@databaseRestore')->name('admin.backups.databaseRestore');
-
-                Route::get('/menus/tree', 'MenuController@tree')->name('admin.menus.tree');
-                Route::put('/menus/tree', 'MenuController@updateTree')->name('admin.menus.tree.update');
 
                 Route::prefix('profile')->group(function () {
                     Route::get('/', 'ProfileController@index')->name('admin.profile.index');
@@ -69,22 +60,16 @@ Route::middleware(['installed'])->group(function () {
                 });
 
                 Route::prefix('configs')->group(function () {
-                    // Route::post('/', 'ConfigController@store')->name('admin.configs.store');
-                    // Route::get('create', 'ConfigController@create')->name('admin.configs.create');
-                    // Route::get('{id}/edit', 'ConfigController@edit')->name('admin.configs.edit');
-                    // Route::put('{id}', 'ConfigController@update')->name('admin.configs.update');
                     Route::get('maintenance', 'ConfigController@maintenance')->name('admin.configs.maintenance');
                     Route::post('maintenance', 'ConfigController@setMaintenance')->name('admin.configs.maintenance.set');
                     Route::get('base', 'ConfigController@base')->name('admin.configs.base');
                     Route::put('base', 'ConfigController@updateBase')->name('admin.configs.base.update');
-                    // Route::get('system', 'ConfigController@system')->name('admin.configs.system');
-                    // Route::get('themes', 'ConfigController@themes')->name('admin.configs.themes');
-                    // Route::get('plugins', 'ConfigController@plugins')->name('admin.configs.plugins');
-                    // Route::get('security', 'ConfigController@security')->name('admin.configs.security');
-                    // Route::get('contents', 'ConfigController@contents')->name('admin.configs.contents');
                 });
 
                 Route::prefix('logs')->group(function () {
+                    Route::get('ajax/list', 'LogController@ajaxLogsList')->name('admin.ajax.logs.list');
+                    Route::get('ajax/{id}', 'LogController@ajaxLogDetails')->name('admin.ajax.logs.details');
+
                     Route::get('/', 'LogController@reader')->name('admin.logs.index');
                     Route::get('/downloadAll', 'LogController@downloadAll')->name('admin.logs.downloadAll');
                     Route::delete('/', 'LogController@deleteAll')->name('admin.logs.deleteAll');
@@ -101,239 +86,199 @@ Route::middleware(['installed'])->group(function () {
                     Route::get('upload', 'MediaController@upload')->name('admin.media.upload');
                 });
 
-                Route::resource('menus', 'MenuController')->names([
-                    'index' => 'admin.menus.index',
-                    'create' => 'admin.menus.create',
-                    'store' => 'admin.menus.store',
-                    'show' => 'admin.menus.show',
-                    'edit' => 'admin.menus.edit',
-                    'update' => 'admin.menus.update',
-                    'destroy' => 'admin.menus.destroy',
-                ]);
-                Route::get('/users/administrators', 'UserController@administrators')->name('admin.users.administrators');
-                Route::get('/users/operators', 'UserController@operators')->name('admin.users.operators');
-                Route::resource('users', 'UserController')->names([
-                    'index' => 'admin.users.index',
-                    'create' => 'admin.users.create',
-                    'store' => 'admin.users.store',
-                    'show' => 'admin.users.show',
-                    'edit' => 'admin.users.edit',
-                    'update' => 'admin.users.update',
-                    'destroy' => 'admin.users.destroy'
-                ]);
-                Route::resource('permissions', 'PermissionController')->names([
-                    'index' => 'admin.permissions.index',
-                    'create' => 'admin.permissions.create',
-                    'store' => 'admin.permissions.store',
-                    'show' => 'admin.permissions.show',
-                    'edit' => 'admin.permissions.edit',
-                    'update' => 'admin.permissions.update',
-                    'destroy' => 'admin.permissions.destroy'
-                ]);
-                Route::resource('backups', 'BackupController')->names([
-                    'index' => 'admin.backups.index',
-                    'create' => 'admin.backups.create',
-                    'store' => 'admin.backups.store',
-                    'show' => 'admin.backups.show',
-                    'edit' => 'admin.backups.edit',
-                    'update' => 'admin.backups.update',
-                    'destroy' => 'admin.backups.destroy'
-                ]);
-                Route::resource('plugins', 'PluginController')->names([
-                    'index' => 'admin.plugins.index',
-                    'create' => 'admin.plugins.create',
-                    'store' => 'admin.plugins.store',
-                    'show' => 'admin.plugins.show',
-                    'edit' => 'admin.plugins.edit',
-                    'update' => 'admin.plugins.update',
-                    'destroy' => 'admin.plugins.destroy'
-                ]);
-                Route::get('themes/{id}/layouts/{name}', 'ThemeController@editLayout')->name('admin.themes.layouts.edit');
-                Route::put('themes/{id}/layouts/{name}', 'ThemeController@updateLayout')->name('admin.themes.layouts.update');
-                Route::get('themes/{id}/includes/{name}', 'ThemeController@editInclude')->name('admin.themes.includes.edit');
-                Route::put('themes/{id}/includes/{name}', 'ThemeController@updateInclude')->name('admin.themes.includes.update');
-                Route::resource('themes', 'ThemeController')->names([
-                    'index' => 'admin.themes.index',
-                    'create' => 'admin.themes.create',
-                    'store' => 'admin.themes.store',
-                    'show' => 'admin.themes.show',
-                    'edit' => 'admin.themes.edit',
-                    'update' => 'admin.themes.update',
-                    'destroy' => 'admin.themes.destroy'
-                ]);
+                Route::prefix('menus')->group(function () {
+                    Route::get('tree', 'MenuController@tree')->name('admin.menus.tree');
+                    Route::put('tree', 'MenuController@updateTree')->name('admin.menus.tree.update');
 
-                Route::post('plugins/{plugin}/activate', 'PluginController@activate')->name('admin.plugins.activate');
-                Route::post('plugins/{plugin}/deactivate', 'PluginController@deactivate')->name('admin.plugins.deactivate');
-                Route::post('themes/{theme}/activate', 'ThemeController@activate')->name('admin.themes.activate');
-                Route::post('themes/{theme}/deactivate', 'ThemeController@deactivate')->name('admin.themes.deactivate');
-                Route::resource('groups', 'GroupController')->names([
-                    'index' => 'admin.groups.index',
-                    'create' => 'admin.groups.create',
-                    'store' => 'admin.groups.store',
-                    'show' => 'admin.groups.show',
-                    'edit' => 'admin.groups.edit',
-                    'update' => 'admin.groups.update',
-                    'destroy' => 'admin.groups.destroy'
-                ]);
+                    Route::get('', 'MenuController@index')->name('admin.menus.index');
+                    Route::get('create', 'MenuController@create')->name('admin.menus.create');
+                    Route::post('', 'MenuController@store')->name('admin.menus.store');
+                    Route::get('{menu}', 'MenuController@show')->name('admin.menus.show');
+                    Route::get('{menu}/edit', 'MenuController@edit')->name('admin.menus.edit');
+                    Route::put('{menu}', 'MenuController@update')->name('admin.menus.update');
+                    Route::delete('{menu}', 'MenuController@destroy')->name('admin.menus.destroy');
+                });
 
-                Route::get('/groups/{group}/menus/showMenuGroup', 'GroupController@showMenuGroup')->name('admin.groups.showMenuGroup');
-                Route::get('/groups/{group}/menus/createMenu/{menu}', 'GroupController@createMenu')->name('admin.groups.createMenu');
-                Route::get('/groups/{group}/menus/removeMenu/{menu}', 'GroupController@removeMenu')->name('admin.groups.removeMenu');
+                Route::prefix('users')->group(function () {
+                    Route::get('administrators', 'UserController@administrators')->name('admin.users.administrators');
+                    Route::get('operators', 'UserController@operators')->name('admin.users.operators');
+                    Route::get('guests', 'UserController@guests')->name('admin.users.guests');
 
-                Route::get('/groups/{group}/users/showUserGroup', 'GroupController@showUserGroup')->name('admin.groups.showUserGroup');
-                Route::get('/groups/{group}/users/createUser/{user}', 'GroupController@createUser')->name('admin.groups.createUser');
-                Route::get('/groups/{group}/users/removeUser/{user}', 'GroupController@removeUser')->name('admin.groups.removeUser');
+                    Route::get('{user}/permissions', 'UserPermissionController@index')->name('admin.users.permissions.index');
+                    Route::get('{user}/permissions/create', 'UserPermissionController@create')->name('admin.users.permissions.create');
+                    Route::post('{user}/permissions', 'UserPermissionController@store')->name('admin.users.permissions.store');
+                    Route::get('{user}/permissions/{permission}/edit', 'UserPermissionController@edit')->name('admin.users.permissions.edit');
+                    Route::put('{user}/permissions/{permission}', 'UserPermissionController@update')->name('admin.users.permissions.update');
+                    Route::delete('{user}/permissions/{permission}', 'UserPermissionController@destroy')->name('admin.users.permissions.destroy');
 
-                Route::get('/groups/{group}/permissions/showPermissionGroup', 'GroupController@showPermissionGroup')->name('admin.groups.showPermissionGroup');
-                Route::get('/groups/{group}/permissions/createPermission/{permission}', 'GroupController@createPermission')->name('admin.groups.createPermission');
-                Route::get('/groups/{group}/permissions/removePermission/{permission}', 'GroupController@removePermission')->name('admin.groups.removePermission');
+                    Route::get('{user}/groups', 'UserGroupController@index')->name('admin.users.groups.index');
+                    Route::get('{user}/groups/create', 'UserGroupController@create')->name('admin.users.groups.create');
+                    Route::post('{user}/groups', 'UserGroupController@store')->name('admin.users.groups.store');
+                    Route::get('{user}/groups/{group}/edit', 'UserGroupController@edit')->name('admin.users.groups.edit');
+                    Route::put('{user}/groups/{group}', 'UserGroupController@update')->name('admin.users.groups.update');
+                    Route::delete('{user}/groups/{group}', 'UserGroupController@destroy')->name('admin.users.groups.destroy');
 
-                Route::resource('contents', 'ContentController')->names([
-                    'index' => 'admin.contents.index',
-                    'create' => 'admin.contents.create',
-                    'store' => 'admin.contents.store',
-                    'show' => 'admin.contents.show',
-                    'edit' => 'admin.contents.edit',
-                    'update' => 'admin.contents.update',
-                    'destroy' => 'admin.contents.destroy'
-                ]);
-                Route::resource('cars/specials', 'CarSpecialController')->names([
-                    'index' => 'admin.cars.specials.index',
-                    'create' => 'admin.cars.specials.create',
-                    'store' => 'admin.cars.specials.store',
-                    'show' => 'admin.cars.specials.show',
-                    'edit' => 'admin.cars.specials.edit',
-                    'update' => 'admin.cars.specials.update',
-                    'destroy' => 'admin.cars.specials.destroy'
-                ]);
-                Route::resource('cars/options', 'CarOptionController')->names([
-                    'index' => 'admin.cars.options.index',
-                    'create' => 'admin.cars.options.create',
-                    'store' => 'admin.cars.options.store',
-                    'show' => 'admin.cars.options.show',
-                    'edit' => 'admin.cars.options.edit',
-                    'update' => 'admin.cars.options.update',
-                    'destroy' => 'admin.cars.options.destroy'
-                ]);
-                Route::resource('cars', 'CarController')->names([
-                    'index' => 'admin.cars.index',
-                    'create' => 'admin.cars.create',
-                    'store' => 'admin.cars.store',
-                    'show' => 'admin.cars.show',
-                    'edit' => 'admin.cars.edit',
-                    'update' => 'admin.cars.update',
-                    'destroy' => 'admin.cars.destroy'
-                ]);
-                Route::resource('banners/locations', 'BannerLocationController')->names([
-                    'index' => 'admin.banners.locations.index',
-                    'create' => 'admin.banners.locations.create',
-                    'store' => 'admin.banners.locations.store',
-                    'show' => 'admin.banners.locations.show',
-                    'edit' => 'admin.banners.locations.edit',
-                    'update' => 'admin.banners.locations.update',
-                    'destroy' => 'admin.banners.locations.destroy'
-                ]);
-                Route::resource('banners', 'BannerController')->names([
-                    'index' => 'admin.banners.index',
-                    'create' => 'admin.banners.create',
-                    'store' => 'admin.banners.store',
-                    'show' => 'admin.banners.show',
-                    'edit' => 'admin.banners.edit',
-                    'update' => 'admin.banners.update',
-                    'destroy' => 'admin.banners.destroy'
-                ]);
-                Route::get('/contents/{id}/revisions/{revision}/revert', 'ContentController@revert')->name('admin.contents.revisions.revert');
-                Route::get('/contents/{id}/revisions/{revision}', 'ContentController@viewRevision')->name('admin.contents.revisions.show');
-                Route::put('/contents/{id}/revisions', 'ContentController@updateRevision')->name('admin.contents.revisions.update');
-                Route::resource('configs', 'ConfigController')->names([
-                    'index' => 'admin.configs.index',
-                    'create' => 'admin.configs.create',
-                    'store' => 'admin.configs.store',
-                    'show' => 'admin.configs.show',
-                    'edit' => 'admin.configs.edit',
-                    'update' => 'admin.configs.update',
-                    'destroy' => 'admin.configs.destroy'
-                ]);
-                Route::resource('comments', 'CommentController')->names([
-                    'index' => 'admin.comments.index',
-                    'create' => 'admin.comments.create',
-                    'store' => 'admin.comments.store',
-                    'show' => 'admin.comments.show',
-                    'edit' => 'admin.comments.edit',
-                    'update' => 'admin.comments.update',
-                    'destroy' => 'admin.comments.destroy'
-                ]);
-                Route::resource('taxonomy', 'TaxonomyController')->names([
-                    'index' => 'admin.taxonomy.index',
-                    'create' => 'admin.taxonomy.create',
-                    'store' => 'admin.taxonomy.store',
-                    'show' => 'admin.taxonomy.show',
-                    'edit' => 'admin.taxonomy.edit',
-                    'update' => 'admin.taxonomy.update',
-                    'destroy' => 'admin.taxonomy.destroy'
-                ]);
+                    Route::get('{user}/contents', 'UserContentController@index')->name('admin.users.contents.index');
+                    Route::get('{user}/contents/{content}', 'UserContentController@show')->name('admin.users.contents.show');
 
-                Route::get('/contents/{content}/metas', 'ContentMetaController@index')->name('admin.contents.metas.index');
-                Route::get('/contents/{content}/metas/create', 'ContentMetaController@create')->name('admin.contents.metas.create');
-                Route::post('/contents/{content}/metas', 'ContentMetaController@store')->name('admin.contents.metas.store');
-                Route::get('/contents/{content}/metas/{meta}/edit', 'ContentMetaController@edit')->name('admin.contents.metas.edit');
-                Route::put('/contents/{content}/metas/{meta}', 'ContentMetaController@update')->name('admin.contents.metas.update');
-                Route::delete('/contents/{content}/metas/{meta}', 'ContentMetaController@destroy')->name('admin.contents.metas.destroy');
+                    Route::get('', 'UserController@index')->name('admin.users.index');
+                    Route::get('create', 'UserController@create')->name('admin.users.create');
+                    Route::post('', 'UserController@store')->name('admin.users.store');
+                    Route::get('{user}', 'UserController@show')->name('admin.users.show');
+                    Route::get('{user}/edit', 'UserController@edit')->name('admin.users.edit');
+                    Route::put('{user}', 'UserController@update')->name('admin.users.update');
+                    Route::delete('{user}', 'UserController@destroy')->name('admin.users.destroy');
+                });
 
-                // Route::get('/cars/{car}/metas', 'CarMetaController@index')->name('admin.cars.metas.index');
-                // Route::get('/cars/{car}/metas/create', 'CarMetaController@create')->name('admin.cars.metas.create');
-                // Route::post('/cars/{car}/metas', 'CarMetaController@store')->name('admin.cars.metas.store');
-                // Route::get('/cars/{car}/metas/{meta}/edit', 'CarMetaController@edit')->name('admin.cars.metas.edit');
-                // Route::put('/cars/{car}/metas/{meta}', 'CarMetaController@update')->name('admin.cars.metas.update');
-                // Route::delete('/cars/{car}/metas/{meta}', 'CarMetaController@destroy')->name('admin.cars.metas.destroy');
+                Route::prefix('permissions')->group(function () {
+                    Route::get('', 'PermissionController@index')->name('admin.permissions.index');
+                    Route::get('create', 'PermissionController@create')->name('admin.permissions.create');
+                    Route::post('', 'PermissionController@store')->name('admin.permissions.store');
+                    Route::get('{permission}', 'PermissionController@show')->name('admin.permissions.show');
+                    Route::get('{permission}/edit', 'PermissionController@edit')->name('admin.permissions.edit');
+                    Route::put('{permission}', 'PermissionController@update')->name('admin.permissions.update');
+                    Route::delete('{permission}', 'PermissionController@destroy')->name('admin.permissions.destroy');
+                });
 
-                Route::get('/comments/{comment}/metas', 'CommentMetaController@index')->name('admin.comments.metas.index');
-                Route::get('/comments/{comment}/metas/create', 'CommentMetaController@create')->name('admin.comments.metas.create');
-                Route::post('/comments/{comment}/metas', 'CommentMetaController@store')->name('admin.comments.metas.store');
-                Route::get('/comments/{comment}/metas/{meta}/edit', 'CommentMetaController@edit')->name('admin.comments.metas.edit');
-                Route::put('/comments/{comment}/metas/{meta}', 'CommentMetaController@update')->name('admin.comments.metas.update');
-                Route::delete('/comments/{comment}/metas/{meta}', 'CommentMetaController@destroy')->name('admin.comments.metas.destroy');
+                Route::prefix('backups')->group(function () {
+                    Route::get('', 'BackupController@index')->name('admin.backups.index');
+                    Route::get('create', 'BackupController@create')->name('admin.backups.create');
+                    Route::post('', 'BackupController@store')->name('admin.backups.store');
+                    Route::get('{backup}', 'BackupController@show')->name('admin.backups.show');
+                    Route::get('{backup}/edit', 'BackupController@edit')->name('admin.backups.edit');
+                    Route::put('{backup}', 'BackupController@update')->name('admin.backups.update');
+                    Route::delete('{backup}', 'BackupController@destroy')->name('admin.backups.destroy');
+                });
 
-                Route::get('/taxonomy/{taxonomy}/metas', 'TermMetaController@index')->name('admin.taxonomy.metas.index');
-                Route::get('/taxonomy/{taxonomy}/metas/create', 'TermMetaController@create')->name('admin.taxonomy.metas.create');
-                Route::post('/taxonomy/{taxonomy}/metas', 'TermMetaController@store')->name('admin.taxonomy.metas.store');
-                Route::get('/taxonomy/{taxonomy}/metas/{meta}/edit', 'TermMetaController@edit')->name('admin.taxonomy.metas.edit');
-                Route::put('/taxonomy/{taxonomy}/metas/{meta}', 'TermMetaController@update')->name('admin.taxonomy.metas.update');
-                Route::delete('/taxonomy/{taxonomy}/metas/{meta}', 'TermMetaController@destroy')->name('admin.taxonomy.metas.destroy');
+                Route::prefix('themes')->group(function () {
+                    Route::get('{theme}/layouts/{name}', 'ThemeController@editLayout')->name('admin.themes.layouts.edit');
+                    Route::put('{theme}/layouts/{name}', 'ThemeController@updateLayout')->name('admin.themes.layouts.update');
+                    Route::get('{theme}/includes/{name}', 'ThemeController@editInclude')->name('admin.themes.includes.edit');
+                    Route::put('{theme}/includes/{name}', 'ThemeController@updateInclude')->name('admin.themes.includes.update');
+                    Route::post('{theme}/activate', 'ThemeController@activate')->name('admin.themes.activate');
+                    Route::post('{theme}/deactivate', 'ThemeController@deactivate')->name('admin.themes.deactivate');
 
-                Route::get('/users/{user}/permissions', 'UserPermissionController@index')->name('admin.users.permissions.index');
-                Route::get('/users/{user}/permissions/create', 'UserPermissionController@create')->name('admin.users.permissions.create');
-                Route::post('/users/{user}/permissions', 'UserPermissionController@store')->name('admin.users.permissions.store');
-                Route::get('/users/{user}/permissions/{permission}/edit', 'UserPermissionController@edit')->name('admin.users.permissions.edit');
-                Route::put('/users/{user}/permissions/{permission}', 'UserPermissionController@update')->name('admin.users.permissions.update');
-                Route::delete('/users/{user}/permissions/{permission}', 'UserPermissionController@destroy')->name('admin.users.permissions.destroy');
+                    Route::get('', 'ThemeController@index')->name('admin.themes.index');
+                    Route::get('create', 'ThemeController@create')->name('admin.themes.create');
+                    Route::post('', 'ThemeController@store')->name('admin.themes.store');
+                    Route::get('{theme}', 'ThemeController@show')->name('admin.themes.show');
+                    Route::get('{theme}/edit', 'ThemeController@edit')->name('admin.themes.edit');
+                    Route::put('{theme}', 'ThemeController@update')->name('admin.themes.update');
+                    Route::delete('{theme}', 'ThemeController@destroy')->name('admin.themes.destroy');
+                });
 
-                Route::get('/users/{user}/groups', 'UserGroupController@index')->name('admin.users.groups.index');
-                Route::get('/users/{user}/groups/create', 'UserGroupController@create')->name('admin.users.groups.create');
-                Route::post('/users/{user}/groups', 'UserGroupController@store')->name('admin.users.groups.store');
-                Route::get('/users/{user}/groups/{group}/edit', 'UserGroupController@edit')->name('admin.users.groups.edit');
-                Route::put('/users/{user}/groups/{group}', 'UserGroupController@update')->name('admin.users.groups.update');
-                Route::delete('/users/{user}/groups/{group}', 'UserGroupController@destroy')->name('admin.users.groups.destroy');
+                Route::prefix('groups')->group(function () {
+                    Route::get('{group}/menus/showMenuGroup', 'GroupController@showMenuGroup')->name('admin.groups.showMenuGroup');
+                    Route::get('{group}/menus/createMenu/{menu}', 'GroupController@createMenu')->name('admin.groups.createMenu');
+                    Route::get('{group}/menus/removeMenu/{menu}', 'GroupController@removeMenu')->name('admin.groups.removeMenu');
 
-                Route::get('/users/{user}/contents', 'UserContentController@index')->name('admin.users.contents.index');
-                Route::get('/users/{user}/contents/{content}', 'UserContentController@show')->name('admin.users.contents.show');
+                    Route::get('{group}/users/showUserGroup', 'GroupController@showUserGroup')->name('admin.groups.showUserGroup');
+                    Route::get('{group}/users/createUser/{user}', 'GroupController@createUser')->name('admin.groups.createUser');
+                    Route::get('{group}/users/removeUser/{user}', 'GroupController@removeUser')->name('admin.groups.removeUser');
 
-                Route::resource('localizations', 'LocalizationController')->names([
-                    'index' => 'admin.localizations.index',
-                    'create' => 'admin.localizations.create',
-                    'store' => 'admin.localizations.store',
-                    'show' => 'admin.localizations.show',
-                    'edit' => 'admin.localizations.edit',
-                    'update' => 'admin.localizations.update',
-                    'destroy' => 'admin.localizations.destroy'
-                ]);
+                    Route::get('{group}/permissions/showPermissionGroup', 'GroupController@showPermissionGroup')->name('admin.groups.showPermissionGroup');
+                    Route::get('{group}/permissions/createPermission/{permission}', 'GroupController@createPermission')->name('admin.groups.createPermission');
+                    Route::get('{group}/permissions/removePermission/{permission}', 'GroupController@removePermission')->name('admin.groups.removePermission');
+
+                    Route::get('', 'GroupController@index')->name('admin.groups.index');
+                    Route::get('create', 'GroupController@create')->name('admin.groups.create');
+                    Route::post('', 'GroupController@store')->name('admin.groups.store');
+                    Route::get('{group}', 'GroupController@show')->name('admin.groups.show');
+                    Route::get('{group}/edit', 'GroupController@edit')->name('admin.groups.edit');
+                    Route::put('{group}', 'GroupController@update')->name('admin.groups.update');
+                    Route::delete('{group}', 'GroupController@destroy')->name('admin.groups.destroy');
+                });
+
+                Route::prefix('contents')->group(function () {
+                    Route::get('{content}/revisions/{revision}/revert', 'ContentController@revert')->name('admin.contents.revisions.revert');
+                    Route::get('{content}/revisions/{revision}', 'ContentController@viewRevision')->name('admin.contents.revisions.show');
+                    Route::put('{content}/revisions', 'ContentController@updateRevision')->name('admin.contents.revisions.update');
+
+                    Route::get('{content}/metas', 'ContentMetaController@index')->name('admin.contents.metas.index');
+                    Route::get('{content}/metas/create', 'ContentMetaController@create')->name('admin.contents.metas.create');
+                    Route::post('{content}/metas', 'ContentMetaController@store')->name('admin.contents.metas.store');
+                    Route::get('{content}/metas/{meta}/edit', 'ContentMetaController@edit')->name('admin.contents.metas.edit');
+                    Route::put('{content}/metas/{meta}', 'ContentMetaController@update')->name('admin.contents.metas.update');
+                    Route::delete('{content}/metas/{meta}', 'ContentMetaController@destroy')->name('admin.contents.metas.destroy');
+
+                    Route::get('', 'ContentController@index')->name('admin.contents.index');
+                    Route::get('create', 'ContentController@create')->name('admin.contents.create');
+                    Route::post('', 'ContentController@store')->name('admin.contents.store');
+                    Route::get('{content}', 'ContentController@show')->name('admin.contents.show');
+                    Route::get('{content}/edit', 'ContentController@edit')->name('admin.contents.edit');
+                    Route::put('{content}', 'ContentController@update')->name('admin.contents.update');
+                    Route::delete('{content}', 'ContentController@destroy')->name('admin.contents.destroy');
+                });
+
+                Route::prefix('banners')->group(function () {
+                    Route::prefix('locations')->group(function () {
+                        Route::get('', 'BannerLocationController@index')->name('admin.banners.locations.index');
+                        Route::get('create', 'BannerLocationController@create')->name('admin.banners.locations.create');
+                        Route::post('', 'BannerLocationController@store')->name('admin.banners.locations.store');
+                        Route::get('{location}', 'BannerLocationController@show')->name('admin.banners.locations.show');
+                        Route::get('{location}/edit', 'BannerLocationController@edit')->name('admin.banners.locations.edit');
+                        Route::put('{location}', 'BannerLocationController@update')->name('admin.banners.locations.update');
+                        Route::delete('{location}', 'BannerLocationController@destroy')->name('admin.banners.locations.destroy');
+                    });
+
+                    Route::get('', 'BannerController@index')->name('admin.banners.index');
+                    Route::get('create', 'BannerController@create')->name('admin.banners.create');
+                    Route::post('', 'BannerController@store')->name('admin.banners.store');
+                    Route::get('{banner}', 'BannerController@show')->name('admin.banners.show');
+                    Route::get('{banner}/edit', 'BannerController@edit')->name('admin.banners.edit');
+                    Route::put('{banner}', 'BannerController@update')->name('admin.banners.update');
+                    Route::delete('{banner}', 'BannerController@destroy')->name('admin.banners.destroy');
+                });
+
+                Route::prefix('comments')->group(function () {
+                    Route::get('{comment}/metas', 'CommentMetaController@index')->name('admin.comments.metas.index');
+                    Route::get('{comment}/metas/create', 'CommentMetaController@create')->name('admin.comments.metas.create');
+                    Route::post('{comment}/metas', 'CommentMetaController@store')->name('admin.comments.metas.store');
+                    Route::get('{comment}/metas/{meta}/edit', 'CommentMetaController@edit')->name('admin.comments.metas.edit');
+                    Route::put('{comment}/metas/{meta}', 'CommentMetaController@update')->name('admin.comments.metas.update');
+                    Route::delete('{comment}/metas/{meta}', 'CommentMetaController@destroy')->name('admin.comments.metas.destroy');
+
+                    Route::get('', 'CommentController@index')->name('admin.comments.index');
+                    Route::get('create', 'CommentController@create')->name('admin.comments.create');
+                    Route::post('', 'CommentController@store')->name('admin.comments.store');
+                    Route::get('{comment}', 'CommentController@show')->name('admin.comments.show');
+                    Route::get('{comment}/edit', 'CommentController@edit')->name('admin.comments.edit');
+                    Route::put('{comment}', 'CommentController@update')->name('admin.comments.update');
+                    Route::delete('{comment}', 'CommentController@destroy')->name('admin.comments.destroy');
+                });
+
+                Route::prefix('taxonomy')->group(function () {
+                    Route::get('{taxonomy}/metas', 'TermMetaController@index')->name('admin.taxonomy.metas.index');
+                    Route::get('{taxonomy}/metas/create', 'TermMetaController@create')->name('admin.taxonomy.metas.create');
+                    Route::post('{taxonomy}/metas', 'TermMetaController@store')->name('admin.taxonomy.metas.store');
+                    Route::get('{taxonomy}/metas/{meta}/edit', 'TermMetaController@edit')->name('admin.taxonomy.metas.edit');
+                    Route::put('{taxonomy}/metas/{meta}', 'TermMetaController@update')->name('admin.taxonomy.metas.update');
+                    Route::delete('{taxonomy}/metas/{meta}', 'TermMetaController@destroy')->name('admin.taxonomy.metas.destroy');
+
+                    Route::get('', 'TaxonomyController@index')->name('admin.taxonomy.index');
+                    Route::get('create', 'TaxonomyController@create')->name('admin.taxonomy.create');
+                    Route::post('', 'TaxonomyController@store')->name('admin.taxonomy.store');
+                    Route::get('{taxonomy}', 'TaxonomyController@show')->name('admin.taxonomy.show');
+                    Route::get('{taxonomy}/edit', 'TaxonomyController@edit')->name('admin.taxonomy.edit');
+                    Route::put('{taxonomy}', 'TaxonomyController@update')->name('admin.taxonomy.update');
+                    Route::delete('{taxonomy}', 'TaxonomyController@destroy')->name('admin.taxonomy.destroy');
+                });
+
+                Route::prefix('localizations')->group(function () {
+                    Route::get('', 'LocalizationController@index')->name('admin.localizations.index');
+                    Route::get('create', 'LocalizationController@create')->name('admin.localizations.create');
+                    Route::post('', 'LocalizationController@store')->name('admin.localizations.store');
+                    Route::get('{localization}', 'LocalizationController@show')->name('admin.localizations.show');
+                    Route::get('{localization}/edit', 'LocalizationController@edit')->name('admin.localizations.edit');
+                    Route::put('{localization}', 'LocalizationController@update')->name('admin.localizations.update');
+                    Route::delete('{localization}', 'LocalizationController@destroy')->name('admin.localizations.destroy');
+                });
+
             });
         });
-
     });
 
     Auth::routes(['verify' => true]);
 
     Route::get('/{any}', 'HomeController@content')->where('any', '.*');
-
 });

@@ -17,34 +17,55 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
         if (Schema::hasTable('users')) {
-            $systemUsers = [
+            $adminGroupId = 1;
+            $operatorGroupId = 2;
+            $users = [
+                // Super Admin
                 [
-                    'username' => 'admin',
-                    'email' => 'admin@example.com',
-                    'password' => Hash::make('admin'),
-                    'name' => 'Administrator',
-                    'language' => 'en',
-                    'avatar' => asset('user.png'),
-                    'created_at' => now(),
-                    'updated_at' => now(),
+                    'username' => 'acep',
+                    'email' => 'dtsogtbayar123@gmail.com',
+                    'password' => Hash::make('acep'),
+                    'name' => 'Acep Mon',
+                    'group_id' => $adminGroupId
+                ],
+
+                // System Operator
+                [
+                    'username' => 'system',
+                    'email' => 'system@example.com',
+                    'password' => Hash::make('system'),
+                    'name' => 'System Operator',
+                    'group_id' => $operatorGroupId
+                ],
+
+                // Content Operator
+                [
+                    'username' => 'content',
+                    'email' => 'content@example.com',
+                    'password' => Hash::make('content'),
+                    'name' => 'Content Operator',
+                    'group_id' => $operatorGroupId
                 ]
             ];
-            $adminGroupId = 1;
 
-            foreach ($systemUsers as $systemUser) {
-                $user = new User();
-                $user->username = $systemUser['username'];
-                $user->email = $systemUser['email'];
-                $user->password = $systemUser['password'];
-                $user->name = $systemUser['name'];
-                $user->language = $systemUser['language'];
-                $user->avatar = $systemUser['avatar'];
-                $user->created_at = $systemUser['created_at'];
-                $user->updated_at = $systemUser['updated_at'];
-                $user->save();
-
-                $user->groups()->attach($adminGroupId);
+            foreach ($users as $user) {
+                $this->createUser($user, $user['group_id']);
             }
         }
+    }
+
+    private function createUser($data, $groupId) {
+        $user = new User();
+        $user->username = $data['username'];
+        $user->email = $data['email'];
+        $user->password = $data['password'];
+        $user->name = $data['name'];
+        $user->language = 'en';
+        $user->avatar = null;
+        $user->created_at = now();
+        $user->updated_at = now();
+        $user->save();
+
+        $user->groups()->attach($groupId);
     }
 }

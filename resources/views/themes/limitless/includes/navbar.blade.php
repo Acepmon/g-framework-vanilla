@@ -65,7 +65,7 @@
 
             <li class="nav-item dropdown dropdown-user">
                 <a class="navbar-nav-link d-flex align-items-center dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    <img class="rounded-circle mr-2" src="{{ Auth::user()->avatar }}" height="34" alt="">
+                    <img class="rounded-circle mr-2" src="{{ Auth::user()->avatar_url() }}" height="34" alt="">
                     <span>{{ Auth::user()->name }}</span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right">

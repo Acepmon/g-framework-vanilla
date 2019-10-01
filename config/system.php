@@ -9,7 +9,7 @@ return [
         'guestRedirectPath' => '/home'
     ],
     'avatar' => [
-        'default' => asset('user.png'),
+        'default' => 'user.png',
         'storage' => [
             'disk' => env('FILESYSTEM_DRIVER', 'local')
         ]
