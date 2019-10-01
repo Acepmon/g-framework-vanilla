@@ -94,48 +94,60 @@
     <div class="form-row">
         <div class="form-group col-md-6">
             <label for="area">Area:</label>
-            <select id="area" class="form-control">
-                <option selected>Choose...</option>
-                <option>...</option>
+            <select id="area" name="area" class="form-control">
+                <option value="" selected>Choose...</option>
+                @foreach(App\TermTaxonomy::where('taxonomy', 'area')->get() as $taxonomy)
+                <option value="{{ $taxonomy->term->name }}">{{ $taxonomy->term->name }}</option>
+                @endforeach
             </select>
         </div>
         <div class="form-group col-md-6">
             <label for="transmission">Transmission:</label>
-            <select id="transmission" class="form-control">
-                <option selected>Choose...</option>
-                <option>...</option>
+            <select id="transmission" name="transmission" class="form-control">
+                <option value="" selected>Choose...</option>
+                @foreach(App\TermTaxonomy::where('taxonomy', 'transmission')->get() as $taxonomy)
+                <option value="{{ $taxonomy->term->name }}">{{ $taxonomy->term->name }}</option>
+                @endforeach
             </select>
         </div>
     </div>
     <div class="form-row">
         <div class="form-group col-md-6">
             <label for="steeringWheel">Steering wheel:</label>
-            <select id="steeringWheel" class="form-control">
-                <option selected>Choose...</option>
-                <option>...</option>
+            <select id="steeringWheel" name="steeringWheel" class="form-control">
+                <option value="" selected>Choose...</option>
+                @foreach(App\TermTaxonomy::where('taxonomy', 'Steering Wheel')->get() as $taxonomy)
+                <option value="{{ $taxonomy->term->name }}">{{ $taxonomy->term->name }}</option>
+                @endforeach
             </select>
         </div>
         <div class="form-group col-md-6">
             <label for="seating">Seating:</label>
-            <select id="seating" class="form-control">
-                <option selected>Choose...</option>
-                <option>...</option>
+            <select id="seating" name="seating" class="form-control">
+                <option value="" selected>Choose...</option>
+                @foreach(App\TermTaxonomy::where('taxonomy', 'Seat')->get() as $taxonomy)
+                <option value="{{ $taxonomy->term->name }}">{{ $taxonomy->term->name }}</option>
+                @endforeach
             </select>
         </div>
     </div>
     <div class="form-row">
         <div class="form-group col-md-6">
             <label for="fuel">Type of fuel:</label>
-            <select id="fuel" class="form-control">
-                <option selected>Choose...</option>
-                <option>...</option>
+            <select id="fuel" name="fuel" class="form-control">
+                <option value="" selected>Choose...</option>
+                @foreach(App\TermTaxonomy::where('taxonomy', 'Fuel')->get() as $taxonomy)
+                <option value="{{ $taxonomy->term->name }}">{{ $taxonomy->term->name }}</option>
+                @endforeach
             </select>
         </div>
         <div class="form-group col-md-6">
             <label for="wheelDrive">Wheel drive:</label>
-            <select id="wheelDrive" class="form-control">
-                <option selected>Choose...</option>
-                <option>...</option>
+            <select id="wheelDrive" name="wheelDrive" class="form-control">
+                <option value="" selected>Choose...</option>
+                @foreach(App\TermTaxonomy::where('taxonomy', 'Wheel Drive')->get() as $taxonomy)
+                <option value="{{ $taxonomy->term->name }}">{{ $taxonomy->term->name }}</option>
+                @endforeach
             </select>
         </div>
     </div>
@@ -143,7 +155,7 @@
         <div class="form-group col-md-6">
             <label for="millage">Millage:</label>
             <div class="input-group">
-                <input type="text" class="form-control" id="millage" placeholder="Millage">
+                <input type="number" min="0" class="form-control" id="millage" name="mileage" placeholder="Millage">
                 <div class="input-group-prepend">
                     <div class="input-group-text-right">KM</div>
                 </div>
@@ -151,28 +163,30 @@
         </div>
         <div class="form-group col-md-6">
             <label for="salonColor">Interior color:</label>
-            <select id="salonColor" class="form-control">
-                <option selected>Choose...</option>
-                <option>...</option>
+            <select id="salonColor" name="interiorColor" class="form-control">
+                <option value="" selected>Choose...</option>
+                @foreach(App\TermTaxonomy::where('taxonomy', 'Color')->get() as $taxonomy)
+                <option value="{{ $taxonomy->term->name }}">{{ $taxonomy->term->name }}</option>
+                @endforeach
             </select>
         </div>
     </div>
     <div class="form-row">
         <div class="form-group col-md-12">
-            <label for="advantage">Advantages: <small id="passwordHelpInline" class="text-muted">You can select
-                    multiple items </small></label>
+            <label for="advantage" name="advantages">Advantages:
+                <small id="passwordHelpInline" class="text-muted">You can select multiple items </small>
+            </label>
             <select id="advantage" class="form-control selectpicker" multiple data-live-search="true">
-                <option>Choose...</option>
-                <option>Mustard</option>
-                <option>Ketchup</option>
-                <option>Relish</option>
+                @foreach(App\TermTaxonomy::where('taxonomy', 'area')->get() as $taxonomy)
+                <option value="{{ $taxonomy->term->name }}">{{ $taxonomy->term->name }}</option>
+                @endforeach
             </select>
         </div>
     </div>
     <div class="form-row">
         <div class="form-group col-md-12">
             <label for="description">Seller description</label>
-            <textarea class="form-control" id="description" rows="5"></textarea>
+            <textarea class="form-control" id="description" name="sellerDescription" rows="5"></textarea>
         </div>
     </div>
 
@@ -199,67 +213,23 @@
             <div class="option-type">
                 Exterior
             </div>
+            @foreach(\App\TermTaxonomy::where('taxonomy', 'Exterior')->get() as $i=>$taxonomy)
             <div class="custom-control custom-checkbox-cd">
-                <input type="checkbox" class="custom-control-input" id="optionCheck-27">
-                <label class="custom-control-label" for="optionCheck-27">Rear wiper</label>
+                <input type="checkbox" name="exterior" value="{{ $taxonomy->term->name }}" class="custom-control-input" id="exterior-{{$i}}">
+                <label class="custom-control-label" for="exterior-{{$i}}">{{ $taxonomy->term->name }}</label>
             </div>
-            <div class="custom-control custom-checkbox-cd">
-                <input type="checkbox" class="custom-control-input" id="optionCheck-28">
-                <label class="custom-control-label" for="optionCheck-28">Electric folding side mirror</label>
-            </div>
-            <div class="custom-control custom-checkbox-cd">
-                <input type="checkbox" class="custom-control-input" id="optionCheck-29">
-                <label class="custom-control-label" for="optionCheck-29">Sunroof</label>
-            </div>
-            <div class="custom-control custom-checkbox-cd">
-                <input type="checkbox" class="custom-control-input" id="optionCheck-30">
-                <label class="custom-control-label" for="optionCheck-30">Aluminum wheel</label>
-            </div>
-            <div class="custom-control custom-checkbox-cd">
-                <input type="checkbox" class="custom-control-input" id="optionCheck-31">
-                <label class="custom-control-label" for="optionCheck-31">4 season tire</label>
-            </div>
+            @endforeach
         </div>
         <div class="col-md-6">
             <div class="option-type">
                 Guts
             </div>
+            @foreach(\App\TermTaxonomy::where('taxonomy', 'Guts')->get() as $i=>$taxonomy)
             <div class="custom-control custom-checkbox-cd">
-                <input type="checkbox" class="custom-control-input" id="optionCheck-32">
-                <label class="custom-control-label" for="optionCheck-32">Steering wheel remote control</label>
+                <input type="checkbox" name="guts" value="{{ $taxonomy->term->name }}" class="custom-control-input" id="guts-{{$i}}">
+                <label class="custom-control-label" for="guts-{{$i}}">{{ $taxonomy->term->name }}</label>
             </div>
-            <div class="custom-control custom-checkbox-cd">
-                <input type="checkbox" class="custom-control-input" id="optionCheck-33">
-                <label class="custom-control-label" for="optionCheck-33">Power Steering</label>
-            </div>
-            <div class="custom-control custom-checkbox-cd">
-                <input type="checkbox" class="custom-control-input" id="optionCheck-34">
-                <label class="custom-control-label" for="optionCheck-34">Leather seat</label>
-            </div>
-            <div class="custom-control custom-checkbox-cd">
-                <input type="checkbox" class="custom-control-input" id="optionCheck-35">
-                <label class="custom-control-label" for="optionCheck-35">Electric seat : driver’s seat</label>
-            </div>
-            <div class="custom-control custom-checkbox-cd">
-                <input type="checkbox" class="custom-control-input" id="optionCheck-36">
-                <label class="custom-control-label" for="optionCheck-36">Electric seat : Passenger seat</label>
-            </div>
-            <div class="custom-control custom-checkbox-cd">
-                <input type="checkbox" class="custom-control-input" id="optionCheck-37">
-                <label class="custom-control-label" for="optionCheck-37">Heated seat : driver’s seat</label>
-            </div>
-            <div class="custom-control custom-checkbox-cd">
-                <input type="checkbox" class="custom-control-input" id="optionCheck-38">
-                <label class="custom-control-label" for="optionCheck-38">Heated seat : Rear seat</label>
-            </div>
-            <div class="custom-control custom-checkbox-cd">
-                <input type="checkbox" class="custom-control-input" id="optionCheck-39">
-                <label class="custom-control-label" for="optionCheck-39">Memory seat : driver’s seat</label>
-            </div>
-            <div class="custom-control custom-checkbox-cd">
-                <input type="checkbox" class="custom-control-input" id="optionCheck-40">
-                <label class="custom-control-label" for="optionCheck-40">Power Door lock</label>
-            </div>
+            @endforeach
         </div>
     </div>
     <div class="form-row">
@@ -267,116 +237,38 @@
             <div class="option-type">
                 Safety
             </div>
+            @foreach(\App\TermTaxonomy::where('taxonomy', 'Safety')->get() as $i=>$taxonomy)
             <div class="custom-control custom-checkbox-cd">
-                <input type="checkbox" class="custom-control-input" id="optionCheck-1">
-                <label class="custom-control-label" for="optionCheck-1">Airbag: Driver's seat</label>
+                <input type="checkbox" name="safety" value="{{ $taxonomy->term->name }}" class="custom-control-input" id="safety-{{$i}}">
+                <label class="custom-control-label" for="safety-{{$i}}">{{ $taxonomy->term->name }}</label>
             </div>
-            <div class="custom-control custom-checkbox-cd">
-                <input type="checkbox" class="custom-control-input" id="optionCheck-2">
-                <label class="custom-control-label" for="optionCheck-2">Airbag: passenger seat</label>
-            </div>
-            <div class="custom-control custom-checkbox-cd">
-                <input type="checkbox" class="custom-control-input" id="optionCheck-3">
-                <label class="custom-control-label" for="optionCheck-3">Airbag: Side</label>
-            </div>
-            <div class="custom-control custom-checkbox-cd">
-                <input type="checkbox" class="custom-control-input" id="optionCheck-4">
-                <label class="custom-control-label" for="optionCheck-4">Airbags: Curtains</label>
-            </div>
-            <div class="custom-control custom-checkbox-cd">
-                <input type="checkbox" class="custom-control-input" id="optionCheck-5">
-                <label class="custom-control-label" for="optionCheck-5">Camera : Front</label>
-            </div>
-            <div class="custom-control custom-checkbox-cd">
-                <input type="checkbox" class="custom-control-input" id="optionCheck-6">
-                <label class="custom-control-label" for="optionCheck-6">Camera : Front</label>
-            </div>
-            <div class="custom-control custom-checkbox-cd">
-                <input type="checkbox" class="custom-control-input" id="optionCheck-7">
-                <label class="custom-control-label" for="optionCheck-7">Camera : Rear</label>
-            </div>
-            <div class="custom-control custom-checkbox-cd">
-                <input type="checkbox" class="custom-control-input" id="optionCheck-8">
-                <label class="custom-control-label" for="optionCheck-8">Camera : Side</label>
-            </div>
-            <div class="custom-control custom-checkbox-cd">
-                <input type="checkbox" class="custom-control-input" id="optionCheck-9">
-                <label class="custom-control-label" for="optionCheck-9">Parking Sense : Rear</label>
-            </div>
-            <div class="custom-control custom-checkbox-cd">
-                <input type="checkbox" class="custom-control-input" id="optionCheck-10">
-                <label class="custom-control-label" for="optionCheck-10">Parking Sense : Front</label>
-            </div>
-            <div class="custom-control custom-checkbox-cd">
-                <input type="checkbox" class="custom-control-input" id="optionCheck-11">
-                <label class="custom-control-label" for="optionCheck-11">ABS</label>
-            </div>
-            <div class="custom-control custom-checkbox-cd">
-                <input type="checkbox" class="custom-control-input" id="optionCheck-12">
-                <label class="custom-control-label" for="optionCheck-12">Electric parking brake</label>
-            </div>
+            @endforeach
         </div>
         <div class="col-md-6">
             <div class="option-type">
                 Convenience
             </div>
+            @foreach(\App\TermTaxonomy::where('taxonomy', 'Convenience')->get() as $i=>$taxonomy)
             <div class="custom-control custom-checkbox-cd">
-                <input type="checkbox" class="custom-control-input" id="optionCheck-13">
-                <label class="custom-control-label" for="optionCheck-13">Auto air conditioner</label>
+                <input type="checkbox" name="convenience" value="{{ $taxonomy->term->name }}" class="custom-control-input" id="convenience-{{$i}}">
+                <label class="custom-control-label" for="convenience-{{$i}}">{{ $taxonomy->term->name }}</label>
             </div>
+            @endforeach
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="col-md-6">
+            <div class="option-type">
+                Clean
+            </div>
+            @foreach(\App\TermTaxonomy::where('taxonomy', 'Clean')->get() as $i=>$taxonomy)
             <div class="custom-control custom-checkbox-cd">
-                <input type="checkbox" class="custom-control-input" id="optionCheck-14">
-                <label class="custom-control-label" for="optionCheck-14">Smart key</label>
+                <input type="checkbox" name="clean" value="{{ $taxonomy->term->name }}" class="custom-control-input" id="clean-{{$i}}">
+                <label class="custom-control-label" for="clean-{{$i}}">{{ $taxonomy->term->name }}</label>
             </div>
-            <div class="custom-control custom-checkbox-cd">
-                <input type="checkbox" class="custom-control-input" id="optionCheck-15">
-                <label class="custom-control-label" for="optionCheck-15">Power window</label>
-            </div>
-            <div class="custom-control custom-checkbox-cd">
-                <input type="checkbox" class="custom-control-input" id="optionCheck-16">
-                <label class="custom-control-label" for="optionCheck-16">CD player</label>
-            </div>
-            <div class="custom-control custom-checkbox-cd">
-                <input type="checkbox" class="custom-control-input" id="optionCheck-17">
-                <label class="custom-control-label" for="optionCheck-17">Navigation</label>
-            </div>
-            <div class="custom-control custom-checkbox-cd">
-                <input type="checkbox" class="custom-control-input" id="optionCheck-18">
-                <label class="custom-control-label" for="optionCheck-18">AUX terminal</label>
-            </div>
-            <div class="custom-control custom-checkbox-cd">
-                <input type="checkbox" class="custom-control-input" id="optionCheck-19">
-                <label class="custom-control-label" for="optionCheck-19">USB terminal</label>
-            </div>
-            <div class="custom-control custom-checkbox-cd">
-                <input type="checkbox" class="custom-control-input" id="optionCheck-20">
-                <label class="custom-control-label" for="optionCheck-20">Bluetooth</label>
-            </div>
-            <div class="custom-control custom-checkbox-cd">
-                <input type="checkbox" class="custom-control-input" id="optionCheck-21">
-                <label class="custom-control-label" for="optionCheck-21">Rain sensor</label>
-            </div>
-            <div class="custom-control custom-checkbox-cd">
-                <input type="checkbox" class="custom-control-input" id="optionCheck-22">
-                <label class="custom-control-label" for="optionCheck-22">Auto light</label>
-            </div>
-            <div class="custom-control custom-checkbox-cd">
-                <input type="checkbox" class="custom-control-input" id="optionCheck-23">
-                <label class="custom-control-label" for="optionCheck-23">AV monitor : Front</label>
-            </div>
-            <div class="custom-control custom-checkbox-cd">
-                <input type="checkbox" class="custom-control-input" id="optionCheck-24">
-                <label class="custom-control-label" for="optionCheck-24">AV monitor : Front</label>
-            </div>
-            <div class="custom-control custom-checkbox-cd">
-                <input type="checkbox" class="custom-control-input" id="optionCheck-25">
-                <label class="custom-control-label" for="optionCheck-25">Blinder : Rear</label>
-            </div>
-            <div class="custom-control custom-checkbox-cd">
-                <input type="checkbox" class="custom-control-input" id="optionCheck-26">
-                <label class="custom-control-label" for="optionCheck-26">Black box
-                </label>
-            </div>
+            @endforeach
+        </div>
+        <div class="col-md-6">
         </div>
     </div>
 </form>
