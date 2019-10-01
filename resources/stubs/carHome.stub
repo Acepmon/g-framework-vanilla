@@ -281,7 +281,7 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
                                     <img src="{{(getValue($rr, 'thumbnail'))}}" class="img-fluid" alt="alt">
 
                                     <div class="card-caption">
-                                        <div class="meta"><?php echo getValue($rr, 'mileage') ?> | <?php echo getValue($rr, 'fuelType') ?> | <?php echo getValue($rr, 'capacity') ?></div>
+                                        <div class="meta"><?php echo getValue($rr, 'mileage') ?> | <?php echo getValue($rr, 'fuelType') ?> | <?php echo getValue($rr, 'capacityAmount') ?> <?php echo getValue($rr, 'capacityUnit') ?></div>
                                         <div class="favorite">
                                             <i class="icon-heart"></i>
                                         </div>
@@ -292,7 +292,7 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
                                     <div class="card-description">
                                         <div class="card-desc-top">
                                             <a href="detail-page.html" class="card-title">{{$rr->title}}</a>
-                                            <div class="price"><?php echo getValue($rr, 'price') ?></div>
+                                            <div class="price">{{(getValue($rr, 'priceAmount'))}}{{(getValue($rr, 'priceUnit'))}}</div>
                                         </div>
 
                                         <div class="card-meta">
@@ -380,13 +380,13 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
                                         <div class="card-description">
                                             <div class="card-desc-top">
                                                 <a href="detail-page.html" class="card-title">{{$auctionPrmCars->title}}</a>
-                                                <div class="price">{{(getValue($auctionPrmCars, 'price'))}}</div>
+                                                <div class="price">{{(getValue($auctionPrmCars, 'priceAmount'))}}{{(getValue($auctionPrmCars, 'priceUnit'))}}</div>
                                             </div>
                                             <div class="card-meta">
                                                 <div class="year">{{(getValue($auctionPrmCars, 'buildYear'))}} / {{(getValue($auctionPrmCars, 'importDate'))}} </div>
                                                 <div class="bids">0 Bids</div>
                                             </div>
-                                            <div class="overall">{{(getValue($auctionPrmCars, 'mileage'))}} | {{(getValue($auctionPrmCars, 'fuelType'))}} | {{(getValue($auctionPrmCars, 'capacity'))}}</div>
+                                            <div class="overall">{{(getValue($auctionPrmCars, 'mileage'))}} | {{(getValue($auctionPrmCars, 'fuelType'))}} | {{(getValue($auctionPrmCars, 'capacityAmount'))}} {{(getValue($auctionPrmCars, 'capacityUnit'))}}</div>
                                         </div>
 
                                     </div>
@@ -419,19 +419,40 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
             <div class="container">
                 <div class="row">
                     <div class="card-slide owl-carousel owl-theme">
+
+                        @contents({"filter":[{"field":"type", "key":"car"}, {"field":"status", "key":"published"}],
+                        "metasFilter": [{"key": "markName", "value": "toyota"}], "limit":12,
+                        "returnVariable":"wannabuy"})
+                        @php
+                            $wannaBuyList=json_decode($wannabuy);
+                            //$carDataPremium=html_entity_decode(htmlentities($carDataPremium, ENT_QUOTES, "UTF-8"));
+
+                            function getValueWannaBut($rr,$key){
+                                foreach($rr->metas as $metas){
+                                    if($metas->key==$key){
+                                    return $metas->value;
+                                    }
+                                }
+
+                            }
+
+
+                        @endphp
+                        @foreach($wannaBuyList as $wannaBuyData)
+
                         <!-- card start -->
                         <div class="card">
                             <div class="card-top">
-                                <h2 class="title">Toyota Crown 210 Худалдаж авна</h2>
+                                <h2 class="title">{{$wannaBuyData->title}}</h2>
                             </div>
                             <div class="card-body py-2">
                                 <div class="wish-detail">
-                                    <div class="price"><i class="icon-tag"></i> 12сая ~ 15.5сая</div>
-                                    <div class="phone"><i class="icon-phone"></i> 9999-9999 <button class="btn btn-sm btn-outline-dark float-right">Watch</button></div>
+                                    <div class="price"><i class="icon-tag"></i>{{(getValueWannaBut($auctionPrmCars, 'priceAmount'))}} {{(getValueWannaBut($auctionPrmCars, 'priceUnit'))}}</div>
+                                    <div class="phone"><i class="icon-phone"></i>{{(getValueWannaBut($auctionPrmCars, 'retailPhone'))}} <button class="btn btn-sm btn-outline-dark float-right">Watch</button></div>
                                 </div>
                                 <div class="wish-user">
-                                    <div class="profile-img"><img src="{{asset('car-web/img/blog/4.jpg')}}" alt=""></div>
-                                    <div class="username">Enkhtuvshin <div class="date">2019-09-20</div>
+                                    <div class="profile-img"><img src="{{$wannaBuyData->author->avatar}}" alt=""></div>
+                                    <div class="username">@if($wannaBuyData->author->name!=null){{$wannaBuyData->author->name}}@else {{$wannaBuyData->author->username}}@endif <div class="date">{{(getValueWannaBut($auctionPrmCars, 'created_at'))}}</div>
                                     </div>
 
                                 </div>
@@ -440,175 +461,7 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
 
                         </div>
                         <!-- card end -->
-                        <!-- card start -->
-                        <div class="card">
-                            <div class="card-top">
-                                <h2 class="title">Toyota Crown 210 Худалдаж авна</h2>
-                            </div>
-                            <div class="card-body py-2">
-                                <div class="wish-detail">
-                                    <div class="price"><i class="icon-tag"></i> 12сая ~ 15.5сая</div>
-                                    <div class="phone"><i class="icon-phone"></i> 9999-9999 <button class="btn btn-sm btn-outline-dark float-right">Watch</button></div>
-                                </div>
-                                <div class="wish-user">
-                                    <div class="profile-img"><img src="{{asset('car-web/img/blog/4.jpg')}}" alt=""></div>
-                                    <div class="username">Enkhtuvshin <div class="date">2019-09-20</div>
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-                        <!-- card end -->
-                        <!-- card start -->
-                        <div class="card">
-                            <div class="card-top">
-                                <h2 class="title">Toyota Crown 210 Худалдаж авна</h2>
-                            </div>
-                            <div class="card-body py-2">
-                                <div class="wish-detail">
-                                    <div class="price"><i class="icon-tag"></i> 12сая ~ 15.5сая</div>
-                                    <div class="phone"><i class="icon-phone"></i> 9999-9999 <button class="btn btn-sm btn-outline-dark float-right">Watch</button></div>
-                                </div>
-                                <div class="wish-user">
-                                    <div class="profile-img"><img src="{{asset('car-web/img/blog/4.jpg')}}" alt=""></div>
-                                    <div class="username">Enkhtuvshin <div class="date">2019-09-20</div>
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-                        <!-- card end -->
-                        <!-- card start -->
-                        <div class="card">
-                            <div class="card-top">
-                                <h2 class="title">Toyota Crown 210 Худалдаж авна</h2>
-                            </div>
-                            <div class="card-body py-2">
-                                <div class="wish-detail">
-                                    <div class="price"><i class="icon-tag"></i> 12сая ~ 15.5сая</div>
-                                    <div class="phone"><i class="icon-phone"></i> 9999-9999 <button class="btn btn-sm btn-outline-dark float-right">Watch</button></div>
-                                </div>
-                                <div class="wish-user">
-                                    <div class="profile-img"><img src="{{asset('car-web/img/blog/4.jpg')}}" alt=""></div>
-                                    <div class="username">Enkhtuvshin <div class="date">2019-09-20</div>
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-                        <!-- card end -->
-                        <!-- card start -->
-                        <div class="card">
-                            <div class="card-top">
-                                <h2 class="title">Toyota Crown 210 Худалдаж авна</h2>
-                            </div>
-                            <div class="card-body py-2">
-                                <div class="wish-detail">
-                                    <div class="price"><i class="icon-tag"></i> 12сая ~ 15.5сая</div>
-                                    <div class="phone"><i class="icon-phone"></i> 9999-9999 <button class="btn btn-sm btn-outline-dark float-right">Watch</button></div>
-                                </div>
-                                <div class="wish-user">
-                                    <div class="profile-img"><img src="{{asset('car-web/img/blog/4.jpg')}}" alt=""></div>
-                                    <div class="username">Enkhtuvshin <div class="date">2019-09-20</div>
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-                        <!-- card end -->
-                        <!-- card start -->
-                        <div class="card">
-                            <div class="card-top">
-                                <h2 class="title">Toyota Crown 210 Худалдаж авна</h2>
-                            </div>
-                            <div class="card-body py-2">
-                                <div class="wish-detail">
-                                    <div class="price"><i class="icon-tag"></i> 12сая ~ 15.5сая</div>
-                                    <div class="phone"><i class="icon-phone"></i> 9999-9999 <button class="btn btn-sm btn-outline-dark float-right">Watch</button></div>
-                                </div>
-                                <div class="wish-user">
-                                    <div class="profile-img"><img src="{{asset('car-web/img/blog/4.jpg')}}" alt=""></div>
-                                    <div class="username">Enkhtuvshin <div class="date">2019-09-20</div>
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-                        <!-- card end -->
-                        <!-- card start -->
-                        <div class="card">
-                            <div class="card-top">
-                                <h2 class="title">Toyota Crown 210 Худалдаж авна</h2>
-                            </div>
-                            <div class="card-body py-2">
-                                <div class="wish-detail">
-                                    <div class="price"><i class="icon-tag"></i> 12сая ~ 15.5сая</div>
-                                    <div class="phone"><i class="icon-phone"></i> 9999-9999 <button class="btn btn-sm btn-outline-dark float-right">Watch</button></div>
-                                </div>
-                                <div class="wish-user">
-                                    <div class="profile-img"><img src="{{asset('car-web/img/blog/4.jpg')}}" alt=""></div>
-                                    <div class="username">Enkhtuvshin <div class="date">2019-09-20</div>
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-                        <!-- card end -->
-                        <!-- card start -->
-                        <div class="card">
-                            <div class="card-top">
-                                <h2 class="title">Toyota Crown 210 Худалдаж авна</h2>
-                            </div>
-                            <div class="card-body py-2">
-                                <div class="wish-detail">
-                                    <div class="price"><i class="icon-tag"></i> 12сая ~ 15.5сая</div>
-                                    <div class="phone"><i class="icon-phone"></i> 9999-9999</div>
-                                </div>
-                                <div class="wish-user">
-                                    <div class="profile-img"><img src="{{asset('car-web/img/blog/4.jpg')}}" alt=""></div>
-                                    <div class="username">Enkhtuvshin <div class="date">2019-09-20</div>
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-                        <!-- card end -->
-                        <!-- card start -->
-                        <div class="card">
-                            <div class="card-top">
-                                <h2 class="title">Toyota Crown 210 Худалдаж авна</h2>
-                            </div>
-                            <div class="card-body py-2">
-                                <div class="wish-detail">
-                                    <div class="price"><i class="icon-tag"></i> 12сая ~ 15.5сая</div>
-                                    <div class="phone"><i class="icon-phone"></i> 9999-9999</div>
-                                </div>
-                                <div class="wish-user">
-                                    <div class="profile-img"><img src="{{asset('car-web/img/blog/4.jpg')}}" alt=""></div>
-                                    <div class="username">Enkhtuvshin <div class="date">2019-09-20</div>
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-                        <!-- card end -->
-
+                        @endforeach
                     </div>
                 </div>
             </div>
@@ -684,7 +537,7 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
                                         <div class="card-caption">
                                             <div class="card-title">{{$othCars->title}}</div>
                                             <div class="meta"> <?php echo getValueOtherCar($othCars, 'buildYear') ?> / <?php echo getValueOtherCar($othCars, 'importDate') ?> | <?php echo getValueOtherCar($othCars, 'mileage') ?></div>
-                                            <div class="price"><?php echo getValueOtherCar($othCars, 'price') ?></div>
+                                            <div class="price">{{(getValue($auctionPrmCars, 'priceAmount'))}} {{(getValue($auctionPrmCars, 'priceUnit'))}}</div>
                                             <div class="favorite">
                                                 <i class="icon-heart"></i> Add to interest list
                                             </div>
