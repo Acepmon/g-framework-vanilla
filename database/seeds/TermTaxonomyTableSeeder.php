@@ -1212,16 +1212,111 @@ class TermTaxonomyTableSeeder extends Seeder
             ]);
         }
 
-        $AstonMartin = ['Bentley 3 Litre', 'Bentley 3.5 Litre', 'Bentley 4 Litre', 'Bentley 4½ Litre', 'Bentley Speed Six', 'Bentley 8 Litre', 'Bentley Arnage', 'Bentley Azure', 'Bentley Bentayga'
+        $Bentley = ['Bentley 3 Litre', 'Bentley 3.5 Litre', 'Bentley 4 Litre', 'Bentley 4½ Litre', 'Bentley Speed Six', 'Bentley 8 Litre', 'Bentley Arnage', 'Bentley Azure', 'Bentley Bentayga'
         , 'Blue Train Bentley', 'Bentley Brooklands', 'Bentley Brooklands Coupé', 'Bentley Continental', 'Bentley Flying Spur (disambiguation)', 'Bentley Flying Spur (2005)'
         , 'Bentley Continental GT', 'Bentley Continental GTC', 'Bentley Continental R', 'Bentley Continental S', 'Bentley Continental T', 'Bentley Corniche', 'Bentley Eight'
         , 'Bentley Mark V', 'Bentley Mark VI', 'Bentley Mulsanne (1980–92)', 'Bentley Mulsanne (2010)', 'Bentley R Type', 'Bentley S1', 'Bentley S2', 'Bentley S3'
         , 'Bentley State Limousine', 'Bentley T-series', 'Bentley Turbo R', 'Bentley Turbo RT', 'Bentley Turbo S'];
 
-        foreach($AstonMartin as &$model){
+        foreach($Bentley as &$model){
             $term_id5 = DB::table('terms')->insertGetId([
                 'name' => $model,
-                'slug' => 'AstonMartin',
+                'slug' => 'Bentley',
+            ]);
+            DB::table('term_taxonomy')->insert([
+                'term_id' => $term_id5,
+                'taxonomy' => 'Model',
+                'description' => $model,
+                'parent_id' => '20',
+                'count' => 0
+            ]);
+        }
+
+        $Bugatti = ['Bugatti Veyron', 'Bugatti Type 32', 'Bugatti EB110', 'Bugatti Type 57S Atalante number 57502', 'Bugatti Royale', 'Bugatti Type 101', 'Bugatti Type 46', 
+        'Bugatti Type 51', 'Bugatti Type 49', 'Bugatti Type 57', 'Bugatti EB118', 'Bugatti Type 13', 'Bugatti Type 18', 'Bugatti Type 35', 'Bugatti Type 53', 'Bugatti Type 55'
+        , 'Bugatti Type 252', 'Bugatti Type 30', 'Bugatti Type 38', 'Bugatti Type 40', 'Bugatti Type 43', 'Bugatti Type 44', 'Bugatti Type 23', 'Bugatti Type 50', 'Bugatti Type 57G'
+        , 'Bugatti Type 50B', 'Bugatti Type 251', 'Bugatti Type 37', 'Bugatti Type 39', 'Bugatti Type 29', 'Bugatti 18/3 Chiron', 'Bugatti Type 57S Atalante'];
+
+        foreach($Bugatti as &$model){
+            $term_id5 = DB::table('terms')->insertGetId([
+                'name' => $model,
+                'slug' => 'Bugatti',
+            ]);
+            DB::table('term_taxonomy')->insert([
+                'term_id' => $term_id5,
+                'taxonomy' => 'Model',
+                'description' => $model,
+                'parent_id' => '20',
+                'count' => 0
+            ]);
+        }
+
+        $Buick = ['Excelle', 'LaCrosse', 'Regal', 'Cascada', 'Verano', 'Encore', 'Envision', 'Enclave', 'GL8', 'Master Six', 'Century', 'Limited', 'Roadmaster', 'Special', 'Super'
+        , 'Skylark', 'Electra', 'Invicta', 'LeSabre', 'Riviera', 'Wildcat', 'Estate', 'Centurion', 'Apollo', 'Skyhawk', 'Somerset', 'Reatta', 'Park Avenue', 'Rendezvous'
+        , 'Rainier', 'Terraza', 'Lucerne'];
+
+        foreach($Buick as &$model){
+            $term_id5 = DB::table('terms')->insertGetId([
+                'name' => $model,
+                'slug' => 'Buick',
+            ]);
+            DB::table('term_taxonomy')->insert([
+                'term_id' => $term_id5,
+                'taxonomy' => 'Model',
+                'description' => $model,
+                'parent_id' => '20',
+                'count' => 0
+            ]);
+        }
+
+        $Cadillac = ['1992-2002 Eldorado —108 in (2,700 mm) wheelbase, V8', '1989-1993 Coupe DeVille -110.8 in (2,810 mm) wheelbase, V8', '1989-1993 Sedan DeVille -113.8 in (2,890 mm) wheelbase, V8'
+        , '1992-1997 Seville -111.0 in (2,820 mm) wheelbase, V8', '1994–1999 DeVille —113.8 in (2,890 mm) wheelbase, V8', '1997–2001 Catera —107.5 in (2,730 mm) wheelbase, V6'
+        , '1989-1992 Fleetwood -113.8 in (2,890 mm) wheelbase, V8', '1990-1992 Brougham -121.5 in (3,090 mm) wheelbase, V8', '1993-1996 Fleetwood -121.5 in (3,090 mm) wheelbase, V8'
+        , '1993 Sixty Special -113.8 in (2,890 mm) wheelbase, V8', '1998-2000 Escalade', '1998-2004 Seville -112.2 in (2,850 mm) wheelbase, V8', '2000-2005 DeVille -115.3 in (2,930 mm) wheelbase, V8'
+        , '2002-2006 Escalade', '2003-2006 Escalade ESV', '2003-2013 CTS', '2004-2014 CTS-V Sedan', '2004-2009 SRX', '2004-2009 XLR', '2006-2009 XLR-V', '2005-2010 BLS (not sold in the United States)'
+        , '2005-2011 STS -116.4 in (2,960 mm) wheelbase', '2005-2009 STS-V -116.4 in (2,960 mm) wheelbase', '2006-2011 DTS -115.6 in (2,940 mm) wheelbase, V8', '2007-2014 Escalade'
+        , '2007-2014 Escalade ESV', '2009-2013 Escalade Hybrid hybrid SUV', '2002-2013 Escalade EXT pickup truck', '2010-2016 SRX', '2010-2013 CTS Sport Wagon', '2011-2014 CTS Coupe'
+        , '2011-2014 CTS-V Sport Wagon', '2011-2015 CTS-V Coupe', '2014-2019 CTS Sedan', '2016-2019 CTS-V Sedan', '2013-2018 ATS Sedan', '2016-2018 ATS-V Sedan', '2015-2019 ATS Coupe'
+        , '2016-2019 ATS-V Coupe', '2013-2019 XTS', '2014 and 2016 ELR plug-in hybrid coupe', '2015-Present Escalade', '2015-Present Escalade ESV', '2016-Present CT6', '2019-Present CT6-V'
+        , '2017-Present XT5', '2019-Present XT4', 'CT4', 'CT4-V', 'CT5', 'CT5-V', 'XT6 (2020)','1980-1985 Seville — 114.3 in (2,900 mm) wheelbase, V8'
+        , '1982-1988 Cimarron— 101.2 in (2,570 mm) wheelbase, V6', '1980-1984 Coupe de Ville -121.5 in (3,090 mm) wheelbase, V8', '1980-1984 Sedan de Ville -121.5 in (3,090 mm) wheelbase, V8'
+        , '1985–1988 Coupe de Ville —110.8 in (2,810 mm) wheelbase, V8', '1985–1988 Sedan de Ville —110.8 in (2,810 mm) wheelbase, V8', '1985–1988 Fleetwood —110.8 in (2,810 mm) wheelbase, V8'
+        , '1985–1988 Fleetwood 75 —134.4 in (3,410 mm) wheelbase, V8', '1987-1988 Fleetwood Sixty Special —115.8 in (2,940 mm) wheelbase, V8', '1979-1985 Eldorado —113.9 in (2,890 mm) wheelbase, V6 or V8'
+        , '1986-1991 Eldorado —108 in (2,700 mm) wheelbase, V6 or V8', '1987–1993 Allanté —99.4 in (2,520 mm) wheelbase, V8', '1989–1993 Coupe de Ville —110.8 in (2,810 mm) wheelbase, V8'
+        , '1989–1993 Sedan de Ville —113.8 in (2,890 mm) wheelbase, V8', '1989–1993 Fleetwood —113.8 in (2,890 mm) wheelbase, V8', '1980-1986 Fleetwood Brougham -121.5 in (3,090 mm) wheelbase, V8'
+        , '1987-1989 Brougham -121.5 in (3,090 mm) wheelbase, V8'];
+
+        foreach($Cadillac as &$model){
+            $term_id5 = DB::table('terms')->insertGetId([
+                'name' => $model,
+                'slug' => 'Cadillac',
+            ]);
+            DB::table('term_taxonomy')->insert([
+                'term_id' => $term_id5,
+                'taxonomy' => 'Model',
+                'description' => $model,
+                'parent_id' => '20',
+                'count' => 0
+            ]);
+        }
+
+        $Chrysler = ['Chrysler 300', 'Chrysler Pacifica (minivan)', 'Chrysler 150', 'Chrysler 160/180', 'Chrysler 200', 'Chrysler 300 letter series', 'Chrysler 300M', 'Chrysler 300 non-letter series', 
+        'Chrysler Airflow', 'Chrysler Airstream', 'Chrysler Alpine', 'Chrysler Aspen', 'Chrysler Avenger', 'Chrysler Centura (Australia)', 'Chrysler Charger (Australia)', 'Chrysler by Chrysler (Australia)', 
+        'Chrysler Cirrus', 'Chrysler Colt (South Africa)', 'Chrysler Concorde', 'Chrysler Conquest', 'Chrysler Cordoba', 'Chrysler Crossfire', 'Chrysler D-50 (Australia)', 'Chrysler Daytona (Canada)', 
+        'Chrysler Delta (UK and Ireland)', 'Chrysler Drifter (Australia)', 'Chrysler Dynasty (Canada)', 'Chrysler Executive', 'Chrysler Fifth Avenue', 'Chrysler Galant', 'Chrysler Horizon (Europe)',
+        'Chrysler Hunter', 'Chrysler Imperial', 'Chrysler Imperial Parade Phaeton', 'Chrysler Intrepid (Canada)', 'Chrysler L300 Express (Australia)', 'Chrysler Lancer (Australia)', 
+        'Chrysler Laser', 'Chrysler LeBaron', 'Chrysler LHS', 'Chrysler Newport', 'Chrysler Neon (Australia, Europe and Japan)', 'Chrysler New Yorker', 'Chrysler New Yorker Fifth Avenue', 
+        'Chrysler Pacifica (crossover)', 'Chrysler Prowler', 'Chrysler PT Cruiser', 'Chrysler Regal (Australia)', 'Chrysler Plainsman (Australia)', 'Chrysler Royal', 
+        'Chrysler Royal (Australia)', 'Chrysler Saratoga', 'Chrysler Saratoga, Canada non-letter 300 series', 'Chrysler Sebring', 'Chrysler Sigma (Australia)', 'Chrysler Stratus (Canada and Europe)'
+        , 'Chrysler Sunbeam', 'Chrysler TC by Maserati', 'Chrysler Touring', 'Chrysler Town and Country', 'Chrysler Turbine Car (Experimental gas turbine–powered car)', 
+        'Chrysler Valiant (Australia, New Zealand and South Africa)', 'Chrysler VIP (Australia)', 'Chrysler Viper (Europe)', 'Chrysler Vogue (South Africa)', 
+        'Chrysler Voyager/Grand Voyager, US', 'Chrysler Voyager, Europe', 'Chrysler Wayfarer (Australia)', 'Chrysler Windsor', 'Chrysler Windsor as Chrysler of Canadas version of Newport', 
+        'Chrysler Ypsilon'];
+
+        foreach($Chrysler as &$model){
+            $term_id5 = DB::table('terms')->insertGetId([
+                'name' => $model,
+                'slug' => 'Chrysler',
             ]);
             DB::table('term_taxonomy')->insert([
                 'term_id' => $term_id5,
@@ -1235,9 +1330,3 @@ class TermTaxonomyTableSeeder extends Seeder
         /* Model Table END */
     }
 }
-
-        'Aston Martin', 'Bentley', 'Bugatti', 'Buick', 'Cadillac', 'Chrysler', 'Eagle', 'Jaguar', 'Lamborghini', 'Lincoln', 'Lotus', 'Maserati'
-        , 'Maybach', 'McLaren', 'Panoz', 'Ram', 'Rolls-Royce', 'Saab', 'Scion', 'Smart', 'Spyker'
-
-
-
