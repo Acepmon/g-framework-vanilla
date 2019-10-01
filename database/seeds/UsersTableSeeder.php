@@ -22,10 +22,10 @@ class UsersTableSeeder extends Seeder
             $users = [
                 // Super Admin
                 [
-                    'username' => 'acep',
-                    'email' => 'dtsogtbayar123@gmail.com',
-                    'password' => Hash::make('acep'),
-                    'name' => 'Acep Mon',
+                    'username' => 'admin',
+                    'email' => 'admin@example.com',
+                    'password' => Hash::make('admin'),
+                    'name' => 'Administrator',
                     'group_id' => $adminGroupId
                 ],
 

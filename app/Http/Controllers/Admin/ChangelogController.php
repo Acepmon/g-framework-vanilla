@@ -19,6 +19,6 @@ class ChangelogController extends Controller
         $body = $result->getBody();
         $json = json_decode($body, true);
 
-        return view('admin.changelog.index', ['commits' => $json]);
+        return view('admin.changelog', ['commits' => $json]);
     }
 }

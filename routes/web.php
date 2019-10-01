@@ -46,7 +46,7 @@ Route::middleware(['installed'])->group(function () {
                 });
 
                 Route::get('dashboard', 'AdminController@dashboard')->name('admin.dashboard');
-                Route::get('changelog', 'ChangelogController@index')->name('admin.changelog.index');
+                Route::get('changelog', 'ChangelogController@index')->name('admin.changelog');
 
                 Route::get('databaseRestore','BackupController@databaseRestore')->name('admin.backups.databaseRestore');
 
@@ -68,8 +68,8 @@ Route::middleware(['installed'])->group(function () {
                 });
 
                 Route::prefix('logs')->group(function () {
-                    Route::get('ajax/list', 'LogController@ajaxLogsList')->name('admin.ajax.logs.list');
-                    Route::get('ajax/{id}', 'LogController@ajaxLogDetails')->name('admin.ajax.logs.details');
+                    Route::get('ajax/list', 'LogController@ajaxLogsList')->name('admin.logs.ajax.list');
+                    Route::get('ajax/{id}', 'LogController@ajaxLogDetails')->name('admin.logs.ajax.details');
 
                     Route::get('/', 'LogController@reader')->name('admin.logs.index');
                     Route::get('/downloadAll', 'LogController@downloadAll')->name('admin.logs.downloadAll');
