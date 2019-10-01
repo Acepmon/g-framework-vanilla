@@ -49,12 +49,22 @@ class CarMenusTableSeeder extends Seeder
             ['Contact Us', '/contact-us', '', 'Car'],
             ['Write wanna buy', '/wanna-buy', '', 'Car']
         ]];
+        $carProfileDropdownMenus = ['Car Profile Dropdown', '', '', 'Car', [
+            ['Interested car list', '/my-page/interested-cars', '', 'Car'],
+            ['Registration car alert', '/my-page/car-alerts', '', 'Car'],
+            ['Sell request', '/my-page/sell-requests', '', 'Car'],
+            ['Purchase request', '/my-page/purchase-requests', '', 'Car'],
+            ['Mileage', '/my-page/mileage', '', 'Car'],
+            ['Coupon', '/my-page/coupon', '', 'Car'],
+            ['My profile', '/my-page/profile', '', 'Car'],
+        ]];
 
         $this->iterate($adminMenus, 2, 1);
         $this->iterate([
             $carMainMenus,
             $carTopbarMenus,
-            $carFooterMenus
+            $carFooterMenus,
+            $carProfileDropdownMenus,
         ], 1);
     }
 
