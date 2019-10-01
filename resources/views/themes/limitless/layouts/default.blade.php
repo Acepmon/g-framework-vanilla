@@ -18,25 +18,18 @@
 	<!-- /global stylesheets -->
 
 	<!-- Core JS files -->
+    <script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/plugins/loaders/pace.min.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/main/jquery.min.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/main/bootstrap.bundle.min.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/plugins/loaders/blockui.min.js') }}"></script>
 	<!-- /core JS files -->
 
+	@yield('load-before')
 
     <!-- Theme JS files -->
-	<script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/plugins/extensions/jquery_ui/interactions.min.js') }}"></script>
-	<script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/plugins/forms/styling/uniform.min.js') }}"></script>
-	@yield('load-before')
-	<script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/plugins/forms/selects/select2.min.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/app.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/demo_pages/form_select2.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/demo_pages/login.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/demo_pages/form_checkboxes_radios.js') }}"></script>
-
-
-	<script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/plugins/forms/selects/select2.min.js') }}"></script>
     <!-- /theme JS files -->
+
 	@yield('load')
 
 </head>
@@ -65,10 +58,9 @@
                 @yield('content')
 
             </div>
-
-            @include('themes.limitless.includes.footer')
             <!-- /content area -->
-
+            
+            @include('themes.limitless.includes.footer')
         </div>
         <!-- /main content -->
 

@@ -7,7 +7,7 @@
 @endsection
 
 @section('content')
-<div class="content d-flex justify-content-center align-items-center">
+<div class="content d-flex justify-content-left align-items-center">
     <form class="login-form" method="POST" action="{{ route('login') }}">
         @csrf
         <div class="card mb-0">
@@ -77,5 +77,4 @@
     </form>
 </div>
 
-@include('themes.limitless.includes.footer')
 @endsection

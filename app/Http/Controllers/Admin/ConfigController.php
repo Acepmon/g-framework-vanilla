@@ -121,9 +121,7 @@ class ConfigController extends Controller
             'status' => 'required'
         ]);
 
-        $maintenanceEmailConfig = Config::get('system.maintenance.emails');
-        $maintenanceEmailConfig->value = $request->input('emails');
-        $maintenanceEmailConfig->save();
+        config(['system.maintenance.emails' => $request->input('emails', '')]);
 
         if ($request->input('status') == 'down') {
             $command = 'down';
@@ -193,6 +191,10 @@ class ConfigController extends Controller
             'themes',
             'content'
         ];
+
+        $configs = array_filter($configs, function ($config) {
+            return Storage::disk('config')->exists($config . '.php');
+        });
 
         return view('admin.configs.base', ['configs' => $configs]);
     }

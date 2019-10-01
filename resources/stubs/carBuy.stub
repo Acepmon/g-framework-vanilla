@@ -12,7 +12,7 @@ function idize($value)
 return str_replace(' ', '_', strtolower($value));
 }
 $categories = [
-'Car Type', 'Manufacturer', 'Year', 'Distance Driven', 'Price', 'Color', 'Fuel', 'Transmission', 'Option', 'Passenger', 'Steering Wheel', 'Area', 'Doctor\'s Verified'
+'Car Type', 'Manufacturer', 'Year', 'Distance Driven', 'Price', 'Color', 'Fuel', 'Transmission', 'Option', 'Passenger', 'Steering Wheel', 'Area', 'Doctors Verified'
 ];
 
 // Get All items
@@ -41,18 +41,36 @@ $request['advantages'] = request('advantage', Null);
 $request['manCount'] = request('passenger', Null);
 $request['wheelPosition'] = request('steering_wheel', Null);
 $request['countryName'] = request('area', Null);
+$request['buildYear'] = request('year', Null);
+$request['distanceDriven'] = request('distance_driven', Null);
+$request['doctorVerified'] = request('doctors_verified', Null);
+$request['doctorVerified'] = ($request['doctorVerified'] == 'Баталгаажсан')?'1':'0';
 foreach ($request as $key => $value) {
 if ($value != Null) {
 $items = metaHas($items, $key, $value);
 }
-}
+};
+
+$request['minPrice'] = request('min_price', 100);
+$request['maxPrice'] = request('max_price', Null);
+$minPrice = intVal($request['minPrice']) * 1000;
+$maxPrice = intVal($request['maxPrice']) * 1000;
+$items = $items->whereHas('metas', function ($query) use ($minPrice, $maxPrice) {
+  if ($minPrice && $maxPrice) {
+    return $query->where([['key', 'priceAmount'], ['value', '>=', $minPrice], ['value', '<=', $maxPrice]]);
+  } else if ($minPrice) {
+    return $query->where([['key', 'priceAmount'], ['value', '>=', $minPrice]]);
+  } else if ($maxPrice) {
+    return $query->where([['key', 'priceAmount'], ['value', '<=', $maxPrice]]);
+  }
+});
 
 function getPremiumDeal($type, $now) {
   $deals = App\Content::where('type', App\Content::TYPE_CAR)->where('status', App\Content::STATUS_PUBLISHED)->where('visibility', App\Content::VISIBILITY_PUBLIC);
   $deals = metaHas($deals, 'publishType', $type);
   $deals = metaHas($deals, 'publishVerified', True);
   return $deals->whereHas('metas', function ($query) use ($now) {
-    $query->where([['key', 'publishVerified_end'],['value','>=',$now]]);
+    $query->where([['key', 'publishVerifiedEnd'],['value','>=',$now]]);
   });
 }
 
@@ -120,6 +138,7 @@ Car dealer
     <div class="row">
       <div class="col-md-3">
         <form action="car-search" id="searchForm">
+          <input type="hidden" name="search" id="search">
         </form>
         <form action="buy" id="mainForm">
           <div class="left-bar-title">
@@ -137,8 +156,8 @@ Car dealer
                 </h2>
               </div>
 
-              <div id="{{ idize($category) }}" class="collapse {{ request(idize($category), False)?'show':'' }}" aria-labelledby="{{ $category }}">
               @if($category == 'Car Type')
+              <div id="{{ idize($category) }}" class="collapse {{ request(idize($category), False)?'show':'' }}" aria-labelledby="{{ $category }}">
                 <div class="card-body bg-light grid-radio gr-3">
                   @foreach(App\TermTaxonomy::where('taxonomy', $category)->get() as $taxonomy)
                   <div class="cd-radio">
@@ -150,40 +169,54 @@ Car dealer
                   </div>
                   @endforeach
                 </div>
+              </div>
               @elseif($category == 'Year')
+              <div id="{{ idize($category) }}" class="collapse {{ request(idize($category), False)?'show':'' }}" aria-labelledby="{{ $category }}">
                 <div class="card-body bg-light grid-radio">
-                  <select id="min-year" class="form-control">
-                    <option selected>Select year</option>
+                  <select id="min-year" class="form-control" name="year" onchange="formSubmit('year','year')">
+                    <option value="">Select year</option>
                     @for($i=date('Y'); $i>=1990; $i--)
-                    <option value="{{ $i }}">{{ $i }}</option>
+                    <option value="{{ $i }}" {{ $request['buildYear']==$i?'selected':'' }}>{{ $i }}</option>
                     @endfor
                   </select>
                 </div>
+              </div>
               @elseif($category == 'Distance Driven')
+              <div id="{{ idize($category) }}" class="collapse {{ request(idize($category), False)?'show':'' }}" aria-labelledby="{{ $category }}">
                 <div class="card-body bg-light grid-radio">
-                  <select id="min-year" class="form-control">
-                    <option selected>Select distance</option>
-                    <option>...</option>
+                  <select id="distance_driven" class="form-control" name="distance_driven" onchange="formSubmit('distance_driven','no-value')">
+                    <option value="">Select distance</option>
+                    @for($i=1; $i<=10; $i++)
+                    <option value="{{ $i }}" {{ $request['distanceDriven']==$i?'selected':'' }}>{{ $i }}km</option>
+                    @endfor
                   </select>
                 </div>
+              </div>
               @elseif($category == 'Price')
+              <div id="{{ idize($category) }}" class="collapse {{ (request('min_price', False) || request('max_price'))?'show':'' }}" aria-labelledby="{{ $category }}">
                 <div class="card-body bg-light grid-radio">
                   <div class="form-row">
                     <div class="col-md-6">
-                      <select id="min-year" class="form-control">
-                        <option selected>Min</option>
-                        <option>...</option>
+                      <select id="min_price" class="form-control" name="min_price" onchange="formSubmit('min_price','no-value')">
+                        <option value="0">Min</option>
+                        @for($i=100; $i<=10000; $i+=100)
+                        <option value="{{ $i }}" {{ $request['minPrice']==$i?'selected':'' }}>{{ $i }} мянга</option>
+                        @endfor
                       </select>
                     </div>
                     <div class="col-md-6">
-                      <select id="min-year" class="form-control">
-                        <option selected>Max</option>
-                        <option>...</option>
+                      <select id="max_price" class="form-control" name="max_price" onchange="formSubmit('max_price','no-value')">
+                        <option value="">Max</option>
+                        @for($i=$request['minPrice']; $i<=10000; $i+=100)
+                        <option value="{{ $i }}" {{ $request['maxPrice']==$i?'selected':'' }}>{{ $i }} мянга</option>
+                        @endfor
                       </select>
                     </div>
                   </div>
                 </div>
+              </div>
               @else
+              <div id="{{ idize($category) }}" class="collapse {{ request(idize($category), False)?'show':'' }}" aria-labelledby="{{ $category }}">
                 <div class="card-body bg-light">
                   @foreach(App\TermTaxonomy::where('taxonomy', $category)->get() as $taxonomy)
                   <div class="custom-control custom-radio">
@@ -195,8 +228,8 @@ Car dealer
                   </div>
                   @endforeach
                 </div>
-              @endif
               </div>
+              @endif
             </div>
             @endforeach
 
@@ -221,7 +254,6 @@ Car dealer
           </div>
           @if ($items->all() && sizeof($items->all()) != 0)
           <div class="car-list">
-            <input type="hidden" name="search" id="search">
             <input type="hidden" name="advantage" id="advantage" value="{{ $request['advantages'] }}" />
             @foreach($items->forPage($page, $itemsPerPage) as $car)
               @include('themes.car-web.includes.car-list-card', array('car'=>$car))
@@ -283,7 +315,9 @@ Car dealer
 <script src="{{ asset('car-web/vendor/owl.carousel.thumbs/owl.carousel2.thumbs.min.js') }}"></script>
 <script>
   function formSubmit(id, value) {
-    document.getElementById(id).value = value;
+    if (value != 'no-value') {
+      document.getElementById(id).value = value;
+    }
     $('#mainForm').submit();
   }
 

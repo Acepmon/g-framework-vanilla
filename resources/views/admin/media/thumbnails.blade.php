@@ -21,10 +21,10 @@
 
 @section('content')
 <!-- Image grid -->
-<h6 class="content-group font-weight-semibold">
+<h5 class="content-group font-weight-semibold">
     Content Thumbnails
-    <small class="display-block">There are about <strong>{{ number_format(count($thumbnails)) }}</strong> thumbnails stored.</small>
-</h6>
+    <br><small class="display-block">There are about <strong>{{ number_format(count($thumbnails)) }}</strong> thumbnails stored.</small>
+</h5>
 
 <div class="row">
     @foreach ($thumbnails as $thumbnail)

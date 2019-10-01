@@ -21,7 +21,6 @@
 	<!-- Core JS files -->
 	<script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/plugins/loaders/pace.min.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/main/jquery.min.js') }}"></script>
-	<!-- <script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/plugins/extensions/bootstrap.min.js') }}"></script> -->
 	<script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/plugins/loaders/blockui.min.js') }}"></script>
 	<!-- /core JS files -->
 
@@ -33,23 +32,30 @@
 	<script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/app.js') }}"></script>
     <!-- /theme JS files -->
 
+	<style>
+		.login-covers {
+			background: url('{{ url(asset('images/login-covers/' . collect(File::files(public_path(asset('images/login-covers'))))->shuffle()->first()->getFilename())) }}') no-repeat;
+    		background-size: cover;
+		}
+	</style>
+
 </head>
 
 <body>
 
-        <!-- Page content -->
-        <div class="page-content">
+	<!-- Page content -->
+	<div class="page-content login-covers">
 
-            <!-- Main content -->
-            <div class="content-wrapper">
+		<!-- Main content -->
+		<div class="content-wrapper">
 
-                    @yield('content')
+			@yield('content')
 
-            </div>
-            <!-- /main content -->
+		</div>
+		<!-- /main content -->
 
-        </div>
-        <!-- /page content -->
+	</div>
+	<!-- /page content -->
 
     @yield('script')
 

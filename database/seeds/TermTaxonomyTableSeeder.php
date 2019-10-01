@@ -24,7 +24,7 @@ class TermTaxonomyTableSeeder extends Seeder
             ]);
             DB::table('term_taxonomy')->insert([
                 'term_id' => $term_id1,
-                'taxonomy' => $type,
+                'taxonomy' => 'Car Type',
                 'description' => $type,
                 'count' => 0
             ]);
@@ -45,7 +45,7 @@ class TermTaxonomyTableSeeder extends Seeder
             ]);
             DB::table('term_taxonomy')->insert([
                 'term_id' => $term_id1,
-                'taxonomy' => $manufacture,
+                'taxonomy' => 'Manufacturer',
                 'description' => $manufacture,
                 'count' => 0
             ]);
@@ -64,7 +64,7 @@ class TermTaxonomyTableSeeder extends Seeder
             ]);
             DB::table('term_taxonomy')->insert([
                 'term_id' => $term_id1,
-                'taxonomy' => $fuel,
+                'taxonomy' => 'Fuel',
                 'description' => $fuel,
                 'count' => 0
             ]);
@@ -83,7 +83,7 @@ class TermTaxonomyTableSeeder extends Seeder
             ]);
             DB::table('term_taxonomy')->insert([
                 'term_id' => $term_id1,
-                'taxonomy' => $trans,
+                'taxonomy' => 'Transmission',
                 'description' => $trans,
                 'count' => 0
             ]);
@@ -103,7 +103,7 @@ class TermTaxonomyTableSeeder extends Seeder
             ]);
             DB::table('term_taxonomy')->insert([
                 'term_id' => $term_id1,
-                'taxonomy' => $area,
+                'taxonomy' => 'Area',
                 'description' => $area,
                 'count' => 0
             ]);
@@ -123,7 +123,7 @@ class TermTaxonomyTableSeeder extends Seeder
             ]);
             DB::table('term_taxonomy')->insert([
                 'term_id' => $term_id1,
-                'taxonomy' => $color,
+                'taxonomy' => 'Color',
                 'description' => $color,
                 'count' => 0
             ]);
@@ -142,7 +142,7 @@ class TermTaxonomyTableSeeder extends Seeder
             ]);
             DB::table('term_taxonomy')->insert([
                 'term_id' => $term_id1,
-                'taxonomy' => $position,
+                'taxonomy' => 'Steering Wheel',
                 'description' => $position,
                 'count' => 0
             ]);
@@ -161,7 +161,7 @@ class TermTaxonomyTableSeeder extends Seeder
             ]);
             DB::table('term_taxonomy')->insert([
                 'term_id' => $term_id1,
-                'taxonomy' => $accident,
+                'taxonomy' => 'Accident',
                 'description' => $accident,
                 'count' => 0
             ]);
@@ -180,7 +180,7 @@ class TermTaxonomyTableSeeder extends Seeder
             ]);
             DB::table('term_taxonomy')->insert([
                 'term_id' => $term_id1,
-                'taxonomy' => $seat,
+                'taxonomy' => 'Seat',
                 'description' => $seat,
                 'count' => 0
             ]);
@@ -199,7 +199,7 @@ class TermTaxonomyTableSeeder extends Seeder
             ]);
             DB::table('term_taxonomy')->insert([
                 'term_id' => $term_id1,
-                'taxonomy' => $option,
+                'taxonomy' => 'Option',
                 'description' => 'options',
                 'count' => 0
             ]);
@@ -218,7 +218,7 @@ class TermTaxonomyTableSeeder extends Seeder
             ]);
             DB::table('term_taxonomy')->insert([
                 'term_id' => $term_id5,
-                'taxonomy' => $Exterior,
+                'taxonomy' => 'Exterior',
                 'description' => 'exterior',
                 'parent_id' => '102',
                 'count' => 0
@@ -239,7 +239,7 @@ class TermTaxonomyTableSeeder extends Seeder
             ]);
             DB::table('term_taxonomy')->insert([
                 'term_id' => $term_id5,
-                'taxonomy' => $Gut,
+                'taxonomy' => 'Guts',
                 'description' => 'Guts',
                 'parent_id' => '103',
                 'count' => 0
@@ -260,7 +260,7 @@ class TermTaxonomyTableSeeder extends Seeder
             ]);
             DB::table('term_taxonomy')->insert([
                 'term_id' => $term_id5,
-                'taxonomy' => $safety,
+                'taxonomy' => 'Safety',
                 'description' => 'safety',
                 'parent_id' => '104',
                 'count' => 0
@@ -281,7 +281,7 @@ class TermTaxonomyTableSeeder extends Seeder
             ]);
             DB::table('term_taxonomy')->insert([
                 'term_id' => $term_id5,
-                'taxonomy' => $model,
+                'taxonomy' => 'Convenience',
                 'description' => 'model',
                 'parent_id' => '105',
                 'count' => 0
@@ -301,7 +301,7 @@ class TermTaxonomyTableSeeder extends Seeder
             ]);
             DB::table('term_taxonomy')->insert([
                 'term_id' => $term_id5,
-                'taxonomy' => $model,
+                'taxonomy' => 'Clean',
                 'description' => $model,
                 'parent_id' => '106',
                 'count' => 0
@@ -321,13 +321,29 @@ class TermTaxonomyTableSeeder extends Seeder
             ]);
             DB::table('term_taxonomy')->insert([
                 'term_id' => $term_id5,
-                'taxonomy' => $Wheel,
+                'taxonomy' => 'Wheel Drive',
                 'description' => $Wheel,
                 'count' => 0
             ]);
         }
 
         /* Wheel Table END */
+        
+        /* Doctors Verified Table START */
+        $doctors = ['Баталгаажсан', 'Баталгаажаагүй'];
+        foreach($doctors as &$doctor){
+            $term_id5 = DB::table('terms')->insertGetId([
+                'name' => $doctor,
+                'slug' => $doctor,
+            ]);
+            DB::table('term_taxonomy')->insert([
+                'term_id' => $term_id5,
+                'taxonomy' => 'Doctors Verified',
+                'description' => $doctor,
+                'count' => 0
+            ]);
+        }
+        /* Doctors Verified Table END */
 
         /* Model Table START */
 

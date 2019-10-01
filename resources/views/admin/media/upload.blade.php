@@ -24,7 +24,7 @@
         </div>
     </div>
 
-    <div class="card">
+    <div class="card-body">
         <p class="content-group">Example of a <code>multiple</code> file uploader based on <code>Dropzone.js</code> library. Dropzone.js is a light weight JavaScript library that turns an HTML element into a dropzone. This means that a user can drag and drop a file onto it, and the file gets uploaded to the server via AJAX. By default Dropzone is a multiple file uploader, so this example is a basic setup. Uploading process runs automatically and image thumbnail previews are shown right after file selection.</p>
 
         <div class="form-group">

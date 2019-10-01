@@ -12,7 +12,7 @@
 
 <div class="bg-page-header"></div>
 
-<section class="bg-transparent">
+<section class="bg-transparent body-section">
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-md-10">
@@ -39,9 +39,11 @@
               <div class="form-row">
                 <div class="form-group col-md-4">
                   <label for="durationDay">Duration Day:</label>
-                  <select id="durationDay" class="form-control">
-                    <option selected>Choose...</option>
-                    <option>...</option>
+                  <select id="durationDay" name="durationDay" class="form-control">
+                    <option value="" selected>Choose...</option>
+                      @for($i=1; $i<=7; $i++)
+                      <option value="{{$i}}">{{$i}} Days</option>
+                      @endfor
                   </select>
                 </div>
               </div>
@@ -61,25 +63,24 @@
               </div>
               <fieldset id="schedule" class="form-row form-group mt-2" disabled>
                 <div class="row pl-2 pr-2">
-                  <div class="form-group col-md-6">
+                  <div class="form-group col-md-6" style="position:relative">
                     <label class="text-muted" for="scheduleDate">Date:</label>
-                    <select id="scheduleDate" class="form-control">
-                      <option selected>Choose...</option>
-                      <option>...</option>
-                    </select>
+                    <input id="scheduleDate" name="scheduleDate" class="form-control" value="{{ now()->format('Y-m-d') }}"/>
                   </div>
                   <div class="form-group col-md-3">
                     <label class="text-muted" for="scheduleTime">Time:</label>
-                    <select id="scheduleTime" class="form-control">
-                      <option selected>Choose...</option>
-                      <option>...</option>
+                    <select id="scheduleTime" name="scheduleTime" class="form-control">
+                      @for($i=0; $i<=23; $i++)
+                      <option>{{$i}}</option>
+                      @endfor
                     </select>
                   </div>
                   <div class="form-group col-md-3">
-                    <label class="text-muted" for="scheduleMinute">Minute:</label>
+                    <label class="text-muted" name="scheduleMinute" for="scheduleMinute">Minute:</label>
                     <select id="scheduleMinute" class="form-control">
-                      <option selected>Choose...</option>
-                      <option>...</option>
+                      @for($i=0; $i<=59; $i++)
+                      <option>{{$i}}</option>
+                      @endfor
                     </select>
                   </div>
                 </div>
@@ -91,7 +92,7 @@
                 <div class="form-group col-md-4">
                   <label for="area">Starting price:</label>
                   <div class="input-group">
-                    <input type="text" class="form-control" id="starting-price" placeholder="0.00">
+                    <input type="number" name="startingPrice" class="form-control" id="starting-price" placeholder="0.00">
                     <div class="input-group-prepend">
                       <div class="input-group-text-right">Сая ₮</div>
                     </div>
@@ -100,16 +101,19 @@
                 <div class="form-group col-md-4">
                   <label for="transmission">Buy Out:</label>
                   <div class="input-group">
-                    <input type="text" class="form-control" id="buyout" placeholder="0.00">
+                    <input type="number" name="buyout" class="form-control" id="buyout" placeholder="0.00">
                     <div class="input-group-prepend">
                       <div class="input-group-text-right">Сая ₮</div>
                     </div>
                   </div>
                 </div>
                 <div class="form-group col-md-4">
-                  <label for="steeringWheel">Reserve price (fees apply):</label>
+                  <label for="steeringWheel">Reserve price</label> <span class="text-muted">(fees apply)</span>
+                  <span style="float: right">
+                    <i class="icon-question" data-toggle="tooltip" data-placement="top" title="Fees apply tooltip text goes here!"></i>
+                  </span>
                   <div class="input-group">
-                    <input type="text" class="form-control" id="reserve-price" placeholder="0.00">
+                    <input type="number" name="reservePrice" class="form-control" id="reserve-price" placeholder="0.00">
                     <div class="input-group-prepend">
                       <div class="input-group-text-right">Сая ₮</div>
                     </div>
@@ -147,7 +151,19 @@
 @endsection
 
 @section('script')
+<link href="{{ asset('car-web/vendor/bootstrap-datepicker/css/bootstrap-datepicker.min.css') }}" rel="stylesheet">
+<script src="{{ asset('car-web/vendor/bootstrap-datepicker/js/bootstrap-datepicker.min.js') }}"></script>
 <script>
+  $(document).ready(function() {
+    $('#scheduleDate').datepicker({
+      format: 'yyyy-mm-dd',
+      startDate: '0d',
+      defaultViewDate: '0d'
+    });
+    $(function () {
+      $('[data-toggle="tooltip"]').tooltip()
+    });
+  });
   $('input[type=radio][name=auction-start]').change(function() {
     if (this.value == 'start') {
       $("#schedule").prop('disabled', true);
@@ -163,4 +179,9 @@
     }
 });
 </script>
+<style>
+  input:disabled, select:disabled {
+    color: #AAAEBF;
+  }
+</style>
 @endsection

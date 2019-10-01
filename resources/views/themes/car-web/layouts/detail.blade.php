@@ -30,6 +30,8 @@
         <!-- /global stylesheets -->
 
         @yield('load')
+
+        @stack('styles')
     </head>
 
     <body class="detail-page">
@@ -86,13 +88,15 @@
         @include('themes.car-web.includes.section-retail', ['content' => $content])
 
         <!-- Hot deals -->
-        @include('themes.car-web.includes.section-slider', array('title'=>'Hot Deals', 'contents'=> \App\Content::getByMetas('publishType', 'premium|best_premium', 'in'), 'morelink'=> url('/search?best_premium=true&premium=true')))
+        @include('themes.car-web.includes.section-slider', array('title' => 'Hot Deals', 'contents'=> \App\Content::getByMetas('publishType', 'premium|best_premium', 'in'), 'morelink'=> url('/search?best_premium=true&premium=true')))
 
         <!-- Similar Price -->
-        @include('themes.car-web.includes.section-similar-price', ['contents' => \App\Content::getByMetas('similar', true)])
+        @include('themes.car-web.includes.section-slider', ['title' => 'Similar Price', 'contents' => \App\Content::inRangeMetas('priceAmount', intval($content->metaValue('priceAmount')) - 1000000, $content->metaValue('priceAmount') + 1000000), 'morelink'=> url('/search?best_premium=true&premium=true')])
 
          <!-- Footer -->
         @include('themes.car-web.includes.footer')
+
+        @stack('modals')
 
         <!-- Bootstrap core JavaScript -->
         <script src="{{ asset('car-web/vendor/jquery/jquery.min.js') }}"></script>
