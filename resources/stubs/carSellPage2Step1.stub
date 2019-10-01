@@ -1,19 +1,274 @@
-@extends('themes.car-web.layouts.default')
+<form id="step-1" class="maz-form">
+    <div class="form-title"><span>General information </span></div>
+    <div class="form-group">
+        <label for="carType">Select Car type:</label>
+        <div class="grid-radio">
+            <div class="cd-radio">
+                <input type="radio" id="sedan" name="carType" class="custom-control-input" checked>
+                <label class="custom-control-label " for="sedan"> <img src="{{ asset('car-web/img/icons/sedan.svg') }}" alt=""><span>Sedan</span>
+                </label>
+            </div>
+            <div class="cd-radio">
+                <input type="radio" id="suv" name="carType" class="custom-control-input">
+                <label class="custom-control-label" for="suv"> <img src="{{ asset('car-web/img/icons/suv.svg') }}" alt=""><span>SUV</span> </label>
+            </div>
+            <div class="cd-radio">
+                <input type="radio" id="sport" name="carType" class="custom-control-input">
+                <label class="custom-control-label " for="sport"> <img src="{{ asset('car-web/img/icons/sport.svg') }}" alt=""><span>Sport</span>
+                </label>
+            </div>
+            <div class="cd-radio">
+                <input type="radio" id="trucks" name="carType" class="custom-control-input">
+                <label class="custom-control-label " for="trucks"> <img src="{{ asset('car-web/img/icons/truck.svg') }}" alt=""><span>Truck</span>
+                </label>
+            </div>
+            <div class="cd-radio">
+                <input type="radio" id="vans" name="carType" class="custom-control-input">
+                <label class="custom-control-label " for="vans"> <img src="{{ asset('car-web/img/icons/van.svg') }}" alt=""><span>Van</span> </label>
+            </div>
+            <div class="cd-radio">
+                <input type="radio" id="bus" name="carType" class="custom-control-input">
+                <label class="custom-control-label " for="bus"> <img src="{{ asset('car-web/img/icons/bus.svg') }}" alt=""><span>Bus</span></label>
+            </div>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="Manufacturer">Manufacturer:</label>
+            <select id="Manufacturer" class="form-control">
+                <option selected>Choose...</option>
+                <option>...</option>
+            </select>
+        </div>
+        <div class="form-group col-md-6">
+            <label for="Model">Model:</label>
+            <select id="Model" class="form-control">
+                <option selected>Choose...</option>
+                <option>...</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="carcondition">Car condition:</label>
+            <select id="carcondition" class="form-control">
+                <option selected>Choose...</option>
+                <option>...</option>
+            </select>
+        </div>
+        <div class="form-group col-md-6">
+            <label for="Color">Color:</label>
+            <select id="Color" class="form-control">
+                <option selected>Choose...</option>
+                <option>...</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="Manufacturer">Year of Product:</label>
+            <select id="Manufacturer" class="form-control">
+                <option selected>Choose...</option>
+                <option>...</option>
+            </select>
+        </div>
+        <div class="form-group col-md-6">
+            <label for="Model">Year of Entry:</label>
+            <select id="Model" class="form-control">
+                <option selected>Choose...</option>
+                <option>...</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="Manufacturer">Displacement:</label>
+            <select id="Manufacturer" class="form-control">
+                <option selected>Choose...</option>
+                <option>...</option>
+            </select>
+        </div>
+    </div>
 
-@endphp
+    <div class="form-title"><span>More information </span></div>
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="area">Area:</label>
+            <select id="area" name="area" class="form-control">
+                <option value="" selected>Choose...</option>
+                @foreach(App\TermTaxonomy::where('taxonomy', 'area')->get() as $taxonomy)
+                <option value="{{ $taxonomy->term->name }}">{{ $taxonomy->term->name }}</option>
+                @endforeach
+            </select>
+        </div>
+        <div class="form-group col-md-6">
+            <label for="transmission">Transmission:</label>
+            <select id="transmission" name="transmission" class="form-control">
+                <option value="" selected>Choose...</option>
+                @foreach(App\TermTaxonomy::where('taxonomy', 'transmission')->get() as $taxonomy)
+                <option value="{{ $taxonomy->term->name }}">{{ $taxonomy->term->name }}</option>
+                @endforeach
+            </select>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="steeringWheel">Steering wheel:</label>
+            <select id="steeringWheel" name="steeringWheel" class="form-control">
+                <option value="" selected>Choose...</option>
+                @foreach(App\TermTaxonomy::where('taxonomy', 'Steering Wheel')->get() as $taxonomy)
+                <option value="{{ $taxonomy->term->name }}">{{ $taxonomy->term->name }}</option>
+                @endforeach
+            </select>
+        </div>
+        <div class="form-group col-md-6">
+            <label for="seating">Seating:</label>
+            <select id="seating" name="seating" class="form-control">
+                <option value="" selected>Choose...</option>
+                @foreach(App\TermTaxonomy::where('taxonomy', 'Seat')->get() as $taxonomy)
+                <option value="{{ $taxonomy->term->name }}">{{ $taxonomy->term->name }}</option>
+                @endforeach
+            </select>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="fuel">Type of fuel:</label>
+            <select id="fuel" name="fuel" class="form-control">
+                <option value="" selected>Choose...</option>
+                @foreach(App\TermTaxonomy::where('taxonomy', 'Fuel')->get() as $taxonomy)
+                <option value="{{ $taxonomy->term->name }}">{{ $taxonomy->term->name }}</option>
+                @endforeach
+            </select>
+        </div>
+        <div class="form-group col-md-6">
+            <label for="wheelDrive">Wheel drive:</label>
+            <select id="wheelDrive" name="wheelDrive" class="form-control">
+                <option value="" selected>Choose...</option>
+                @foreach(App\TermTaxonomy::where('taxonomy', 'Wheel Drive')->get() as $taxonomy)
+                <option value="{{ $taxonomy->term->name }}">{{ $taxonomy->term->name }}</option>
+                @endforeach
+            </select>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="millage">Millage:</label>
+            <div class="input-group">
+                <input type="number" min="0" class="form-control" id="millage" name="mileage" placeholder="Millage">
+                <div class="input-group-prepend">
+                    <div class="input-group-text-right">KM</div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group col-md-6">
+            <label for="salonColor">Interior color:</label>
+            <select id="salonColor" name="interiorColor" class="form-control">
+                <option value="" selected>Choose...</option>
+                @foreach(App\TermTaxonomy::where('taxonomy', 'Color')->get() as $taxonomy)
+                <option value="{{ $taxonomy->term->name }}">{{ $taxonomy->term->name }}</option>
+                @endforeach
+            </select>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-12">
+            <label for="advantage" name="advantages">Advantages:
+                <small id="passwordHelpInline" class="text-muted">You can select multiple items </small>
+            </label>
+            <select id="advantage" class="form-control selectpicker" multiple data-live-search="true">
+                @foreach(App\TermTaxonomy::where('taxonomy', 'area')->get() as $taxonomy)
+                <option value="{{ $taxonomy->term->name }}">{{ $taxonomy->term->name }}</option>
+                @endforeach
+            </select>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-12">
+            <label for="description">Seller description</label>
+            <textarea class="form-control" id="description" name="sellerDescription" rows="5"></textarea>
+        </div>
+    </div>
 
-@section('title')
+    <div class="form-title"><span>Verify your car </span></div>
+    <div class="form-row">
+        <div class="col-md-3">
+            <div class="custom-control custom-switch">
+                <input type="checkbox" class="custom-control-input" id="customSwitch1">
+                <label class="custom-control-label" for="customSwitch1">Doctor verify</label>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div class="custom-file">
+                <input type="file" class="custom-file-input" id="customFile">
+                <label class="custom-file-label" for="customFile">Choose file</label>
+            </div>
+        </div>
+    </div>
 
-@endsection
+    <div class="form-title"><span>Select car option </span></div>
 
-@section('load')
-
-@endsection
-
-@section('content')
-<div class="bg-page-header"></div>
-
-@endsection
-
-@section('script')
-@endsection
+    <div class="form-row">
+        <div class="col-md-6">
+            <div class="option-type">
+                Exterior
+            </div>
+            @foreach(\App\TermTaxonomy::where('taxonomy', 'Exterior')->get() as $i=>$taxonomy)
+            <div class="custom-control custom-checkbox-cd">
+                <input type="checkbox" name="exterior" value="{{ $taxonomy->term->name }}" class="custom-control-input" id="exterior-{{$i}}">
+                <label class="custom-control-label" for="exterior-{{$i}}">{{ $taxonomy->term->name }}</label>
+            </div>
+            @endforeach
+        </div>
+        <div class="col-md-6">
+            <div class="option-type">
+                Guts
+            </div>
+            @foreach(\App\TermTaxonomy::where('taxonomy', 'Guts')->get() as $i=>$taxonomy)
+            <div class="custom-control custom-checkbox-cd">
+                <input type="checkbox" name="guts" value="{{ $taxonomy->term->name }}" class="custom-control-input" id="guts-{{$i}}">
+                <label class="custom-control-label" for="guts-{{$i}}">{{ $taxonomy->term->name }}</label>
+            </div>
+            @endforeach
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="col-md-6">
+            <div class="option-type">
+                Safety
+            </div>
+            @foreach(\App\TermTaxonomy::where('taxonomy', 'Safety')->get() as $i=>$taxonomy)
+            <div class="custom-control custom-checkbox-cd">
+                <input type="checkbox" name="safety" value="{{ $taxonomy->term->name }}" class="custom-control-input" id="safety-{{$i}}">
+                <label class="custom-control-label" for="safety-{{$i}}">{{ $taxonomy->term->name }}</label>
+            </div>
+            @endforeach
+        </div>
+        <div class="col-md-6">
+            <div class="option-type">
+                Convenience
+            </div>
+            @foreach(\App\TermTaxonomy::where('taxonomy', 'Convenience')->get() as $i=>$taxonomy)
+            <div class="custom-control custom-checkbox-cd">
+                <input type="checkbox" name="convenience" value="{{ $taxonomy->term->name }}" class="custom-control-input" id="convenience-{{$i}}">
+                <label class="custom-control-label" for="convenience-{{$i}}">{{ $taxonomy->term->name }}</label>
+            </div>
+            @endforeach
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="col-md-6">
+            <div class="option-type">
+                Clean
+            </div>
+            @foreach(\App\TermTaxonomy::where('taxonomy', 'Clean')->get() as $i=>$taxonomy)
+            <div class="custom-control custom-checkbox-cd">
+                <input type="checkbox" name="clean" value="{{ $taxonomy->term->name }}" class="custom-control-input" id="clean-{{$i}}">
+                <label class="custom-control-label" for="clean-{{$i}}">{{ $taxonomy->term->name }}</label>
+            </div>
+            @endforeach
+        </div>
+        <div class="col-md-6">
+        </div>
+    </div>
+</form>

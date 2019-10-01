@@ -24,7 +24,7 @@ class UsersTableSeeder extends Seeder
                     'password' => Hash::make('admin'),
                     'name' => 'Administrator',
                     'language' => 'en',
-                    'avatar' => url(asset('user.png')),
+                    'avatar' => asset('user.png'),
                     'created_at' => now(),
                     'updated_at' => now(),
                 ]

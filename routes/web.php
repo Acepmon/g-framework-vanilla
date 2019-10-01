@@ -24,21 +24,14 @@ Route::middleware(['installed'])->group(function () {
         Route::prefix('ajax')->group(function () {
             Route::namespace('Ajax')->group(function () {
 
-                Route::apiResource('users', 'UserController')->names([
-                    'index' => 'ajax.users.index',
-                    'store' => 'ajax.users.store',
-                    'show' => 'ajax.users.show',
-                    'update' => 'ajax.users.update',
-                    'destroy' => 'ajax.users.destroy'
-                ]);
-
-                Route::apiResource('contents', 'ContentController')->names([
-                    'index' => 'ajax.contents.index',
-                    'store' => 'ajax.contents.store',
-                    'show' => 'ajax.contents.show',
-                    'update' => 'ajax.contents.update',
-                    'destroy' => 'ajax.contents.destroy'
-                ]);
+                Route::post('contents/', 'ContentController@store');
+                Route::put('contents/{contentId}', 'ContentController@updateContent');
+                Route::post('contents/{contentId}/metas', 'ContentController@createMeta');
+                Route::put('contents/{contentId}/metas', 'ContentController@updateMeta');
+                Route::put('contents/{contentId}/metas/sync', 'ContentController@syncMetas');
+                Route::put('contents/{contentId}/metas/attach', 'ContentController@attachMetas');
+                Route::put('contents/{contentId}/metas/detach', 'ContentController@detachMetas');
+                Route::delete('contents/{contentId}/metas', 'ContentController@deleteMeta');
 
             });
         });
