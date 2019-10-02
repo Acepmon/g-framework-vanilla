@@ -412,6 +412,7 @@
       padding: .8rem;
       z-index: 1;
       outline: none;
+      cursor: pointer;
     }
 
       .custom-control-label::before {
@@ -474,6 +475,7 @@
       padding: .8rem;
       z-index: 1;
       outline: none;
+      cursor: pointer;
     }
 
       .custom-control-label::before {
@@ -483,7 +485,6 @@
         border-radius: 4px;
         height: 100%;
         width: 100%;
-        /* padding: 1rem; */
         left: 0;
         top: 0;
         z-index: -1;
