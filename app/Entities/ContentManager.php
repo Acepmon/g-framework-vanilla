@@ -13,13 +13,14 @@ class ContentManager
      * Filter & Serialize mixed request of Content and ContentMetas to Content Object with ContentMeta subarray
      * @return Paginated Content
      */
-    public function serializeRequest(Request $request) {
+    public static function serializeRequest(Request $request)
+    {
         $type = $request->input('type', Content::TYPE_POST);
         $status = $request->input('status', Content::STATUS_PUBLISHED);
         $visibility = $request->input('visibility', Content::VISIBILITY_PUBLIC);
         $limit = $request->input('limit', 10);
 
-        $metaInputs = $this->discernMetasFromRequest($request->input());
+        $metaInputs = self::discernMetasFromRequest($request->input());
 
         $contents = Content::where('type', $type)->where('status', $status)->where('visibility', $visibility);
 
@@ -44,7 +45,8 @@ class ContentManager
      * Used to discern content metas from attributes of Content Model.
      * @return ContentMeta array, consisting of key, value pairs
      */
-    public function discernMetasFromRequest($input) {
+    public static function discernMetasFromRequest($input)
+    {
         $inputExcept = ['type', 'status', 'visibility', 'limit', 'page', 'author_id'];
         $metaInputs = array_filter($input, function ($key) use ($inputExcept) {
             return !in_array($key, $inputExcept);
@@ -57,7 +59,8 @@ class ContentManager
      * Can take additional parameters to merge
      * @return content array
      */
-    public function contentToArray(Content $content, $additional = null) {
+    public static function contentToArray(Content $content, $additional = null)
+    {
         $result = [
             "id" => $content->id,
             "title" => $content->title,
