@@ -22,5 +22,12 @@ class CarAuthPagesTableSeeder extends Seeder
         $newStub = resource_path('views/auth/passwords/reset.blade.php');
         $file_content = file_get_contents(resource_path($stub));
         file_put_contents($newStub, $file_content);
+
+        //------------- car web login -----------------------
+
+        $stub = 'stubs/carHomeLogin.stub';
+        $newStub = resource_path('views/auth/login.blade.php');
+        $file_content = file_get_contents(resource_path($stub));
+        file_put_contents($newStub, $file_content);
     }
 }

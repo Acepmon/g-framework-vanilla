@@ -18,9 +18,12 @@ class CarPagesTableSeeder extends Seeder
 //        ------------- car web home page -----------------------
         $time = time();
         $rootPath = config('content.pages.rootPath');
+
+        Content::where('slug', '/')->first()->delete();
+
         $content = new Content;
-        $content->title = 'Car web';
-        $content->slug = 'car-web';
+        $content->title = 'Home Page';
+        $content->slug = '/';
         $content->type = Content::TYPE_PAGE;
         $content->status = Content::STATUS_PUBLISHED;
         $content->visibility = Content::VISIBILITY_PUBLIC;
@@ -38,37 +41,37 @@ class CarPagesTableSeeder extends Seeder
         $content_meta->value = json_encode($value);
         $content_meta->save();
         $file_content = file_get_contents(resource_path('stubs/carHome.stub'));
-        $file_name = $rootPath . DIRECTORY_SEPARATOR . 'car-web' . Content::NAMING_CONVENTION . $content->status . Content::NAMING_CONVENTION . $time;
+        $file_name = $rootPath . DIRECTORY_SEPARATOR . 'root' . Content::NAMING_CONVENTION . $content->status . Content::NAMING_CONVENTION . $time;
         $file_ext = 'blade.php';
         $file_path = $file_name . '.' . $file_ext;
         file_put_contents(base_path($file_path), $file_content);
         //        ------------- car web home login page -----------------------
-        $time = time();
-        $rootPath = config('content.pages.rootPath');
-        $content = new Content;
-        $content->title = 'Car web login';
-        $content->slug = 'car-web-login';
-        $content->type = Content::TYPE_PAGE;
-        $content->status = Content::STATUS_PUBLISHED;
-        $content->visibility = Content::VISIBILITY_PUBLIC;
-        $content->author_id = 1;
-        $content->save();
-        $value = new \stdClass;
-        $value->datetime = $time;
-        $value->filename_changed = true;
-        $value->before = $content;
-        $value->after = $content;
-        $value->user = User::find(1);
-        $content_meta = new ContentMeta();
-        $content_meta->content_id = $content->id;
-        $content_meta->key = 'initial';
-        $content_meta->value = json_encode($value);
-        $content_meta->save();
-        $file_content = file_get_contents(resource_path('stubs/carHomeLogin.stub'));
-        $file_name = $rootPath . DIRECTORY_SEPARATOR . 'car-web-login' . Content::NAMING_CONVENTION . $content->status . Content::NAMING_CONVENTION . $time;
-        $file_ext = 'blade.php';
-        $file_path = $file_name . '.' . $file_ext;
-        file_put_contents(base_path($file_path), $file_content);
+        // $time = time();
+        // $rootPath = config('content.pages.rootPath');
+        // $content = new Content;
+        // $content->title = 'Car web login';
+        // $content->slug = 'car-web-login';
+        // $content->type = Content::TYPE_PAGE;
+        // $content->status = Content::STATUS_PUBLISHED;
+        // $content->visibility = Content::VISIBILITY_PUBLIC;
+        // $content->author_id = 1;
+        // $content->save();
+        // $value = new \stdClass;
+        // $value->datetime = $time;
+        // $value->filename_changed = true;
+        // $value->before = $content;
+        // $value->after = $content;
+        // $value->user = User::find(1);
+        // $content_meta = new ContentMeta();
+        // $content_meta->content_id = $content->id;
+        // $content_meta->key = 'initial';
+        // $content_meta->value = json_encode($value);
+        // $content_meta->save();
+        // $file_content = file_get_contents(resource_path('stubs/carHomeLogin.stub'));
+        // $file_name = $rootPath . DIRECTORY_SEPARATOR . 'car-web-login' . Content::NAMING_CONVENTION . $content->status . Content::NAMING_CONVENTION . $time;
+        // $file_ext = 'blade.php';
+        // $file_path = $file_name . '.' . $file_ext;
+        // file_put_contents(base_path($file_path), $file_content);
         //        ------------- car web home forget password page -----------------------
         $time = time();
         $rootPath = config('content.pages.rootPath');
@@ -153,9 +156,12 @@ class CarPagesTableSeeder extends Seeder
         //        ------------- car posts -----------------------
         $time = time();
         $rootPath = config('content.pages.rootPath');
+
+        Content::where('slug', 'posts')->first()->delete();
+
         $content = new Content;
-        $content->title = 'Car posts';
-        $content->slug = 'car-posts';
+        $content->title = 'Posts';
+        $content->slug = 'posts';
         $content->type = Content::TYPE_PAGE;
         $content->status = Content::STATUS_PUBLISHED;
         $content->visibility = Content::VISIBILITY_PUBLIC;
@@ -173,7 +179,7 @@ class CarPagesTableSeeder extends Seeder
         $content_meta->value = json_encode($value);
         $content_meta->save();
         $file_content = file_get_contents(resource_path('stubs/carPost.stub'));
-        $file_name = $rootPath . DIRECTORY_SEPARATOR . 'car-posts' . Content::NAMING_CONVENTION . $content->status . Content::NAMING_CONVENTION . $time;
+        $file_name = $rootPath . DIRECTORY_SEPARATOR . 'posts' . Content::NAMING_CONVENTION . $content->status . Content::NAMING_CONVENTION . $time;
         $file_ext = 'blade.php';
         $file_path = $file_name . '.' . $file_ext;
         file_put_contents(base_path($file_path), $file_content);
@@ -361,6 +367,6 @@ class CarPagesTableSeeder extends Seeder
         $file_path = $file_name . '.' . $file_ext;
 
         file_put_contents(base_path($file_path), $file_content);
-            
+
     }
 }
