@@ -8,7 +8,7 @@ $hotDeals=App\Content::where('type', App\Content::TYPE_CAR)->paginate(5);
 $sideBanners = App\Banner::where('location_id', 4)->get();
 @endphp
 
-<div class="mainPage-items col-1 full-height" style="position: absolute; left: 80%; top:123%; height: 4000px; padding-left: 0%; width:0%">
+<div class="mainPage-items col-1 full-height" style="position: absolute; left: 81%; top:123%; height: 4000px; padding-left: 0%; width:0%">
     @include('themes.car-web.includes.fixed-right-sidebar', array('sideBanners'=>$sideBanners, 'premium'=>$hotDeals))
 </div>
 
@@ -238,13 +238,14 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
                     <div class="master-head-bg">
                         <img src="{{asset('car-web/img/hero_bg.png')}}" class="img-fluid" alt="">
                     </div>
+                    <a href="#hot-deal" class="js-scroll-trigger discover">
+                        <span></span>
+                        <p >Discover more</p>
+                    </a>
                 </div>
         </div>
     </header>
-    <a href="#hot-deal" class="js-scroll-trigger discover">
-        <span></span>
-        <p >Discover more</p>
-    </a>
+
 
     <section id="hot-deal" class="mainPage-items bg-white">
         <div class="container">
@@ -597,6 +598,7 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
 @endsection
 
 @section('script')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js "></script>
     <script src="{{asset('car-web/js/script.min.js')}}  "></script>
     {{--<script>--}}
         {{--$('.scrollDown').click(function(event){--}}
