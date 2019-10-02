@@ -34,7 +34,7 @@
             </div>
           </div>
           <div class="card-body pb-5">
-            @include('pages.' . App\Content::where('slug', 'car-sell-page-2-step-1')->first()->currentView())
+            @include('pages.' . App\Content::where('slug', 'sell-car-page-2-step-1')->first()->currentView())
             <!-- NEXT PREV BUTTON START -->
             <div style="float:right;">
               <button class="btn btn-light btn-round px-5 py-2" type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
