@@ -18,6 +18,6 @@ return [
     'cars' => [
         'rootPath' => '' . DIRECTORY_SEPARATOR . 'resources' . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'pages',
         'viewPath' => 'pages',
-        'containerPage' => 'car-posts'
+        'containerPage' => 'posts'
     ]
 ];

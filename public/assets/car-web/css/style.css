@@ -1803,6 +1803,7 @@ select {
   padding: .8rem;
   z-index: 1;
   outline: none;
+  cursor: pointer;
 }
 
 .detail-page .finance-section .select-month .custom-control-label::before {
@@ -1867,6 +1868,7 @@ select {
   padding: .8rem;
   z-index: 1;
   outline: none;
+  cursor: pointer;
 }
 
 .detail-page .finance-section .select-first-price .custom-control-label::before {
@@ -1876,7 +1878,6 @@ select {
   border-radius: 4px;
   height: 100%;
   width: 100%;
-  /* padding: 1rem; */
   left: 0;
   top: 0;
   z-index: -1;
@@ -2631,13 +2632,15 @@ section .owl-carousel .owl-nav button.owl-next, section .owl-carousel .owl-nav b
 .card-list .card .card-img .card-caption {
   position: absolute;
   bottom: -100%;
-  background: linear-gradient(to top, black 20%, rgba(0, 0, 0, 0));
+  background: linear-gradient(to top, black 40%, rgba(0, 0, 0, 0));
   z-index: 1;
-  padding: 5px 15px;
+  padding: 5px 15px 10px;
+  height: 3rem;
   width: 100%;
   color: #fff;
   display: flex;
   flex-wrap: wrap;
+  align-items: flex-end;
   justify-content: space-around;
   transition: bottom .7s ease-in;
 }
