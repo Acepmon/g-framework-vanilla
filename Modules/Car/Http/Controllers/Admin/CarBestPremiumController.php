@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 
+use App\Content;
+
 class CarBestPremiumController extends Controller
 {
     /**
@@ -14,7 +16,28 @@ class CarBestPremiumController extends Controller
      */
     public function index()
     {
-        return view('car::admin.car.best_premium.index');
+        $published = Content::where('type', 'car')->where('status', Content::STATUS_PUBLISHED)->whereHas('metas', function ($query) {
+            $query->where('key', 'publishType');
+            $query->where('value', 'best_premium');
+        })->orderBy('visibility', 'desc')->get();
+
+        $pending = Content::where('type', 'car')->where('status', Content::STATUS_DRAFT)->whereHas('metas', function ($query) {
+            $query->where('key', 'publishType');
+            $query->where('value', 'best_premium');
+        })->orderBy('visibility', 'desc')->get();
+
+        $draft = Content::where('type', 'car')->where('status', Content::STATUS_PUBLISHED)->whereHas('metas', function ($query) {
+            $query->where('key', 'publishType');
+            $query->where('value', 'best_premium');
+        })->orderBy('visibility', 'desc')->get();
+
+        $contents = [
+            Content::STATUS_PUBLISHED => $published,
+            Content::STATUS_PENDING => $pending,
+            Content::STATUS_DRAFT => $draft,
+        ];
+
+        return view('car::admin.car.best_premium.index', ['contents' => $contents]);
     }
 
     /**
