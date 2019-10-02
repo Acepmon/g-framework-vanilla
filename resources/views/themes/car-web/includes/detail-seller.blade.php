@@ -3,7 +3,7 @@
     <div class="card-body">
         <div class="dealer-information">
             <div class="dealer-img">
-                <img src="{{ $user->avatar }}" alt="" class="img-fluid">
+                <img src="{{ $user->avatar_url() }}" alt="" class="img-fluid">
             </div>
             <div class="dealer-meta">
                 <div class="dealer-name">{{ $user->name }}</div>

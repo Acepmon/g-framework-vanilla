@@ -272,3 +272,51 @@
         </div>
     </div>
 </form>
+<script>
+    function nextPrev(i) {
+        var paramObjs = {};
+        $.each($('#step-1').serializeArray(), function(_, kv) {
+            paramObjs[kv.name] = kv.value;
+        });
+
+        if (i==1) {
+            var data = {
+                'title': 'Sample Car',
+                'slug': 'sample-car',
+                'type': '{{ \App\Content::TYPE_CAR }}',
+                'status': '{{ \App\Content::STATUS_DRAFT }}',
+                'visibility': '{{ \App\Content::VISIBILITY_PRIVATE }}',
+                'author_id': '{{ Auth::user()->id }}'
+            };
+            $("#demo-spinner").css({'display': 'block'});
+            $.ajax({
+                type: 'POST',
+                url: '/ajax/contents',
+                data: data
+            }).done(function(data) {
+                console.log(data);
+                var paramObjs = {};
+                $.each($('#step-1').serializeArray(), function(_, kv) {
+                    paramObjs[kv.name] = kv.value;
+                });
+                $.ajax({
+                    type: 'PUT',
+                    url: '/ajax/contents/' + data['id'] + '/metas/attach',
+                    data: paramObjs
+                }).done(function(data) {
+                    $("#demo-spinner").css({'display': 'none'});
+                    console.log("DONE!");
+                    console.log(data);
+                }).fail(function(err) {
+                    $("#demo-spinner").css({'display': 'none'});
+                    console.error("FAIL!");
+                    console.error(err);
+                });
+            }).fail(function(err) {
+                $("#demo-spinner").css({'display': 'none'});
+                console.error("FAIL!");
+                console.error(err);
+            });
+        }
+    }
+</script>

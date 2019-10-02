@@ -20,10 +20,10 @@ class MenusTableSeeder extends Seeder
             ['Dashboard', '/admin/dashboard', 'icon-home4', 'Admin'],
             ['Changelog', '/admin/changelog', 'icon-list-unordered', 'Admin'],
             // System
-            ['System Users', '', 'icon-user-tie', 'System', [
-                ['Administrators', '/admin/users/administrators', '', 'System'],
-                ['Operators', '/admin/users/operators', '', 'System']
-            ]],
+            // ['System Users', '', 'icon-user-tie', 'System', [
+            //     ['Administrators', '/admin/users/administrators', '', 'System'],
+            //     ['Operators', '/admin/users/operators', '', 'System']
+            // ]],
             ['Configurations', '', 'icon-gear', 'System', [
                 ['Maintenance Mode', '/admin/configs/maintenance', '', 'System'],
                 ['Base Configurations', '/admin/configs/base', '', 'System'],
@@ -44,8 +44,12 @@ class MenusTableSeeder extends Seeder
             ['Backups', '/admin/backups', 'icon-database', 'System'],
             ['Logs', '/admin/logs', 'icon-archive', 'System'],
             // User Management
-            ['Users', '/admin/users', 'icon-user', 'User Management'],
-            ['Guests', '/admin/users/guests', 'icon-person', 'User Management'],
+            ['Users', '/admin/users', 'icon-user', 'User Management', [
+                ['Administrators', '/admin/users/administrators', '', 'User Management'],
+                ['Operators', '/admin/users/operators', '', 'User Management'],
+                ['Members', '/admin/users/', '', 'User Management'],
+                ['Guests', '/admin/users/guests', '', 'User Management'],
+            ]],
             ['Permissions', '/admin/permissions', 'icon-key', 'User Management'],
             ['Groups', '/admin/groups', 'icon-users2', 'User Management'],
             // Content

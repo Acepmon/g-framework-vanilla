@@ -23,14 +23,14 @@ class CarMenusTableSeeder extends Seeder
 
         $adminMenus = [
             // Car Management
-            ['Add Car', '/admin/cars/create', 'icon-plus3', 'Car'],
-            ['Cars', '/admin/cars', 'icon-car', 'Car', [
-                ['Best Premium', '/admin/cars/best_premium', '', 'Car'],
-                ['Premium', '/admin/cars/premium', '', 'Car'],
-                ['Free', '/admin/cars/free', '', 'Car']
+            ['Add Car', '/admin/modules/car/create', 'icon-plus3', 'Car'],
+            ['Cars', '/admin/modules/car', 'icon-car', 'Car', [
+                ['Best Premium', '/admin/modules/car/best_premium', '', 'Car'],
+                ['Premium', '/admin/modules/car/premium', '', 'Car'],
+                ['Free', '/admin/modules/car/free', '', 'Car']
             ]],
-            ['Verification Requests', '/admin/cars/verifications', 'icon-clipboard2', 'Car'],
-            ['Car Options', '/admin/cars/options', 'icon-cog', 'Car'],
+            ['Verification Requests', '/admin/modules/car/verifications', 'icon-clipboard2', 'Car'],
+            ['Car Options', '/admin/modules/car/options', 'icon-cog', 'Car'],
         ];
         $carMainMenus = ['Car Main', '', '', 'Car', [
             ['Home', '/', '', 'Car'],

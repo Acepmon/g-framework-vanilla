@@ -237,39 +237,18 @@ class User extends Authenticatable implements CanResetPassword
 
     public function avatar_url()
     {
-        if ($this->avatar) {
+        if (isset($this->avatar)) {
             if (Str::startsWith($this->avatar, 'http')) {
                 return $this->avatar;
             }
-            $imagepath = 'public/'.$this->avatar;
-            if (!Storage::disk('local')->exists($imagepath)) {
-                $image = Storage::disk('ftp')->get($imagepath);
-                Storage::disk('local')->put($imagepath, $image);
-            }
-            return Storage::disk('local')->url($imagepath);
+            // $imagepath = 'public/' . $this->avatar;
+            // if (!Storage::disk('local')->exists($imagepath)) {
+            //     $image = Storage::disk('ftp')->get($imagepath);
+            //     Storage::disk('local')->put($imagepath, $image);
+            // }
+            return Storage::disk('local')->url($this->avatar);
         }
 
-        return asset('user.png');
-    }
-
-    public function created_at_carbon()
-    {
-        if ($this->created_at) {
-            return \Carbon\Carbon::parse($this->created_at);
-        }
-    }
-
-    public function updated_at_carbon()
-    {
-        if ($this->updated_at) {
-            return \Carbon\Carbon::parse($this->updated_at);
-        }
-    }
-
-    public function deleted_at_carbon()
-    {
-        if ($this->deleted_at) {
-            return \Carbon\Carbon::parse($this->deleted_at);
-        }
+        return asset(config('system.avatar.default'));
     }
 }
