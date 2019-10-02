@@ -56,9 +56,11 @@
 <div id="modal_theme_danger" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header bg-danger">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <div class="modal-header header-elements-inline bg-danger">
                 <h6 class="modal-title">Delete?</h6>
+                <div class="header-elements">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
             </div>
 
             <div class="modal-body">
@@ -81,9 +83,11 @@
 <div id="modal_menu_edit" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <div class="modal-header header-elements-inline">
                 <h6 class="modal-title">Edit Menu</h6>
+                <div class="header-elements">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
             </div>
 
             <div class="modal-body">
@@ -133,9 +137,11 @@
 <div id="modal_menu_add_submenu" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <div class="modal-header header-elements-inline">
                 <h6 class="modal-title">Add Sub Menu</h6>
+                <div class="header-elements">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
             </div>
 
             <div class="modal-body">
@@ -198,9 +204,11 @@
 <div id="modal_menu_new" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <div class="modal-header header-elements-inline">
                 <h6 class="modal-title">New Menu</h6>
+                <div class="header-elements">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
             </div>
 
             <div class="modal-body">
@@ -248,27 +256,31 @@
 </div>
 
 <div id="modal_choose_page" class="modal fade">
-    <div class="modal-dialog modal-sm">
+    <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <div class="modal-header header-elements-inline">
                 <h6 class="modal-title">Choose from Pages</h6>
+                <div class="header-elements">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
             </div>
 
             <div class="modal-body">
                 <ul class="media-list media-list-bordered">
                     @foreach ($pages as $index => $page)
                     <li class="media">
-                        <div class="media-left">
+                        <div class="mr-3">
                             <h5 class="text-center">{{ $index + 1 }}</h5>
                         </div>
 
                         <div class="media-body">
-                            <h6 class="media-heading">{{ $page->title }}</h6>
-                            <small><a href="{{ url($page->slug) }}" target="_blank">{{ url($page->slug) }}</a></small>
+                            <h6 class="media-heading">
+                                {{ $page->title }}
+                                <br><small><a href="{{ url($page->slug) }}" target="_blank">{{ url($page->slug) }}</a></small>
+                            </h6>
                         </div>
 
-                        <div class="media-right">
+                        <div class="ml-3">
                             <button type="button" class="btn btn-light" onclick="choosePage('{{ url($page->slug) }}')">Choose</button>
                         </div>
                     </li>
@@ -282,17 +294,24 @@
 <div id="modal_choose_icon" class="modal fade">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <div class="modal-header header-elements-inline">
                 <h6 class="modal-title">Icomoon icon set</h6>
+                <div class="header-elements">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
             </div>
 
             <div class="modal-body">
                 <p class="content-group">Icomoon is a custom icon set, includes 1145 icon glyphs based on 16px grid. This set is a <code>default</code> icon set of the template, majority of components are using Icomoon font family for UI elements instead of images, so all of them are retina-ready. <code>Glyphicon</code> and <code>FontAwesome</code> icon sets are also added, but as optional choice. In order to get the best look of UI elements, I recommend to include this icon set only as you can find perfectly crafted icons according to most of your common needs.</p>
 
-                <div class="row glyphs">
+                <div class="row no-gutters glyphs">
                     @foreach ($icons as $icon)
-                    <div class="col-md-3 col-sm-4" onclick="chooseIcon('{{$icon}}')"><i class="{{$icon}}"></i> {{$icon}}</div>
+                        <div class="col-md-3 col-sm-4" onclick="chooseIcon('{{$icon}}')">
+                            <div class="d-flex align-items-center cursor-pointer">
+                                <i class="{{$icon}} mr-2"></i>
+                                <span>{{$icon}}</span>
+                            </div>
+                        </div>
                     @endforeach
                 </div>
             </div>

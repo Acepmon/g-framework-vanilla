@@ -1,5 +1,16 @@
 (function($){
 
+  var animation = bodymovin.loadAnimation({
+    container: document.getElementById('maz-animation'),
+    renderer: 'svg',
+    loop: true,
+    rendererSettings: {
+        progressiveLoad: true
+    },
+    autoplay: true,
+    path: '/img/wish.json'
+});
+
     $('a.js-scroll-trigger[href*="#"]:not([href="#"])').click(function() {
         if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
           var target = $(this.hash);

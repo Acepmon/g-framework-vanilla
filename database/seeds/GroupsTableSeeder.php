@@ -14,8 +14,8 @@ class GroupsTableSeeder extends Seeder
      */
     public function run()
     {
-        // System Groups
         if (Schema::hasTable('groups')) {
+            // System Groups
             DB::table('groups')->insert([
                 [
                     "title" => "Administrator",
@@ -37,6 +37,22 @@ class GroupsTableSeeder extends Seeder
                     "description" => "Non member entity who has brief access to some services for a temporary time. Any user who is not registered is considered 'guest' by default.",
                     "type" => Group::TYPE_SYSTEM
                 ]
+            ]);
+
+            // Dynamic Groups
+            DB::table('groups')->insert([
+                [
+                    "title" => "System Operator",
+                    "description" => "System Management and User, Groups, Permissions Management",
+                    "type" => Group::TYPE_DYNAMIC,
+                    "parent_id" => 2
+                ],
+                [
+                    "title" => "Content Operator",
+                    "description" => "Pages, Post Manager and Menus, Localizations, Media Management",
+                    "type" => Group::TYPE_DYNAMIC,
+                    "parent_id" => 2
+                ],
             ]);
         }
     }
