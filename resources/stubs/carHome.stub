@@ -241,11 +241,12 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
                 </div>
         </div>
     </header>
-    <div class="col-md-12 text-center">
-        <a class="scrollDown" href="javascript:;"> DISCOVER CARS </a>
-    </div>
+    <a href="#hot-deal" class="js-scroll-trigger discover">
+        <span></span>
+        <p >Discover more</p>
+    </a>
 
-    <section class="mainPage-items bg-white">
+    <section id="hot-deal" class="mainPage-items bg-white">
         <div class="container">
             <div class="row">
                 <div class="section-title">
@@ -596,15 +597,16 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
 @endsection
 
 @section('script')
-    <script>
-        $('.scrollDown').click(function(event){
-            // Preventing default action of the event
-            event.preventDefault();
-            // Getting the height of the document
-            var n = $(document).height();
-            $('html, body').animate({ scrollTop: 1200 }, 400);
-        });
-    </script>
+    <script src="{{asset('car-web/js/script.min.js')}}  "></script>
+    {{--<script>--}}
+        {{--$('.scrollDown').click(function(event){--}}
+            {{--// Preventing default action of the event--}}
+            {{--event.preventDefault();--}}
+            {{--// Getting the height of the document--}}
+            {{--var n = $(document).height();--}}
+            {{--$('html, body').animate({ scrollTop: 1200 }, 400);--}}
+        {{--});--}}
+    {{--</script>--}}
 @endsection
 <style>
     .sidebar-item {
