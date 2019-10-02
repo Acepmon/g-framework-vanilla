@@ -22,7 +22,7 @@ class AuthorizeAdminUser
             return redirect('/login');
         }
 
-        if (!Auth::user()->is_admin()) {
+        if (!Auth::user()->is_admin() && !Auth::user()->is_operator()) {
             abort(404);
         }
 

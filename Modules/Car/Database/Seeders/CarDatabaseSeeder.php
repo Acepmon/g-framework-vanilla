@@ -17,10 +17,11 @@ class CarDatabaseSeeder extends Seeder
         Model::unguard();
 
         $this->call(CarAuthPagesTableSeeder::class);
+        $this->call(CarPermissionsTableSeeder::class);
         $this->call(CarGroupsTableSeeder::class);
         $this->call(CarMenusTableSeeder::class);
         $this->call(CarGroupMenuTableSeeder::class);
-        $this->call(CarPermissionsTableSeeder::class);
+        $this->call(CarGroupPermissionTableSeeder::class);
         $this->call(CarUsersTableSeeder::class);
         $this->call(CarPagesTableSeeder::class);
         $this->call(CarContentsTableSeeder::class);

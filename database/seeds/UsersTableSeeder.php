@@ -17,34 +17,48 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
         if (Schema::hasTable('users')) {
-            $systemUsers = [
+            $users = [
+                // Super Admin
                 [
                     'username' => 'admin',
                     'email' => 'admin@example.com',
                     'password' => Hash::make('admin'),
                     'name' => 'Administrator',
-                    'language' => 'en',
-                    'avatar' => asset('user.png'),
-                    'created_at' => now(),
-                    'updated_at' => now(),
+                ],
+
+                // System Operator
+                [
+                    'username' => 'system',
+                    'email' => 'system@example.com',
+                    'password' => Hash::make('system'),
+                    'name' => 'System Operator',
+                ],
+
+                // Content Operator
+                [
+                    'username' => 'content',
+                    'email' => 'content@example.com',
+                    'password' => Hash::make('content'),
+                    'name' => 'Content Operator',
                 ]
             ];
-            $adminGroupId = 1;
 
-            foreach ($systemUsers as $systemUser) {
-                $user = new User();
-                $user->username = $systemUser['username'];
-                $user->email = $systemUser['email'];
-                $user->password = $systemUser['password'];
-                $user->name = $systemUser['name'];
-                $user->language = $systemUser['language'];
-                $user->avatar = $systemUser['avatar'];
-                $user->created_at = $systemUser['created_at'];
-                $user->updated_at = $systemUser['updated_at'];
-                $user->save();
-
-                $user->groups()->attach($adminGroupId);
+            foreach ($users as $user) {
+                $this->createUser($user);
             }
         }
+    }
+
+    private function createUser($data) {
+        $user = new User();
+        $user->username = $data['username'];
+        $user->email = $data['email'];
+        $user->password = $data['password'];
+        $user->name = $data['name'];
+        $user->language = 'en';
+        $user->avatar = null;
+        $user->created_at = now();
+        $user->updated_at = now();
+        $user->save();
     }
 }
