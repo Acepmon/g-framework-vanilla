@@ -40,12 +40,12 @@ class CarContentsTableSeeder extends Seeder
             $mediaWidth = 1920;
             $mediaHeight = 1080;
             $lorempixelType = 'transport';
-            $lorempixelUrl = 'http://lorempixel.com';
-            $thumbnail = $lorempixelUrl . '/' . $thumbWidth . '/' . $thumbHeight . '/' . $lorempixelType . '/?=' . rand(1, 50000);
+            $lorempixelUrl = 'https://picsum.photos/id/';
+            $thumbnail = $lorempixelUrl . rand(1, 1000) . '/' . $thumbWidth . '/' . $thumbHeight . '/';
             $medias = [];
             $mediasLimit = rand(1, 20);
             for ($i = 0; $i < $mediasLimit; $i++) {
-                $media = $lorempixelUrl . '/' . $mediaWidth . '/' . $mediaHeight . '/' . $lorempixelType . '/?=' . rand(1, 50000);
+                $media = $lorempixelUrl . rand(1, 1000) . '/' . $mediaWidth . '/' . $mediaHeight . '/';
                 $meta = new ContentMeta(['key' => 'medias', 'value' => $media]);
                 array_push($medias, $meta);
             }

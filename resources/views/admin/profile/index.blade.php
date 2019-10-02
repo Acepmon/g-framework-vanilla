@@ -128,7 +128,7 @@
                                 <div class="form-group row">
                                     <label class="col-form-label col-lg-2">Avatar</label>
                                     <div class="col-lg-10 row">
-                                            <img id="avatar" src="{{ (Auth::user()->avatar)?'/storage/'.Auth::user()->avatar:asset('placeholder.jpg')}}" class="rounded-circle mr-2" height="34"/>
+                                            <img id="avatar" src="{{ Auth::user()->avatar_url() }}" class="rounded-circle mr-2" height="34"/>
 
                                             <div class="uniform-uploader col-lg-11"><input type="file" class="form-control-uniform" onchange="readURL(this);" data-fouc=""><span class="filename" style="user-select: none;">No file selected</span><span class="action btn btn-light" style="user-select: none;">Choose File</span></div>
                                     </div>

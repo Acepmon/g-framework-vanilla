@@ -36,9 +36,22 @@
                     @endforeach
                 </ul>
                 @auth
-                    <a class="btn btn-main btn-round my-2 my-sm-0 px-5 shadow" href="#">My Page</a>
+                    <div class="dropdown">
+                        <button class="btn btn-secondary btn-round dropdown-toggle px-4" type="button" id="headerProfileDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            @if (isset(Auth::user()->name))
+                                <span>{{ Auth::user()->name }}</span>
+                            @else
+                                <span>{{ Auth::user()->username }}</span>
+                            @endif
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="headerProfileDropdown">
+                            @foreach ($dropdownMenus as $menu)
+                                <a class="dropdown-item" href="{{ url($menu->link) }}">{{ $menu->title }}</a>
+                            @endforeach
+                        </div>
+                    </div>
                 @else
-                    <a class="btn btn-danger btn-round my-2 my-sm-0 px-5" href="#">Login</a>
+                    <a class="btn btn-danger btn-round my-2 my-sm-0 px-5" href="{{ url('/login') }}">Login</a>
                 @endauth
             </div>
         </div>

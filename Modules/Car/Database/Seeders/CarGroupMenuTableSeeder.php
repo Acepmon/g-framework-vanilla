@@ -19,7 +19,10 @@ class CarGroupMenuTableSeeder extends Seeder
     {
         Model::unguard();
 
-        // Administrator Menus;
+        // Attach Car Menus to Administrator Group
         Group::findOrFail(1)->menus()->attach(Menu::where('module', 'Car')->get());
+
+        // Attach System Menus to Car Content Operator Group
+        Group::where('title', 'Car Content Operator')->first()->menus()->attach(Menu::where('module', 'Car')->get());
     }
 }

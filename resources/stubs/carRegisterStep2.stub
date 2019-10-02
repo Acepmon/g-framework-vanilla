@@ -35,7 +35,7 @@
 
                             <input type="text" name="redirectto" value="{{ url('/register-step-3') }}" hidden>
                             <input type="text" name="username" id="username" value="" hidden>
-                            <input type="text" name="avatar" id="avatar" value="{{ url(asset('user.png')) }}" hidden>
+                            <input type="text" name="avatar" id="avatar" value="{{ url(asset(config('system.avatar.default'))) }}" hidden>
 
                             <div class="row">
                                 <div class="col-md-7">

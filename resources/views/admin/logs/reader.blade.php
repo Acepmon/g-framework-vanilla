@@ -122,7 +122,7 @@
         var groupColumn = 4;
         var table = $('.datatable-ajax').DataTable({
             ajax: {
-                url: '/admin/ajax/logs/list',
+                url: '/admin/logs/ajax/list',
                 dataSrc: function (json) {
                     return json;
                 }
