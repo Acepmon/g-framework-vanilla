@@ -3,6 +3,8 @@
 namespace App\Entities;
 
 use App\Permission;
+use App\Group;
+use App\User;
 
 class PermissionManager extends Manager
 {
@@ -54,19 +56,27 @@ class PermissionManager extends Manager
         }
     }
 
-    public static function attachGroupPermissions($groupId, $permissions = array()) {
-        // @todo
+    public static function attachGroupPermissions($groupId, $permissions = array(), $is_granted = true) {
+        Group::findOrFail($groupId)->permissions()->attach($permissions, compact('is_granted'));
     }
 
-    public static function detachGroupPermissions($groupId) {
-        // @todo
+    public static function detachGroupPermissions($groupId, $permissions = array()) {
+        Group::findOrFail($groupId)->permissions()->detach($permissions);
     }
 
-    public static function attachUserPermissions($userId, $permissions = array()) {
-        // @todo
+    public static function removeGroupPermissions($groupId) {
+        Group::findOrFail($groupId)->permissions()->detach();
     }
 
-    public static function detachUserPermissions($userId) {
-        // @todo
+    public static function attachUserPermissions($userId, $permissions = array(), $is_granted = true) {
+        User::findOrFail($userId)->permissions()->attach($permissions, compact('is_granted'));
+    }
+
+    public static function detachUserPermissions($userId, $permissions = array()) {
+        User::findOrFail($userId)->permissions()->detach($permissions);
+    }
+
+    public static function removeUserPermissions($userId, $permissions = array()) {
+        User::findOrFail($userId)->permissions()->detach();
     }
 }

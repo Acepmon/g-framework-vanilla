@@ -17,8 +17,6 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
         if (Schema::hasTable('users')) {
-            $adminGroupId = 1;
-            $operatorGroupId = 2;
             $users = [
                 // Super Admin
                 [
@@ -26,7 +24,6 @@ class UsersTableSeeder extends Seeder
                     'email' => 'admin@example.com',
                     'password' => Hash::make('admin'),
                     'name' => 'Administrator',
-                    'group_id' => $adminGroupId
                 ],
 
                 // System Operator
@@ -35,7 +32,6 @@ class UsersTableSeeder extends Seeder
                     'email' => 'system@example.com',
                     'password' => Hash::make('system'),
                     'name' => 'System Operator',
-                    'group_id' => $operatorGroupId
                 ],
 
                 // Content Operator
@@ -44,17 +40,16 @@ class UsersTableSeeder extends Seeder
                     'email' => 'content@example.com',
                     'password' => Hash::make('content'),
                     'name' => 'Content Operator',
-                    'group_id' => $operatorGroupId
                 ]
             ];
 
             foreach ($users as $user) {
-                $this->createUser($user, $user['group_id']);
+                $this->createUser($user);
             }
         }
     }
 
-    private function createUser($data, $groupId) {
+    private function createUser($data) {
         $user = new User();
         $user->username = $data['username'];
         $user->email = $data['email'];
@@ -65,7 +60,5 @@ class UsersTableSeeder extends Seeder
         $user->created_at = now();
         $user->updated_at = now();
         $user->save();
-
-        $user->groups()->attach($groupId);
     }
 }

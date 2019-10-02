@@ -28,6 +28,6 @@ class CarPermissionsTableSeeder extends Seeder
         PermissionManager::newPermissionCrud('admin_modules_car_verifications');
 
         // Admin Permissions
-        Group::findOrFail(1)->permissions()->attach(Permission::where('title', 'LIKE', 'admin_modules_car_%')->get(), ['is_granted' => true]);
+        PermissionManager::attachGroupPermissions(1, Permission::where('title', 'LIKE', 'admin_modules_car%')->get());
     }
 }

@@ -33,6 +33,11 @@ class Group extends Model
         return $this->belongsToMany('App\Permission', 'group_permission')->withPivot('is_granted');
     }
 
+    public function parent()
+    {
+        return $this->hasOne('App\Group', 'id', 'parent_id');
+    }
+
     public function typeClass()
     {
         switch ($this->type) {
