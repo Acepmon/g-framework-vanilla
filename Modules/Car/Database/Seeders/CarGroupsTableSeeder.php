@@ -21,9 +21,16 @@ class CarGroupsTableSeeder extends Seeder
 
         DB::table('groups')->insert([
             [
+                "title" => "Car Content Operator",
+                "description" => "Management of Car Contents",
+                "type" => Group::TYPE_DYNAMIC,
+                "parent_id" => 2
+            ],
+            [
                 "title" => "Auto Dealer",
                 "description" => "This is auto dealer",
-                "type" => Group::TYPE_DYNAMIC
+                "type" => Group::TYPE_DYNAMIC,
+                "parent_id" => null
             ]
         ]);
     }

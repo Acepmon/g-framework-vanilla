@@ -197,7 +197,6 @@
                                     <a href="{{ route('admin.groups.removePermission', ['group' => $group->id, 'permission' => $permission->id]) }}" class="btn btn-light btn-sm">Remove</a>
                                     <a href="{{ route('admin.groups.removePermission', ['group' => $group->id, 'permission' => $permission->id]) }}" class="btn btn-light btn-sm">Revoke</a>
                                 </td>
-
                             </tr>
                             @endforeach
                         </tbody>

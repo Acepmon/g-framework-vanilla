@@ -23,12 +23,12 @@ class DatabaseSeeder extends Seeder
         $this->call(UserPermissionTableSeeder::class);
         $this->call(UserGroupTableSeeder::class);
 
-        // $this->call(TermTaxonomyTableSeeder::class);
+        $this->call(TermTaxonomyTableSeeder::class);
         $this->call(ThemesTableSeeder::class);
         $this->call(ContentsTableSeeder::class);
 
         // Run Car Module Seeder
-        // Artisan::call('module:seed Car');
-        // echo Artisan::output();
+        Artisan::call('module:seed Car');
+        echo Artisan::output();
     }
 }
