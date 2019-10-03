@@ -34,8 +34,11 @@ header{
     position: fixed !important;
     transform: translateY(0);
     padding: 1rem 0;
-    box-shadow: 0 5px 10px 0 rgba(43, 54, 81, .1) !important;
+    box-shadow: 0 5px 10px 0 rgba(43, 54, 81, .1);
     z-index: 99999;
+    &.hider{
+      transform: translateY(-100%) !important;
+    }
   }
 }
 
