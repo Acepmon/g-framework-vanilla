@@ -94,7 +94,6 @@ if ($itemCount < $page * $itemsPerPage) {
 $banner = App\Banner::where('location_id', 5)->where('status', 'active')->inRandomOrder()->first();
 // $sideBanners = App\Banner::where('location_id', 4)->where('status', 'active')->get();
 $sideBanners = App\Banner::where('location_id', 4)->get();
-
 @endphp
 
 @section('title')
@@ -121,9 +120,18 @@ Car dealer
   font-weight: 700;
   color: #2b3651;
 }
-
 .search::placeholder {
   color: #2b3651;
+}
+
+/* Custom css */
+.detail-page .car-list .card-caption {
+  min-width: 35%!important;
+  max-width: 35%!important;
+}
+.detail-page .car-list .card-img img {
+  min-height: 100%;
+  object-fit: cover;
 }
 </style>
 @endsection
@@ -295,7 +303,7 @@ Car dealer
 
 <!-- Banner start -->
 <section class="mainPage-items bg-white">
-  <div class="container">
+  <div class="container pl-0 pr-0">
     <a href="{{ $banner->link }}" class="text-primary text-decoration-none">
       <div class="banner">
         <!-- {{ $banner->title }} -->
@@ -344,6 +352,7 @@ Car dealer
   function addToInterest(event, value) {
     event.stopPropagation();
     var target = event.target;
+    target.innerHTML = "";
     target.innerHTML = '<span class="text-danger"><i class="fas fa-heart"></i> Added to interest list</span>';
   }
 </script>
