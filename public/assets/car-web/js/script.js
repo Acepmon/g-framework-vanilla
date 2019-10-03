@@ -165,9 +165,10 @@
 $(window).on('mousewheel DOMMouseScroll', function(e){
     if(typeof e.originalEvent.detail == 'number' && e.originalEvent.detail !== 0) {
       if(e.originalEvent.detail > 0 ) {
-        $('#maz-nav').removeClass('sticky');
+        $('#maz-nav').addClass('hider');
       } else if(e.originalEvent.detail < 0 && $(window).scrollTop() < 0){
         $('#maz-nav').addClass('sticky');
+        $('#maz-nav').removeClass('hider');
       }
       else{
         $('#maz-nav').removeClass('sticky');
@@ -175,12 +176,13 @@ $(window).on('mousewheel DOMMouseScroll', function(e){
     } 
     else if (typeof e.originalEvent.wheelDelta == 'number') {
       if(e.originalEvent.wheelDelta < 90) {
-        $('#maz-nav').removeClass('sticky');
+        $('#maz-nav').addClass('hider');
       } else if(e.originalEvent.wheelDelta > 90 && $(window).scrollTop() > $('#maz-nav').innerHeight()) {
         $('#maz-nav').addClass('sticky');
+        $('#maz-nav').removeClass('hider');
       }
       else if(e.target.scrollTop == 0){
-        $('#maz-nav').removeClass('sticky');
+        $('#maz-nav').removeClass('sticky hider');
       }
     }
     this.console.log(e.originalEvent.detail);

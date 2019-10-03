@@ -20,7 +20,7 @@
             </ul>
         </div>
     </div>
-    <nav class="navbar navbar-expand-lg navbar-light bg-transparent fixed-top">
+    <nav id="maz-nav" class="navbar navbar-expand-lg navbar-light position-absolute">
         <div class="container">
             <a class="navbar-brand" href="#">Car dealer</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler"
