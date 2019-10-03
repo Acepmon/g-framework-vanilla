@@ -58,6 +58,7 @@ class GframeworkServiceProvider extends ServiceProvider
             $contents = $contents->take($someObject->limit);
             $contents = $contents->get();
             foreach ($contents as $content){
+                $content->author = $content->author;
                 $content->metas = $content->metas()->get();
             }
             $carData=null;

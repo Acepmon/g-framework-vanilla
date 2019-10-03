@@ -91,7 +91,7 @@ class ContentsTableSeeder extends Seeder
         $file_path = $file_name . '.' . $file_ext;
 
         file_put_contents(base_path($file_path), $file_content);
-        
+
         // ---------------------------
 
         $content = new Content;
@@ -117,7 +117,7 @@ class ContentsTableSeeder extends Seeder
         $content_meta->save();
 
         $file_content = file_get_contents(resource_path('stubs/home.stub'));
-        $file_name = $rootPath . DIRECTORY_SEPARATOR . 'home' . Content::NAMING_CONVENTION . $content->status . Content::NAMING_CONVENTION . $time;
+        $file_name = $rootPath . DIRECTORY_SEPARATOR . 'posts' . Content::NAMING_CONVENTION . $content->status . Content::NAMING_CONVENTION . $time;
         $file_ext = 'blade.php';
         $file_path = $file_name . '.' . $file_ext;
 
