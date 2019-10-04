@@ -1,158 +1,98 @@
-@extends('themes.car-web.layouts.default')
+<form id="form-3" class="maz-form">
+  <div class="form-title"><span>Duration </span></div>
+  <div class="form-row">
+    <div class="form-group col-md-4">
+      <label for="durationDay">Duration Day:</label>
+      <select id="durationDay" name="publishDuration" class="form-control">
+        <option value="" selected>Choose...</option>
+        @for($i=1; $i<=7; $i++) <option value="{{$i}}">{{$i}} Days</option>
+          @endfor
+      </select>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="col-md-6">
+      <div class="custom-control custom-radio">
+        <input type="radio" name="auctionStart" class="custom-control-input" id="radioCheck-Auction-Start" value="start" checked>
+        <label class="custom-control-label" for="radioCheck-Auction-Start">Start my listings when I submit them</label>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="custom-control custom-radio">
+        <input type="radio" name="auctionStart" class="custom-control-input" id="radioCheck-Auction-Schedule" value="schedule">
+        <label class="custom-control-label" for="radioCheck-Auction-Schedule">Schedule to start on</label>
+      </div>
+    </div>
+  </div>
+  <fieldset id="schedule" class="form-row form-group mt-2" disabled>
+    <div class="row pl-2 pr-2">
+      <div class="form-group col-md-6" style="position:relative">
+        <label class="text-muted" for="scheduleDate">Date:</label>
+        <input id="scheduleDate" name="scheduleDate" class="form-control" value="{{ now()->format('Y-m-d') }}" />
+      </div>
+      <div class="form-group col-md-3">
+        <label class="text-muted" for="scheduleTime">Time:</label>
+        <select id="scheduleTime" name="scheduleTime" class="form-control">
+          @for($i=0; $i<=23; $i++) <option>{{$i}}</option>
+            @endfor
+        </select>
+      </div>
+      <div class="form-group col-md-3">
+        <label class="text-muted" name="scheduleMinute" for="scheduleMinute">Minute:</label>
+        <select id="scheduleMinute" class="form-control">
+          @for($i=0; $i<=59; $i++) <option>{{$i}}</option>
+            @endfor
+        </select>
+      </div>
+    </div>
+  </fieldset>
 
-@section('title')
+  <div class="form-title"><span>Price </span></div>
 
-@endsection
-
-@section('load')
-
-@endsection
-
-@section('content')
-
-<div class="bg-page-header"></div>
-
-<section class="bg-transparent body-section">
-  <div class="container">
-    <div class="row justify-content-center">
-      <div class="col-md-10">
-        <div class="card sell-car shadow-soft-blue">
-          <div class="card-header">
-            <div class="step-process sp-4">
-              <div class='progress_inner_step step-1 done'>
-                <label for='step-1'>Add details</label>
-              </div>
-              <div class='progress_inner_step step-2 done'>
-                <label for='step-2'>Upload media</label>
-              </div>
-              <div class='progress_inner_step step-3 active'>
-                <label for='step-3'>Add price</label>
-              </div>
-              <div class='progress_inner_step step-4'>
-                <label for='step-4'>Publish type</label>
-              </div>
-            </div>
-          </div>
-          <div class="card-body pb-5">
-            <form id="step-1" class="maz-form">
-              <div class="form-title"><span>Duration </span></div>
-              <div class="form-row">
-                <div class="form-group col-md-4">
-                  <label for="durationDay">Duration Day:</label>
-                  <select id="durationDay" name="durationDay" class="form-control">
-                    <option value="" selected>Choose...</option>
-                      @for($i=1; $i<=7; $i++)
-                      <option value="{{$i}}">{{$i}} Days</option>
-                      @endfor
-                  </select>
-                </div>
-              </div>
-              <div class="form-row">
-                <div class="col-md-6">
-                  <div class="custom-control custom-radio">
-                    <input type="radio" name="auction-start" class="custom-control-input" id="radioCheck-Auction-Start" value="start" checked>
-                    <label class="custom-control-label" for="radioCheck-Auction-Start">Start my listings when I submit them</label>
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="custom-control custom-radio">
-                    <input type="radio" name="auction-start" class="custom-control-input" id="radioCheck-Auction-Schedule" value="schedule">
-                    <label class="custom-control-label" for="radioCheck-Auction-Schedule">Schedule to start on</label>
-                  </div>
-                </div>
-              </div>
-              <fieldset id="schedule" class="form-row form-group mt-2" disabled>
-                <div class="row pl-2 pr-2">
-                  <div class="form-group col-md-6" style="position:relative">
-                    <label class="text-muted" for="scheduleDate">Date:</label>
-                    <input id="scheduleDate" name="scheduleDate" class="form-control" value="{{ now()->format('Y-m-d') }}"/>
-                  </div>
-                  <div class="form-group col-md-3">
-                    <label class="text-muted" for="scheduleTime">Time:</label>
-                    <select id="scheduleTime" name="scheduleTime" class="form-control">
-                      @for($i=0; $i<=23; $i++)
-                      <option>{{$i}}</option>
-                      @endfor
-                    </select>
-                  </div>
-                  <div class="form-group col-md-3">
-                    <label class="text-muted" name="scheduleMinute" for="scheduleMinute">Minute:</label>
-                    <select id="scheduleMinute" class="form-control">
-                      @for($i=0; $i<=59; $i++)
-                      <option>{{$i}}</option>
-                      @endfor
-                    </select>
-                  </div>
-                </div>
-              </fieldset>
-
-              <div class="form-title"><span>Price </span></div>
-
-              <div class="form-row">
-                <div class="form-group col-md-4">
-                  <label for="area">Starting price:</label>
-                  <div class="input-group">
-                    <input type="number" name="startingPrice" class="form-control" id="starting-price" placeholder="0.00">
-                    <div class="input-group-prepend">
-                      <div class="input-group-text-right">Сая ₮</div>
-                    </div>
-                  </div>
-                </div>
-                <div class="form-group col-md-4">
-                  <label for="transmission">Buy Out:</label>
-                  <div class="input-group">
-                    <input type="number" name="buyout" class="form-control" id="buyout" placeholder="0.00">
-                    <div class="input-group-prepend">
-                      <div class="input-group-text-right">Сая ₮</div>
-                    </div>
-                  </div>
-                </div>
-                <div class="form-group col-md-4">
-                  <label for="steeringWheel">Reserve price</label> <span class="text-muted">(fees apply)</span>
-                  <span style="float: right">
-                    <i class="icon-question" data-toggle="tooltip" data-placement="top" title="Fees apply tooltip text goes here!"></i>
-                  </span>
-                  <div class="input-group">
-                    <input type="number" name="reservePrice" class="form-control" id="reserve-price" placeholder="0.00">
-                    <div class="input-group-prepend">
-                      <div class="input-group-text-right">Сая ₮</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <br>
-
-              <!-- NEXT PREV BUTTON START -->
-              <div style="float:right;">
-                <button class="btn btn-light btn-round px-5 py-2 mr-3" type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
-                <button class="btn btn-danger btn-round shadow-red px-5 py-2" type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
-              </div>
-
-              <script>
-
-              </script>
-          </div>
+  <div class="form-row">
+    <div class="form-group col-md-4">
+      <label for="area">Starting price:</label>
+      <div class="input-group">
+        <input type="number" name="startPriceAmount" class="form-control" id="starting-price" placeholder="0.00">
+        <input type="hidden" name="startPriceUnit" value="₮">
+        <div class="input-group-prepend">
+          <div class="input-group-text-right">Сая ₮</div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group col-md-4">
+      <label for="transmission">Buy Out:</label>
+      <div class="input-group">
+        <input type="number" name="buyoutAmount" class="form-control" id="buyout" placeholder="0.00">
+        <input type="hidden" name="buyoutUnit" value="₮">
+        <div class="input-group-prepend">
+          <div class="input-group-text-right">Сая ₮</div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group col-md-4">
+      <label for="steeringWheel">Reserve price</label> <span class="text-muted">(fees apply)</span>
+      <span style="float: right">
+        <i class="icon-question" data-toggle="tooltip" data-placement="top" title="Fees apply tooltip text goes here!"></i>
+      </span>
+      <div class="input-group">
+        <input type="number" name="reservePriceAmount" class="form-control" id="reserve-price" placeholder="0.00">
+        <input type="hidden" name="reservePriceUnit" value="₮">
+        <div class="input-group-prepend">
+          <div class="input-group-text-right">Сая ₮</div>
         </div>
       </div>
     </div>
   </div>
-</section>
+  <br>
 
-<section class="pageType-footer">
-  <div class="container">
-    <div class="row">
-      <div class="sell-type-img sell-car">
-        <img src="{{ asset('car-web/img/sell-car.png') }}" alt="">
-      </div>
-    </div>
+  <!-- NEXT PREV BUTTON START -->
+  <div style="float:right;">
+    <button class="btn btn-light btn-round px-5 py-2 mr-3" type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
+    <button class="btn btn-danger btn-round shadow-red px-5 py-2" type="button" id="nextBtn" onclick="step3Next(1)">Next</button>
   </div>
-</section>
+</form>
 
-@endsection
-
-@section('script')
-<link href="{{ asset('car-web/vendor/bootstrap-datepicker/css/bootstrap-datepicker.min.css') }}" rel="stylesheet">
-<script src="{{ asset('car-web/vendor/bootstrap-datepicker/js/bootstrap-datepicker.min.js') }}"></script>
 <script>
   $(document).ready(function() {
     $('#scheduleDate').datepicker({
@@ -160,28 +100,62 @@
       startDate: '0d',
       defaultViewDate: '0d'
     });
-    $(function () {
+    $(function() {
       $('[data-toggle="tooltip"]').tooltip()
     });
+      
+    $('input[type=radio][name=auctionStart]').change(function() {
+      if (this.value == 'start') {
+        $("#schedule").prop('disabled', true);
+        $("#schedule label").each(function() {
+          $(this).addClass('text-muted');
+        });
+      } else if (this.value == 'schedule') {
+        $("#schedule").prop('disabled', false);
+        $("#schedule label").each(function() {
+          $(this).removeClass('text-muted');
+        });
+      }
+    });
   });
-  $('input[type=radio][name=auction-start]').change(function() {
-    if (this.value == 'start') {
-      $("#schedule").prop('disabled', true);
-      $("#schedule label").each(function() {
-        $(this).addClass('text-muted');
-      });
+
+  function step3Next(i) {
+    var paramObjs = {};
+    $.each($('#form-3').serializeArray(), function(_, kv) {
+      if (!kv.name.startsWith('schedule')) {
+        paramObjs[kv.name] = kv.value;
+      }
+    });
+    if (paramObjs.hasOwnProperty['auctionStart'] && paramObjs['auctionStart'] == 'schedule') {
+      var startsAt = paramObjs['scheduleDate'] + ' ' + paramObjs['scheduleTime'] + ':' + paramObjs['scheduleMinute'] + ':00';
+      paramObjs['startsAt'] = startsAt;
+      startsAt = new Date()
     }
-    else if (this.value == 'schedule') {
-      $("#schedule").prop('disabled', false);
-      $("#schedule label").each(function() {
-        $(this).removeClass('text-muted');
+    console.log(carId);
+    console.log(paramObjs);
+
+    $.ajax({
+      type: 'PUT',
+      url: '/ajax/contents/' + carId + '/metas/attach',
+      data: paramObjs
+    }).done(function(data) {
+      $("#demo-spinner").css({
+        'display': 'none'
       });
-    }
-});
+      console.log("STEP 3 DONE!");
+      nextPrev(1);        
+    }).fail(function(err) {
+      $("#demo-spinner").css({
+        'display': 'none'
+      });
+      console.error("FAIL!");
+      console.error(err);
+    });
+  }
 </script>
 <style>
-  input:disabled, select:disabled {
+  input:disabled,
+  select:disabled {
     color: #AAAEBF;
   }
 </style>
-@endsection

@@ -19,31 +19,33 @@
         <div class="card sell-car shadow-soft-blue">
           <div class="card-header">
             <div class="step-process sp-4">
-              <div class='progress_inner_step step-1 active'>
-                <label for='step-1'>Add details</label>
+              <div class='progress_inner_step active'>
+                <a for='step-1' data-toggle="tab" href="#step-1" id="tab-step-1">Add details</a>
               </div>
-              <div class='progress_inner_step step-2'>
-                <label for='step-2'>Upload media</label>
+              <div class='progress_inner_step'>
+                <a for='step-2' data-toggle="tab" href="#step-2" id="tab-step-2">Upload media</a>
               </div>
-              <div class='progress_inner_step step-3'>
-                <label for='step-3'>Add price</label>
+              <div class='progress_inner_step'>
+                <a for='step-3' data-toggle="tab" href="#step-3" id="tab-step-3">Add price</a>
               </div>
-              <div class='progress_inner_step step-4'>
-                <label for='step-4'>Publish type</label>
+              <div class='progress_inner_step'>
+                <a for='step-4' data-toggle="tab" href="#step-4" id="tab-step-4">Publish type</a>
               </div>
             </div>
           </div>
-          <div class="card-body pb-5">
-            @include('pages.' . App\Content::where('slug', 'car-sell-page-2-step-1')->first()->currentView())
-            <!-- NEXT PREV BUTTON START -->
-            <div style="float:right;">
-              <button class="btn btn-light btn-round px-5 py-2" type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
-              <button class="btn btn-danger btn-round shadow-red px-5 py-2" type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
-            </div>
-
-            <script>
-
-            </script>
+          <div class="card-body pb-5 tab-content" id="steps">
+              <div id="step-1" class="tab-pane fade active show">
+                @include('pages.' . App\Content::where('slug', 'sell-car-page-2-step-1')->first()->currentView())
+              </div>
+              <div id="step-2" class="tab-pane fade">
+                @include('pages.' . App\Content::where('slug', 'sell-car-page-2-step-2')->first()->currentView())
+              </div>
+              <div id="step-3" class="tab-pane fade">
+                @include('pages.' . App\Content::where('slug', 'sell-car-auction')->first()->currentView())
+              </div>
+              <div id="step-4" class="tab-pane fade">
+                This is empty
+              </div>
           </div>
         </div>
       </div>
@@ -51,24 +53,52 @@
   </div>
 </section>
 
+<!-- DEMO SPINNER TODO: CHANGE -->
 <div class="spinner-border" id="demo-spinner" role="status" style="position: fixed; z-index: 1000; top: 50%; left: 50%; display: none">
   <span class="sr-only">Loading...</span>
 </div>
 @endsection
 
 @section('script')
+<link href="{{ asset('car-web/vendor/bootstrap-datepicker/css/bootstrap-datepicker.min.css') }}" rel="stylesheet">
+<script src="{{ asset('car-web/vendor/bootstrap-datepicker/js/bootstrap-datepicker.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/plugins/media/cropper.min.js') }}"></script>
 <script>
   $.ajaxSetup({
     headers: {
       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     }
-});
+  });
+
+  var carId = {{ request('id', 0) }};
+
+  // DEMO MULTISTEP TODO: CHANGE -->
+  function nextPrev(i) {
+    var step = $('#steps').find('div.show').attr('id');
+    step = parseInt(step.substring(step.length-1)) + i;
+    if (step > 0 && step <= 4) {
+      $("#tab-step-"+step).trigger('click');
+    }
+  }
+
+  $(".step-process a").each(function(index) {
+    $(this).on('click', function () {
+      for (var i = index; i>=1; i--) {
+        $('#tab-step-'+i).parent().removeClass('active');
+        $('#tab-step-'+i).parent().addClass('done');
+      }
+      for (var i = index+1; i<=4; i++) {
+        $('#tab-step-'+i).parent().removeClass('active');
+        $('#tab-step-'+i).parent().removeClass('done');
+      }
+      $(this).parent().addClass('active');
+    });
+  });
 
   $(document).ready(function() {
-    document.getElementById('pro-image').addEventListener('change', readImage, false);
+    // document.getElementById('pro-image').addEventListener('change', readImage, false);
 
-    $(".preview-images-zone").sortable();
+    // $(".preview-images-zone").sortable();
 
     $(document).on('click', '.image-cancel', function() {
       let no = $(this).data('no');

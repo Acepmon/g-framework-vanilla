@@ -12,161 +12,97 @@
 
     <div class="bg-page-header"></div>
 
-    <section class="bg-transparent body-section">
+    <section class="section">
         <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-md-10">
-                    <div class="card sell-car shadow-soft-blue">
-                        <div class="card-header">
-                            <div class="step-process sp-4">
-                                <div class='progress_inner_step step-1 done'>
-                                    <label for='step-1'>Add details</label>
-                                </div>
-                                <div class='progress_inner_step step-2 active'>
-                                    <label for='step-2'>Upload media</label>
-                                </div>
-                                <div class='progress_inner_step step-3'>
-                                    <label for='step-3'>Add price</label>
-                                </div>
-                                <div class='progress_inner_step step-4'>
-                                    <label for='step-4'>Publish type</label>
-                                </div>
-                            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="my-profile">
+                        <div class="pro-img">
+                            <img src="{{asset('car-web/img/testimonials-1.jpg')}}" alt="">
                         </div>
-                        <div class="card-body pb-5">
-
-                            <form id="step-2" class="maz-form">
-                                <div class="form-title"><span>Upload images</span></div>
-                                {{--<div class="form-row">--}}
-
-                                    {{--<div class="input-group mb-3">--}}
-                                        {{--<div class="input-group-prepend">--}}
-                                            {{--<span class="input-group-text" id="inputGroupFileAddon01">Upload</span>--}}
-                                        {{--</div>--}}
-                                        {{--<div class="custom-file">--}}
-                                            {{--<input type="file" class="custom-file-input" id="media" invalid="true"--}}
-                                                   {{--onchange="previewMedia(this, 'image-container')" multiple--}}
-                                                   {{--aria-describedby="inputGroupFileAddon01">--}}
-                                            {{--<label class="custom-file-label" for="inputGroupFile01">Choose file</label>--}}
-                                        {{--</div>--}}
-                                    {{--</div>--}}
-                                {{--</div>--}}
-
-
-                                <div class="form-group row pl-3 pr-3">
-
-                                    <div class="input-group mb-3">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
-                                        </div>
-                                        <div class="custom-file">
-                                            <input type="file" class="custom-file-input" id="media" invalid="true"
-                                                   onchange="previewMedia(this, 'image-container')" multiple
-                                                   aria-describedby="inputGroupFileAddon01">
-                                            <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
-                                        </div>
-                                    </div>
-
-                                    {{--<label for="medias" class="col-form-label col-lg-2">Images</label>--}}
-                                    {{--<div class="col-lg-10">--}}
-                                        {{--<div class="uniform-uploader">--}}
-                                            {{--<input id="media" type="file" name="medias[]" class="form-control-uniform"--}}
-                                                   {{--invalid="true" onchange="previewMedia(this, 'image-container')"--}}
-                                                   {{--multiple data-fouc="">--}}
-                                            {{--<span class="filename" style="user-select: none;">No file selected</span>--}}
-                                            {{--<span class="action btn btn-light"--}}
-                                                  {{--style="user-select: none;">Choose File</span>--}}
-                                        {{--</div>--}}
-                                    {{--</div>--}}
-                                </div>
-                                <div class="row">
-                                    <div class="col-lg-10" id="image-container"></div>
-                                </div>
-
-
-                                <div class="form-title"><span>Youtube video</span></div>
-                                <input type="text" name="youtube-link" class="form-control" id="youtubeVideo" placeholder="Youtube link http:\\">
-                                <!-- NEXT PREV BUTTON START -->
-                                <div style="float:right;" class="mt-5">
-                                    <button class="btn btn-light btn-round px-5 py-2 mr-3" type="button" id="prevBtn"
-                                            onclick="nextPrev(-1)">Previous
-                                    </button>
-                                    <button class="btn btn-danger btn-round shadow-red px-5 py-2" type="button"
-                                            id="nextBtn" onclick="nextPrev(1)">Next
-                                    </button>
-                                </div>
-
-                                <script>
-
-                                </script>
-                            </form>
-
-
-                            {{--<form class="">--}}
-                                {{--<div class="form-title"><span>Upload images </span></div>--}}
-                                {{--<div class="form-group row">--}}
-
-                                    {{--<div class="input-group mb-3">--}}
-                                        {{--<div class="input-group-prepend">--}}
-                                            {{--<span class="input-group-text" id="inputGroupFileAddon01">Upload</span>--}}
-                                        {{--</div>--}}
-                                        {{--<div class="custom-file">--}}
-                                            {{--<input type="file" class="custom-file-input" id="media" invalid="true"--}}
-                                                   {{--onchange="previewMedia(this, 'image-container')" multiple--}}
-                                                   {{--aria-describedby="inputGroupFileAddon01">--}}
-                                            {{--<label class="custom-file-label" for="inputGroupFile01">Choose file</label>--}}
-                                        {{--</div>--}}
-                                    {{--</div>--}}
-
-                                    {{--<label for="medias" class="col-form-label col-lg-2">Images</label>--}}
-                                    {{--<div class="col-lg-10">--}}
-                                        {{--<div class="uniform-uploader">--}}
-                                            {{--<input id="media" type="file" name="medias[]" class="form-control-uniform"--}}
-                                                   {{--invalid="true" onchange="previewMedia(this, 'image-container')"--}}
-                                                   {{--multiple data-fouc="">--}}
-                                            {{--<span class="filename" style="user-select: none;">No file selected</span>--}}
-                                            {{--<span class="action btn btn-light"--}}
-                                                  {{--style="user-select: none;">Choose File</span>--}}
-                                        {{--</div>--}}
-                                    {{--</div>--}}
-                                {{--</div>--}}
-                                {{--<div class="row">--}}
-                                    {{--<div class="col-lg-10" id="image-container"></div>--}}
-                                {{--</div>--}}
-                            {{--</form>--}}
-
-                            <div class="modal fade docs-cropped" id="getCroppedCanvasModal" tabindex="-1">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                            <h6 class="modal-title" id="getCroppedCanvasTitle">Crop your image</h6>
-                                        </div>
-                                        <div class="modal-body" id="cropBody">
-                                            <div class="img-cropper-container" class="col-lg-12">
-                                                <img id="cropImage" class="croppable">
-                                            </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-light" data-dismiss="modal">Close
-                                            </button>
-                                            <button type="button" class="btn btn-primary" data-dismiss="modal"
-                                                    onclick="cropImage()">Done
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            {{--<script>--}}
-
-                            {{--</script>--}}
-                            {{--</form>--}}
+                        <div class="pro-detail">
+                            <div class="username">Enkhtuvshin</div>
+                            <div class="edit"> <a href="#">Edit profile</a></div>
                         </div>
                     </div>
+                    <div class="card shadow-soft-blue my-page-left">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><a href="#">Interested car list</a></li>
+                            <li class="list-group-item"><a href="#">Registration car alert</a></li>
+                            <li class="list-group-item"><a href="#">Sell request</a></li>
+                            <li class="list-group-item active"><a href="#">Purchase requests <span class="badge badge-danger">8</span></a></li>
+                            <li class="list-group-item"><a href="#">Mileage</a></li>
+                            <li class="list-group-item"><a href="#">Coupon</a></li>
+                            <li class="list-group-item"><a href="#">User information</a></li>
+                        </ul>
+                    </div>
+
                 </div>
+                <!-- left bar end -->
+                <div class="col-md-9">
+                    <div class="row">
+                        <div class="card shadow-soft-blue page-top-navbar">
+                            <div class="mypage-nav">
+                                <ul>
+                                    <li class="list-item active"><a href="#">Published purchase</a></li>
+                                    <li class="list-item "> <a href="/purchase-page-checking">Purchase request checking</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="car-list sell-car">
+
+                            <!-- card start -->
+                            <a href="detail-page.html" target="_blank" class="card">
+
+                                <div class="card-body">
+                                    <div class="card-img">
+
+                                        <img src="{{asset('car-web/img/Cars/2.jpg')}}" class="img-fluid" alt="alt" />
+                                    </div>
+
+                                    <div class="card-description">
+                                        <div class="card-caption">
+                                            <div href="#" class="card-title">Hyundai Santa fe</div>
+                                            <div class="meta">2006/2013 | 17,820km</div>
+                                            <div class="price">12 Сая ₮</div>
+                                            <div class="is-premium"><img src="{{asset('car-web/img/icons/corona.svg')}}" alt=""> Best premium</div>
+                                        </div>
+                                        <div class="info" style="display: inline-block; color:black">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <p >Started: 2019-10-02</p>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <p>Views: 1200</p>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <p>End: 2019-10-09</p>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <p>Watch phone: 900</p>
+                                                </div>
+                                            </div>
+                                            <div class="sell-action">
+                                                <div onclick="window.open('edit.html','mywindow');">Edit</div>
+                                                <div onclick="window.open('edit.html','mywindow');">Delete</div>
+                                                <div onclick="window.open('edit.html','mywindow');">Mark as sold</div>
+                                                <div onclick="window.open('edit.html','mywindow');">Unpublish</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+                <!-- car list end -->
             </div>
+            <!-- row end -->
         </div>
+        <!-- container end -->
     </section>
 
     <section class="pageType-footer">

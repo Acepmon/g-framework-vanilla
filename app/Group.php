@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Group extends Model
 {
     const TYPE_SYSTEM = 'system'; // System user groups are in the system by default. They cannot be deleted, it is unchanging.
-    const TYPE_STATIC = 'static'; // Static user groups are those which are populated manually, that is by the administrator.
+    const TYPE_STATIC = 'static'; // Static user groups are those which are populated manually, that is by the users.
     const TYPE_DYNAMIC = 'dynamic'; // Dynamic user groups are populated and maintained through either a query or a directory server.
 
     const TYPE_ARRAY = [

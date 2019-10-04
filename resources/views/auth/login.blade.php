@@ -90,7 +90,7 @@
                                         </div>
                                         <button type="submit" class="btn col-12 btn-danger btn-lg btn-round shadow mt-4 mb-3">Login</button>
                                     </form>
-                                    <a data-toggle="modal" data-target="#myModal">Forget password</a>
+                                    <a href="#" data-toggle="modal" data-target="#myModal">Forget password</a>
                                     <div class="col-12 mt-5">
                                         <button type="button" class="btn bg-secondary col-9 btn-default btn-lg btn-round mt-4">Sign up</button>
                                     </div>
@@ -108,33 +108,54 @@
             <div class="modal-content">
 
                 <!-- Modal Header -->
-                <div class="modal-header">
+                <div class="modal-header text-center">
                     <h4 class="modal-title">Forget password</h4>
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
+            </div>
+    </header>
 
                 <!-- Modal body -->
-                <div class="modal-body mt-4">
-                    <form method="POST" >
+                <div class="modal-body mt-4 pr-lg-5 pl-lg-5 text-center">
+                    <form method="POST">
                         @csrf
                         <div class="form-group mb-3 text-left form-group-feedback form-group-feedback-left">
-                            <span class="font-weight-bold">E-mail</span>
+                            <span class="font-weight-bold">Email address</span>
 
-                            <input class="form-control mt-2 @error('email') is-invalid @enderror" id="email" type="text" placeholder="E-mail" name="email" value="{{ old('username', env('APP_ENV') == 'development' ? 'admin' : '') }}" required autocomplete="email" autofocus>
+                            <input class="form-control mt-2 @error('email') is-invalid @enderror" id="email" type="text" placeholder="Email" name="email" value="{{ old('username', env('APP_ENV') == 'development' ? 'admin' : '') }}" required autocomplete="email" autofocus>
                             @error('email')
                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
                             @enderror
                         </div>
-                        <button type="submit" class="btn col-12 btn-danger btn-lg btn-round shadow mt-4 mb-5">Recover password</button>
-                        <a class="" data-dismiss="modal">Login</a>
+                        <button type="submit" class="btn btn-submit col-12 btn-danger btn-lg btn-round shadow mt-4 mb-4">Recover password</button>
+                        <a href="#" class="text-dark" data-dismiss="modal">Login</a>
                     </form>
                 </div>
 
                 <!-- Modal footer -->
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-round btn-secondary mt-5 col-md-6 mb-5" data-dismiss="modal">sign up</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="mailSuccess">
+        <div class="modal-dialog  modal-dialog-centered">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header text-center">
+                    <h4 class="modal-title">Forget password</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body mt-4 pr-lg-5 pl-lg-5 text-center">
+                   Mail has been sent!
                 </div>
 
             </div>
@@ -144,13 +165,32 @@
 @endsection
 
 @section('script')
-    <script>
-        $('.scrollDown').click(function(event){
-            // Preventing default action of the event
-            event.preventDefault();
-            // Getting the height of the document
-            var n = $(document).height();
-            $('html, body').animate({ scrollTop: 1200 }, 400);
+    <script type="text/javascript">
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
         });
+        $(".btn-submit").click(function(e){
+            e.preventDefault();
+
+            var email = $("input[name=email]").val();
+
+            $.ajax({
+                type:'POST',
+                url: "{{ route('password.email') }}",
+                data:{email:email},
+                success:function(data){
+                    $('#myModal').modal('hide');
+                    $('#mailSuccess').modal('show');
+
+                }
+
+            });
+
+
+
+        });
+
     </script>
 @endsection
