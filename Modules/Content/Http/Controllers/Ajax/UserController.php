@@ -5,6 +5,7 @@ namespace Modules\Content\Http\Controllers\Ajax;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Illuminate\Validation\Rule;
 
 use App\User;
 
@@ -49,11 +50,12 @@ class UserController extends Controller
      * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request, $id)
     {
+        $user = User::findOrFail($id);
         $request->validate([
             'username' => ['nullable', 'string', 'max:191'],
-            'email' => ['nullable', 'string', 'email', 'max:191', 'unique:users'],
+            'email' => ['nullable', 'string', 'email', 'max:191', Rule::unique('users')->ignore($user->email, 'email'),],
             'password' => ['nullable', 'string', 'min:8', 'confirmed'],
             'name' => ['nullable', 'max:100'],
         ]);
@@ -94,10 +96,12 @@ class UserController extends Controller
         }, ARRAY_FILTER_USE_KEY);
 
         if (count($metaInputs) > 0) {
-            foreach ($metaInputs as $input) {
-
+            foreach ($metaInputs as $key=>$value) {
+                $user->setMetaValue($key, $value);
             }
         }
+
+        return response()->json($user);
     }
 
     /**

@@ -25,6 +25,12 @@ Route::middleware(['auth'])->group(function () {
             Route::put('contents/{contentId}/metas/detach', 'ContentMetaController@detachMetas');
             Route::delete('contents/{contentId}/metas', 'ContentMetaController@deleteMeta');
 
+            Route::prefix('users')->group(function () {
+                Route::get('', 'UserController@index');
+                Route::post('', 'UserController@store');
+                Route::put('{user}', 'UserController@update');
+                Route::delete('{user}', 'UserController@destroy');
+            });
         });
     });
 });
