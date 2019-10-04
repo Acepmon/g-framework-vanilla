@@ -112,8 +112,6 @@
                     <h4 class="modal-title">Forget password</h4>
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
-            </div>
-    </header>
 
                 <!-- Modal body -->
                 <div class="modal-body mt-4 pr-lg-5 pl-lg-5 text-center">
@@ -157,7 +155,6 @@
                 <div class="modal-body mt-4 pr-lg-5 pl-lg-5 text-center">
                    Mail has been sent!
                 </div>
-
             </div>
         </div>
     </div>
