@@ -1,4 +1,4 @@
-<form id="step-1" class="maz-form">
+<form id="form-1" class="maz-form">
     <div class="form-title"><span>General information </span></div>
     <div class="form-group">
         <label for="carType">Select Car type:</label>
@@ -271,11 +271,16 @@
         <div class="col-md-6">
         </div>
     </div>
+        
+    <div style="float:right;">
+        <button class="btn btn-light btn-round px-5 py-2 mr-3" type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
+        <button class="btn btn-danger btn-round shadow-red px-5 py-2" type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
+    </div>
 </form>
 <script>
-    function nextPrev(i) {
+    function step1Submit() {
         var paramObjs = {};
-        $.each($('#step-1').serializeArray(), function(_, kv) {
+        $.each($('#form-1').serializeArray(), function(_, kv) {
             paramObjs[kv.name] = kv.value;
         });
 
@@ -295,13 +300,14 @@
                 data: data
             }).done(function(data) {
                 console.log(data);
+                carId = data['id']; // <-- VERY IMPORTANT
                 var paramObjs = {};
                 $.each($('#step-1').serializeArray(), function(_, kv) {
                     paramObjs[kv.name] = kv.value;
                 });
                 $.ajax({
                     type: 'PUT',
-                    url: '/ajax/contents/' + data['id'] + '/metas/attach',
+                    url: '/ajax/contents/' + carId + '/metas/attach',
                     data: paramObjs
                 }).done(function(data) {
                     $("#demo-spinner").css({'display': 'none'});
