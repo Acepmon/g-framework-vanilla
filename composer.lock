@@ -3157,16 +3157,16 @@
         },
         {
             "name": "spatie/laravel-backup",
-            "version": "6.4.1",
+            "version": "6.4.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-backup.git",
-                "reference": "b5e712c8d49001b071ec20155d4c9a72e90bb872"
+                "reference": "451bc7c685a239108e33d3665336e4ffefb80989"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-backup/zipball/b5e712c8d49001b071ec20155d4c9a72e90bb872",
-                "reference": "b5e712c8d49001b071ec20155d4c9a72e90bb872",
+                "url": "https://api.github.com/repos/spatie/laravel-backup/zipball/451bc7c685a239108e33d3665336e4ffefb80989",
+                "reference": "451bc7c685a239108e33d3665336e4ffefb80989",
                 "shasum": ""
             },
             "require": {
@@ -3228,7 +3228,7 @@
                 "laravel-backup",
                 "spatie"
             ],
-            "time": "2019-09-25T06:51:46+00:00"
+            "time": "2019-09-30T17:32:51+00:00"
         },
         {
             "name": "spatie/temporary-directory",
@@ -5163,16 +5163,16 @@
         },
         {
             "name": "mockery/mockery",
-            "version": "1.2.3",
+            "version": "1.2.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mockery/mockery.git",
-                "reference": "4eff936d83eb809bde2c57a3cea0ee9643769031"
+                "reference": "b3453f75fd23d9fd41685f2148f4abeacabc6405"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mockery/mockery/zipball/4eff936d83eb809bde2c57a3cea0ee9643769031",
-                "reference": "4eff936d83eb809bde2c57a3cea0ee9643769031",
+                "url": "https://api.github.com/repos/mockery/mockery/zipball/b3453f75fd23d9fd41685f2148f4abeacabc6405",
+                "reference": "b3453f75fd23d9fd41685f2148f4abeacabc6405",
                 "shasum": ""
             },
             "require": {
@@ -5186,7 +5186,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.0.x-dev"
+                    "dev-master": "1.2.x-dev"
                 }
             },
             "autoload": {
@@ -5224,7 +5224,7 @@
                 "test double",
                 "testing"
             ],
-            "time": "2019-08-07T15:01:07+00:00"
+            "time": "2019-09-30T08:30:27+00:00"
         },
         {
             "name": "myclabs/deep-copy",
