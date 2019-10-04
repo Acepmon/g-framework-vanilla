@@ -24,7 +24,11 @@ class CheckPermissions
             return $next($request);
         }
 
+        $whitelist = config('car.whitelist');
         $permission_title = $this->generatePermissionTitle($request->route()->getName());
+        if (is_array($whitelist) && in_array($permission_title, $whitelist)) {
+            return $next($request);
+        }
 
         // Check individual id: used in read, update and delete.
         $id = $request->route()->parameters();

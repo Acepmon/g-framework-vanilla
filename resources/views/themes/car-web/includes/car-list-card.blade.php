@@ -1,5 +1,5 @@
 @php
-if (!function_exists('isPremium'))   {
+if (!function_exists('isPremium')) {
     function isPremium($car) {
         return
             $car->type == App\Content::TYPE_CAR &&
