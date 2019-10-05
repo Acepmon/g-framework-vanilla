@@ -2,6 +2,10 @@
 
 use Illuminate\Http\Request;
 
+use Modules\Payment\Entities\PaymentMethod;
+use Modules\Payment\Transformers\PaymentMethod as PaymentMethodResource;
+use Modules\Payment\Transformers\PaymentMethodCollection;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -13,6 +17,6 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/payment', function (Request $request) {
-    return $request->user();
+Route::get('payment_methods', function () {
+    return new PaymentMethodCollection(PaymentMethod::paginate());
 });
