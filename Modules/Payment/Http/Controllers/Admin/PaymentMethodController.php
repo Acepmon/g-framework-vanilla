@@ -45,9 +45,11 @@ class PaymentMethodController extends Controller
      * @param int $id
      * @return Response
      */
-    public function show($id)
+    public function show($code)
     {
-        return view('payment::admin.payment.payment_methods.show');
+        $payment_method = PaymentMethod::findOrFail($code);
+
+        return view('payment::admin.payment.payment_methods.show', ['payment_method' => $payment_method]);
     }
 
     /**
@@ -55,9 +57,11 @@ class PaymentMethodController extends Controller
      * @param int $id
      * @return Response
      */
-    public function edit($id)
+    public function edit($code)
     {
-        return view('payment::admin.payment.payment_methods.edit');
+        $payment_method = PaymentMethod::findOrFail($code);
+
+        return view('payment::admin.payment.payment_methods.edit', ['payment_method' => $payment_method]);
     }
 
     /**
@@ -66,9 +70,32 @@ class PaymentMethodController extends Controller
      * @param int $id
      * @return Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $code)
     {
-        //
+        $request->validate([
+            'name' => 'nullable|max:191',
+            'data' => 'nullable',
+            'enabled' => 'nullable|boolean'
+        ]);
+
+        $payment_method = PaymentMethod::findOrFail($code);
+
+        if ($request->has('name')) {
+            $payment_method->name = $request->input('name');
+            $payment_method->save();
+        }
+
+        if ($request->has('data')) {
+            $payment_method->data = $request->input('data');
+            $payment_method->save();
+        }
+
+        if ($request->has('enabled')) {
+            $payment_method->enabled = $request->input('enabled');
+            $payment_method->save();
+        }
+
+        return response()->json($payment_method);
     }
 
     /**
@@ -76,7 +103,7 @@ class PaymentMethodController extends Controller
      * @param int $id
      * @return Response
      */
-    public function destroy($id)
+    public function destroy($code)
     {
         //
     }
