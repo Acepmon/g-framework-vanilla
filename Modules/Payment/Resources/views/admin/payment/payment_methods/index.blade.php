@@ -43,14 +43,7 @@
                         <tr>
                             <td>{{ $index + 1 }}</td>
                             <td>
-                                <a href="{{ route('admin.modules.payment.payment_methods.show', $payment_method->code) }}">
-                                    <div class="media">
-                                        <img src="{{ $payment_method->image() }}" alt="{{ $payment_method->name }}" class="img-fluid mr-3" style="max-width: 20px; height: auto;">
-                                        <div class="media-body">
-                                            {{ $payment_method->name }}
-                                        </div>
-                                    </div>
-                                </a>
+                                @include('payment::admin.payment.payment_methods.includes.method-media', $payment_method)
                             </td>
                             <td>
                                 @if ($payment_method->enabled)

@@ -47,4 +47,9 @@ class PaymentMethod extends Model
             default: return '/modules/payment/svg/card-local.svg';
         }
     }
+
+    public function data()
+    {
+        return json_decode($this->data);
+    }
 }
