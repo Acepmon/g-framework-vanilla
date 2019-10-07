@@ -26,10 +26,10 @@ Route::middleware(['auth'])->group(function () {
             Route::delete('contents/{contentId}/metas', 'ContentMetaController@deleteMeta');
 
             Route::prefix('users')->group(function () {
-                Route::get('', 'UserController@index');
-                Route::post('', 'UserController@store');
-                Route::put('{user}', 'UserController@update');
-                Route::delete('{user}', 'UserController@destroy');
+                Route::get('', 'UserController@index')->name('ajax.users.index');
+                Route::post('', 'UserController@store')->name('ajax.users.store');
+                Route::put('{user}', 'UserController@update')->name('ajax.users.update');
+                Route::delete('{user}', 'UserController@destroy')->name('ajax.users.destroy');
             });
         });
     });
