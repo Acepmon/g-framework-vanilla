@@ -75,7 +75,7 @@ class PaymentMethodController extends Controller
         $request->validate([
             'name' => 'nullable|max:191',
             'data' => 'nullable',
-            'enabled' => 'nullable|boolean'
+            'enabled' => 'nullable'
         ]);
 
         $payment_method = PaymentMethod::findOrFail($code);
@@ -91,11 +91,18 @@ class PaymentMethodController extends Controller
         }
 
         if ($request->has('enabled')) {
-            $payment_method->enabled = $request->input('enabled');
+            $payment_method->enabled = true;
+            $payment_method->save();
+        } else {
+            $payment_method->enabled = false;
             $payment_method->save();
         }
 
-        return response()->json($payment_method);
+        if ($request->ajax()) {
+            return response()->json($payment_method);
+        } else {
+            return back()->with('status', 'Successfully Saved!');
+        }
     }
 
     /**

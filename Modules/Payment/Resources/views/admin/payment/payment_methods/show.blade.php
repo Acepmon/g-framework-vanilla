@@ -20,6 +20,9 @@
         <div class="card">
             <div class="card-header header-elements-inline">
                 <h6 class="card-title">
+                    <a href="{{ route('admin.modules.payment.payment_methods.index') }}" class="btn btn-icon">
+                        <span class="icon-arrow-left12"></span>
+                    </a>
                     Payment Method Details
                 </h6>
 
@@ -60,6 +63,9 @@
             <div class="card">
                 <div class="card-header header-elements-inline">
                     <h6 class="card-title">
+                        <a href="{{ route('admin.modules.payment.payment_methods.index') }}" class="btn btn-icon">
+                            <span class="icon-arrow-left12"></span>
+                        </a>
                         {{ $payment_method->name }} Datas
                     </h6>
 

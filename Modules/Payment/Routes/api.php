@@ -18,5 +18,5 @@ use Modules\Payment\Transformers\PaymentMethodCollection;
 */
 
 Route::get('payment_methods', function () {
-    return new PaymentMethodCollection(PaymentMethod::paginate());
+    return new PaymentMethodCollection(PaymentMethod::where('enabled', true)->paginate());
 });
