@@ -162,7 +162,7 @@ class User extends Authenticatable implements CanResetPassword
     public function newMeta($key, $value) {
         try {
             $newMeta = new UserMeta();
-            $newMeta->user_id = $this->user_id;
+            $newMeta->user_id = $this->id;
             $newMeta->key = $key;
             $newMeta->value = $value;
             $newMeta->save();
@@ -182,7 +182,7 @@ class User extends Authenticatable implements CanResetPassword
                 return $meta;
             } else {
                 $newMeta = new UserMeta();
-                $newMeta->user_id = $this->user_id;
+                $newMeta->user_id = $this->id;
                 $newMeta->key = $key;
                 $newMeta->value = $value;
                 $newMeta->save();

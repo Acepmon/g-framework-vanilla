@@ -52,8 +52,23 @@ $items = metaHas($items, $key, $value);
 $search = request('search', "");
 $items = $items->where('title', 'LIKE', '%'.$search.'%')->get();
 
+function getPremiumDeal($type, $now) {
+  $deals = App\Content::where('type', App\Content::TYPE_CAR)->where('status', App\Content::STATUS_PUBLISHED)->where('visibility', App\Content::VISIBILITY_PUBLIC);
+  $deals = metaHas($deals, 'publishType', $type);
+  $deals = metaHas($deals, 'publishVerified', True);
+  return $deals->whereHas('metas', function ($query) use ($now) {
+    $query->where([['key', 'publishVerifiedEnd'],['value','>=',$now]]);
+  });
+}
+
 // HOT Deals
-$hotDeals=App\Content::where('type', App\Content::TYPE_CAR)->inRandomOrder()->paginate(5);
+$now = now();
+$best_premium = getPremiumDeal('best_premium', $now)->get();
+$premium = getPremiumDeal('premium', $now)->get();
+$hotDeals = $best_premium->merge($premium);
+//dd($hotDeals);
+//$hotDeals = $hotDeals->paginate(5);
+$items = $hotDeals->merge($items);
 
 // Post items filtering
 $itemCount = count($items->all());
@@ -62,6 +77,9 @@ if ($itemCount < $page * $itemsPerPage) {
   $page= $maxPage;
 }
 
+// Banner
+$banner = App\Banner::where('location_id', 5)->where('status', 'active')->inRandomOrder()->first();
+// $sideBanners = App\Banner::where('location_id', 4)->where('status', 'active')->get();
 $sideBanners = App\Banner::where('location_id', 4)->get();
 
 @endphp
@@ -71,6 +89,18 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
 @endsection
 
 @section('load')
+<link href="{{ asset('car-web/vendor/simple-line-icons/css/simple-line-icons.css') }}" rel="stylesheet" type="text/css">
+<link href="{{ asset('car-web/vendor/bootstrap-slider/css/bootstrap-slider.min.css') }}" rel="stylesheet">
+<style>
+.banner {
+  width: 100%;
+  padding-bottom: 15%;
+  background-image: url({{ $banner->banner }});
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+</style>
 
 @endsection
 
@@ -82,63 +112,123 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
     @include('themes.car-web.includes.fixed-right-sidebar', array('sideBanners'=>$sideBanners, 'premium'=>$hotDeals))
         <div class="row">
             <div class="col-md-3">
-        <form action="car-search" id="mainForm">
+            <form action="car-search" id="mainForm">
                 <div class="left-bar-title">
                     Sort Vehicle <i class="fab fa fa-search"></i>
                 </div>
-                <div class="accordion shadow-soft-blue" id="accordionExample">
-                    @foreach($categories as $index=>$category)
-                    <div class="card">
-                    <div class="accordian-head" id="{{ $category }}">
-                        <h2 class="mb-0">
-                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#{{ idize($category) }}" aria-expanded="false" aria-controls="{{ idize($category) }}">
-                            {{ $category }}<i class="fab fa fa-angle-down"></i>
-                        </button>
-                        </h2>
-                    </div>
+                
+          <div class="car-filter accordion shadow-soft-blue" id="accordionExample">
+            @foreach($categories as $index=>$category)
+            <div class="card">
+              <div class="accordian-head" id="{{ $category }}">
+                <h2 class="mb-0">
+                  <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#{{ idize($category) }}" aria-expanded="false" aria-controls="{{ idize($category) }}">
+                    {{ $category }}<i class="fab fa fa-angle-down"></i>
+                  </button>
+                </h2>
+              </div>
 
-                    <div id="{{ idize($category) }}" class="collapse {{ request(idize($category), False)?'show':'' }}" aria-labelledby="{{ $category }}">
-                        <div class="card-body bg-light">
-                        @foreach(App\TermTaxonomy::where('taxonomy', $category)->get() as $taxonomy)
-                        <div class="custom-control custom-radio">
-                            <!-- <a href="/car-list?{{ idize($category) . '=' . $taxonomy->term->name }}" class="text-body text-decoration-none"> -->
-                            <input type="radio" id="{{$taxonomy->term->name}}" name="{{ idize($category) }}" class="custom-control-input" value="{{ $taxonomy->term->name }}" {{ (request(idize($category), Null)==$taxonomy->term->name)?'checked':'' }}>
-                            <label class="custom-control-label  d-flex justify-content-between" for="{{$taxonomy->term->name}}">{{ $taxonomy->term->name }}
-                            <div class="text-muted">{{ $taxonomy->count }}</div>
-                            </label>
-                        </div>
-                        @endforeach
-                        </div>
-                    </div>
-                    </div>
-                    @endforeach
-
-                    <div class="card">
-                    <div class="accordian-head" id="year-accordian">
-                        <h2 class="mb-0">
-                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#year" aria-expanded="false" aria-controls="year">
-                            Year <i class="fab fa fa-angle-down"></i>
-                        </button>
-                        </h2>
-                    </div>
-                    <div id="year" class="collapse" aria-labelledby="year-accordian">
-                        <div class="card-body bg-light">
-                        <span id="ex18-label-2a" class="d-none">1990</span>
-                        <span id="ex18-label-2b" class="d-none">2019</span>
-                        <input id="ex18b" type="text" />
-                        </div>
-                    </div>
-                    </div>
+              @if($category == 'Car Type')
+              <div id="{{ idize($category) }}" class="collapse {{ request(idize($category), False)?'show':'' }}" aria-labelledby="{{ $category }}">
+                <div class="card-body bg-light grid-radio gr-3">
+                  @foreach(App\TermTaxonomy::where('taxonomy', $category)->get() as $taxonomy)
+                  <div class="cd-radio">
+                    <input type="radio" id="{{ $taxonomy->term->name }}" name="{{ idize($category) }}" class="custom-control-input" value="{{ $taxonomy->term->name }}" {{ $request['type']==$taxonomy->term->name?'checked':''}}>
+                    <label class="custom-control-label " for="{{ $taxonomy->term->name }}">
+                      <img src="{{ asset('car-web/img/icons/'.strtolower($taxonomy->term->name).'.svg') }}">
+                      <span>{{ $taxonomy->term->name }}</span>
+                    </label>
+                  </div>
+                  @endforeach
                 </div>
+              </div>
+              @elseif($category == 'Year')
+              <div id="{{ idize($category) }}" class="collapse {{ request(idize($category), False)?'show':'' }}" aria-labelledby="{{ $category }}">
+                <div class="card-body bg-light grid-radio">
+                  <select id="min-year" class="form-control" name="year" onchange="formSubmit('year','year')">
+                    <option value="">Select year</option>
+                    @for($i=date('Y'); $i>=1990; $i--)
+                    <option value="{{ $i }}" {{ $request['buildYear']==$i?'selected':'' }}>{{ $i }}</option>
+                    @endfor
+                  </select>
+                </div>
+              </div>
+              @elseif($category == 'Distance Driven')
+              <div id="{{ idize($category) }}" class="collapse {{ request(idize($category), False)?'show':'' }}" aria-labelledby="{{ $category }}">
+                <div class="card-body bg-light grid-radio">
+                  <select id="distance_driven" class="form-control" name="distance_driven" onchange="formSubmit('distance_driven','no-value')">
+                    <option value="">Select distance</option>
+                    @for($i=1; $i<=10; $i++)
+                    <option value="{{ $i }}" {{ $request['distanceDriven']==$i?'selected':'' }}>{{ $i }}km</option>
+                    @endfor
+                  </select>
+                </div>
+              </div>
+              @elseif($category == 'Price')
+              <div id="{{ idize($category) }}" class="collapse {{ (request('min_price', False) || request('max_price'))?'show':'' }}" aria-labelledby="{{ $category }}">
+                <div class="card-body bg-light grid-radio">
+                  <div class="form-row">
+                    <div class="col-md-6">
+                      <select id="min_price" class="form-control" name="min_price" onchange="formSubmit('min_price','no-value')">
+                        <option value="0">Min</option>
+                        @for($i=100; $i<=10000; $i+=100)
+                        <option value="{{ $i }}" {{ $request['minPrice']==$i?'selected':'' }}>{{ $i }} мянга</option>
+                        @endfor
+                      </select>
+                    </div>
+                    <div class="col-md-6">
+                      <select id="max_price" class="form-control" name="max_price" onchange="formSubmit('max_price','no-value')">
+                        <option value="">Max</option>
+                        @for($i=$request['minPrice']; $i<=10000; $i+=100)
+                        <option value="{{ $i }}" {{ $request['maxPrice']==$i?'selected':'' }}>{{ $i }} мянга</option>
+                        @endfor
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              @else
+              <div id="{{ idize($category) }}" class="collapse {{ request(idize($category), False)?'show':'' }}" aria-labelledby="{{ $category }}">
+                <div class="card-body bg-light">
+                  @foreach(App\TermTaxonomy::where('taxonomy', $category)->get() as $taxonomy)
+                  <div class="custom-control custom-radio">
+                    <!-- <a href="/car-list?{{ idize($category) . '=' . $taxonomy->term->name }}" class="text-body text-decoration-none"> -->
+                    <input type="radio" id="{{$taxonomy->term->name}}" name="{{ idize($category) }}" class="custom-control-input" value="{{ $taxonomy->term->name }}" {{ (request(idize($category), Null)==$taxonomy->term->name)?'checked':'' }}>
+                    <label class="custom-control-label  d-flex justify-content-between" for="{{$taxonomy->term->name}}">{{ $taxonomy->term->name }}
+                      <div class="text-muted">{{ $taxonomy->count }}</div>
+                    </label>
+                  </div>
+                  @endforeach
+                </div>
+              </div>
+              @endif
+            </div>
+            @endforeach
+
+          </div>
             </div>
             <div class="col-md-9">
-                <div class="card shadow-soft-blue">
+                <div class="card shadow-soft-blue page-top-navbar">
                     <div class="card-body">
                         <span class="d-flex justify-content-between">
                             Search result
                         </span>
                         <input name="search" type="text" class="form-control" placeholder="Enter search text" value="{{$search}}">
                         <button type="submit" hidden>Search</button>
+                    </div>
+                    <div class="d-flex justify-content-start">
+                        <span class="total-cars">{{ count($allItems->get()) }} VEHICLES</span>
+                        <input type="hidden" name="orderBy" id="orderBy" value="{{ $orderBy }}" />
+
+                        <div class="sort-cars">
+                            <ul>
+                            <li class="{{ ($orderBy=='updated_at')?'active':'' }}"><a href="#" onclick="formSubmit('orderBy', 'updated_at')">Recent cars</a></li>
+                            <li class="{{ ($orderBy=='buildYear')?'active':'' }}"><a href="#" onclick="formSubmit('orderBy', 'buildYear')">Product year</a></li>
+                            <li class="{{ ($orderBy=='importDate')?'active':'' }}"><a href="#" onclick="formSubmit('orderBy', 'importDate')">Income year</a></li>
+                            <li class="{{ ($orderBy=='price')?'active':'' }}"><a href="#" onclick="formSubmit('orderBy', 'price')">Low price</a></li>
+                            <li class="{{ ($orderBy=='price')?'active':'' }}"><a href="#" onclick="formSubmit('orderBy', 'price')">Ascending</a></li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
                 
@@ -189,87 +279,21 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
     </div>
 </section>
 
-<!-- Hot deal Grid start -->
+<!-- Banner start -->
 <section class="mainPage-items bg-white">
-    <div class="container">
-        <div class="row">
-        <div class="section-title">
-            <h2>Hot deal</h2>
-            <span>
-            <a href="#">See all ({{ count($hotDeals) }})</a>
-            <div class="more-arrow"></div>
-            </span>
-        </div>
-        </div>
-    </div>
-    <div class="card-list hot-deal">
-        <div class="container">
-        <div class="row">
-            <div class="card-slide owl-carousel owl-theme">
-            @foreach($hotDeals as $car)
-            <!-- card start -->
-            <div class="card">
-                <div class="brand-name"></div>
-                <div class="card-img">
-                <img src="{{ (substr($car->metaValue('thumbnail'), 0, 4) !== 'http')?(App\Config::getStorage() . $car->metaValue('thumbnail')):$car->metaValue('thumbnail') }}" class="img-fluid" alt="alt">
-                <div class="bestDeal"
-                        style="position: absolute; top:5px; left: 5px; background-color: white; border-radius: 3px; padding: 1px 3px">
-                    <i class="fas fa-crown" style="color: #FEC400"></i>
-                </div>
-                
-                <div class="info">
-                    <span class="carIcon-engine">
-                    <p>{{ ucfirst($car->metaValue('displacement')) }} L</p>
-                    </span>
-                    <span class="carIcon-car-6">
-                    <p>{{ $car->metaValue('mileage') }} KM</p>
-                    </span>
-                    <span class="carIcon-gas-station">
-                    <p>{{ ucfirst($car->metaValue('fuelType')) }}</p>
-                    </span>
-                    <span class="carIcon-gearshift">
-                    <p>{{ ucfirst($car->metaValue('transmission')) }}</p>
-                    </span>
-                    <span class="carIcon-steering-wheel">
-                    <p>{{ ucfirst($car->metaValue('wheelPosition')) }} wheel</p>
-                    </span>
-                    <span class="color" data-color="white">
-                    <p>{{ ucfirst($car->metaValue('colorName')) }}</p>
-                    </span>
-                </div>
-                <div class="card-caption">
-                    <div class="meta">
-                    {{ $car->metaValue('buildYear') }}/{{ $car->metaValue('importDate') }} | {{ $car->metaValue('mileage') }}km | {{ ucfirst($car->metaValue('fuelType')) }}
-                    <i class="show-more fab fa fa-angle-up"></i>
-                    </div>
-                    <div class="favorite">
-                    <i class="icon-heart"></i>
-                    </div>
-                </div>
-                </div>
-
-                <div class="card-body shadow">
-                <div class="card-description">
-                    <a href="{{ $car->slug }}" class="card-title">{{ $car->title }}</a>
-                    <div class="card-meta">
-                    <div class="status">{{ ucfirst($car->metaValue('priceType')) }} </div>
-                    <div class="price">{{ $car->metaValue('price') }} ₮</div>
-                    </div>
-                </div>
-                </div>
-
-            </div>
-            <!-- card end -->
-            @endforeach
-
-            </div>
-        </div>
-        </div>
-    </div>
+  <div class="container">
+    <a href="{{ $banner->link }}" class="text-primary text-decoration-none">
+      <div class="banner">
+        <!-- {{ $banner->title }} -->
+      </div>
+    </a>
+  </div>
 </section>
-    <!-- card end -->
+<!-- Banner end -->
 
-<!-- Hot deal Grid start -->
+<!-- Hot deal Grid -->
+@include('themes.car-web.includes.section-slider', array('title'=>'Hot Deal', 'contents'=>$hotDeals, 'morelink'=>'#'))
+<!-- Hot deal End -->
 
 @endsection
 

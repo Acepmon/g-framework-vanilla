@@ -5,6 +5,8 @@ namespace Modules\Content\Http\Controllers\Ajax;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rule;
 
 use App\User;
 
@@ -49,11 +51,12 @@ class UserController extends Controller
      * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request, $user)
     {
+        $user = User::findOrFail($user);
         $request->validate([
             'username' => ['nullable', 'string', 'max:191'],
-            'email' => ['nullable', 'string', 'email', 'max:191', 'unique:users'],
+            'email' => ['nullable', 'string', 'email', 'max:191', Rule::unique('users')->ignore($user->email, 'email'),],
             'password' => ['nullable', 'string', 'min:8', 'confirmed'],
             'name' => ['nullable', 'max:100'],
         ]);
@@ -69,8 +72,17 @@ class UserController extends Controller
         }
 
         if ($request->has('password')) {
-            $user->password = $request->input('password');
-            $user->save();
+            if ($request->has('old_password')) {
+                $old_password = $request->input('old_password');
+                if (Hash::check($old_password, $user->password)) {
+                    $user->password = Hash::make($request->input('password'));
+                    $user->save();
+                } else {
+                    return back()->withErrors(['old_password' => 'The specified password does not match the database password']);
+                }
+            } else {
+                return back()->withErrors(['old_password' => 'Old password is required']);
+            }
         }
 
         if ($request->has('name')) {
@@ -94,10 +106,12 @@ class UserController extends Controller
         }, ARRAY_FILTER_USE_KEY);
 
         if (count($metaInputs) > 0) {
-            foreach ($metaInputs as $input) {
-
+            foreach ($metaInputs as $key=>$value) {
+                $user->setMetaValue($key, $value);
             }
         }
+
+        return back()->with('user', $user);
     }
 
     /**

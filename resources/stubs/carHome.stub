@@ -114,6 +114,7 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
                                     <form method="GET" action="/car-search">
                                         <div class="form-group">
                                             <select class="form-control" name="manufacturer">
+                                                <option>Manufacturer</option>
                                                 @getTaxonomys([{"field":"taxonomy", "key":"manufacturer"}])
                                                 @php
                                                     $manufacturers=json_decode($manufacturer);
@@ -125,6 +126,7 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
                                         </div>
                                         <div class="form-group">
                                             <select class="form-control" name="model">
+                                                <option>Model</option>
                                                 @getTaxonomys([{"field":"taxonomy", "key":"model"}])
                                                 @php
                                                     $models=json_decode($model);
@@ -136,6 +138,7 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
                                         </div>
                                         <div class="form-group">
                                             <select class="form-control" name="buildYear">
+                                                <option value="0">Build year</option>
                                                 @for ($i = \Carbon\Carbon::now()->year; $i >= \Carbon\Carbon::now()->year - 50; $i--)
                                                     <option value="{{$i}}">{{$i}}</option>
                                                 @endfor
@@ -143,13 +146,13 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
                                         </div>
                                         <div class="form-group">
                                             <select class="form-control" name="importDate">
+                                                <option value="0">Import year</option>
                                                 @for ($i = \Carbon\Carbon::now()->year; $i >= \Carbon\Carbon::now()->year - 50; $i--)
                                                     <option value="{{$i}}">{{$i}}</option>
                                                 @endfor
                                             </select>
                                         </div>
-                                        <button type="submit" class="btn btn-danger btn-lg btn-round shadow mt-4">Submit
-                                        </button>
+                                        <button type="submit" class="btn btn-danger btn-lg btn-round shadow mt-4 pl-5 pr-5">Search</button>
                                     </form>
                                 </div>
                                 <div class="tab-pane fade" id="auction" role="tabpanel" aria-labelledby="used-tab">
@@ -160,6 +163,7 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
                                                 @php
                                                     $manufacturers=json_decode($manufacturer);
                                                 @endphp
+                                                <option>Manufacturer</option>
                                                 @foreach($manufacturers as $data)
                                                     <option>{{$data->description}}</option>
                                                 @endforeach
@@ -171,6 +175,7 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
                                                 @php
                                                     $models=json_decode($model);
                                                 @endphp
+                                                <option>Model</option>
                                                 @foreach($models as $data)
                                                     <option>{{$data->description}}</option>
                                                 @endforeach
@@ -178,6 +183,7 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
                                         </div>
                                         <div class="form-group">
                                             <select class="form-control" name="buildYear">
+                                                <option value="0">Build year</option>
                                                 @for ($i = \Carbon\Carbon::now()->year; $i >= \Carbon\Carbon::now()->year - 50; $i--)
                                                     <option value="{{$i}}">{{$i}}</option>
                                                 @endfor
@@ -185,6 +191,7 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
                                         </div>
                                         <div class="form-group">
                                             <select class="form-control" name="importDate">
+                                                <option value="0">Import year</option>
                                                 @for ($i = \Carbon\Carbon::now()->year; $i >= \Carbon\Carbon::now()->year - 50; $i--)
                                                     <option value="{{$i}}">{{$i}}</option>
                                                 @endfor
@@ -407,7 +414,7 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
     <!-- wish list -->
 
     <section class="mainPage-items bg-white">
-        <div class="container">
+        <div class="container pr-2 pl-2">
             <div class="row">
                 <div class="section-title">
                     <h2>People's wish list</h2>
@@ -473,7 +480,7 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
     {{-- banner section 1 --}}
 
     <section class="banner mb-5">
-        <div class="container">
+        <div class="container pr-2 pl-2">
             <div class="row">
                 <div class="hero-slider owl-carousel owl-theme">
                     @banners([{"field":"location_id", "key":5}])
@@ -502,7 +509,7 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
     <!-- Other cars -->
 
     <section class="mainPage-items bg-light">
-        <div class="container">
+        <div class="container pr-2 pl-2">
             <div class="row">
                 <div class="section-title">
                     <h2>Normal cars</h2>
@@ -552,7 +559,7 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
                             <!-- card end -->
                         </div>
                         @endforeach
-                        <a class="btn btn-danger btn-round shadow-red mx-auto my-3" href="#">See all vehicles</a>
+                        <a class="btn btn-danger btn-round shadow-red mx-auto my-3" href="/car-search">See all vehicles</a>
                     </div>
                 </div>
                 {{--<div class="container mt-3">--}}

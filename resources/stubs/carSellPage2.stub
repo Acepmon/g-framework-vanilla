@@ -41,7 +41,11 @@
                 @include('pages.' . App\Content::where('slug', 'sell-car-page-2-step-2')->first()->currentView())
               </div>
               <div id="step-3" class="tab-pane fade">
+                @if(\Session::has('createdCarType') && \Session::get('createdCarType') == 'auction')
                 @include('pages.' . App\Content::where('slug', 'sell-car-auction')->first()->currentView())
+                @else
+                @include('pages.' . App\Content::where('slug', 'sell-car-page-2-step-3')->first()->currentView())
+                @endif
               </div>
               <div id="step-4" class="tab-pane fade">
                 This is empty
@@ -70,7 +74,8 @@
     }
   });
 
-  var carId = {{ request('id', 0) }};
+  var carId = {{ \Session::has('createdCarId')?\Session::get('createdCarId'):0 }};
+  console.log(carId);
 
   // DEMO MULTISTEP TODO: CHANGE -->
   function nextPrev(i) {

@@ -1,0 +1,247 @@
+@extends('themes.car-web.layouts.default')
+
+@section('title')
+
+@endsection
+
+@section('load')
+
+@endsection
+
+@section('content')
+
+<div class="bg-page-header"></div>
+
+<section class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="my-profile">
+                    <div class="pro-img">
+                        <img src="{{asset('car-web/img/testimonials-1.jpg')}}" alt="">
+                    </div>
+                    <div class="pro-detail">
+                        <div class="username">Enkhtuvshin</div>
+                        <div class="edit"> <a href="#">Edit profile</a></div>
+                    </div>
+                </div>
+                <div class="card shadow-soft-blue my-page-left">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item "><a href="#">Interested car list</a></li>
+                        <li class="list-group-item"><a href="#">Registration car alert</a></li>
+                        <li class="list-group-item"><a href="#">Sell request</a></li>
+                        <li class="list-group-item"><a href="#">Purchase requests <span class="badge badge-danger">8</span></a></li>
+                        <li class="list-group-item"><a href="#">Mileage</a></li>
+                        <li class="list-group-item"><a href="#">Coupon</a></li>
+                        <li class="list-group-item active"><a href="#">User information</a></li>
+                    </ul>
+                </div>
+
+            </div>
+            <!-- left bar end -->
+            <div class="col-md-9">
+                <div class="row">
+                    <div class="card shadow-soft-blue user-information">
+                        <div class="card-body">
+                            <h2>User information</h2>
+                            <div class="row my-4">
+                                <div class="col-md-2">
+                                    <div class="pro-img">
+                                        <img src="{{ Auth::user()->avatar_url() }}" alt="">
+                                    </div>
+                                    <button id="editProfileBtn" class="btn btn-sm btn-light my-3">Edit profile</button>
+                                </div>
+                                @if(Session::has('error'))
+                                {{ Session::get('error') }}
+                                @endif
+                                <div class="col-md-8">
+                                    <form id="editProfileForm" action="{{ route('ajax.users.update', ['user' => Auth::user()->id ]) }}" method="post">
+                                        {{ method_field('PUT') }}
+                                        {{ csrf_field() }}
+
+                                        <div class="pro-info">
+                                            <div class="form-group">
+                                                <label for="millage">Full name:</label>
+                                                <input type="text" class="form-control" id="name" name="name" value="{{ old('name')?old('name'):Auth::user()->name }}" readonly>
+                                                @error('name')
+                                                <span class="validation-error-label text-danger" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                                @enderror
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="millage">Email:</label>
+                                                <input type="email" class="form-control" id="email" name="email" value="{{ Auth::user()->email }}" readonly>
+                                                @error('email')
+                                                <span class="validation-error-label text-danger" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                                @enderror
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="millage">Phone:</label>
+                                                <input type="text" class="form-control" id="phone" name="phone" value="{{ Auth::user()->metaValue('phone') }}" readonly>
+                                                @error('phone')
+                                                <span class="validation-error-label text-danger" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                                @enderror
+                                            </div>
+                                            <div id="saveProfileForm" style="display: none;">
+                                                <button class="btn btn-default px-4" type="button" id="cancelProfileBtn">Cancel</button>
+                                                <button class="btn btn-primary px-4" type="submit">Save</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                    <div id="passwordForm">
+                                        <button class="btn btn-primary px-4" type="button" id="changePasswordBtn" data-toggle="modal" data-target="#passwordModal">Change password</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="car-list">
+
+                    </div>
+                    <!-- row end -->
+                </div>
+                <!-- container end -->
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="modal fade" id="passwordModal" tabindex="-1" role="dialog" aria-labelledby="passwordModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="passwordModalLabel">Change Password</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form id="changePasswordForm" action="{{ route('ajax.users.update', ['user' => Auth::user()->id ]) }}" method="post">
+                {{ method_field('PUT') }}
+                @csrf
+                <div class="modal-body">
+
+                    <div class="pro-info">
+                        <div class="form-group">
+                            <label for="millage">Old Password:</label>
+                            <input type="password" class="form-control" id="old_password" name="old_password">
+                            @error('old_password')
+                            <span class="validation-error-label text-danger" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="millage">New Password:</label>
+                            <input type="password" class="form-control" id="password" name="password">
+                            @error('password')
+                            <span class="validation-error-label text-danger" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="millage">Retype new password:</label>
+                            <input type="password" class="form-control" id="password_confirmation" name="password_confirmation">
+                            @error('password_confirmation')
+                            <span class="validation-error-label text-danger" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save Password</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@endsection
+
+@section('script')
+<script>
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    function editForm() {
+        $(this).attr('disabled', true);
+        $("#passwordForm").css('display', 'none');
+        $("#saveProfileForm").css('display', 'block');
+        $("#editProfileForm input").each(function(index) {
+            $(this).removeAttr('readonly');
+        });
+    }
+
+    function blockForm(val) {
+        $("#editProfileBtn").attr('disabled', false);
+        $("#passwordForm").css('display', 'block');
+        $("#saveProfileForm").css('display', 'none');
+        $("#editProfileForm input").each(function(index) {
+            $(this).attr('readonly', 'true');
+        });
+        if (!val) {
+            $("#username").val("{{ Auth::user()->name }}");
+            $("#email").val("{{ Auth::user()->email }}");
+            $("#phone").val("{{ Auth::user()->metaValue('phone') }}");
+        }
+    }
+
+    function changePassword() {}
+
+    $("#editProfileBtn").on('click', editForm);
+    $("#cancelProfileBtn").on('click', blockForm);
+    $("#saveProfileBtn").on('click', function() {
+        var form = "";
+        if ($("#changePasswordForm").css('display') == 'block') {
+            form = "#changePasswordForm";
+        } else {
+            form = "#editProfileForm";
+        }
+        var paramObjs = {};
+        $.each($(form).serializeArray(), function(_, kv) {
+            paramObjs[kv.name] = kv.value;
+        });
+        console.log(paramObjs);
+
+        $.ajax({
+            type: 'PUT',
+            url: '/ajax/users/{{ Auth::user()->id }}',
+            data: paramObjs
+        }).done(function(data) {
+            console.log(data);
+            blockForm(1);
+        }).fail(function(err) {
+            alert(err);
+            blockForm(0);
+        });
+    });
+
+    $(document).ready(function() {
+        @if($errors->has('old_password') ||
+            $errors->has('password') ||
+            $errors->has('password_confirmation'))
+        $("#passwordModal").modal();
+        @endif
+
+        @if($errors->has('name') ||
+            $errors->has('email') ||
+            $errors->has('phone'))
+        editForm();
+        @endif
+    });
+</script>
+<style>
+    input:disabled,
+    button:disabled {}
+</style>
+@endsection
