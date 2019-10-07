@@ -73,10 +73,10 @@ class PaymentMethodsTableSeeder extends Seeder
             'enabled' => false
         ]);
         
-        // MostMoney
+        // Most Money
         PaymentMethod::create([
             'code' => 'mostmoney',
-            'name' => 'MostMoney',
+            'name' => 'Most Money',
             'data' => null,
             'enabled' => false
         ]);
@@ -89,18 +89,10 @@ class PaymentMethodsTableSeeder extends Seeder
             'enabled' => false
         ]);
 
-        // Credit Card
+        // Credit/Debit Card
         PaymentMethod::create([
             'code' => 'card-credit',
-            'name' => 'Credit Card',
-            'data' => null,
-            'enabled' => false
-        ]);
-
-        // Debit Card
-        PaymentMethod::create([
-            'code' => 'card-debit',
-            'name' => 'Debit Card',
+            'name' => 'Credit/Debit Card',
             'data' => null,
             'enabled' => false
         ]);
