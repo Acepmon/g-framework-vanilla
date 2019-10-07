@@ -1,0 +1,104 @@
+@extends('themes.car-web.layouts.default')
+
+@section('title')
+
+@endsection
+
+@section('load')
+
+@endsection
+
+@section('content')
+
+    <div class="bg-page-header"></div>
+
+    <section class="bg-transparent body-section">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-10">
+                    <div class="card sell-car shadow-soft-blue">
+                        <div class="card-header">
+                            <div class="step-process sp-4">
+                                <div class='progress_inner_step step-1 done'>
+                                    <label for='step-1'>Add details</label>
+                                </div>
+                                <div class='progress_inner_step step-2 done'>
+                                    <label for='step-2'>Upload media</label>
+                                </div>
+                                <div class='progress_inner_step step-3 active'>
+                                    <label for='step-3'>Add price</label>
+                                </div>
+                                <div class='progress_inner_step step-4'>
+                                    <label for='step-4'>Publish type</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body pb-5">
+                            <form id="step-1" class="maz-form">
+                                <div class="form-title"><span>Sell price </span></div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-7">
+                                        <label for="durationDay">Price</label>
+                                        </br>
+                                        <h5><p class="text-secondary"><small>This is popular price of your car. You can tap to change price</small></p></h5>
+                                    </div>
+                                    <div class="input-group col-md-7">
+                                        <input type="number" name="reservePrice" class="form-control" id="reserve-price" placeholder="0.00">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text-right">Сая ₮</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row mt-4">
+                                    <div class="col-md-2">
+                                        <div class="custom-control custom-radio">
+                                            <input type="radio" name="sell-start" class="custom-control-input" id="sell-negotiate" value="negotiate" checked>
+                                            <label class="custom-control-label" for="sell-negotiate">Negotiate</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="custom-control custom-radio">
+                                            <input type="radio" name="sell-start" class="custom-control-input" id="sell-change" value="change">
+                                            <label class="custom-control-label" for="sell-change">Change</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="custom-control custom-radio">
+                                            <input type="radio" name="sell-start" class="custom-control-input" id="sell-loan" value="loan">
+                                            <label class="custom-control-label" for="sell-loan">Loan</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- NEXT PREV BUTTON START -->
+                                <div style="float:right;" class="mt-5">
+                                    <button class="btn btn-light btn-round px-5 py-2 mr-3" type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
+                                    <button class="btn btn-danger btn-round shadow-red px-5 py-2" type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
+                                </div>
+
+                                <script>
+
+                                </script>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="pageType-footer">
+        <div class="container">
+            <div class="row">
+                <div class="sell-type-img sell-car">
+                    <img src="{{ asset('car-web/img/sell-car.png') }}" alt="">
+                </div>
+            </div>
+        </div>
+    </section>
+
+@endsection
+
+@section('script')
+
+@endsection
+
