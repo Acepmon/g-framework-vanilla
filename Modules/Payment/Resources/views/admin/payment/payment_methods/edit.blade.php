@@ -64,16 +64,39 @@
         </form>
 
         @if ($payment_method->code === 'transaction')
-            <div class="card">
-                <div class="card-header">
-                    <h6 class="card-title">
-                        <a href="{{ route('admin.modules.payment.payment_methods.index') }}" class="btn btn-icon">
-                            <span class="icon-arrow-left12"></span>
-                        </a>
-                        {{ $payment_method->name }} Datas
-                    </h6>
+            <form action="{{ route('admin.modules.payment.payment_methods.update', $payment_method->code) }}" method="POST">
+                @csrf
+                @method('PUT')
+
+                <div class="card">
+                    <div class="card-header header-elements-inline">
+                        <h6 class="card-title">
+                            <a href="{{ route('admin.modules.payment.payment_methods.index') }}" class="btn btn-icon">
+                                <span class="icon-arrow-left12"></span>
+                            </a>
+                            {{ $payment_method->name }} Datas
+                        </h6>
+
+                        <div class="header-elements">
+                            <button type="submit" class="btn btn-primary btn-sm">
+                                <span class="icon-floppy-disk mr-2"></span>
+                                Save
+                            </button>
+                        </div>
+                    </div>
+
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                    </table>
                 </div>
-            </div>
+            </form>
         @endif
     </div>
 </div>
