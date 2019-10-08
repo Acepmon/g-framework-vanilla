@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use Modules\System\Transformers\User as UserResource;
 use Modules\System\Transformers\UserNotificationCollection;
 use Modules\System\Transformers\UserGroupCollection;
+use Modules\System\Transformers\UserMenuCollection;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,7 +40,7 @@ Route::prefix('v1')->group(function () {
             });
 
             Route::get('/user/menus', function () {
-
+                return new UserMenuCollection(Auth::user()->menus);
             });
 
             Route::get('/user/comments', function () {
