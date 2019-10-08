@@ -7,6 +7,9 @@ use Modules\System\Transformers\UserNotificationCollection;
 use Modules\System\Transformers\UserGroupCollection;
 use Modules\System\Transformers\UserMenuCollection;
 use Modules\System\Transformers\UserCommentCollection;
+use Modules\System\Transformers\UserContentCollection;
+
+use App\Entities\ContentManager;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,7 +52,21 @@ Route::prefix('v1')->group(function () {
             });
 
             Route::get('/user/contents', function () {
+                $authUser = Auth::user();
+                $contents = ContentManager::serializeRequest(request());
 
+                $contents->getCollection()->transform(function ($content) use ($authUser) {
+                    if (isset($authUser)) {
+                        $interested = $authUser->metas()->where('key', 'interestedCars')->where('value', $content->id)->count();
+                        return ContentManager::contentToArray($content, [
+                            "authInterested" => $interested ? true : false,
+                        ]);
+                    } else {
+                        return ContentManager::contentToArray($content);
+                    }
+                });
+
+                return response()->json($contents);
             });
         });
     });
