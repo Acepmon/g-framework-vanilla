@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 
 use Modules\System\Transformers\User as UserResource;
+use Modules\System\Transformers\UserNotification;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,7 +26,11 @@ Route::prefix('v1')->group(function () {
             });
             
             Route::get('/user/notifications', function () {
-                
+                return new UserNotification(Auth::user()->notifications);
+            });
+
+            Route::get('/user/notifications/unread', function () {
+                return new UserNotification(Auth::user()->unreadNotifications);
             });
 
             Route::get('/user/groups', function () {
