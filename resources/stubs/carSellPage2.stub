@@ -48,7 +48,7 @@
                 @endif
               </div>
               <div id="step-4" class="tab-pane fade">
-                This is empty
+                 @include('pages.' . App\Content::where('slug', 'sell-car-page-2-step-4')->first()->currentView())
               </div>
           </div>
         </div>
