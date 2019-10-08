@@ -6,6 +6,7 @@ use Modules\System\Transformers\User as UserResource;
 use Modules\System\Transformers\UserNotificationCollection;
 use Modules\System\Transformers\UserGroupCollection;
 use Modules\System\Transformers\UserMenuCollection;
+use Modules\System\Transformers\UserCommentCollection;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,7 +45,7 @@ Route::prefix('v1')->group(function () {
             });
 
             Route::get('/user/comments', function () {
-
+                return new UserCommentCollection(Auth::user()->comments);
             });
 
             Route::get('/user/contents', function () {
