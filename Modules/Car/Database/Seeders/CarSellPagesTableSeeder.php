@@ -146,7 +146,7 @@ class CarSellPagesTableSeeder extends Seeder
             file_put_contents(base_path($file_path), $file_content);
 
 
-            // --- car sell page 2 step 3 ---
+            // --- car sell page 2 step 4 ---
             $content = new Content;
             $content->title = 'Sell Car Page 2 step 4';
             $content->slug = 'sell-car-page-2-step-4';
