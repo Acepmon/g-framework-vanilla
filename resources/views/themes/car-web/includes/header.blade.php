@@ -3,15 +3,16 @@
         <div class="container">
             <ul class="maz-menu">
                 @foreach ($topbarMenus as $menu)
-                <li class="maz-menu-item"><a href="{{ $menu->link }}">{{ $menu->title }}</a></li>
+                    <li class="maz-menu-item"><a href="{{ $menu->link }}">/ {{ $menu->title }} /</a></li>
                 @endforeach
+
                 @auth
-                <li class="maz-menu-item"><a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a></li>
-                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                    @csrf
-                </form>
+                    <li class="maz-menu-item"><a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a></li>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        @csrf
+                    </form>
                 @else
-                <li class="maz-menu-item"><a href="{{ url('/register-step-1') }}">Sign Up</a></li>
+                    <li class="maz-menu-item"><a href="{{ url('/register-step-1') }}">Sign Up</a></li>
                 @endauth
             </ul>
         </div>
