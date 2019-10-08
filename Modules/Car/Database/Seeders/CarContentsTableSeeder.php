@@ -34,6 +34,20 @@ class CarContentsTableSeeder extends Seeder
             $content->author_id = $carUserRandomId;
             $content->save();
 
+            // Random values
+
+
+            // $countryNmae = Content::;
+            // $markName = '';
+            // $modelName = '';
+            // $type = '';
+            // $className = '';
+            // $manCount = '';
+            // $fuelType = '';
+            // $colorName = '';
+            // $transmission = '';
+            // $wheelPosition = '';
+
             // -------------
             $thumbWidth = 640;
             $thumbHeight = 360;
@@ -98,6 +112,9 @@ class CarContentsTableSeeder extends Seeder
                 new ContentMeta(['key' => 'priceType', 'value' => 'loan']),
                 new ContentMeta(['key' => 'thumbnail', 'value' => $thumbnail]),
                 new ContentMeta(['key' => 'link', 'value' => 'https://www.youtube.com/watch?v=2RnGwkWL94I']),
+
+                // Auction fields
+                new ContentMeta(['key' => 'isAuction', 'value' => rand(0,1) ? true : false]),
                 new ContentMeta(['key' => 'buyoutAmount', 'value' => '10000000']),
                 new ContentMeta(['key' => 'buyoutUnit', 'value' => '₮']),
                 new ContentMeta(['key' => 'startPriceAmount', 'value' => '8000000']),
@@ -107,6 +124,7 @@ class CarContentsTableSeeder extends Seeder
                 new ContentMeta(['key' => 'startsAt', 'value' => '2019-09-15']),
                 new ContentMeta(['key' => 'endsAt', 'value' => '2019-09-18']),
 
+                // Analytical logs
                 new ContentMeta(['key' => 'viewed', 'value' => '419']),
                 new ContentMeta(['key' => 'interested', 'value' => '51']),
 

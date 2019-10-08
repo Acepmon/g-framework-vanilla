@@ -39,13 +39,17 @@
 
 footer.footer {
   background: #2B3651;
-  background: transparent;
-  margin-top: 4rem;
-  padding-top: 4rem;
+  margin-top: 0;
+  padding-top: 6rem;
   padding-bottom: 4rem;
   position: relative;
   width: 100%;
   z-index: 2;
+  clip-path: polygon(0 20%, 100% 0, 100% 100%, 0% 100%);
+
+  @media (min-width: 575.98px)  {
+    clip-path: polygon(0 10%, 100% 0, 100% 100%, 0% 100%);
+  }
 
   .footer-svg{
     position: absolute;

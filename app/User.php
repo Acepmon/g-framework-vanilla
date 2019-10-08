@@ -68,6 +68,11 @@ class User extends Authenticatable implements CanResetPassword
         return $this->belongsToMany('App\Permission', 'user_permission')->withPivot('is_granted');
     }
 
+    public function comments()
+    {
+        return $this->hasMany('App\Comment', 'author_id');
+    }
+
     public function getAllPermissionsAttribute()
     {
         $group_permissions = $this->groups->pluck('permissions');

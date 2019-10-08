@@ -2,6 +2,8 @@
 
 use Illuminate\Http\Request;
 
+use Modules\Car\Transformers\InterestedCars as InterestedCarsCollection;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -13,6 +15,12 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/car', function (Request $request) {
-    return $request->user();
+Route::prefix('v1')->group(function () {
+    Route::namespace('API\v1')->group(function () {
+        Route::middleware('auth:api')->group(function () {
+
+            Route::get('/user/interested_cars', 'InterestedCarController@interestedCars');
+
+        });
+    });
 });
