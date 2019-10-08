@@ -2,6 +2,8 @@
 
 use Illuminate\Http\Request;
 
+use Modules\System\Transformers\User as UserResource;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -18,9 +20,29 @@ Route::prefix('v1')->group(function () {
     Route::namespace('API\v1')->group(function () {
         Route::middleware('auth:api')->group(function () {
 
-            Route::get('/user', 'UserController@user');
-            Route::get('/user/interested_cars', 'UserController@interestedCars');
+            Route::get('/user', function () {
+                return new UserResource(Auth::user());
+            });
+            
+            Route::get('/user/notifications', function () {
+                
+            });
 
+            Route::get('/user/groups', function () {
+
+            });
+
+            Route::get('/user/menus', function () {
+
+            });
+
+            Route::get('/user/comments', function () {
+
+            });
+
+            Route::get('/user/contents', function () {
+
+            });
         });
     });
 });

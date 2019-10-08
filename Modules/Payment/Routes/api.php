@@ -17,6 +17,10 @@ use Modules\Payment\Transformers\PaymentMethodCollection;
 |
 */
 
-Route::get('payment_methods', function () {
-    return new PaymentMethodCollection(PaymentMethod::where('enabled', true)->paginate());
+Route::prefix('v1')->group(function () {
+
+    Route::get('payment_methods', function () {
+        return new PaymentMethodCollection(PaymentMethod::where('enabled', true)->paginate());
+    });
+
 });
