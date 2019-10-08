@@ -1,11 +1,23 @@
+@php
+$startsAt = $car->metaValue('startsAt');
+$date = null;
+$hour = null;
+$minute = null;
+if ($startsAt) {
+  $date = date('Y-m-d', strtotime($startsAt));
+  $hour = date('h', strtotime($startsAt));
+  $minute = date('i', strtotime($startsAt));
+}
+@endphp
+
 <form id="form-3" class="maz-form">
   <div class="form-title"><span>Duration </span></div>
   <div class="form-row">
     <div class="form-group col-md-4">
       <label for="durationDay">Duration Day:</label>
       <select id="durationDay" name="publishDuration" class="form-control">
-        <option value="" selected>Choose...</option>
-        @for($i=1; $i<=7; $i++) <option value="{{$i}}">{{$i}} Days</option>
+        <option value="">Choose...</option>
+        @for($i=1; $i<=7; $i++) <option value="{{$i}}" {{ ($car->metaValue('publishDuration') == $i)?'selected':'' }}>{{$i}} Days</option>
           @endfor
       </select>
     </div>
@@ -28,19 +40,19 @@
     <div class="row pl-2 pr-2">
       <div class="form-group col-md-6" style="position:relative">
         <label class="text-muted" for="scheduleDate">Date:</label>
-        <input id="scheduleDate" name="scheduleDate" class="form-control" value="{{ now()->format('Y-m-d') }}" />
+        <input id="scheduleDate" name="scheduleDate" class="form-control" />
       </div>
       <div class="form-group col-md-3">
         <label class="text-muted" for="scheduleTime">Time:</label>
         <select id="scheduleTime" name="scheduleTime" class="form-control">
-          @for($i=0; $i<=23; $i++) <option>{{$i}}</option>
+          @for($i=0; $i<=23; $i++) <option {{ ($hour == $i)?'selected':'' }}>{{$i}}</option>
             @endfor
         </select>
       </div>
       <div class="form-group col-md-3">
         <label class="text-muted" name="scheduleMinute" for="scheduleMinute">Minute:</label>
         <select id="scheduleMinute" class="form-control">
-          @for($i=0; $i<=59; $i++) <option>{{$i}}</option>
+          @for($i=0; $i<=59; $i++) <option {{ ($minute == $i)?'selected':'' }}>{{$i}}</option>
             @endfor
         </select>
       </div>
@@ -53,8 +65,8 @@
     <div class="form-group col-md-4">
       <label for="area">Starting price:</label>
       <div class="input-group">
-        <input type="number" name="startPriceAmount" class="form-control" id="starting-price" placeholder="0.00">
-        <input type="hidden" name="startPriceUnit" value="₮">
+        <input type="number" name="startPriceAmount" class="form-control" id="starting-price" placeholder="0.00" value="{{ $car->metaValue('startPriceAmount') }}">
+        <input type="hidden" name="startPriceUnit" value="{{ $car->metaValue('startPriceUnit')?$car->metaValue('startPriceUnit'):'₮' }}">
         <div class="input-group-prepend">
           <div class="input-group-text-right">Сая ₮</div>
         </div>
@@ -63,8 +75,8 @@
     <div class="form-group col-md-4">
       <label for="transmission">Buy Out:</label>
       <div class="input-group">
-        <input type="number" name="buyoutAmount" class="form-control" id="buyout" placeholder="0.00">
-        <input type="hidden" name="buyoutUnit" value="₮">
+        <input type="number" name="buyoutAmount" class="form-control" id="buyout" placeholder="0.00" value="{{ $car->metaValue('buyoutAmount') }}">
+        <input type="hidden" name="buyoutUnit" value="{{ $car->metaValue('buyoutUnit')?$car->metaValue('buyoutUnit'):'₮' }}">
         <div class="input-group-prepend">
           <div class="input-group-text-right">Сая ₮</div>
         </div>
@@ -76,8 +88,8 @@
         <i class="icon-question" data-toggle="tooltip" data-placement="top" title="Fees apply tooltip text goes here!"></i>
       </span>
       <div class="input-group">
-        <input type="number" name="reservePriceAmount" class="form-control" id="reserve-price" placeholder="0.00">
-        <input type="hidden" name="reservePriceUnit" value="₮">
+        <input type="number" name="reservePriceAmount" class="form-control" id="reserve-price" placeholder="0.00" value="{{ $car->metaValue('reservePriceAmount') }}">
+        <input type="hidden" name="reservePriceUnit" value="{{ $car->metaValue('reservePriceUnit')?$car->metaValue('reservePriceUnit'):'₮' }}">
         <div class="input-group-prepend">
           <div class="input-group-text-right">Сая ₮</div>
         </div>
@@ -97,9 +109,9 @@
   $(document).ready(function() {
     $('#scheduleDate').datepicker({
       format: 'yyyy-mm-dd',
-      startDate: '0d',
-      defaultViewDate: '0d'
+      startDate: '0d'
     });
+    $('#scheduleDate').datepicker('setDate', '{{ $startsAt?$date:now()->format('Y-m-d') }}');
     $(function() {
       $('[data-toggle="tooltip"]').tooltip()
     });
@@ -117,6 +129,11 @@
         });
       }
     });
+
+    @if($car->metaValue('auctionStart') == 'schedule')
+    $("#radioCheck-Auction-Schedule").prop('checked', true);
+    $("#radioCheck-Auction-Schedule").change();
+    @endif
   });
 
   function step3Next(i) {
@@ -126,17 +143,18 @@
         paramObjs[kv.name] = kv.value;
       }
     });
-    if (paramObjs.hasOwnProperty['auctionStart'] && paramObjs['auctionStart'] == 'schedule') {
-      var startsAt = paramObjs['scheduleDate'] + ' ' + paramObjs['scheduleTime'] + ':' + paramObjs['scheduleMinute'] + ':00';
+    if (paramObjs.hasOwnProperty('auctionStart') && paramObjs['auctionStart'] == "schedule") {
+      console.log("What's wrong with you?");
+      var startsAt = $('#scheduleDate').val() + ' ' + $('#scheduleTime').val() + ':' + $('#scheduleMinute').val() + ':00';
       paramObjs['startsAt'] = startsAt;
-      startsAt = new Date()
+      //startsAt = new Date();
     }
     console.log(carId);
     console.log(paramObjs);
 
     $.ajax({
       type: 'PUT',
-      url: '/ajax/contents/' + carId + '/metas/attach',
+      url: '/ajax/contents/' + carId + '/metas/sync',
       data: paramObjs
     }).done(function(data) {
       $("#demo-spinner").css({
