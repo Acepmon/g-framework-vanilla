@@ -34,6 +34,20 @@ class CarContentsTableSeeder extends Seeder
             $content->author_id = $carUserRandomId;
             $content->save();
 
+            // Random values
+
+
+            // $countryNmae = Content::;
+            // $markName = '';
+            // $modelName = '';
+            // $type = '';
+            // $className = '';
+            // $manCount = '';
+            // $fuelType = '';
+            // $colorName = '';
+            // $transmission = '';
+            // $wheelPosition = '';
+
             // -------------
             $thumbWidth = 640;
             $thumbHeight = 360;
