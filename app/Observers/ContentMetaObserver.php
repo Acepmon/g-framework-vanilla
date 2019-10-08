@@ -17,7 +17,7 @@ class ContentMetaObserver
         if ($contentMeta->key == 'startsAt') {
             $duration = $contentMeta->content->metaValue('publishDuration');
             if ($duration) {
-                $contentMeta->content->attachMeta('endsAt', $contentMeta->value . ' +' . $duration . ' days');
+                $contentMeta->content->updateMeta('endsAt', $this->validate('endsAt', $contentMeta->value . ' +' . $duration . ' days'));
             }
         }
     }
@@ -31,7 +31,7 @@ class ContentMetaObserver
         if ($contentMeta->key == 'startsAt') {
             $duration = $contentMeta->content->metaValue('publishDuration');
             if ($duration) {
-                $contentMeta->content->updateMeta('endsAt', $contentMeta->value . ' +' . $duration . ' days');
+                $contentMeta->content->updateMeta('endsAt', $this->validate('endsAt', $contentMeta->value . ' +' . $duration . ' days'));
             }
         }
     }

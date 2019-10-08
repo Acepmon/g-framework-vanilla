@@ -5,7 +5,7 @@ $hour = null;
 $minute = null;
 if ($startsAt) {
   $date = date('Y-m-d', strtotime($startsAt));
-  $hour = date('h', strtotime($startsAt));
+  $hour = date('H', strtotime($startsAt));
   $minute = date('i', strtotime($startsAt));
 }
 @endphp
@@ -144,7 +144,6 @@ if ($startsAt) {
       }
     });
     if (paramObjs.hasOwnProperty('auctionStart') && paramObjs['auctionStart'] == "schedule") {
-      console.log("What's wrong with you?");
       var startsAt = $('#scheduleDate').val() + ' ' + $('#scheduleTime').val() + ':' + $('#scheduleMinute').val() + ':00';
       paramObjs['startsAt'] = startsAt;
       //startsAt = new Date();
