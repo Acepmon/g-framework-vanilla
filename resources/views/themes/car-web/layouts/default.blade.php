@@ -45,9 +45,10 @@
 
     @stack('modals')
     <script src="{{ asset('car-web/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('car-web/vendor/lottie-web/player/lottie.min.js') }}"></script>
     <script src="{{ asset('car-web/vendor/owl.carousel/owl.carousel.min.js') }}"></script>
-    <script src="{{ asset('car-web/js/script.min.js') }}"></script>
     @yield('script')
+    <script src="{{ asset('car-web/js/script.min.js') }}"></script>
 
 </body>
 </html>

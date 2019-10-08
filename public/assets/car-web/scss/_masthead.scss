@@ -24,11 +24,18 @@ header.masthead {
     transform-origin: left;
     pointer-events: none;
   }
+  .hero-slider{
+    position: relative;
+  }
 
   .slider-item{
     min-height: 600px;
     height: 100%;
     position: relative;
+
+    @media (min-width: 575.98px)  {
+      min-height: auto !important;
+    }
 
     .slider-text{
       color: $secondary;
@@ -76,6 +83,14 @@ header.masthead {
   .owl-theme .owl-dots {
     text-align: left;
     padding-left: 3rem;
+
+    @media (min-width: 575.98px)  {
+      position: absolute;
+      top: calc(100% - 3rem);
+      padding-left: 0 !important;
+      left: 50%;
+      transform: translateX(-50%);
+    }
 }
   .owl-theme .owl-dots .owl-dot.active span, .owl-theme .owl-dots .owl-dot:hover span {
     background: $secondary;
@@ -107,6 +122,10 @@ header.masthead {
       top: 35px;
       left: 0;
       right: 0;
+
+      @media (max-width: 1199.98px){
+        top: 20px;
+      }
 
       .search{
         position: absolute;
@@ -154,6 +173,10 @@ header.masthead {
     .card-header{
       background: $white;
       border-bottom: none;
+
+      @media (max-width: 1199.98px){
+        padding: 2rem 2rem 1rem !important;
+      }
     }
     h1{
       font-family: $segoe-bold;
@@ -169,6 +192,9 @@ header.masthead {
       display: flex;
       justify-content: space-around;
 
+      @media (max-width: 1199.98px){
+        padding: 0 1rem !important;
+      }
       .nav-item{
 
         a{
@@ -223,6 +249,9 @@ header.masthead {
         border-color: $gray-300;
         color: $secondary;
     }
+    @media (max-width: 1199.98px){
+      padding: 2rem !important;
+    }
     }
   }
 
@@ -233,6 +262,11 @@ header.masthead {
     right: -100px;
     z-index: 0;
     pointer-events: none;
+
+    @media (max-width: 1199.98px){ 
+      width: 550px;
+      right: -200px;
+    }
   }
 
   .discover{

@@ -52,7 +52,7 @@
             responsive:{
                 0:{
                     items:1,
-                    nav:true
+                    nav:false
                 },
                 600:{
                     items:1,
@@ -170,7 +170,7 @@ $(window).on('mousewheel DOMMouseScroll', function(e){
         $('#maz-nav').addClass('sticky');
         $('#maz-nav').removeClass('hider');
       }
-      else{
+      else if($(window).scrollTop() < 500){
         $('#maz-nav').removeClass('sticky');
       }
     } 
@@ -181,12 +181,25 @@ $(window).on('mousewheel DOMMouseScroll', function(e){
         $('#maz-nav').addClass('sticky');
         $('#maz-nav').removeClass('hider');
       }
-      else if(e.target.scrollTop == 0){
-        $('#maz-nav').removeClass('sticky hider');
+      else if($(window).scrollTop() < 200){
+        $('#maz-nav').removeClass('sticky');
       }
     }
-    this.console.log(e.originalEvent.detail);
   });
+
+    if($(window).scrollTop() == 90){
+      $('#maz-nav').removeClass('sticky');
+    }
+
+    $(window).scroll(menuPos);
+
+    function menuPos() {
+      var ScrollTop = $(window).scrollTop();
+      
+      if(ScrollTop < 40){
+        $('#maz-nav').removeClass('sticky');
+      }
+    };
 
 
 })(jQuery)

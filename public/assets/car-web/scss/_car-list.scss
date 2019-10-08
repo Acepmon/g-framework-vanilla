@@ -192,7 +192,7 @@
             z-index: 1;
             // width: 100%;
             padding-top: 1rem;
-            min-width: 30%;
+            width: 30%;
 
             .meta{
                 text-align: left;
@@ -253,12 +253,11 @@
                 }
         }
         .info{
-            margin-left: 10px;
             padding-top: 1rem;
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+            grid-template-columns: 1fr 1fr 1fr;
             grid-template-rows: auto;
-            width: 100%;
+            width: 70%;
 
             .info-icon{
                 display: inline-flex;
@@ -382,4 +381,19 @@
 
     }
 }
+}
+
+.homeFreeCars{
+    .car-list{
+        margin-top: 0;
+        .card{
+            .card-body{
+                .card-description{
+                    .card-caption{
+                        width: auto;
+                    }
+                }
+            }
+        }
+    }
 }
