@@ -4,7 +4,7 @@ namespace Modules\System\Transformers;
 
 use Illuminate\Http\Resources\Json\Resource;
 
-class UserNotification extends Resource
+class UserGroup extends Resource
 {
     /**
      * Transform the resource into an array.
@@ -16,10 +16,13 @@ class UserNotification extends Resource
     {
         return [
             'id' => $this->id,
-            'data' => $this->data,
-            'read_at' => $this->read_at,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at
+            'parent' => $this->parent,
+            'title' => $this->title,
+            'description' => $this->description,
+            'type' => $this->type,
+            'meta' => $this->metasTransform(),
+            'menus' => $this->menus,
+            'permissions' => $this->permissions
         ];
     }
 }
