@@ -267,7 +267,7 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
                 <div class="card-list">
                     <div class="row">
                     @contents({"filter":[{"field":"type", "key":"car"}, {"field":"status", "key":"published"}],
-                    "metasFilter": [{"key": "markName", "value": "toyota"}], "limit":12,
+                    "metasFilter": [{"key":"publishType", "value":"best_premium"}], "limit":12,
                     "returnVariable":"carDataPremium"})
                     @php
                         $carDataPremium=json_decode($carDataPremium);
