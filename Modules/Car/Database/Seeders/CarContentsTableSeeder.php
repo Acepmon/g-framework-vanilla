@@ -53,13 +53,12 @@ class CarContentsTableSeeder extends Seeder
             $thumbHeight = 360;
             $mediaWidth = 1920;
             $mediaHeight = 1080;
-            $lorempixelType = 'transport';
-            $lorempixelUrl = 'https://picsum.photos/id/';
-            $thumbnail = $lorempixelUrl . rand(1, 1000) . '/' . $thumbWidth . '/' . $thumbHeight . '/';
+            $placeholderUrl = 'https://via.placeholder.com';
+            $thumbnail = $placeholderUrl . '/' . $thumbWidth . 'x' . $thumbHeight . '/';
             $medias = [];
             $mediasLimit = rand(1, 20);
             for ($i = 0; $i < $mediasLimit; $i++) {
-                $media = $lorempixelUrl . rand(1, 1000) . '/' . $mediaWidth . '/' . $mediaHeight . '/';
+                $media = $placeholderUrl . '/' . $mediaWidth . 'x' . $mediaHeight . '/';
                 $meta = new ContentMeta(['key' => 'medias', 'value' => $media]);
                 array_push($medias, $meta);
             }
@@ -149,7 +148,7 @@ class CarContentsTableSeeder extends Seeder
                 new ContentMeta(['key' => 'retailWebsite', 'value' => 'www.yourdomain.com']),
                 new ContentMeta(['key' => 'retailPhone', 'value' => '+976 99999999']),
                 new ContentMeta(['key' => 'retailVehicles', 'value' => '132']),
-                new ContentMeta(['key' => 'retailImage', 'value' => url('assets/car-web/img/retail.png')]),
+                new ContentMeta(['key' => 'retailImage', 'value' => url(asset('car-web/img/retail.png'))]),
 
                 // Seller
                 new ContentMeta(['key' => 'sellerDescription', 'value' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum ullam, explicabo iure delectus asperiores sed aliquam provident magnam similique accusantium magni! Neque dolorum similique aliquam id recusandae aliquid nihil sit, blanditiis corporis? Odit, repudiandae recusandae. Libero rem aliquid, distinctio vel ad ab nostrum nulla repellendus modi officia eligendi officiis ducimus labore? Ad, praesentium laborum fugiat vitae doloremque qui beatae consectetur.']),
