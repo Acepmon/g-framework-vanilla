@@ -104,7 +104,7 @@
         <script src="{{ asset('car-web/vendor/owl.carousel/owl.carousel.min.js') }}"></script>
         <script src="{{ asset('car-web/vendor/owl.carousel.thumbs/owl.carousel2.thumbs.min.js') }}"></script>
 
-        <script src="{{ asset('car-web/js/script.min.js') }}"></script>
+        <script src="{{ asset('car-web/js/script.js') }}"></script>
 
         @yield('script')
 
