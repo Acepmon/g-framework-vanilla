@@ -119,18 +119,76 @@
                     <div class="form-row">
                         <div class="form-group col-md-2">
                             <select id="reg-letter-1" class="form-control">
-                                <option selected>A</option>
-                                <option>...</option>
+                                <option>А</option>
+                                <option>Б</option>
+                                <option>В</option>
+                                <option>Г</option>
+                                <option>Д</option>
+                                <option>Е</option>
+                                <option>Ё</option>
+                                <option>Ж</option>
+                                <option>З</option>
+                                <option>И</option>
+                                <option>Й</option>
+                                <option>К</option>
+                                <option>Л</option>
+                                <option>М</option>
+                                <option>Н</option>
+                                <option>О</option>
+                                <option>Ө</option>
+                                <option>П</option>
+                                <option>Р</option>
+                                <option>С</option>
+                                <option>Т</option>
+                                <option>У</option>
+                                <option>Ү</option>
+                                <option>Ф</option>
+                                <option>Х</option>
+                                <option>Ц</option>
+                                <option>Ч</option>
+                                <option>Ш</option>
+                                <option>Э</option>
+                                <option>Ю</option>
+                                <option>Я</option>
                             </select>
                         </div>
                         <div class="form-group col-md-2">
                             <select id="reg-letter-2" class="form-control">
-                                <option selected>A</option>
-                                <option>...</option>
+                                <option>А</option>
+                                <option>Б</option>
+                                <option>В</option>
+                                <option>Г</option>
+                                <option>Д</option>
+                                <option>Е</option>
+                                <option>Ё</option>
+                                <option>Ж</option>
+                                <option>З</option>
+                                <option>И</option>
+                                <option>Й</option>
+                                <option>К</option>
+                                <option>Л</option>
+                                <option>М</option>
+                                <option>Н</option>
+                                <option>О</option>
+                                <option>Ө</option>
+                                <option>П</option>
+                                <option>Р</option>
+                                <option>С</option>
+                                <option>Т</option>
+                                <option>У</option>
+                                <option>Ү</option>
+                                <option>Ф</option>
+                                <option>Х</option>
+                                <option>Ц</option>
+                                <option>Ч</option>
+                                <option>Ш</option>
+                                <option>Э</option>
+                                <option>Ю</option>
+                                <option>Я</option>
                             </select>
                         </div>
                         <div class="form-group col-md-8">
-                            <input type="text" class="form-control" id="reg-num">
+                            <input type="number" class="form-control" id="reg-num">
                         </div>
                     </div>
                     <div class="form-group">
@@ -164,12 +222,16 @@ $(document).ready(function(){
             paramObjs[kv.name] = kv.value;
         });
 
+        @auth
+        alert("Only guest users can send loan check");
+        @else
         $("#demo-spinner").css({'display': 'block'});
         $.ajax({
             type: 'POST',
             url: '{{ route('ajax.contents.store') }}',
             data: paramObjs
         }).done(function(data) {
+            setCookie('guest_id', data['author_id'], 1);
             $("#demo-spinner").css({'display': 'none'});
             $("#modalLoanCalculator").modal('hide');
         }).fail(function(err) {
@@ -177,6 +239,13 @@ $(document).ready(function(){
             console.error("FAIL!");
             console.error(err);
         });
+        @endauth
     });
 });
+
+function setCookie(key, value, expiry) {
+        var expires = new Date();
+        expires.setTime(expires.getTime() + (expiry * 24 * 60 * 60 * 1000));
+        document.cookie = key + '=' + value + ';expires=' + expires.toUTCString();
+    }
 </script>
