@@ -562,7 +562,7 @@ class CarPagesTableSeeder extends Seeder
         // --- car auction page ---
         $content = new Content;
         $content->title = 'Auction Car List';
-        $content->slug = 'auction-car-list';
+        $content->slug = 'auction';
         $content->type = Content::TYPE_PAGE;
         $content->status = Content::STATUS_PUBLISHED;
         $content->visibility = Content::VISIBILITY_PUBLIC;
@@ -583,7 +583,7 @@ class CarPagesTableSeeder extends Seeder
         $content_meta->save();
 
         $file_content = file_get_contents(resource_path('stubs/carAuctionList.stub'));
-        $file_name = $rootPath . DIRECTORY_SEPARATOR . 'auction-car-list' . Content::NAMING_CONVENTION . $content->status . Content::NAMING_CONVENTION . $time;
+        $file_name = $rootPath . DIRECTORY_SEPARATOR . 'auction' . Content::NAMING_CONVENTION . $content->status . Content::NAMING_CONVENTION . $time;
         $file_ext = 'blade.php';
         $file_path = $file_name . '.' . $file_ext;
 

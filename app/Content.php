@@ -52,7 +52,7 @@ class Content extends Model
             } else {
                 $query->where('value', $operator, $value);
             }
-        })->get();
+        });
     }
 
     public static function inRangeMetas($key, $min, $max)
@@ -61,7 +61,7 @@ class Content extends Model
             $query->where('key', $key);
             $query->where('value', '>=', $min);
             $query->where('value', '<=', $max);
-        })->get();
+        });
     }
 
     public function metas()

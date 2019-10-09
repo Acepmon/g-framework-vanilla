@@ -70,9 +70,6 @@ class ContentController extends Controller
             $content->author_id = $request->author_id;
             $content->save();
             Session::put('createdCarId', $content->id);
-            if($request->has('car_type')) {
-                Session::put('createdCarType', $request->car_type);
-            }
 
             $data = ContentManager::discernMetasFromRequest($request->input());
             ContentManager::attachMetas($content->id, $data);
