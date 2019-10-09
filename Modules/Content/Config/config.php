@@ -19,5 +19,12 @@ return [
         'rootPath' => '' . DIRECTORY_SEPARATOR . 'resources' . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'pages',
         'viewPath' => 'pages',
         'containerPage' => 'posts'
+    ],
+    'media' => [
+        'thumbnails' => [
+            'directory' => storage_path('app/public/thumbnails'),
+            'width' => 640,
+            'height' => 360
+        ],
     ]
 ];

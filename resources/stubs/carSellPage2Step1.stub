@@ -274,7 +274,7 @@
         
     <div style="float:right;">
         <button class="btn btn-light btn-round px-5 py-2 mr-3" type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
-        <button class="btn btn-danger btn-round shadow-red px-5 py-2" type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
+        <button class="btn btn-danger btn-round shadow-red px-5 py-2" type="button" id="nextBtn" onclick="step1Submit()">Next</button>
     </div>
 </form>
 <script>
@@ -284,45 +284,24 @@
             paramObjs[kv.name] = kv.value;
         });
 
-        if (i==1) {
-            var data = {
-                'title': 'Sample Car',
-                'slug': 'sample-car',
-                'type': '{{ \App\Content::TYPE_CAR }}',
-                'status': '{{ \App\Content::STATUS_DRAFT }}',
-                'visibility': '{{ \App\Content::VISIBILITY_PRIVATE }}',
-                'author_id': '{{ Auth::user()->id }}'
-            };
-            $("#demo-spinner").css({'display': 'block'});
-            $.ajax({
-                type: 'POST',
-                url: '/ajax/contents',
-                data: data
-            }).done(function(data) {
-                console.log(data);
-                carId = data['id']; // <-- VERY IMPORTANT
-                var paramObjs = {};
-                $.each($('#step-1').serializeArray(), function(_, kv) {
-                    paramObjs[kv.name] = kv.value;
-                });
-                $.ajax({
-                    type: 'PUT',
-                    url: '/ajax/contents/' + carId + '/metas/attach',
-                    data: paramObjs
-                }).done(function(data) {
-                    $("#demo-spinner").css({'display': 'none'});
-                    console.log("DONE!");
-                    console.log(data);
-                }).fail(function(err) {
-                    $("#demo-spinner").css({'display': 'none'});
-                    console.error("FAIL!");
-                    console.error(err);
-                });
-            }).fail(function(err) {
-                $("#demo-spinner").css({'display': 'none'});
-                console.error("FAIL!");
-                console.error(err);
-            });
-        }
+        $("#demo-spinner").css({'display': 'block'});
+        var paramObjs = {};
+        $.each($('#step-1').serializeArray(), function(_, kv) {
+            paramObjs[kv.name] = kv.value;
+        });
+        $.ajax({
+            type: 'PUT',
+            url: '/ajax/contents/' + carId,
+            data: paramObjs
+        }).done(function(data) {
+            $("#demo-spinner").css({'display': 'none'});
+            nextPrev(1);
+            console.log("DONE!");
+            console.log(data);
+        }).fail(function(err) {
+            $("#demo-spinner").css({'display': 'none'});
+            console.error("FAIL!");
+            console.error(err);
+        });
     }
 </script>

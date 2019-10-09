@@ -107,7 +107,9 @@ Car dealer
 .banner {
   width: 100%;
   padding-bottom: 15%;
+  @if($banner)
   background-image: url({{ $banner->banner }});
+  @endif
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -125,10 +127,6 @@ Car dealer
 }
 
 /* Custom css */
-.detail-page .car-list .card-caption {
-  min-width: 35%!important;
-  max-width: 35%!important;
-}
 .detail-page .car-list .card-img img {
   min-height: 100%;
   object-fit: cover;
@@ -280,7 +278,7 @@ Car dealer
           <ul class="pagination d-flex justify-content-end">
             <li class="page-item {{ ($page <= 1)?'disabled':'' }}">
               <button class="page-link" onclick="formSubmit('page', {{$page-1}})" aria-label="Previous">
-                <span aria-hidden="true">&laquo;</span>
+                <span aria-hidden="true"><i class="fab fa fa-angle-left"></i></span>
               </button>
             </li>
             @for($i = 1; $i <= $maxPage; $i++)
@@ -288,7 +286,7 @@ Car dealer
               @endfor
               <li class="page-item {{ ($page >= $maxPage)?'disabled':'' }}">
                 <button class="page-link" onclick="formSubmit('page', {{$page+1}})" aria-label="Next">
-                  <span aria-hidden="true">&raquo;</span>
+                  <span aria-hidden="true"><i class="fab fa fa-angle-right"></i></span>
                 </button>
               </li>
           </ul>
@@ -302,6 +300,7 @@ Car dealer
 </section>
 
 <!-- Banner start -->
+@if($banner)
 <section class="mainPage-items bg-white">
   <div class="container pl-0 pr-0">
     <a href="{{ $banner->link }}" class="text-primary text-decoration-none">
@@ -311,6 +310,7 @@ Car dealer
     </a>
   </div>
 </section>
+@endif
 <!-- Banner end -->
 
 <!-- Hot deal Grid -->

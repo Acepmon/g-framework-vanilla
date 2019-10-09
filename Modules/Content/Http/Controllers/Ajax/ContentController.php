@@ -2,6 +2,7 @@
 
 namespace Modules\Content\Http\Controllers\Ajax;
 
+use Session;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
@@ -68,6 +69,7 @@ class ContentController extends Controller
             $content->visibility = $request->visibility;
             $content->author_id = $request->author_id;
             $content->save();
+            Session::put('createdCarId', $content->id);
 
             $data = ContentManager::discernMetasFromRequest($request->input());
             ContentManager::attachMetas($content->id, $data);
