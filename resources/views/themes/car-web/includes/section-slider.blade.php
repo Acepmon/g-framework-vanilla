@@ -36,7 +36,7 @@ if(!function_exists('numerizePrice')) {
                     <div class="card-body py-2">
                         <div class="card-description">
                             <div class="card-desc-top">
-                                <a href="{{ $car->slug }}" class="card-title">{{ $car->title }}</a>
+                                <a href="/{{ $car->slug }}" class="card-title">{{ $car->title }}</a>
                                 <div class="price" style="min-width: 35%">{{ numerizePrice($car->metaValue('priceAmount')) }} {{ $car->metaValue('priceUnit') }}</div>
                             </div>
 
