@@ -7,10 +7,17 @@ return $items->whereHas('metas', function ($query) use ($key, $value) {
 $query->where('key', $key)->where('value', $value);
 });
 }
+
 function idize($value)
 {
 return str_replace(' ', '_', strtolower($value));
 }
+
+function numerizePrice($value) {
+    $value /= 1000000;
+    return $value . 'сая';
+}
+
 $categories = [
 'Car Type', 'Manufacturer', 'Year', 'Distance Driven', 'Price', 'Color', 'Fuel', 'Transmission', 'Option', 'Passenger', 'Steering Wheel', 'Area', 'Doctors Verified'
 ];
@@ -28,6 +35,7 @@ $allItems = $allItems->orderBy('value', $order);
 } else {
 $allItems = $allItems->orderBy($orderBy, $order);
 }
+$allItems = metaHas($allItems, 'isAuction', '1');
 $items = $allItems;
 
 // Items filtering
@@ -81,7 +89,7 @@ $premium = getPremiumDeal('premium', $now)->get();
 $hotDeals = $best_premium->merge($premium);
 //dd($hotDeals);
 //$hotDeals = $hotDeals->paginate(5);
-$items = $hotDeals->merge($items->get());
+$items = $items->get();
 
 // Post items filtering
 $itemCount = count($items->all());
@@ -262,7 +270,62 @@ Car dealer
           <div class="car-list">
             <input type="hidden" name="advantage" id="advantage" value="{{ $request['advantages'] }}" />
             @foreach($items->forPage($page, $itemsPerPage) as $car)
-              @include('themes.car-web.includes.car-list-card', array('car'=>$car))
+            <div class="card" onclick="window.open('{{ $car->slug }}','_blank');">
+                <div class="card-body">
+                    <div class="card-img">
+                        <a href="{{ $car->slug }}">
+                            <img src="{{ (substr($car->metaValue('thumbnail'), 0, 4) !== 'http')?(App\Config::getStorage() . $car->metaValue('thumbnail')):$car->metaValue('thumbnail') }}" class="img-fluid" alt="alt">
+                        </a>
+                    </div>
+                    <div class="card-description">
+                        <div class="card-caption">
+                            <div class="card-title"><a href="{{ $car->slug }}" style="color: inherit">{{ $car->title }}</a></div>
+                            <div class="meta">{{ $car->metaValue('buildYear') }}/{{ $car->metaValue('importDate') }} | {{ $car->metaValue('mileage') }}km</div>
+                            <div class="price">{{ numerizePrice($car->metaValue('priceAmount')) }} {{ $car->metaValue('priceUnit') }}</div>
+                            @if($car->metaValue('interest')) <!-- TODO: Change this Conditional -->
+                            <div class="favorite" onclick="addToInterest(event, '{{$car->slug}}')">
+                                <span class="text-danger"><i class="fas fa-heart"></i> Added to interest list</span>
+                            </div>
+                            @else
+                            <div class="favorite" onclick="addToInterest(event, '{{$car->slug}}')">
+                                <span class=""><i class="far fa-heart"></i> Add to interest list</span>
+                            </div>
+                            @endif
+                        </div>
+                        <div class="info">
+                            <span class="info-icon">
+                                <img src="{{ asset('car-web/img/icons/engine.svg') }}" alt="">
+                                <p>{{ ucfirst($car->metaValue('capacityAmount')) . ' ' . strtoupper($car->metaValue('capacityUnit')) }}</p>
+                            </span>
+                            <span class="info-icon">
+                                <img src="{{ asset('car-web/img/icons/wheel.svg') }}" alt="">
+                                <p>{{ ucfirst($car->metaValue('wheelPosition')) }} wheel</p>
+                            </span>
+                            <span class="info-icon">
+                                <img src="{{ asset('car-web/img/icons/gearShift.svg') }}" alt="">
+                                <p>{{ ucfirst($car->metaValue('transmission')) }}</p>
+                            </span>
+                            <span class="info-icon">
+                                <img src="{{ asset('car-web/img/icons/fuel.svg') }}" alt="">
+                                <p>{{ ucfirst($car->metaValue('fuelType')) }} </p>
+                            </span>
+                            <span class="info-icon">
+                                <img src="{{ asset('car-web/img/icons/transmision.svg') }}" alt="">
+                                <p>{{ $car->metaValue('axleCount') }} WD</p>
+                            </span>
+                            <span class="info-icon color" data-color="{{ $car->metaValue('colorName') }}">
+                                <p>{{ ucfirst($car->metaValue('colorName')) }}</p>
+                            </span>
+
+                            <div class="tag">
+                                @foreach($car->metas->where('key', 'advantages') as $advantage)
+                                <div onclick="formSubmit('advantage', '{{$advantage->value}}')">{{ $advantage->value }}</div>
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             @endforeach
           </div>
           @else
