@@ -47,7 +47,7 @@
         <section class="detail-items bg-white">
             <div class="container">
                 <!-- Sticky Sidebar -->
-                @include('themes.car-web.includes.fixed-right-sidebar', array('sideBanners' => \App\Banner::where('location_id', 4)->get(), 'premium' => \App\Content::where('type', \App\Content::TYPE_CAR)->limit(5)->get()))
+                @include('themes.car-web.includes.fixed-right-sidebar', ['sideBanners' => \App\Banner::where('location_id', 4)->get(), 'premium' => \App\Content::where('type', \App\Content::TYPE_CAR)->limit(5)->get()])
 
                 <div class="row">
                     <div class="col-md-8">
@@ -88,7 +88,7 @@
         @include('themes.car-web.includes.section-retail', ['content' => $content])
 
         <!-- Hot deals -->
-        @include('themes.car-web.includes.section-slider', array('title' => 'Hot Deals', 'contents'=> \App\Content::getByMetas('publishType', 'premium|best_premium', 'in'), 'morelink'=> url('/search?best_premium=true&premium=true')))
+        @include('themes.car-web.includes.section-slider', ['title' => 'Hot Deals', 'contents' => \App\Content::getByMetas('publishType', 'premium'), 'morelink'=> url('/search?best_premium=true&premium=true')])
 
         <!-- Similar Price -->
         @include('themes.car-web.includes.section-slider', ['title' => 'Similar Price', 'contents' => \App\Content::inRangeMetas('priceAmount', intval($content->metaValue('priceAmount')) - 1000000, $content->metaValue('priceAmount') + 1000000), 'morelink'=> url('/search?best_premium=true&premium=true')])
