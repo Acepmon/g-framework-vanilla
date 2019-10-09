@@ -153,7 +153,7 @@ if ($startsAt) {
 
     $.ajax({
       type: 'PUT',
-      url: '/ajax/contents/' + carId + '/metas/sync',
+      url: {{ route('ajax.contents.metas.sync', ['id' => $carId]) }},// '/ajax/contents/' + carId + '/metas/sync',
       data: paramObjs
     }).done(function(data) {
       $("#demo-spinner").css({

@@ -12,11 +12,13 @@ class Content extends Model
     const TYPE_PAGE = 'page';
     const TYPE_POST = 'post';
     const TYPE_CAR = 'car';
+    const TYPE_LOAN_CHECK = 'loan-check';
 
     const TYPE_ARRAY = [
         self::TYPE_PAGE,
         self::TYPE_POST,
-        self::TYPE_CAR
+        self::TYPE_CAR,
+        self::TYPE_LOAN_CHECK
     ];
 
     const STATUS_DRAFT = 'draft';
