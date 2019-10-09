@@ -1,12 +1,4 @@
 @if($contents)
-@php
-if(!function_exists('numerizePrice')) {
-    function numerizePrice($value) {
-        $value /= 1000000;
-        return $value . 'сая';
-    }
-}
-@endphp
 <section class="section card-list my-5">
     <div class="container">
         <div class="row">

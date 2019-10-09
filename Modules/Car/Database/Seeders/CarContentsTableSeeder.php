@@ -28,9 +28,10 @@ class CarContentsTableSeeder extends Seeder
             $content->slug = config('content.cars.containerPage') . '/' . $content->slug;
             $content->save();
 
-            $carUserRandomId = User::whereHas('groups', function ($query) {
-                $query->where('type', Group::TYPE_DYNAMIC);
-            })->get()->random()->id;
+            // $carUserRandomId = User::whereHas('groups', function ($query) {
+            //     $query->where('type', Group::TYPE_DYNAMIC);
+            // })->get()->random()->id;
+            $carUserRandomId = User::all()->random()->id;
             $content->author_id = $carUserRandomId;
             $content->save();
 
