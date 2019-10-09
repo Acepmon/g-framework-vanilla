@@ -1,5 +1,6 @@
 body {
   @include body-font;
+  background: $gray-100;
 }
 
 h1,
@@ -26,19 +27,20 @@ h6 {
   z-index: 0;
   top: 0;
   width: 100%;
+  clip-path: polygon(0 0%, 100% 0, 100% 80%, 0% 100%);
 
-  &:after{
-    content: '';
-    position: absolute;
-    width: 110%;
-    height: 140px;
-    background: #fff;
-    left: -5%;
-    top: 100%;
-    transform: rotate(-4deg);
-    transform-origin: left;
-    z-index: -1;
-  }
+  // &:after{
+  //   content: '';
+  //   position: absolute;
+  //   width: 110%;
+  //   height: 140px;
+  //   background: #fff;
+  //   left: -5%;
+  //   top: 100%;
+  //   transform: rotate(-4deg);
+  //   transform-origin: left;
+  //   z-index: -1;
+  // }
 
   &.full-height{
     height: 100vh;
@@ -253,4 +255,45 @@ hr {
 
 .finance-information{
   margin: 2rem 0;
+}
+
+// Pagination
+
+.page-item.disabled .page-link {
+  color: #6c757d;
+  pointer-events: none;
+  cursor: auto;
+  opacity: .5;
+}
+
+.page-link {
+  position: relative;
+  display: block;
+  padding: .5rem .75rem;
+  margin-left: -1px;
+  line-height: 1.25;
+  color: $secondary;
+  background-color: #fff;
+  border: 1px solid #dee2e6;
+}
+
+.page-item.active .page-link {
+  z-index: 1;
+  color: #fff;
+  background-color: $secondary;
+  border-color: $secondary;
+}
+.page-item:last-child .page-link {
+  border-top-right-radius: .25rem;
+  border-bottom-right-radius: .25rem;
+  border-color: $secondary;
+  background: $secondary;
+  color: $white;
+}
+.page-item:first-child .page-link {
+  border-top-left-radius: .25rem;
+  border-bottom-left-radius: .25rem;
+  border-color: $secondary;
+  background: $secondary;
+  color: $white;
 }
