@@ -114,6 +114,9 @@
                             <input type="hidden" name="type" value="{{ \App\Content::TYPE_LOAN_CHECK }}">
                             <input type="hidden" name="status" value="{{ \App\Content::STATUS_DRAFT }}">
                             <input type="hidden" name="visibility" value="{{ \App\Content::VISIBILITY_PUBLIC }}">
+                            @auth
+                            <input type="hidden" name="author_id" value="{{ \Auth::user()->id }}">
+                            @endauth
 
                             <label for="reg-num" class="col-form-label">Registration number:</label>
                             <div class="form-row">
@@ -221,30 +224,26 @@ $(document).ready(function(){
             paramObjs[kv.name] = kv.value;
         });
 
-        @auth
-            alert("Only guest users can send loan check");
-        @else
-            $("#demo-spinner").css({'display': 'block'});
-            $.ajax({
-                type: 'POST',
-                url: '{{ route('ajax.contents.store') }}',
-                data: paramObjs
-            }).done(function(data) {
-                setCookie('guest_id', data['author_id'], 1);
-                $("#demo-spinner").css({'display': 'none'});
-                $("#modalLoanCalculator").modal('hide');
-            }).fail(function(err) {
-                $("#demo-spinner").css({'display': 'none'});
-                console.error("FAIL!");
-                console.error(err);
-            });
-        @endauth
+        $("#demo-spinner").css({'display': 'block'});
+        $.ajax({
+            type: 'POST',
+            url: '{{ route('ajax.contents.store') }}',
+            data: paramObjs
+        }).done(function(data) {
+            setCookie('guest_id', data['author_id'], 1);
+            $("#demo-spinner").css({'display': 'none'});
+            $("#modalLoanCalculator").modal('hide');
+        }).fail(function(err) {
+            $("#demo-spinner").css({'display': 'none'});
+            console.error("FAIL!");
+            console.error(err);
+        });
     });
 });
 
 function setCookie(key, value, expiry) {
-        var expires = new Date();
-        expires.setTime(expires.getTime() + (expiry * 24 * 60 * 60 * 1000));
-        document.cookie = key + '=' + value + ';expires=' + expires.toUTCString();
-    }
+    var expires = new Date();
+    expires.setTime(expires.getTime() + (expiry * 24 * 60 * 60 * 1000));
+    document.cookie = key + '=' + value + ';expires=' + expires.toUTCString();
+}
 </script>
