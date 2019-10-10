@@ -5,6 +5,8 @@ namespace Modules\Car\Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 
+use App\Entities\TaxonomyManager;
+
 class CarManufactureMitsuokaTableSeeder extends Seeder
 {
     /**
@@ -14,7 +16,7 @@ class CarManufactureMitsuokaTableSeeder extends Seeder
      */
     public function run()
     {
-        $Mitsuoka = ['1996–present Galue', '2008–present Himiko', '2014–present Ryugi (based on the Toyota Corolla Axio and Toyota Corolla Fielder)', '1993–present Viewt', '2010–present Like-T3'
+        $mitsuokas = ['1996–present Galue', '2008–present Himiko', '2014–present Ryugi (based on the Toyota Corolla Axio and Toyota Corolla Fielder)', '1993–present Viewt', '2010–present Like-T3'
         , '2018–present Rock Star (Chevrolet Corvette C2 inspiration based on the Mazda MX-5)', '1982 BUBU 50 Series (a series of three-wheeled microcars)[3]'
         , '1989-1990 BUBU 356 Speedstar[4] (a copy of the Porsche 356 Speedster)', '1987 BUBU Classic SSK (copy of the Mercedes-Benz SSK roadster based on the Volkswagen Beetle)'
         , '2008-2012 Galue 204 (based on the Toyota Corolla Axio)', '2010-2012 Galue Classic', '1991 Dore (similar to the Le-Seyde, based on the Ford Mustang)'
@@ -25,18 +27,12 @@ class CarManufactureMitsuokaTableSeeder extends Seeder
         , '1998-2004 Ryoga a "classically" styled sedan originally based on the Primera and later on the smaller Sunny', '1996-2000 Type F (a restyled Zero1)'
         , '2000-2001 Yuga (a London Taxi copy based on the Nissan Cube)', '1994-2000 Zero1[6] (a Lotus Super Seven copy with Eunos Roadster drivetrain)'];
 
-        foreach($Mitsuoka as &$model){
-            $term_id5 = DB::table('terms')->insertGetId([
-                'name' => $model,
-                'slug' => 'Mitsuoka',
-            ]);
-            DB::table('term_taxonomy')->insert([
-                'term_id' => $term_id5,
-                'taxonomy' => 'Model',
-                'description' => $model,
-                'parent_id' => '20',
-                'count' => 0
-            ]);
+        $parent = TaxonomyManager::register('Mitsuoka', 'car-manufacturer');
+
+        foreach ($mitsuokas as $key => $mitsuoka) {
+            TaxonomyManager::register($mitsuoka, 'car-mitsuoka', $parent->term->id);
         }
+
+        TaxonomyManager::updateTaxonomyChildrenSlugs($parent->id);
     }
 }
