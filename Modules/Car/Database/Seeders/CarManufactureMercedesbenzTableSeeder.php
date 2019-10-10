@@ -53,7 +53,7 @@ class CarManufactureMercedesbenzTableSeeder extends Seeder
                 'term_id' => $term_id5,
                 'taxonomy' => 'Model',
                 'description' => $model,
-                'parent_id' => '10',
+                'parent_id' => '19',
                 'count' => 0
             ]);
         }

@@ -25,6 +25,7 @@ class CarManCountTableSeeder extends Seeder
                 'term_id' => $term_id1,
                 'taxonomy' => 'Seat',
                 'description' => $seat,
+                'parent_id' => 8,
                 'count' => 0
             ]);
         }

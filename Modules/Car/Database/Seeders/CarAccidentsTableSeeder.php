@@ -25,6 +25,7 @@ class CarAccidentsTableSeeder extends Seeder
                 'term_id' => $term_id1,
                 'taxonomy' => 'Accident',
                 'description' => $accident,
+                'parent_id' => 7,
                 'count' => 0
             ]);
         }

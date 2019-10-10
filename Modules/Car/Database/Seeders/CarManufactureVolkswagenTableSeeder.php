@@ -54,7 +54,7 @@ class CarManufactureVolkswagenTableSeeder extends Seeder
                 'term_id' => $term_id5,
                 'taxonomy' => 'Model',
                 'description' => $model,
-                'parent_id' => '11',
+                'parent_id' => '20',
                 'count' => 0
             ]);
         }

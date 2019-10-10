@@ -54,7 +54,7 @@ class CarManufactureLexusTableSeeder extends Seeder
                 'term_id' => $term_id5,
                 'taxonomy' => 'Model',
                 'description' => $model,
-                'parent_id' => '8',
+                'parent_id' => '17',
                 'count' => 0
             ]);
         }

@@ -25,7 +25,7 @@ class CarOptionsExteriorTableSeeder extends Seeder
                 'term_id' => $term_id5,
                 'taxonomy' => 'Exterior',
                 'description' => 'exterior',
-                'parent_id' => '102',
+                'parent_id' => '10',
                 'count' => 0
             ]);
         }

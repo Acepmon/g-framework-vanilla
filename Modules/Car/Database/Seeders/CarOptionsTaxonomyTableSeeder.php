@@ -25,6 +25,7 @@ class CarOptionsTaxonomyTableSeeder extends Seeder
                 'term_id' => $term_id1,
                 'taxonomy' => 'Option',
                 'description' => 'options',
+                'parent_id' => 9,
                 'count' => 0
             ]);
         }

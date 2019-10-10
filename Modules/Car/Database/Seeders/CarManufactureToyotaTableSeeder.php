@@ -30,7 +30,7 @@ class CarManufactureToyotaTableSeeder extends Seeder
                 'term_id' => $term_id5,
                 'taxonomy' => 'Model',
                 'description' => $model,
-                'parent_id' => '7',
+                'parent_id' => '16',
                 'count' => 0
             ]);
         }

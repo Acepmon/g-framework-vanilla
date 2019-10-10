@@ -28,7 +28,7 @@ class CarManufactureNissanTableSeeder extends Seeder
                 'term_id' => $term_id5,
                 'taxonomy' => 'Model',
                 'description' => $model,
-                'parent_id' => '9',
+                'parent_id' => '18',
                 'count' => 0
             ]);
         }

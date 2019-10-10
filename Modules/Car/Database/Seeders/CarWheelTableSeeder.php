@@ -25,6 +25,7 @@ class CarWheelTableSeeder extends Seeder
                 'term_id' => $term_id5,
                 'taxonomy' => 'Wheel Drive',
                 'description' => $Wheel,
+                'parent_id' => 15,
                 'count' => 0
             ]);
         }

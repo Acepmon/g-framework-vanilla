@@ -45,7 +45,7 @@ class CarManufactureBMWTableSeeder extends Seeder
                 'term_id' => $term_id5,
                 'taxonomy' => 'Model',
                 'description' => $model,
-                'parent_id' => '14',
+                'parent_id' => '23',
                 'count' => 0
             ]);
         }

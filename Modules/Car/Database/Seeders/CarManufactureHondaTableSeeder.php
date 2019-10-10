@@ -33,7 +33,7 @@ class CarManufactureHondaTableSeeder extends Seeder
                 'term_id' => $term_id5,
                 'taxonomy' => 'Model',
                 'description' => $model,
-                'parent_id' => '19',
+                'parent_id' => '28',
                 'count' => 0
             ]);
         }

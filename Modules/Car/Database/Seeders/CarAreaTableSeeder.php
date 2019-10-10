@@ -26,6 +26,7 @@ class CarAreaTableSeeder extends Seeder
                 'term_id' => $term_id1,
                 'taxonomy' => 'Area',
                 'description' => $area,
+                'parent_id' => 5,
                 'count' => 0
             ]);
         }

@@ -25,6 +25,7 @@ class CarWheelPositionTableSeeder extends Seeder
                 'term_id' => $term_id1,
                 'taxonomy' => 'Steering Wheel',
                 'description' => $position,
+                'parent_id' => 6,
                 'count' => 0
             ]);
         }

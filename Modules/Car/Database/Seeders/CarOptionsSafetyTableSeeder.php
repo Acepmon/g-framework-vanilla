@@ -26,7 +26,7 @@ class CarOptionsSafetyTableSeeder extends Seeder
                 'term_id' => $term_id5,
                 'taxonomy' => 'Safety',
                 'description' => 'safety',
-                'parent_id' => '104',
+                'parent_id' => '12',
                 'count' => 0
             ]);
         }

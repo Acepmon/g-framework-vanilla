@@ -25,7 +25,7 @@ class CarOptionsCleanTableSeeder extends Seeder
                 'term_id' => $term_id5,
                 'taxonomy' => 'Clean',
                 'description' => $model,
-                'parent_id' => '106',
+                'parent_id' => '14',
                 'count' => 0
             ]);
         }

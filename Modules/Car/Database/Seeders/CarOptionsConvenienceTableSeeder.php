@@ -26,7 +26,7 @@ class CarOptionsConvenienceTableSeeder extends Seeder
                 'term_id' => $term_id5,
                 'taxonomy' => 'Convenience',
                 'description' => 'model',
-                'parent_id' => '105',
+                'parent_id' => '13',
                 'count' => 0
             ]);
         }

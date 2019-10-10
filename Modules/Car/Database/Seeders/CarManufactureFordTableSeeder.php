@@ -46,7 +46,7 @@ class CarManufactureFordTableSeeder extends Seeder
                 'term_id' => $term_id5,
                 'taxonomy' => 'Model',
                 'description' => $model,
-                'parent_id' => '15',
+                'parent_id' => '24',
                 'count' => 0
             ]);
         }

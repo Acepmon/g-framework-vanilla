@@ -26,7 +26,7 @@ class CarOptionsGutsTableSeeder extends Seeder
                 'term_id' => $term_id5,
                 'taxonomy' => 'Guts',
                 'description' => 'Guts',
-                'parent_id' => '103',
+                'parent_id' => '11',
                 'count' => 0
             ]);
         }

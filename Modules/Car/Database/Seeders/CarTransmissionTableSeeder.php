@@ -25,6 +25,7 @@ class CarTransmissionTableSeeder extends Seeder
                 'term_id' => $term_id1,
                 'taxonomy' => 'Transmission',
                 'description' => $trans,
+                'parent_id' => 4,
                 'count' => 0
             ]);
         }

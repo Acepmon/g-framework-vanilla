@@ -25,6 +25,7 @@ class CarFuelTypeTableSeeder extends Seeder
                 'term_id' => $term_id1,
                 'taxonomy' => 'Fuel',
                 'description' => $fuel,
+                'parent_id' => 3,
                 'count' => 0
             ]);
         }

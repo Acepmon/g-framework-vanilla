@@ -36,7 +36,7 @@ class CarManufactureDodgeTableSeeder extends Seeder
                 'term_id' => $term_id5,
                 'taxonomy' => 'Model',
                 'description' => $model,
-                'parent_id' => '18',
+                'parent_id' => '27',
                 'count' => 0
             ]);
         }
