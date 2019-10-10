@@ -42,7 +42,7 @@
         <div class="bg-page-header"></div>
 
         @include('themes.car-web.includes.section-title', ['content', $content])
-
+        
         <!-- Detail page Grid -->
         <section class="detail-items bg-white">
             <div class="container">
@@ -105,7 +105,7 @@
         <script src="{{ asset('car-web/vendor/owl.carousel.thumbs/owl.carousel2.thumbs.min.js') }}"></script>
         <script src="{{ asset('car-web/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
         <script src="{{ asset('car-web/vendor/lottie-web/player/lottie.min.js') }}"></script>
-        <script src="{{ asset('car-web/js/script.min.js') }}"></script>
+        <script src="{{ asset('car-web/js/script.js') }}"></script>
         @yield('script')
 
         @stack('scripts')
