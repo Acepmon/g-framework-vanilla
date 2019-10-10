@@ -5,6 +5,8 @@ namespace Modules\Car\Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 
+use App\Entities\TaxonomyManager;
+
 class CarOptionsTaxonomyTableSeeder extends Seeder
 {
     /**
@@ -16,19 +18,13 @@ class CarOptionsTaxonomyTableSeeder extends Seeder
     {
         $options = ['Exterior', 'Guts', 'Safety', 'Convenience', 'Clean'];
 
-        foreach($options as &$option){
-            $term_id1 = DB::table('terms')->insertGetId([
-                'name' => $option,
-                'slug' => $option,
-            ]);
-            DB::table('term_taxonomy')->insert([
-                'term_id' => $term_id1,
-                'taxonomy' => 'Option',
-                'description' => 'options',
-                'parent_id' => 9,
-                'count' => 0
-            ]);
+        $parent = TaxonomyManager::register('Options', 'car');
+
+        foreach ($options as $key => $option) {
+            TaxonomyManager::register($option, 'car-options', $parent->term->id);
         }
+
+        TaxonomyManager::updateTaxonomyChildrenSlugs($parent->id);
 
         $this->call(CarOptionsExteriorTableSeeder::class);
         $this->call(CarOptionsGutsTableSeeder::class);
