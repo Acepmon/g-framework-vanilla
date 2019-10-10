@@ -117,7 +117,7 @@
             background: $secondary;
             padding: 5px;
             border-radius: 4px;
-            z-index: 1200;
+            z-index: 1000;
             height:30px;
             width: 30px;
             display: flex;
@@ -375,9 +375,6 @@
                 .card-description{
                     
                     .card-desc-top{
-                        .card-title{
-                            // width: 50%;
-                        }
                         .price{
                             font-size: 1rem;
                             font-weight: 700;
@@ -399,6 +396,9 @@
 
 .people-wish-list{
     .card{
+        &.cd-box{
+            margin-bottom: 1rem;
+        }
         .card-top{
             padding: 15px;
             border-top-left-radius: 4px;

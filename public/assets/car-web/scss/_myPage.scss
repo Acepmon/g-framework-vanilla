@@ -27,6 +27,19 @@
       }
     }
   }
+  @media (max-width: 767.98px) {
+    justify-content: center;
+  }
+  @media (min-width: 768px) and (max-width: 991.98px) {
+    .pro-img{
+      width: 70px;
+      height: auto;
+      border: 2px solid $white;
+      img{
+        max-width: 100%;
+      }
+    }
+  }
 }
 .my-page-left{
 
@@ -83,7 +96,7 @@
     padding: 0;
     .list-item{
       list-style: none;
-      display: inline;
+      display: inline-block;
       width: 100%;
       text-align: center;
       

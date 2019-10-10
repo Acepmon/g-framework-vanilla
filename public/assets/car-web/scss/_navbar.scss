@@ -1,6 +1,66 @@
+$mobile-menu-with: 320px !default;
+
 header{
   position: relative;
   height: $spacer * 10.25;
+
+  @media (max-width: 767.98px) {
+    height: $spacer * 5;
+  }
+}
+.maz-burger-menu{
+  width: 24px;
+  height: 21px;
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  align-content: space-between;
+  justify-content: space-between;
+  z-index: 1050;
+  top: 1rem;
+  right: 1rem;
+  cursor: pointer;
+  display: none;
+
+  span{
+    height: 3px;
+    width: 100%;
+    background: $secondary;
+    transition: all .3s ease;
+  }
+  span:nth-child(1){
+    transform-origin: left;
+  }
+  span:nth-child(2){
+    background: $red;
+  }
+  span:nth-child(3){
+    transform-origin: left;
+  }
+}
+@media (max-width: 767.98px) {
+.maz-burger-menu{
+  display: flex;
+  overflow: hidden;
+  z-index: 999999999;
+  padding: $spacer / 2;
+  box-sizing: content-box;
+
+  &.extend{
+    height: 24px;
+    span:nth-child(1){
+      background: $gray-100;
+      transform: rotate(45deg) translate(4px, 0px);
+    }
+    span:nth-child(2){
+      transform: translateX(200%) translate(0, 0);
+    }
+    span:nth-child(3){
+      background: $gray-100;
+      transform: rotate(-45deg) translate(3px, 1px);
+    }
+  }
+}
 }
 
 .maz-navbar {
@@ -40,87 +100,241 @@ header{
       transform: translateY(-100%) !important;
     }
   }
-}
+  & > *{
+    position: relative;
+  }
 
-.maz-brand {
-  font-size: 2rem;
-  text-transform: uppercase;
-  font-weight: 700;
-  color: $secondary;
-  font-family: $segoe;
-}
 
-.maz-menu{
-  display:flex;
-  align-items: center;
-
-  .maz-menu-list{
-    display: flex;
-    flex-direction: row;
-    margin: 0;
+  .maz-brand {
+    font-size: 2rem;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: $secondary;
+    font-family: $segoe;
+  }
   
-    .maz-menu-item{
-      position: relative;
-      display: inline-block;
-      padding: .5rem 0;
-      .maz-menu-link{
-        font-family: $segoe;
-        text-transform: uppercase;
-        color: $secondary;
-        font-weight: 600;
-        padding: 0 2rem;
-        text-decoration: none;
-        transition: all .3s ease;
-
-        &:hover{
-          color: $red;
+  .maz-menu{
+    display:flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    width: calc(100% + 30px);
+    margin-right: -15px;
+    margin-left: -15px;
+  
+    .maz-menu-list{
+      display: flex;
+      flex-direction: row;
+      margin: 0;
+      padding: 0;
+    
+      .maz-menu-item{
+        position: relative;
+        display: flex;
+        align-items: center;
+        // padding: .5rem 0;
+        .maz-menu-link{
+          font-family: $segoe;
+          text-transform: uppercase;
+          color: $secondary;
+          font-weight: 600;
+          padding: 0 1.5rem;
+          text-decoration: none;
+          transition: all .3s ease;
+  
+          &:after{
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            background: $red;
+            transform-origin: left;
+            left: 0;
+            top: 0;
+            transform: scaleX(0);
+            transition: transform .7s cubic-bezier(.19,1,.22,1);
+          }
+          &:before{
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            background: $red;
+            transform-origin: right;
+            left: 0;
+            bottom: 0;
+            transform: scaleX(0);
+            transition: transform .7s cubic-bezier(.19,1,.22,1);
+          }
+          &:hover{
+            color: $red;
+            &:after{
+              transform: scaleX(1);
+              transform-origin: right;
+            }
+            &:before{
+              content: '';
+              transform: scaleX(1);
+              transform-origin: left;
+            }
+          }
+        }
+        &.active{
+          .maz-menu-link{
+          &:after{
+            transform: scaleX(1);
+            transform-origin: right;
+          }
+          &:before{
+            content: '';
+            transform: scaleX(1);
+            transform-origin: left;
+          }
+        }
         }
       }
-      &:after{
-        content: '';
-        position: absolute;
-        width: 100%;
-        height: 2px;
-        background: $red;
-        transform-origin: left;
-        left: 0;
-        top: 0;
-        transform: scaleX(0);
-        transition: transform .7s cubic-bezier(.19,1,.22,1);
-      }
-      &:before{
-        content: '';
-        position: absolute;
-        width: 100%;
-        height: 2px;
-        background: $red;
-        transform-origin: right;
-        left: 0;
-        bottom: 0;
-        transform: scaleX(0);
-        transition: transform .7s cubic-bezier(.19,1,.22,1);
-      }
-      &:hover{
-        &:after{
-          transform: scaleX(1);
-          transform-origin: right;
+    }
+  }
+  @media (max-width: 767.98px) {
+     &.extend{
+      visibility: visible;
+      background: $secondary;
+       transform: translateX(0);
+     }
+    visibility: hidden;
+    position: fixed !important;
+    align-items: flex-start;
+    top: 0;
+    left: auto;
+    right: 0;
+    bottom: 0;
+    margin-top: 0;
+    background: $secondary;
+    width: $mobile-menu-with;
+    height: 100%;
+    padding: 1rem 0;
+    transform: translateX(100%);
+    transition: transform .5s ease-in-out, visibility .5s linear .6s;
+    
+    .maz-menu{
+      width: 100%;
+        margin: 0;
+        align-items: start;
+        flex-direction: column;
+        padding: 0;
+  
+        .maz-menu-list{
+          flex-direction: column;
+          position: relative;
+          width: 100%;
+          padding: 0;
+          margin-top: 4rem;
+  
+          .maz-menu-item{
+            justify-content: flex-start;
+  
+            .maz-menu-link{
+              color: $white;
+              margin: 1rem 0;
+            }
+            .btn{
+              width: 100%;
+            }
+          }
         }
-        &:before{
-          content: '';
-          transform: scaleX(1);
-          transform-origin: left;
-        }
+    }
+    &.sticky {
+      background: $secondary;
+      &.hider{
+        transform: translateY(0) !important;
       }
-      &.active{
+    }
+    .maz-brand{
+      color: $gray-200;
+      display: none;
+    }
+  }
+  @media (min-width: 768px) and (max-width: 991.98px) {
+    .maz-menu .maz-menu-list .maz-menu-item .maz-menu-link {
+      padding: 0 1.2rem;
+  }
+    .maz-menu .maz-menu-list .maz-menu-item .btn{
+      padding-left: 1.5rem !important;
+      padding-right: 1.5rem !important;
+    }
+  }
+  .maz-menu-top{
+    position: absolute;
+    top: -2.5rem;
+    right: 0;
+    width: 100%;
+    height: auto;
+    z-index: 1031;
+    display: flex;
+    justify-content: end;
+    transition: transform .5s ease-in-out;
+  
+    .maz-menu{
+      display: flex;
+      list-style: none;
+      flex-direction: row;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+      padding-left: 0.5rem;
+  
+      .maz-menu-item{
+        padding: 0 $spacer;
+  
+        &.active{
+          a{
+            color: $red;
+            font-weight: 600;
+          }
+        }
         
-        &:after{
-          transform: scaleX(1);
-          transform-origin: right;
+        a{
+          font-family: $segoe;
+          color: $secondary;
+          transition: color .3s ease;
+          &:hover{
+            text-decoration: none;
+            opacity: .5;
+          }
         }
-        &:before{
-          content: '';
-          transform: scaleX(1);
-          transform-origin: left;
+      }
+    }
+    @media (max-width: 767.98px) {
+      position: relative;
+      top: 0;
+      
+      .maz-menu{
+        position: relative;
+        left: 0;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-content: flex-start;
+        flex-wrap: wrap;
+        margin-left: 0;
+        margin-right: 0;
+    
+        .maz-menu-item{
+          text-align: left;
+          padding: 0 $spacer;
+          margin: 1rem 0;
+    
+          &.active{
+            a{
+              color: $red;
+              font-weight: 600;
+            }
+          }
+          
+          a{
+            color: $gray-300;
+            &:hover{
+              opacity: .5;
+            }
+          }
         }
       }
     }
@@ -157,32 +371,25 @@ header{
     .nav-link.active {
       color: $primary !important;
     }
-.maz-menu-top{
-  position: absolute;
-  top: $spacer;
-  right: 0;
-  width: 100%;
-  height: auto;
-  z-index: 1031;
-  display: flex;
-  justify-content: end;
 
-  .maz-menu{
-    list-style: none;
-    flex-direction: row;
-    justify-content: flex-end;
+.maz-mobile-brand{
+  width: 100vw;
+  height: 65px;
+  position: fixed;
+  z-index: 10;
+  top: 0;
+  font-size: 2rem;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: $secondary;
+  font-family: $segoe;
+  display: none;
+  background: #fff;
+  padding: .5rem 1rem;
+  border-bottom: 1px solid #eef1f3;
+  box-sizing: border-box;
 
-    .maz-menu-item{
-      padding: 0 $spacer;
-      
-      a{
-        color: $secondary;
-        transition: all .3s ease;
-        &:hover{
-          text-decoration: none;
-          opacity: .5;
-        }
-      }
+    @media (max-width: 767.98px) {
+      display: block;
     }
-  }
 }
