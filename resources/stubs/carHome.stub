@@ -292,7 +292,7 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
                                     <img src="{{(getValue($rr, 'thumbnail'))}}" class="img-fluid" alt="alt">
 
                                     <div class="card-caption">
-                                        <div class="meta"><?php echo getValue($rr, 'mileage') ?> | <?php echo getValue($rr, 'fuelType') ?> | <?php echo getValue($rr, 'capacityAmount') ?> <?php echo getValue($rr, 'capacityUnit') ?></div>
+                                        <div class="meta"><?php echo getValue($rr, 'mileageAmount') ?> <?php echo getValue($rr, 'mileageUnit') ?> | <?php echo getValue($rr, 'fuelType') ?> | <?php echo getValue($rr, 'capacityAmount') ?> <?php echo getValue($rr, 'capacityUnit') ?></div>
                                         <div class="favorite">
                                             <i class="icon-heart"></i>
                                         </div>
@@ -364,7 +364,7 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
                                           <p>1499 L</p>
                                         </span>
                                         <span class="carIcon-car-6">
-                                          <p>{{(getValue($auctionPrmCars, 'mileage'))}}</p>
+                                          <p>{{(getValue($auctionPrmCars, 'mileageAmount'))}} {{(getValue($auctionPrmCars, 'mileageUnit'))}}</p>
                                         </span>
                                                             <span class="carIcon-gas-station">
                                           <p>{{(getValue($auctionPrmCars, 'fuelType'))}}</p>
@@ -397,7 +397,7 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
                                                 <div class="year">{{(getValue($auctionPrmCars, 'buildYear'))}} / {{(getValue($auctionPrmCars, 'importDate'))}} </div>
                                                 <div class="bids">0 Bids</div>
                                             </div>
-                                            <div class="overall">{{(getValue($auctionPrmCars, 'mileage'))}} | {{(getValue($auctionPrmCars, 'fuelType'))}} | {{(getValue($auctionPrmCars, 'capacityAmount'))}} {{(getValue($auctionPrmCars, 'capacityUnit'))}}</div>
+                                            <div class="overall">{{(getValue($auctionPrmCars, 'mileageAmount'))}} {{(getValue($auctionPrmCars, 'mileageUnit'))}} | {{(getValue($auctionPrmCars, 'fuelType'))}} | {{(getValue($auctionPrmCars, 'capacityAmount'))}} {{(getValue($auctionPrmCars, 'capacityUnit'))}}</div>
                                         </div>
 
                                     </div>
@@ -547,7 +547,7 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
                                     <div class="card-description">
                                         <div class="card-caption">
                                             <div class="card-title">{{$othCars->title}}</div>
-                                            <div class="meta"> <?php echo getValueOtherCar($othCars, 'buildYear') ?> / <?php echo getValueOtherCar($othCars, 'importDate') ?> | <?php echo getValueOtherCar($othCars, 'mileage') ?></div>
+                                            <div class="meta"> <?php echo getValueOtherCar($othCars, 'buildYear') ?> / <?php echo getValueOtherCar($othCars, 'importDate') ?> | <?php echo getValueOtherCar($othCars, 'mileageAmount') ?> <?php echo getValueOtherCar($othCars, 'mileageUnit') ?></div>
                                             <div class="price">{{(getValue($auctionPrmCars, 'priceAmount'))}} {{(getValue($auctionPrmCars, 'priceUnit'))}}</div>
                                             <div class="favorite">
                                                 <i class="icon-heart"></i> Add to interest list
