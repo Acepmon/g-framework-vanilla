@@ -22,7 +22,7 @@ class CarContentsTableSeeder extends Seeder
         $time = time();
         $rootPath = config('content.cars.rootPath');
 
-        factory(Content::class, 50)->create(['type' => Content::TYPE_CAR])->each(function ($content) use ($time, $rootPath) {
+        factory(Content::class, 100)->create(['type' => Content::TYPE_CAR])->each(function ($content) use ($time, $rootPath) {
 
             $content->slug = config('content.cars.containerPage') . '/' . $content->slug;
             $content->save();
