@@ -5,6 +5,8 @@ namespace Modules\Car\Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 
+use App\Entities\TaxonomyManager;
+
 class CarManufactureSubaruTableSeeder extends Seeder
 {
     /**
@@ -14,7 +16,7 @@ class CarManufactureSubaruTableSeeder extends Seeder
      */
     public function run()
     {
-        $Subaru = ['Subaru 360', 'Subaru 450', 'Subaru 1000', 'Subaru 1500', 'Subaru 1600', 'Subaru Alcyone SVX', 'Subaru Alcyone', 'Subaru Ascent', 'Subaru B9sc', 'Subaru Baja', 'Subaru Bighorn'
+        $subarus = ['Subaru 360', 'Subaru 450', 'Subaru 1000', 'Subaru 1500', 'Subaru 1600', 'Subaru Alcyone SVX', 'Subaru Alcyone', 'Subaru Ascent', 'Subaru B9sc', 'Subaru Baja', 'Subaru Bighorn'
         , 'Subaru BRAT', 'Subaru Brumby', 'Subaru BRZ', 'Subaru BRZ Concept STI', 'Subaru Chiffon', 'Subaru Dex', 'Subaru Elaion', 'Subaru Exiga', 'Subaru FF-1 Star', 'Subaru Fiori'
         , 'Subaru Forester', 'Subaru G', 'Subaru G3X Justy', 'Subaru Impreza', 'Subaru Impreza (second generation)', 'Subaru Justy', 'Subaru Legacy', 'Subaru Legacy (first generation)'
         , 'Subaru Legacy (second generation)', 'Subaru Legacy (third generation)', 'Subaru Legacy (fourth generation)', 'Subaru Legacy (fifth generation)', 'Subaru Legacy (sixth generation)'
@@ -23,18 +25,12 @@ class CarManufactureSubaruTableSeeder extends Seeder
         , 'Subaru - Elten', 'Subaru Sumo', 'Subaru Traviq', 'Subaru Trezia', 'Subaru Tribeca', 'Subaru Vivio', 'Subaru Vortex', 'Subaru WRX', 'Subaru XT', 'Subaru XV'
         , 'Template:Subaru', 'Template:Subaru (early)', 'Template:Subaru North America'];
 
-        foreach($Subaru as &$model){
-            $term_id5 = DB::table('terms')->insertGetId([
-                'name' => $model,
-                'slug' => 'Subaru',
-            ]);
-            DB::table('term_taxonomy')->insert([
-                'term_id' => $term_id5,
-                'taxonomy' => 'Model',
-                'description' => $model,
-                'parent_id' => '20',
-                'count' => 0
-            ]);
+        $parent = TaxonomyManager::register('Subaru', 'car-manufacturer');
+
+        foreach ($subarus as $key => $subaru) {
+            TaxonomyManager::register($subaru, 'car-subaru', $parent->term->id);
         }
+
+        TaxonomyManager::updateTaxonomyChildrenSlugs($parent->id);
     }
 }

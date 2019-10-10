@@ -5,6 +5,8 @@ namespace Modules\Car\Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 
+use App\Entities\TaxonomyManager;
+
 class CarManufactureMitsubishiTableSeeder extends Seeder
 {
     /**
@@ -14,7 +16,7 @@ class CarManufactureMitsubishiTableSeeder extends Seeder
      */
     public function run()
     {
-        $Mitsubishi = ['Mitsubishi 360', 'Mitsubishi 380', 'Mitsubishi 500', 'Mitsubishi 3000GT', 'Mitsubishi Adventure', 'Mitsubishi Airtrek', 'Mitsubishi Aspire', 'Mitsubishi Attrage', 'Mitsubishi Carisma'
+        $mitsubishis = ['Mitsubishi 360', 'Mitsubishi 380', 'Mitsubishi 500', 'Mitsubishi 3000GT', 'Mitsubishi Adventure', 'Mitsubishi Airtrek', 'Mitsubishi Aspire', 'Mitsubishi Attrage', 'Mitsubishi Carisma'
         , 'Mitsubishi Celeste', 'Mitsubishi Champ', 'Mitsubishi Chariot', 'Chrysler Regal', 'Mitsubishi Colt', 'Mitsubishi Colt 11-F', 'Mitsubishi Colt 600', 'Mitsubishi Colt 800'
         , 'Mitsubishi Colt 1000', 'Mitsubishi Colt 1100', 'Mitsubishi Colt 1100F', 'Mitsubishi Colt 1200', 'Mitsubishi Colt 1500', 'Mitsubishi Colt Bakkie', 'Mitsubishi Colt Galant'
         , 'Mitsubishi Colt Rodeo', 'Mitsubishi Colt T120SS', 'Mitsubishi Cordia', 'Mitsubishi Debonair', 'Mitsubishi Delica', 'Mitsubishi Diamante', 'Mitsubishi Dignity', 'Mitsubishi Mirage Dingo'
@@ -33,18 +35,12 @@ class CarManufactureMitsubishiTableSeeder extends Seeder
         , 'Mitsubishi Strada', 'Mitsubishi Toppo', 'Mitsubishi Town Bee', 'Mitsubishi Town Box', 'Mitsubishi Towny', 'Mitsubishi Tredia', 'Mitsubishi Triton', 'Mitsubishi Type 73 Light Truck'
         , 'Mitsubishi V3000', 'Mitsubishi Verada', 'Mitsubishi Warrior', 'Mitsubishi Xpander', 'CMC Zinger'];
 
-        foreach($Mitsubishi as &$model){
-            $term_id5 = DB::table('terms')->insertGetId([
-                'name' => $model,
-                'slug' => 'Mitsubishi',
-            ]);
-            DB::table('term_taxonomy')->insert([
-                'term_id' => $term_id5,
-                'taxonomy' => 'Model',
-                'description' => $model,
-                'parent_id' => '20',
-                'count' => 0
-            ]);
+        $parent = TaxonomyManager::register('Mitsubishi', 'car-manufacturer');
+
+        foreach ($mitsubishis as $key => $mitsubishi) {
+            TaxonomyManager::register($mitsubishi, 'car-mitsubishi', $parent->term->id);
         }
+
+        TaxonomyManager::updateTaxonomyChildrenSlugs($parent->id);
     }
 }

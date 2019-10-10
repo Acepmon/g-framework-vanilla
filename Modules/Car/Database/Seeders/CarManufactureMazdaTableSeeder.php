@@ -5,6 +5,8 @@ namespace Modules\Car\Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 
+use App\Entities\TaxonomyManager;
+
 class CarManufactureMazdaTableSeeder extends Seeder
 {
     /**
@@ -14,7 +16,7 @@ class CarManufactureMazdaTableSeeder extends Seeder
      */
     public function run()
     {
-        $Mazda = ['1931–1960 Mazdago three-wheel truck', '1958–1964 Romper truck', '1959–1965 D1100/D1500 truck', '1959–1969 K360 three-wheel truck', '1959–1971 T600 three-wheel truck'
+        $mazdas = ['1931–1960 Mazdago three-wheel truck', '1958–1964 Romper truck', '1959–1965 D1100/D1500 truck', '1959–1969 K360 three-wheel truck', '1959–1971 T600 three-wheel truck'
         , '1960–1966 R360 kei car sedan', '1961–1962 P360/P600 "Carol" kei car sedan', '1961–1964 B1500/Proceed pickup truck', '1961–1966 B360/B600 kei car pickup truck'
         , '1962–1965 D2000 truck', '1964–1966 Familia/800/1000 compact car', '1964–2010 E2000 truck', '1965–1977 Kraft truck', '1965–1972 Light Bus Type A minibus'
         , '1966–1972 Light Bus Type C minibus', '1965–1971 B1500/Proceed pickup truck', '1966–1973 Luce/1500/1800/R130 luxury car', '1966–1977 Bongo small minivan'
@@ -45,18 +47,12 @@ class CarManufactureMazdaTableSeeder extends Seeder
         , 'Mazda RX-Vision (2015)', 'Mazda Ryuga (2007)', 'Mazda Sassou (2005)', 'Mazda Secret Hideout (2001)', 'Mazda Senku (2005)', 'Mazda Shinari (2010)', 'Mazda SU-V (1995)'
         , 'Mazda SW-X (1999)', 'Mazda Taiki (2007)', 'Mazda Takeri (2011)', 'Mazda TD-R (1989)', 'Mazda Vision Coupe (2017)', 'Mazda Washu (2003)'];
 
-        foreach($Mazda as &$model){
-            $term_id5 = DB::table('terms')->insertGetId([
-                'name' => $model,
-                'slug' => 'Mazda',
-            ]);
-            DB::table('term_taxonomy')->insert([
-                'term_id' => $term_id5,
-                'taxonomy' => 'Model',
-                'description' => $model,
-                'parent_id' => '20',
-                'count' => 0
-            ]);
+        $parent = TaxonomyManager::register('Mazda', 'car-manufacturer');
+
+        foreach ($mazdas as $key => $mazda) {
+            TaxonomyManager::register($mazda, 'car-mazda', $parent->term->id);
         }
+
+        TaxonomyManager::updateTaxonomyChildrenSlugs($parent->id);
     }
 }

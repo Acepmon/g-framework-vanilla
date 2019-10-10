@@ -5,6 +5,8 @@ namespace Modules\Car\Database\Seeders;
 use App\Content;
 use App\ContentMeta;
 use App\User;
+use DB;
+use App\TermTaxonomy;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Seeder;
 
@@ -36,7 +38,15 @@ class CarContentsTableSeeder extends Seeder
 
             // Random values
 
+<<<<<<< HEAD
+
+            // $countryNmae = Termtaxonomy::where();
+            $countryNmae1 = DB::table('term_taxonomy')->pluck('description')->where('taxonomy', 'Area')->all();
+            $countryName2 = array_rand($countryNmae1);
+            $countryNmae3 = $countryNmae1[$countryNmae2];
+=======
             // $countryNmae = Content::;
+>>>>>>> 849a18893beb55030ed9006d7d91f83ed3536885
             // $markName = '';
             // $modelName = '';
             // $type = '';
@@ -68,7 +78,7 @@ class CarContentsTableSeeder extends Seeder
             $content->metas()->saveMany([
                 new ContentMeta(['key' => 'plateNumber', 'value' => '0035UNA']),
                 new ContentMeta(['key' => 'cabinNumber', 'value' => 'VF3 3CRFNC 12345678']),
-                new ContentMeta(['key' => 'countryName', 'value' => 'Korea']),
+                new ContentMeta(['key' => 'countryName', 'value' => $countryNmae3]),
                 new ContentMeta(['key' => 'markName', 'value' => 'Toyota']),
                 new ContentMeta(['key' => 'modelName', 'value' => 'Prius']),
                 new ContentMeta(['key' => 'type', 'value' => 'Sedan']),

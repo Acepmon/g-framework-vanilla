@@ -5,6 +5,8 @@ namespace Modules\Car\Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 
+use App\Entities\TaxonomyManager;
+
 class CarManufactureAudiTableSeeder extends Seeder
 {
     /**
@@ -14,7 +16,7 @@ class CarManufactureAudiTableSeeder extends Seeder
      */
     public function run()
     {
-        $Audi = ['Audi 60 (1969–1972)', 'Audi 100 (1968–1978)', 'Audi 80 (1972–1978)', 'Audi 50 (1974–1978)', 'Audi 100 (1969–1976)', 'Audi 100 Coupé S (1969–1974)'
+        $audis = ['Audi 60 (1969–1972)', 'Audi 100 (1968–1978)', 'Audi 80 (1972–1978)', 'Audi 50 (1974–1978)', 'Audi 100 (1969–1976)', 'Audi 100 Coupé S (1969–1974)'
         , 'Audi 80 (1978–1986)', 'Audi 200 5T (1979–1984)', 'Audi 100 (1982–1990)', 'Audi 80 quattro (1980–1987)', 'Audi 5+5 (1981-1983)'
         , 'Audi 90 (1984–1987)', 'Audi Coupe GT (1980–1987)', 'Audi Sport quattro (1983–1984)', 'Audi 80 (1986–1991)', 'Audi 90 (1986–1991)'
         , 'Audi V8 (1988–1995)', 'Audi Coupe (1988–1995)', 'Audi 100/A6 (1991–1998)', 'Audi 80 (1991–1996)', 'Audi Cabriolet (1990–2000)'
@@ -35,18 +37,12 @@ class CarManufactureAudiTableSeeder extends Seeder
         , 'Audi RS 6 C7 (2013–)', 'Audi RS7 C7 (2013–)', 'Audi S1 8X (2015–)', 'Audi R8 4S (2015–)', 'Audi TT RS 8S (2016–)'
         , 'Audi S5 B9 (2017–)', 'Audi RS5 (2017–)'];
 
-        foreach($Audi as &$model){
-            $term_id5 = DB::table('terms')->insertGetId([
-                'name' => $model,
-                'slug' => 'Audi',
-            ]);
-            DB::table('term_taxonomy')->insert([
-                'term_id' => $term_id5,
-                'taxonomy' => 'Model',
-                'description' => $model,
-                'parent_id' => '13',
-                'count' => 0
-            ]);
+        $parent = TaxonomyManager::register('Audi', 'car-manufacturer');
+
+        foreach ($audis as $key => $audi) {
+            TaxonomyManager::register($audi, 'car-audi', $parent->term->id);
         }
+
+        TaxonomyManager::updateTaxonomyChildrenSlugs($parent->id);
     }
 }

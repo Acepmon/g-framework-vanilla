@@ -5,6 +5,8 @@ namespace Modules\Car\Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 
+use App\Entities\TaxonomyManager;
+
 class CarManufactureBMWTableSeeder extends Seeder
 {
     /**
@@ -14,7 +16,7 @@ class CarManufactureBMWTableSeeder extends Seeder
      */
     public function run()
     {
-        $BMW = ['3/20 PS, compact car (1932–1934)', '303, compact car (1933–1937)', '328, roadster (1936–1940)', '326, mid-size luxury car (1936–1941)', '327, grand tourer (1937–1941)'
+        $bmws = ['3/20 PS, compact car (1932–1934)', '303, compact car (1933–1937)', '328, roadster (1936–1940)', '326, mid-size luxury car (1936–1941)', '327, grand tourer (1937–1941)'
         , '320, mid-size luxury car (1937–1938)', '321, mid-size luxury car (1938–1941)', '335, full-size luxury car (1939–1941)', '321, mid-size luxury car (1945–1950)'
         , '326, mid-size luxury car (1945–1946)', '327, grand tourer (1946–1955)', '340, full-size luxury car (1949–1955)', '501, mid-size luxury car (1952–1962)'
         , 'Isetta, microcar (1953–1962)', '503, grand tourer (1956–1959)', '507, roadster (1956–1959)', '700, compact car (1959–1965)', '3200 CS, sports car (1962–1965)'
@@ -36,18 +38,12 @@ class CarManufactureBMWTableSeeder extends Seeder
         , 'G29 Z4, roadster (2018–present)', 'G20 3 Series, compact executive car (2019–present)', 'F40 1 Series, subcompact car (2019–present)', 'G06 X6, mid-size luxury SUV (2019–present)'
         , 'G07 X7, full-size luxury SUV (2019-present)'];
 
-        foreach($BMW as &$model){
-            $term_id5 = DB::table('terms')->insertGetId([
-                'name' => $model,
-                'slug' => 'BMW',
-            ]);
-            DB::table('term_taxonomy')->insert([
-                'term_id' => $term_id5,
-                'taxonomy' => 'Model',
-                'description' => $model,
-                'parent_id' => '14',
-                'count' => 0
-            ]);
+        $parent = TaxonomyManager::register('BMW', 'car-manufacturer');
+
+        foreach ($bmws as $key => $bmw) {
+            TaxonomyManager::register($bmw, 'car-bmw', $parent->term->id);
         }
+
+        TaxonomyManager::updateTaxonomyChildrenSlugs($parent->id);
     }
 }

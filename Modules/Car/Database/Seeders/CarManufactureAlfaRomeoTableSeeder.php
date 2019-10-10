@@ -5,6 +5,8 @@ namespace Modules\Car\Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 
+use App\Entities\TaxonomyManager;
+
 class CarManufactureAlfaRomeoTableSeeder extends Seeder
 {
     /**
@@ -14,7 +16,7 @@ class CarManufactureAlfaRomeoTableSeeder extends Seeder
      */
     public function run()
     {
-        $AlfaRomeo = ['Alfa Romeo Spider', 'Alfa Romeo 8C Competizione', 'Alfa Romeo Brera', 'Alfa Romeo 159', 'Alfa Romeo 105 Series Coupes', 'Alfa Romeo 166', 
+        $alfaRomeos = ['Alfa Romeo Spider', 'Alfa Romeo 8C Competizione', 'Alfa Romeo Brera', 'Alfa Romeo 159', 'Alfa Romeo 105 Series Coupes', 'Alfa Romeo 166', 
         'Alfa Romeo 8C', 'Alfa Romeo 156', 'Alfa Romeo GTV6', 'Alfa Romeo MiTo', 'Alfa Romeo 2600', 'Alfa Romeo 145', 'Alfa Romeo 75', 'Alfa Romeo 147'
         , 'Alfa Romeo 155', 'Alfa Romeo Disco Volante', 'Alfa Romeo 164', 'Alfa Romeo Arna', 'Alfa Romeo Giulia', 'Alfa Romeo Giulietta', 'Alfa Romeo GT', 'Alfa Romeo Tipo 33'
         , 'Alfa Romeo 6C', 'Alfa Romeo GTV and Spider', 'Alfa Romeo Montreal', 'Alfa Romeo 90', 'Alfa Romeo Alfasud', 'Alfa Romeo RM', 'Alfa Romeo Alfa 6', 'Alfa Romeo Alfetta'
@@ -23,18 +25,12 @@ class CarManufactureAlfaRomeoTableSeeder extends Seeder
         ,'Alfa Romeo Tipo A','A.L.F.A 24 HP','Alfa Romeo 20/30 HP ES Sport','Alfa Romeo Giulietta','Alfa Romeo Gran Sport Quattroruote','Alfa Romeo 33.2','A.L.F.A. 40/60 GP'
         ,'Alfa Romeo P1','Alfa Romeo 169','Alfa Romeo 20/30 HP','Alfa Romeo P2','Alfa Romeo Kamal','Alfa Romeo Tipo 308','Alfa Romeo Tipo 512','Alfa Romeo Scighera'];
 
-        foreach($AlfaRomeo as &$model){
-            $term_id5 = DB::table('terms')->insertGetId([
-                'name' => $model,
-                'slug' => 'AlfaRomeo',
-            ]);
-            DB::table('term_taxonomy')->insert([
-                'term_id' => $term_id5,
-                'taxonomy' => 'Model',
-                'description' => $model,
-                'parent_id' => '39',
-                'count' => 0
-            ]);
+        $parent = TaxonomyManager::register('Alfa Romeo', 'car-manufacturer');
+
+        foreach ($alfaRomeos as $key => $alfaRomeo) {
+            TaxonomyManager::register($alfaRomeo, 'car-alfa-romeo', $parent->term->id);
         }
+
+        TaxonomyManager::updateTaxonomyChildrenSlugs($parent->id);
     }
 }

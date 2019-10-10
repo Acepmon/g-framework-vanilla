@@ -5,6 +5,8 @@ namespace Modules\Car\Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 
+use App\Entities\TaxonomyManager;
+
 class CarWheelTableSeeder extends Seeder
 {
     /**
@@ -14,19 +16,15 @@ class CarWheelTableSeeder extends Seeder
      */
     public function run()
     {
-        $Wheels = ['Front', 'Back'];
+        $wheels = ['Front', 'Back'];
 
-        foreach($Wheels as &$Wheel){
-            $term_id5 = DB::table('terms')->insertGetId([
-                'name' => $Wheel,
-                'slug' => $Wheel,
-            ]);
-            DB::table('term_taxonomy')->insert([
-                'term_id' => $term_id5,
-                'taxonomy' => 'Wheel Drive',
-                'description' => $Wheel,
-                'count' => 0
-            ]);
+        $parent = TaxonomyManager::register('Wheel', 'car');
+
+        foreach ($wheels as $key => $wheel) {
+            TaxonomyManager::register($wheel, 'car-wheel', $parent->term->id);
         }
+
+        TaxonomyManager::updateTaxonomyChildrenSlugs($parent->id);
+
     }
 }

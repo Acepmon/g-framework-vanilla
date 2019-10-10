@@ -5,6 +5,8 @@ namespace Modules\Car\Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 
+use App\Entities\TaxonomyManager;
+
 class CarManufactureHondaTableSeeder extends Seeder
 {
     /**
@@ -14,7 +16,7 @@ class CarManufactureHondaTableSeeder extends Seeder
      */
     public function run()
     {
-        $Honda = ['Accord (1976–present)', 'Amaze (2013–present)', 'Avancier (1993–2003, 2016–present)', 'Ballade (1980–1991, 2014–present)', 'Brio (2011–present)', 'BR-V (2015–present)'
+        $hondas = ['Accord (1976–present)', 'Amaze (2013–present)', 'Avancier (1993–2003, 2016–present)', 'Ballade (1980–1991, 2014–present)', 'Brio (2011–present)', 'BR-V (2015–present)'
         , 'City (1981–present)', 'Civic (1972–present)', 'Civic Tourer (2014–present)', 'Civic Type R (1997–2010, 2015–present)', 'Clarity (2008–2014, 2016–present)', 'Crider (2013–present)'
         , 'CR-V (1996–present)', 'CR-V S (2012–present)', 'e (2019–present)', 'Elysion (2003–present)', 'Fit/Jazz (2001–present)', 'Fit Hybrid (2011–present)', 'Fit Shuttle (2011–present)'
         , 'Freed (2008–present)', 'Freed Spike (2008–present)', 'Gienia (2016–present)', 'Grace (2014–present)', 'Greiz (2015–present)', 'Hobio (2003–present)', 'HR-V (1999–2005, 2015–present)'
@@ -24,18 +26,12 @@ class CarManufactureHondaTableSeeder extends Seeder
         , 'Pilot (2003–present)', 'Ridgeline (2006–2014, 2016–present)', 'S660 (2014–present)', 'Shuttle (1994–present)', 'Spirior (2014–present)', 'StepWGN (1996–present)', 'StepWGN Spada (2009–present)'
         , 'UR-V (2016–present)', 'Vamos (1970–1973, 1999–present)', 'Vezel (2013–present)', 'WR-V (2017–present)', 'XR-V (2015–present)'];
 
-        foreach($Honda as &$model){
-            $term_id5 = DB::table('terms')->insertGetId([
-                'name' => $model,
-                'slug' => 'Honda',
-            ]);
-            DB::table('term_taxonomy')->insert([
-                'term_id' => $term_id5,
-                'taxonomy' => 'Model',
-                'description' => $model,
-                'parent_id' => '19',
-                'count' => 0
-            ]);
+        $parent = TaxonomyManager::register('Honda', 'car-manufacturer');
+
+        foreach ($hondas as $key => $honda) {
+            TaxonomyManager::register($honda, 'car-honda', $parent->term->id);
         }
+
+        TaxonomyManager::updateTaxonomyChildrenSlugs($parent->id);
     }
 }
