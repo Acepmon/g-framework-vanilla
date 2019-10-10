@@ -210,6 +210,7 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
                                                 @php
                                                     $manufacturers=json_decode($manufacturer);
                                                 @endphp
+                                                <option>Manufacturer</option>
                                                 @foreach($manufacturers as $data)
                                                     <option>{{$data->description}}</option>
                                                 @endforeach
@@ -221,17 +222,18 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
                                                 @php
                                                     $models=json_decode($model);
                                                 @endphp
+                                                <option>Model</option>
                                                 @foreach($models as $data)
                                                     <option>{{$data->description}}</option>
                                                 @endforeach
                                             </select>
                                         </div>
                                         <div class="form-group">
-                                            <input class="form-control" name="min-price" type="number"
+                                            <input class="form-control" name="Min-price" type="number"
                                                    placeholder="min-price" aria-label="Search">
                                         </div>
                                         <div class="form-group">
-                                            <input class="form-control" name="max-price" type="number"
+                                            <input class="form-control" name="Max-price" type="number"
                                                    placeholder="max-price" aria-label="Search">
                                         </div>
                                         <button type="submit" class="btn btn-danger btn-lg btn-round shadow mt-4">Submit
