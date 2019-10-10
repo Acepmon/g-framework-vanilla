@@ -1,4 +1,4 @@
-<form id="step-1" class="maz-form">
+<form id="step-3-price" class="maz-form">
     <div class="form-title"><span>Sell price </span></div>
     <div class="form-row">
         <div class="form-group col-md-7">
@@ -9,7 +9,7 @@
             </h5>
         </div>
         <div class="input-group col-md-7">
-            <input type="number" name="reservePrice" class="form-control" id="reserve-price" placeholder="0.00">
+            <input type="number" name="priceAmount" class="form-control" id="reserve-price" placeholder="0.00">
             <div class="input-group-prepend">
                 <div class="input-group-text-right">Сая ₮</div>
             </div>
@@ -18,19 +18,19 @@
     <div class="form-row mt-4">
         <div class="col-md-2">
             <div class="custom-control custom-radio">
-                <input type="radio" name="sell-start" class="custom-control-input" id="sell-negotiate" value="negotiate" checked>
+                <input type="radio" name="priceType" class="custom-control-input" id="sell-negotiate" value="negotiate" checked>
                 <label class="custom-control-label" for="sell-negotiate">Negotiate</label>
             </div>
         </div>
         <div class="col-md-2">
             <div class="custom-control custom-radio">
-                <input type="radio" name="sell-start" class="custom-control-input" id="sell-change" value="change">
+                <input type="radio" name="priceType" class="custom-control-input" id="sell-change" value="change">
                 <label class="custom-control-label" for="sell-change">Change</label>
             </div>
         </div>
         <div class="col-md-2">
             <div class="custom-control custom-radio">
-                <input type="radio" name="sell-start" class="custom-control-input" id="sell-loan" value="loan">
+                <input type="radio" name="priceType" class="custom-control-input" id="sell-loan" value="loan">
                 <label class="custom-control-label" for="sell-loan">Loan</label>
             </div>
         </div>
@@ -38,10 +38,30 @@
     <!-- NEXT PREV BUTTON START -->
     <div style="float:right;" class="mt-5">
         <button class="btn btn-light btn-round px-5 py-2 mr-3" type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
-        <button class="btn btn-danger btn-round shadow-red px-5 py-2" type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
+        <button class="btn btn-danger btn-round shadow-red px-5 py-2" type="button" id="nextBtn" onclick="step3Submit()">Next</button>
     </div>
-
-    <script>
-
-    </script>
 </form>
+<script>
+    function step3Submit() {
+        $("#demo-spinner").css({'display': 'block'});
+        var paramObjs = {};
+        $.each($('#step-3-price').serializeArray(), function(_, kv) {
+            paramObjs[kv.name] = kv.value;
+        });
+        console.log(paramObjs);
+        $.ajax({
+            type: 'PUT',
+            url: '/ajax/contents/' + carId + '/metas/sync',
+            data: paramObjs
+        }).done(function(data) {
+            $("#demo-spinner").css({'display': 'none'});
+            nextPrev(1);
+            console.log("DONE!");
+            console.log(data);
+        }).fail(function(err) {
+            $("#demo-spinner").css({'display': 'none'});
+            console.error("FAIL!");
+            console.error(err);
+        });
+    }
+</script>
