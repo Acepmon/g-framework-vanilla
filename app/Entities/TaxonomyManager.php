@@ -17,9 +17,15 @@ class TaxonomyManager extends Manager
      */
     public static function register($term, $taxonomy, $parent_id = null, $args = array())
     {
-        $term = self::createTerm($term, $parent_id);
-        self::saveTermMetas($term->id, $args);
-        $termTaxonomy = self::createTaxonomy($term->id, $taxonomy, $parent_id);
+        $termTaxonomy = TermTaxonomy::where('taxonomy', $taxonomy)->whereHas('term', function ($query) use ($term) {
+            $query->where('name', $term);
+        })->first();
+
+        if ($termTaxonomy == null) {
+            $term = self::createTerm($term, $parent_id);
+            self::saveTermMetas($term->id, $args);
+            $termTaxonomy = self::createTaxonomy($term->id, $taxonomy, $parent_id);
+        }
 
         return $termTaxonomy;
     }
