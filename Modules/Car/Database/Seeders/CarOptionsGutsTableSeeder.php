@@ -14,13 +14,13 @@ class CarOptionsGutsTableSeeder extends Seeder
      */
     public function run()
     {
-        $Guts = ['Power Door lock', 'Memory seat : driver’s seat', 'Heated Seat: Rear Seat', 'Heated Seat: Driver’s Seat', 'Electric seat : Passenger seat', 'Electric seat : driver’s seat'
+        $guts = ['Power Door lock', 'Memory seat : driver’s seat', 'Heated Seat: Rear Seat', 'Heated Seat: Driver’s Seat', 'Electric seat : Passenger seat', 'Electric seat : driver’s seat'
         , 'Leather seat', 'Power steering', 'Steering wheel remote control'];
 
         $parent = TaxonomyManager::findTaxonomy('car-options');
 
-        foreach ($options as $key => $option) {
-            TaxonomyManager::register($option, 'car-guts', $parent->term->id);
+        foreach ($guts as $key => $gut) {
+            TaxonomyManager::register($gut, 'car-guts', $parent->term->id);
         }
 
         TaxonomyManager::updateTaxonomyChildrenSlugs($parent->id);
