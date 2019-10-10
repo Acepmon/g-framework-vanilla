@@ -44,9 +44,9 @@ class CarManufactureTableSeeder extends Seeder
         $this->call(CarManufactureHondaTableSeeder::class);
         $this->call(CarManufactureHyundaiTableSeeder::class);
         $this->call(CarManufactureKiaTableSeeder::class);
-        // $this->call(CarManufactureSubaruTableSeeder::class);
-        // $this->call(CarManufactureSuzukiTableSeeder::class);
-        // $this->call(CarManufactureMitsubishiTableSeeder::class);
+        $this->call(CarManufactureSubaruTableSeeder::class);
+        $this->call(CarManufactureSuzukiTableSeeder::class);
+        $this->call(CarManufactureMitsubishiTableSeeder::class);
         // $this->call(CarManufactureInfinitiTableSeeder::class);
         // $this->call(CarManufactureMazdeTableSeeder::class);
         // $this->call(CarManufactureChevroletTableSeeder::class);
