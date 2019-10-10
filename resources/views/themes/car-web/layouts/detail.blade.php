@@ -42,7 +42,7 @@
         <div class="bg-page-header"></div>
 
         @include('themes.car-web.includes.section-title', ['content', $content])
-        
+
         <!-- Detail page Grid -->
         <section class="detail-items bg-white">
             <div class="container">
