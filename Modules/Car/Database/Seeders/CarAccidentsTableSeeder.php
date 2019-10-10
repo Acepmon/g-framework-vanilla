@@ -26,18 +26,5 @@ class CarAccidentsTableSeeder extends Seeder
 
         TaxonomyManager::updateTaxonomyChildrenSlugs($parent->id);
 
-        // foreach($accidents as &$accident){
-        //     $term_id1 = DB::table('terms')->insertGetId([
-        //         'name' => $accident,
-        //         'slug' => $accident,
-        //     ]);
-        //     DB::table('term_taxonomy')->insert([
-        //         'term_id' => $term_id1,
-        //         'taxonomy' => 'Accident',
-        //         'description' => $accident,
-        //         'parent_id' => 7,
-        //         'count' => 0
-        //     ]);
-        // }
     }
 }

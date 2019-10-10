@@ -25,18 +25,5 @@ class CarAreaTableSeeder extends Seeder
 
     TaxonomyManager::updateTaxonomyChildrenSlugs($parent->id);
 
-        // foreach($location as &$area){
-        //     $term_id1 = DB::table('terms')->insertGetId([
-        //         'name' => $area,
-        //         'slug' => $area,
-        //     ]);
-        //     DB::table('term_taxonomy')->insert([
-        //         'term_id' => $term_id1,
-        //         'taxonomy' => 'Area',
-        //         'description' => $area,
-        //         'parent_id' => 5,
-        //         'count' => 0
-        //     ]);
-        // }
     }
 }

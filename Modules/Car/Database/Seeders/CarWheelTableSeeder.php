@@ -26,18 +26,5 @@ class CarWheelTableSeeder extends Seeder
 
         TaxonomyManager::updateTaxonomyChildrenSlugs($parent->id);
 
-        // foreach($Wheels as &$Wheel){
-        //     $term_id5 = DB::table('terms')->insertGetId([
-        //         'name' => $Wheel,
-        //         'slug' => $Wheel,
-        //     ]);
-        //     DB::table('term_taxonomy')->insert([
-        //         'term_id' => $term_id5,
-        //         'taxonomy' => 'Wheel Drive',
-        //         'description' => $Wheel,
-        //         'parent_id' => 15,
-        //         'count' => 0
-        //     ]);
-        // }
     }
 }

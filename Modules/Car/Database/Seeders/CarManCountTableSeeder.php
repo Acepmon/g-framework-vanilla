@@ -26,18 +26,5 @@ class CarManCountTableSeeder extends Seeder
 
         TaxonomyManager::updateTaxonomyChildrenSlugs($parent->id);
 
-        // foreach($manCount as &$seat){
-        //     $term_id1 = DB::table('terms')->insertGetId([
-        //         'name' => $seat,
-        //         'slug' => $seat,
-        //     ]);
-        //     DB::table('term_taxonomy')->insert([
-        //         'term_id' => $term_id1,
-        //         'taxonomy' => 'Seat',
-        //         'description' => $seat,
-        //         'parent_id' => 8,
-        //         'count' => 0
-        //     ]);
-        // }
     }
 }

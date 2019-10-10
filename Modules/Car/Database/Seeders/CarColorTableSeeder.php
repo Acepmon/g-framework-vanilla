@@ -27,17 +27,5 @@ class CarColorTableSeeder extends Seeder
 
     TaxonomyManager::updateTaxonomyChildrenSlugs($parent->id);
 
-        // foreach($colour as &$color){
-        //     $term_id1 = DB::table('terms')->insertGetId([
-        //         'name' => $color,
-        //         'slug' => $color,
-        //     ]);
-        //     DB::table('term_taxonomy')->insert([
-        //         'term_id' => $term_id1,
-        //         'taxonomy' => 'Color',
-        //         'description' => $color,
-        //         'count' => 0
-        //     ]);
-        // }
     }
 }
