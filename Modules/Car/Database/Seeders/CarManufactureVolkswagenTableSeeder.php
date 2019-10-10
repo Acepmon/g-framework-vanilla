@@ -5,6 +5,8 @@ namespace Modules\Car\Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 
+use App\Entities\TaxonomyManager;
+
 class CarManufactureVolkswagenTableSeeder extends Seeder
 {
     /**
@@ -14,7 +16,7 @@ class CarManufactureVolkswagenTableSeeder extends Seeder
      */
     public function run()
     {
-        $Volkswagen = ['Volkswagen Amarok (2009–present)', 'Volkswagen Ameo (2016–present)', 'Volkswagen Arteon (2017–present)', 'Volkswagen Atlas (2017–present, also sold as Volkswagen Teramont)'
+        $volkswagens = ['Volkswagen Amarok (2009–present)', 'Volkswagen Ameo (2016–present)', 'Volkswagen Arteon (2017–present)', 'Volkswagen Atlas (2017–present, also sold as Volkswagen Teramont)'
         , 'Volkswagen Caddy (1980–present)', 'Volkswagen California (2003–present)', 'Volkswagen Fox (2005–present)', 'Volkswagen Gol G5 (2008–present, also sold as Pointer)'
         , 'Volkswagen Golf Mk7 (2012–present)', 'Volkswagen Jetta A7 (2019–present)', 'Volkswagen Lamando (2014-present)', 'Volkswagen Lavida (2008–present)'
         , 'Volkswagen Beetle A5 (2011–present)', 'Volkswagen Passat B8 (2014–present, also sold as Passat GT)', 'Volkswagen Passat "B7" (2012–present)'
@@ -45,18 +47,12 @@ class CarManufactureVolkswagenTableSeeder extends Seeder
         , 'Volkswagen Type 3 (1961-1973, also sold as 1500, 1600)', 'Volkswagen Type 4 (1967-1973)', 'Volkswagen Type 14A (1949–1953)', 'Volkswagen Type 18A (1949–?)'
         , 'Volkswagen Type 147 Kleinlieferwagen (1964–1974)', 'Volkswagen Golf', 'Volkswagen Sharan', 'Volkswagen Polo', 'Volkswagen Jetta', 'Volkswagen Passat'];
 
-        foreach($Volkswagen as &$model){
-            $term_id5 = DB::table('terms')->insertGetId([
-                'name' => $model,
-                'slug' => 'Volkswagen',
-            ]);
-            DB::table('term_taxonomy')->insert([
-                'term_id' => $term_id5,
-                'taxonomy' => 'Model',
-                'description' => $model,
-                'parent_id' => '20',
-                'count' => 0
-            ]);
+        $parent = TaxonomyManager::register('Volkswagen', 'car-manufacturer');
+
+        foreach ($volkswagens as $key => $volkswagen) {
+            TaxonomyManager::register($volkswagen, 'car-volkswagen', $parent->term->id);
         }
+
+        TaxonomyManager::updateTaxonomyChildrenSlugs($parent->id);
     }
 }
