@@ -15,6 +15,7 @@ class Taxonomy extends Resource
     public function toArray($request)
     {
         return [
+            'id' => $this->id,
             'taxonomy' => $this->taxonomy,
             'description' => $this->description,
             'count' => $this->count,

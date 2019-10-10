@@ -17,7 +17,7 @@ class TermTaxonomy extends Model
 
     public function parent()
     {
-        return $this->belongsTo('App\Term', 'term_id', 'id');
+        return $this->belongsTo('App\Term', 'parent_id', 'id');
     }
 
     public function contents()
