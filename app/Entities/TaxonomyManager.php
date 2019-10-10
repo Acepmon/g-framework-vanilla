@@ -87,4 +87,16 @@ class TaxonomyManager extends Manager
             $term->save();
         }
     }
+
+    public static function findTerm($term)
+    {
+        $term = Term::where('name', $term)->firstOrFail();
+        return $term;
+    }
+
+    public static function findTaxonomy($taxonomy)
+    {
+        $taxonomy = TermTaxonomy::where('taxonomy', $taxonomy)->firstOrFail();
+        return $taxonomy;
+    }
 }

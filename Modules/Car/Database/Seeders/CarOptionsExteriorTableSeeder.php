@@ -16,18 +16,12 @@ class CarOptionsExteriorTableSeeder extends Seeder
     {
         $Exteriors = ['Rear wiper', 'Electric folding side mirror', '4 season tire', 'Aluminum wheel', 'Sunroof'];
 
-        foreach($Exteriors as &$Exterior){
-            $term_id5 = DB::table('terms')->insertGetId([
-                'name' => $Exterior,
-                'slug' => $Exterior,
-            ]);
-            DB::table('term_taxonomy')->insert([
-                'term_id' => $term_id5,
-                'taxonomy' => 'Exterior',
-                'description' => 'exterior',
-                'parent_id' => '10',
-                'count' => 0
-            ]);
+        $parent = TaxonomyManager::findTaxonomy('car-options');
+
+        foreach ($options as $key => $option) {
+            TaxonomyManager::register($option, 'car-exterior', $parent->term->id);
         }
+
+        TaxonomyManager::updateTaxonomyChildrenSlugs($parent->id);
     }
 }
