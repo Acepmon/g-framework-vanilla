@@ -21,7 +21,7 @@ class CarManCountTableSeeder extends Seeder
         $parent = TaxonomyManager::register('Man Count', 'car');
 
         foreach ($manCount as $key => $count) {
-            TaxonomyManager::register($count, 'mancount', $parent->term->id);
+            TaxonomyManager::register($count, 'car-mancount', $parent->term->id);
         }
 
         TaxonomyManager::updateTaxonomyChildrenSlugs($parent->id);

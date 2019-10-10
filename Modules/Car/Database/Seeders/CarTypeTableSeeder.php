@@ -16,7 +16,7 @@ class CarTypeTableSeeder extends Seeder
      */
     public function run()
     {
-        $carTypes = ['Sedan', 'SUV', 'Sport', 'Trucks', 'Vans', 'Bus',];
+        $carTypes = ['Sedan', 'SUV', 'Sport', 'Trucks', 'Vans', 'Bus'];
 
         $parent = TaxonomyManager::register('Car Type', 'car');
 

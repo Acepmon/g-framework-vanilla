@@ -21,7 +21,7 @@ class CarAccidentsTableSeeder extends Seeder
         $parent = TaxonomyManager::register('Accident', 'car');
 
         foreach ($accidents as $key => $accident) {
-            TaxonomyManager::register($accident, 'Accident', $parent->term->id);
+            TaxonomyManager::register($accident, 'car-accident', $parent->term->id);
         }
 
         TaxonomyManager::updateTaxonomyChildrenSlugs($parent->id);
