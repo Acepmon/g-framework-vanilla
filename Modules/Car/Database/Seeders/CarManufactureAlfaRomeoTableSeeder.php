@@ -25,10 +25,10 @@ class CarManufactureAlfaRomeoTableSeeder extends Seeder
         ,'Alfa Romeo Tipo A','A.L.F.A 24 HP','Alfa Romeo 20/30 HP ES Sport','Alfa Romeo Giulietta','Alfa Romeo Gran Sport Quattroruote','Alfa Romeo 33.2','A.L.F.A. 40/60 GP'
         ,'Alfa Romeo P1','Alfa Romeo 169','Alfa Romeo 20/30 HP','Alfa Romeo P2','Alfa Romeo Kamal','Alfa Romeo Tipo 308','Alfa Romeo Tipo 512','Alfa Romeo Scighera'];
 
-        $parent = TaxonomyManager::register('AlfaRomeo', 'car-manufacturer');
+        $parent = TaxonomyManager::register('Alfa Romeo', 'car-manufacturer');
 
         foreach ($alfaRomeos as $key => $alfaRomeo) {
-            TaxonomyManager::register($alfaRomeo, 'car-alfaRomeo', $parent->term->id);
+            TaxonomyManager::register($alfaRomeo, 'car-alfa-romeo', $parent->term->id);
         }
 
         TaxonomyManager::updateTaxonomyChildrenSlugs($parent->id);

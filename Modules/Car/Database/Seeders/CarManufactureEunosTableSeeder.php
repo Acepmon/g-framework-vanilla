@@ -16,7 +16,7 @@ class CarManufactureEunosTableSeeder extends Seeder
      */
     public function run()
     {
-        $Eunoss = ['Eunos'];
+        $eunoss = ['Eunos'];
 
         $parent = TaxonomyManager::register('Eunos', 'car-manufacturer');
 

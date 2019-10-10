@@ -30,10 +30,10 @@ class CarManufactureAstonMartinTableSeeder extends Seeder
         , '2010 Aston Martin V12 Vantage Carbon Black Edition[99]', '2010 Aston Martin DBS Carbon Black Edition[99]', '2013 Aston Martin Rapide Bertone Jet 2+2 (concept)'
         , '2013 Aston Martin CC100 Speedster (concept)[100]', '2015 Aston Martin DB10 (concept)', 'Aston Martin DB11', 'Aston Martin DBS Superleggera', 'Aston Martin Rapide S', 'Aston Martin Vantage'];
 
-        $parent = TaxonomyManager::register('AstonMartin', 'car-manufacturer');
+        $parent = TaxonomyManager::register('Aston Martin', 'car-manufacturer');
 
         foreach ($astonMartins as $key => $astonMartin) {
-            TaxonomyManager::register($astonMartin, 'car-astonMartin', $parent->term->id);
+            TaxonomyManager::register($astonMartin, 'car-aston-martin', $parent->term->id);
         }
 
         TaxonomyManager::updateTaxonomyChildrenSlugs($parent->id);

@@ -18,10 +18,10 @@ class CarManufactureEagleTableSeeder extends Seeder
     {
         $eagles = ['Eagle1', 'Eagle2'];
 
-        $parent = TaxonomyManager::register('Eagles', 'car-manufacturer');
+        $parent = TaxonomyManager::register('Eagle', 'car-manufacturer');
 
         foreach ($eagles as $key => $eagle) {
-            TaxonomyManager::register($eagle, 'car-eagles', $parent->term->id);
+            TaxonomyManager::register($eagle, 'car-eagle', $parent->term->id);
         }
 
         TaxonomyManager::updateTaxonomyChildrenSlugs($parent->id);
