@@ -18,12 +18,12 @@ class CarOptionsCleanTableSeeder extends Seeder
     {
         $cleans = ['Woman driver', 'No smoking', 'One person drive'];
 
-        $parent = TaxonomyManager::findTerm('Clean');
+        $parent = TaxonomyManager::register('Clean', 'car-options');
 
         foreach ($cleans as $key => $clean) {
-            TaxonomyManager::register($clean, 'car-clean', $parent->id);
+            TaxonomyManager::register($clean, 'car-clean', $parent->term->id);
         }
 
-        // TaxonomyManager::updateTaxonomyChildrenSlugs($parent->id);
+        TaxonomyManager::updateTaxonomyChildrenSlugs($parent->id);
     }
 }
