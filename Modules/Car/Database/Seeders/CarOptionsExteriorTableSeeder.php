@@ -5,6 +5,8 @@ namespace Modules\Car\Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 
+use App\Entities\TaxonomyManager;
+
 class CarOptionsExteriorTableSeeder extends Seeder
 {
     /**
@@ -14,14 +16,14 @@ class CarOptionsExteriorTableSeeder extends Seeder
      */
     public function run()
     {
-        $Exteriors = ['Rear wiper', 'Electric folding side mirror', '4 season tire', 'Aluminum wheel', 'Sunroof'];
+        $exteriors = ['Rear wiper', 'Electric folding side mirror', '4 season tire', 'Aluminum wheel', 'Sunroof'];
 
-        $parent = TaxonomyManager::findTaxonomy('car-options');
+        $parent = TaxonomyManager::findTerm('Exterior');
 
-        foreach ($options as $key => $option) {
-            TaxonomyManager::register($option, 'car-exterior', $parent->term->id);
+        foreach ($exteriors as $key => $exterior) {
+            TaxonomyManager::register($exterior, 'car-exterior', $parent->id);
         }
 
-        TaxonomyManager::updateTaxonomyChildrenSlugs($parent->id);
+        // TaxonomyManager::updateTaxonomyChildrenSlugs($parent->id);
     }
 }

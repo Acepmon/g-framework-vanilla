@@ -5,6 +5,8 @@ namespace Modules\Car\Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 
+use App\Entities\TaxonomyManager;
+
 class CarOptionsConvenienceTableSeeder extends Seeder
 {
     /**
@@ -17,12 +19,12 @@ class CarOptionsConvenienceTableSeeder extends Seeder
         $conveniences = ['Black box', 'Blinder : rear', 'AV monitor : Rear', 'AV monitor : Front', 'Rain senser', 'Auto light', 'Bluetooth', 'AUX terminal', 'USB Terminal'
         , 'Navigation', 'CD player', 'Power window', 'Auto air conditioner', 'Cruise control', 'Smart Key'];
 
-        $parent = TaxonomyManager::findTaxonomy('car-options');
+        $parent = TaxonomyManager::findTerm('Convenience');
 
         foreach ($conveniences as $key => $convenience) {
-            TaxonomyManager::register($convenience, 'car-convenience', $parent->term->id);
+            TaxonomyManager::register($convenience, 'car-convenience', $parent->id);
         }
 
-        TaxonomyManager::updateTaxonomyChildrenSlugs($parent->id);
+        // TaxonomyManager::updateTaxonomyChildrenSlugs($parent->id);
     }
 }
