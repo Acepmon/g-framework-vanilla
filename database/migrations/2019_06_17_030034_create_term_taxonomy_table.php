@@ -23,6 +23,7 @@ class CreateTermTaxonomyTable extends Migration
 
             $table->foreign('term_id')->references('id')->on('terms')->onDelete('cascade');
             $table->foreign('parent_id')->references('id')->on('term_taxonomy');
+            $table->index(['taxonomy']);
         });
     }
 

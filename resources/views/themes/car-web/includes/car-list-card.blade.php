@@ -27,7 +27,7 @@ if (!function_exists('isPremium')) {
             <div class="card-caption">
                 <div class="card-title"><a href="{{ $car->slug }}" style="color: inherit">{{ $car->title }}</a></div>
                 <div class="meta">{{ $car->metaValue('buildYear') }}/{{ $car->metaValue('importDate') }} | {{ $car->metaValue('mileage') }}km</div>
-                <div class="price">{{ $car->metaValue('priceAmount') }} {{ $car->metaValue('priceUnit') }}</div>
+                <div class="price">{{ numerizePrice($car->metaValue('priceAmount')) }} {{ $car->metaValue('priceUnit') }}</div>
                 @if($car->metaValue('interest')) <!-- TODO: Change this Conditional -->
                 <div class="favorite" onclick="addToInterest(event, '{{$car->slug}}')">
                     <span class="text-danger"><i class="fas fa-heart"></i> Added to interest list</span>

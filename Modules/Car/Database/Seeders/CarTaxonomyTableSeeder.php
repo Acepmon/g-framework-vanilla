@@ -14,17 +14,17 @@ class CarTaxonomyTableSeeder extends Seeder
      */
     public function run()
     {
-        $this->call(CarParentsTableSeeder::Class);
-        $this->call(CarOptionsTaxonomyTableSeeder::Class);
-        $this->call(CarTypeTableSeeder::Class);
-        $this->call(CarManufactureTableSeeder::Class);
-        $this->call(CarFuelTypeTableSeeder::Class);
-        $this->call(CarTransmissionTableSeeder::Class);
-        $this->call(CarAreaTableSeeder::Class);
-        $this->call(CarColorTableSeeder::Class);
-        $this->call(CarWheelPositionTableSeeder::Class);
-        $this->call(CarWheelTableSeeder::Class);
-        $this->call(CarAccidentTableSeeder::Class);
-        $this->call(CarManCountTableSeeder::Class);
+        $this->call(CarParentsTableSeeder::class);
+        $this->call(CarOptionsTaxonomyTableSeeder::class);
+        $this->call(CarTypeTableSeeder::class);
+        $this->call(CarManufactureTableSeeder::class);
+        $this->call(CarFuelTypeTableSeeder::class);
+        $this->call(CarTransmissionTableSeeder::class);
+        $this->call(CarAreaTableSeeder::class);
+        $this->call(CarColorTableSeeder::class);
+        $this->call(CarWheelPositionTableSeeder::class);
+        $this->call(CarWheelTableSeeder::class);
+        $this->call(CarAccidentTableSeeder::class);
+        $this->call(CarManCountTableSeeder::class);
     }
 }

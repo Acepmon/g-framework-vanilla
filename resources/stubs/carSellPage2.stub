@@ -1,3 +1,16 @@
+@php
+try {
+  $carId = request('id', 0);
+  if ($carId == 0) {
+    $carId = \Session::has('createdCarId')?\Session::get('createdCarId'):0;
+  }
+  $car = \App\Content::findOrFail($carId);
+} catch (\Exception $ex) {
+  abort(404);
+}
+
+@endphp
+
 @extends('themes.car-web.layouts.default')
 
 @section('title')
@@ -5,7 +18,12 @@
 @endsection
 
 @section('load')
-
+<style>
+.step-process > .progress_inner_step > a {
+  text-decoration: none;
+  color: inherit!important;
+}
+</style>
 @endsection
 
 @section('content')
@@ -20,7 +38,7 @@
           <div class="card-header">
             <div class="step-process sp-4">
               <div class='progress_inner_step active'>
-                <a for='step-1' data-toggle="tab" href="#step-1" id="tab-step-1">Add details</a>
+                <a for='step-1' data-toggle="tab" href="#step-1" id="tab-step-1" class="text-decoration-none">Add details</a>
               </div>
               <div class='progress_inner_step'>
                 <a for='step-2' data-toggle="tab" href="#step-2" id="tab-step-2">Upload media</a>
@@ -41,14 +59,14 @@
                 @include('pages.' . App\Content::where('slug', 'sell-car-page-2-step-2')->first()->currentView())
               </div>
               <div id="step-3" class="tab-pane fade">
-                @if(\Session::has('createdCarType') && \Session::get('createdCarType') == 'auction')
+                @if($car->metaValue('isAuction'))
                 @include('pages.' . App\Content::where('slug', 'sell-car-auction')->first()->currentView())
                 @else
                 @include('pages.' . App\Content::where('slug', 'sell-car-page-2-step-3')->first()->currentView())
                 @endif
               </div>
               <div id="step-4" class="tab-pane fade">
-                This is empty
+                 @include('pages.' . App\Content::where('slug', 'sell-car-page-2-step-4')->first()->currentView())
               </div>
           </div>
         </div>
@@ -74,7 +92,7 @@
     }
   });
 
-  var carId = {{ \Session::has('createdCarId')?\Session::get('createdCarId'):0 }};
+  var carId = {{ $carId }};
   console.log(carId);
 
   // DEMO MULTISTEP TODO: CHANGE -->

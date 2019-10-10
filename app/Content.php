@@ -12,11 +12,13 @@ class Content extends Model
     const TYPE_PAGE = 'page';
     const TYPE_POST = 'post';
     const TYPE_CAR = 'car';
+    const TYPE_LOAN_CHECK = 'loan-check';
 
     const TYPE_ARRAY = [
         self::TYPE_PAGE,
         self::TYPE_POST,
-        self::TYPE_CAR
+        self::TYPE_CAR,
+        self::TYPE_LOAN_CHECK
     ];
 
     const STATUS_DRAFT = 'draft';
@@ -52,7 +54,7 @@ class Content extends Model
             } else {
                 $query->where('value', $operator, $value);
             }
-        })->get();
+        });
     }
 
     public static function inRangeMetas($key, $min, $max)
@@ -61,7 +63,7 @@ class Content extends Model
             $query->where('key', $key);
             $query->where('value', '>=', $min);
             $query->where('value', '<=', $max);
-        })->get();
+        });
     }
 
     public function metas()

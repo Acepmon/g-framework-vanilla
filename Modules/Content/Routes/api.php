@@ -25,5 +25,8 @@ Route::prefix('v1')->group(function () {
             'banners' => 'BannerController',
             'contents' => 'ContentController'
         ]);
+
+        Route::get('taxonomies', 'TaxonomyController@index');
+        Route::get('taxonomies/{taxonomy}', 'TaxonomyController@show');
     });
 });
