@@ -5,6 +5,8 @@ namespace Modules\Car\Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 
+use App\Entities\TaxonomyManager;
+
 class CarOptionsSafetyTableSeeder extends Seeder
 {
     /**
@@ -14,21 +16,15 @@ class CarOptionsSafetyTableSeeder extends Seeder
      */
     public function run()
     {
-        $safetys = ['Electric parking brake', 'ABS', 'Parking sense : Front', 'Parking Sense : rear', 'Camera : Side', 'Camera : Rear', 'Camera : Front', 'Airbag : Curtains'
+        $safeties = ['Electric parking brake', 'ABS', 'Parking sense : Front', 'Parking Sense : rear', 'Camera : Side', 'Camera : Rear', 'Camera : Front', 'Airbag : Curtains'
         , 'Airbag : Side', 'Passenger’s seat', 'Airbag : Driver’s seat'];
 
-        foreach($safetys as &$safety){
-            $term_id5 = DB::table('terms')->insertGetId([
-                'name' => $safety,
-                'slug' => $safety,
-            ]);
-            DB::table('term_taxonomy')->insert([
-                'term_id' => $term_id5,
-                'taxonomy' => 'Safety',
-                'description' => 'safety',
-                'parent_id' => '104',
-                'count' => 0
-            ]);
+        $parent = TaxonomyManager::findTerm('Safety');
+
+        foreach ($safeties as $key => $safety) {
+            TaxonomyManager::register($safety, 'car-safety', $parent->id);
         }
+
+        // TaxonomyManager::updateTaxonomyChildrenSlugs($parent->id);
     }
 }

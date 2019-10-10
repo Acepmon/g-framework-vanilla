@@ -5,6 +5,8 @@ namespace Modules\Car\Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 
+use App\Entities\TaxonomyManager;
+
 class CarOptionsGutsTableSeeder extends Seeder
 {
     /**
@@ -14,21 +16,15 @@ class CarOptionsGutsTableSeeder extends Seeder
      */
     public function run()
     {
-        $Guts = ['Power Door lock', 'Memory seat : driver’s seat', 'Heated Seat: Rear Seat', 'Heated Seat: Driver’s Seat', 'Electric seat : Passenger seat', 'Electric seat : driver’s seat'
+        $guts = ['Power Door lock', 'Memory seat : driver’s seat', 'Heated Seat: Rear Seat', 'Heated Seat: Driver’s Seat', 'Electric seat : Passenger seat', 'Electric seat : driver’s seat'
         , 'Leather seat', 'Power steering', 'Steering wheel remote control'];
 
-        foreach($Guts as &$Gut){
-            $term_id5 = DB::table('terms')->insertGetId([
-                'name' => $Gut,
-                'slug' => $Gut,
-            ]);
-            DB::table('term_taxonomy')->insert([
-                'term_id' => $term_id5,
-                'taxonomy' => 'Guts',
-                'description' => 'Guts',
-                'parent_id' => '103',
-                'count' => 0
-            ]);
+        $parent = TaxonomyManager::findTerm('Guts');
+
+        foreach ($guts as $key => $gut) {
+            TaxonomyManager::register($gut, 'car-guts', $parent->id);
         }
+
+        // TaxonomyManager::updateTaxonomyChildrenSlugs($parent->id);
     }
 }

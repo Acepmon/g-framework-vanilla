@@ -5,6 +5,8 @@ namespace Modules\Car\Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 
+use App\Entities\TaxonomyManager;
+
 class CarManufactureLexusTableSeeder extends Seeder
 {
     /**
@@ -14,7 +16,7 @@ class CarManufactureLexusTableSeeder extends Seeder
      */
     public function run()
     {
-        $Lexus = ['2011 Lexus CT 200h', '2014 Lexus CT 200h', '2000 Lexus IS 200/IS 300', '2006 Lexus IS 250/IS 250 AWD/IS 300/IS 350/IS 220d', '2008 Lexus IS F', 
+        $lexuses = ['2011 Lexus CT 200h', '2014 Lexus CT 200h', '2000 Lexus IS 200/IS 300', '2006 Lexus IS 250/IS 250 AWD/IS 300/IS 350/IS 220d', '2008 Lexus IS F', 
         '2010 Lexus IS 250 C/IS 300 C/IS 350 C/IS F', '2011 Lexus IS 220d', '2013 Lexus IS 250/IS 350/IS 300h', '2015 Lexus IS 200t'
         , '2017 Lexus IS 250/IS 300/IS 350/IS 300h', '2010 Lexus HS 250h', '2013 Lexus HS 250h', '1990 Lexus ES 250', '1992 Lexus ES 300', '1997 Lexus ES 300',
          '2004 Lexus ES 330', '2007 Lexus ES 350', '2010 Lexus ES 240', '2013 Lexus ES 250/ES 300h/ES 350', '2015 Lexus ES 200/ES 250/ES 300h/ES 350'
@@ -45,18 +47,12 @@ class CarManufactureLexusTableSeeder extends Seeder
          , '1997 Lexus HPS: sports sedan', '1999 Lexus Sports Coupe: convertible', '2003 Lexus HPX: crossover', '2009 Lexus HB: hybrid sports motorbike', '2016 Lexus UX: crossover'
          , '2017 Lexus LS+: luxury sedan', '2019 Lexus LY-650 Yacht[4]', '2002 Lexus 2054'];
 
-        foreach($Lexus as &$model){
-            $term_id5 = DB::table('terms')->insertGetId([
-                'name' => $model,
-                'slug' => 'Lexus',
-            ]);
-            DB::table('term_taxonomy')->insert([
-                'term_id' => $term_id5,
-                'taxonomy' => 'Model',
-                'description' => $model,
-                'parent_id' => '8',
-                'count' => 0
-            ]);
-        }
+         $parent = TaxonomyManager::register('Lexus', 'car-manufacturer');
+
+         foreach ($lexuses as $key => $lexus) {
+             TaxonomyManager::register($lexus, 'car-lexus', $parent->term->id);
+         }
+ 
+         TaxonomyManager::updateTaxonomyChildrenSlugs($parent->id);
     }
 }

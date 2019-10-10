@@ -44,7 +44,7 @@ class CarManufactureAudiTableSeeder extends Seeder
                 'term_id' => $term_id5,
                 'taxonomy' => 'Model',
                 'description' => $model,
-                'parent_id' => '13',
+                'parent_id' => '22',
                 'count' => 0
             ]);
         }

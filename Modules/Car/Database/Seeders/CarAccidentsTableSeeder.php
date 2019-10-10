@@ -5,6 +5,8 @@ namespace Modules\Car\Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 
+use App\Entities\TaxonomyManager;
+
 class CarAccidentsTableSeeder extends Seeder
 {
     /**
@@ -16,17 +18,13 @@ class CarAccidentsTableSeeder extends Seeder
     {
         $accidents = ['Unassuming', 'Simple exchange', 'Simple accident'];
 
-        foreach($accidents as &$accident){
-            $term_id1 = DB::table('terms')->insertGetId([
-                'name' => $accident,
-                'slug' => $accident,
-            ]);
-            DB::table('term_taxonomy')->insert([
-                'term_id' => $term_id1,
-                'taxonomy' => 'Accident',
-                'description' => $accident,
-                'count' => 0
-            ]);
+        $parent = TaxonomyManager::register('Accident', 'car');
+
+        foreach ($accidents as $key => $accident) {
+            TaxonomyManager::register($accident, 'car-accident', $parent->term->id);
         }
+
+        TaxonomyManager::updateTaxonomyChildrenSlugs($parent->id);
+
     }
 }
