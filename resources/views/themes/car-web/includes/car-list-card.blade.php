@@ -10,13 +10,6 @@ if (!function_exists('isPremium')) {
             ($car->metaValue('publishType') == 'best_premium' || $car->metaValue('publishType') == 'premium');
     }
 }
-
-if(!function_exists('numerizePrice')) {
-    function numerizePrice($value) {
-        $value /= 1000000;
-        return $value . 'сая';
-    }
-}
 @endphp
 
 @if($car)

@@ -4,7 +4,6 @@ namespace Modules\Car\Database\Seeders;
 
 use App\Content;
 use App\ContentMeta;
-use App\Group;
 use App\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Seeder;
@@ -28,14 +27,14 @@ class CarContentsTableSeeder extends Seeder
             $content->slug = config('content.cars.containerPage') . '/' . $content->slug;
             $content->save();
 
-            $carUserRandomId = User::whereHas('groups', function ($query) {
-                $query->where('type', Group::TYPE_DYNAMIC);
-            })->get()->random()->id;
+            // $carUserRandomId = User::whereHas('groups', function ($query) {
+            //     $query->where('type', Group::TYPE_DYNAMIC);
+            // })->get()->random()->id;
+            $carUserRandomId = User::all()->random()->id;
             $content->author_id = $carUserRandomId;
             $content->save();
 
             // Random values
-
 
             // $countryNmae = Content::;
             // $markName = '';
@@ -53,13 +52,12 @@ class CarContentsTableSeeder extends Seeder
             $thumbHeight = 360;
             $mediaWidth = 1920;
             $mediaHeight = 1080;
-            $lorempixelType = 'transport';
-            $lorempixelUrl = 'https://picsum.photos/id/';
-            $thumbnail = $lorempixelUrl . rand(1, 1000) . '/' . $thumbWidth . '/' . $thumbHeight . '/';
+            $placeholderUrl = 'https://via.placeholder.com';
+            $thumbnail = $placeholderUrl . '/' . $thumbWidth . 'x' . $thumbHeight . '/';
             $medias = [];
             $mediasLimit = rand(1, 20);
             for ($i = 0; $i < $mediasLimit; $i++) {
-                $media = $lorempixelUrl . rand(1, 1000) . '/' . $mediaWidth . '/' . $mediaHeight . '/';
+                $media = $placeholderUrl . '/' . $mediaWidth . 'x' . $mediaHeight . '/';
                 $meta = new ContentMeta(['key' => 'medias', 'value' => $media]);
                 array_push($medias, $meta);
             }
@@ -114,7 +112,7 @@ class CarContentsTableSeeder extends Seeder
                 new ContentMeta(['key' => 'link', 'value' => 'https://www.youtube.com/watch?v=2RnGwkWL94I']),
 
                 // Auction fields
-                new ContentMeta(['key' => 'isAuction', 'value' => rand(0,1) ? true : false]),
+                new ContentMeta(['key' => 'isAuction', 'value' => rand(0, 1)]),
                 new ContentMeta(['key' => 'buyoutAmount', 'value' => '10000000']),
                 new ContentMeta(['key' => 'buyoutUnit', 'value' => '₮']),
                 new ContentMeta(['key' => 'startPriceAmount', 'value' => '8000000']),
@@ -137,7 +135,7 @@ class CarContentsTableSeeder extends Seeder
                 new ContentMeta(['key' => 'doorCount', 'value' => '4']),
 
                 // Doctor Service Verification
-                new ContentMeta(['key' => 'doctorVerified', 'value' => rand(0,1) ? true : false]),
+                new ContentMeta(['key' => 'doctorVerified', 'value' => rand(0, 1)]),
                 new ContentMeta(['key' => 'doctorVerifiedBy', 'value' => '1']),
                 new ContentMeta(['key' => 'doctorVerificationRequest', 'value' => false]),
                 new ContentMeta(['key' => 'doctorVerificationFile', 'value' => '']),
@@ -149,7 +147,7 @@ class CarContentsTableSeeder extends Seeder
                 new ContentMeta(['key' => 'retailWebsite', 'value' => 'www.yourdomain.com']),
                 new ContentMeta(['key' => 'retailPhone', 'value' => '+976 99999999']),
                 new ContentMeta(['key' => 'retailVehicles', 'value' => '132']),
-                new ContentMeta(['key' => 'retailImage', 'value' => url('assets/car-web/img/retail.png')]),
+                new ContentMeta(['key' => 'retailImage', 'value' => url(asset('car-web/img/retail.png'))]),
 
                 // Seller
                 new ContentMeta(['key' => 'sellerDescription', 'value' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum ullam, explicabo iure delectus asperiores sed aliquam provident magnam similique accusantium magni! Neque dolorum similique aliquam id recusandae aliquid nihil sit, blanditiis corporis? Odit, repudiandae recusandae. Libero rem aliquid, distinctio vel ad ab nostrum nulla repellendus modi officia eligendi officiis ducimus labore? Ad, praesentium laborum fugiat vitae doloremque qui beatae consectetur.']),
@@ -158,72 +156,77 @@ class CarContentsTableSeeder extends Seeder
                 new ContentMeta(['key' => 'diagnosticConditionImage', 'value' => url('assets/car-web/img/retail.png')]),
 
                 // Options - Exterior
-                new ContentMeta(['key' => 'optionExteriorSunroof', 'value' => rand(0,1) ? true : false]),
-                new ContentMeta(['key' => 'optionExteriorAluminumWheel', 'value' => rand(0,1) ? true : false]),
-                new ContentMeta(['key' => 'optionExterior4SeasonTire', 'value' => rand(0,1) ? true : false]),
-                new ContentMeta(['key' => 'optionExteriorElectricSideMirror', 'value' => rand(0,1) ? true : false]),
-                new ContentMeta(['key' => 'optionExteriorRearWiper', 'value' => rand(0,1) ? true : false]),
+                new ContentMeta(['key' => 'optionExteriorSunroof', 'value' => rand(0, 1)]),
+                new ContentMeta(['key' => 'optionExteriorAluminumWheel', 'value' => rand(0, 1)]),
+                new ContentMeta(['key' => 'optionExterior4SeasonTire', 'value' => rand(0, 1)]),
+                new ContentMeta(['key' => 'optionExteriorElectricSideMirror', 'value' => rand(0, 1)]),
+                new ContentMeta(['key' => 'optionExteriorRearWiper', 'value' => rand(0, 1)]),
 
                 // Options - Guts
-                new ContentMeta(['key' => 'optionGutsSteerRemoteControl', 'value' => rand(0,1) ? true : false]),
-                new ContentMeta(['key' => 'optionGutsPowerSteering', 'value' => rand(0,1) ? true : false]),
-                new ContentMeta(['key' => 'optionGutsLeatherSeat', 'value' => rand(0,1) ? true : false]),
-                new ContentMeta(['key' => 'optionGutsElectricSeatDriverSeat', 'value' => rand(0,1) ? true : false]),
-                new ContentMeta(['key' => 'optionGutsElectricSeatPassengerSeat', 'value' => rand(0,1) ? true : false]),
-                new ContentMeta(['key' => 'optionGutsHeatedSeatDriverSeat', 'value' => rand(0,1) ? true : false]),
-                new ContentMeta(['key' => 'optionGutsHeatedSeatRearSeat', 'value' => rand(0,1) ? true : false]),
-                new ContentMeta(['key' => 'optionGutsMemorySeatDriverSeat', 'value' => rand(0,1) ? true : false]),
-                new ContentMeta(['key' => 'optionGutsPowerDoorLock', 'value' => rand(0,1) ? true : false]),
+                new ContentMeta(['key' => 'optionGutsSteerRemoteControl', 'value' => rand(0, 1)]),
+                new ContentMeta(['key' => 'optionGutsPowerSteering', 'value' => rand(0, 1)]),
+                new ContentMeta(['key' => 'optionGutsLeatherSeat', 'value' => rand(0, 1)]),
+                new ContentMeta(['key' => 'optionGutsElectricSeatDriverSeat', 'value' => rand(0, 1)]),
+                new ContentMeta(['key' => 'optionGutsElectricSeatPassengerSeat', 'value' => rand(0, 1)]),
+                new ContentMeta(['key' => 'optionGutsHeatedSeatDriverSeat', 'value' => rand(0, 1)]),
+                new ContentMeta(['key' => 'optionGutsHeatedSeatRearSeat', 'value' => rand(0, 1)]),
+                new ContentMeta(['key' => 'optionGutsMemorySeatDriverSeat', 'value' => rand(0, 1)]),
+                new ContentMeta(['key' => 'optionGutsPowerDoorLock', 'value' => rand(0, 1)]),
 
                 // Options - Safety
-                new ContentMeta(['key' => 'optionSafetyAirbagDriverSeat', 'value' => rand(0,1) ? true : false]),
-                new ContentMeta(['key' => 'optionSafetyAirbagPassengerSeat', 'value' => rand(0,1) ? true : false]),
-                new ContentMeta(['key' => 'optionSafetyAirbagSide', 'value' => rand(0,1) ? true : false]),
-                new ContentMeta(['key' => 'optionSafetyAirbagCurtains', 'value' => rand(0,1) ? true : false]),
-                new ContentMeta(['key' => 'optionSafetyCameraFront', 'value' => rand(0,1) ? true : false]),
-                new ContentMeta(['key' => 'optionSafetyCameraRear', 'value' => rand(0,1) ? true : false]),
-                new ContentMeta(['key' => 'optionSafetyCameraSide', 'value' => rand(0,1) ? true : false]),
-                new ContentMeta(['key' => 'optionSafetyParkingSenseRear', 'value' => rand(0,1) ? true : false]),
-                new ContentMeta(['key' => 'optionSafetyParkingSenseFront', 'value' => rand(0,1) ? true : false]),
-                new ContentMeta(['key' => 'optionSafetyABS', 'value' => rand(0,1) ? true : false]),
-                new ContentMeta(['key' => 'optionSafetyElectricParkingBrake', 'value' => rand(0,1) ? true : false]),
+                new ContentMeta(['key' => 'optionSafetyAirbagDriverSeat', 'value' => rand(0, 1)]),
+                new ContentMeta(['key' => 'optionSafetyAirbagPassengerSeat', 'value' => rand(0, 1)]),
+                new ContentMeta(['key' => 'optionSafetyAirbagSide', 'value' => rand(0, 1)]),
+                new ContentMeta(['key' => 'optionSafetyAirbagCurtains', 'value' => rand(0, 1)]),
+                new ContentMeta(['key' => 'optionSafetyCameraFront', 'value' => rand(0, 1)]),
+                new ContentMeta(['key' => 'optionSafetyCameraRear', 'value' => rand(0, 1)]),
+                new ContentMeta(['key' => 'optionSafetyCameraSide', 'value' => rand(0, 1)]),
+                new ContentMeta(['key' => 'optionSafetyParkingSenseRear', 'value' => rand(0, 1)]),
+                new ContentMeta(['key' => 'optionSafetyParkingSenseFront', 'value' => rand(0, 1)]),
+                new ContentMeta(['key' => 'optionSafetyABS', 'value' => rand(0, 1)]),
+                new ContentMeta(['key' => 'optionSafetyElectricParkingBrake', 'value' => rand(0, 1)]),
 
                 // Options - Convenience
-                new ContentMeta(['key' => 'optionConvenienceSmartKey', 'value' => rand(0,1) ? true : false]),
-                new ContentMeta(['key' => 'optionConvenienceCruiseControl', 'value' => rand(0,1) ? true : false]),
-                new ContentMeta(['key' => 'optionConvenienceAutoAirCondition', 'value' => rand(0,1) ? true : false]),
-                new ContentMeta(['key' => 'optionConveniencePowerWindow', 'value' => rand(0,1) ? true : false]),
-                new ContentMeta(['key' => 'optionConvenienceCDPlayer', 'value' => rand(0,1) ? true : false]),
-                new ContentMeta(['key' => 'optionConvenienceNavigation', 'value' => rand(0,1) ? true : false]),
-                new ContentMeta(['key' => 'optionConvenienceUSBTerminal', 'value' => rand(0,1) ? true : false]),
-                new ContentMeta(['key' => 'optionConvenienceAUXTerminal', 'value' => rand(0,1) ? true : false]),
-                new ContentMeta(['key' => 'optionConvenienceBluetooth', 'value' => rand(0,1) ? true : false]),
-                new ContentMeta(['key' => 'optionConvenienceAutoLight', 'value' => rand(0,1) ? true : false]),
-                new ContentMeta(['key' => 'optionConvenienceRainSenser', 'value' => rand(0,1) ? true : false]),
-                new ContentMeta(['key' => 'optionConvenienceAVMonitorFront', 'value' => rand(0,1) ? true : false]),
-                new ContentMeta(['key' => 'optionConvenienceAVMonitorRear', 'value' => rand(0,1) ? true : false]),
-                new ContentMeta(['key' => 'optionConvenienceBlinderRear', 'value' => rand(0,1) ? true : false]),
-                new ContentMeta(['key' => 'optionConvenienceBlackBox', 'value' => rand(0,1) ? true : false]),
+                new ContentMeta(['key' => 'optionConvenienceSmartKey', 'value' => rand(0, 1)]),
+                new ContentMeta(['key' => 'optionConvenienceCruiseControl', 'value' => rand(0, 1)]),
+                new ContentMeta(['key' => 'optionConvenienceAutoAirCondition', 'value' => rand(0, 1)]),
+                new ContentMeta(['key' => 'optionConveniencePowerWindow', 'value' => rand(0, 1)]),
+                new ContentMeta(['key' => 'optionConvenienceCDPlayer', 'value' => rand(0, 1)]),
+                new ContentMeta(['key' => 'optionConvenienceNavigation', 'value' => rand(0, 1)]),
+                new ContentMeta(['key' => 'optionConvenienceUSBTerminal', 'value' => rand(0, 1)]),
+                new ContentMeta(['key' => 'optionConvenienceAUXTerminal', 'value' => rand(0, 1)]),
+                new ContentMeta(['key' => 'optionConvenienceBluetooth', 'value' => rand(0, 1)]),
+                new ContentMeta(['key' => 'optionConvenienceAutoLight', 'value' => rand(0, 1)]),
+                new ContentMeta(['key' => 'optionConvenienceRainSenser', 'value' => rand(0, 1)]),
+                new ContentMeta(['key' => 'optionConvenienceAVMonitorFront', 'value' => rand(0, 1)]),
+                new ContentMeta(['key' => 'optionConvenienceAVMonitorRear', 'value' => rand(0, 1)]),
+                new ContentMeta(['key' => 'optionConvenienceBlinderRear', 'value' => rand(0, 1)]),
+                new ContentMeta(['key' => 'optionConvenienceBlackBox', 'value' => rand(0, 1)]),
 
                 // Options - Clean
-                new ContentMeta(['key' => 'optionCleanOnePersonDrive', 'value' => rand(0,1) ? true : false]),
-                new ContentMeta(['key' => 'optionCleanNoSmoking', 'value' => rand(0,1) ? true : false]),
-                new ContentMeta(['key' => 'optionCleanWomanDriver', 'value' => rand(0,1) ? true : false]),
+                new ContentMeta(['key' => 'optionCleanOnePersonDrive', 'value' => rand(0, 1)]),
+                new ContentMeta(['key' => 'optionCleanNoSmoking', 'value' => rand(0, 1)]),
+                new ContentMeta(['key' => 'optionCleanWomanDriver', 'value' => rand(0, 1)]),
 
                 // Publishing
                 new ContentMeta(['key' => 'publishType', 'value' => $publishTypes[array_rand($publishTypes)]]),
                 new ContentMeta(['key' => 'publishPriceAmount', 'value' => rand(10000, 50000)]),
                 new ContentMeta(['key' => 'publishPriceUnit', 'value' => '₮']),
+                new ContentMeta(['key' => 'publishDuration', 'value' => rand(1, 31)]),
                 new ContentMeta(['key' => 'publishTotalPriceAmount', 'value' => rand(100000, 500000)]),
                 new ContentMeta(['key' => 'publishTotalPriceUnit', 'value' => '₮']),
-                new ContentMeta(['key' => 'publishDuration', 'value' => rand(1, 31)]),
-                new ContentMeta(['key' => 'publishVerified', 'value' => rand(0, 1) ? true : false]),
+                new ContentMeta(['key' => 'publishVerified', 'value' => rand(0, 1)]),
                 new ContentMeta(['key' => 'publishVerifiedBy', 'value' => 1]),
                 new ContentMeta(['key' => 'publishVerifiedAt', 'value' => now()]),
                 new ContentMeta(['key' => 'publishVerifiedEnd', 'value' => now()->addDays(rand(1, 31))]),
             ]);
 
             $content->metas()->saveMany($medias);
+
+            // Update title by merging markName and modelName
+            $content->title = $content->metaValue('markName') . ' ' . $content->metaValue('modelName');
+            $content->slug = 'posts/' . $content->id;
+            $content->save();
 
             $value = new \stdClass;
             $value->datetime = $time;

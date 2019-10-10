@@ -14,7 +14,7 @@ class CarManufactureTableSeeder extends Seeder
      */
     public function run()
     {
-        $Factory = ['Toyota', 'Lexus', 'Nissan', 'Mercedes-benz', 'Volkswagen', 'Mini', 'Audi', 'BMW', 'Ford', 'Land Rover', 'Daihatsu', 'Dodge', 'Honda', 'Hyundai', 'Kia' 
+        $Factory = ['Toyota', 'Lexus', 'Nissan', 'Mercedes-benz', 'Volkswagen', 'Mini', 'Audi', 'BMW', 'Ford', 'Land Rover', 'Daihatsu', 'Dodge', 'Honda', 'Hyundai', 'Kia'
         ,'Jeep', 'Subaru', 'Suzuki', 'Mitsubishi', 'Infiniti', 'Mazda', 'Chevrolet', 'isuzu', 'Acura', 'Porsche', 'Tesla', 'Volvo', 'Daewoo', 'Mitsuoka', 'Eunos', 'CT T'
         , 'AM General', 'Alfa Romeo', 'Aston Martin', 'Bentley', 'Bugatti', 'Buick', 'Cadillac', 'Chrysler', 'Eagle', 'Jaguar', 'Lamborghini', 'Lincoln', 'Lotus', 'Maserati'
         , 'Maybach', 'McLaren', 'Panoz', 'Ram', 'Rolls-Royce', 'Saab', 'Scion', 'Smart', 'Spyker'];
@@ -32,40 +32,40 @@ class CarManufactureTableSeeder extends Seeder
             ]);
         }
 
-        $this->call(CarManufactureToyotaTableSeeder::Class);
-        $this->call(CarManufactureLexusTableSeeder::Class);
-        $this->call(CarManufactureNissanTableSeeder::Class);
-        $this->call(CarManufactureMercedesbenzTableSeeder::Class);
-        $this->call(CarManufactureVolkswagenTableSeeder::Class);
-        $this->call(CarManufactureMiniTableSeeder::Class);
-        $this->call(CarManufactureAudiTableSeeder::Class);
-        $this->call(CarManufactureBMWTableSeeder::Class);
-        $this->call(CarManufactureFordTableSeeder::Class);
-        $this->call(CarManufactureLandRoverTableSeeder::Class);
-        $this->call(CarManufactureDaihatsuTableSeeder::Class);
-        $this->call(CarManufactureDodgeTableSeeder::Class);
-        $this->call(CarManufactureHondaTableSeeder::Class);
-        $this->call(CarManufactureHyandaiTableSeeder::Class);
-        $this->call(CarManufactureKiaTableSeeder::Class);
-        $this->call(CarManufactureSubaruTableSeeder::Class);
-        $this->call(CarManufactureSuzukiTableSeeder::Class);
-        $this->call(CarManufactureMitsubishiTableSeeder::Class);
-        $this->call(CarManufactureInfinitiTableSeeder::Class);
-        $this->call(CarManufactureMazdeTableSeeder::Class);
-        $this->call(CarManufactureChevroletTableSeeder::Class);
-        $this->call(CarManufactureIsuzuTableSeeder::Class);
-        $this->call(CarManufactureAcuraTableSeeder::Class);
-        $this->call(CarManufacturePorscheTableSeeder::Class);
-        $this->call(CarManufactureTeslaTableSeeder::Class);
-        $this->call(CarManufactureMitsuokaTableSeeder::Class);
-        $this->call(CarManufactureEunosTableSeeder::Class);
-        $this->call(CarManufactureAlfaRomeoTableSeeder::Class);
-        $this->call(CarManufactureAstinMartinTableSeeder::Class);
-        $this->call(CarManufactureBentleyTableSeeder::Class);
-        $this->call(CarManufactureBugattiTableSeeder::Class);
-        $this->call(CarManufactureBuickTableSeeder::Class);
-        $this->call(CarManufactureCadillacTableSeeder::Class);
-        $this->call(CarManufactureChryslerTableSeeder::Class);
-        $this->call(CarManufactureEagleTableSeeder::Class);
+        $this->call(CarManufactureToyotaTableSeeder::class);
+        $this->call(CarManufactureLexusTableSeeder::class);
+        $this->call(CarManufactureNissanTableSeeder::class);
+        $this->call(CarManufactureMercedesbenzTableSeeder::class);
+        $this->call(CarManufactureVolkswagenTableSeeder::class);
+        $this->call(CarManufactureMiniTableSeeder::class);
+        $this->call(CarManufactureAudiTableSeeder::class);
+        $this->call(CarManufactureBMWTableSeeder::class);
+        $this->call(CarManufactureFordTableSeeder::class);
+        $this->call(CarManufactureLandRoverTableSeeder::class);
+        $this->call(CarManufactureDaihatsuTableSeeder::class);
+        $this->call(CarManufactureDodgeTableSeeder::class);
+        $this->call(CarManufactureHondaTableSeeder::class);
+        $this->call(CarManufactureHyandaiTableSeeder::class);
+        $this->call(CarManufactureKiaTableSeeder::class);
+        $this->call(CarManufactureSubaruTableSeeder::class);
+        $this->call(CarManufactureSuzukiTableSeeder::class);
+        $this->call(CarManufactureMitsubishiTableSeeder::class);
+        $this->call(CarManufactureInfinitiTableSeeder::class);
+        $this->call(CarManufactureMazdeTableSeeder::class);
+        $this->call(CarManufactureChevroletTableSeeder::class);
+        $this->call(CarManufactureIsuzuTableSeeder::class);
+        $this->call(CarManufactureAcuraTableSeeder::class);
+        $this->call(CarManufacturePorscheTableSeeder::class);
+        $this->call(CarManufactureTeslaTableSeeder::class);
+        $this->call(CarManufactureMitsuokaTableSeeder::class);
+        $this->call(CarManufactureEunosTableSeeder::class);
+        $this->call(CarManufactureAlfaRomeoTableSeeder::class);
+        $this->call(CarManufactureAstinMartinTableSeeder::class);
+        $this->call(CarManufactureBentleyTableSeeder::class);
+        $this->call(CarManufactureBugattiTableSeeder::class);
+        $this->call(CarManufactureBuickTableSeeder::class);
+        $this->call(CarManufactureCadillacTableSeeder::class);
+        $this->call(CarManufactureChryslerTableSeeder::class);
+        $this->call(CarManufactureEagleTableSeeder::class);
     }
 }

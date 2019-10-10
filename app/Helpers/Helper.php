@@ -52,3 +52,8 @@ function put_blade_section(string $path, string $section, $replacement)
 
     return put_string_between($contents, $sectionNameStart, $sectionNameEnd, '\\n' . $replacement . '\\n');
 }
+
+function numerizePrice($value) {
+    $value /= 1000000;
+    return $value . ' сая';
+}
