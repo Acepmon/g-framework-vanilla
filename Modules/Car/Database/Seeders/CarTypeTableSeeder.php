@@ -5,6 +5,8 @@ namespace Modules\Car\Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 
+use App\Entities\TaxonomyManager;
+
 class CarTypeTableSeeder extends Seeder
 {
     /**
@@ -16,17 +18,12 @@ class CarTypeTableSeeder extends Seeder
     {
         $CarType = ['Sedan', 'SUV', 'Sport', 'Trucks', 'Vans', 'Bus',];
 
-        foreach($CarType as &$type){
-            $term_id1 = DB::table('terms')->insertGetId([
-                'name' => $type,
-                'slug' => $type,
-            ]);
-            DB::table('term_taxonomy')->insert([
-                'term_id' => $term_id1,
-                'taxonomy' => 'Car Type',
-                'description' => $type,
-                'count' => 0
-            ]);
+        $parent = TaxonomyManager::register('Car Type', 'car');
+
+        foreach ($CarType as $key => $type) {
+            TaxonomyManager::register($type, 'car-type', $parent->term->id);
         }
+
+        TaxonomyManager::updateTaxonomyChildrenSlugs($parent->id);
     }
 }
