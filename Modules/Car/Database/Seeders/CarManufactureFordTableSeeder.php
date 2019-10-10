@@ -5,6 +5,8 @@ namespace Modules\Car\Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 
+use App\Entities\TaxonomyManager;
+
 class CarManufactureFordTableSeeder extends Seeder
 {
     /**
@@ -14,7 +16,7 @@ class CarManufactureFordTableSeeder extends Seeder
      */
     public function run()
     {
-        $Ford = ['Ford C100', 'Ford Capri RS', 'Ford Escort RS 1700T', 'Ford Escort RS Cosworth', 'Ford Fiesta R5', 'Ford Fiesta RS WRC', 'Ford Focus RS WRC', 'Ford G7'
+        $fords = ['Ford C100', 'Ford Capri RS', 'Ford Escort RS 1700T', 'Ford Escort RS Cosworth', 'Ford Fiesta R5', 'Ford Fiesta RS WRC', 'Ford Focus RS WRC', 'Ford G7'
         , 'Ford GT40', 'Ford GT70', 'Ford Mustang GTP (1983–1984)', 'Ford Mustang Maxum GTP (1987)', 'Ford Mustang Probe (GTP, 1985)', 'Ford P68', 'Ford P69', 'Ford RS200'
         , 'Ford Sierra RS Cosworth', 'Ford E-Series (1961–2014)', 'Ford Econoline (1978–2013)', 'Ford Husky (circa 1987, South Africa)', 'Ford Spectron', 'Ford Supervan', 'Ford Thames 300E (1954–1961, Britain)'
         , 'Ford Thames 400E (1957–1965, Britain)', 'Ford Tourneo (1995–present)', 'Ford Tourneo Connect (2002–present, Europe)', 'Ford Transit (1965–present, Europe; 1972–1981, 1994–present, Australia; 2006–present, China; 2014–present, North America)'
@@ -37,18 +39,12 @@ class CarManufactureFordTableSeeder extends Seeder
         , 'Ford SVT Raptor', 'Ford Super Duty (1999–present)', 'Ford Transcontinental (1975–1983, Europe)', 'Ford Transit (1965–present, Europe, Asia, Mexico)', 'Ford Vanette (1946–1965)'
         , 'Ford W-Series (1966–1977; Heavy-Duty C.O.E. truck, replacement for H-Series)'];
 
-        foreach($Ford as &$model){
-            $term_id5 = DB::table('terms')->insertGetId([
-                'name' => $model,
-                'slug' => 'Ford',
-            ]);
-            DB::table('term_taxonomy')->insert([
-                'term_id' => $term_id5,
-                'taxonomy' => 'Model',
-                'description' => $model,
-                'parent_id' => '15',
-                'count' => 0
-            ]);
+        $parent = TaxonomyManager::register('Ford', 'car-manufacturer');
+
+        foreach ($fords as $key => $ford) {
+            TaxonomyManager::register($ford, 'car-ford', $parent->term->id);
         }
+
+        TaxonomyManager::updateTaxonomyChildrenSlugs($parent->id);
     }
 }

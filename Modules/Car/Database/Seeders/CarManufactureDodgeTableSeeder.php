@@ -5,6 +5,8 @@ namespace Modules\Car\Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 
+use App\Entities\TaxonomyManager;
+
 class CarManufactureDodgeTableSeeder extends Seeder
 {
     /**
@@ -14,7 +16,7 @@ class CarManufactureDodgeTableSeeder extends Seeder
      */
     public function run()
     {
-        $Dodge = ['Dodge 330 (1963–1964)', 'Dodge 400 (1982–1983)', 'Dodge 440 (1963–1964)', 'Dodge 600 (1983–1988)', 'Dodge 880 and Custom 880 (1962–1965) [1]', 'Dodge Aries (1981–1989)', 'Dodge Aspen (1976–1980)'
+        $dodges = ['Dodge 330 (1963–1964)', 'Dodge 400 (1982–1983)', 'Dodge 440 (1963–1964)', 'Dodge 600 (1983–1988)', 'Dodge 880 and Custom 880 (1962–1965) [1]', 'Dodge Aries (1981–1989)', 'Dodge Aspen (1976–1980)'
         , 'Dodge Avenger (1995–2000, 2008–2014)', 'Dodge Caliber (2007–2012)', 'Dodge Challenger (1970–1974, 1978-1983, 2008-Present)', 'Dodge Charger (1966-1977, 1982-1987, 2006-Present)'
         , 'Dodge Colt (1971–1994 as rebadged Mitsubishi Chariot, Galant, Mirage and Lancer models)', 'Dodge Conquest (1984–1986 as rebadged Mitsubishi Starion)'
         , 'Dodge Coronet (1949–1959, 1965–1976, see also 1955–1957 Dodge and Dodge Super Bee)', 'Dodge Custom (1946-1948)', 'Dodge Custom Royal (1955-1959)', 'Dodge Dart (1960-1976)'
@@ -27,18 +29,12 @@ class CarManufactureDodgeTableSeeder extends Seeder
         , 'Dodge Viper (1992–2017)', 'Dodge Wayfarer (1949–1952)', 'Dodge Arrow (Canada)', 'Dodge Crusader (Canada 1951–1958)', 'Dodge Kingsway (Canada 1946–1952)', 'Dodge Mayfair (Canada 1953–1959)'
         , 'Dodge Regent (Canada 1946–1959)', 'Dodge Viscount (Canada 1959)', 'Dodge Kingsway Deluxe (Mexico 1958)'];
 
-        foreach($Dodge as &$model){
-            $term_id5 = DB::table('terms')->insertGetId([
-                'name' => $model,
-                'slug' => 'Dodge',
-            ]);
-            DB::table('term_taxonomy')->insert([
-                'term_id' => $term_id5,
-                'taxonomy' => 'Model',
-                'description' => $model,
-                'parent_id' => '18',
-                'count' => 0
-            ]);
+        $parent = TaxonomyManager::register('Dodge', 'car-manufacturer');
+
+        foreach ($dodges as $key => $dodge) {
+            TaxonomyManager::register($dodge, 'car-dodge', $parent->term->id);
         }
+
+        TaxonomyManager::updateTaxonomyChildrenSlugs($parent->id);
     }
 }

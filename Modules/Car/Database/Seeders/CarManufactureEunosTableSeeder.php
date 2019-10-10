@@ -5,6 +5,8 @@ namespace Modules\Car\Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 
+use App\Entities\TaxonomyManager;
+
 class CarManufactureEunosTableSeeder extends Seeder
 {
     /**
@@ -14,20 +16,14 @@ class CarManufactureEunosTableSeeder extends Seeder
      */
     public function run()
     {
-        $Eunos = ['Eunos'];
+        $eunoss = ['Eunos'];
 
-        foreach($Eunos as &$model){
-            $term_id5 = DB::table('terms')->insertGetId([
-                'name' => $model,
-                'slug' => 'Eunos',
-            ]);
-            DB::table('term_taxonomy')->insert([
-                'term_id' => $term_id5,
-                'taxonomy' => 'Model',
-                'description' => $model,
-                'parent_id' => '20',
-                'count' => 0
-            ]);
+        $parent = TaxonomyManager::register('Eunos', 'car-manufacturer');
+
+        foreach ($eunoss as $key => $eunos) {
+            TaxonomyManager::register($eunos, 'car-eunos', $parent->term->id);
         }
+
+        TaxonomyManager::updateTaxonomyChildrenSlugs($parent->id);
     }
 }

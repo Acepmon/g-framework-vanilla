@@ -5,6 +5,8 @@ namespace Modules\Car\Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 
+use App\Entities\TaxonomyManager;
+
 class CarManufactureMercedesbenzTableSeeder extends Seeder
 {
     /**
@@ -14,7 +16,7 @@ class CarManufactureMercedesbenzTableSeeder extends Seeder
      */
     public function run()
     {
-        $Mercedesbenz = ['400 (1924-1929)', 'W103/Type G1 (1926)', '630 (1926–1929)', 'W02 (1926-1939)', 'W03 (1926-1930)', 'W06, roadster (1927–1932)[1]', '680S (1928)'
+        $mercedesbenzes = ['400 (1924-1929)', 'W103/Type G1 (1926)', '630 (1926–1929)', 'W02 (1926-1939)', 'W03 (1926-1930)', 'W06, roadster (1927–1932)[1]', '680S (1928)'
         , '460, large luxury car (1928-1939)', '350, grand tourer (1929–1934)', '200 (1929-1934)', 'W07, full-size luxury car (1930–1938)', 'W28, (1931–1932)', 'W19, grand tourer (1932–1933)'
         , 'W22, large luxury car (1933-1934)', 'W21, mid-size luxury car (1933-1936)', 'W18, full-size luxury car (1933-1937)', 'W23, (1934–1936)', '500K, roadster (1934–1936)'
         , 'W31 Type G4, (1934–1939)', 'W30, prototype sport racing car (1935–1936)', 'W136, mid-size car (1935-1942)', 'W138, full-size luxury car (1936–1940)', 'W139/170 VL (1936-1942)'
@@ -44,18 +46,12 @@ class CarManufactureMercedesbenzTableSeeder extends Seeder
         , 'W247 B-Class, subcompact MPV (2019–present)', 'C118 CLA-Class, subcompact executive car (2019–present)', 'X247 GLB-Class, compact luxury SUV (2019–present)'
         , 'Mercedes-amg project one hybrid sports car (2019-present)'];
 
-        foreach($Mercedesbenz as &$model){
-            $term_id5 = DB::table('terms')->insertGetId([
-                'name' => $model,
-                'slug' => 'Mercedesbenz',
-            ]);
-            DB::table('term_taxonomy')->insert([
-                'term_id' => $term_id5,
-                'taxonomy' => 'Model',
-                'description' => $model,
-                'parent_id' => '10',
-                'count' => 0
-            ]);
+        $parent = TaxonomyManager::register('Mercedes-benz', 'car-manufacturer');
+
+        foreach ($mercedesbenzes as $key => $mercedesbenz) {
+            TaxonomyManager::register($mercedesbenz, 'car-mercedes-benz', $parent->term->id);
         }
+
+        TaxonomyManager::updateTaxonomyChildrenSlugs($parent->id);
     }
 }

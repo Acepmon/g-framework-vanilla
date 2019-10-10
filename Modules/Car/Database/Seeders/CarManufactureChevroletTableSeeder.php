@@ -5,6 +5,8 @@ namespace Modules\Car\Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 
+use App\Entities\TaxonomyManager;
+
 class CarManufactureChevroletTableSeeder extends Seeder
 {
     /**
@@ -14,7 +16,7 @@ class CarManufactureChevroletTableSeeder extends Seeder
      */
     public function run()
     {
-        $Chevrolet = ['150 (1953-1957)', '210 (1953-1957)', '400 (1962-1974)', '454 SS (1990-1993)', '500 (1983-1995)', '1700 (1972-1978)', '2500 (1973-1978)', '3800 (1972-1978)', '4100 (1972-1978)'
+        $chevrolets = ['150 (1953-1957)', '210 (1953-1957)', '400 (1962-1974)', '454 SS (1990-1993)', '500 (1983-1995)', '1700 (1972-1978)', '2500 (1973-1978)', '3800 (1972-1978)', '4100 (1972-1978)'
         , 'A-10 (1981-1985)', 'A-20 (1985-1996)', 'Advance Design (1947-1955)', 'AK Series (1941-1942)', 'Agile (2009–2015)', 'Ajax (1994-2009)', 'Alero (1999–2004)', 'Apache (1955-1960)'
         , 'Astro (1985–2005)', 'Avalanche (2002–2013)', 'Baby Grand/H-4 (1914-1922)', 'Beauville station wagon (1955-1957)', 'Beauville (van) (1971–1996)', 'B-Series (1966-2003)'
         , 'Bel Air (1950–1975 for US and 1950-1981 for Canada)', 'Beretta (1987–1996)', 'Biscayne (1958–1972 for US and 1958-1975 for Canada)', 'Bison (1977–1980)', 'BJN (1961-1986 for US and 1962-1999 for Canada)'
@@ -61,18 +63,12 @@ class CarManufactureChevroletTableSeeder extends Seeder
         , 'Trax (2007)', 'Triax (2000)', 'Tru 140S (2012), images used for the Chevy Jolt prank[17][18][19]', 'Venture (1988)', 'Volt (concept) (2007)', 'Volt MPV5 Electric Concept (2010)'
         , 'Wedge Corvette (1963)', 'WTCC ULTRA Concept (2006)', 'XP-882 Four Rotor (1973)', 'XP-895 Reynolds (1973)', 'XP-897GT Two-Rotor (1973)', 'XP-898 (1973)', 'XT-2 (1989)', 'YGM1 (1999)'];
 
-        foreach($Chevrolet as &$model){
-            $term_id5 = DB::table('terms')->insertGetId([
-                'name' => $model,
-                'slug' => 'Chevrolet',
-            ]);
-            DB::table('term_taxonomy')->insert([
-                'term_id' => $term_id5,
-                'taxonomy' => 'Model',
-                'description' => $model,
-                'parent_id' => '20',
-                'count' => 0
-            ]);
+        $parent = TaxonomyManager::register('Chevrolet', 'car-manufacturer');
+
+        foreach ($chevrolets as $key => $chevrolet) {
+            TaxonomyManager::register($chevrolet, 'car-chevrolet', $parent->term->id);
         }
+
+        TaxonomyManager::updateTaxonomyChildrenSlugs($parent->id);
     }
 }

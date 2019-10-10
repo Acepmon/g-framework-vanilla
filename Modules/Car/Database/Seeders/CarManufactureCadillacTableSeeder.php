@@ -5,6 +5,8 @@ namespace Modules\Car\Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 
+use App\Entities\TaxonomyManager;
+
 class CarManufactureCadillacTableSeeder extends Seeder
 {
     /**
@@ -14,7 +16,7 @@ class CarManufactureCadillacTableSeeder extends Seeder
      */
     public function run()
     {
-        $Cadillac = ['1992-2002 Eldorado —108 in (2,700 mm) wheelbase, V8', '1989-1993 Coupe DeVille -110.8 in (2,810 mm) wheelbase, V8', '1989-1993 Sedan DeVille -113.8 in (2,890 mm) wheelbase, V8'
+        $cadillacs = ['1992-2002 Eldorado —108 in (2,700 mm) wheelbase, V8', '1989-1993 Coupe DeVille -110.8 in (2,810 mm) wheelbase, V8', '1989-1993 Sedan DeVille -113.8 in (2,890 mm) wheelbase, V8'
         , '1992-1997 Seville -111.0 in (2,820 mm) wheelbase, V8', '1994–1999 DeVille —113.8 in (2,890 mm) wheelbase, V8', '1997–2001 Catera —107.5 in (2,730 mm) wheelbase, V6'
         , '1989-1992 Fleetwood -113.8 in (2,890 mm) wheelbase, V8', '1990-1992 Brougham -121.5 in (3,090 mm) wheelbase, V8', '1993-1996 Fleetwood -121.5 in (3,090 mm) wheelbase, V8'
         , '1993 Sixty Special -113.8 in (2,890 mm) wheelbase, V8', '1998-2000 Escalade', '1998-2004 Seville -112.2 in (2,850 mm) wheelbase, V8', '2000-2005 DeVille -115.3 in (2,930 mm) wheelbase, V8'
@@ -31,18 +33,12 @@ class CarManufactureCadillacTableSeeder extends Seeder
         , '1989–1993 Sedan de Ville —113.8 in (2,890 mm) wheelbase, V8', '1989–1993 Fleetwood —113.8 in (2,890 mm) wheelbase, V8', '1980-1986 Fleetwood Brougham -121.5 in (3,090 mm) wheelbase, V8'
         , '1987-1989 Brougham -121.5 in (3,090 mm) wheelbase, V8'];
 
-        foreach($Cadillac as &$model){
-            $term_id5 = DB::table('terms')->insertGetId([
-                'name' => $model,
-                'slug' => 'Cadillac',
-            ]);
-            DB::table('term_taxonomy')->insert([
-                'term_id' => $term_id5,
-                'taxonomy' => 'Model',
-                'description' => $model,
-                'parent_id' => '20',
-                'count' => 0
-            ]);
+        $parent = TaxonomyManager::register('Cadillac', 'car-manufacturer');
+
+        foreach ($cadillacs as $key => $cadillac) {
+            TaxonomyManager::register($cadillac, 'car-cadillac', $parent->term->id);
         }
+
+        TaxonomyManager::updateTaxonomyChildrenSlugs($parent->id);
     }
 }
