@@ -5,6 +5,8 @@ namespace Modules\Car\Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 
+use App\Entities\TaxonomyManager;
+
 class CarManufactureAstonMartinTableSeeder extends Seeder
 {
     /**
@@ -14,7 +16,7 @@ class CarManufactureAstonMartinTableSeeder extends Seeder
      */
     public function run()
     {
-        $AstonMartin = ['1921–1925 Aston Martin Standard Sports', '1927–1932 Aston Martin First Series', '1929–1932 Aston Martin International', '1932–1932 Aston Martin International Le Mans'
+        $astonMartins = ['1921–1925 Aston Martin Standard Sports', '1927–1932 Aston Martin First Series', '1929–1932 Aston Martin International', '1932–1932 Aston Martin International Le Mans'
         , '1932–1934 Aston Martin Le Mans', '1933–1934 Aston Martin 12/50 Standard', '1934–1936 Aston Martin Mk II', '1934–1936 Aston Martin Ulster', '1936–1940 Aston Martin 2-litre Speed Models (23 built) The last 8 were fitted with C-type bodywork'
         , '1937–1939 Aston Martin 15/98', '1948–1950 Aston Martin 2-Litre Sports (DB1)', '1950–1953 Aston Martin DB2', '1953–1957 Aston Martin DB2/4', '1957–1959 Aston Martin DB Mark III'
         , '1958–1963 Aston Martin DB4', '1961–1963 Aston Martin DB4 GT Zagato', '1963–1965 Aston Martin DB5', '1965–1966 Aston Martin Short Chassis Volante', '1965–1969 Aston Martin DB6'
@@ -28,18 +30,12 @@ class CarManufactureAstonMartinTableSeeder extends Seeder
         , '2010 Aston Martin V12 Vantage Carbon Black Edition[99]', '2010 Aston Martin DBS Carbon Black Edition[99]', '2013 Aston Martin Rapide Bertone Jet 2+2 (concept)'
         , '2013 Aston Martin CC100 Speedster (concept)[100]', '2015 Aston Martin DB10 (concept)', 'Aston Martin DB11', 'Aston Martin DBS Superleggera', 'Aston Martin Rapide S', 'Aston Martin Vantage'];
 
-        foreach($AstonMartin as &$model){
-            $term_id5 = DB::table('terms')->insertGetId([
-                'name' => $model,
-                'slug' => 'AstonMartin',
-            ]);
-            DB::table('term_taxonomy')->insert([
-                'term_id' => $term_id5,
-                'taxonomy' => 'Model',
-                'description' => $model,
-                'parent_id' => '20',
-                'count' => 0
-            ]);
+        $parent = TaxonomyManager::register('AstonMartin', 'car-manufacturer');
+
+        foreach ($astonMartins as $key => $astonMartin) {
+            TaxonomyManager::register($astonMartin, 'car-astonMartin', $parent->term->id);
         }
+
+        TaxonomyManager::updateTaxonomyChildrenSlugs($parent->id);
     }
 }
