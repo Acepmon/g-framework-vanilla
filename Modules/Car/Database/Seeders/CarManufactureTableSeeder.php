@@ -30,7 +30,7 @@ class CarManufactureTableSeeder extends Seeder
         TaxonomyManager::updateTaxonomyChildrenSlugs($parent->id);
 
         $this->call(CarManufactureToyotaTableSeeder::class);
-        // $this->call(CarManufactureLexusTableSeeder::class);
+        $this->call(CarManufactureLexusTableSeeder::class);
         // $this->call(CarManufactureNissanTableSeeder::class);
         // $this->call(CarManufactureMercedesbenzTableSeeder::class);
         // $this->call(CarManufactureVolkswagenTableSeeder::class);
