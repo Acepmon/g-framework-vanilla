@@ -23,7 +23,7 @@ class CarTaxonomyTableSeeder extends Seeder
         $this->call(CarColorTableSeeder::class);
         $this->call(CarWheelPositionTableSeeder::class);
         $this->call(CarWheelTableSeeder::class);
-        $this->call(CarAccidentTableSeeder::class);
+        $this->call(CarAccidentsTableSeeder::class);
         $this->call(CarManCountTableSeeder::class);
     }
 }

@@ -19,12 +19,12 @@ class CarOptionsSafetyTableSeeder extends Seeder
         $safeties = ['Electric parking brake', 'ABS', 'Parking sense : Front', 'Parking Sense : rear', 'Camera : Side', 'Camera : Rear', 'Camera : Front', 'Airbag : Curtains'
         , 'Airbag : Side', 'Passenger’s seat', 'Airbag : Driver’s seat'];
 
-        $parent = TaxonomyManager::findTerm('Safety');
+        $parent = TaxonomyManager::register('Safety', 'car-options');
 
         foreach ($safeties as $key => $safety) {
-            TaxonomyManager::register($safety, 'car-safety', $parent->id);
+            TaxonomyManager::register($safety, 'car-safety', $parent->term->id);
         }
 
-        // TaxonomyManager::updateTaxonomyChildrenSlugs($parent->id);
+        TaxonomyManager::updateTaxonomyChildrenSlugs($parent->id);
     }
 }

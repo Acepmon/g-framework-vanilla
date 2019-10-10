@@ -20,7 +20,7 @@ class CarAreaTableSeeder extends Seeder
     $parent = TaxonomyManager::register('Provinces', 'car');
 
     foreach ($location as $key => $province) {
-        TaxonomyManager::register($province, 'province', $parent->term->id);
+        TaxonomyManager::register($province, 'provinces', $parent->term->id);
     }
 
     TaxonomyManager::updateTaxonomyChildrenSlugs($parent->id);
