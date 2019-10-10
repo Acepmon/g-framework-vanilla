@@ -14,21 +14,15 @@ class CarOptionsConvenienceTableSeeder extends Seeder
      */
     public function run()
     {
-        $Convenience = ['Black box', 'Blinder : rear', 'AV monitor : Rear', 'AV monitor : Front', 'Rain senser', 'Auto light', 'Bluetooth', 'AUX terminal', 'USB Terminal'
+        $conveniences = ['Black box', 'Blinder : rear', 'AV monitor : Rear', 'AV monitor : Front', 'Rain senser', 'Auto light', 'Bluetooth', 'AUX terminal', 'USB Terminal'
         , 'Navigation', 'CD player', 'Power window', 'Auto air conditioner', 'Cruise control', 'Smart Key'];
 
-        foreach($Convenience as &$model){
-            $term_id5 = DB::table('terms')->insertGetId([
-                'name' => $model,
-                'slug' => $model,
-            ]);
-            DB::table('term_taxonomy')->insert([
-                'term_id' => $term_id5,
-                'taxonomy' => 'Convenience',
-                'description' => 'model',
-                'parent_id' => '13',
-                'count' => 0
-            ]);
+        $parent = TaxonomyManager::findTaxonomy('car-options');
+
+        foreach ($conveniences as $key => $convenience) {
+            TaxonomyManager::register($convenience, 'car-convenience', $parent->term->id);
         }
+
+        TaxonomyManager::updateTaxonomyChildrenSlugs($parent->id);
     }
 }
