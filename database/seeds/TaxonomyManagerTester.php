@@ -13,16 +13,19 @@ class TaxonomyManagerTester extends Seeder
      */
     public function run()
     {
-        $options = ['Exterior', 'Guts', 'Safety', 'Convenience', 'Clean'];
-        $clean = ['Woman driver', 'No smoking', 'One person drive'];
-        $convenience = ['Black box', 'Blinder : rear', 'AV monitor : Rear', 'AV monitor : Front', 'Rain senser', 'Auto light', 'Bluetooth', 'AUX terminal', 'USB Terminal'
-        , 'Navigation', 'CD player', 'Power window', 'Auto air conditioner', 'Cruise control', 'Smart Key'];
-        $exteriors = ['Rear wiper', 'Electric folding side mirror', '4 season tire', 'Aluminum wheel', 'Sunroof'];
-        $guts = ['Power Door lock', 'Memory seat : driver’s seat', 'Heated Seat: Rear Seat', 'Heated Seat: Driver’s Seat', 'Electric seat : Passenger seat', 'Electric seat : driver’s seat'
-        , 'Leather seat', 'Power steering', 'Steering wheel remote control'];
-        $safetys = ['Electric parking brake', 'ABS', 'Parking sense : Front', 'Parking Sense : rear', 'Camera : Side', 'Camera : Rear', 'Camera : Front', 'Airbag : Curtains'
-        , 'Airbag : Side', 'Passenger’s seat', 'Airbag : Driver’s seat'];
+        // Clear Taxonomy Tables	
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        \App\TermTaxonomy::whereRaw('1', '1')->delete();
+        \App\Term::whereRaw('1', '1')->delete();	
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
 
-        TaxonomyManager::registerTaxonomy('manufacturer');
+        // Insert test taxonomies
+        $optionsClean = TaxonomyManager::register('Clean', 'clean');
+        $options = ['Exterior', 'Guts', 'Safety', 'Convenience', 'Clean'];
+        foreach ($options as $key => $option) {
+            TaxonomyManager::register($option, 'clean', $optionsClean->term_id);
+        }
+
+        TaxonomyManager::updateTaxonomyChildrenSlugs($optionsClean->id);
     }
 }

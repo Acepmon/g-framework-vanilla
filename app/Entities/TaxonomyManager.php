@@ -15,10 +15,19 @@ class TaxonomyManager extends Manager
      * @parameter $type = (array|string) (Optional) Content type or array of Content types with which the taxonomy should be associated.
      * @parameter $args = (array|string) (Optional) Array or query string of arguments for registering a taxonomy.
      */
-    public static function registerTaxonomy($taxonomy, $parent = null, $args = array())
+    public static function register($term, $taxonomy, $parent_id = null, $args = array())
     {
-        $term = self::createTerm($taxonomy, $args);
-        $termTaxonomy = self::createTaxonomy($term->id, $taxonomy);
+        $term = self::createTerm($term, $parent_id);
+        self::saveTermMetas($term->id, $args);
+        $termTaxonomy = self::createTaxonomy($term->id, $taxonomy, $parent_id);
+
+        return $termTaxonomy;
+    }
+
+    public static function collection($taxonomy)
+    {
+        $taxonomies = TermTaxonomy::where('taxonomy', $taxonomy)->get();
+        return $taxonomies;
     }
 
     public static function createTerm($name, $group_id = null)
@@ -32,13 +41,13 @@ class TaxonomyManager extends Manager
         return $term;
     }
 
-    public static function createTaxonomy($term_id, $taxonomy, $description = null, $parent_id = null)
+    public static function createTaxonomy($term_id, $taxonomy, $parent_id = null, $description = null)
     {
         $termTaxonomy = new TermTaxonomy();
         $termTaxonomy->term_id = $term_id;
-        $termTaxonomy->taxonomy = $taxonomy;
-        $termTaxonomy->description = $description;
+        $termTaxonomy->taxonomy = strtolower($taxonomy);
         $termTaxonomy->parent_id = $parent_id;
+        $termTaxonomy->description = $description;
         $termTaxonomy->count = 0;
         $termTaxonomy->save();
 
@@ -68,9 +77,14 @@ class TaxonomyManager extends Manager
         $termTaxonomy->save();
     }
 
-    public static function updateTaxonomyParent($taxonomy_id, $parent_id)
+    public static function updateTaxonomyChildrenSlugs($taxonomy_id)
     {
-        $termTaxonomy = TermTaxonomy::findOrFail($taxonomy_id);
-        $parentTaxonomy = TermTaxonomy::findOrFail($parent_id);
+        $parent = TermTaxonomy::findOrFail($taxonomy_id);
+        $childs = TermTaxonomy::where('parent_id', $taxonomy_id)->get();
+        foreach ($childs as $key => $child) {
+            $term = $child->term;
+            $term->slug = $parent->term->slug . '/' . $term->slug;
+            $term->save();
+        }
     }
 }

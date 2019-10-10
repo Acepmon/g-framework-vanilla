@@ -12,16 +12,16 @@ class TermTaxonomy extends Model
 
     public function term()
     {
-        return $this->belongsTo('App\Term');
+        return $this->belongsTo('App\Term', 'term_id', 'id');
     }
 
     public function parent()
     {
-        return $this->hasOne('App\Term');
+        return $this->belongsTo('App\Term', 'term_id', 'id');
     }
 
     public function contents()
     {
-        return $this->
+        return $this->belongsToMany('App\Content', 'term_relationship', 'term_taxonomy_id', 'content_id');
     }
 }
