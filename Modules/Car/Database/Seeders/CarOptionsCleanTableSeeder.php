@@ -14,20 +14,14 @@ class CarOptionsCleanTableSeeder extends Seeder
      */
     public function run()
     {
-        $clean = ['Woman driver', 'No smoking', 'One person drive'];
+        $cleans = ['Woman driver', 'No smoking', 'One person drive'];
 
-        foreach($clean as &$model){
-            $term_id5 = DB::table('terms')->insertGetId([
-                'name' => $model,
-                'slug' => $model,
-            ]);
-            DB::table('term_taxonomy')->insert([
-                'term_id' => $term_id5,
-                'taxonomy' => 'Clean',
-                'description' => $model,
-                'parent_id' => '14',
-                'count' => 0
-            ]);
+        $parent = TaxonomyManager::findTaxonomy('car-options');
+
+        foreach ($cleans as $key => $clean) {
+            TaxonomyManager::register($clean, 'car-clean', $parent->term->id);
         }
+
+        TaxonomyManager::updateTaxonomyChildrenSlugs($parent->id);
     }
 }
