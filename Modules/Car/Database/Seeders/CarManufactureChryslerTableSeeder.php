@@ -5,6 +5,8 @@ namespace Modules\Car\Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 
+use App\Entities\TaxonomyManager;
+
 class CarManufactureChryslerTableSeeder extends Seeder
 {
     /**
@@ -14,7 +16,7 @@ class CarManufactureChryslerTableSeeder extends Seeder
      */
     public function run()
     {
-        $Chrysler = ['Chrysler 300', 'Chrysler Pacifica (minivan)', 'Chrysler 150', 'Chrysler 160/180', 'Chrysler 200', 'Chrysler 300 letter series', 'Chrysler 300M', 'Chrysler 300 non-letter series', 
+        $Chryslers = ['Chrysler 300', 'Chrysler Pacifica (minivan)', 'Chrysler 150', 'Chrysler 160/180', 'Chrysler 200', 'Chrysler 300 letter series', 'Chrysler 300M', 'Chrysler 300 non-letter series', 
         'Chrysler Airflow', 'Chrysler Airstream', 'Chrysler Alpine', 'Chrysler Aspen', 'Chrysler Avenger', 'Chrysler Centura (Australia)', 'Chrysler Charger (Australia)', 'Chrysler by Chrysler (Australia)', 
         'Chrysler Cirrus', 'Chrysler Colt (South Africa)', 'Chrysler Concorde', 'Chrysler Conquest', 'Chrysler Cordoba', 'Chrysler Crossfire', 'Chrysler D-50 (Australia)', 'Chrysler Daytona (Canada)', 
         'Chrysler Delta (UK and Ireland)', 'Chrysler Drifter (Australia)', 'Chrysler Dynasty (Canada)', 'Chrysler Executive', 'Chrysler Fifth Avenue', 'Chrysler Galant', 'Chrysler Horizon (Europe)',
@@ -27,18 +29,12 @@ class CarManufactureChryslerTableSeeder extends Seeder
         'Chrysler Voyager/Grand Voyager, US', 'Chrysler Voyager, Europe', 'Chrysler Wayfarer (Australia)', 'Chrysler Windsor', 'Chrysler Windsor as Chrysler of Canadas version of Newport', 
         'Chrysler Ypsilon'];
 
-        foreach($Chrysler as &$model){
-            $term_id5 = DB::table('terms')->insertGetId([
-                'name' => $model,
-                'slug' => 'Chrysler',
-            ]);
-            DB::table('term_taxonomy')->insert([
-                'term_id' => $term_id5,
-                'taxonomy' => 'Model',
-                'description' => $model,
-                'parent_id' => '20',
-                'count' => 0
-            ]);
+        $parent = TaxonomyManager::register('Chrysler', 'car-manufacturer');
+
+        foreach ($Chryslers as $key => $Chrysler) {
+            TaxonomyManager::register($Chrysler, 'car-chrysler', $parent->term->id);
         }
+
+        TaxonomyManager::updateTaxonomyChildrenSlugs($parent->id);
     }
 }
