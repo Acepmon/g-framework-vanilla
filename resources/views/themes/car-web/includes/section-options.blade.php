@@ -6,7 +6,7 @@
                 <div class="detail-option-information">
                     <div class="detail-section-title">Option information</div>
                     <div class="row p-3">
-                        <div class="col-md-2 p-0">
+                        <div class="col-md-3">
                             <div class="title">Exterior</div>
                             <div class="info-list">
                                 <ul>
@@ -32,7 +32,7 @@
                                 </ul>
                             </div>
                         </div>
-                        <div class="col-md-2 p-0">
+                        <div class="col-md-3">
                             <div class="title">Guts</div>
                             <div class="info-list">
                                 <ul>
@@ -74,7 +74,7 @@
                                 </ul>
                             </div>
                         </div>
-                        <div class="col-md-3 p-0">
+                        <div class="col-md-3">
                             <div class="title">Safety</div>
                             <div class="info-list">
                                 <ul>
@@ -124,7 +124,7 @@
                                 </ul>
                             </div>
                         </div>
-                        <div class="col-md-3 p-0">
+                        <div class="col-md-3">
                             <div class="title">Convenience</div>
                             <div class="info-list">
                                 <ul>
@@ -186,24 +186,6 @@
 
                                     @if ($content->metaValue('optionConvenienceBlackBox'))
                                     <li><i class="fab fa fa-check"></i> Black Box</li>
-                                    @endif
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="col-md-2 p-0">
-                            <div class="title">Clean</div>
-                            <div class="info-list">
-                                <ul>
-                                    @if ($content->metaValue('optionCleanOnePersonDrive'))
-                                    <li><i class="fab fa fa-check"></i> One Person Drive</li>
-                                    @endif
-
-                                    @if ($content->metaValue('optionCleanNoSmoking'))
-                                    <li><i class="fab fa fa-check"></i> No Smoking</li>
-                                    @endif
-
-                                    @if ($content->metaValue('optionCleanWomanDriver'))
-                                    <li><i class="fab fa fa-check"></i> Woman Driver</li>
                                     @endif
                                 </ul>
                             </div>
