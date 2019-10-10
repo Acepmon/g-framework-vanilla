@@ -13,4 +13,9 @@ class Term extends Model
     {
         return $this->hasMany('App\TermMeta', 'term_id');
     }
+
+    public function group()
+    {
+        return $this->hasOne('App\Term', 'group_id');
+    }
 }
