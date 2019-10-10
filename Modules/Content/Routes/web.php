@@ -15,16 +15,15 @@ Route::middleware(['auth'])->group(function () {
     Route::prefix('ajax')->group(function () {
         Route::namespace('Ajax')->group(function () {
 
-            Route::get('contents/', 'ContentController@index');
-            Route::post('contents/', 'ContentController@store');
-            Route::put('contents/{contentId}', 'ContentController@updateContent');
-            Route::post('contents/{contentId}/metas', 'ContentMetaController@createMeta');
-            Route::put('contents/{contentId}/metas', 'ContentMetaController@updateMeta');
-            Route::put('contents/{contentId}/metas/sync', 'ContentMetaController@syncMetas');
-            Route::put('contents/{contentId}/metas/attach', 'ContentMetaController@attachMetas');
-            Route::put('contents/{contentId}/metas/detach', 'ContentMetaController@detachMetas');
-            Route::delete('contents/{contentId}/metas', 'ContentMetaController@deleteMeta');
-
+            Route::get('contents/', 'ContentController@index')->name('ajax.contents.index');
+            Route::put('contents/{contentId}', 'ContentController@updateContent')->name('ajax.contents.update');
+            Route::post('contents/{contentId}/metas', 'ContentMetaController@createMeta')->name('ajax.contents.metas.store');
+            Route::put('contents/{contentId}/metas', 'ContentMetaController@updateMeta')->name('ajax.contents.metas.update');
+            Route::put('contents/{contentId}/metas/sync', 'ContentMetaController@syncMetas')->name('ajax.contents.metas.sync');
+            Route::put('contents/{contentId}/metas/attach', 'ContentMetaController@attachMetas')->name('ajax.contents.metas.attach');
+            Route::put('contents/{contentId}/metas/detach', 'ContentMetaController@detachMetas')->name('ajax.contents.metas.detach');
+            Route::delete('contents/{contentId}/metas', 'ContentMetaController@deleteMeta')->name('ajax.contents.metas.delete');
+            
             Route::prefix('users')->group(function () {
                 Route::get('', 'UserController@index')->name('ajax.users.index');
                 Route::post('', 'UserController@store')->name('ajax.users.store');
@@ -35,6 +34,11 @@ Route::middleware(['auth'])->group(function () {
     });
 });
 
+Route::prefix('ajax')->group(function () {
+    Route::namespace('Ajax')->group(function () {
+        Route::post('contents/', 'ContentController@store')->name('ajax.contents.store');
+    });
+});
 Route::get('/', [
     'uses' => 'PublicController@homepage',
     'as' => 'home',

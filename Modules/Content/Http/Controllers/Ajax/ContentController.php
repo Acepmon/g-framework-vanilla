@@ -7,9 +7,12 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 use App\Content;
 use App\ContentMeta;
+use App\Group;
+use App\User;
 use App\Entities\ContentManager;
 
 class ContentController extends Controller
@@ -55,7 +58,7 @@ class ContentController extends Controller
             'content' => 'nullable',
             'status' => 'required|max:50',
             'visibility' => 'required|max:50',
-            'author_id' => 'required|integer|exists:users,id'
+            'author_id' => 'integer|exists:users,id'
         ]);
 
         try {
@@ -67,7 +70,21 @@ class ContentController extends Controller
             $content->type = $request->type;
             $content->status = $request->status;
             $content->visibility = $request->visibility;
-            $content->author_id = $request->author_id;
+            if ($request->has('author_id')) {
+                $content->author_id = $request->author_id;
+            } else {
+                $user = new User();
+                $user->username = \Str::uuid();
+                $user->email = \Str::uuid();
+                $user->password = Hash::make(\Str::uuid());
+                $user->language = User::LANG_EN;
+                if ($request->name) {
+                    $user->name = $request->name;
+                }
+                $user->save();
+                $content->author_id = $user->id;
+                $user->groups()->attach(Group::where('title', 'Guest')->get());
+            }
             $content->save();
             Session::put('createdCarId', $content->id);
 

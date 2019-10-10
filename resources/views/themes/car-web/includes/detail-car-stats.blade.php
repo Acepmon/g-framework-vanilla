@@ -1,35 +1,38 @@
 @if ($content)
-<div class="card">
-    <div class="card-body">
-        <div class="dealer-information row">
+    <div class="card">
+        <div class="card-body">
+            <div class="dealer-information">
+                @if ($content->metaValue('doctorVerified') && !$content->metaValue('doctorVerificationRequest'))
+                    <div class="dealer-more">
+                        <div class="value"><img src="{{ asset('car-web/img/icons/verify.svg') }}" alt=""></div>
+                        <div class="title">Verify by
+                            <span>DOCTOR</span></div>
+                    </div>
+                @else
+                    <div class="dealer-more">
+                        <div class="value"><img src="{{ asset('car-web/img/icons/verify.svg') }}" alt=""></div>
+                        <div class="title">Not Verified</div>
+                    </div>
+                @endif
 
-            @if ($content->metaValue('doctorVerified') && !$content->metaValue('doctorVerificationRequest'))
-                <div class="dealer-more col-lg-4">
-                    <div class="value"><i class="icon-check"></i></div>
-                    <div class="title">Verified by <br><span class="font-weight-bold">DOCTOR</span> Service</div>
-                </div>
-            @else
-                <div class="dealer-more col-lg-4">
-                    <div class="value"><i class="icon-cross3"></i></div>
-                    <div class="title">Not Verified</div>
-                </div>
-            @endif
+                @if ($content->metaValue('viewed'))
+                    <div class="dealer-more">
+                        <div class="value">
+                            <p>{{ $content->metaValue('viewed') }}</p>
+                        </div>
+                        <div class="title">Нийт үзсэн тоо</div>
+                    </div>
+                @endif
 
-            <div class="dealer-more col-lg-4">
-                <div class="value">
-                    <p>{{ $content->metaValue('viewed') ? $content->metaValue('viewed') : 0 }}</p>
-                </div>
-                <div class="title">Viewed</div>
+                @if ($content->metaValue('interested'))
+                    <div class="dealer-more">
+                        <div class="value">
+                            <p>{{ $content->metaValue('interested') }}</p>
+                        </div>
+                        <div class="title">Нийт сонирхсон</div>
+                    </div>
+                @endif
             </div>
-
-            <div class="dealer-more col-lg-4">
-                <div class="value">
-                    <p>{{ $content->metaValue('interested') ? $content->metaValue('interested') : 0 }}</p>
-                </div>
-                <div class="title">Interested</div>
-            </div>
-
         </div>
     </div>
-</div>
 @endif
