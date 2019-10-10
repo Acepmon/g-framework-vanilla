@@ -38,14 +38,6 @@ class CarContentsTableSeeder extends Seeder
 
             // Random values
 
-            // $countryNmae = Termtaxonomy::where();
-            // $countryNmae1 = DB::table('term_taxonomy')->pluck('description')->where('taxonomy', 'Area')->all();
-            // $countryName2 = array_rand($countryNmae1);
-            // $countryNmae3 = $countryNmae1[$countryNmae2];
-<<<<<<< HEAD
-=======
-            // $countryNmae = Content::;
->>>>>>> ebfb9b016bb2f374d8645832862e58464d8ace40
             // $markName = '';
             // $modelName = '';
             // $type = '';
