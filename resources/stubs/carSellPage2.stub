@@ -18,12 +18,17 @@ try {
 @endsection
 
 @section('load')
+<script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/plugins/uploaders/dropzone.min.js') }}"></script>
+<link href="{{asset('car-web/css/dropzone.css')}}" rel="stylesheet">
 <style>
 .step-process > .progress_inner_step > a {
   text-decoration: none;
   color: inherit!important;
 }
 </style>
+
+
+
 @endsection
 
 @section('content')
