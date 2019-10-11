@@ -40,8 +40,6 @@ function getPremiumDeal($type, $now) {
   });
 }
 
-dd($items->get());
-
 // HOT Deals
 $now = now();
 $best_premium = getPremiumDeal('best_premium', $now)->get();
