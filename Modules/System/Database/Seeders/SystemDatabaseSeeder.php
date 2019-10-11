@@ -16,6 +16,15 @@ class SystemDatabaseSeeder extends Seeder
     {
         Model::unguard();
 
-        // $this->call("OthersTableSeeder");
+        $this->call(AuthPagesTableSeeder::class);
+
+        $this->call(PermissionsTableSeeder::class);
+        $this->call(GroupsTableSeeder::class);
+        $this->call(UsersTableSeeder::class);
+
+        $this->call(UserPermissionTableSeeder::class);
+        $this->call(UserGroupTableSeeder::class);
+        $this->call(TermTaxonomyTableSeeder::class);
+        $this->call(ThemesTableSeeder::class);
     }
 }
