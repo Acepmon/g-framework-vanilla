@@ -93,16 +93,18 @@ class GframeworkServiceProvider extends ServiceProvider
         Blade::directive('getTaxonomys', function ($expression) {
             $someObject = json_decode($expression);
             $taxonomys = TermTaxonomy::whereRaw('1 = 1')->orderBy('description', 'asc');
-            foreach ($someObject as $some) {
+            foreach ($someObject->filter as $some) {
                 $taxonomys = $taxonomys->where($some->field, '=', $some->key);
                 $daaataaa= $some->key;
             }
             $taxonomys = $taxonomys->get();
             $taxonomys = new TaxonomyCollection($taxonomys);
             $taxonomys = $taxonomys->toJson();
+            $daaataaa = $someObject->returnValue;
             if (!starts_with($daaataaa, '$')) {
                 $daaataaa = '$' . $daaataaa;
             }
+
             return "<?php {$daaataaa} = json_decode('$taxonomys');?>";
         });
 

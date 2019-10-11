@@ -110,21 +110,18 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
                                      aria-labelledby="imported-tab">
                                     <form method="GET" action="/car-search">
                                         <div class="form-group">
-                                            <select class="form-control" name="manufacturer">
+                                            <select id="vehicleManufacturer" class="form-control" name="manufacturer">
                                                 <option>Manufacturer</option>
-                                                @getTaxonomys([{"field":"taxonomy", "key":"manufacturer"}])
-                                                @foreach($manufacturer as $data)
-                                                    <option>{{$data->description}}</option>
+                                                @getTaxonomys({"filter":[{"field":"taxonomy", "key":"car-manufacturer"}], "returnValue":"manufacturers"})
+                                                @foreach($manufacturers as $data)
+                                                    <option value="{{$data->term->name}}">{{$data->term->name}}</option>
                                                 @endforeach
                                             </select>
                                         </div>
                                         <div class="form-group">
-                                            <select class="form-control" name="model">
+                                            <select id="vehicleManufacturerModels" class="form-control" name="model">
                                                 <option>Model</option>
-                                                @getTaxonomys([{"field":"taxonomy", "key":"model"}])
-                                                @foreach($model as $data)
-                                                    <option>{{$data->description}}</option>
-                                                @endforeach
+                                                {{--//@getTaxonomys({"filter":[{"field":"taxonomy", "key":"model"}], "returnValue":"models"})--}}
                                             </select>
                                         </div>
                                         <div class="form-group">
@@ -149,19 +146,19 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
                                 <div class="tab-pane fade" id="auction" role="tabpanel" aria-labelledby="used-tab">
                                     <form method="GET" action="/car-search">
                                         <div class="form-group">
-                                            <select class="form-control" name="manufacturer">
-                                                @getTaxonomys([{"field":"taxonomy", "key":"manufacturer"}])
+                                            <select class="form-control" name="manufacturer" onchange="manufacturer(this)">
+                                                @getTaxonomys({"filter":[{"field":"taxonomy", "key":"manufacturer"}], "returnValue":"manufacturers"})
                                                 <option>Manufacturer</option>
-                                                @foreach($manufacturer as $data)
+                                                @foreach($manufacturers as $data)
                                                     <option>{{$data->description}}</option>
                                                 @endforeach
                                             </select>
                                         </div>
                                         <div class="form-group">
                                             <select class="form-control" name="model">
-                                                @getTaxonomys([{"field":"taxonomy", "key":"model"}])
+                                                @getTaxonomys({"filter":[{"field":"taxonomy", "key":"model"}], "returnValue":"models"})
                                                 <option>Model</option>
-                                                @foreach($model as $data)
+                                                @foreach($models as $data)
                                                     <option>{{$data->description}}</option>
                                                 @endforeach
                                             </select>
@@ -191,18 +188,18 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
                                     @csrf
                                         <div class="form-group">
                                             <select class="form-control" name="manufacturer">
-                                                @getTaxonomys([{"field":"taxonomy", "key":"manufacturer"}])
+                                                @getTaxonomys({"filter":[{"field":"taxonomy", "key":"manufacturer"}], "returnValue":"manufacturers"})
                                                 <option>Manufacturer</option>
-                                                @foreach($manufacturer as $data)
+                                                @foreach($manufacturers as $data)
                                                     <option>{{$data->description}}</option>
                                                 @endforeach
                                             </select>
                                         </div>
                                         <div class="form-group">
                                             <select class="form-control" name="model">
-                                                @getTaxonomys([{"field":"taxonomy", "key":"model"}])
+                                                @getTaxonomys({"filter":[{"field":"taxonomy", "key":"model"}], "returnValue":"models"})
                                                 <option>Model</option>
-                                                @foreach($model as $data)
+                                                @foreach($models as $data)
                                                     <option>{{$data->description}}</option>
                                                 @endforeach
                                             </select>
@@ -247,9 +244,7 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
 
                 <div class="card-list">
                     <div class="row">
-                    @contents({"filter":[{"field":"type", "key":"car"}, {"field":"status", "key":"published"}],
-                    "metasFilter": [{"key":"publishType", "value":"best_premium"}], "limit":12,
-                    "returnVariable":"carDataPremium"})
+                    @contents({"filter":[{"field":"type", "key":"car"}, {"field":"status", "key":"published"}], "metasFilter": [{"key":"publishType", "value":"best_premium"}], "limit":12, "returnVariable":"carDataPremium"})
                     @foreach($carDataPremium as $rr)
                         <div class="col-md-3 px-2">
                             <!-- card start -->
@@ -530,6 +525,48 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
 @section('script')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js "></script>
     <script src="{{asset('car-web/js/script.min.js')}}  "></script>
+    <script type="text/javascript">
+        const toKebabCase = str =>
+            str &&
+            str
+                .match(/[A-Z]{2,}(?=[A-Z][a-z]+[0-9]*|\b)|[A-Z]?[a-z]+[0-9]*|[A-Z]|[0-9]+/g)
+                .map(x => x.toLowerCase())
+                .join('-');
+        $(document).ready(function () {
+
+            $("#vehicleManufacturer").change(
+                function (e) {
+                    var markName=$(this).val();
+                    $.ajax({
+                        type: 'Get',
+                        url: '/api/v1/taxonomies/car-'+toKebabCase(markName),
+                        // /data: paramObjs
+                    }).done(function(data) {
+                        console.log("DONE!");
+                        var modelList=data;
+                        $('#vehicleManufacturerModels')
+                            .find('option')
+                            .remove()
+                            .end()
+                            .append('<option>Model</option>')
+                            .val('')
+                        ;
+                        console.log(modelList.data);
+                        var i;
+                        for (i = 0; i < modelList.data.length; i++) {
+                            console.log(modelList.data[i].term.name);
+                            $("#vehicleManufacturerModels").append(new Option(modelList.data[i].term.name, modelList.data[i].id));
+                        }
+                    }).fail(function(err) {
+                        // $("#demo-spinner").css({'display': 'none'});
+                        console.error("FAIL!");
+                        console.error(err);
+                    });
+                }
+            )
+        })
+
+    </script>
     {{--<script>--}}
         {{--$('.scrollDown').click(function(event){--}}
             {{--// Preventing default action of the event--}}
