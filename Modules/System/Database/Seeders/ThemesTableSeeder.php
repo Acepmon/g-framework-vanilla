@@ -1,7 +1,11 @@
 <?php
 
-use Illuminate\Database\Seeder;
+namespace Modules\System\Database\Seeders;
 
+use Illuminate\Database\Seeder;
+use Illuminate\Database\Eloquent\Model;
+
+use DB;
 use App\Theme;
 
 class ThemesTableSeeder extends Seeder
