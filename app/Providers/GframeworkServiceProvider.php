@@ -63,7 +63,7 @@ class GframeworkServiceProvider extends ServiceProvider
                 $content->metas = $content->metas()->get();
             }
             $carData=null;
-            $carData=json_encode($contents);
+            $carData=$contents->toJson();
             //$carData = htmlspecialchars(json_encode($contents), ENT_QUOTES, 'UTF-8');
             //dd($carData);
             $daaataaa=$someObject->returnVariable;
@@ -71,7 +71,7 @@ class GframeworkServiceProvider extends ServiceProvider
                 $daaataaa = '$' . $daaataaa;
             }
 
-            return "<?php {$daaataaa} = ('$carData'); ?>";
+            return "<?php {$daaataaa} = json_decode('$carData'); ?>";
         });
 
 
@@ -82,12 +82,12 @@ class GframeworkServiceProvider extends ServiceProvider
                 $banners = $banners->where($some->field, '=', $some->key);
             }
             $banners = $banners->get();
-            $bannerData=json_encode($banners);
+            $bannerData=$banners->toJson();
             $daaataaa='banners';
             if (!starts_with($daaataaa, '$')) {
                 $daaataaa = '$' . $daaataaa;
             }
-            return "<?php {$daaataaa} = ('$bannerData'); ?>";
+            return "<?php {$daaataaa} = json_decode('$bannerData'); ?>";
         });
 
         Blade::directive('getTaxonomys', function ($expression) {
