@@ -43,19 +43,21 @@
                                     @endif
 
                                     <div class="control-ad">
-                                        @if ($content->metaValue('publishType') == 'free' && Auth::user()->id == $content->author_id)
-                                            <a class="btn btn-warning btn-round shadow-soft-blue btn-icon-left px-3" href="{{ url('/my-page/premiums') }}">
-                                                @include('themes.car-web.includes.premium-svg')
-                                                Make premium ad
-                                            </a>
-                                        @endif
+                                        @if (Auth::check())
+                                            @if ($content->metaValue('publishType') == 'free' && Auth::user()->id == $content->author_id)
+                                                <a class="btn btn-warning btn-round shadow-soft-blue btn-icon-left px-3" href="{{ url('/my-page/premiums') }}">
+                                                    @include('themes.car-web.includes.premium-svg')
+                                                    Make premium ad
+                                                </a>
+                                            @endif
 
-                                        @if (!$content->metaValue('doctorVerified') && Auth::user()->id == $content->author_id)
-                                            <a class="btn btn-light btn-round shadow-soft-blue px-3 ml-3" href="#modalVerifyCar" id="modalVerifyCarLabel" data-toggle="modal">Verify car</a>
-                                        @endif
+                                            @if (!$content->metaValue('doctorVerified') && Auth::user()->id == $content->author_id)
+                                                <a class="btn btn-light btn-round shadow-soft-blue px-3 ml-3" href="#modalVerifyCar" id="modalVerifyCarLabel" data-toggle="modal">Verify car</a>
+                                            @endif
 
-                                        @if (Auth::user()->id == $content->author_id)
-                                            <a class="btn btn-light btn-round shadow-soft-blue px-3 ml-3" href="{{ url($content->slug . '/edit') }}">edit</a>
+                                            @if (Auth::user()->id == $content->author_id)
+                                                <a class="btn btn-light btn-round shadow-soft-blue px-3 ml-3" href="{{ url($content->slug . '/edit') }}">edit</a>
+                                            @endif
                                         @endif
                                     </div>
                                 </div>
