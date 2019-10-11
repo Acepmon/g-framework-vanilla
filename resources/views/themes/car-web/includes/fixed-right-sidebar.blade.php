@@ -14,7 +14,7 @@
             </a>
         </div>
 
-        <div class="card hero-slider owl-carousel owl-theme">
+        <div class="card sidebar-slider owl-carousel owl-theme">
             @foreach($premium as $car)
             <div class="slider-item" style="width: 120px; min-height: 67px;">
                 <a href="{{ $car->id }}" target="_blank" class="text-decoration-none text-dark">
@@ -32,24 +32,3 @@
         @endforeach
     </div>
 </div>
-
-<style>
-.fixed-sidebar {
-    width: 100%;
-    padding-left: 100%;
-    height: 0;
-}
-.sticky-content {
-    width: 160px;
-    padding: 0 20px;
-    display: grid;
-    grid-gap: 10px;
-}
-
-.fixed-sidebar .owl-stage {
-    padding-left: 0px!important;
-}
-.fixed-sidebar .owl-dot {
-    zoom: 0.6!important;
-}
-</style>
