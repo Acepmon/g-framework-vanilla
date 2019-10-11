@@ -127,7 +127,14 @@ $('.maz-burger-menu').on('click', function(){
 
         });
 
-
+        $('.sidebar-slider').owlCarousel({
+          loop:true,
+          margin:0,
+          stagePadding:30,
+          thumbs: false,
+          nav: false,
+      });
+      
         $('.vehicle-imgSlider').owlCarousel({
             autoplay: false,
             autoplayHoverPause: true,
@@ -216,6 +223,16 @@ $('.maz-burger-menu').on('click', function(){
         $('#maz-nav').removeClass('sticky');
       }
     };
+
+    $(document).ready(function(){
+
+      var conWidth = $('.container').width();
+      var offset = $('.container').offset();
+
+      $('.fixed-sidebar').css("transform", 'translateX(' + (parseInt(conWidth) + parseInt(offset.left)) + "px)");
+
+    });
+    
 
 
 })(jQuery)

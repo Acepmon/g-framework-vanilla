@@ -41,13 +41,14 @@
 
         <div class="bg-page-header"></div>
 
+        <!-- Sticky Sidebar -->
+        @include('themes.car-web.includes.fixed-right-sidebar', ['sideBanners' => \App\Banner::where('location_id', 4)->get(), 'premium' => \App\Content::where('type', \App\Content::TYPE_CAR)->limit(5)->get()])
+
         @include('themes.car-web.includes.section-title', ['content', $content])
 
         <!-- Detail page Grid -->
         <section class="detail-items bg-white">
             <div class="container">
-                <!-- Sticky Sidebar -->
-                @include('themes.car-web.includes.fixed-right-sidebar', ['sideBanners' => \App\Banner::where('location_id', 4)->get(), 'premium' => \App\Content::where('type', \App\Content::TYPE_CAR)->limit(5)->get()])
 
                 <div class="row">
                     <div class="col-md-8">
@@ -105,7 +106,7 @@
         <script src="{{ asset('car-web/vendor/owl.carousel.thumbs/owl.carousel2.thumbs.min.js') }}"></script>
         <script src="{{ asset('car-web/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
         <script src="{{ asset('car-web/vendor/lottie-web/player/lottie.min.js') }}"></script>
-        <script src="{{ asset('car-web/js/script.js') }}"></script>
+        <script src="{{ asset('car-web/js/script.min.js') }}"></script>
         @yield('script')
 
         @stack('scripts')

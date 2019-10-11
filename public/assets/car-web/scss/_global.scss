@@ -315,3 +315,25 @@ hr {
       margin-bottom: 1rem;
   }
 }
+
+.fixed-sidebar {
+  width: max-content;
+  height: 0;
+
+  @media (max-width: 768px) {
+    display: none;
+  }
+}
+.sticky-content {
+  width: 124px;
+  margin-left: 20px;
+  display: grid;
+  grid-gap: 10px;
+}
+
+.fixed-sidebar .owl-stage {
+  padding-left: 0px!important;
+}
+.fixed-sidebar .owl-dot {
+  zoom: 0.6!important;
+}
