@@ -197,7 +197,7 @@ class ContentManager extends Manager
      */
     public static function discernMetasFromRequest($input)
     {
-        $inputExcept = ['title', 'slug', 'content', 'type', 'status', 'visibility', 'limit', 'page', 'author_id'];
+        $inputExcept = ['title', 'slug', 'content', 'type', 'status', 'visibility', 'limit', 'page', 'author_id', '_token'];
         $metaInputs = array_filter($input, function ($key) use ($inputExcept) {
             return !in_array($key, $inputExcept);
         }, ARRAY_FILTER_USE_KEY);

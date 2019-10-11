@@ -38,10 +38,6 @@ class CarContentsTableSeeder extends Seeder
 
             // Random values
 
-            // $countryNmae = Termtaxonomy::where();
-//            $countryNmae1 = DB::table('term_taxonomy')->pluck('description')->where('taxonomy', 'Area')->all();
-//            $countryName2 = array_rand($countryNmae1);
-//            $countryNmae3 = $countryNmae1[$countryNmae2];
             // $markName = '';
             // $modelName = '';
             // $type = '';
@@ -73,7 +69,7 @@ class CarContentsTableSeeder extends Seeder
             $content->metas()->saveMany([
                 new ContentMeta(['key' => 'plateNumber', 'value' => '0035UNA']),
                 new ContentMeta(['key' => 'cabinNumber', 'value' => 'VF3 3CRFNC 12345678']),
-                new ContentMeta(['key' => 'countryName', 'value' => 'Japan']),
+                new ContentMeta(['key' => 'countryName', 'value' => 'japan']),
                 new ContentMeta(['key' => 'markName', 'value' => 'Toyota']),
                 new ContentMeta(['key' => 'modelName', 'value' => 'Prius']),
                 new ContentMeta(['key' => 'type', 'value' => 'Sedan']),
@@ -110,6 +106,9 @@ class CarContentsTableSeeder extends Seeder
                 new ContentMeta(['key' => 'mileageAmount', 'value' => '5000']),
                 new ContentMeta(['key' => 'mileageUnit', 'value' => 'km']),
                 new ContentMeta(['key' => 'advantages', 'value' => 'used in womans hand']),
+                new ContentMeta(['key' => 'advantages', 'value' => 'no accident']),
+                new ContentMeta(['key' => 'advantages', 'value' => 'fresh smell']),
+                new ContentMeta(['key' => 'advantages', 'value' => 'president rode it']),
                 new ContentMeta(['key' => 'priceAmount', 'value' => '10000000']),
                 new ContentMeta(['key' => 'priceUnit', 'value' => '₮']),
                 new ContentMeta(['key' => 'priceType', 'value' => 'loan']),
@@ -207,11 +206,6 @@ class CarContentsTableSeeder extends Seeder
                 new ContentMeta(['key' => 'optionConvenienceAVMonitorRear', 'value' => rand(0, 1)]),
                 new ContentMeta(['key' => 'optionConvenienceBlinderRear', 'value' => rand(0, 1)]),
                 new ContentMeta(['key' => 'optionConvenienceBlackBox', 'value' => rand(0, 1)]),
-
-                // Options - Clean
-                new ContentMeta(['key' => 'optionCleanOnePersonDrive', 'value' => rand(0, 1)]),
-                new ContentMeta(['key' => 'optionCleanNoSmoking', 'value' => rand(0, 1)]),
-                new ContentMeta(['key' => 'optionCleanWomanDriver', 'value' => rand(0, 1)]),
 
                 // Publishing
                 new ContentMeta(['key' => 'publishType', 'value' => $publishTypes[array_rand($publishTypes)]]),
