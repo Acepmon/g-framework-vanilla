@@ -1,6 +1,9 @@
 <?php
 
+namespace Modules\Content\Database\Seeders;
+
 use Illuminate\Database\Seeder;
+use Illuminate\Database\Eloquent\Model;
 
 use App\Content;
 use App\ContentMeta;

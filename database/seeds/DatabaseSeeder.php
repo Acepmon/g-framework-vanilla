@@ -11,26 +11,19 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call(AuthPagesTableSeeder::class);
+        // Run System Module Seeder
+        if (env('SEED_SYSTEM_MODULE', true)) {
+            $this->call(Modules\System\Database\Seeders\SystemDatabaseSeeder::class);
+        }
 
-        $this->call(PermissionsTableSeeder::class);
-        $this->call(GroupsTableSeeder::class);
-        $this->call(MenusTableSeeder::class);
-        $this->call(UsersTableSeeder::class);
-
-        $this->call(GroupPermissionTableSeeder::class);
-        $this->call(GroupMenuTableSeeder::class);
-        $this->call(UserPermissionTableSeeder::class);
-        $this->call(UserGroupTableSeeder::class);
-
-        $this->call(TermTaxonomyTableSeeder::class);
-        $this->call(ThemesTableSeeder::class);
-        $this->call(ContentsTableSeeder::class);
+        // Run Content Module Seeder
+        if (env('SEED_CONTENT_MODULE', true)) {
+            $this->call(Modules\Content\Database\Seeders\ContentDatabaseSeeder::class);
+        }
 
         // Run Car Module Seeder
         if (env('SEED_CAR_MODULE', true)) {
-            Artisan::call('module:seed Car');
-            echo Artisan::output();
+            $this->call(Modules\Car\Database\Seeders\CarDatabaseSeeder::class);
         }
     }
 }

@@ -16,6 +16,9 @@ class ContentDatabaseSeeder extends Seeder
     {
         Model::unguard();
 
-        // $this->call("OthersTableSeeder");
+        $this->call(MenusTableSeeder::class);
+        $this->call(GroupMenuTableSeeder::class);
+        $this->call(GroupPermissionTableSeeder::class);
+        $this->call(ContentsTableSeeder::class);
     }
 }

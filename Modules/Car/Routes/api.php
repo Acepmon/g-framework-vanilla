@@ -19,8 +19,14 @@ Route::prefix('v1')->group(function () {
     Route::namespace('API\v1')->group(function () {
         Route::middleware('auth:api')->group(function () {
 
+            Route::apiResources([
+                'car' => 'CarController',
+            ]);
             Route::get('/user/interested_cars', 'InterestedCarController@interestedCars');
-
+            Route::put('/car/{car}/metas', 'CarController@syncMetas');
+            Route::post('/car/{car}/medias', 'CarController@attachMedias');
+            Route::post('/car/{car}/doc', 'CarController@attachDoc');
+            
         });
     });
 });
