@@ -169,7 +169,7 @@
                 background: $secondary;
                 padding: 5px;
                 border-radius: 4px;
-                z-index: 1200;
+                z-index: 100;
                 height:30px;
                 width: 30px;
                 display: flex;
@@ -178,13 +178,10 @@
                 align-items: center;
             }
 
-            img{
-                // width: 100%;
-                // height: 140px;
-            }
         }
         .card-description{
             display: flex;
+            flex-wrap: wrap;
             width: 100%;
         }
 
@@ -192,7 +189,7 @@
             z-index: 1;
             // width: 100%;
             padding-top: 1rem;
-            width: 30%;
+            width: 40%;
 
             .meta{
                 text-align: left;
@@ -241,6 +238,7 @@
                 text-align: left;
                 margin-bottom: .75rem;
                 text-decoration: none;
+                text-transform: uppercase;
                 &:hover{
                     color: $secondary;
                 }
@@ -257,7 +255,7 @@
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
             grid-template-rows: auto;
-            width: 70%;
+            width: 60%;
 
             .info-icon{
                 display: inline-flex;
@@ -381,6 +379,91 @@
 
     }
 }
+
+@media (max-width: 767.98px) {
+    .card{
+        .card-body{
+            flex-direction: column;
+            .card-img{
+                display: block;
+                width: 100%;
+            }
+            .card-description{
+                padding: 1rem;
+                .card-caption{
+                    padding-top: .5rem;
+                    width: 100%;
+                    position: relative;
+                    display: flex;
+                    flex-wrap: wrap;
+                    justify-content: space-between;
+                    .card-title{
+                        font-size: 1.5rem;
+                    }
+                    .meta {
+                        font-size: 1rem;
+                    }
+                    .favorite {
+                        font-size: 1rem;
+                    }
+                    .price {
+                        position: absolute;
+                        border-top-left-radius: 6px;
+                        background: $white;
+                        padding: .5rem 1rem;
+                        font-size: 1.5rem;
+                        right: -1rem;
+                        top: -3.5rem;
+                    }
+                }
+                .info{
+                    display: none;
+                    grid-template-columns: auto auto auto;
+                    width: 100%;
+                    .info-icon{
+                        display: inline-flex;
+                        margin-right: $spacer;
+                        margin-bottom: $spacer;
+                        font-size: 1rem;
+                        color: $secondary;
+                        align-items: center;
+                        position: relative;
+                        p{
+                            font-size: 1rem;
+                        }
+                        img {
+                            width: 26px;
+                            height: 26px;
+                        }
+                    }
+                    .tag{
+                        white-space: normal;
+                        div{
+                            font-size: .875rem;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+@media (min-width: 768px) and (max-width: 991.98px) {
+    .card{
+        .card-body{
+
+            .card-description{
+                .card-caption{
+                    padding-top: .5rem;
+                    width: 100%;
+                }
+                .info{
+                    display: none;
+                }
+            }
+        }
+    }
+  
+  }
 }
 
 .homeFreeCars{

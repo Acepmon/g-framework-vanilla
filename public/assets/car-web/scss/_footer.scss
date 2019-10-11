@@ -34,7 +34,19 @@
         content:  url(../img/reg-tag.png);
       }
     }
+    img{
+      max-width:100%;
+    }
   }
+      @media (max-width: 767.98px) {
+        display: none;
+        bottom: -3rem;
+        .sell-type-img{
+          img{
+            max-width:70%;
+          }
+        }
+      }
 }
 
 footer.footer {
@@ -45,9 +57,12 @@ footer.footer {
   position: relative;
   width: 100%;
   z-index: 2;
+  bottom: 0;
   clip-path: polygon(0 20%, 100% 0, 100% 100%, 0% 100%);
 
-  @media (min-width: 575.98px)  {
+  @media (max-width: 767.98px)  {
+    padding-top: 4rem;
+    padding-bottom: 1rem;
     clip-path: polygon(0 10%, 100% 0, 100% 100%, 0% 100%);
   }
 
@@ -63,6 +78,9 @@ footer.footer {
     font-size: 1.6rem;
     font-weight: 800;
     color: $white;
+    @media (max-width: 767.98px)  {
+      display: none;
+    }
   }
 
   // &:after{
