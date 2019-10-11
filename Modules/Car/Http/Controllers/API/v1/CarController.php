@@ -12,6 +12,7 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Str;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class CarController extends Controller
 {
@@ -82,7 +83,7 @@ class CarController extends Controller
     public function attachMedias(Request $request) {
         $content_id = $request->route('car');
 
-        $media_list = $this->uploadFiles($request->medias);
+        $media_list = $this->uploadFiles($request->getContent());//->medias);
         $media_list = ['medias' => $media_list];
         ContentManager::attachMetas($content_id, $media_list);
 
@@ -92,8 +93,8 @@ class CarController extends Controller
     public function attachDoc(Request $request) {
         $content_id = $request->route('car');
 
-        $doc_list = $this->uploadFiles($request->doc);
-        $doc_list = ['medias' => $doc_list];
+        $doc_list = $this->uploadFiles($request->getContent());
+        $doc_list = ['doc' => $doc_list];
         ContentManager::attachMetas($content_id, $doc_list);
 
         return response()->json($doc_list);
@@ -104,17 +105,27 @@ class CarController extends Controller
         if (is_array($files)) {
             foreach ($files as $file) {
                 if ($file) {
-                    $filename = $file->store('public/medias', 'ftp');
-                    $filename = 'http://66.181.167.116:3000/' . $filename;
-                    array_push($medias, $filename);
+                    array_push($medias, $this->storeFile($file));
                 }
             }
         } else if($files) {
-            $filename = $files->store('public/medias', 'ftp');
-            $filename = 'http://66.181.167.116:3000/' . $filename;
-            array_push($medias, $filename);
+            array_push($medias, $this->storeFile($files));
         }
         return $medias;
+    }
+
+    public function storeFile($file) {
+        if (is_string($file)) {
+            $ext = getMimeType($file, 'str');
+            $ext = mime2ext($ext);
+            $filename =  Str::uuid() . '.' . $ext;
+            Storage::disk('ftp')->put('public/medias/' . $filename, $file);
+            $filename = 'public/medias/' . $filename;
+        } else {
+            $filename = $file->store('public/medias', 'ftp');
+        }
+        $filename = 'http://66.181.167.116:3000/' . $filename;
+        return $filename;
     }
 
     /**
