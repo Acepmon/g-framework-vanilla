@@ -4,6 +4,7 @@ namespace App\Entities;
 
 use App\TermTaxonomy;
 use App\Term;
+use App\TermMeta;
 
 class TaxonomyManager extends Manager
 {
@@ -66,10 +67,7 @@ class TaxonomyManager extends Manager
 
         if (count($metas) > 0) {
             foreach ($metas as $key => $value) {
-                $term->metas->save([
-                    'key' => $key,
-                    'value' => $value
-                ]);
+                $term->metas()->save(new TermMeta(['key' => $key, 'value' => $value]));
             }
         }
 
