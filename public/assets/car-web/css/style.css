@@ -304,6 +304,34 @@ hr {
   margin-bottom: 1rem;
 }
 
+.fixed-sidebar {
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  height: 0;
+}
+
+@media (max-width: 768px) {
+  .fixed-sidebar {
+    display: none;
+  }
+}
+
+.sticky-content {
+  width: 124px;
+  margin-left: 20px;
+  display: grid;
+  grid-gap: 10px;
+}
+
+.fixed-sidebar .owl-stage {
+  padding-left: 0px !important;
+}
+
+.fixed-sidebar .owl-dot {
+  zoom: 0.6 !important;
+}
+
 @-webkit-keyframes floatRight {
   0% {
     transform: translateX(0px);
@@ -2223,6 +2251,13 @@ select {
   }
 }
 
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .detail-page .finance-section .select-first-price .custom-control {
+    width: calc(100% / 4);
+    margin-bottom: 1rem;
+  }
+}
+
 .detail-page .finance-section .monthly-payment {
   background: #2B3651;
   color: #fff;
@@ -2238,6 +2273,12 @@ select {
 .detail-page .finance-section .monthly-payment .payment-information {
   display: flex;
   justify-content: space-around;
+}
+
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .detail-page .finance-section .monthly-payment .payment-information {
+    flex-direction: column;
+  }
 }
 
 .detail-page .finance-section .monthly-payment .info {
