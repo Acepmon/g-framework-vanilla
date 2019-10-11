@@ -19,7 +19,7 @@ $categories = [
 $orderBy = request('orderBy', "updated_at");
 $order = request('order', "desc");
 $page = request('page', "1");
-$itemsPerPage = request('itemsPerPage', "10");
+$itemsPerPage = request('itemsPerPage', "16");
 $allItems = App\Content::with('metas')->where('type', 'wanna-buy');
 if ($orderBy != 'updated_at') {
 $allItems = $allItems->join('content_metas', 'contents.id', '=', 'content_metas.content_id')
@@ -46,11 +46,22 @@ if ($value != Null) {
 $items = metaHas($items, $key, $value);
 }
 }
-
+function getPremiumDeal($type, $now) {
+  $deals = App\Content::where('type', App\Content::TYPE_CAR)->where('status', App\Content::STATUS_PUBLISHED)->where('visibility', App\Content::VISIBILITY_PUBLIC);
+  $deals = metaHas($deals, 'publishType', $type);
+  $deals = metaHas($deals, 'publishVerified', True);
+  return $deals->whereHas('metas', function ($query) use ($now) {
+    $query->where([['key', 'publishVerifiedEnd'],['value','>=',$now]]);
+  });
+}
 // HOT Deals
-$hotDeals=App\Content::where('type', App\Content::TYPE_CAR)->inRandomOrder()->paginate(5);
-$items = $hotDeals->merge($items->get());
-
+$now = now();
+$best_premium = getPremiumDeal('best_premium', $now)->get();
+$premium = getPremiumDeal('premium', $now)->get();
+$hotDeals = $best_premium->merge($premium);
+//dd($hotDeals);
+//$hotDeals = $hotDeals->paginate(5);
+$items = $hotDeals->merge($items);
 // Post items filtering
 $itemCount = count($items->all());
 $maxPage = intval(ceil($itemCount / $itemsPerPage));
@@ -205,87 +216,18 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
     </div>
 </section>
 
-<!-- Hot deal Grid start -->
+<!-- Banner start -->
 <section class="mainPage-items bg-white">
-    <div class="container">
-        <div class="row">
-        <div class="section-title">
-            <h2>Hot deal</h2>
-            <span>
-            <a href="#">See all ({{ count($hotDeals) }})</a>
-            <div class="more-arrow"></div>
-            </span>
-        </div>
-        </div>
-    </div>
-    <div class="card-list hot-deal">
-        <div class="container">
-        <div class="row">
-            <div class="card-slide owl-carousel owl-theme">
-            @foreach($hotDeals as $car)
-            <!-- card start -->
-            <div class="card">
-                <div class="brand-name"></div>
-                <div class="card-img">
-                <img src="{{ (substr($car->metaValue('thumbnail'), 0, 4) !== 'http')?(App\Config::getStorage() . $car->metaValue('thumbnail')):$car->metaValue('thumbnail') }}" class="img-fluid" alt="alt">
-                <div class="bestDeal"
-                        style="position: absolute; top:5px; left: 5px; background-color: white; border-radius: 3px; padding: 1px 3px">
-                    <i class="fas fa-crown" style="color: #FEC400"></i>
-                </div>
-                
-                <div class="info">
-                    <span class="carIcon-engine">
-                    <p>{{ ucfirst($car->metaValue('displacement')) }} L</p>
-                    </span>
-                    <span class="carIcon-car-6">
-                    <p>{{ $car->metaValue('mileage') }} KM</p>
-                    </span>
-                    <span class="carIcon-gas-station">
-                    <p>{{ ucfirst($car->metaValue('fuelType')) }}</p>
-                    </span>
-                    <span class="carIcon-gearshift">
-                    <p>{{ ucfirst($car->metaValue('transmission')) }}</p>
-                    </span>
-                    <span class="carIcon-steering-wheel">
-                    <p>{{ ucfirst($car->metaValue('wheelPosition')) }} wheel</p>
-                    </span>
-                    <span class="color" data-color="white">
-                    <p>{{ ucfirst($car->metaValue('colorName')) }}</p>
-                    </span>
-                </div>
-                <div class="card-caption">
-                    <div class="meta">
-                    {{ $car->metaValue('buildYear') }}/{{ $car->metaValue('importDate') }} | {{ $car->metaValue('mileage') }}km | {{ ucfirst($car->metaValue('fuelType')) }}
-                    <i class="show-more fab fa fa-angle-up"></i>
-                    </div>
-                    <div class="favorite">
-                    <i class="icon-heart"></i>
-                    </div>
-                </div>
-                </div>
-
-                <div class="card-body shadow">
-                <div class="card-description">
-                    <a href="{{ $car->slug }}" class="card-title">{{ $car->title }}</a>
-                    <div class="card-meta">
-                    <div class="status">{{ ucfirst($car->metaValue('priceType')) }} </div>
-                    <div class="price">{{ $car->metaValue('price') }} ₮</div>
-                    </div>
-                </div>
-                </div>
-
-            </div>
-            <!-- card end -->
-            @endforeach
-
-            </div>
-        </div>
-        </div>
-    </div>
+  <div class="container">
+    <a href="{{ $banner->link }}" class="text-primary text-decoration-none">
+      <div class="banner">
+        <!-- {{ $banner->title }} -->
+      </div>
+    </a>
+  </div>
 </section>
-    <!-- card end -->
+<!-- Banner end -->
 
-<!-- Hot deal Grid start -->
 @endsection
 
 @section('script')
