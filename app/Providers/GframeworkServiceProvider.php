@@ -10,6 +10,7 @@ use App\Banner;
 use App\TermTaxonomy;
 use App\ContentMeta;
 use DB;
+use Modules\Content\Transformers\TaxonomyCollection;
 
 class GframeworkServiceProvider extends ServiceProvider
 {
@@ -91,19 +92,18 @@ class GframeworkServiceProvider extends ServiceProvider
 
         Blade::directive('getTaxonomys', function ($expression) {
             $someObject = json_decode($expression);
-            $taxonomys = TermTaxonomy::select('id', 'taxonomy', 'description')->whereRaw('1 = 1')->orderBy('description', 'asc');
+            $taxonomys = TermTaxonomy::whereRaw('1 = 1')->orderBy('description', 'asc');
             foreach ($someObject as $some) {
                 $taxonomys = $taxonomys->where($some->field, '=', $some->key);
                 $daaataaa= $some->key;
             }
             $taxonomys = $taxonomys->get();
-            $taxonomyData=json_encode($taxonomys);
-//            /dd($daaataaa);
-            //$daaataaa='taxonomys';
+            $taxonomys = new TaxonomyCollection($taxonomys);
+            $taxonomys = $taxonomys->toJson();
             if (!starts_with($daaataaa, '$')) {
                 $daaataaa = '$' . $daaataaa;
             }
-            return "<?php {$daaataaa} = ('$taxonomyData'); ?>";
+            return "<?php {$daaataaa} = json_decode('$taxonomys');?>";
         });
 
     }
