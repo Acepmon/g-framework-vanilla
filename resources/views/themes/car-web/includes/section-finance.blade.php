@@ -216,7 +216,9 @@ $.ajaxSetup({
     }
 });
 
-$(document).ready(function(){
+
+
+$(document).ready(function() {
     $("#btnSendLoanCheck").on('click', function() {
         var paramObjs = {};
         paramObjs['registrationNumber'] = $("#reg-letter-1").val() + $("#reg-letter-2").val() + $("#reg-num").val();

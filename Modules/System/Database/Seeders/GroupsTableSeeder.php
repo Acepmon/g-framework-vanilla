@@ -1,8 +1,12 @@
 <?php
 
+namespace Modules\System\Database\Seeders;
+
 use Illuminate\Database\Seeder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Schema;
 
+use DB;
 use App\Group;
 
 class GroupsTableSeeder extends Seeder

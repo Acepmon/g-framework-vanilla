@@ -57,11 +57,3 @@ function numerizePrice($value) {
     $value /= 1000000;
     return $value . ' сая';
 }
-
-function getMetasValue($metas, $key) {
-    foreach($metas as $meta){
-        if($meta->key==$key){
-            return $meta->value;
-        }
-    }
-}
