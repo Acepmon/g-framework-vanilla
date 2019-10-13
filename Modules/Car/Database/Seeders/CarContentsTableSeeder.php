@@ -10,6 +10,8 @@ use App\TermTaxonomy;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Seeder;
 
+use App\Entities\TaxonomyManager;
+
 class CarContentsTableSeeder extends Seeder
 {
     /**
@@ -38,15 +40,15 @@ class CarContentsTableSeeder extends Seeder
 
             // Random values
 
-            // $markName = '';
-            // $modelName = '';
-            // $type = '';
+            $markName = TaxonomyManager::collection('car-manufacturer')->random()->term->name;
+            $modelName = TaxonomyManager::collection('car-toyota')->random()->term->name;
+            $type = TaxonomyManager::collection('car-type')->random()->term->name;
             // $className = '';
-            // $manCount = '';
-            // $fuelType = '';
-            // $colorName = '';
-            // $transmission = '';
-            // $wheelPosition = '';
+            $manCount = TaxonomyManager::collection('car-mancount')->random()->term->name;
+            $fuelType = TaxonomyManager::collection('car-fuel')->random()->term->name;
+            $colorName = TaxonomyManager::collection('car-colors')->random()->term->name;
+            $transmission = TaxonomyManager::collection('car-transmission')->random()->term->name;
+            $wheelPosition = TaxonomyManager::collection('car-wheel-pos')->random()->term->name;
 
             // -------------
             $thumbWidth = 640;
@@ -70,46 +72,46 @@ class CarContentsTableSeeder extends Seeder
                 new ContentMeta(['key' => 'plateNumber', 'value' => '0035UNA']),
                 new ContentMeta(['key' => 'cabinNumber', 'value' => 'VF3 3CRFNC 12345678']),
                 new ContentMeta(['key' => 'countryName', 'value' => 'japan']),
-                new ContentMeta(['key' => 'markName', 'value' => 'Toyota']),
-                new ContentMeta(['key' => 'modelName', 'value' => 'Prius']),
-                new ContentMeta(['key' => 'type', 'value' => 'Sedan']),
+                new ContentMeta(['key' => 'markName', 'value' => $markName]),
+                new ContentMeta(['key' => 'modelName', 'value' => $modelName]),
+                new ContentMeta(['key' => 'type', 'value' => $type]),
                 new ContentMeta(['key' => 'className', 'value' => 'luxury']),
-                new ContentMeta(['key' => 'manCount', 'value' => '4']),
+                new ContentMeta(['key' => 'manCount', 'value' => $manCount]),
 
-                new ContentMeta(['key' => 'weightAmount', 'value' => '1200']),
+                new ContentMeta(['key' => 'weightAmount', 'value' => rand(1, 2000)]),
                 new ContentMeta(['key' => 'weightUnit', 'value' => 'kg']),
-                new ContentMeta(['key' => 'massAmount', 'value' => '1200']),
+                new ContentMeta(['key' => 'massAmount', 'value' => rand(1, 2000)]),
                 new ContentMeta(['key' => 'massUnit', 'value' => 'kg']),
-                new ContentMeta(['key' => 'fuelType', 'value' => 'gas']),
-                new ContentMeta(['key' => 'widthAmount', 'value' => '160']),
+                new ContentMeta(['key' => 'fuelType', 'value' => $fuelType]),
+                new ContentMeta(['key' => 'widthAmount', 'value' => rand(1, 200)]),
                 new ContentMeta(['key' => 'widthUnit', 'value' => 'cm']),
-                new ContentMeta(['key' => 'heightAmount', 'value' => '120']),
+                new ContentMeta(['key' => 'heightAmount', 'value' => rand(1, 150)]),
                 new ContentMeta(['key' => 'heightUnit', 'value' => 'cm']),
-                new ContentMeta(['key' => 'capacityAmount', 'value' => '1500']),
+                new ContentMeta(['key' => 'capacityAmount', 'value' => rand(1, 5000)]),
                 new ContentMeta(['key' => 'capacityUnit', 'value' => 'cc']),
                 new ContentMeta(['key' => 'motorNumber', 'value' => '2H2tXA598WDY987665']),
-                new ContentMeta(['key' => 'colorName', 'value' => 'black']),
+                new ContentMeta(['key' => 'colorName', 'value' => $colorName]),
                 new ContentMeta(['key' => 'axleCount', 'value' => '2']),
                 new ContentMeta(['key' => 'certificateNumber', 'value' => '2H2tXA598WDY987665']),
                 new ContentMeta(['key' => 'importDate', 'value' => '2006']),
                 new ContentMeta(['key' => 'intent', 'value' => 'use']),
-                new ContentMeta(['key' => 'transmission', 'value' => 'automatic']),
+                new ContentMeta(['key' => 'transmission', 'value' => $transmission]),
                 new ContentMeta(['key' => 'archiveDate', 'value' => '2008']),
                 new ContentMeta(['key' => 'buildYear', 'value' => '2003']),
                 new ContentMeta(['key' => 'archiveFirstNumber', 'value' => 'A598WDY987']),
-                new ContentMeta(['key' => 'wheelPosition', 'value' => 'left']),
+                new ContentMeta(['key' => 'wheelPosition', 'value' => $wheelPosition]),
                 new ContentMeta(['key' => 'lengthAmount', 'value' => '4']),
                 new ContentMeta(['key' => 'lengthUnit', 'value' => 'm']),
                 new ContentMeta(['key' => 'archiveNumber', 'value' => 'A598WDY987']),
                 new ContentMeta(['key' => 'carCondition', 'value' => 'used']),
                 new ContentMeta(['key' => 'wheelDrive', 'value' => 'back']),
-                new ContentMeta(['key' => 'mileageAmount', 'value' => '5000']),
+                new ContentMeta(['key' => 'mileageAmount', 'value' => rand(1, 5000)]),
                 new ContentMeta(['key' => 'mileageUnit', 'value' => 'km']),
                 new ContentMeta(['key' => 'advantages', 'value' => 'used in womans hand']),
                 new ContentMeta(['key' => 'advantages', 'value' => 'no accident']),
                 new ContentMeta(['key' => 'advantages', 'value' => 'fresh smell']),
                 new ContentMeta(['key' => 'advantages', 'value' => 'president rode it']),
-                new ContentMeta(['key' => 'priceAmount', 'value' => '10000000']),
+                new ContentMeta(['key' => 'priceAmount', 'value' => rand(1, 10000) . '000']),
                 new ContentMeta(['key' => 'priceUnit', 'value' => '₮']),
                 new ContentMeta(['key' => 'priceType', 'value' => 'loan']),
                 new ContentMeta(['key' => 'thumbnail', 'value' => $thumbnail]),

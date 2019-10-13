@@ -10,6 +10,7 @@ use App\Banner;
 use App\TermTaxonomy;
 use App\ContentMeta;
 use DB;
+use Modules\Content\Transformers\TaxonomyCollection;
 
 class GframeworkServiceProvider extends ServiceProvider
 {
@@ -62,7 +63,7 @@ class GframeworkServiceProvider extends ServiceProvider
                 $content->metas = $content->metas()->get();
             }
             $carData=null;
-            $carData=json_encode($contents);
+            $carData=$contents->toJson();
             //$carData = htmlspecialchars(json_encode($contents), ENT_QUOTES, 'UTF-8');
             //dd($carData);
             $daaataaa=$someObject->returnVariable;
@@ -70,7 +71,7 @@ class GframeworkServiceProvider extends ServiceProvider
                 $daaataaa = '$' . $daaataaa;
             }
 
-            return "<?php {$daaataaa} = ('$carData'); ?>";
+            return "<?php {$daaataaa} = json_decode('$carData'); ?>";
         });
 
 
@@ -81,29 +82,30 @@ class GframeworkServiceProvider extends ServiceProvider
                 $banners = $banners->where($some->field, '=', $some->key);
             }
             $banners = $banners->get();
-            $bannerData=json_encode($banners);
+            $bannerData=$banners->toJson();
             $daaataaa='banners';
             if (!starts_with($daaataaa, '$')) {
                 $daaataaa = '$' . $daaataaa;
             }
-            return "<?php {$daaataaa} = ('$bannerData'); ?>";
+            return "<?php {$daaataaa} = json_decode('$bannerData'); ?>";
         });
 
         Blade::directive('getTaxonomys', function ($expression) {
             $someObject = json_decode($expression);
-            $taxonomys = TermTaxonomy::select('id', 'taxonomy', 'description')->whereRaw('1 = 1')->orderBy('description', 'asc');
-            foreach ($someObject as $some) {
+            $taxonomys = TermTaxonomy::whereRaw('1 = 1')->orderBy('description', 'asc');
+            foreach ($someObject->filter as $some) {
                 $taxonomys = $taxonomys->where($some->field, '=', $some->key);
                 $daaataaa= $some->key;
             }
             $taxonomys = $taxonomys->get();
-            $taxonomyData=json_encode($taxonomys);
-//            /dd($daaataaa);
-            //$daaataaa='taxonomys';
+            $taxonomys = new TaxonomyCollection($taxonomys);
+            $taxonomys = $taxonomys->toJson();
+            $daaataaa = $someObject->returnValue;
             if (!starts_with($daaataaa, '$')) {
                 $daaataaa = '$' . $daaataaa;
             }
-            return "<?php {$daaataaa} = ('$taxonomyData'); ?>";
+
+            return "<?php {$daaataaa} = json_decode('$taxonomys');?>";
         });
 
     }

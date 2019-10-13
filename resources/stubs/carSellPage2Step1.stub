@@ -37,14 +37,18 @@
             <label for="Manufacturer">Manufacturer:</label>
             <select id="Manufacturer" class="form-control">
                 <option selected>Choose...</option>
-                <option>...</option>
+                @foreach(App\TermTaxonomy::where('taxonomy', 'car-manufacturer')->get() as $taxonomy)
+                <option value="{{ $taxonomy->term->name }}">{{$taxonomy->term->name}}</option>
+                @endforeach
             </select>
         </div>
         <div class="form-group col-md-6">
             <label for="Model">Model:</label>
             <select id="Model" class="form-control">
                 <option selected>Choose...</option>
-                <option>...</option>
+                @foreach(App\TermTaxonomy::where('taxonomy', 'car-toyota')->get() as $taxonomy)
+                <option value="{{ $taxonomy->term->name }}">{{$taxonomy->term->name}}</option>
+                @endforeach
             </select>
         </div>
     </div>
@@ -53,14 +57,18 @@
             <label for="carcondition">Car condition:</label>
             <select id="carcondition" class="form-control">
                 <option selected>Choose...</option>
-                <option>...</option>
+                @foreach(App\TermTaxonomy::where('taxonomy', 'car-condition')->get() as $taxonomy)
+                <option value="{{ $taxonomy->term->name }}">{{$taxonomy->term->name}}</option>
+                @endforeach
             </select>
         </div>
         <div class="form-group col-md-6">
             <label for="Color">Color:</label>
             <select id="Color" class="form-control">
                 <option selected>Choose...</option>
-                <option>...</option>
+                @foreach(App\TermTaxonomy::where('taxonomy', 'color')->get() as $taxonomy)
+                <option value="{{ $taxonomy->term->name }}">{{$taxonomy->term->name}}</option>
+                @endforeach
             </select>
         </div>
     </div>

@@ -23,46 +23,45 @@ class CarPricingsTableSeeder extends Seeder
         ]);
 
         TaxonomyManager::register('7 Day (25,000 ₮)', 'premium', null, [
-         'amount' => 25000,
-         'unit' => '₮',
-         'duration' => 7
+            'amount' => 25000,
+            'unit' => '₮',
+            'duration' => 7
         ]);
 
-        
         TaxonomyManager::register('15 Day (50,000 ₮)', 'premium', null, [
-             'amount' => 50000,
-             'unit' => '₮',
-             'duration' => 15
-         ]);
+            'amount' => 50000,
+            'unit' => '₮',
+            'duration' => 15
+        ]);
 
         TaxonomyManager::register('30 Day (90,000 ₮)', 'premium', null, [
-             'amount' => 90000,
-             'unit' => '₮',
-             'duration' => 30
-         ]);
+            'amount' => 90000,
+            'unit' => '₮',
+            'duration' => 30
+        ]);
 
         TaxonomyManager::register('3 Day (40,000 ₮)', 'best_premium', null, [
-             'amount' => 12000,
-             'unit' => '₮',
-             'duration' => 3
-         ]);
+            'amount' => 12000,
+            'unit' => '₮',
+            'duration' => 3
+        ]);
 
         TaxonomyManager::register('7 Day (80,000 ₮)', 'best_premium', null, [
-             'amount' => 25000,
-             'unit' => '₮',
-             'duration' => 7
-         ]);
+            'amount' => 25000,
+            'unit' => '₮',
+            'duration' => 7
+        ]);
 
         TaxonomyManager::register('15 Day (160,000 ₮)', 'best_premium', null, [
-             'amount' => 50000,
-             'unit' => '₮',
-             'duration' => 15
-         ]);
+            'amount' => 50000,
+            'unit' => '₮',
+            'duration' => 15
+        ]);
 
         TaxonomyManager::register('30 Day (280,000 ₮)', 'best_premium', null, [
-             'amount' => 90000,
-             'unit' => '₮',
-             'duration' => 30
-         ]);
+            'amount' => 90000,
+            'unit' => '₮',
+            'duration' => 30
+        ]);
     }
 }

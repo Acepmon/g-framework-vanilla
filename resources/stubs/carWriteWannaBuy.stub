@@ -20,7 +20,8 @@ $orderBy = request('orderBy', "updated_at");
 $order = request('order', "desc");
 $page = request('page', "1");
 $itemsPerPage = request('itemsPerPage', "16");
-$allItems = App\Content::with('metas')->where('type', 'wanna-buy');
+$allItems = App\Content::with('metas')->where('type', "wanna-buy");
+
 if ($orderBy != 'updated_at') {
 $allItems = $allItems->join('content_metas', 'contents.id', '=', 'content_metas.content_id')
 ->where('content_metas.key', '=', $orderBy)->select('contents.*')->addSelect('content_metas.value');
@@ -30,22 +31,6 @@ $allItems = $allItems->orderBy($orderBy, $order);
 }
 $items = $allItems;
 
-// Items filtering
-$request = [];
-$request['type'] = request('car_type', 'Sedan');
-$request['markName'] = request('manufacturer', Null);
-$request['colorName'] = request('color', Null);
-$request['fuelType'] = request('fuel', Null);
-$request['transmission'] = request('transmission', Null);
-$request['advantages'] = request('advantage', Null);
-$request['manCount'] = request('passenger', Null);
-$request['wheelPosition'] = request('steering_wheel', Null);
-$request['countryName'] = request('area', Null);
-foreach ($request as $key => $value) {
-if ($value != Null) {
-$items = metaHas($items, $key, $value);
-}
-}
 function getPremiumDeal($type, $now) {
   $deals = App\Content::where('type', App\Content::TYPE_CAR)->where('status', App\Content::STATUS_PUBLISHED)->where('visibility', App\Content::VISIBILITY_PUBLIC);
   $deals = metaHas($deals, 'publishType', $type);
@@ -54,6 +39,7 @@ function getPremiumDeal($type, $now) {
     $query->where([['key', 'publishVerifiedEnd'],['value','>=',$now]]);
   });
 }
+
 // HOT Deals
 $now = now();
 $best_premium = getPremiumDeal('best_premium', $now)->get();
@@ -62,6 +48,7 @@ $hotDeals = $best_premium->merge($premium);
 //dd($hotDeals);
 //$hotDeals = $hotDeals->paginate(5);
 $items = $hotDeals->merge($items);
+
 // Post items filtering
 $itemCount = count($items->all());
 $maxPage = intval(ceil($itemCount / $itemsPerPage));
@@ -93,45 +80,41 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
           <div class="card masthead-search shadow-lg-3d">
             <div class="">
               <div class="card-header px-5 pt-5 pb-3">
-                <h1>Search people's wish list</h1>
+                <h1>People's wish list</h1>
               </div>
             </div>
             <div class="tab-content p-5" id="heroTabFilter">
               <form>
                 <div class="form-group">
                   <select class="form-control">
-                    <option>Default select</option>
-                    <option>Default select</option>
-                    <option>Default select</option>
-                    <option>Default select</option>
-                    <option>Default select</option>
+                  <option value="0">Manufacturer</option>
+                    @foreach(App\TermTaxonomy::where('taxonomy', 'car-manufacturer')->get() as $taxonomy)
+                    <option>{{$taxonomy->term->name}}</option>
+                    @endforeach
                   </select>
                 </div>
                 <div class="form-group">
                   <select class="form-control">
-                    <option>Default select</option>
-                    <option>Default select</option>
-                    <option>Default select</option>
-                    <option>Default select</option>
-                    <option>Default select</option>
+                  <option value="0">Model</option>
+                    @foreach(App\TermTaxonomy::where('taxonomy', 'car-bugatti')->get() as $taxonomy)
+                    <option>{{$taxonomy->term->name}}</option>
+                    @endforeach
                   </select>
                 </div>
                 <div class="form-group">
                   <select class="form-control">
-                    <option>Default select</option>
-                    <option>Default select</option>
-                    <option>Default select</option>
-                    <option>Default select</option>
-                    <option>Default select</option>
+                  <option value="0">Min</option>
+                        @for($i=100; $i<=10000; $i+=100)
+                        <option value="{{ $i }}">{{ $i }} мянга</option>
+                        @endfor
                   </select>
                 </div>
                 <div class="form-group">
                   <select class="form-control">
-                    <option>Default select</option>
-                    <option>Default select</option>
-                    <option>Default select</option>
-                    <option>Default select</option>
-                    <option>Default select</option>
+                  <option value="">Select year</option>  
+                  @for($i=date('Y'); $i>=1990; $i--)
+                    <option value="{{ $i }}">{{ $i }}</option>
+                    @endfor
                   </select>
                 </div>
                 <button type="submit" class="btn btn-danger btn-lg btn-round shadow mt-4 px-5">Submit</button>
@@ -156,21 +139,20 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
 
 <section class="section">
     <div class="container">
-    @include('themes.car-web.includes.fixed-right-sidebar', array('sideBanners'=>$sideBanners, 'premium'=>$hotDeals))
         <div class="card-list">
             <div class="row mt-2">
-                    @foreach($items->get($page, $itemsPerPage) as $car)
+                    @foreach($items->forPage($page, $itemsPerPage) as $car)
                     <div class="col-md-3 px-2 mt-2">
                     <!-- card start -->
                         <div class="card">
                             <div class="card-header wish-title bg-dark text-white font-weight-bold rounded-top">
                                 <div class="brand-name"></div>
-                                <span class=font-size-lg>"</span>TOYOTA CROWN 210 ХУДАЛДАЖ АВНА
+                                <span class=font-size-lg>"</span>{{ $car->title }}
                             </div>
                             <div class="wish-detail text-black rounded-bottom border pl-4 pr-4"
                                 style="background-color: #f8f9fa">
                                 <div class="wl-detail-row mt-2">
-                                    <i class="icon-tag mr-4"></i>12 сая ~ 15,5 сая
+                                    <i class="icon-tag mr-4"></i>{{ numerizePrice($car->metaValue('priceAmount')) }} {{ $car->metaValue('priceUnit') }}
                                 </div>
                                 <div class="wl-detail-row">
                                     <i class="icon-phone mr-4"></i>9999 ....

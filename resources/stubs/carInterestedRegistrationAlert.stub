@@ -1,0 +1,115 @@
+@extends('themes.car-web.layouts.default')
+
+@section('title')
+
+@endsection
+
+@section('load')
+
+@endsection
+
+@section('content')
+<section class="section">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 col-lg-3">
+          <div class="my-profile">
+            <div class="pro-img">
+              <img src="{{asset('car-web/img/testimonials-1.jpg')}}" alt="">
+            </div>
+            <div class="pro-detail">
+              <div class="username">Enkhtuvshin</div>
+              <div class="edit"> <a href="#">Edit profile</a></div>
+            </div>
+          </div>
+          <div class="card shadow-soft-blue my-page-left">
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item"><a href="#">Interested car list</a></li>
+              <li class="list-group-item active"><a href="#">Registration car alert</a></li>
+              <li class="list-group-item"><a href="#">Sell request</a></li>
+              <li class="list-group-item"><a href="#">Purchase requests <span
+                    class="badge badge-danger">8</span></a></li>
+              <li class="list-group-item"><a href="#">Mileage</a></li>
+              <li class="list-group-item"><a href="#">Coupon</a></li>
+              <li class="list-group-item"><a href="#">User information</a></li>
+            </ul>
+          </div>
+
+        </div>
+        <!-- left bar end -->
+        <div class="col-md-8 col-lg-9">
+          <div class="row">
+            <div class="car-list">
+
+              <!-- card start -->
+              <a href="detail-page.html" target="_blank" class="card">
+
+                <div class="card-body">
+                  <div class="card-img">
+                    <div class="premium-tag shadow-soft-blue"><img src="{{asset('car-web/img/icons/corona.svg')}}" alt=""></div>
+                    <img src="{{asset('car-web/img/Cars/2.jpg')}}" class="img-fluid" alt="alt" />
+                  </div>
+
+                  <div class="card-description">
+                    <div class="card-caption">
+                      <div href="#" class="card-title">Hyundai Santa fe</div>
+                      <div class="meta">2006/2013 | 17,820km</div>
+                      <div class="price">12 Сая ₮</div>
+                      <div class="favorite"><i class="icon-heart"></i> Add to interest list</div>
+                    </div>
+                    <!-- card info start -->
+                    <div class="info">
+                      <span class="info-icon">
+                        <img src="{{asset('car-web/img/icons/engine.svg')}}" alt="">
+                        <p>1499 L</p>
+                      </span>
+                      <span class="info-icon">
+                        <img src="{{asset('car-web/img/icons/wheel.svg')}}" alt="">
+                        <p>Right wheel</p>
+                      </span>
+                      <span class="info-icon">
+                        <img src="{{asset('car-web/img/icons/gearShift.svg')}}" alt="">
+                        <p>Automatic</p>
+                      </span>
+                      <span class="info-icon">
+                        <img src="{{asset('car-web/img/icons/fuel.svg')}}" alt="">
+                        <p>Gasoline</p>
+                      </span>
+                      <span class="info-icon">
+                        <img src="{{asset('car-web/img/icons/transmision.svg')}}" alt="">
+                        <p>4 WD</p>
+                      </span>
+                      <span class="info-icon color" data-color="black">
+                        <p>Black</p>
+                      </span>
+
+                      <div class="tag">
+                        <div onclick="">1 person</div>
+                        <div onclick="">In Garage</div>
+                        <div onclick="">4 Season tire</div>
+                        <div onclick="">Bank Loan</div>
+                      </div>
+
+                    </div>
+                    <!-- card info end -->
+                  </div>
+                  <!-- card description end -->
+                </div>
+                <!-- card body end -->
+              </a>
+              <!-- card end -->
+            </div>
+
+          </div>
+        </div>
+        <!-- car list end -->
+      </div>
+      <!-- row end -->
+    </div>
+    <!-- container end -->
+  </section>
+@endsection
+
+@section('script')
+
+@endsection

@@ -18,4 +18,15 @@ class Term extends Model
     {
         return $this->hasOne('App\Term', 'group_id');
     }
+
+    public function metaValue($key) {
+        try {
+            $meta = $this->metas->where('key', $key)->first();
+            if ($meta)
+                return $meta->value;
+        } catch (\Exception $ex) {
+            return Null;
+        }
+        return Null;
+    }
 }

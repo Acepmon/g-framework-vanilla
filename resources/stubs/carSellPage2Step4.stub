@@ -10,6 +10,10 @@
             <div class="col-md-6 float-left">
                 <h6 class="font-weight-bold">Best Premium</h6>
                 <select class="custom-select my-1 mr-sm-2" name="publishPriceAmountBest">
+                    @getTaxonomys([{"field":"taxonomy", "key":"best_premium"}])
+                    @foreach($best_premium as $data)
+                        <option>{{getMetasValue($data->term->name, 'amount')}}</option>
+                    @endforeach
                     <option selected  value="25000">Choose...</option>
                 </select>
                 <p>

@@ -26,11 +26,8 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
                         <div class="hero-slider owl-carousel owl-theme">
 
                                 @banners([{"field":"location_id", "key":1}])
-                                @php
-                                    $bannerList=json_decode($banners);
-                            @endphp
-                            @if(count($bannerList) > 0)
-                                @foreach($bannerList as $bnr)
+                            @if(count($banners) > 0)
+                                @foreach($banners as $bnr)
                                     <div class="slider-item">
                                         <div class="slider-img animated slideInLeft" style="bottom: 0; left: -50px;">
                                             <a href="{{$bnr->link}}" target="_blank">
@@ -113,27 +110,18 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
                                      aria-labelledby="imported-tab">
                                     <form method="GET" action="/car-search">
                                         <div class="form-group">
-                                            <select class="form-control" name="manufacturer">
+                                            <select id="vehicleManufacturer" class="form-control" name="manufacturer">
                                                 <option>Manufacturer</option>
-                                                @getTaxonomys([{"field":"taxonomy", "key":"manufacturer"}])
-                                                @php
-                                                    $manufacturers=json_decode($manufacturer);
-                                                @endphp
+                                                @getTaxonomys({"filter":[{"field":"taxonomy", "key":"car-manufacturer"}], "returnValue":"manufacturers"})
                                                 @foreach($manufacturers as $data)
-                                                    <option>{{$data->description}}</option>
+                                                    <option value="{{$data->term->name}}">{{$data->term->name}}</option>
                                                 @endforeach
                                             </select>
                                         </div>
                                         <div class="form-group">
-                                            <select class="form-control" name="model">
+                                            <select id="vehicleManufacturerModels" class="form-control" name="model">
                                                 <option>Model</option>
-                                                @getTaxonomys([{"field":"taxonomy", "key":"model"}])
-                                                @php
-                                                    $models=json_decode($model);
-                                                @endphp
-                                                @foreach($models as $data)
-                                                    <option>{{$data->description}}</option>
-                                                @endforeach
+                                                {{--//@getTaxonomys({"filter":[{"field":"taxonomy", "key":"model"}], "returnValue":"models"})--}}
                                             </select>
                                         </div>
                                         <div class="form-group">
@@ -158,11 +146,8 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
                                 <div class="tab-pane fade" id="auction" role="tabpanel" aria-labelledby="used-tab">
                                     <form method="GET" action="/car-search">
                                         <div class="form-group">
-                                            <select class="form-control" name="manufacturer">
-                                                @getTaxonomys([{"field":"taxonomy", "key":"manufacturer"}])
-                                                @php
-                                                    $manufacturers=json_decode($manufacturer);
-                                                @endphp
+                                            <select class="form-control" name="manufacturer" onchange="manufacturer(this)">
+                                                @getTaxonomys({"filter":[{"field":"taxonomy", "key":"manufacturer"}], "returnValue":"manufacturers"})
                                                 <option>Manufacturer</option>
                                                 @foreach($manufacturers as $data)
                                                     <option>{{$data->description}}</option>
@@ -171,10 +156,7 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
                                         </div>
                                         <div class="form-group">
                                             <select class="form-control" name="model">
-                                                @getTaxonomys([{"field":"taxonomy", "key":"model"}])
-                                                @php
-                                                    $models=json_decode($model);
-                                                @endphp
+                                                @getTaxonomys({"filter":[{"field":"taxonomy", "key":"model"}], "returnValue":"models"})
                                                 <option>Model</option>
                                                 @foreach($models as $data)
                                                     <option>{{$data->description}}</option>
@@ -206,10 +188,7 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
                                     @csrf
                                         <div class="form-group">
                                             <select class="form-control" name="manufacturer">
-                                                @getTaxonomys([{"field":"taxonomy", "key":"manufacturer"}])
-                                                @php
-                                                    $manufacturers=json_decode($manufacturer);
-                                                @endphp
+                                                @getTaxonomys({"filter":[{"field":"taxonomy", "key":"manufacturer"}], "returnValue":"manufacturers"})
                                                 <option>Manufacturer</option>
                                                 @foreach($manufacturers as $data)
                                                     <option>{{$data->description}}</option>
@@ -218,10 +197,7 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
                                         </div>
                                         <div class="form-group">
                                             <select class="form-control" name="model">
-                                                @getTaxonomys([{"field":"taxonomy", "key":"model"}])
-                                                @php
-                                                    $models=json_decode($model);
-                                                @endphp
+                                                @getTaxonomys({"filter":[{"field":"taxonomy", "key":"model"}], "returnValue":"models"})
                                                 <option>Model</option>
                                                 @foreach($models as $data)
                                                     <option>{{$data->description}}</option>
@@ -268,31 +244,17 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
 
                 <div class="card-list">
                     <div class="row">
-                    @contents({"filter":[{"field":"type", "key":"car"}, {"field":"status", "key":"published"}],
-                    "metasFilter": [{"key":"publishType", "value":"best_premium"}], "limit":12,
-                    "returnVariable":"carDataPremium"})
-                    @php
-                        $carDataPremium=json_decode($carDataPremium);
-                        //$carDataPremium=html_entity_decode(htmlentities($carDataPremium, ENT_QUOTES, "UTF-8"));
-
-                        function getValue($rr,$key){
-                            foreach($rr->metas as $metas){
-                                if($metas->key==$key){
-                                return $metas->value;
-                                }
-                            }
-                        }
-                    @endphp
+                    @contents({"filter":[{"field":"type", "key":"car"}, {"field":"status", "key":"published"}], "metasFilter": [{"key":"publishType", "value":"best_premium"}], "limit":12, "returnVariable":"carDataPremium"})
                     @foreach($carDataPremium as $rr)
                         <div class="col-md-3 px-2">
                             <!-- card start -->
                             <div class="card cd-box">
                                 <div class="premium-tag shadow-soft-blue"><img src="{{asset('car-web/img/icons/corona.svg')}}" alt=""></div>
                                 <div class="card-img">
-                                    <img src="{{(getValue($rr, 'thumbnail'))}}" class="img-fluid" alt="alt">
+                                    <img src="{{(getMetasValue($rr->metas, 'thumbnail'))}}" class="img-fluid" alt="alt">
 
                                     <div class="card-caption">
-                                        <div class="meta"><?php echo getValue($rr, 'mileageAmount') ?> <?php echo getValue($rr, 'mileageUnit') ?> | <?php echo getValue($rr, 'fuelType') ?> | <?php echo getValue($rr, 'capacityAmount') ?> <?php echo getValue($rr, 'capacityUnit') ?></div>
+                                        <div class="meta"><?php echo getMetasValue($rr->metas, 'mileageAmount') ?> <?php echo getMetasValue($rr->metas, 'mileageUnit') ?> | <?php echo getMetasValue($rr->metas, 'fuelType') ?> | <?php echo getMetasValue($rr->metas, 'capacityAmount') ?> <?php echo getMetasValue($rr->metas, 'capacityUnit') ?></div>
                                         <div class="favorite">
                                             <i class="icon-heart"></i>
                                         </div>
@@ -303,13 +265,13 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
                                     <div class="card-description">
                                         <div class="card-desc-top">
                                             <a href="detail-page.html" class="card-title">{{$rr->title}}</a>
-                                            <div class="price">{{(getValue($rr, 'priceAmount'))}}{{(getValue($rr, 'priceUnit'))}}</div>
+                                            <div class="price">{{(getMetasValue($rr->metas, 'priceAmount'))}}{{(getMetasValue($rr->metas, 'priceUnit'))}}</div>
                                         </div>
 
                                         <div class="card-meta">
-                                            <div class="year"><?php echo getValue($rr, 'buildYear') ?> / <?php echo getValue($rr, 'importDate') ?></div>
+                                            <div class="year"><?php echo getMetasValue($rr->metas, 'buildYear') ?> / <?php echo getMetasValue($rr->metas, 'importDate') ?></div>
                                         </div>
-                                        <div class="status"><?php echo getValue($rr, 'priceType') ?> / Finance</div>
+                                        <div class="status"><?php echo getMetasValue($rr->metas, 'priceType') ?> / Finance</div>
                                     </div>
 
                                 </div>
@@ -342,41 +304,32 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
                         @contents({"filter":[{"field":"type", "key":"car"}, {"field":"status", "key":"published"}],
                         "metasFilter": [{"key": "markName", "value": "Toyota"}], "limit":12,
                         "returnVariable":"carAuctionPremium"})
-                        @php
-                            $carAuctionPremium=json_decode($carAuctionPremium);
-                            function getValueAuction($actionPrmCars,$key){
-                                foreach($actionPrmCars->metas as $metas){
-                                    if($metas->key==$key){
-                                    return $metas->value;
-                                    }
-                                }
-                            }
-                        @endphp
+
                         @foreach($carAuctionPremium as $auctionPrmCars)
                             <div class="col-md-3 px-2">
                                 <!-- card start -->
                                 <div class="card cd-box">
                                     <div class="premium-tag shadow-soft-blue"><img src="{{asset('car-web/img/icons/corona.svg')}}" alt=""></div>
                                     <div class="card-img">
-                                        <img src="{{(getValue($auctionPrmCars, 'thumbnail'))}}" class="img-fluid" alt="alt">
+                                        <img src="{{(getMetasValue($auctionPrmCars->metas, 'thumbnail'))}}" class="img-fluid" alt="alt">
                                         <div class="info">
                                         <span class="carIcon-engine">
                                           <p>1499 L</p>
                                         </span>
                                         <span class="carIcon-car-6">
-                                          <p>{{(getValue($auctionPrmCars, 'mileageAmount'))}} {{(getValue($auctionPrmCars, 'mileageUnit'))}}</p>
+                                          <p>{{(getMetasValue($auctionPrmCars->metas, 'mileageAmount'))}} {{(getMetasValue($auctionPrmCars->metas, 'mileageUnit'))}}</p>
                                         </span>
                                                             <span class="carIcon-gas-station">
-                                          <p>{{(getValue($auctionPrmCars, 'fuelType'))}}</p>
+                                          <p>{{(getMetasValue($auctionPrmCars->metas, 'fuelType'))}}</p>
                                         </span>
                                                             <span class="carIcon-gearshift">
-                                          <p>{{(getValue($auctionPrmCars, 'transmission'))}}</p>
+                                          <p>{{(getMetasValue($auctionPrmCars->metas, 'transmission'))}}</p>
                                         </span>
                                                             <span class="carIcon-steering-wheel">
-                                          <p>{{(getValue($auctionPrmCars, 'wheelPosition'))}}</p>
+                                          <p>{{(getMetasValue($auctionPrmCars->metas, 'wheelPosition'))}}</p>
                                         </span>
                                                             <span class="color" data-color="white">
-                                          <p>{{(getValue($auctionPrmCars, 'color'))}}</p>
+                                          <p>{{(getMetasValue($auctionPrmCars->metas, 'color'))}}</p>
                                         </span>
                                         </div>
                                         <div class="card-caption">
@@ -391,13 +344,13 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
                                         <div class="card-description">
                                             <div class="card-desc-top">
                                                 <a href="detail-page.html" class="card-title">{{$auctionPrmCars->title}}</a>
-                                                <div class="price">{{(getValue($auctionPrmCars, 'priceAmount'))}}{{(getValue($auctionPrmCars, 'priceUnit'))}}</div>
+                                                <div class="price">{{(getMetasValue($auctionPrmCars->metas, 'priceAmount'))}}{{(getMetasValue($auctionPrmCars->metas, 'priceUnit'))}}</div>
                                             </div>
                                             <div class="card-meta">
-                                                <div class="year">{{(getValue($auctionPrmCars, 'buildYear'))}} / {{(getValue($auctionPrmCars, 'importDate'))}} </div>
+                                                <div class="year">{{(getMetasValue($auctionPrmCars->metas, 'buildYear'))}} / {{(getMetasValue($auctionPrmCars->metas, 'importDate'))}} </div>
                                                 <div class="bids">0 Bids</div>
                                             </div>
-                                            <div class="overall">{{(getValue($auctionPrmCars, 'mileageAmount'))}} {{(getValue($auctionPrmCars, 'mileageUnit'))}} | {{(getValue($auctionPrmCars, 'fuelType'))}} | {{(getValue($auctionPrmCars, 'capacityAmount'))}} {{(getValue($auctionPrmCars, 'capacityUnit'))}}</div>
+                                            <div class="overall">{{(getMetasValue($auctionPrmCars->metas, 'mileageAmount'))}} {{(getMetasValue($auctionPrmCars->metas, 'mileageUnit'))}} | {{(getMetasValue($auctionPrmCars->metas, 'fuelType'))}} | {{(getMetasValue($auctionPrmCars->metas, 'capacityAmount'))}} {{(getMetasValue($auctionPrmCars->metas, 'capacityUnit'))}}</div>
                                         </div>
 
                                     </div>
@@ -434,22 +387,8 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
                         @contents({"filter":[{"field":"type", "key":"car"}, {"field":"status", "key":"published"}],
                         "metasFilter": [{"key": "markName", "value": "toyota"}], "limit":12,
                         "returnVariable":"wannabuy"})
-                        @php
-                            $wannaBuyList=json_decode($wannabuy);
-                            //$carDataPremium=html_entity_decode(htmlentities($carDataPremium, ENT_QUOTES, "UTF-8"));
 
-                            function getValueWannaBut($rr,$key){
-                                foreach($rr->metas as $metas){
-                                    if($metas->key==$key){
-                                    return $metas->value;
-                                    }
-                                }
-
-                            }
-
-
-                        @endphp
-                        @foreach($wannaBuyList as $wannaBuyData)
+                        @foreach($wannabuy as $wannaBuyData)
 
                         <!-- card start -->
                         <div class="card">
@@ -458,12 +397,12 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
                             </div>
                             <div class="card-body py-2">
                                 <div class="wish-detail">
-                                    <div class="price"><i class="icon-tag"></i>{{(getValueWannaBut($auctionPrmCars, 'priceAmount'))}} {{(getValueWannaBut($auctionPrmCars, 'priceUnit'))}}</div>
-                                    <div class="phone"><i class="icon-phone"></i>{{(getValueWannaBut($auctionPrmCars, 'retailPhone'))}} <button class="btn btn-sm btn-outline-dark float-right">Watch</button></div>
+                                    <div class="price"><i class="icon-tag"></i>{{(getMetasValue($wannaBuyData->metas,'priceAmount'))}} {{(getMetasValue($wannaBuyData->metas,'priceUnit'))}}</div>
+                                    <div class="phone"><i class="icon-phone"></i>{{(getMetasValue($wannaBuyData->metas,'retailPhone'))}} <button class="btn btn-sm btn-outline-dark float-right">Watch</button></div>
                                 </div>
                                 <div class="wish-user">
                                     <div class="profile-img"><img src="{{$wannaBuyData->author->avatar}}" alt=""></div>
-                                    <div class="username">@if($wannaBuyData->author->name!=null){{$wannaBuyData->author->name}}@else {{$wannaBuyData->author->username}}@endif <div class="date">{{(getValueWannaBut($auctionPrmCars, 'created_at'))}}</div>
+                                    <div class="username">@if($wannaBuyData->author->name!=null){{$wannaBuyData->author->name}}@else {{$wannaBuyData->author->username}}@endif <div class="date">{{(getMetasValue($wannaBuyData->metas,'created_at'))}}</div>
                                     </div>
 
                                 </div>
@@ -486,11 +425,8 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
             <div class="row">
                 <div class="hero-slider owl-carousel owl-theme">
                     @banners([{"field":"location_id", "key":5}])
-                    @php
-                        $bannerMidList=json_decode($banners);
-                    @endphp
-                    @if(count($bannerMidList) > 1)
-                        @foreach($bannerMidList as $bnr)
+                    @if(count($banners) > 1)
+                        @foreach($banners as $bnr)
                             <div class="slider-item" style="height: 160px; min-height: 160px;">
                                 <a href="{{$bnr->link}}" target="_blank">
                                     <img src="{{$bnr->banner}}" alt="">
@@ -525,16 +461,6 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
                         @contents({"filter":[{"field":"type", "key":"car"}, {"field":"status", "key":"published"}],
                         "metasFilter": [{"key": "markName", "value": "Toyota"}], "limit":10,
                         "returnVariable":"carsOther"})
-                        @php
-                            $carsOther=json_decode($carsOther);
-                            function getValueOtherCar($othCars,$key){
-                                foreach($othCars->metas as $metas){
-                                    if($metas->key==$key){
-                                    return $metas->value;
-                                    }
-                                }
-                            }
-                        @endphp
 
                         @foreach($carsOther as $othCars)
                         <div class="col-md-6">
@@ -542,13 +468,13 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
                             <div class="card">
                                 <div class="card-body m-0" >
                                     <div class="card-img">
-                                        <img src="<?php echo getValueOtherCar($othCars, 'thumbnail') ?>" class="img-fluid" alt="alt">
+                                        <img src="{{(getMetasValue($othCars->metas,'thumbnail'))}}" class="img-fluid" alt="alt">
                                     </div>
                                     <div class="card-description">
                                         <div class="card-caption">
                                             <div class="card-title">{{$othCars->title}}</div>
-                                            <div class="meta"> <?php echo getValueOtherCar($othCars, 'buildYear') ?> / <?php echo getValueOtherCar($othCars, 'importDate') ?> | <?php echo getValueOtherCar($othCars, 'mileageAmount') ?> <?php echo getValueOtherCar($othCars, 'mileageUnit') ?></div>
-                                            <div class="price">{{(getValue($auctionPrmCars, 'priceAmount'))}} {{(getValue($auctionPrmCars, 'priceUnit'))}}</div>
+                                            <div class="meta">{{(getMetasValue($othCars->metas,'buildYear'))}} / {{(getMetasValue($othCars->metas,'importDate'))}} | {{(getMetasValue($othCars->metas,'mileageAmount'))}} {{(getMetasValue($othCars->metas,'mileageUnit'))}}</div>
+                                            <div class="price">{{(getMetasValue($othCars->metas,'priceAmount'))}} {{(getMetasValue($othCars->metas, 'priceUnit'))}}</div>
                                             <div class="favorite">
                                                 <i class="icon-heart"></i> Add to interest list
                                             </div>
@@ -573,23 +499,13 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
         </div>
     </section>
 
-
-
-
-
-
-
-
     {{-- banner section 2 --}}
     <section class="banner mb-5">
         <div class="container">
             <div class="hero-slider owl-carousel owl-theme">
                 @banners([{"field":"location_id", "key":5}])
-                @php
-                    $bannerMidList=json_decode($banners);
-                @endphp
-                @if(count($bannerMidList) > 1)
-                    @foreach($bannerMidList as $bnr)
+                @if(count($banners) > 1)
+                    @foreach($banners as $bnr)
                         <div class="slider-item" style="height: 160px; min-height: 160px;">
                             <a href="{{$bnr->link}}" target="_blank">
                                 <img src="{{$bnr->banner}}" alt="">
@@ -609,6 +525,48 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
 @section('script')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js "></script>
     <script src="{{asset('car-web/js/script.min.js')}}  "></script>
+    <script type="text/javascript">
+        const toKebabCase = str =>
+            str &&
+            str
+                .match(/[A-Z]{2,}(?=[A-Z][a-z]+[0-9]*|\b)|[A-Z]?[a-z]+[0-9]*|[A-Z]|[0-9]+/g)
+                .map(x => x.toLowerCase())
+                .join('-');
+        $(document).ready(function () {
+
+            $("#vehicleManufacturer").change(
+                function (e) {
+                    var markName=$(this).val();
+                    $.ajax({
+                        type: 'Get',
+                        url: '/api/v1/taxonomies/car-'+toKebabCase(markName),
+                        // /data: paramObjs
+                    }).done(function(data) {
+                        console.log("DONE!");
+                        var modelList=data;
+                        $('#vehicleManufacturerModels')
+                            .find('option')
+                            .remove()
+                            .end()
+                            .append('<option>Model</option>')
+                            .val('')
+                        ;
+                        console.log(modelList.data);
+                        var i;
+                        for (i = 0; i < modelList.data.length; i++) {
+                            console.log(modelList.data[i].term.name);
+                            $("#vehicleManufacturerModels").append(new Option(modelList.data[i].term.name, modelList.data[i].id));
+                        }
+                    }).fail(function(err) {
+                        // $("#demo-spinner").css({'display': 'none'});
+                        console.error("FAIL!");
+                        console.error(err);
+                    });
+                }
+            )
+        })
+
+    </script>
     {{--<script>--}}
         {{--$('.scrollDown').click(function(event){--}}
             {{--// Preventing default action of the event--}}
