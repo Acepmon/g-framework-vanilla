@@ -53,5 +53,7 @@
     <script src="{{ asset('car-web/js/script.min.js') }}"></script>
     @yield('script')
 
+    @stack('scripts')
+
 </body>
 </html>
