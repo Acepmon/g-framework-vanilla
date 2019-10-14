@@ -18,7 +18,7 @@
 
                 //console.log(mPay, fPay, months)
                 //var payment = 400 * (0.03 / (1 - Math.pow(1 + 0.03, -1)));
-                var loValue = mPay / (0.03 / (1 - Math.pow(1 + 0.03, -months)))
+                var loValue = mPay / (0.027 / (1 - Math.pow(1 + 0.027, -months)))
                 var totalPrice =loValue+(loValue*fPay/100);
                 var firstPayValue= totalPrice*(fPay/100);
                 document.getElementById("firstPayValue").innerHTML = firstPayValue;
@@ -26,9 +26,12 @@
                 //console.log("wwwwwwww      "+loValue);
             });
 
-            function docWrite(variable) {
-                document.write(variable);
-            }
+            $("#searchFitCars").on('click', function(event){
+                event.stopPropagation();
+                event.stopImmediatePropagation();
+
+            });
+
 
             // $(".insMonth").click(
             //     console.log("wwwwwww")
@@ -120,10 +123,12 @@
                 </div>
             </div>
             <div class="col-md-12 text-center">
-                <button type="button" class="btn btn-danger rounded mt-5">Хайлт хийх</button>
+                <button type="button" id="searchFitCars" class="btn btn-danger rounded mt-5">Хайлт хийх</button>
             </div>
         </div>
     </section>
+    @contents({"filter":[{"field":"type", "key":"car"}, {"field":"status", "key":"published"}], "metasFilter": [{"key":"publishType", "value":"best_premium"}], "limit":12, "returnVariable":"carDataPremium"})
+
 
     <section class="pageType-footer">
         <div class="container">
