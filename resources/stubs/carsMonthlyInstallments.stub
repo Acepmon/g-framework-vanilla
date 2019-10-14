@@ -5,10 +5,10 @@
 @endsection
 
 @section('load')
-
+    {{--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>--}}
     <script type="text/javascript">
         $(document).ready(function () {
-
+            //$('#monthlyPrice').mask('000.000.000.000.000,00', {reverse: true});
             $(".insMonth").on('click', function(event){
                 event.stopPropagation();
                 event.stopImmediatePropagation();
@@ -16,13 +16,18 @@
                 var fPay = $('#firstPay').val();
                 var months = $(this).val();
 
-                //console.log(mPay, fPay, months)
                 //var payment = 400 * (0.03 / (1 - Math.pow(1 + 0.03, -1)));
                 var loValue = mPay / (0.027 / (1 - Math.pow(1 + 0.027, -months)))
-                var totalPrice =loValue+(loValue*fPay/100);
-                var firstPayValue= totalPrice*(fPay/100);
-                document.getElementById("firstPayValue").innerHTML = firstPayValue;
-                document.getElementById("totalPrice").innerHTML = totalPrice;
+                console.log(Math.round(loValue, 2));
+
+                //var ttt=
+
+                var totalPrice =Math.round(loValue+(loValue*fPay/(100-fPay)));
+                var firstPayValue= Math.round(totalPrice*(fPay/100));
+                //document.getElementById("firstPayValue").innerHTML = firstPayValue;
+                document.getElementById("firstPayValue").innerHTML = firstPayValue + '₮ (' + fPay +'%)';
+                document.getElementById("totalPrice").innerHTML = totalPrice+' ₮';
+
                 //console.log("wwwwwwww      "+loValue);
             });
 
@@ -31,6 +36,30 @@
                 event.stopImmediatePropagation();
 
             });
+
+            function number_format (number, decimals, dec_point, thousands_sep) {
+                // Strip all characters but numerical ones.
+                number = (number + '').replace(/[^0-9+\-Ee.]/g, '');
+                var n = !isFinite(+number) ? 0 : +number,
+                    prec = !isFinite(+decimals) ? 0 : Math.abs(decimals),
+                    sep = (typeof thousands_sep === 'undefined') ? ',' : thousands_sep,
+                    dec = (typeof dec_point === 'undefined') ? '.' : dec_point,
+                    s = '',
+                    toFixedFix = function (n, prec) {
+                        var k = Math.pow(10, prec);
+                        return '' + Math.round(n * k) / k;
+                    };
+                // Fix for IE parseFloat(0.55).toFixed(0) = 0;
+                s = (prec ? toFixedFix(n, prec) : '' + Math.round(n)).split('.');
+                if (s[0].length > 3) {
+                    s[0] = s[0].replace(/\B(?=(?:\d{3})+(?!\d))/g, sep);
+                }
+                if ((s[1] || '').length < prec) {
+                    s[1] = s[1] || '';
+                    s[1] += new Array(prec - s[1].length + 1).join('0');
+                }
+                return s.join(dec);
+            }
 
 
             // $(".insMonth").click(
@@ -109,10 +138,9 @@
                     <div class="row pl-4 pr-4 mt-3 text-center">
                         <button type="button" value="6" class="insMonth btn btn-outline-danger ml-2 mr-3">6 Month</button>
                         <button type="button" value="12" class="insMonth btn btn-outline-danger ml-2 mr-3">12 Month</button>
+                        <button type="button" value="18" class="insMonth btn btn-outline-danger ml-2 mr-3">18 Month</button>
                         <button type="button" value="24" class="insMonth btn btn-outline-danger ml-2 mr-3">24 Month</button>
-                        <button type="button" value="36" class="insMonth btn btn-outline-danger ml-2 mr-3">36 Month</button>
-                        <button type="button" value="48" class="insMonth btn btn-outline-danger ml-2 mr-3">48 Month</button>
-                        <button type="button" value="60" class="insMonth btn btn-outline-danger ml-2 mr-3">60 Month</button>
+                        <button type="button" value="30" class="insMonth btn btn-outline-danger ml-2 mr-3">30 Month</button>
                     </div>
                 </div>
                 <div class="col-md-4 text-center rounded border border-light" style="z-index: 1">
@@ -127,8 +155,57 @@
             </div>
         </div>
     </section>
-    @contents({"filter":[{"field":"type", "key":"car"}, {"field":"status", "key":"published"}], "metasFilter": [{"key":"publishType", "value":"best_premium"}], "limit":12, "returnVariable":"carDataPremium"})
 
+    <section id="hot-deal" class="mainPage-items bg-white">
+        <div class="container">
+            <div class="row">
+                <div class="section-title">
+
+                </div>
+
+                <div class="card-list">
+                    <div class="row">
+                        @contents({"filter":[{"field":"type", "key":"car"}, {"field":"status", "key":"published"}], "metasFilter": [{"key":"publishType", "value":"best_premium"}], "limit":12, "returnVariable":"carDataPremium"})
+                        @foreach($carDataPremium as $rr)
+                            <div class="col-md-3 px-2">
+                                <!-- card start -->
+                                <div class="card cd-box">
+                                    <div class="premium-tag shadow-soft-blue"><img src="{{asset('car-web/img/icons/corona.svg')}}" alt=""></div>
+                                    <div class="card-img">
+                                        <img src="{{(getMetasValue($rr->metas, 'thumbnail'))}}" class="img-fluid" alt="alt">
+
+                                        <div class="card-caption">
+                                            <div class="meta"><?php echo getMetasValue($rr->metas, 'mileageAmount') ?> <?php echo getMetasValue($rr->metas, 'mileageUnit') ?> | <?php echo getMetasValue($rr->metas, 'fuelType') ?> | <?php echo getMetasValue($rr->metas, 'capacityAmount') ?> <?php echo getMetasValue($rr->metas, 'capacityUnit') ?></div>
+                                            <div class="favorite">
+                                                <i class="icon-heart"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="card-body py-2">
+                                        <div class="card-description">
+                                            <div class="card-desc-top">
+                                                <a href="detail-page.html" class="card-title">{{$rr->title}}</a>
+                                                <div class="price">{{(getMetasValue($rr->metas, 'priceAmount'))}}{{(getMetasValue($rr->metas, 'priceUnit'))}}</div>
+                                            </div>
+
+                                            <div class="card-meta">
+                                                <div class="year"><?php echo getMetasValue($rr->metas, 'buildYear') ?> / <?php echo getMetasValue($rr->metas, 'importDate') ?></div>
+                                            </div>
+                                            <div class="status"><?php echo getMetasValue($rr->metas, 'priceType') ?> / Finance</div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                                <!-- card end -->
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <section class="pageType-footer">
         <div class="container">
