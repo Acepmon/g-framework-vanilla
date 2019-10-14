@@ -10,11 +10,12 @@
             <div class="col-md-6 float-left">
                 <h6 class="font-weight-bold">Best Premium</h6>
                 <select class="custom-select my-1 mr-sm-2" name="publishPriceAmountBest">
-                    @getTaxonomys([{"field":"taxonomy", "key":"best_premium"}])
-                    @foreach($best_premium as $data)
-                        <option>{{getMetasValue($data->term->name, 'amount')}}</option>
+                    @getTaxonomys({"filter":[{"field":"taxonomy", "key":"best_premium"}], "returnValue":"bestPremium"})
+                    <option selected  value="0">Choose...</option>
+                    @foreach($bestPremium as $data)
+                        {{--<option>{{getMetasValue($data->term->name, 'amount')}}</option>--}}
+                        <option>{{$data->term->name}}</option>
                     @endforeach
-                    <option selected  value="25000">Choose...</option>
                 </select>
                 <p>
                     5 дахин хурдан худалдана.
@@ -40,7 +41,12 @@
             <div class="col-md-6 float-left">
                 <h6 class="font-weight-bold">Premium</h6>
                 <select class="custom-select my-1 mr-sm-2" name="publishPriceAmountPremium">
-                    <option selected value="5000">Choose...</option>
+                    @getTaxonomys({"filter":[{"field":"taxonomy", "key":"premium"}], "returnValue":"premium"})
+                    <option selected  value="0">Choose...</option>
+                    @foreach($premium as $data)
+                        {{--<option>{{getMetasValue($data->term->name, 'amount')}}</option>--}}
+                        <option>{{$data->term->name}}</option>
+                    @endforeach
                 </select>
                 <p>
                     5 дахин хурдан худалдана.
