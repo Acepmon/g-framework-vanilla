@@ -263,7 +263,7 @@ function monthlyInterestCalculation(loanTerm) {
         case 12: return 2.5;
         case 18: return 2.6;
         case 24: return 2.7;
-        case 30: return 285;
+        case 30: return 2.8;
     }
 }
 
