@@ -12,7 +12,7 @@
 
 @section('content')
 <div class="row">
-    <div class="col-lg-6">
+    <div class="col-lg-12">
         <form action="{{ route('admin.configs.maintenance.set') }}" method="POST">
             @csrf
 
