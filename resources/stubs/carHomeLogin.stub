@@ -177,13 +177,8 @@
                 success:function(data){
                     $('#myModal').modal('hide');
                     $('#mailSuccess').modal('show');
-
                 }
-
             });
-
-
-
         });
 
     </script>
