@@ -31,26 +31,8 @@ $allItems = $allItems->orderBy($orderBy, $order);
 }
 $items = $allItems;
 
-function getPremiumDeal($type, $now) {
-  $deals = App\Content::where('type', App\Content::TYPE_CAR)->where('status', App\Content::STATUS_PUBLISHED)->where('visibility', App\Content::VISIBILITY_PUBLIC);
-  $deals = metaHas($deals, 'publishType', $type);
-  $deals = metaHas($deals, 'publishVerified', True);
-  return $deals->whereHas('metas', function ($query) use ($now) {
-    $query->where([['key', 'publishVerifiedEnd'],['value','>=',$now]]);
-  });
-}
-
-// HOT Deals
-$now = now();
-$best_premium = getPremiumDeal('best_premium', $now)->get();
-$premium = getPremiumDeal('premium', $now)->get();
-$hotDeals = $best_premium->merge($premium);
-//dd($hotDeals);
-//$hotDeals = $hotDeals->paginate(5);
-$items = $hotDeals->merge($items);
-
 // Post items filtering
-$itemCount = count($items->all());
+$itemCount = count($items->get());
 $maxPage = intval(ceil($itemCount / $itemsPerPage));
 if ($itemCount < $page * $itemsPerPage) {
   $page= $maxPage;
@@ -60,6 +42,8 @@ if ($itemCount < $page * $itemsPerPage) {
 $banner = App\Banner::where('location_id', 5)->where('status', 'active')->inRandomOrder()->first();
 // $sideBanners = App\Banner::where('location_id', 4)->where('status', 'active')->get();
 $sideBanners = App\Banner::where('location_id', 4)->get();
+
+$items = $items->get();
 
 @endphp
 
@@ -128,7 +112,7 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
           <div id="maz-animation"> </div>
         </div>
 
-        <a href="#hot-deal" class="js-scroll-trigger discover">
+        <a href="#wish-list" class="js-scroll-trigger discover">
           <span></span>
           <p>Хүслийн машинууд</p>
         </a>
@@ -137,8 +121,16 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
     
   </header>
 
-<section class="section">
-    <div class="container">
+<section id="wish-list" class="section">
+    <div class="container mt-5">
+        <div class="section-title">
+          <h2>People's wish list</h2>
+          <span>
+            <a> {{$itemCount}} wishs</a>
+          </span>
+        </div>
+        
+        <form action="car-write-wanna-buy" id="mainForm">
         <div class="card-list">
             <div class="row mt-2">
                     @foreach($items->forPage($page, $itemsPerPage) as $car)
@@ -152,7 +144,7 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
                             <div class="wish-detail text-black rounded-bottom border pl-4 pr-4"
                                 style="background-color: #f8f9fa">
                                 <div class="wl-detail-row mt-2">
-                                    <i class="icon-tag mr-4"></i>{{ numerizePrice($car->metaValue('priceAmount')) }} {{ $car->metaValue('priceUnit') }}
+                                    <i class="icon-tag mr-4"></i>{{ numerizePrice($car->metaValue('priceAmountStart')) }} {{ $car->metaValue('priceUnit') }}
                                 </div>
                                 <div class="wl-detail-row">
                                     <i class="icon-phone mr-4"></i>9999 ....
@@ -176,7 +168,7 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
             <!-- Pagination -->
             <nav aria-label="Page navigation">
                 <input type="hidden" value="{{ $page }}" name="page" id="page" />
-                <ul class="pagination d-flex justify-content-end">
+                <ul class="pagination d-flex justify-content-end mt-2">
                     <li class="page-item {{ ($page <= 1)?'disabled':'' }}">
                     <button class="page-link" onclick="formSubmit('page', {{$page-1}})" aria-label="Previous">
                         <span aria-hidden="true">&laquo;</span>
@@ -192,9 +184,10 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
                     </li>
                 </ul>
                 </nav>
-                <!-- Pagination end -->
+            <!-- Pagination end -->
         </div>
       </div>
+      </form>
     </div>
 </section>
 
@@ -213,5 +206,12 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
 @endsection
 
 @section('script')
-
+<script src="{{ asset('car-web/vendor/bootstrap-slider/bootstrap-slider.min.js') }}"></script>
+<script src="{{ asset('car-web/vendor/owl.carousel.thumbs/owl.carousel2.thumbs.min.js') }}"></script>
+<script>
+  function formSubmit(id, value) {
+    document.getElementById(id).value = value;
+    $('#mainForm').submit();
+  }
+</script>
 @endsection
