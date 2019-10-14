@@ -15,11 +15,8 @@
                         <div class="hero-slider owl-carousel owl-theme">
 
                             @banners([{"field":"location_id", "key":1}])
-                            @php
-                                $bannerList=json_decode($banners);
-                            @endphp
-                            @if(count($bannerList) > 0)
-                                @foreach($bannerList as $bnr)
+                            @if(count($banners) > 0)
+                                @foreach($banners as $bnr)
                                     <div class="slider-item">
                                         <div class="slider-img animated slideInLeft" style="bottom: 0; left: -50px;">
                                             <a href="{{$bnr->link}}" target="_blank">
