@@ -11,7 +11,7 @@
                 <a class="maz-brand" href="#">MAZ.MN</a>
                 <ul class="maz-menu-list">
                     @foreach ($mainMenus as $menu)
-                        <li class="maz-menu-item {{ Request::is($menu->link) ? 'active' : '' }}">
+                        <li class="maz-menu-item {{ Request::is(\Str::startsWith($menu->link, '/') ? substr($menu->link, 1) : $menu->link) ? 'active' : '' }}">
                             <a class="maz-menu-link" href="{{ $menu->link }}">{{ $menu->title }}
                                 @if(Request::is($menu->link))
                                     <span class="sr-only">(current)</span>
