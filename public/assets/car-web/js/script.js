@@ -141,10 +141,21 @@ $('.maz-burger-menu').on('click', function(){
 
         $('.sidebar-slider').owlCarousel({
           loop:true,
-          margin:0,
-          stagePadding:30,
+          margin: 10,
           thumbs: false,
           nav: false,
+          items: 1,
+          responsive: {
+              0: {
+              items: 1,
+              },
+              768: {
+              items: 1,
+              },
+              992: {
+              items: 1,
+              }
+          }
       });
       
         $('.vehicle-imgSlider').owlCarousel({
