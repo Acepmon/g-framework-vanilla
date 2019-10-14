@@ -12,92 +12,52 @@
 
     <div class="bg-page-header"></div>
 
-    <section class="section">
+    <section class="bg-dark p-5 text-white position-relative">
         <div class="container">
           <div class="row">
-            <div class="col-md-3">
-              <div class="card shadow-soft-blue my-page-left">
-                <ul class="list-group list-group-flush">
-                  <li class="list-group-item"><a href="#">Interested car list</a></li>
-                  <li class="list-group-item"><a href="#">Registration car alert</a></li>
-                  <li class="list-group-item active"><a href="#">Sell request</a></li>
-                  <li class="list-group-item"><a href="#">Purchase requests <span class="badge badge-danger">8</span></a></li>
-                  <li class="list-group-item"><a href="#">Mileage</a></li>
-                  <li class="list-group-item"><a href="#">Coupon</a></li>
-                  <li class="list-group-item"><a href="#">User information</a></li>
-                </ul>
+            <div class="card shadow-soft-blue page-top-navbar mb-5">
+              <div class="d-flex justify-content-around">
+                <a class="active" href="#">Finance information</a>
+                <a href="#">Search your vehicle for monthly installments</a>
               </div>
             </div>
-            <!-- left bar end -->
-                  <div class="col-md-9">
-                    <div class="row">
-                      <div class="card shadow-soft-blue page-top-navbar">
-                        <div class="mypage-nav">
-                          <ul>
-                            <li class="list-item "><a href="#">On sell</a></li>
-                            <li class="list-item active"> <a href="#">Sold</a></li>
-                          </ul>
-                        </div>
-                      </div>
-                      <div class="car-list sell-car">
-
-                          <a href="detail-page.html" target="_blank" class="card sold">
-
-                              <div class="card-body">
-                                  <div class="card-img">
-
-                                      <img src="{{asset('car-web/img/Cars/2.jpg')}}" class="img-fluid" alt="alt" />
-                                  </div>
-
-                                  <div class="card-description">
-                                      <div class="card-caption">
-                                          <div href="#" class="card-title">Hyundai Santa fe</div>
-                                          <div class="meta">2006/2013 | 17,820km</div>
-                                          <div class="price">12 Сая ₮</div>
-                                      </div>
-                                      <div class="info">
-                                  <span class="info-icon">
-                                    <img src="{{asset('car-web/img/icons/engine.svg')}}" alt="">
-                                    <p>1499 L</p>
-                                  </span>
-                                          <span class="info-icon">
-                                    <img src="{{asset('car-web/img/icons/wheel.svg')}}" alt="">
-                                    <p>Right wheel</p>
-                                  </span>
-                                          <span class="info-icon">
-                                    <img src="{{asset('car-web/img/icons/gearShift.svg')}}" alt="">
-                                    <p>Automatic</p>
-                                  </span>
-                                          <span class="info-icon">
-                                    <img src="{{asset('car-web/img/icons/fuel.svg')}}" alt="">
-                                    <p>Gasoline</p>
-                                  </span>
-                                          <span class="info-icon">
-                                    <img src="{{asset('car-web/img/icons/transmision.svg')}}" alt="">
-                                    <p>4 WD</p>
-                                  </span>
-                                          <span class="info-icon color" data-color="black">
-                                    <p>Black</p>
-                                  </span>
-
-                                          <div class="sell-action">
-                                              <div onclick="window.open('edit.html','mywindow');">Edit</div>
-                                              <div onclick="window.open('edit.html','mywindow');">Delete</div>
-                                              <div onclick="window.open('edit.html','mywindow');">Back to sell</div>
-                                          </div>
-
-                                      </div>
-                                  </div>
-                              </div>
-                          </a>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- car list end -->
           </div>
-          <!-- row end -->
         </div>
-        <!-- container end -->
+        <div class="container">
+          <div class="row d-flex align-items-center">
+            <div class="col-md-7">
+              <div class="hero-slider owl-carousel owl-theme">
+                <div class="slider-item">
+                  <img src="img/Slide-1.png" alt="">
+                </div>
+
+              </div>
+            </div>
+            <div class="col-md-5" style="z-index: 1">
+              <div class="title-mid-line white">
+                <h2>Сайн байна уу?</h2>
+              </div>
+              <div class="finance-information">
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorum nemo est dolores. Incidunt fugit vero,
+                  quidem illum, fugiat cumque laboriosam provident fuga commodi tempora possimus. Harum reiciendis natus
+                  quidem consectetur hic, cum optio nam rerum. Dolorem hic explicabo eum, nobis deserunt inventore! Impedit
+                  voluptates corporis sed quas, error quia, asperiores ipsam officia aliquid vel modi, quos nulla fuga
+                  corrupti necessitatibus.</p>
+                <div class="col-md-8">
+                  <a class="btn btn-primary btn-round btn-block my-4 shadow-soft-blue p-2 btn-icon-right" href="#">View
+                    finance cars <i class="fab fa fa-angle-right"></i></a>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="row justify-content-md-center">
+                <div class="col-md-6 text-center">
+                  <a class="btn btn-danger btn-round my-4 shadow-red btn-lg px-5" href="#">Loan calculator</a>
+                  <a class="btn btn-light btn-round my-4 shadow-soft-blue btn-lg px-5" href="#">Check loan</a>
+                </div>
+              </div>
+            </div>
+          </div>
       </section>
 
     <section class="pageType-footer">
