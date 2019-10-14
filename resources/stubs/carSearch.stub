@@ -112,7 +112,7 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
     @include('themes.car-web.includes.fixed-right-sidebar', array('sideBanners'=>$sideBanners, 'premium'=>$hotDeals))
         <div class="row">
             <div class="col-md-3">
-            <form action="car-search" id="mainForm">
+            <form action="search" id="mainForm">
                 <div class="left-bar-title">
                     Sort Vehicle <i class="fab fa fa-search"></i>
                 </div>

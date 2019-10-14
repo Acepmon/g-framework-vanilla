@@ -6,6 +6,64 @@
 
 @section('load')
 
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $(".insMonth").on('click', function(event){
+                event.stopPropagation();
+                event.stopImmediatePropagation();
+                var mPay = $('#monthlyPrice').val();
+                var fPay = $('#firstPay').val();
+                var months = $(this).val();
+
+                //console.log(mPay, fPay, months)
+                //var payment = 400 * (0.03 / (1 - Math.pow(1 + 0.03, -1)));
+                var loValue = mPay / (0.03 / (1 - Math.pow(1 + 0.03, -months)))
+                var totalPrice =loValue+(loValue*fPay/100);
+                var firstPayValue= totalPrice*(fPay/100);
+                document.getElementById("firstPayValue").innerHTML = firstPayValue;
+                document.getElementById("totalPrice").innerHTML = totalPrice;
+                //console.log("wwwwwwww      "+loValue);
+            });
+
+            function docWrite(variable) {
+                document.write(variable);
+            }
+
+            // $(".insMonth").click(
+            //     console.log("wwwwwww")
+            //     // function (e) {
+            //     //     var markName=$(this).val();
+            //     //     $.ajax({
+            //     //         type: 'Get',
+            //     //         url: '/api/v1/taxonomies/car-'+toKebabCase(markName),
+            //     //         // /data: paramObjs
+            //     //     }).done(function(data) {
+            //     //         console.log("DONE!");
+            //     //         var modelList=data;
+            //     //         $('#vehicleManufacturerModels')
+            //     //             .find('option')
+            //     //             .remove()
+            //     //             .end()
+            //     //             .append('<option>Model</option>')
+            //     //             .val('')
+            //     //         ;
+            //     //         console.log(modelList.data);
+            //     //         var i;
+            //     //         for (i = 0; i < modelList.data.length; i++) {
+            //     //             console.log(modelList.data[i].term.name);
+            //     //             $("#vehicleManufacturerModels").append(new Option(modelList.data[i].term.name, modelList.data[i].id));
+            //     //         }
+            //     //     }).fail(function(err) {
+            //     //         // $("#demo-spinner").css({'display': 'none'});
+            //     //         console.error("FAIL!");
+            //     //         console.error(err);
+            //     //     });
+            //     // }
+            // )
+        })
+    </script>
+
 @endsection
 
 @section('content')
@@ -14,51 +72,58 @@
 
     <section class="bg-dark p-5 text-white position-relative">
         <div class="container">
-          <div class="row">
-            <div class="card shadow-soft-blue page-top-navbar mb-5">
-              <div class="d-flex justify-content-around">
-                <a class="active" href="#">Finance information</a>
-                <a href="#">Search your vehicle for monthly installments</a>
-              </div>
+            <div class="row">
+                <div class="card shadow-soft-blue page-top-navbar mb-5">
+                    <div class="d-flex justify-content-around">
+                        <a href="#">Finance information</a>
+                        <a href="#" class="active">Search your vehicle for monthly installments</a>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
         <div class="container">
-          <div class="row d-flex align-items-center">
-            <div class="col-md-7">
-              <div class="hero-slider owl-carousel owl-theme">
-                <div class="slider-item">
-                  <img src="img/Slide-1.png" alt="">
+            <div class="row d-flex align-items-center">
+                <div class="col-md-8 bg-white rounded p-4">
+                    <div class="row pl-4 pr-4">
+                        <div class="form-group col-md-6 float-left">
+                            <label for="monthlyPrice">Monthly price</label>
+                            <input type="number" class="form-control" id="monthlyPrice" placeholder="">
+                        </div>
+                        <div class="form-group col-md-6 float-left">
+                            <label for="firstPay">First pay</label>
+                            <select class="form-control" id="firstPay">
+                                <option value="20">20%</option>
+                                <option value="15">15%</option>
+                                <option value="10">10%</option>
+                                <option value="5">5%</option>
+                                <option value="0">0%</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-12 text-dark">
+                        <h6 class="pl-2">Installment period</h6>
+                    </div>
+                    <div class="row pl-4 pr-4 mt-3 text-center">
+                        <button type="button" value="6" class="insMonth btn btn-outline-danger ml-2 mr-3">6 Month</button>
+                        <button type="button" value="12" class="insMonth btn btn-outline-danger ml-2 mr-3">12 Month</button>
+                        <button type="button" value="24" class="insMonth btn btn-outline-danger ml-2 mr-3">24 Month</button>
+                        <button type="button" value="36" class="insMonth btn btn-outline-danger ml-2 mr-3">36 Month</button>
+                        <button type="button" value="48" class="insMonth btn btn-outline-danger ml-2 mr-3">48 Month</button>
+                        <button type="button" value="60" class="insMonth btn btn-outline-danger ml-2 mr-3">60 Month</button>
+                    </div>
                 </div>
-
-              </div>
-            </div>
-            <div class="col-md-5" style="z-index: 1">
-              <div class="title-mid-line white">
-                <h2>Сайн байна уу?</h2>
-              </div>
-              <div class="finance-information">
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorum nemo est dolores. Incidunt fugit vero,
-                  quidem illum, fugiat cumque laboriosam provident fuga commodi tempora possimus. Harum reiciendis natus
-                  quidem consectetur hic, cum optio nam rerum. Dolorem hic explicabo eum, nobis deserunt inventore! Impedit
-                  voluptates corporis sed quas, error quia, asperiores ipsam officia aliquid vel modi, quos nulla fuga
-                  corrupti necessitatibus.</p>
-                <div class="col-md-8">
-                  <a class="btn btn-primary btn-round btn-block my-4 shadow-soft-blue p-2 btn-icon-right" href="#">View
-                    finance cars <i class="fab fa fa-angle-right"></i></a>
+                <div class="col-md-4 text-center rounded border border-light" style="z-index: 1">
+                    <p class="font-weight-bold mt-3">First pay</p>
+                    <h4 class="font-weight-bolder" id="firstPayValue">₮ (20%)</h4>
+                    <p class="font-weight-bold mt-4">Total price of vehicle</p>
+                    <h2 class="font-weight-bolder mb-4" id="totalPrice">₮</h2>
                 </div>
-              </div>
             </div>
-            <div class="col-md-12">
-              <div class="row justify-content-md-center">
-                <div class="col-md-6 text-center">
-                  <a class="btn btn-danger btn-round my-4 shadow-red btn-lg px-5" href="#">Loan calculator</a>
-                  <a class="btn btn-light btn-round my-4 shadow-soft-blue btn-lg px-5" href="#">Check loan</a>
-                </div>
-              </div>
+            <div class="col-md-12 text-center">
+                <button type="button" class="btn btn-danger rounded mt-5">Хайлт хийх</button>
             </div>
-          </div>
-      </section>
+        </div>
+    </section>
 
     <section class="pageType-footer">
         <div class="container">
