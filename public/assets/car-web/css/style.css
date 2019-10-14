@@ -309,6 +309,7 @@ hr {
   width: -moz-max-content;
   width: max-content;
   height: 0;
+  display: none;
 }
 
 @media (max-width: 768px) {
@@ -319,7 +320,7 @@ hr {
 
 .sticky-content {
   width: 124px;
-  margin-left: 20px;
+  margin-left: 40px;
   display: grid;
   grid-gap: 10px;
 }
