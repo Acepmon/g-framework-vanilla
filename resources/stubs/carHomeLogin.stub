@@ -58,7 +58,7 @@
                         </div>
                     </div>
                     <div class="col-md-5" style="z-index: 1">
-                        <div class="card masthead-search shadow-lg-3d">
+                        <div class="card masthead-search shadow-lg-3d  pl-5 pr-5">
                             <div class="">
                                 <div class="card-header px-5 pt-5 pb-3 mb-3">
                                     <h1>Car dealer login</h1>
@@ -89,7 +89,7 @@
                                     </form>
                                     <a href="#" data-toggle="modal" data-target="#myModal">Forget password</a>
                                     <div class="col-12 mt-5">
-                                        <button type="button" class="btn bg-secondary col-9 btn-default btn-lg btn-round mt-4">Sign up</button>
+                                        <a href="/register-step-1" type="button" class="btn bg-secondary col-9 btn-default btn-lg btn-round mt-4">Sign up</a>
                                     </div>
                                 </div>
                             </div>
