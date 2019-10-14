@@ -570,7 +570,7 @@ class CarPagesTableSeeder extends Seeder
         // --- car my page user information ---
         $content = new Content;
         $content->title = 'User Information';
-        $content->slug = 'user-information';
+        $content->slug = 'my-page/user-information';
         $content->type = Content::TYPE_PAGE;
         $content->status = Content::STATUS_PUBLISHED;
         $content->visibility = Content::VISIBILITY_PUBLIC;
