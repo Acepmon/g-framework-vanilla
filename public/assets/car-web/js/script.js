@@ -11,6 +11,18 @@
     path: '/img/wish.json'
 });
 
+$(document).ready(function(){
+
+  var conWidth = $('.container').width();
+  var offset = $('.container').offset();
+
+  $('.fixed-sidebar').css({
+    "transform": 'translateX(' + (parseInt(conWidth) + parseInt(offset.left)) + "px)",
+    "display": "block"
+  });
+
+});
+
 $('.maz-burger-menu').on('click', function(){
   $(this).toggleClass('extend');
   $(".maz-navbar").toggleClass('extend');
@@ -223,16 +235,6 @@ $('.maz-burger-menu').on('click', function(){
         $('#maz-nav').removeClass('sticky');
       }
     };
-
-    $(document).ready(function(){
-
-      var conWidth = $('.container').width();
-      var offset = $('.container').offset();
-
-      $('.fixed-sidebar').css("transform", 'translateX(' + (parseInt(conWidth) + parseInt(offset.left)) + "px)");
-
-    });
     
-
 
 })(jQuery)

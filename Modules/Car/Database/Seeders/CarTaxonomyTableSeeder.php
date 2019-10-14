@@ -14,6 +14,7 @@ class CarTaxonomyTableSeeder extends Seeder
      */
     public function run()
     {
+        $this->call(CarAdvantagesTableSeeder::class);
         $this->call(CarOptionsTaxonomyTableSeeder::class);
         $this->call(CarTypeTableSeeder::class);
         $this->call(CarManufactureTableSeeder::class);

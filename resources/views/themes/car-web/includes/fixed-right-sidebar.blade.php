@@ -16,7 +16,7 @@
 
         <div class="card sidebar-slider owl-carousel owl-theme">
             @foreach($premium as $car)
-            <div class="slider-item" style="width: 120px; min-height: 67px;">
+            <div class="slider-item">
                 <a href="{{ $car->id }}" target="_blank" class="text-decoration-none text-dark">
                     <img src="{{ (substr($car->metaValue('thumbnail'), 0, 4) !== 'http')?(App\Config::getStorage() . $car->metaValue('thumbnail')):$car->metaValue('thumbnail') }}">
                     <span>{{ $car->title }}</span>

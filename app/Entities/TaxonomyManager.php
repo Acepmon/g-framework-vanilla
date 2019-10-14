@@ -11,9 +11,9 @@ class TaxonomyManager extends Manager
     /**
      * Creates or modifies a taxonomy object.
      *
+     * @parameter $term  = (string) (Required) Term name, it is the default display name.
      * @parameter $taxonomy = (string) (Required) Taxonomy key, must not exceed 32 characters.
-     * @parameter $parent = (integer) (Optional) Taxonomy parent taxonomy key.
-     * @parameter $type = (array|string) (Optional) Content type or array of Content types with which the taxonomy should be associated.
+     * @parameter $parent_id = (integer) (Optional) Taxonomy parent taxonomy key.
      * @parameter $args = (array|string) (Optional) Array or query string of arguments for registering a taxonomy.
      */
     public static function register($term, $taxonomy, $parent_id = null, $args = array())

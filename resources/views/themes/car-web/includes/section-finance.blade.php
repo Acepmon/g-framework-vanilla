@@ -49,6 +49,10 @@
                                 <p>Installment period</p>
                                 <div class="select-month">
                                     <div class="custom-control custom-radio custom-control-inline">
+                                        <input type="radio" id="6month" name="loanTerm" value="6" class="loanTerm custom-control-input" checked>
+                                        <label class="custom-control-label" for="6month">6 month</label>
+                                    </div>
+                                    <div class="custom-control custom-radio custom-control-inline">
                                         <input type="radio" id="12month" name="loanTerm" value="12" class="loanTerm custom-control-input" checked>
                                         <label class="custom-control-label" for="12month">12 month</label>
                                     </div>
@@ -260,10 +264,11 @@ function PMT(rate, nper, pv, fv, type) {
 
 function monthlyInterestCalculation(loanTerm) {
     switch (parseInt(loanTerm)) {
+        case 6: return 2.5;
         case 12: return 2.5;
         case 18: return 2.6;
         case 24: return 2.7;
-        case 30: return 285;
+        case 30: return 2.8;
     }
 }
 
