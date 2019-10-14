@@ -83,7 +83,7 @@ class CarController extends Controller
     public function attachMedias(Request $request) {
         $content_id = $request->route('car');
 
-        $media_list = $this->uploadFiles($request->getContent());//->medias);
+        $media_list = $this->uploadFiles($request->medias);//$request->getContent());
         $media_list = ['medias' => $media_list];
         ContentManager::attachMetas($content_id, $media_list);
 
@@ -93,7 +93,7 @@ class CarController extends Controller
     public function attachDoc(Request $request) {
         $content_id = $request->route('car');
 
-        $doc_list = $this->uploadFiles($request->getContent());
+        $doc_list = $this->uploadFiles($request->doc);
         $doc_list = ['doc' => $doc_list];
         ContentManager::attachMetas($content_id, $doc_list);
 
