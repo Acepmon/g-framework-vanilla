@@ -1,4 +1,4 @@
-@extends('themes.car-web.layouts.default')
+@extends('themes.car-web.layouts.mypage')
 
 @section('title')
 
@@ -9,107 +9,68 @@
 @endsection
 
 @section('content')
-
-    <div class="bg-page-header"></div>
-
-    <section class="section">
-        <div class="container">
-          <div class="row">
-            <div class="col-md-3">
-              <div class="card shadow-soft-blue my-page-left">
-                <ul class="list-group list-group-flush">
-                  <li class="list-group-item"><a href="#">Interested car list</a></li>
-                  <li class="list-group-item"><a href="#">Registration car alert</a></li>
-                  <li class="list-group-item active"><a href="#">Sell request</a></li>
-                  <li class="list-group-item"><a href="#">Purchase requests <span class="badge badge-danger">8</span></a></li>
-                  <li class="list-group-item"><a href="#">Mileage</a></li>
-                  <li class="list-group-item"><a href="#">Coupon</a></li>
-                  <li class="list-group-item"><a href="#">User information</a></li>
-                </ul>
-              </div>
-            </div>
-            <!-- left bar end -->
-                  <div class="col-md-9">
-                    <div class="row">
-                      <div class="card shadow-soft-blue page-top-navbar">
-                        <div class="mypage-nav">
-                          <ul>
-                            <li class="list-item "><a href="#">On sell</a></li>
-                            <li class="list-item active"> <a href="#">Sold</a></li>
-                          </ul>
-                        </div>
-                      </div>
-                      <div class="car-list sell-car">
-
-                          <a href="detail-page.html" target="_blank" class="card sold">
-
-                              <div class="card-body">
-                                  <div class="card-img">
-
-                                      <img src="{{asset('car-web/img/Cars/2.jpg')}}" class="img-fluid" alt="alt" />
-                                  </div>
-
-                                  <div class="card-description">
-                                      <div class="card-caption">
-                                          <div href="#" class="card-title">Hyundai Santa fe</div>
-                                          <div class="meta">2006/2013 | 17,820km</div>
-                                          <div class="price">12 Сая ₮</div>
-                                      </div>
-                                      <div class="info">
-                                  <span class="info-icon">
-                                    <img src="{{asset('car-web/img/icons/engine.svg')}}" alt="">
-                                    <p>1499 L</p>
-                                  </span>
-                                          <span class="info-icon">
-                                    <img src="{{asset('car-web/img/icons/wheel.svg')}}" alt="">
-                                    <p>Right wheel</p>
-                                  </span>
-                                          <span class="info-icon">
-                                    <img src="{{asset('car-web/img/icons/gearShift.svg')}}" alt="">
-                                    <p>Automatic</p>
-                                  </span>
-                                          <span class="info-icon">
-                                    <img src="{{asset('car-web/img/icons/fuel.svg')}}" alt="">
-                                    <p>Gasoline</p>
-                                  </span>
-                                          <span class="info-icon">
-                                    <img src="{{asset('car-web/img/icons/transmision.svg')}}" alt="">
-                                    <p>4 WD</p>
-                                  </span>
-                                          <span class="info-icon color" data-color="black">
-                                    <p>Black</p>
-                                  </span>
-
-                                          <div class="sell-action">
-                                              <div onclick="window.open('edit.html','mywindow');">Edit</div>
-                                              <div onclick="window.open('edit.html','mywindow');">Delete</div>
-                                              <div onclick="window.open('edit.html','mywindow');">Back to sell</div>
-                                          </div>
-
-                                      </div>
-                                  </div>
-                              </div>
-                          </a>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- car list end -->
-          </div>
-          <!-- row end -->
+<div class="row">
+    <div class="card shadow-soft-blue page-top-navbar">
+        <div class="mypage-nav">
+            <ul>
+            <li class="list-item "><a href="#">On sell</a></li>
+            <li class="list-item active"> <a href="#">Sold</a></li>
+            </ul>
         </div>
-        <!-- container end -->
-      </section>
+    </div>
+    <div class="car-list sell-car">
 
-    <section class="pageType-footer">
-        <div class="container">
-            <div class="row">
-                <div class="sell-type-img sell-car">
-                    <img src="{{ asset('car-web/img/sell-car.png') }}" alt="">
+        <a href="detail-page.html" target="_blank" class="card sold">
+
+            <div class="card-body">
+                <div class="card-img">
+
+                    <img src="{{asset('car-web/img/Cars/2.jpg')}}" class="img-fluid" alt="alt" />
+                </div>
+
+                <div class="card-description">
+                    <div class="card-caption">
+                        <div href="#" class="card-title">Hyundai Santa fe</div>
+                        <div class="meta">2006/2013 | 17,820km</div>
+                        <div class="price">12 Сая ₮</div>
+                    </div>
+                    <div class="info">
+                <span class="info-icon">
+                <img src="{{asset('car-web/img/icons/engine.svg')}}" alt="">
+                <p>1499 L</p>
+                </span>
+                        <span class="info-icon">
+                <img src="{{asset('car-web/img/icons/wheel.svg')}}" alt="">
+                <p>Right wheel</p>
+                </span>
+                        <span class="info-icon">
+                <img src="{{asset('car-web/img/icons/gearShift.svg')}}" alt="">
+                <p>Automatic</p>
+                </span>
+                        <span class="info-icon">
+                <img src="{{asset('car-web/img/icons/fuel.svg')}}" alt="">
+                <p>Gasoline</p>
+                </span>
+                        <span class="info-icon">
+                <img src="{{asset('car-web/img/icons/transmision.svg')}}" alt="">
+                <p>4 WD</p>
+                </span>
+                        <span class="info-icon color" data-color="black">
+                <p>Black</p>
+                </span>
+
+                        <div class="sell-action">
+                            <div onclick="window.open('edit.html','mywindow');">Edit</div>
+                            <div onclick="window.open('edit.html','mywindow');">Delete</div>
+                            <div onclick="window.open('edit.html','mywindow');">Back to sell</div>
+                        </div>
+
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
-
+        </a>
+    </div>
+</div>
 @endsection
 
 @section('script')
