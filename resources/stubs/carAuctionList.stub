@@ -141,9 +141,10 @@ Car dealer
 
 <div class="bg-page-header"></div>
 
+@include('themes.car-web.includes.fixed-right-sidebar', array('sideBanners'=>$sideBanners, 'premium'=>$hotDeals))
+
 <section class="section detail-page">
   <div class="container">
-    @include('themes.car-web.includes.fixed-right-sidebar', array('sideBanners'=>$sideBanners, 'premium'=>$hotDeals))
     <div class="row">
       <div class="col-md-3">
         <form action="car-search" id="searchForm">
@@ -154,95 +155,7 @@ Car dealer
             <input type="text" class="search" id="searchInput" placeholder="SEARCH VEHICLE" />
             <button class="btn shadow-none" id="searchBtn"><i class="fab fa fa-search"></i></button>
           </div>
-          <div class="car-filter accordion shadow-soft-blue" id="accordionExample">
-            @foreach($categories as $index=>$category)
-            <div class="card">
-              <div class="accordian-head" id="{{ $category }}">
-                <h2 class="mb-0">
-                  <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#{{ idize($category) }}" aria-expanded="false" aria-controls="{{ idize($category) }}">
-                    {{ $category }}<i class="fab fa fa-angle-down"></i>
-                  </button>
-                </h2>
-              </div>
-
-              @if($category == 'Car Type')
-              <div id="{{ idize($category) }}" class="collapse {{ request(idize($category), False)?'show':'' }}" aria-labelledby="{{ $category }}">
-                <div class="card-body bg-light grid-radio gr-3">
-                  @foreach(App\TermTaxonomy::where('taxonomy', $category)->get() as $taxonomy)
-                  <div class="cd-radio">
-                    <input type="radio" id="{{ $taxonomy->term->name }}" name="{{ idize($category) }}" class="custom-control-input" value="{{ $taxonomy->term->name }}" {{ $request['type']==$taxonomy->term->name?'checked':''}}>
-                    <label class="custom-control-label " for="{{ $taxonomy->term->name }}">
-                      <img src="{{ asset('car-web/img/icons/'.strtolower($taxonomy->term->name).'.svg') }}">
-                      <span>{{ $taxonomy->term->name }}</span>
-                    </label>
-                  </div>
-                  @endforeach
-                </div>
-              </div>
-              @elseif($category == 'Year')
-              <div id="{{ idize($category) }}" class="collapse {{ request(idize($category), False)?'show':'' }}" aria-labelledby="{{ $category }}">
-                <div class="card-body bg-light grid-radio">
-                  <select id="min-year" class="form-control" name="year" onchange="formSubmit('year','year')">
-                    <option value="">Select year</option>
-                    @for($i=date('Y'); $i>=1990; $i--)
-                    <option value="{{ $i }}" {{ $request['buildYear']==$i?'selected':'' }}>{{ $i }}</option>
-                    @endfor
-                  </select>
-                </div>
-              </div>
-              @elseif($category == 'Distance Driven')
-              <div id="{{ idize($category) }}" class="collapse {{ request(idize($category), False)?'show':'' }}" aria-labelledby="{{ $category }}">
-                <div class="card-body bg-light grid-radio">
-                  <select id="distance_driven" class="form-control" name="distance_driven" onchange="formSubmit('distance_driven','no-value')">
-                    <option value="">Select distance</option>
-                    @for($i=1; $i<=10; $i++)
-                    <option value="{{ $i }}" {{ $request['distanceDriven']==$i?'selected':'' }}>{{ $i }}km</option>
-                    @endfor
-                  </select>
-                </div>
-              </div>
-              @elseif($category == 'Price')
-              <div id="{{ idize($category) }}" class="collapse {{ (request('min_price', False) || request('max_price'))?'show':'' }}" aria-labelledby="{{ $category }}">
-                <div class="card-body bg-light grid-radio">
-                  <div class="form-row">
-                    <div class="col-md-6">
-                      <select id="min_price" class="form-control" name="min_price" onchange="formSubmit('min_price','no-value')">
-                        <option value="0">Min</option>
-                        @for($i=100; $i<=10000; $i+=100)
-                        <option value="{{ $i }}" {{ $request['minPrice']==$i?'selected':'' }}>{{ $i }} мянга</option>
-                        @endfor
-                      </select>
-                    </div>
-                    <div class="col-md-6">
-                      <select id="max_price" class="form-control" name="max_price" onchange="formSubmit('max_price','no-value')">
-                        <option value="">Max</option>
-                        @for($i=$request['minPrice']; $i<=10000; $i+=100)
-                        <option value="{{ $i }}" {{ $request['maxPrice']==$i?'selected':'' }}>{{ $i }} мянга</option>
-                        @endfor
-                      </select>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              @else
-              <div id="{{ idize($category) }}" class="collapse {{ request(idize($category), False)?'show':'' }}" aria-labelledby="{{ $category }}">
-                <div class="card-body bg-light">
-                  @foreach(App\TermTaxonomy::where('taxonomy', $category)->get() as $taxonomy)
-                  <div class="custom-control custom-radio">
-                    <!-- <a href="/car-list?{{ idize($category) . '=' . $taxonomy->term->name }}" class="text-body text-decoration-none"> -->
-                    <input type="radio" id="{{$taxonomy->term->name}}" name="{{ idize($category) }}" class="custom-control-input" value="{{ $taxonomy->term->name }}" {{ (request(idize($category), Null)==$taxonomy->term->name)?'checked':'' }}>
-                    <label class="custom-control-label  d-flex justify-content-between" for="{{$taxonomy->term->name}}">{{ $taxonomy->term->name }}
-                      <div class="text-muted">{{ $taxonomy->count }}</div>
-                    </label>
-                  </div>
-                  @endforeach
-                </div>
-              </div>
-              @endif
-            </div>
-            @endforeach
-
-          </div>
+          @include('themes.car-web.includes.car-list-menu')
       </div>
       <div class="col-md-9">
         <div class="row">
