@@ -49,13 +49,13 @@ class CarMenusTableSeeder extends Seeder
             ['Write wanna buy', '/wanna-buy', '', 'Car']
         ]];
         $carProfileDropdownMenus = ['Car Profile Dropdown', '', '', 'Car', [
-            ['Interested car list', '/my-page/interested-cars', '', 'Car'],
-            ['Registration car alert', '/my-page/car-alerts', '', 'Car'],
-            ['Sell request', '/my-page/sell-requests', '', 'Car'],
-            ['Purchase request', '/my-page/purchase-requests', '', 'Car'],
-            ['Mileage', '/my-page/mileage', '', 'Car'],
-            ['Coupon', '/my-page/coupon', '', 'Car'],
-            ['My profile', '/my-page/profile', '', 'Car'],
+            ['Interested car list', '/interested-car', '', 'Car'],
+            ['Registration car alert', '/interested-car-registration-alert', '', 'Car'],
+            ['Sell request', '/sell-page-on-sell', '', 'Car'],
+            ['Purchase request', '/purchase-page-published', '', 'Car'],
+            ['Mileage', '/coming-soon', '', 'Car'],
+            ['Coupon', '/coming-soon', '', 'Car'],
+            ['My profile', '/home', '', 'Car'],
         ]];
 
         $this->iterate($adminMenus, 2, 1);

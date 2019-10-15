@@ -1,7 +1,7 @@
 @if($contents)
 <section class="section card-list my-5">
     <div class="container">
-        <div class="row">
+        <div class="row" style="padding: 0 10px;">
             <div class="section-title">
                 <h2>{{ $title }}</h2>
                 <span>
