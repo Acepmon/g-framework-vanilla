@@ -265,14 +265,14 @@ class CarPagesTableSeeder extends Seeder
         $file_path = $file_name . '.' . $file_ext;
         file_put_contents(base_path($file_path), $file_content);
 
-        //        ------------- car write wanna buy -----------------------
+        //        ------------- car wish list -----------------------
 
         $time = time();
         $rootPath = config('content.pages.rootPath');
 
         $content = new Content;
-        $content->title = 'Car Write Wanna Buy';
-        $content->slug = 'car-write-wanna-buy';
+        $content->title = 'Car Wish list';
+        $content->slug = 'wishlist';
         $content->type = Content::TYPE_PAGE;
         $content->status = Content::STATUS_PUBLISHED;
         $content->visibility = Content::VISIBILITY_PUBLIC;
@@ -292,43 +292,8 @@ class CarPagesTableSeeder extends Seeder
         $content_meta->value = json_encode($value);
         $content_meta->save();
 
-        $file_content = file_get_contents(resource_path('stubs/carWriteWannaBuy.stub'));
-        $file_name = $rootPath . DIRECTORY_SEPARATOR . 'car-write-wanna-buy' . Content::NAMING_CONVENTION . $content->status . Content::NAMING_CONVENTION . $time;
-        $file_ext = 'blade.php';
-        $file_path = $file_name . '.' . $file_ext;
-
-        file_put_contents(base_path($file_path), $file_content);
-
-
-        //        ------------- car agreement terms -----------------------
-
-        $time = time();
-        $rootPath = config('content.pages.rootPath');
-
-        $content = new Content;
-        $content->title = 'Car Agreement Terms';
-        $content->slug = 'car-agreement-terms';
-        $content->type = Content::TYPE_PAGE;
-        $content->status = Content::STATUS_PUBLISHED;
-        $content->visibility = Content::VISIBILITY_PUBLIC;
-        $content->author_id = 1;
-        $content->save();
-
-        $value = new \stdClass;
-        $value->datetime = $time;
-        $value->filename_changed = true;
-        $value->before = $content;
-        $value->after = $content;
-        $value->user = User::find(1);
-
-        $content_meta = new ContentMeta();
-        $content_meta->content_id = $content->id;
-        $content_meta->key = 'initial';
-        $content_meta->value = json_encode($value);
-        $content_meta->save();
-
-        $file_content = file_get_contents(resource_path('stubs/carAgreementTerms.stub'));
-        $file_name = $rootPath . DIRECTORY_SEPARATOR . 'car-agreement-terms' . Content::NAMING_CONVENTION . $content->status . Content::NAMING_CONVENTION . $time;
+        $file_content = file_get_contents(resource_path('stubs/carWishlist.stub'));
+        $file_name = $rootPath . DIRECTORY_SEPARATOR . 'wishlist' . Content::NAMING_CONVENTION . $content->status . Content::NAMING_CONVENTION . $time;
         $file_ext = 'blade.php';
         $file_path = $file_name . '.' . $file_ext;
 
