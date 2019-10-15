@@ -8,9 +8,7 @@ $hotDeals=App\Content::where('type', App\Content::TYPE_CAR)->paginate(5);
 $sideBanners = App\Banner::where('location_id', 4)->get();
 @endphp
 
-<div class="mainPage-items col-1 full-height" style="position: absolute; left: 81%; top:123%; height: 4000px; padding-left: 0%; width:0%">
-    @include('themes.car-web.includes.fixed-right-sidebar', array('sideBanners'=>$sideBanners, 'premium'=>$hotDeals))
-</div>
+
 
 @endsection
 @section('title')
@@ -18,6 +16,7 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
 @endsection
 
 @section('content')
+    @include('themes.car-web.includes.fixed-right-sidebar', array('sideBanners'=>$sideBanners, 'premium'=>$hotDeals))
     <!-- Masthead -->
     <header class="masthead text-center">
         <div class="container">
@@ -566,51 +565,4 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
         })
 
     </script>
-    {{--<script>--}}
-        {{--$('.scrollDown').click(function(event){--}}
-            {{--// Preventing default action of the event--}}
-            {{--event.preventDefault();--}}
-            {{--// Getting the height of the document--}}
-            {{--var n = $(document).height();--}}
-            {{--$('html, body').animate({ scrollTop: 1200 }, 400);--}}
-        {{--});--}}
-    {{--</script>--}}
 @endsection
-<style>
-    .sidebar-item {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: 100000;
-
-    /* Position the items */
-    /* // &:nth-child(2) { top: 25%; }
-     // &:nth-child(3) { top: 50%; }
-     // &:nth-child(4) { top: 75%; } */
-     }
-
-
-     .make-me-sticky {
-         position: -webkit-sticky;
-         position: sticky;
-         top: 0;
-         margin-right: 13%;
-         padding: 0 15px;
-     }
-
-
-
-     /* Ignore This, just coloring */
-    body {
-        height: 100%;
-    }
-    .full-height {
-        height: 100%;
-    }
-    .sidebar-item {
-        text-align: center;
-    }
-</style>
-
