@@ -30,6 +30,5 @@ class CarOptionsTaxonomyTableSeeder extends Seeder
         $this->call(CarOptionsGutsTableSeeder::class);
         $this->call(CarOptionsSafetyTableSeeder::class);
         $this->call(CarOptionsConvenienceTableSeeder::class);
-        $this->call(CarOptionsCleanTableSeeder::class);
     }
 }

@@ -11,6 +11,18 @@
     path: '/img/wish.json'
 });
 
+$(document).ready(function(){
+
+  var conWidth = $('.container').width();
+  var offset = $('.container').offset();
+
+  $('.fixed-sidebar').css({
+    "transform": 'translateX(' + (parseInt(conWidth) + parseInt(offset.left)) + "px)",
+    "display": "block"
+  });
+
+});
+
 $('.maz-burger-menu').on('click', function(){
   $(this).toggleClass('extend');
   $(".maz-navbar").toggleClass('extend');
@@ -129,10 +141,21 @@ $('.maz-burger-menu').on('click', function(){
 
         $('.sidebar-slider').owlCarousel({
           loop:true,
-          margin:0,
-          stagePadding:30,
+          margin: 10,
           thumbs: false,
           nav: false,
+          items: 1,
+          responsive: {
+              0: {
+              items: 1,
+              },
+              768: {
+              items: 1,
+              },
+              992: {
+              items: 1,
+              }
+          }
       });
       
         $('.vehicle-imgSlider').owlCarousel({
@@ -223,16 +246,6 @@ $('.maz-burger-menu').on('click', function(){
         $('#maz-nav').removeClass('sticky');
       }
     };
-
-    $(document).ready(function(){
-
-      var conWidth = $('.container').width();
-      var offset = $('.container').offset();
-
-      $('.fixed-sidebar').css("transform", 'translateX(' + (parseInt(conWidth) + parseInt(offset.left)) + "px)");
-
-    });
     
-
 
 })(jQuery)

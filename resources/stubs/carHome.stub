@@ -458,8 +458,7 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
 
                 <div class="car-list">
                     <div class="row">
-                        @contents({"filter":[{"field":"type", "key":"car"}, {"field":"status", "key":"published"}],
-                        "metasFilter": [{"key": "markName", "value": "Toyota"}], "limit":10,
+                        @contents({"filter":[{"field":"type", "key":"car"}, {"field":"status", "key":"published"}], "limit":10,
                         "returnVariable":"carsOther"})
 
                         @foreach($carsOther as $othCars)
@@ -487,7 +486,7 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
                             <!-- card end -->
                         </div>
                         @endforeach
-                        <a class="btn btn-danger btn-round shadow-red mx-auto my-3" href="/car-search">See all vehicles</a>
+                        <a class="btn btn-danger btn-round shadow-red mx-auto my-3" href="/search">See all vehicles</a>
                     </div>
                 </div>
                 {{--<div class="container mt-3">--}}
