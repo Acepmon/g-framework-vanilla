@@ -19,7 +19,7 @@ class Term extends Resource
             'name' => $this->name,
             'slug' => $this->slug,
             'group' => $this->group,
-            'meta' => $this->metas
+            'meta' => $this->metasTransform()
         ];
     }
 }
