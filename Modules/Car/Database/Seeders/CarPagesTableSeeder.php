@@ -77,7 +77,7 @@ class CarPagesTableSeeder extends Seeder
         $rootPath = config('content.pages.rootPath');
         $content = new Content;
         $content->title = 'Car web recover password';
-        $content->slug = 'car-web-rvr-pwd';
+        $content->slug = 'recover-passowrd';
         $content->type = Content::TYPE_PAGE;
         $content->status = Content::STATUS_PUBLISHED;
         $content->visibility = Content::VISIBILITY_PUBLIC;
@@ -188,7 +188,7 @@ class CarPagesTableSeeder extends Seeder
         $rootPath = config('content.pages.rootPath');
         $content = new Content;
         $content->title = 'Car Register Step 1';
-        $content->slug = 'register-step-1';
+        $content->slug = 'sell';
         $content->type = Content::TYPE_PAGE;
         $content->status = Content::STATUS_PUBLISHED;
         $content->visibility = Content::VISIBILITY_PUBLIC;
@@ -570,7 +570,7 @@ class CarPagesTableSeeder extends Seeder
         // --- car my page user information ---
         $content = new Content;
         $content->title = 'User Information';
-        $content->slug = 'user-information';
+        $content->slug = 'my-page/user-information';
         $content->type = Content::TYPE_PAGE;
         $content->status = Content::STATUS_PUBLISHED;
         $content->visibility = Content::VISIBILITY_PUBLIC;
@@ -660,7 +660,7 @@ class CarPagesTableSeeder extends Seeder
         // --- G6.2 - Search Cars for Monthly Installments ---
         $content = new Content;
         $content->title = 'Search Cars for Monthly Installments';
-        $content->slug = 'cars-for-monthly-installments';
+        $content->slug = 'monthly-installments';
         $content->type = Content::TYPE_PAGE;
         $content->status = Content::STATUS_PUBLISHED;
         $content->visibility = Content::VISIBILITY_PUBLIC;

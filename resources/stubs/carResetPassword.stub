@@ -13,10 +13,10 @@
             <div class="w-50 d-inline-block">
                 <div class="card masthead-search shadow-lg-3d">
                     <div class="card-header px-5 pt-5 pb-3 mb-3">
-                        <h1>Recover password</h1>
+                        <h1 class="text-center">Recover password</h1>
                     </div>
-                    <div class="col-12 p-5">
-                        <form method="POST" action="{{ route('password.update') }}">
+                    <div class="col-12 pr-5 pl-5">
+                        <form class="p-5" method="POST" action="{{ route('password.update') }}">
                             @csrf
                             <input type="hidden" name="token" value="{{ $token }}">
                             <div class="form-group mb-3 text-left form-group-feedback form-group-feedback-left">
@@ -47,11 +47,6 @@
                             </div>
                             <button type="submit" class="btn col-12 btn-primary btn-lg btn-round shadow mt-4">Save</button>
                         </form>
-                        {{--<a class="" href="#">Forget password</a>--}}
-                        {{--<div class="col-12 mt-5">--}}
-                        {{--<button type="button" class="btn bg-secondary col-9 btn-default btn-lg btn-round mt-4">Sign up</button>--}}
-                        {{--</div>--}}
-
                     </div>
                 </div>
             </div>

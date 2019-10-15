@@ -6,6 +6,7 @@ use App\Content;
 use App\ContentMeta;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Modules\Content\Transformers\Content as ContentResource;
 
 class ContentManager extends Manager
 {
@@ -211,33 +212,7 @@ class ContentManager extends Manager
      */
     public static function contentToArray(Content $content, $additional = null)
     {
-        $result = [
-            "id" => $content->id,
-            "title" => $content->title,
-            "slug" => $content->slug,
-            "type" => $content->type,
-            "status" => $content->status,
-            "visibility" => $content->visibility,
-            "author" => [
-                "id" => $content->author->id,
-                "username" => $content->author->username,
-                "email" => $content->author->email,
-                "email_verified_at" => $content->author->email_verified_at,
-                "name" => $content->author->name,
-                "avatar" => $content->author->avatar,
-                "language" => $content->author->language,
-                "created_at" => $content->author->created_at,
-                "updated_at" => $content->author->updated_at,
-                "deleted_at" => $content->author->deleted_at,
-                "social_id" => $content->author->social_id,
-                "social_provider" => $content->author->social_provider,
-                "social_token" => $content->author->social_token,
-                "meta" => $content->author->metasTransform()
-            ],
-            "created_at" => $content->created_at,
-            "updated_at" => $content->updated_at,
-            "meta" => $content->metasTransform(),
-        ];
+        $result = new ContentResource($content);
         if ($additional) {
             $result = array_merge($result, $additional);
         }

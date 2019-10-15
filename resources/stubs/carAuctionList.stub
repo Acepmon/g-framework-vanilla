@@ -13,11 +13,6 @@ function idize($value)
 return str_replace(' ', '_', strtolower($value));
 }
 
-function numerizePrice($value) {
-    $value /= 1000000;
-    return $value . 'сая';
-}
-
 $categories = [
 'Car Type', 'Manufacturer', 'Year', 'Distance Driven', 'Price', 'Color', 'Fuel', 'Transmission', 'Option', 'Passenger', 'Steering Wheel', 'Area', 'Doctors Verified'
 ];
