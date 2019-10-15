@@ -1,4 +1,4 @@
-@extends('themes.car-web.layouts.default')
+@extends('themes.car-web.layouts.absolute')
 @section('load')
 
 @endsection

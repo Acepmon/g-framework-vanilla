@@ -1,6 +1,6 @@
 @extends('themes.car-web.layouts.default')
 
-@section('title', 'Register')
+@section('title', 'About Us')
 
 @section('load')
 @endsection

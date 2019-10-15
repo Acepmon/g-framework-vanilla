@@ -16,13 +16,20 @@ class CarOptionsGutsTableSeeder extends Seeder
      */
     public function run()
     {
-        $guts = ['Power Door lock', 'Memory seat : driver’s seat', 'Heated Seat: Rear Seat', 'Heated Seat: Driver’s Seat', 'Electric seat : Passenger seat', 'Electric seat : driver’s seat'
-        , 'Leather seat', 'Power steering', 'Steering wheel remote control'];
+        $guts = ['Power Door lock' => ['metaKey' => 'optionGutsPowerDoorLock'], 
+            'Memory seat : driver’s seat' => ['metaKey' => 'optionGutsMemorySeatDriverSeat'], 
+            'Heated Seat: Rear Seat' => ['metaKey' => 'optionGutsHeatedSeatRearSeat'], 
+            'Heated Seat: Driver’s Seat' => ['metaKey' => 'optionGutsHeatedSeatDriverSeat'], 
+            'Electric seat : Passenger seat' => ['metaKey' => 'optionGutsElectricSeatPassengerSeat'], 
+            'Electric seat : driver’s seat' => ['metaKey' => 'optionGutsElectricSeatDriverSeat'], 
+            'Leather seat' => ['metaKey' => 'optionGutsLeatherSeat'], 
+            'Power steering' => ['metaKey' => 'optionGutsPowerSteering'], 
+            'Steering wheel remote control' => ['metaKey' => 'optionGutsSteerRemoteControl']];
 
         $parent = TaxonomyManager::register('Guts', 'car-options');
 
-        foreach ($guts as $key => $gut) {
-            TaxonomyManager::register($gut, 'car-guts', $parent->term->id);
+        foreach ($guts as $gut => $metas) {
+            TaxonomyManager::register($gut, 'car-guts', $parent->term->id, $metas);
         }
 
         TaxonomyManager::updateTaxonomyChildrenSlugs($parent->id);

@@ -1,16 +1,12 @@
 @extends('themes.car-web.layouts.default')
 
-@section('title')
-Car dealer
-@endsection
+@section('title', 'Coming Soon')
 
 @section('load')
 @endsection
 
 @section('content')
-
-@include('themes.car-web.includes.section-finance')
-
+<h1 class="text-center p-5">Coming Soon</h1>
 @endsection
 
 @section('script')
