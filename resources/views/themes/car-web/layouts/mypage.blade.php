@@ -34,7 +34,7 @@
         @stack('styles')
     </head>
 
-    <body class="detail-page">
+    <body>
 
         <!-- Header -->
         @include('themes.car-web.includes.header')
@@ -50,7 +50,7 @@
                         <div class="card shadow-soft-blue my-page-left">
                             <ul class="list-group list-group-flush">
                                 @foreach (\App\Menu::where('title', 'Car Profile Dropdown')->first()->children as $menu)
-                                    <li class="list-group-item"><a href="{{ url($menu->link) }}">{{ $menu->title }}</a></li>
+                                    <li class="list-group-item {{ Request::is(\Str::startsWith($menu->link, '/') ? substr($menu->link, 1) : $menu->link) ? 'active' : '' }}"><a href="{{ url($menu->link) }}">{{ $menu->title }}</a></li>
                                 @endforeach
                             </ul>
                         </div>

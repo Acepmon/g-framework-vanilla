@@ -13,19 +13,19 @@ if (!function_exists('isPremium')) {
 @endphp
 
 @if($car)
-<div class="card" onclick="window.open('{{ $car->slug }}','_blank');">
+<a class="card" href="{{ $car->slug }}">
     <div class="card-body">
         <div class="card-img">
-            <a href="{{ $car->slug }}">
+            <div>
                 @if(isPremium($car))
                 <div class="premium-tag shadow-soft-blue"><img src="{{ asset('car-web/img/icons/corona.svg') }}" alt=""></div>
                 @endif
                 <img src="{{ (substr($car->metaValue('thumbnail'), 0, 4) !== 'http')?(App\Config::getStorage() . $car->metaValue('thumbnail')):$car->metaValue('thumbnail') }}" class="img-fluid" alt="alt">
-            </a>
+            </div>
         </div>
         <div class="card-description">
             <div class="card-caption">
-                <div class="card-title"><a href="{{ $car->slug }}" style="color: inherit">{{ $car->title }}</a></div>
+                <div class="card-title">{{ $car->title }}</div>
                 <div class="meta">{{ $car->metaValue('buildYear') }}/{{ $car->metaValue('importDate') }} | {{ $car->metaValue('mileage') }}km</div>
                 <div class="price">{{ numerizePrice($car->metaValue('priceAmount')) }} {{ $car->metaValue('priceUnit') }}</div>
                 @if($car->metaValue('interest')) <!-- TODO: Change this Conditional -->
@@ -71,5 +71,5 @@ if (!function_exists('isPremium')) {
             </div>
         </div>
     </div>
-</div>
+</a>
 @endif

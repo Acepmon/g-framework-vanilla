@@ -10,8 +10,6 @@
 
 @section('content')
 
-<div class="bg-page-header"></div>
-
 <div class="row">
     <div class="card shadow-soft-blue user-information">
         <div class="card-body">
