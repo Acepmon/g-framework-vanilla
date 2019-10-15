@@ -188,7 +188,7 @@ class CarPagesTableSeeder extends Seeder
         $rootPath = config('content.pages.rootPath');
         $content = new Content;
         $content->title = 'Car Register Step 1';
-        $content->slug = 'sell';
+        $content->slug = 'register';
         $content->type = Content::TYPE_PAGE;
         $content->status = Content::STATUS_PUBLISHED;
         $content->visibility = Content::VISIBILITY_PUBLIC;
