@@ -60,6 +60,13 @@
                 </div>
             </div>
     </header>
+
+    <!-- Loan Check -->
+    <a class="btn btn-light btn-round btn-block my-3 shadow-soft-blue p-2" href="#" data-toggle="modal"
+                            data-target="#modalLoanCalculator" data-whatever="@getbootstrap">Зээл авах боломжтой эсэх</a>
+    @include('themes.car-web.includes.modal-loan-check')
+    <!-- Loan Check END -->
+
 @endsection
 
 @section('script')
