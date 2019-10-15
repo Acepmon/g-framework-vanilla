@@ -30,12 +30,18 @@
                     </div>
                     <div class="card-body pb-5">
 
-                    <form class="maz-form">
+                    <form class="maz-form" id="register-form" method="POST" action="register-step-2">
+                        @csrf
                         <div class="form-title"><span>Terms of Condition </span></div>
                         
                         <div class="custom-control custom-checkbox my-1 mr-sm-2">
-                            <input type="checkbox" class="custom-control-input" id="termsOfCondition">
+                            <input type="checkbox" name="termsOfCondition" id="termsOfCondition" class="custom-control-input @error('termsOfCondition') is-invalid @enderror" required>
                             <label class="custom-control-label" for="termsOfCondition">Terms of condition</label>
+                            @error('termsOfCondition')
+                                <span class="invalid-feedback" role="alert">
+                                    {{ $message }}
+                                </span>
+                            @enderror
                         </div>
 
                         <div class="terms-text">
@@ -45,8 +51,13 @@
                         </div>
 
                         <div class="custom-control custom-checkbox my-1 mr-sm-2">
-                            <input type="checkbox" class="custom-control-input" id="onlineUseTerm">
+                            <input type="checkbox" name="onlineUseTerm" id="onlineUseTerm" class="custom-control-input @error('onlineUseTerm') is-invalid @enderror" required>
                             <label class="custom-control-label" for="onlineUseTerm">Online use terms</label>
+                            @error('onlineUseTerm')
+                                <span class="invalid-feedback" role="alert">
+                                    {{ $message }}
+                                </span>
+                            @enderror
                         </div>
 
                         <div class="terms-text">
@@ -55,12 +66,13 @@
                             </p>
                         </div>
 
-                    </form>
-
                         <!-- NEXT PREV BUTTON START -->
                         <div style="float:right;">
-                            <button class="btn btn-danger btn-round shadow-red px-5 py-2" type="button" id="nextBtn">Next</button>
+                            <button class="btn btn-danger btn-round shadow-red px-5 py-2" type="submit" id="nextBtn">Next</button>
                         </div>
+                        
+
+                    </form>
                     </div>
                 </div>
             </div>
