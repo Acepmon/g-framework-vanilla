@@ -82,7 +82,7 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
                         <div class="tab-content p-5" id="heroTabFilter">
                             <div class="tab-pane fade show active" id="allVehicles" role="tabpanel"
                                  aria-labelledby="imported-tab">
-                                <form method="GET" action="/car-search">
+                                <form method="GET" action="/search">
                                     <div class="form-group">
                                         <select id="vehicleManufacturer" class="form-control" name="manufacturer">
                                             <option>Manufacturer</option>
@@ -114,11 +114,11 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
                                             @endfor
                                         </select>
                                     </div>
-                                    <button type="submit" class="btn btn-danger btn-lg btn-round shadow mt-4 pl-5 pr-5">Search</button>
+                                    <button type="submit" class="btn btn-danger btn-lg btn-round shadow mt-4 pl-5 pr-5">Submit</button>
                                 </form>
                             </div>
                             <div class="tab-pane fade" id="auction" role="tabpanel" aria-labelledby="used-tab">
-                                <form method="GET" action="/car-search">
+                                <form method="GET" action="/search">
                                     <div class="form-group">
                                         <select class="form-control" name="manufacturer" onchange="manufacturer(this)">
                                             @getTaxonomys({"filter":[{"field":"taxonomy", "key":"manufacturer"}], "returnValue":"manufacturers"})
@@ -158,7 +158,7 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
                                 </form>
                             </div>
                             <div class="tab-pane fade" id="budget" role="tabpanel" aria-labelledby="auction-tab">
-                                <form method="GET" action="/car-search">
+                                <form method="GET" action="/search">
                                     @csrf
                                     <div class="form-group">
                                         <select class="form-control" name="manufacturer">
