@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use Auth;
 use App\User;
+use App\UserMeta;
 use App\Group;
 use App\Config;
 use App\Http\Controllers\Controller;
@@ -15,6 +16,8 @@ use Socialite;
 
 class RegisterController extends Controller
 {
+    const EXCEPT = ['username', 'email', 'name', 'password', 'password_confirmation', 'emailVerifiedAt', 'password', 'language', 'avatar', 'group', 'social_id', 'social_provider', 'social_token', 'remember_token', '_token'];
+
     /*
     |--------------------------------------------------------------------------
     | Register Controller
@@ -104,6 +107,18 @@ class RegisterController extends Controller
             $user->social_provider = $data['social_provider'];
             $user->social_token = $data['social_token'];
             $user->save();
+        }
+
+        $except = self::EXCEPT;
+        $except = array_filter($data, function ($key) use ($except) {
+            return !in_array($key, $except);
+        }, ARRAY_FILTER_USE_KEY);
+        foreach ($except as $index=>$value) {
+            $meta = new UserMeta();
+            $meta->key = $index;
+            $meta->value = $value;
+            $meta->user_id = $user->id;
+            $meta->save();
         }
 
         return $user;
