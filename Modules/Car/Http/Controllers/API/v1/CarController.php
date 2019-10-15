@@ -61,8 +61,11 @@ class CarController extends Controller
             $content->visibility = $visibility;
             $content->author_id = $author_id;
             $content->save();
+            
+            $data = ContentManager::discernMetasFromRequest($request->input());
+            ContentManager::attachMetas($content->id, $data);
+            
             DB::commit();
-
             $resp = ContentManager::contentToArray($content);
             return response()->json($resp);
         } catch (\Exception $e) {
@@ -180,6 +183,10 @@ class CarController extends Controller
                 }
                 $content->save();
             }
+            
+            $data = ContentManager::discernMetasFromRequest($request->input());
+            ContentManager::syncMetas($content->id, $data);
+
             DB::commit();
 
             $resp = ContentManager::contentToArray($content);
