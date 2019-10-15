@@ -124,7 +124,7 @@ class CarController extends Controller
         } else {
             $filename = $file->store('public/medias', 'ftp');
         }
-        $filename = 'http://66.181.167.116:3000/' . $filename;
+        $filename = 'http://' . env('FTP_HOST') . ':3000/' . $filename;
         return $filename;
     }
 
