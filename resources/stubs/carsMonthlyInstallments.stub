@@ -5,30 +5,24 @@
 @endsection
 
 @section('load')
-    {{--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>--}}
     <script type="text/javascript">
         $(document).ready(function () {
-            //$('#monthlyPrice').mask('000.000.000.000.000,00', {reverse: true});
             $(".insMonth").on('click', function(event){
                 event.stopPropagation();
                 event.stopImmediatePropagation();
                 var mPay = $('#monthlyPrice').val();
                 var fPay = $('#firstPay').val();
                 var months = $(this).val();
-
-                //var payment = 400 * (0.03 / (1 - Math.pow(1 + 0.03, -1)));
-                var loValue = mPay / (0.027 / (1 - Math.pow(1 + 0.027, -months)))
-                console.log(Math.round(loValue, 2));
-
-                //var ttt=
-
+                var invest=0.03;
+                if(months<=12){invest=0.025}
+                else if(months>12 && months<=18){invest=0.026}
+                else if(months>12 && months<=24){invest=0.027}
+                else if(months>24){invest=0.028}
+                var loValue = mPay / (invest / (1 - Math.pow(1 + invest, -months)))
                 var totalPrice =Math.round(loValue+(loValue*fPay/(100-fPay)));
                 var firstPayValue= Math.round(totalPrice*(fPay/100));
-                //document.getElementById("firstPayValue").innerHTML = firstPayValue;
                 document.getElementById("firstPayValue").innerHTML = firstPayValue + '₮ (' + fPay +'%)';
                 document.getElementById("totalPrice").innerHTML = totalPrice+' ₮';
-
-                //console.log("wwwwwwww      "+loValue);
             });
 
             $("#searchFitCars").on('click', function(event){
