@@ -108,7 +108,7 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
                             <div class="tab-content p-5" id="heroTabFilter">
                                 <div class="tab-pane fade show active" id="allVehicles" role="tabpanel"
                                      aria-labelledby="imported-tab">
-                                    <form method="GET" action="/search">
+                                    <form method="GET" action="/car-search">
                                         <div class="form-group">
                                             <select id="vehicleManufacturer" class="form-control" name="manufacturer">
                                                 <option>Manufacturer</option>
@@ -144,7 +144,7 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
                                     </form>
                                 </div>
                                 <div class="tab-pane fade" id="auction" role="tabpanel" aria-labelledby="used-tab">
-                                    <form method="GET" action="/search">
+                                    <form method="GET" action="/car-search">
                                         <div class="form-group">
                                             <select class="form-control" name="manufacturer" onchange="manufacturer(this)">
                                                 @getTaxonomys({"filter":[{"field":"taxonomy", "key":"manufacturer"}], "returnValue":"manufacturers"})
@@ -184,7 +184,7 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
                                     </form>
                                 </div>
                                 <div class="tab-pane fade" id="budget" role="tabpanel" aria-labelledby="auction-tab">
-                                    <form method="GET" action="/search">
+                                    <form method="GET" action="/car-search">
                                     @csrf
                                         <div class="form-group">
                                             <select class="form-control" name="manufacturer">
@@ -458,8 +458,7 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
 
                 <div class="car-list">
                     <div class="row">
-                        @contents({"filter":[{"field":"type", "key":"car"}, {"field":"status", "key":"published"}],
-                        "metasFilter": [{"key": "markName", "value": "Toyota"}], "limit":10,
+                        @contents({"filter":[{"field":"type", "key":"car"}, {"field":"status", "key":"published"}], "limit":10,
                         "returnVariable":"carsOther"})
 
                         @foreach($carsOther as $othCars)
