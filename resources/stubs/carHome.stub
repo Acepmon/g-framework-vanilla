@@ -16,7 +16,7 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
 @endsection
 
 @section('content')
-
+    @include('themes.car-web.includes.fixed-right-sidebar', array('sideBanners'=>$sideBanners, 'premium'=>$hotDeals))
     <!-- Masthead -->
     <header class="masthead text-center">
         <div class="container">
@@ -232,191 +232,17 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
 
     @include('themes.car-web.includes.fixed-right-sidebar', array('sideBanners'=>$sideBanners, 'premium'=>$hotDeals))
 
-    <section id="hot-deal" class="mainPage-items bg-white">
-        <div class="container">
-            <div class="row">
-                <div class="section-title">
-                    <h2>Hot deal</h2>
-                    <span>
-                        <a href="#">See all (123) <i class="fab fa fa-angle-right"></i></a>
-                    </span>
-                </div>
-
-                <div class="card-list">
-                    <div class="row">
-                    @contents({"filter":[{"field":"type", "key":"car"}, {"field":"status", "key":"published"}], "metasFilter": [{"key":"publishType", "value":"best_premium"}], "limit":12, "returnVariable":"carDataPremium"})
-                    @foreach($carDataPremium as $rr)
-                        <div class="col-md-3 px-2">
-                            <!-- card start -->
-                            <div class="card cd-box">
-                                <div class="premium-tag shadow-soft-blue"><img src="{{asset('car-web/img/icons/corona.svg')}}" alt=""></div>
-                                <div class="card-img">
-                                    <img src="{{(getMetasValue($rr->metas, 'thumbnail'))}}" class="img-fluid" alt="alt">
-
-                                    <div class="card-caption">
-                                        <div class="meta"><?php echo getMetasValue($rr->metas, 'mileageAmount') ?> <?php echo getMetasValue($rr->metas, 'mileageUnit') ?> | <?php echo getMetasValue($rr->metas, 'fuelType') ?> | <?php echo getMetasValue($rr->metas, 'capacityAmount') ?> <?php echo getMetasValue($rr->metas, 'capacityUnit') ?></div>
-                                        <div class="favorite">
-                                            <i class="icon-heart"></i>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="card-body py-2">
-                                    <div class="card-description">
-                                        <div class="card-desc-top">
-                                            <a href="detail-page.html" class="card-title">{{$rr->title}}</a>
-                                            <div class="price">{{(getMetasValue($rr->metas, 'priceAmount'))}}{{(getMetasValue($rr->metas, 'priceUnit'))}}</div>
-                                        </div>
-
-                                        <div class="card-meta">
-                                            <div class="year"><?php echo getMetasValue($rr->metas, 'buildYear') ?> / <?php echo getMetasValue($rr->metas, 'importDate') ?></div>
-                                        </div>
-                                        <div class="status"><?php echo getMetasValue($rr->metas, 'priceType') ?> / Finance</div>
-                                    </div>
-
-                                </div>
-
-                            </div>
-                            <!-- card end -->
-                        </div>
-                    @endforeach
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    <!-- Our best Grid -->
+    @include('themes.car-web.includes.section-best-premium')
 
 
     <!-- Auction Grid -->
 
-    <section class="mainPage-items bg-dark">
-        <div class="container">
-            <div class="row">
-                <div class="section-title text-light">
-                    <h2>Auction cars</h2>
-                    <span>
-                    <a href="#">See all (123) <i class="fab fa fa-angle-right"></i></a>
-                    </span>
-                </div>
-                <div class="card-list auction">
-                    <div class="row">
-                        <!-- col-end -->
-                        @contents({"filter":[{"field":"type", "key":"car"}, {"field":"status", "key":"published"}],
-                        "metasFilter": [{"key": "markName", "value": "Toyota"}], "limit":12,
-                        "returnVariable":"carAuctionPremium"})
-
-                        @foreach($carAuctionPremium as $auctionPrmCars)
-                            <div class="col-md-3 px-2">
-                                <!-- card start -->
-                                <div class="card cd-box">
-                                    <div class="premium-tag shadow-soft-blue"><img src="{{asset('car-web/img/icons/corona.svg')}}" alt=""></div>
-                                    <div class="card-img">
-                                        <img src="{{(getMetasValue($auctionPrmCars->metas, 'thumbnail'))}}" class="img-fluid" alt="alt">
-                                        <div class="info">
-                                        <span class="carIcon-engine">
-                                          <p>1499 L</p>
-                                        </span>
-                                        <span class="carIcon-car-6">
-                                          <p>{{(getMetasValue($auctionPrmCars->metas, 'mileageAmount'))}} {{(getMetasValue($auctionPrmCars->metas, 'mileageUnit'))}}</p>
-                                        </span>
-                                                            <span class="carIcon-gas-station">
-                                          <p>{{(getMetasValue($auctionPrmCars->metas, 'fuelType'))}}</p>
-                                        </span>
-                                                            <span class="carIcon-gearshift">
-                                          <p>{{(getMetasValue($auctionPrmCars->metas, 'transmission'))}}</p>
-                                        </span>
-                                                            <span class="carIcon-steering-wheel">
-                                          <p>{{(getMetasValue($auctionPrmCars->metas, 'wheelPosition'))}}</p>
-                                        </span>
-                                                            <span class="color" data-color="white">
-                                          <p>{{(getMetasValue($auctionPrmCars->metas, 'color'))}}</p>
-                                        </span>
-                                        </div>
-                                        <div class="card-caption">
-                                            <div class="countdown">00h:00m:00s</div>
-                                            <div class="favorite">
-                                                <i class="icon-heart"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="card-body py-2">
-                                        <div class="card-description">
-                                            <div class="card-desc-top">
-                                                <a href="detail-page.html" class="card-title">{{$auctionPrmCars->title}}</a>
-                                                <div class="price">{{(getMetasValue($auctionPrmCars->metas, 'priceAmount'))}}{{(getMetasValue($auctionPrmCars->metas, 'priceUnit'))}}</div>
-                                            </div>
-                                            <div class="card-meta">
-                                                <div class="year">{{(getMetasValue($auctionPrmCars->metas, 'buildYear'))}} / {{(getMetasValue($auctionPrmCars->metas, 'importDate'))}} </div>
-                                                <div class="bids">0 Bids</div>
-                                            </div>
-                                            <div class="overall">{{(getMetasValue($auctionPrmCars->metas, 'mileageAmount'))}} {{(getMetasValue($auctionPrmCars->metas, 'mileageUnit'))}} | {{(getMetasValue($auctionPrmCars->metas, 'fuelType'))}} | {{(getMetasValue($auctionPrmCars->metas, 'capacityAmount'))}} {{(getMetasValue($auctionPrmCars->metas, 'capacityUnit'))}}</div>
-                                        </div>
-
-                                    </div>
-
-                                </div>
-                                <!-- card end -->
-                            </div>
-                            <!-- col-end -->
-                        @endforeach
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    @include('themes.car-web.includes.section-auction')
 
     <!-- wish list -->
 
-    <section class="mainPage-items bg-white">
-        <div class="container pr-2 pl-2">
-            <div class="row">
-                <div class="section-title">
-                    <h2>People's wish list</h2>
-                    <span>
-                        <a href="#">See all (123) <i class="fab fa fa-angle-right"></i></a>
-                    </span>
-                </div>
-            </div>
-        </div>
-        <div class="people-wish-list">
-            <div class="container">
-                <div class="row">
-                    <div class="card-slide owl-carousel owl-theme">
-
-                        @contents({"filter":[{"field":"type", "key":"car"}, {"field":"status", "key":"published"}],
-                        "metasFilter": [{"key": "markName", "value": "toyota"}], "limit":12,
-                        "returnVariable":"wannabuy"})
-
-                        @foreach($wannabuy as $wannaBuyData)
-
-                        <!-- card start -->
-                        <div class="card">
-                            <div class="card-top">
-                                <h2 class="title">{{$wannaBuyData->title}}</h2>
-                            </div>
-                            <div class="card-body py-2">
-                                <div class="wish-detail">
-                                    <div class="price"><i class="icon-tag"></i>{{(getMetasValue($wannaBuyData->metas,'priceAmount'))}} {{(getMetasValue($wannaBuyData->metas,'priceUnit'))}}</div>
-                                    <div class="phone"><i class="icon-phone"></i>{{(getMetasValue($wannaBuyData->metas,'retailPhone'))}} <button class="btn btn-sm btn-outline-dark float-right">Watch</button></div>
-                                </div>
-                                <div class="wish-user">
-                                    <div class="profile-img"><img src="{{$wannaBuyData->author->avatar}}" alt=""></div>
-                                    <div class="username">@if($wannaBuyData->author->name!=null){{$wannaBuyData->author->name}}@else {{$wannaBuyData->author->username}}@endif <div class="date">{{(getMetasValue($wannaBuyData->metas,'created_at'))}}</div>
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-                        <!-- card end -->
-                        @endforeach
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    @include('themes.car-web.includes.section-people-wish-list')
 
     {{-- banner section 1 --}}
 
@@ -446,57 +272,7 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
 
     <!-- Other cars -->
 
-    <section class="mainPage-items bg-light">
-        <div class="container pr-2 pl-2">
-            <div class="row">
-                <div class="section-title">
-                    <h2>Normal cars</h2>
-                    <span>
-                        <a href="#">See all (123) <i class="fab fa fa-angle-right"></i></a>
-                    </span>
-                </div>
-
-                <div class="car-list">
-                    <div class="row">
-                        @contents({"filter":[{"field":"type", "key":"car"}, {"field":"status", "key":"published"}], "limit":10,
-                        "returnVariable":"carsOther"})
-
-                        @foreach($carsOther as $othCars)
-                        <div class="col-md-6">
-                            <!-- card start -->
-                            <div class="card">
-                                <div class="card-body m-0" >
-                                    <div class="card-img">
-                                        <img src="{{(getMetasValue($othCars->metas,'thumbnail'))}}" class="img-fluid" alt="alt">
-                                    </div>
-                                    <div class="card-description">
-                                        <div class="card-caption">
-                                            <div class="card-title">{{$othCars->title}}</div>
-                                            <div class="meta">{{(getMetasValue($othCars->metas,'buildYear'))}} / {{(getMetasValue($othCars->metas,'importDate'))}} | {{(getMetasValue($othCars->metas,'mileageAmount'))}} {{(getMetasValue($othCars->metas,'mileageUnit'))}}</div>
-                                            <div class="price">{{(getMetasValue($othCars->metas,'priceAmount'))}} {{(getMetasValue($othCars->metas, 'priceUnit'))}}</div>
-                                            <div class="favorite">
-                                                <i class="icon-heart"></i> Add to interest list
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div>
-
-                            </div>
-                            <!-- card end -->
-                        </div>
-                        @endforeach
-                        <a class="btn btn-danger btn-round shadow-red mx-auto my-3" href="/search">See all vehicles</a>
-                    </div>
-                </div>
-                {{--<div class="container mt-3">--}}
-                    {{--<div class="row">--}}
-                        {{--<img src="img/banner.png" class="img-fluid" alt="">--}}
-                    {{--</div>--}}
-                {{--</div>--}}
-            </div>
-        </div>
-    </section>
+    @include('themes.car-web.includes.section-other-cars')
 
     {{-- banner section 2 --}}
     <section class="banner mb-5">
