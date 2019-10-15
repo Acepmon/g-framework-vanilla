@@ -16,16 +16,15 @@ class CarColorTableSeeder extends Seeder
      */
     public function run()
     {
-        $colour = ['White', 'Black', 'Rusty', 'Pearl gray', 'Silver', 'Aluminum', 'Beige', 'Blue', 'Brown', 'Bronze', 'Claret', 'Copper'
-    , 'Cream', 'Gold', 'Gray', 'Green', 'Maroon', 'Metallic', 'Navy', 'Orange', 'Pink', 'Purple', 'Red', 'Rose', 'Tan', 'RoTurquoisese', 'Yellow'];
+        $colour = ['White', 'Black', 'Rusty', 'Pearl gray', 'Silver', 'Aluminum', 'Beige', 'Blue', 'Brown', 'Bronze', 'Claret', 'Copper', 'Cream', 'Gold', 'Gray', 'Green', 'Maroon', 'Metallic', 'Navy', 'Orange', 'Pink', 'Purple', 'Red', 'Rose', 'Tan', 'RoTurquoisese', 'Yellow'];
 
-    $parent = TaxonomyManager::register('Color', 'car');
+        $parent = TaxonomyManager::register('Color', 'car');
 
-    foreach ($colour as $key => $color) {
-        TaxonomyManager::register($color, 'car-colors', $parent->term->id);
-    }
+        foreach ($colour as $key => $color) {
+            TaxonomyManager::register($color, 'car-colors', $parent->term->id);
+        }
 
-    TaxonomyManager::updateTaxonomyChildrenSlugs($parent->id);
+        TaxonomyManager::updateTaxonomyChildrenSlugs($parent->id);
 
     }
 }

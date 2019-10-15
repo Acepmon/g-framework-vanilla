@@ -42,6 +42,7 @@ class Content extends Model
     ];
 
     const NAMING_CONVENTION = '_';
+    const META_ARRAY = ['medias'];
 
     public static function getByMetas($key, $value, $operator = '=')
     {
@@ -222,7 +223,7 @@ class Content extends Model
     public function metasTransform() {
         $arr = [];
         foreach ($this->metas->groupBy('key')->toArray() as $key => $metaValues) {
-            if (count($metaValues) > 1) {
+            if (count($metaValues) > 1 || in_array($key, self::META_ARRAY)) {
                 $arr[$key] = array_map(function ($meta) {
                     return $this->isJson($meta['value']) ? json_decode($meta['value']) : $meta['value'];
                 }, $metaValues);

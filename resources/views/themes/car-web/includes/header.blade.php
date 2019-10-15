@@ -1,4 +1,4 @@
-<header>
+<header class="header-menu">
     <a class="maz-mobile-brand" href="/">MAZ.MN</a>
     <div class="maz-burger-menu">
         <span></span>
