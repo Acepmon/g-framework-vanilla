@@ -34,7 +34,7 @@
         @stack('styles')
     </head>
 
-    <body class="detail-page">
+    <body>
 
         <!-- Header -->
         @include('themes.car-web.includes.header')

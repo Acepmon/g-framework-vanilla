@@ -1,4 +1,4 @@
-@extends('themes.car-web.layouts.default')
+@extends('themes.car-web.layouts.absolute')
 
 @php
 function metaHas($items, $key, $value)
@@ -95,7 +95,7 @@ $items = $items->get();
                 </div>
                 <div class="form-group">
                   <select class="form-control">
-                  <option value="">Select year</option>  
+                  <option value="">Select year</option>
                   @for($i=date('Y'); $i>=1990; $i--)
                     <option value="{{ $i }}">{{ $i }}</option>
                     @endfor
@@ -118,7 +118,7 @@ $items = $items->get();
         </a>
       </div>
     </div>
-    
+
   </header>
 
 <section id="wish-list" class="section">
@@ -129,7 +129,7 @@ $items = $items->get();
             <a> {{$itemCount}} wishs</a>
           </span>
         </div>
-        
+
         <form action="car-write-wanna-buy" id="mainForm">
         <div class="card-list">
             <div class="row mt-2">
