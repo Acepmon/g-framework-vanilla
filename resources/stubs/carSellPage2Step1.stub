@@ -35,7 +35,7 @@
     <div class="form-row">
         <div class="form-group col-md-6">
             <label for="Manufacturer">Manufacturer:</label>
-            <select id="Manufacturer" class="form-control">
+            <select id="Manufacturer" name="markName" class="form-control">
                 <option selected>Choose...</option>
                 @foreach(App\TermTaxonomy::where('taxonomy', 'car-manufacturer')->get() as $taxonomy)
                 <option value="{{ $taxonomy->term->name }}">{{$taxonomy->term->name}}</option>
@@ -44,7 +44,7 @@
         </div>
         <div class="form-group col-md-6">
             <label for="Model">Model:</label>
-            <select id="Model" class="form-control">
+            <select id="Model" name="modelName" class="form-control">
                 <option selected>Choose...</option>
                 @foreach(App\TermTaxonomy::where('taxonomy', 'car-toyota')->get() as $taxonomy)
                 <option value="{{ $taxonomy->term->name }}">{{$taxonomy->term->name}}</option>
@@ -55,7 +55,7 @@
     <div class="form-row">
         <div class="form-group col-md-6">
             <label for="carcondition">Car condition:</label>
-            <select id="carcondition" class="form-control">
+            <select id="carcondition" name="carcondition" class="form-control">
                 <option selected>Choose...</option>
                 @foreach(App\TermTaxonomy::where('taxonomy', 'car-condition')->get() as $taxonomy)
                 <option value="{{ $taxonomy->term->name }}">{{$taxonomy->term->name}}</option>
@@ -64,7 +64,7 @@
         </div>
         <div class="form-group col-md-6">
             <label for="Color">Color:</label>
-            <select id="Color" class="form-control">
+            <select id="Color" name="color" class="form-control">
                 <option selected>Choose...</option>
                 @foreach(App\TermTaxonomy::where('taxonomy', 'color')->get() as $taxonomy)
                 <option value="{{ $taxonomy->term->name }}">{{$taxonomy->term->name}}</option>
@@ -74,24 +74,28 @@
     </div>
     <div class="form-row">
         <div class="form-group col-md-6">
-            <label for="Manufacturer">Year of Product:</label>
-            <select id="Manufacturer" class="form-control">
+            <label for="yearProduct">Year of Product:</label>
+            <select id="yearProduct" name="yearProduct" class="form-control">
                 <option selected>Choose...</option>
-                <option>...</option>
+                @for($i=date('Y'); $i>=1990; $i--)
+                <option value="{{ $i }}">{{ $i }}</option>
+                @endfor
             </select>
         </div>
         <div class="form-group col-md-6">
-            <label for="Model">Year of Entry:</label>
-            <select id="Model" class="form-control">
+            <label for="yearEntry">Year of Entry:</label>
+            <select id="yearEntry" name="yearEntry" class="form-control">
                 <option selected>Choose...</option>
-                <option>...</option>
+                @for($i=date('Y'); $i>=1990; $i--)
+                <option value="{{ $i }}">{{ $i }}</option>
+                @endfor
             </select>
         </div>
     </div>
     <div class="form-row">
         <div class="form-group col-md-6">
-            <label for="Manufacturer">Displacement:</label>
-            <select id="Manufacturer" class="form-control">
+            <label for="displacement">Displacement:</label>
+            <select id="displacement" name="displacement" class="form-control">
                 <option selected>Choose...</option>
                 <option>...</option>
             </select>
