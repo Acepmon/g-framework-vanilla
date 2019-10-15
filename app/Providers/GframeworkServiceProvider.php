@@ -43,10 +43,11 @@ class GframeworkServiceProvider extends ServiceProvider
             $contents = Content::whereRaw('1 = 1');
 //            dd($someObject);
             $metaInputs=[];
-            foreach ($someObject->metasFilter as $item) {
-                $metaInputs[$item->key] = $item->value;
+            if(array_key_exists("metasFilter",$someObject)){
+                foreach ($someObject->metasFilter as $item) {
+                    $metaInputs[$item->key] = $item->value;
+                }
             }
-//            dd($metaInputs);
             foreach ($someObject->filter as $some) {
                     $contents = $contents->where($some->field, '=', $some->key);
             }

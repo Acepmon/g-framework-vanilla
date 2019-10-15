@@ -1,6 +1,14 @@
 $mobile-menu-with: 320px !default;
 
-header{
+body{
+  &.menu-absolute{
+    .header-menu{
+      position: unset;
+      height: auto;
+    }
+  }
+}
+.header-menu{
   position: relative;
   height: $spacer * 10.25;
 
