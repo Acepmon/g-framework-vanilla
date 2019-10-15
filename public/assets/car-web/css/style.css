@@ -2481,13 +2481,18 @@ select {
   box-shadow: 0 10px 20px -5px rgba(199, 11, 11, 0.3) !important;
 }
 
-header {
+body.menu-absolute .header-menu {
+  position: unset;
+  height: auto;
+}
+
+.header-menu {
   position: relative;
   height: 10.25rem;
 }
 
 @media (max-width: 767.98px) {
-  header {
+  .header-menu {
     height: 5rem;
   }
 }
