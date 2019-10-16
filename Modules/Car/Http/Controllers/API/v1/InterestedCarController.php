@@ -43,11 +43,15 @@ class InterestedCarController extends Controller
             });
         }
 
-        return response()->json(new ContentCollection($contents->paginate($limit)));
+        return new ContentCollection($contents->paginate($limit));
     }
 
     public function interestedCar(Request $request, $contentId) {
-        return response()->json(new ContentResource(Content::find($contentId)));
+        if ($this->interestExists(Auth::user(), $contentId)) {
+            return new ContentResource(Content::find($contentId));
+        } else {
+            abort(404);
+        }
     }
 
     public function createInterested(Request $request) {
@@ -76,9 +80,15 @@ class InterestedCarController extends Controller
         ]);
 
         if ($this->interestExists(Auth::user(), $request->input('content_id'))) {
-            return response()->json($this->deleteInterested(Auth::user(), $request->input('content_id')));
+            $this->deleteInterested(Auth::user(), $request->input('content_id'));
+            return response()->json([
+                'status' => 'removed'
+            ]);
         } else {
-            return response()->json($this->storeInterested(Auth::user(), $request->input('content_id')));
+            $this->storeInterested(Auth::user(), $request->input('content_id'));
+            return response()->json([
+                'status' => 'added'
+            ]);
         }
     }
 
