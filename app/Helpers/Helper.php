@@ -81,3 +81,13 @@ function metaHas($items, $key, $value) {
         $query->where('key', $key)->where('value', $value);
     });
 }
+
+function format_phone($phone) {
+    $phone = trim($phone);
+    $phone = str_replace(' ', '', $phone);
+    $phone = str_replace('+', '', $phone);
+
+    // add logic to correctly format number here
+    // a more robust ways would be to use a regular expression
+    return "(".substr($phone, 0, 3).") ".substr($phone, 3, 4)." ".substr($phone, 7);
+}
