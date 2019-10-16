@@ -65,7 +65,7 @@ class ResetPasswordNotification extends Notification
             'title' => 'You have requested a password reset for your account.',
             'body' => 'This password reset link will expire in 60 minutes',
             'link' => $url,
-            'image' => url(asset('placeholder.jpg'))
+            'thumbnail' => url(asset('placeholder.jpg'))
         ];
     }
 }

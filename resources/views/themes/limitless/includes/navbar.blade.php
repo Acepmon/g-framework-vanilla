@@ -35,18 +35,18 @@
                             @foreach(Auth::user()->unreadNotifications as $notification)
                                 <li class="media">
                                     @if (!empty($notification->data['thumbnail']))
-                                    <div class="media-left">
-                                        <img src="{{ $notification->data['thumbnail'] }}" class="img-circle img-sm" alt="">
+                                    <div class="mr-2">
+                                        <img src="{{ $notification->data['thumbnail'] }}" class="rounded-circle" alt="" style="max-width: 35px; height: auto;">
                                     </div>
                                     @endif
 
                                     <div class="media-body">
                                         <a href="#" class="media-heading">
                                             <span class="text-semibold">{{ $notification->data['title'] }}</span>
-                                            <span class="media-annotation pull-right">{{ $notification->created_at }}</span>
+                                            <span class="text-muted float-right">{{ $notification->created_at->diffForHumans() }}</span>
                                         </a>
 
-                                        <span class="text-muted">{{ $notification->data['body'] }}</span>
+                                        <p class="text-muted">{{ $notification->data['body'] }}</p>
                                     </div>
                                 </li>
                             @endforeach
