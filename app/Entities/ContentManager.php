@@ -209,9 +209,10 @@ class ContentManager extends Manager
     }
 
     // String Enumeration
-    // sw - Starts With @todo
-    // nc - Not Contains Keyword @todo
-    // co - Contains keyword @todo
+    // sw - Starts With
+    // ew - Ends With
+    // nc - Not Contains Keyword
+    // co - Contains keyword
 
     // Operators
     // eq - = (Default)
@@ -223,15 +224,15 @@ class ContentManager extends Manager
 
     // Example
     // /api/v1/contents?type=car&price[ge]=1000
-    public static function requestOperator($input, $request, $defaultValue = null)
+    public static function requestOperator($inputName, $request, $defaultValue = null)
     {
-        $op = $request->input($input, $defaultValue);
+        $op = $request->input($inputName, $defaultValue);
         if (is_array($op)) {
             foreach ($op as $key => $value) {
-                $op = self::operator($input, self::operatorSymbol($key), $value);
+                $op = self::operator($inputName, self::operatorSymbol($key), self::operatorValue($key, $value));
             }
         } else {
-            $op = self::operator($input, self::operatorSymbol('eq'), $op);
+            $op = self::operator($inputName, self::operatorSymbol('eq'), self::operatorValue('eq', $op));
         }
 
         return $op;
@@ -248,6 +249,11 @@ class ContentManager extends Manager
 
     public static function operators() {
         return [
+            'sw' => self::operatorSymbol('sw'),
+            'ew' => self::operatorSymbol('ew'),
+            'nc' => self::operatorSymbol('nc'),
+            'co' => self::operatorSymbol('co'),
+
             'eq' => self::operatorSymbol('eq'),
             'ne' => self::operatorSymbol('ne'),
             'gt' => self::operatorSymbol('gt'),
@@ -259,6 +265,11 @@ class ContentManager extends Manager
 
     public static function operatorSymbol($name) {
         switch ($name) {
+            case 'sw': return 'LIKE';
+            case 'ew': return 'LIKE';
+            case 'nc': return 'NOT LIKE';
+            case 'co': return 'LIKE';
+
             case 'eq': return '=';
             case 'ne': return '!=';
             case 'gt': return '>';
@@ -269,15 +280,20 @@ class ContentManager extends Manager
         }
     }
 
-    public static function operatorName($symbol) {
-        switch ($symbol) {
-            case '=': return 'eq';
-            case '!=': return 'ne';
-            case '>': return 'gt';
-            case '>=': return 'ge';
-            case '<': return 'lt';
-            case '<=': return 'le';
-            default: return 'eq';
+    public static function operatorValue($operator, $value) {
+        switch ($operator) {
+            case 'sw': return $value.'%';
+            case 'ew': return '%'.$value;
+            case 'nc': return '%'.$value.'%';
+            case 'co': return '%'.$value.'%';
+
+            case 'eq': return $value;
+            case 'ne': return $value;
+            case 'gt': return $value;
+            case 'ge': return $value;
+            case 'lt': return $value;
+            case 'le': return $value;
+            default: return $value;
         }
     }
 
