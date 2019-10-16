@@ -13,7 +13,7 @@ if (!function_exists('isPremium')) {
 @endphp
 
 @if($car)
-<a class="card" href="{{ $car->slug }}">
+<div class="card">
     <div class="card-body">
         <div class="card-img">
             <div>
@@ -25,7 +25,7 @@ if (!function_exists('isPremium')) {
         </div>
         <div class="card-description">
             <div class="card-caption">
-                <div class="card-title">{{ $car->title }}</div>
+                <a href="{{ $car->slug }}"><div class="card-title">{{ $car->title }}</div></a>
                 <div class="meta">{{ $car->metaValue('buildYear') }}/{{ $car->metaValue('importDate') }} | {{ $car->metaValue('mileage') }}km</div>
                 <div class="price">{{ numerizePrice($car->metaValue('priceAmount')) }} {{ $car->metaValue('priceUnit') }}</div>
                 @if($car->metaValue('interest')) <!-- TODO: Change this Conditional -->
@@ -71,5 +71,5 @@ if (!function_exists('isPremium')) {
             </div>
         </div>
     </div>
-</a>
+</div>
 @endif

@@ -10,6 +10,7 @@
 	<script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/plugins/forms/styling/uniform.min.js') }}"></script>
 
 	<script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/demo_pages/form_validation.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/demo_pages/form_select2.js') }}"></script>
 @endsection
 
 @section('pageheader')
@@ -148,7 +149,7 @@
                         <div class="form-group row">
                             <label class="col-form-label col-lg-2">Groups</label>
                             <div class="col-lg-10">
-                                <select name="groups[]" id="groups" data-placeholder="Select Groups..." multiple="multiple" class="select">
+                                <select name="groups[]" id="groups" data-placeholder="Select Groups..." multiple class="select">
                                     @foreach($groups as $group)
                                         @php $selected = False @endphp
                                         @foreach($user->groups as $user_group)
