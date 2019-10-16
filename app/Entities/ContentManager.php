@@ -214,7 +214,7 @@ class ContentManager extends Manager
     {
         $result = new ContentResource($content);
         if ($additional) {
-            $result = array_merge($result, $additional);
+            $result = array_merge($result->toArray(request()), $additional);
         }
         return $result;
     }

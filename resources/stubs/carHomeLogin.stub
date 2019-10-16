@@ -89,7 +89,7 @@
                                     </form>
                                     <a href="#" data-toggle="modal" data-target="#myModal">Forget password</a>
                                     <div class="col-12 mt-5">
-                                        <a href="/register-step-1" type="button" class="btn bg-secondary col-9 btn-default btn-lg btn-round mt-4">Sign up</a>
+                                        <a href="/register" type="button" class="btn bg-secondary col-9 btn-default btn-lg btn-round mt-4">Sign up</a>
                                     </div>
                                 </div>
                             </div>
@@ -131,7 +131,7 @@
 
                 <!-- Modal footer -->
                 <div class="modal-footer">
-                    <a type="button" href="/register-step-1" class="btn btn-round btn-default bg-secondary mt-5 col-md-6 mb-5">sign up</a>
+                    <a type="button" href="/register" class="btn btn-round btn-default bg-secondary mt-5 col-md-6 mb-5">sign up</a>
                 </div>
 
             </div>
