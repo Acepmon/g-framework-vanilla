@@ -49,7 +49,7 @@
 
                 <div class="tag">
                     @foreach($car->metas->where('key', 'advantages') as $advantage)
-                    <div onclick="formSubmit('advantage', '{{$advantage->value}}')">{{ $advantage->value }}</div>
+                    <div onclick="event.preventDefault(); formSubmit('advantage', '{{$advantage->value}}')">{{ $advantage->value }}</div>
                     @endforeach
                 </div>
             </div>

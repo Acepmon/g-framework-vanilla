@@ -1,16 +1,5 @@
 (function($){
 
-  var animation = bodymovin.loadAnimation({
-    container: document.getElementById('maz-animation'),
-    renderer: 'svg',
-    loop: true,
-    rendererSettings: {
-        progressiveLoad: true
-    },
-    autoplay: true,
-    path: '/img/wish.json'
-});
-
 $(document).ready(function(){
 
   var conWidth = $('.container').width();

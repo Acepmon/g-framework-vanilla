@@ -2,12 +2,6 @@
 
 
 @php
-function metaHas($items, $key, $value)
-{
-return $items->whereHas('metas', function ($query) use ($key, $value) {
-$query->where('key', $key)->where('value', $value);
-});
-}
 function idize($value)
 {
 return str_replace(' ', '_', strtolower($value));

@@ -1,7 +1,6 @@
 @extends('themes.car-web.layouts.default')
 
 @php
-
 $categorySlug = [
 'car-type', 'car-manufacturer', 'car-year', 'car-distance-driven', 'car-price', 'car-colors', 'car-fuel', 'car-transmission', 'car-options', 'car-accident', 'car-mancount', 'car-wheel-pos', 'provinces'
 ];
@@ -13,81 +12,33 @@ $categoryName = [
 $orderBy = request('orderBy', "updated_at");
 $order = request('order', "desc");
 $page = request('page', "1");
-$itemsPerPage = request('itemsPerPage', "10");
-$allItems = App\Content::with('metas')->where('type', App\Content::TYPE_CAR);
-if ($orderBy != 'updated_at') {
-$allItems = $allItems->join('content_metas', 'contents.id', '=', 'content_metas.content_id')
-->where('content_metas.key', '=', $orderBy)->select('contents.*')->addSelect('content_metas.value');
-$allItems = $allItems->orderBy('value', $order);
-} else {
-$allItems = $allItems->orderBy($orderBy, $order);
+$itemsPerPage = request('itemsPerPage', "3");
+$allItems = \Modules\Car\Entities\Car::all();
+
+
+$premium = \Modules\Car\Entities\Car::filterByPremium(Null, clone $allItems);
+$filterPremium = request('premium', False);
+if ($filterPremium) {
+  $allItems = $premium;
 }
-$items = $allItems;
+
+$allItems = \Modules\Car\Entities\Car::order($orderBy, $order, $allItems);
 
 // Items filtering
-$request = [];
-$request['type'] = request('car-type', 'Sedan');
-$request['markName'] = request('car-manufacturer', Null);
-$request['colorName'] = request('car-colors', Null);
-$request['fuelType'] = request('car-fuel', Null);
-$request['transmission'] = request('car-transmission', Null);
-$request['advantages'] = request('car-advantage', Null);
-$request['manCount'] = request('car-mancount', Null);
-$request['wheelPosition'] = request('car-wheel-pos', Null);
-$request['countryName'] = request('provinces', Null);
-$request['buildYear'] = request('year', Null);
-$request['distanceDriven'] = request('distance_driven', Null);
-$request['doctorVerified'] = request('doctors_verified', Null);
-$request['doctorVerified'] = ($request['doctorVerified'] == 'Баталгаажсан')?'1':'0';
-foreach ($request as $key => $value) {
-if ($value != Null) {
-$items = metaHas($items, $key, $value);
+[$items, $request] = \Modules\Car\Entities\Car::filterFromRequest(clone $allItems);
+$items = $items->get();
+if (!$filterPremium) {
+$items = \Modules\Car\Entities\Car::filterByPremium(null, clone $items)->get()->merge($items);
 }
-};
-
-$request['minPrice'] = request('min_price', 100);
-$request['maxPrice'] = request('max_price', Null);
-$minPrice = intVal($request['minPrice']) * 1000;
-$maxPrice = intVal($request['maxPrice']) * 1000;
-$items = $items->whereHas('metas', function ($query) use ($minPrice, $maxPrice) {
-  if ($minPrice && $maxPrice) {
-    return $query->where([['key', 'priceAmount'], ['value', '>=', $minPrice], ['value', '<=', $maxPrice]]);
-  } else if ($minPrice) {
-    return $query->where([['key', 'priceAmount'], ['value', '>=', $minPrice]]);
-  } else if ($maxPrice) {
-    return $query->where([['key', 'priceAmount'], ['value', '<=', $maxPrice]]);
-  }
-});
-
-function getPremiumDeal($type, $now) {
-  $deals = App\Content::where('type', App\Content::TYPE_CAR)->where('status', App\Content::STATUS_PUBLISHED)->where('visibility', App\Content::VISIBILITY_PUBLIC);
-  $deals = metaHas($deals, 'publishType', $type);
-  $deals = metaHas($deals, 'publishVerified', True);
-  return $deals->whereHas('metas', function ($query) use ($now) {
-    $query->where([['key', 'publishVerifiedEnd'],['value','>=',$now]]);
-  });
-}
-
-// HOT Deals
-$now = now();
-$best_premium = getPremiumDeal('best_premium', $now)->get();
-$premium = getPremiumDeal('premium', $now)->get();
-$hotDeals = $best_premium->merge($premium);
-//dd($hotDeals);
-//$hotDeals = $hotDeals->paginate(5);
-$items = $hotDeals->merge($items->get());
-
 // Post items filtering
 $itemCount = count($items->all());
 $maxPage = intval(ceil($itemCount / $itemsPerPage));
 if ($itemCount < $page * $itemsPerPage) {
-  $page= $maxPage;
+  $page = $maxPage;
 }
 
 // Banner
 $banner = App\Banner::where('location_id', 5)->where('status', 'active')->inRandomOrder()->first();
-// $sideBanners = App\Banner::where('location_id', 4)->where('status', 'active')->get();
-$sideBanners = App\Banner::where('location_id', 4)->get();
 @endphp
 
 @section('title')
@@ -98,28 +49,6 @@ Car dealer
 <link href="{{ asset('car-web/vendor/simple-line-icons/css/simple-line-icons.css') }}" rel="stylesheet" type="text/css">
 <link href="{{ asset('car-web/vendor/bootstrap-slider/css/bootstrap-slider.min.css') }}" rel="stylesheet">
 <style>
-.banner {
-  width: 100%;
-  padding-bottom: 15%;
-  @if($banner)
-  background-image: url({{ $banner->banner }});
-  @endif
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-
-.search {
-  background: transparent;
-  border: none;
-  outline: none;
-  font-weight: 700;
-  color: #2b3651;
-}
-.search::placeholder {
-  color: #2b3651;
-}
-
 /* Custom css */
 .detail-page .car-list .card-img .img-fluid {
   min-height: 100%;
@@ -132,35 +61,43 @@ Car dealer
 
 <div class="bg-page-header"></div>
 
-@include('themes.car-web.includes.fixed-right-sidebar', array('sideBanners'=>$sideBanners, 'premium'=>$hotDeals))
-
+@include('themes.car-web.includes.fixed-right-sidebar', array('sideBanners'=>\App\Banner::where('location_id', 4)->where('status', 'active')->get(), 'premium'=>\Modules\Car\Entities\Car::filterByPremium(5)))
 <section class="section detail-page">
   <div class="container">
     <div class="row">
       <div class="col-md-3">
-        <form action="route('search')" id="searchForm">
-          <input type="hidden" name="search" id="search">
+        <input type="hidden" name="search" id="search">
+        <form action="{{ url('search') }}" id="searchForm">
+          <div class="left-bar-title"><h3>Vehicle search</h3>
+            <div class="mh-search-input">
+              <input class="search" type="search" placeholder="Search" aria-label="Search" name="search" id="searchInput">
+              <button type="button" class="search-button" id="searchBtn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20.4" height="20.4" viewBox="0 0 20.4 20.4">
+                  <path
+                  d="M152.734,14.153a5.385,5.385,0,1,1,5.417-5.385A5.379,5.379,0,0,1,152.734,14.153Zm7.223,0h-.963l-.361-.359a7.857,7.857,0,0,0,1.806-6.342A7.77,7.77,0,0,0,153.7,1.109a7.859,7.859,0,0,0-8.788,8.735,7.9,7.9,0,0,0,6.38,6.7,7.969,7.969,0,0,0,6.38-1.795l.361.359v.957l5.056,5.026a1.315,1.315,0,0,0,1.806,0,1.3,1.3,0,0,0,0-1.795Z"
+                  transform="translate(-144.854 -1.052)" fill="#2b3651" />
+                </svg>
+              </button>
+            </div>
+          </div>
         </form>
         <form action="buy" id="mainForm">
-          <div class="left-bar-title">
-            <input type="text" class="search" id="searchInput" placeholder="SEARCH VEHICLE" />
-            <button class="btn shadow-none" id="searchBtn"><i class="fab fa fa-search"></i></button>
-          </div>
-          @include('themes.car-web.includes.car-list-menu')
+        @include('themes.car-web.includes.car-list-menu')
       </div>
       <div class="col-md-9">
         <div class="row">
           <div class="card shadow-soft-blue page-top-navbar">
             <div class="d-flex justify-content-start">
-              <span class="total-cars">{{ count($allItems->get()) }} VEHICLES</span>
+              <span class="total-cars">{{ count($items) }} VEHICLES</span>
               <input type="hidden" name="orderBy" id="orderBy" value="{{ $orderBy }}" />
+              <input type="hidden" name="premium" id="premium" value="{{ $filterPremium }}" />
 
               <div class="sort-cars">
                 <ul>
                   <li class="{{ ($orderBy=='updated_at')?'active':'' }}"><a href="#" onclick="formSubmit('orderBy', 'updated_at')">Recent cars</a></li>
                   <li class="{{ ($orderBy=='buildYear')?'active':'' }}"><a href="#" onclick="formSubmit('orderBy', 'buildYear')">Product year</a></li>
                   <li class="{{ ($orderBy=='importDate')?'active':'' }}"><a href="#" onclick="formSubmit('orderBy', 'importDate')">Income year</a></li>
-                  <li class="{{ ($orderBy=='price')?'active':'' }}"><a href="#" onclick="formSubmit('orderBy', 'price')">Low price</a></li>
+                  <li class="{{ ($orderBy=='priceAmount')?'active':'' }}"><a href="#" onclick="formSubmit('orderBy', 'priceAmount')">Low price</a></li>
                 </ul>
               </div>
             </div>
@@ -181,7 +118,7 @@ Car dealer
 
         <!-- Pagination -->
         <nav aria-label="Page navigation">
-          <input type="hidden" value="{{ $page }}" name="page" id="page" />
+          <input type="hidden" value="{{ max($page, 1) }}" name="page" id="page" />
           <ul class="pagination d-flex justify-content-end">
             <li class="page-item {{ ($page <= 1)?'disabled':'' }}">
               <button class="page-link" onclick="formSubmit('page', {{$page-1}})" aria-label="Previous">
@@ -208,20 +145,20 @@ Car dealer
 
 <!-- Banner start -->
 @if($banner)
-<section class="mainPage-items bg-white">
-  <div class="container pl-0 pr-0">
-    <a href="{{ $banner->link }}" class="text-primary text-decoration-none">
-      <div class="banner">
-        <!-- {{ $banner->title }} -->
-      </div>
-    </a>
+<section class="banner pt-5 bg-white">
+  <div class="container">
+    <div class="row">
+      <a href="{{ $banner->link }}" class="text-primary text-decoration-none">
+        <img src="{{ $banner->banner }}" class="img-fluid" alt="">
+      </a>
+    </div>
   </div>
 </section>
 @endif
 <!-- Banner end -->
 
 <!-- Hot deal Grid -->
-@include('themes.car-web.includes.section-slider', array('title'=>'Hot Deal', 'contents'=>$hotDeals, 'morelink'=>'#'))
+@include('themes.car-web.includes.section-slider', array('title'=>'Hot Deal', 'contents'=>$premium->get(), 'morelink'=>url('/buy?premium=True')))
 <!-- Hot deal End -->
 @endsection
 
@@ -242,18 +179,6 @@ Car dealer
       event.target.checked = false;
     }
     $('#mainForm').submit();
-  });
-
-  $("#searchBtn").click(function(event) {
-    event.preventDefault();
-    var value = $("#searchInput").val();
-    if (value) {
-      $("#search").val(value);
-      console.log($("#search").val());
-      $("#searchForm").submit();
-    } else {
-      $("#searchInput").focus();
-    }
   });
 
   function addToInterest(event, value) {
