@@ -49,8 +49,7 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
                             <div class="card-header px-5 pt-5 pb-3">
                                 <h1>Vehicle search</h1>
                                 <div class="mh-search-input">
-                                    <input class="search" name="title" type="search" placeholder="Search"
-                                           aria-label="Search">
+                                    <input class="search" onchange="searchTitle(event)" type="search" placeholder="Search by id or title" aria-label="Search">
                                     <button type="button" class="search-button">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="20.4" height="20.4"
                                              viewBox="0 0 20.4 20.4">
@@ -83,6 +82,8 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
                             <div class="tab-pane fade show active" id="allVehicles" role="tabpanel"
                                  aria-labelledby="imported-tab">
                                 <form method="GET" action="/search">
+                                    @csrf
+                                    <input type="text" name="title" hidden class="searchTitle">
                                     <div class="form-group">
                                         <select id="vehicleManufacturer" class="form-control" name="manufacturer">
                                             <option>Manufacturer</option>
@@ -114,11 +115,13 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
                                             @endfor
                                         </select>
                                     </div>
-                                    <button type="submit" class="btn btn-danger btn-lg btn-round shadow mt-4 pl-5 pr-5">Submit</button>
+                                    <button type="submit" class="btn btn-danger btn-lg btn-round shadow mt-4 pl-5 pr-5">Search</button>
                                 </form>
                             </div>
                             <div class="tab-pane fade" id="auction" role="tabpanel" aria-labelledby="used-tab">
                                 <form method="GET" action="/search">
+                                    @csrf
+                                    <input type="text" name="title" hidden class="searchTitle">
                                     <div class="form-group">
                                         <select class="form-control" name="manufacturer" onchange="manufacturer(this)">
                                             @getTaxonomys({"filter":[{"field":"taxonomy", "key":"manufacturer"}], "returnValue":"manufacturers"})
@@ -153,13 +156,14 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
                                             @endfor
                                         </select>
                                     </div>
-                                    <button type="submit" class="btn btn-danger btn-lg btn-round shadow mt-4">Submit
+                                    <button type="submit" class="btn btn-danger btn-lg btn-round shadow mt-4">Search
                                     </button>
                                 </form>
                             </div>
                             <div class="tab-pane fade" id="budget" role="tabpanel" aria-labelledby="auction-tab">
                                 <form method="GET" action="/search">
                                     @csrf
+                                    <input name="title" type="text" hidden class="searchTitle">
                                     <div class="form-group">
                                         <select class="form-control" name="manufacturer">
                                             @getTaxonomys({"filter":[{"field":"taxonomy", "key":"manufacturer"}], "returnValue":"manufacturers"})
@@ -186,8 +190,7 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
                                         <input class="form-control" name="Max-price" type="number"
                                                placeholder="max-price" aria-label="Search">
                                     </div>
-                                    <button type="submit" class="btn btn-danger btn-lg btn-round shadow mt-4">Submit
-                                    </button>
+                                    <button type="submit" class="btn btn-danger btn-lg btn-round shadow mt-4">Search</button>
                                 </form>
                             </div>
                         </div>
@@ -222,14 +225,14 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
 
     {{-- banner section 1 --}}
 
-    <section class="banner mb-5">
-        <div class="container pr-2 pl-2">
+    <section class="banner pb-5 bg-white">
+        <div class="container">
             <div class="row">
-                <div class="hero-slider owl-carousel owl-theme">
+                <div class="banner-slider owl-carousel owl-theme">
                     @banners([{"field":"location_id", "key":5}])
                     @if(count($banners) > 1)
                         @foreach($banners as $bnr)
-                            <div class="slider-item" style="height: 160px; min-height: 160px;">
+                            <div class="banner-item" style="height: 160px; min-height: 160px;">
                                 <a href="{{$bnr->link}}" target="_blank">
                                     <img src="{{$bnr->banner}}" alt="">
                                 </a>
@@ -245,38 +248,61 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
         </div>
     </section>
 
+    {{--<section class="banner mb-5">--}}
+        {{--<div class="container pr-2 pl-2">--}}
+            {{--<div class="row">--}}
+                {{----}}
+            {{--</div>--}}
+        {{--</div>--}}
+    {{--</section>--}}
+
 
     <!-- Other cars -->
 
     @include('themes.car-web.includes.section-other-cars')
 
     {{-- banner section 2 --}}
-    <section class="banner mb-5">
+
+    <section class="banner pb-5 bg-white">
         <div class="container">
-            <div class="hero-slider owl-carousel owl-theme">
-                @banners([{"field":"location_id", "key":5}])
-                @if(count($banners) > 1)
-                    @foreach($banners as $bnr)
-                        <div class="slider-item" style="height: 160px; min-height: 160px;">
-                            <a href="{{$bnr->link}}" target="_blank">
-                                <img src="{{$bnr->banner}}" alt="">
-                            </a>
-                        </div>
-                    @endforeach
-                @else
-                    <a href="{{$bnr->link}}" target="_blank">
-                        <img src="{{$bnr->banner}}" alt="">
-                    </a>
-                @endif
+            <div class="row">
+                <div class="banner-slider owl-carousel owl-theme">
+                    @banners([{"field":"location_id", "key":5}])
+                    @if(count($banners) > 1)
+                        @foreach($banners as $bnr)
+                            <div class="banner-item" style="height: 160px; min-height: 160px;">
+                                <a href="{{$bnr->link}}" target="_blank">
+                                    <img src="{{$bnr->banner}}" alt="">
+                                </a>
+                            </div>
+                        @endforeach
+                    @else
+                        <a href="{{$bnr->link}}" target="_blank">
+                            <img src="{{$bnr->banner}}" alt="">
+                        </a>
+                    @endif
+                </div>
             </div>
         </div>
     </section>
+
 @endsection
 
 @section('script')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js "></script>
     <script src="{{asset('car-web/js/script.min.js')}}  "></script>
     <script type="text/javascript">
+
+        function searchTitle (event){
+            console.log(event.target.value)
+            $("input[name='title']").each(
+                function () {
+                    console.log($(this));
+                    $(this).val(event.target.value);
+                }
+            )
+        };
+
         const toKebabCase = str =>
             str &&
             str

@@ -83,7 +83,9 @@ class CarManufactureTableSeeder extends Seeder
 
         $carManufacturer = TaxonomyManager::register('Car Manufacturer', 'car');
         foreach ($marksModels as $mark => $models) {
-            $markTaxonomy = TaxonomyManager::register($mark, 'car-manufacturer', $carManufacturer->term->id);
+            $markTaxonomy = TaxonomyManager::register($mark, 'car-manufacturer', $carManufacturer->term->id, [
+                'logo' => url(asset('images/manufacturers/' . \Str::slug($mark) . '.png'))
+            ]);
             foreach ($models as $model) {
                 TaxonomyManager::register($model, 'car-' . \Str::kebab($mark), $markTaxonomy->term->id);
             }

@@ -23,7 +23,7 @@
                                 <div class="retail-name">{{ $content->metaValue('retailName') }}</div>
 
                                 @if ($content->metaValue('retailPhone'))
-                                    <div class="retail-phone">{{ $content->metaValue('retailPhone') }}</div>
+                                    <div class="retail-phone">{{ format_phone($content->metaValue('retailPhone')) }}</div>
                                 @endif
                             </div>
                         @endif

@@ -7,6 +7,7 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use App\Group;
 use App\Config;
 use Auth;
+use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
@@ -60,5 +61,17 @@ class LoginController extends Controller
         }
 
         return $path;
+    }
+
+    protected function credentials(Request $request)
+    {
+        $field = filter_var($request->get($this->username()), FILTER_VALIDATE_EMAIL)
+            ? 'email'
+            : 'username';
+
+        return [
+            $field => $request->get($this->username()),
+            'password' => $request->password,
+        ];
     }
 }
