@@ -6,7 +6,11 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 
+use Modules\Content\Transformers\ContentCollection;
+use Modules\Content\Transformers\Content as ContentResource;
+use App\UserMeta;
 use App\Content;
+use Auth;
 
 class InterestedCarController extends Controller
 {
@@ -39,23 +43,70 @@ class InterestedCarController extends Controller
             });
         }
 
-        $contents = $contents->paginate($limit);
+        return new ContentCollection($contents->paginate($limit));
+    }
 
-        $contents->getCollection()->transform(function ($content) {
-            return [
-                "id" => $content->id,
-                "title" => $content->title,
-                "slug" => $content->slug,
-                "type" => $content->type,
-                "status" => $content->status,
-                "visibility" => $content->visibility,
-                "author" => $content->author,
-                "created_at" => $content->created_at,
-                "updated_at" => $content->updated_at,
-                "meta" => $content->metasTransform(),
-            ];
-        });
+    public function interestedCar(Request $request, $contentId) {
+        if ($this->interestExists(Auth::user(), $contentId)) {
+            return new ContentResource(Content::find($contentId));
+        } else {
+            abort(404);
+        }
+    }
 
-        return response()->json($contents);
+    public function createInterested(Request $request) {
+        $request->validate([
+            'content_id' => 'required|exists:contents,id'
+        ]);
+
+        if (!$this->interestExists(Auth::user(), $request->input('content_id'))) {
+            return response()->json($this->storeInterested(Auth::user(), $request->input('content_id')));
+        }
+    }
+
+    public function removeInterested(Request $request) {
+        $request->validate([
+            'content_id' => 'required|exists:contents,id'
+        ]);
+
+        if ($this->interestExists(Auth::user(), $request->input('content_id'))) {
+            return response()->json($this->deleteInterested(Auth::user(), $request->input('content_id')));
+        }
+    }
+
+    public function toggleInterested(Request $request) {
+        $request->validate([
+            'content_id' => 'required|exists:contents,id'
+        ]);
+
+        if ($this->interestExists(Auth::user(), $request->input('content_id'))) {
+            $this->deleteInterested(Auth::user(), $request->input('content_id'));
+            return response()->json([
+                'status' => 'removed'
+            ]);
+        } else {
+            $this->storeInterested(Auth::user(), $request->input('content_id'));
+            return response()->json([
+                'status' => 'added'
+            ]);
+        }
+    }
+
+    private function storeInterested($user, $contentId) {
+        $meta = new UserMeta();
+        $meta->user_id = $user->id;
+        $meta->key = 'interestedCars';
+        $meta->value = $contentId;
+
+        return $user->metas()->save($meta);
+    }
+
+    private function deleteInterested($user, $contentId) {
+        return $user->metas()->where('key', 'interestedCars')->where('value', $contentId)->first()->delete();
+    }
+
+    private function interestExists($user, $contentId) {
+        $interest= $user->metas()->where('key', 'interestedCars')->where('value', $contentId)->first();
+        return $interest != null;
     }
 }

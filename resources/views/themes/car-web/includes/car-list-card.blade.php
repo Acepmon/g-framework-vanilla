@@ -1,27 +1,11 @@
-@php
-if (!function_exists('isPremium')) {
-    function isPremium($car) {
-        return
-            $car->type == App\Content::TYPE_CAR &&
-            $car->status == App\Content::STATUS_PUBLISHED &&
-            $car->visibility == App\Content::VISIBILITY_PUBLIC &&
-            $car->metaValue('publishVerified') == True &&
-            $car->metaValue('publishVerifiedEnd') >= now() &&
-            ($car->metaValue('publishType') == 'best_premium' || $car->metaValue('publishType') == 'premium');
-    }
-}
-@endphp
-
 @if($car)
 <div class="card">
     <div class="card-body">
         <div class="card-img">
-            <div>
-                @if(isPremium($car))
-                <div class="premium-tag shadow-soft-blue"><img src="{{ asset('car-web/img/icons/corona.svg') }}" alt=""></div>
-                @endif
-                <img src="{{ (substr($car->metaValue('thumbnail'), 0, 4) !== 'http')?(App\Config::getStorage() . $car->metaValue('thumbnail')):$car->metaValue('thumbnail') }}" class="img-fluid" alt="alt">
-            </div>
+            @if(isPremium($car))
+            <div class="premium-tag shadow-soft-blue"><img src="{{ asset('car-web/img/icons/corona.svg') }}" alt=""></div>
+            @endif
+            <img src="{{ (substr($car->metaValue('thumbnail'), 0, 4) !== 'http')?(App\Config::getStorage() . $car->metaValue('thumbnail')):$car->metaValue('thumbnail') }}" class="img-fluid" alt="alt">
         </div>
         <div class="card-description">
             <div class="card-caption">

@@ -225,9 +225,9 @@
             <div class="option-type">
                 Exterior
             </div>
-            @foreach(\App\TermTaxonomy::where('taxonomy', 'Exterior')->get() as $i=>$taxonomy)
+            @foreach(\App\TermTaxonomy::where('taxonomy', 'car-exterior')->get() as $i=>$taxonomy)
             <div class="custom-control custom-checkbox-cd">
-                <input type="checkbox" name="exterior" value="{{ $taxonomy->term->name }}" class="custom-control-input" id="exterior-{{$i}}">
+                <input type="checkbox" name="exterior" value="{{ $taxonomy->term->metaValue('metaKey') }}" class="custom-control-input" id="exterior-{{$i}}">
                 <label class="custom-control-label" for="exterior-{{$i}}">{{ $taxonomy->term->name }}</label>
             </div>
             @endforeach
@@ -236,9 +236,9 @@
             <div class="option-type">
                 Guts
             </div>
-            @foreach(\App\TermTaxonomy::where('taxonomy', 'Guts')->get() as $i=>$taxonomy)
+            @foreach(\App\TermTaxonomy::where('taxonomy', 'car-guts')->get() as $i=>$taxonomy)
             <div class="custom-control custom-checkbox-cd">
-                <input type="checkbox" name="guts" value="{{ $taxonomy->term->name }}" class="custom-control-input" id="guts-{{$i}}">
+                <input type="checkbox" name="guts" value="{{ $taxonomy->term->metaValue('metaKey') }}" class="custom-control-input" id="guts-{{$i}}">
                 <label class="custom-control-label" for="guts-{{$i}}">{{ $taxonomy->term->name }}</label>
             </div>
             @endforeach
@@ -249,9 +249,9 @@
             <div class="option-type">
                 Safety
             </div>
-            @foreach(\App\TermTaxonomy::where('taxonomy', 'Safety')->get() as $i=>$taxonomy)
+            @foreach(\App\TermTaxonomy::where('taxonomy', 'car-safety')->get() as $i=>$taxonomy)
             <div class="custom-control custom-checkbox-cd">
-                <input type="checkbox" name="safety" value="{{ $taxonomy->term->name }}" class="custom-control-input" id="safety-{{$i}}">
+                <input type="checkbox" name="safety" value="{{ $taxonomy->term->metaValue('metaKey') }}" class="custom-control-input" id="safety-{{$i}}">
                 <label class="custom-control-label" for="safety-{{$i}}">{{ $taxonomy->term->name }}</label>
             </div>
             @endforeach
@@ -260,27 +260,12 @@
             <div class="option-type">
                 Convenience
             </div>
-            @foreach(\App\TermTaxonomy::where('taxonomy', 'Convenience')->get() as $i=>$taxonomy)
+            @foreach(\App\TermTaxonomy::where('taxonomy', 'car-convenience')->get() as $i=>$taxonomy)
             <div class="custom-control custom-checkbox-cd">
-                <input type="checkbox" name="convenience" value="{{ $taxonomy->term->name }}" class="custom-control-input" id="convenience-{{$i}}">
+                <input type="checkbox" name="convenience" value="{{ $taxonomy->term->metaValue('metaKey') }}" class="custom-control-input" id="convenience-{{$i}}">
                 <label class="custom-control-label" for="convenience-{{$i}}">{{ $taxonomy->term->name }}</label>
             </div>
             @endforeach
-        </div>
-    </div>
-    <div class="form-row">
-        <div class="col-md-6">
-            <div class="option-type">
-                Clean
-            </div>
-            @foreach(\App\TermTaxonomy::where('taxonomy', 'Clean')->get() as $i=>$taxonomy)
-            <div class="custom-control custom-checkbox-cd">
-                <input type="checkbox" name="clean" value="{{ $taxonomy->term->name }}" class="custom-control-input" id="clean-{{$i}}">
-                <label class="custom-control-label" for="clean-{{$i}}">{{ $taxonomy->term->name }}</label>
-            </div>
-            @endforeach
-        </div>
-        <div class="col-md-6">
         </div>
     </div>
         
