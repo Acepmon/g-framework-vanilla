@@ -13,8 +13,8 @@
     <div class="card shadow-soft-blue page-top-navbar">
         <div class="mypage-nav">
             <ul>
-                <li class="list-item "><a href="#">On sell</a></li>
-                <li class="list-item active"> <a href="#">Sold</a></li>
+                <li class="list-item active"><a href="#">On sell</a></li>
+                <li class="list-item "> <a href="/sell-page-sold">Sold</a></li>
             </ul>
         </div>
     </div>
