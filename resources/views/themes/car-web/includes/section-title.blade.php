@@ -39,7 +39,10 @@
                                 </div>
                                 <div class="col-md-5 text-right d-flex justify-content-between flex-column">
                                     @if ($content->metaValue('markName'))
-                                        <div class="vehicle-brand">{{ $content->metaValue('markName') }}</div>
+                                        <div class="vehicle-brand">
+                                            <img src="{{ url(asset('images/manufacturers/' . \Str::slug($content->metaValue('markName')) . '.png')) }}" alt="" class="mr-2" style="vertical-align: top">
+                                            {{ $content->metaValue('markName') }}
+                                        </div>
                                     @endif
 
                                     <div class="control-ad">
