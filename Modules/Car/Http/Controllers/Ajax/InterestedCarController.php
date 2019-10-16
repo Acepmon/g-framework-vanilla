@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Car\Http\Controllers\API\v1;
+namespace Modules\Car\Http\Controllers\Ajax;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;

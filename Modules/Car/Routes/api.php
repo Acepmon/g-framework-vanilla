@@ -23,10 +23,14 @@ Route::prefix('v1')->group(function () {
                 'car' => 'CarController',
             ]);
             Route::get('/user/interested_cars', 'InterestedCarController@interestedCars');
+            Route::post('/user/interested_cars', 'InterestedCarController@createInterested');
+            Route::delete('/user/interested_cars', 'InterestedCarController@removeInterested');
+            Route::put('/user/interested_cars', 'InterestedCarController@toggleInterested');
+
             Route::post('/car/{car}/metas', 'CarController@syncMetas');
             Route::post('/car/{car}/medias', 'CarController@attachMedias');
             Route::post('/car/{car}/doc', 'CarController@attachDoc');
-            
+
         });
     });
 });
