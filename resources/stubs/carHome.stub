@@ -16,407 +16,209 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
 @endsection
 
 @section('content')
-
     <!-- Masthead -->
     <header class="masthead text-center">
         <div class="container">
             <div class="row">
-                    <div class="col-md-7">
-                        <div class="hero-slider owl-carousel owl-theme">
-
-                                @banners([{"field":"location_id", "key":1}])
-                            @if(count($banners) > 0)
-                                @foreach($banners as $bnr)
-                                    <div class="slider-item">
-                                        <div class="slider-img animated slideInLeft" style="bottom: 0; left: -50px;">
-                                            <a href="{{$bnr->link}}" target="_blank">
-                                                <img src="{{$bnr->banner}}" alt="">
-                                            </a>
-                                        </div>
-                                    </div>
-                                @endforeach
-                            @else
+                <div class="col-lg-7 col-md-12 d-flex align-items-end">
+                    <div class="hero-slider owl-carousel owl-theme">
+                        @banners([{"field":"location_id", "key":1}])
+                        @if(count($banners) > 0)
+                            @foreach($banners as $bnr)
                                 <div class="slider-item">
-                                    <div class="slider-text animated slideInLeft" style="top: 0; left: 100px">
-                                        <h1>Зээлийн хүү</h1>
-                                    </div>
-                                    <div class="slider-text animated slideInLeft slider-highlight"
-                                         style="top: 50px; left: 50px">3%
-                                    </div>
-                                    <div class="slider-text animated slideInLeft" style="top: 200px; left: 200px">
-                                        <h1>Жилийн</h1>
-                                    </div>
-                                    <div class="slider-img animated slideInLeft" style="bottom: 0; left: -50px;">
-                                        <img src="{{asset('car-web/img/slider-1.png')}}" alt="">
-                                    </div>
+                                    <a href="{{$bnr->link}}" target="_blank">
+                                        <img src="{{$bnr->banner}}" alt="">
+                                    </a>
                                 </div>
-                                <div class="slider-item">
-                                    <div class="slider-text" style="top: 5%; left: 90px">
-                                        <h1>Авто машины</h1>
-                                    </div>
-                                    <div class="slider-text" style="top: 18%; left: 100px; ">
-                                        <h1 style="font-size: 2rem;">Дуудлага худалдаа</h1>
-                                    </div>
-                                    <div class="slider-img" style="top: 50%; left: 50px;">
-                                        <img src="{{asset('car-web/img/slider-2.png')}}" alt="" class="img-fluid">
-                                    </div>
-                                    <div class="slider-img" style="top: 25%; left: 0; z-index:-1;">
-                                        <img src="{{asset('car-web/img/auction.png')}}" alt="" class="img-fluid">
-                                    </div>
-                                </div>
-                            @endif
-                        </div>
-                    </div>
-                    <div class="col-md-5" style="z-index: 1">
-
-                        <div class="card masthead-search shadow-lg-3d">
-                            <div class="">
-                                <div class="card-header px-5 pt-5 pb-3">
-                                    <h1>Vehicle search</h1>
-                                    <div class="mh-search-input">
-                                        <input class="search" name="title" type="search" placeholder="Search"
-                                               aria-label="Search">
-                                        <button type="button" class="search-button">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="20.4" height="20.4"
-                                                 viewBox="0 0 20.4 20.4">
-                                                <path
-                                                    d="M152.734,14.153a5.385,5.385,0,1,1,5.417-5.385A5.379,5.379,0,0,1,152.734,14.153Zm7.223,0h-.963l-.361-.359a7.857,7.857,0,0,0,1.806-6.342A7.77,7.77,0,0,0,153.7,1.109a7.859,7.859,0,0,0-8.788,8.735,7.9,7.9,0,0,0,6.38,6.7,7.969,7.969,0,0,0,6.38-1.795l.361.359v.957l5.056,5.026a1.315,1.315,0,0,0,1.806,0,1.3,1.3,0,0,0,0-1.795Z"
-                                                    transform="translate(-144.854 -1.052)" fill="#2b3651"/>
-                                            </svg>
-                                        </button>
-                                    </div>
-                                </div>
+                            @endforeach
+                        @else
+                            <div class="slider-item">
+                                <img src="{{asset('car-web/img/slider-1.png')}}" alt="">
                             </div>
-                            <ul class="nav nav-tabs px-5" id="heroTab" role="tablist">
-                                <li class="nav-item">
-                                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#allVehicles"
-                                       role="tab"
-                                       aria-controls="imported" aria-selected="true">All vehicles</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#auction" role="tab"
-                                       aria-controls="used"
-                                       aria-selected="false">Auction</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" id="contact-tab" data-toggle="tab" href="#budget" role="tab"
-                                       aria-controls="budget"
-                                       aria-selected="false">Budget</a>
-                                </li>
-                            </ul>
-                            <div class="tab-content p-5" id="heroTabFilter">
-                                <div class="tab-pane fade show active" id="allVehicles" role="tabpanel"
-                                     aria-labelledby="imported-tab">
-                                    <form method="GET" action="/car-search">
-                                        <div class="form-group">
-                                            <select id="vehicleManufacturer" class="form-control" name="manufacturer">
-                                                <option>Manufacturer</option>
-                                                @getTaxonomys({"filter":[{"field":"taxonomy", "key":"car-manufacturer"}], "returnValue":"manufacturers"})
-                                                @foreach($manufacturers as $data)
-                                                    <option value="{{$data->term->name}}">{{$data->term->name}}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                        <div class="form-group">
-                                            <select id="vehicleManufacturerModels" class="form-control" name="model">
-                                                <option>Model</option>
-                                                {{--//@getTaxonomys({"filter":[{"field":"taxonomy", "key":"model"}], "returnValue":"models"})--}}
-                                            </select>
-                                        </div>
-                                        <div class="form-group">
-                                            <select class="form-control" name="buildYear">
-                                                <option value="0">Build year</option>
-                                                @for ($i = \Carbon\Carbon::now()->year; $i >= \Carbon\Carbon::now()->year - 50; $i--)
-                                                    <option value="{{$i}}">{{$i}}</option>
-                                                @endfor
-                                            </select>
-                                        </div>
-                                        <div class="form-group">
-                                            <select class="form-control" name="importDate">
-                                                <option value="0">Import year</option>
-                                                @for ($i = \Carbon\Carbon::now()->year; $i >= \Carbon\Carbon::now()->year - 50; $i--)
-                                                    <option value="{{$i}}">{{$i}}</option>
-                                                @endfor
-                                            </select>
-                                        </div>
-                                        <button type="submit" class="btn btn-danger btn-lg btn-round shadow mt-4 pl-5 pr-5">Search</button>
-                                    </form>
-                                </div>
-                                <div class="tab-pane fade" id="auction" role="tabpanel" aria-labelledby="used-tab">
-                                    <form method="GET" action="/car-search">
-                                        <div class="form-group">
-                                            <select class="form-control" name="manufacturer" onchange="manufacturer(this)">
-                                                @getTaxonomys({"filter":[{"field":"taxonomy", "key":"manufacturer"}], "returnValue":"manufacturers"})
-                                                <option>Manufacturer</option>
-                                                @foreach($manufacturers as $data)
-                                                    <option>{{$data->description}}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                        <div class="form-group">
-                                            <select class="form-control" name="model">
-                                                @getTaxonomys({"filter":[{"field":"taxonomy", "key":"model"}], "returnValue":"models"})
-                                                <option>Model</option>
-                                                @foreach($models as $data)
-                                                    <option>{{$data->description}}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                        <div class="form-group">
-                                            <select class="form-control" name="buildYear">
-                                                <option value="0">Build year</option>
-                                                @for ($i = \Carbon\Carbon::now()->year; $i >= \Carbon\Carbon::now()->year - 50; $i--)
-                                                    <option value="{{$i}}">{{$i}}</option>
-                                                @endfor
-                                            </select>
-                                        </div>
-                                        <div class="form-group">
-                                            <select class="form-control" name="importDate">
-                                                <option value="0">Import year</option>
-                                                @for ($i = \Carbon\Carbon::now()->year; $i >= \Carbon\Carbon::now()->year - 50; $i--)
-                                                    <option value="{{$i}}">{{$i}}</option>
-                                                @endfor
-                                            </select>
-                                        </div>
-                                        <button type="submit" class="btn btn-danger btn-lg btn-round shadow mt-4">Submit
-                                        </button>
-                                    </form>
-                                </div>
-                                <div class="tab-pane fade" id="budget" role="tabpanel" aria-labelledby="auction-tab">
-                                    <form method="GET" action="/car-search">
-                                    @csrf
-                                        <div class="form-group">
-                                            <select class="form-control" name="manufacturer">
-                                                @getTaxonomys({"filter":[{"field":"taxonomy", "key":"manufacturer"}], "returnValue":"manufacturers"})
-                                                <option>Manufacturer</option>
-                                                @foreach($manufacturers as $data)
-                                                    <option>{{$data->description}}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                        <div class="form-group">
-                                            <select class="form-control" name="model">
-                                                @getTaxonomys({"filter":[{"field":"taxonomy", "key":"model"}], "returnValue":"models"})
-                                                <option>Model</option>
-                                                @foreach($models as $data)
-                                                    <option>{{$data->description}}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                        <div class="form-group">
-                                            <input class="form-control" name="Min-price" type="number"
-                                                   placeholder="min-price" aria-label="Search">
-                                        </div>
-                                        <div class="form-group">
-                                            <input class="form-control" name="Max-price" type="number"
-                                                   placeholder="max-price" aria-label="Search">
-                                        </div>
-                                        <button type="submit" class="btn btn-danger btn-lg btn-round shadow mt-4">Submit
-                                        </button>
-                                    </form>
-                                </div>
+                            <div class="slider-item">
+                                <img src="{{asset('car-web/img/slider-2.png')}}" alt="" class="img-fluid">
                             </div>
+                        @endif
 
-                        </div>
                     </div>
-                    <div class="master-head-bg">
-                        <img src="{{asset('car-web/img/hero_bg.png')}}" class="img-fluid" alt="">
-                    </div>
-                    <a href="#hot-deal" class="js-scroll-trigger discover">
-                        <span></span>
-                        <p >Discover more</p>
-                    </a>
                 </div>
+                <div class="col-md-5" style="z-index: 1">
+
+                    <div class="card masthead-search shadow-lg-3d">
+                        <div class="">
+                            <div class="card-header px-5 pt-5 pb-3">
+                                <h1>Vehicle search</h1>
+                                <div class="mh-search-input">
+                                    <input class="search" name="title" type="search" placeholder="Search"
+                                           aria-label="Search">
+                                    <button type="button" class="search-button">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20.4" height="20.4"
+                                             viewBox="0 0 20.4 20.4">
+                                            <path
+                                                d="M152.734,14.153a5.385,5.385,0,1,1,5.417-5.385A5.379,5.379,0,0,1,152.734,14.153Zm7.223,0h-.963l-.361-.359a7.857,7.857,0,0,0,1.806-6.342A7.77,7.77,0,0,0,153.7,1.109a7.859,7.859,0,0,0-8.788,8.735,7.9,7.9,0,0,0,6.38,6.7,7.969,7.969,0,0,0,6.38-1.795l.361.359v.957l5.056,5.026a1.315,1.315,0,0,0,1.806,0,1.3,1.3,0,0,0,0-1.795Z"
+                                                transform="translate(-144.854 -1.052)" fill="#2b3651"/>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <ul class="nav nav-tabs px-5" id="heroTab" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#allVehicles"
+                                   role="tab"
+                                   aria-controls="imported" aria-selected="true">All vehicles</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#auction" role="tab"
+                                   aria-controls="used"
+                                   aria-selected="false">Auction</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="contact-tab" data-toggle="tab" href="#budget" role="tab"
+                                   aria-controls="budget"
+                                   aria-selected="false">Budget</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content p-5" id="heroTabFilter">
+                            <div class="tab-pane fade show active" id="allVehicles" role="tabpanel"
+                                 aria-labelledby="imported-tab">
+                                <form method="GET" action="/search">
+                                    <div class="form-group">
+                                        <select id="vehicleManufacturer" class="form-control" name="manufacturer">
+                                            <option>Manufacturer</option>
+                                            @getTaxonomys({"filter":[{"field":"taxonomy", "key":"car-manufacturer"}], "returnValue":"manufacturers"})
+                                            @foreach($manufacturers as $data)
+                                                <option value="{{$data->term->name}}">{{$data->term->name}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <select id="vehicleManufacturerModels" class="form-control" name="model">
+                                            <option>Model</option>
+                                            {{--//@getTaxonomys({"filter":[{"field":"taxonomy", "key":"model"}], "returnValue":"models"})--}}
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <select class="form-control" name="buildYear">
+                                            <option value="0">Build year</option>
+                                            @for ($i = \Carbon\Carbon::now()->year; $i >= \Carbon\Carbon::now()->year - 50; $i--)
+                                                <option value="{{$i}}">{{$i}}</option>
+                                            @endfor
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <select class="form-control" name="importDate">
+                                            <option value="0">Import year</option>
+                                            @for ($i = \Carbon\Carbon::now()->year; $i >= \Carbon\Carbon::now()->year - 50; $i--)
+                                                <option value="{{$i}}">{{$i}}</option>
+                                            @endfor
+                                        </select>
+                                    </div>
+                                    <button type="submit" class="btn btn-danger btn-lg btn-round shadow mt-4 pl-5 pr-5">Submit</button>
+                                </form>
+                            </div>
+                            <div class="tab-pane fade" id="auction" role="tabpanel" aria-labelledby="used-tab">
+                                <form method="GET" action="/search">
+                                    <div class="form-group">
+                                        <select class="form-control" name="manufacturer" onchange="manufacturer(this)">
+                                            @getTaxonomys({"filter":[{"field":"taxonomy", "key":"manufacturer"}], "returnValue":"manufacturers"})
+                                            <option>Manufacturer</option>
+                                            @foreach($manufacturers as $data)
+                                                <option>{{$data->description}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <select class="form-control" name="model">
+                                            @getTaxonomys({"filter":[{"field":"taxonomy", "key":"model"}], "returnValue":"models"})
+                                            <option>Model</option>
+                                            @foreach($models as $data)
+                                                <option>{{$data->description}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <select class="form-control" name="buildYear">
+                                            <option value="0">Build year</option>
+                                            @for ($i = \Carbon\Carbon::now()->year; $i >= \Carbon\Carbon::now()->year - 50; $i--)
+                                                <option value="{{$i}}">{{$i}}</option>
+                                            @endfor
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <select class="form-control" name="importDate">
+                                            <option value="0">Import year</option>
+                                            @for ($i = \Carbon\Carbon::now()->year; $i >= \Carbon\Carbon::now()->year - 50; $i--)
+                                                <option value="{{$i}}">{{$i}}</option>
+                                            @endfor
+                                        </select>
+                                    </div>
+                                    <button type="submit" class="btn btn-danger btn-lg btn-round shadow mt-4">Submit
+                                    </button>
+                                </form>
+                            </div>
+                            <div class="tab-pane fade" id="budget" role="tabpanel" aria-labelledby="auction-tab">
+                                <form method="GET" action="/search">
+                                    @csrf
+                                    <div class="form-group">
+                                        <select class="form-control" name="manufacturer">
+                                            @getTaxonomys({"filter":[{"field":"taxonomy", "key":"manufacturer"}], "returnValue":"manufacturers"})
+                                            <option>Manufacturer</option>
+                                            @foreach($manufacturers as $data)
+                                                <option>{{$data->description}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <select class="form-control" name="model">
+                                            @getTaxonomys({"filter":[{"field":"taxonomy", "key":"model"}], "returnValue":"models"})
+                                            <option>Model</option>
+                                            @foreach($models as $data)
+                                                <option>{{$data->description}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <input class="form-control" name="Min-price" type="number"
+                                               placeholder="min-price" aria-label="Search">
+                                    </div>
+                                    <div class="form-group">
+                                        <input class="form-control" name="Max-price" type="number"
+                                               placeholder="max-price" aria-label="Search">
+                                    </div>
+                                    <button type="submit" class="btn btn-danger btn-lg btn-round shadow mt-4">Submit
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="master-head-bg">
+                    <img src="{{asset('car-web/img/hero_bg.png')}}" class="img-fluid" alt="">
+                </div>
+                <a href="#hot-deal" class="js-scroll-trigger discover">
+                    <span></span>
+                    <p>Discover more</p>
+                </a>
+            </div>
+        </div>
         </div>
     </header>
 
     @include('themes.car-web.includes.fixed-right-sidebar', array('sideBanners'=>$sideBanners, 'premium'=>$hotDeals))
 
-    <section id="hot-deal" class="mainPage-items bg-white">
-        <div class="container">
-            <div class="row">
-                <div class="section-title">
-                    <h2>Hot deal</h2>
-                    <span>
-                        <a href="#">See all (123) <i class="fab fa fa-angle-right"></i></a>
-                    </span>
-                </div>
-
-                <div class="card-list">
-                    <div class="row">
-                    @contents({"filter":[{"field":"type", "key":"car"}, {"field":"status", "key":"published"}], "metasFilter": [{"key":"publishType", "value":"best_premium"}], "limit":12, "returnVariable":"carDataPremium"})
-                    @foreach($carDataPremium as $rr)
-                        <div class="col-md-3 px-2">
-                            <!-- card start -->
-                            <div class="card cd-box">
-                                <div class="premium-tag shadow-soft-blue"><img src="{{asset('car-web/img/icons/corona.svg')}}" alt=""></div>
-                                <div class="card-img">
-                                    <img src="{{(getMetasValue($rr->metas, 'thumbnail'))}}" class="img-fluid" alt="alt">
-
-                                    <div class="card-caption">
-                                        <div class="meta"><?php echo getMetasValue($rr->metas, 'mileageAmount') ?> <?php echo getMetasValue($rr->metas, 'mileageUnit') ?> | <?php echo getMetasValue($rr->metas, 'fuelType') ?> | <?php echo getMetasValue($rr->metas, 'capacityAmount') ?> <?php echo getMetasValue($rr->metas, 'capacityUnit') ?></div>
-                                        <div class="favorite">
-                                            <i class="icon-heart"></i>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="card-body py-2">
-                                    <div class="card-description">
-                                        <div class="card-desc-top">
-                                            <a href="detail-page.html" class="card-title">{{$rr->title}}</a>
-                                            <div class="price">{{(getMetasValue($rr->metas, 'priceAmount'))}}{{(getMetasValue($rr->metas, 'priceUnit'))}}</div>
-                                        </div>
-
-                                        <div class="card-meta">
-                                            <div class="year"><?php echo getMetasValue($rr->metas, 'buildYear') ?> / <?php echo getMetasValue($rr->metas, 'importDate') ?></div>
-                                        </div>
-                                        <div class="status"><?php echo getMetasValue($rr->metas, 'priceType') ?> / Finance</div>
-                                    </div>
-
-                                </div>
-
-                            </div>
-                            <!-- card end -->
-                        </div>
-                    @endforeach
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    <!-- Our best Grid -->
+    @include('themes.car-web.includes.section-best-premium')
 
 
     <!-- Auction Grid -->
 
-    <section class="mainPage-items bg-dark">
-        <div class="container">
-            <div class="row">
-                <div class="section-title text-light">
-                    <h2>Auction cars</h2>
-                    <span>
-                    <a href="#">See all (123) <i class="fab fa fa-angle-right"></i></a>
-                    </span>
-                </div>
-                <div class="card-list auction">
-                    <div class="row">
-                        <!-- col-end -->
-                        @contents({"filter":[{"field":"type", "key":"car"}, {"field":"status", "key":"published"}],
-                        "metasFilter": [{"key": "markName", "value": "Toyota"}], "limit":12,
-                        "returnVariable":"carAuctionPremium"})
-
-                        @foreach($carAuctionPremium as $auctionPrmCars)
-                            <div class="col-md-3 px-2">
-                                <!-- card start -->
-                                <div class="card cd-box">
-                                    <div class="premium-tag shadow-soft-blue"><img src="{{asset('car-web/img/icons/corona.svg')}}" alt=""></div>
-                                    <div class="card-img">
-                                        <img src="{{(getMetasValue($auctionPrmCars->metas, 'thumbnail'))}}" class="img-fluid" alt="alt">
-                                        <div class="info">
-                                        <span class="carIcon-engine">
-                                          <p>1499 L</p>
-                                        </span>
-                                        <span class="carIcon-car-6">
-                                          <p>{{(getMetasValue($auctionPrmCars->metas, 'mileageAmount'))}} {{(getMetasValue($auctionPrmCars->metas, 'mileageUnit'))}}</p>
-                                        </span>
-                                                            <span class="carIcon-gas-station">
-                                          <p>{{(getMetasValue($auctionPrmCars->metas, 'fuelType'))}}</p>
-                                        </span>
-                                                            <span class="carIcon-gearshift">
-                                          <p>{{(getMetasValue($auctionPrmCars->metas, 'transmission'))}}</p>
-                                        </span>
-                                                            <span class="carIcon-steering-wheel">
-                                          <p>{{(getMetasValue($auctionPrmCars->metas, 'wheelPosition'))}}</p>
-                                        </span>
-                                                            <span class="color" data-color="white">
-                                          <p>{{(getMetasValue($auctionPrmCars->metas, 'color'))}}</p>
-                                        </span>
-                                        </div>
-                                        <div class="card-caption">
-                                            <div class="countdown">00h:00m:00s</div>
-                                            <div class="favorite">
-                                                <i class="icon-heart"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="card-body py-2">
-                                        <div class="card-description">
-                                            <div class="card-desc-top">
-                                                <a href="detail-page.html" class="card-title">{{$auctionPrmCars->title}}</a>
-                                                <div class="price">{{(getMetasValue($auctionPrmCars->metas, 'priceAmount'))}}{{(getMetasValue($auctionPrmCars->metas, 'priceUnit'))}}</div>
-                                            </div>
-                                            <div class="card-meta">
-                                                <div class="year">{{(getMetasValue($auctionPrmCars->metas, 'buildYear'))}} / {{(getMetasValue($auctionPrmCars->metas, 'importDate'))}} </div>
-                                                <div class="bids">0 Bids</div>
-                                            </div>
-                                            <div class="overall">{{(getMetasValue($auctionPrmCars->metas, 'mileageAmount'))}} {{(getMetasValue($auctionPrmCars->metas, 'mileageUnit'))}} | {{(getMetasValue($auctionPrmCars->metas, 'fuelType'))}} | {{(getMetasValue($auctionPrmCars->metas, 'capacityAmount'))}} {{(getMetasValue($auctionPrmCars->metas, 'capacityUnit'))}}</div>
-                                        </div>
-
-                                    </div>
-
-                                </div>
-                                <!-- card end -->
-                            </div>
-                            <!-- col-end -->
-                        @endforeach
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    @include('themes.car-web.includes.section-auction')
 
     <!-- wish list -->
 
-    <section class="mainPage-items bg-white">
-        <div class="container pr-2 pl-2">
-            <div class="row">
-                <div class="section-title">
-                    <h2>People's wish list</h2>
-                    <span>
-                        <a href="#">See all (123) <i class="fab fa fa-angle-right"></i></a>
-                    </span>
-                </div>
-            </div>
-        </div>
-        <div class="people-wish-list">
-            <div class="container">
-                <div class="row">
-                    <div class="card-slide owl-carousel owl-theme">
-
-                        @contents({"filter":[{"field":"type", "key":"car"}, {"field":"status", "key":"published"}],
-                        "metasFilter": [{"key": "markName", "value": "toyota"}], "limit":12,
-                        "returnVariable":"wannabuy"})
-
-                        @foreach($wannabuy as $wannaBuyData)
-
-                        <!-- card start -->
-                        <div class="card">
-                            <div class="card-top">
-                                <h2 class="title">{{$wannaBuyData->title}}</h2>
-                            </div>
-                            <div class="card-body py-2">
-                                <div class="wish-detail">
-                                    <div class="price"><i class="icon-tag"></i>{{(getMetasValue($wannaBuyData->metas,'priceAmount'))}} {{(getMetasValue($wannaBuyData->metas,'priceUnit'))}}</div>
-                                    <div class="phone"><i class="icon-phone"></i>{{(getMetasValue($wannaBuyData->metas,'retailPhone'))}} <button class="btn btn-sm btn-outline-dark float-right">Watch</button></div>
-                                </div>
-                                <div class="wish-user">
-                                    <div class="profile-img"><img src="{{$wannaBuyData->author->avatar}}" alt=""></div>
-                                    <div class="username">@if($wannaBuyData->author->name!=null){{$wannaBuyData->author->name}}@else {{$wannaBuyData->author->username}}@endif <div class="date">{{(getMetasValue($wannaBuyData->metas,'created_at'))}}</div>
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-                        <!-- card end -->
-                        @endforeach
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    @include('themes.car-web.includes.section-people-wish-list')
 
     {{-- banner section 1 --}}
 
@@ -446,57 +248,7 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
 
     <!-- Other cars -->
 
-    <section class="mainPage-items bg-light">
-        <div class="container pr-2 pl-2">
-            <div class="row">
-                <div class="section-title">
-                    <h2>Normal cars</h2>
-                    <span>
-                        <a href="#">See all (123) <i class="fab fa fa-angle-right"></i></a>
-                    </span>
-                </div>
-
-                <div class="car-list">
-                    <div class="row">
-                        @contents({"filter":[{"field":"type", "key":"car"}, {"field":"status", "key":"published"}], "limit":10,
-                        "returnVariable":"carsOther"})
-
-                        @foreach($carsOther as $othCars)
-                        <div class="col-md-6">
-                            <!-- card start -->
-                            <div class="card">
-                                <div class="card-body m-0" >
-                                    <div class="card-img">
-                                        <img src="{{(getMetasValue($othCars->metas,'thumbnail'))}}" class="img-fluid" alt="alt">
-                                    </div>
-                                    <div class="card-description">
-                                        <div class="card-caption">
-                                            <div class="card-title">{{$othCars->title}}</div>
-                                            <div class="meta">{{(getMetasValue($othCars->metas,'buildYear'))}} / {{(getMetasValue($othCars->metas,'importDate'))}} | {{(getMetasValue($othCars->metas,'mileageAmount'))}} {{(getMetasValue($othCars->metas,'mileageUnit'))}}</div>
-                                            <div class="price">{{(getMetasValue($othCars->metas,'priceAmount'))}} {{(getMetasValue($othCars->metas, 'priceUnit'))}}</div>
-                                            <div class="favorite">
-                                                <i class="icon-heart"></i> Add to interest list
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div>
-
-                            </div>
-                            <!-- card end -->
-                        </div>
-                        @endforeach
-                        <a class="btn btn-danger btn-round shadow-red mx-auto my-3" href="/search">See all vehicles</a>
-                    </div>
-                </div>
-                {{--<div class="container mt-3">--}}
-                    {{--<div class="row">--}}
-                        {{--<img src="img/banner.png" class="img-fluid" alt="">--}}
-                    {{--</div>--}}
-                {{--</div>--}}
-            </div>
-        </div>
-    </section>
+    @include('themes.car-web.includes.section-other-cars')
 
     {{-- banner section 2 --}}
     <section class="banner mb-5">

@@ -56,7 +56,8 @@ class ResetPasswordSuccessNotification extends Notification
     {
         return [
             'title' => 'Password changed',
-            'body' => 'You have successfully reset your password'
+            'body' => 'You have successfully reset your password',
+            'thumbnail' => url(asset('placeholder.jpg'))
         ];
     }
 }
