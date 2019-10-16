@@ -30,7 +30,7 @@ Route::prefix('v1')->group(function () {
             Route::get('/user', function () {
                 return new UserResource(Auth::user());
             });
-            
+
             Route::get('/user/notifications', function () {
                 return new UserNotificationCollection(Auth::user()->notifications);
             });
