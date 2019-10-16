@@ -166,29 +166,32 @@ class ContentManager extends Manager
      */
     public static function serializeRequest(Request $request)
     {
-        $type = $request->input('type', Content::TYPE_POST);
-        $status = $request->input('status', Content::STATUS_PUBLISHED);
-        $visibility = $request->input('visibility', Content::VISIBILITY_PUBLIC);
-        $limit = $request->input('limit', 10);
+        $type = self::requestOperator('type', $request, Content::TYPE_POST);
+        $status = self::requestOperator('status', $request, Content::STATUS_PUBLISHED);
+        $visibility = self::requestOperator('visibility', $request, Content::VISIBILITY_PUBLIC);
+        $limit = self::requestOperator('limit', $request, 10);
 
         $metaInputs = self::discernMetasFromRequest($request->input());
-
-        $contents = Content::where('type', $type)->where('status', $status)->where('visibility', $visibility);
+        $contents = Content::where($type['field'], $type['operator'], $type['value'])
+        ->where($status['field'], $status['operator'], $status['value'])
+        ->where($visibility['field'], $visibility['operator'], $visibility['value']);
 
         if ($request->has('author_id')) {
-            $contents = $contents->where('author_id', $request->input('author_id'));
+            $author_id =self::requestOperator('author_id', $request);
+            $contents = $contents->where($author_id['field'], $author_id['operator'], $author_id['value']);
         }
 
         if (count($metaInputs) > 0) {
-            $contents = $contents->whereHas('metas', function ($query) use ($metaInputs) {
+            $contents = $contents->whereHas('metas', function ($query) use ($metaInputs, $request) {
                 foreach ($metaInputs as $key => $value) {
+                    $meta = self::requestOperator($key, $request);
                     $query->where('key', $key);
-                    $query->where('value', $value);
+                    $query->where('value', $meta['operator'], $meta['value']);
                 }
             });
         }
 
-        $contents = $contents->paginate($limit);
+        $contents = $contents->paginate($limit['value']);
         return $contents;
     }
 
@@ -203,6 +206,79 @@ class ContentManager extends Manager
             return !in_array($key, $inputExcept);
         }, ARRAY_FILTER_USE_KEY);
         return $metaInputs;
+    }
+
+    // String Enumeration
+    // sw - Starts With @todo
+    // nc - Not Contains Keyword @todo
+    // co - Contains keyword @todo
+
+    // Operators
+    // eq - = (Default)
+    // ne - !=
+    // gt - >
+    // ge - >=
+    // lt - <
+    // le - <=
+
+    // Example
+    // /api/v1/contents?type=car&price[ge]=1000
+    public static function requestOperator($input, $request, $defaultValue = null)
+    {
+        $op = $request->input($input, $defaultValue);
+        if (is_array($op)) {
+            foreach ($op as $key => $value) {
+                $op = self::operator($input, self::operatorSymbol($key), $value);
+            }
+        } else {
+            $op = self::operator($input, self::operatorSymbol('eq'), $op);
+        }
+
+        return $op;
+    }
+
+    public static function operator($field, $operator, $value)
+    {
+        return [
+            'field' => $field,
+            'operator' => $operator,
+            'value' => $value
+        ];
+    }
+
+    public static function operators() {
+        return [
+            'eq' => self::operatorSymbol('eq'),
+            'ne' => self::operatorSymbol('ne'),
+            'gt' => self::operatorSymbol('gt'),
+            'ge' => self::operatorSymbol('ge'),
+            'lt' => self::operatorSymbol('lt'),
+            'le' => self::operatorSymbol('le')
+        ];
+    }
+
+    public static function operatorSymbol($name) {
+        switch ($name) {
+            case 'eq': return '=';
+            case 'ne': return '!=';
+            case 'gt': return '>';
+            case 'ge': return '>=';
+            case 'lt': return '<';
+            case 'le': return '<=';
+            default: return '==';
+        }
+    }
+
+    public static function operatorName($symbol) {
+        switch ($symbol) {
+            case '=': return 'eq';
+            case '!=': return 'ne';
+            case '>': return 'gt';
+            case '>=': return 'ge';
+            case '<': return 'lt';
+            case '<=': return 'le';
+            default: return 'eq';
+        }
     }
 
     /**
