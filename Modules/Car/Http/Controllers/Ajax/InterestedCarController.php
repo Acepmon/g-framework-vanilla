@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 
+use Modules\Content\Transformers\ContentCollection;
+use Modules\Content\Transformers\Content as ContentResource;
 use App\UserMeta;
 use App\Content;
 use Auth;
@@ -41,24 +43,11 @@ class InterestedCarController extends Controller
             });
         }
 
-        $contents = $contents->paginate($limit);
+        return new ContentCollection($contents->paginate($limit));
+    }
 
-        $contents->getCollection()->transform(function ($content) {
-            return [
-                "id" => $content->id,
-                "title" => $content->title,
-                "slug" => $content->slug,
-                "type" => $content->type,
-                "status" => $content->status,
-                "visibility" => $content->visibility,
-                "author" => $content->author,
-                "created_at" => $content->created_at,
-                "updated_at" => $content->updated_at,
-                "meta" => $content->metasTransform(),
-            ];
-        });
-
-        return response()->json($contents);
+    public function interestedCar(Request $request, $contentId) {
+        return new ContentResource(Content::find($contentId));
     }
 
     public function createInterested(Request $request) {
