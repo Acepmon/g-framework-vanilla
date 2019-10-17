@@ -1,44 +1,8 @@
 @extends('themes.car-web.layouts.default')
 
 @php
-$categorySlug = [
-'car-type', 'car-manufacturer', 'car-year', 'car-distance-driven', 'car-price', 'car-colors', 'car-fuel', 'car-transmission', 'car-options', 'car-accident', 'car-mancount', 'car-wheel-pos', 'provinces'
-];
-$categoryName = [
-'Car Type', 'Manufacturer', 'Year', 'Distance Driven', 'Price / Installment', 'Color', 'Fuel', 'Transmission', 'Option', 'An accident', 'Passenger', 'Steering Wheel', 'Area'
-];
-
-// Get All items
-$orderBy = request('orderBy', "updated_at");
-$order = request('order', "desc");
-$page = request('page', "1");
-$itemsPerPage = request('itemsPerPage', "3");
-$allItems = \Modules\Car\Entities\Car::all();
-
-
-$premium = \Modules\Car\Entities\Car::filterByPremium(Null, clone $allItems);
-$filterPremium = request('premium', False);
-if ($filterPremium) {
-  $allItems = $premium;
-}
-
-$allItems = \Modules\Car\Entities\Car::order($orderBy, $order, $allItems);
-
-// Items filtering
-[$items, $request] = \Modules\Car\Entities\Car::filterFromRequest(clone $allItems);
-$items = $items->get();
-if (!$filterPremium) {
-$items = \Modules\Car\Entities\Car::filterByPremium(null, clone $items)->get()->merge($items);
-}
-// Post items filtering
-$itemCount = count($items->all());
-$maxPage = intval(ceil($itemCount / $itemsPerPage));
-if ($itemCount < $page * $itemsPerPage) {
-  $page = $maxPage;
-}
-
-// Banner
-$banner = App\Banner::where('location_id', 5)->where('status', 'active')->inRandomOrder()->first();
+$request = \Modules\Car\Entities\Car::manageRequest();
+$banner = \App\Banner::where('location_id', 5)->where('status', 'active')->inRandomOrder()->first();
 @endphp
 
 @section('title')
@@ -48,13 +12,6 @@ Car dealer
 @section('load')
 <link href="{{ asset('car-web/vendor/simple-line-icons/css/simple-line-icons.css') }}" rel="stylesheet" type="text/css">
 <link href="{{ asset('car-web/vendor/bootstrap-slider/css/bootstrap-slider.min.css') }}" rel="stylesheet">
-<style>
-/* Custom css */
-.detail-page .car-list .card-img .img-fluid {
-  min-height: 100%;
-  object-fit: cover;
-}
-</style>
 @endsection
 
 @section('content')
@@ -85,62 +42,11 @@ Car dealer
         @include('themes.car-web.includes.car-list-menu')
       </div>
       <div class="col-md-9">
-        <div class="row">
-          <div class="card shadow-soft-blue page-top-navbar">
-            <div class="d-flex justify-content-start">
-              <span class="total-cars">{{ count($items) }} VEHICLES</span>
-              <input type="hidden" name="orderBy" id="orderBy" value="{{ $orderBy }}" />
-              <input type="hidden" name="premium" id="premium" value="{{ $filterPremium }}" />
-
-              <div class="sort-cars">
-                <ul>
-                  <li class="{{ ($orderBy=='updated_at')?'active':'' }}"><a href="#" onclick="formSubmit('orderBy', 'updated_at')">Recent cars</a></li>
-                  <li class="{{ ($orderBy=='buildYear')?'active':'' }}"><a href="#" onclick="formSubmit('orderBy', 'buildYear')">Product year</a></li>
-                  <li class="{{ ($orderBy=='importDate')?'active':'' }}"><a href="#" onclick="formSubmit('orderBy', 'importDate')">Income year</a></li>
-                  <li class="{{ ($orderBy=='priceAmount')?'active':'' }}"><a href="#" onclick="formSubmit('orderBy', 'priceAmount')">Low price</a></li>
-                </ul>
-              </div>
-            </div>
-          </div>
-          @if ($items->all() && sizeof($items->all()) != 0)
-          <div class="car-list">
-            <input type="hidden" name="advantage" id="advantage" value="{{ $request['advantages'] }}" />
-            @foreach($items->forPage($page, $itemsPerPage) as $car)
-              @include('themes.car-web.includes.car-list-card', array('car'=>$car))
-            @endforeach
-          </div>
-          @else
-          <div class="text-center text-muted col-lg-12 mt-3">
-            <p>No results found</p>
-          </div>
-          @endif
-        </div>
-
-        <!-- Pagination -->
-        <nav aria-label="Page navigation">
-          <input type="hidden" value="{{ max($page, 1) }}" name="page" id="page" />
-          <ul class="pagination d-flex justify-content-end">
-            <li class="page-item {{ ($page <= 1)?'disabled':'' }}">
-              <button class="page-link" onclick="formSubmit('page', {{$page-1}})" aria-label="Previous">
-                <span aria-hidden="true"><i class="fab fa fa-angle-left"></i></span>
-              </button>
-            </li>
-            @for($i = 1; $i <= $maxPage; $i++)
-              <li class="page-item {{ ($i == $page)?'active':'' }}"><button class="page-link" onclick="formSubmit('page', {{$i}})">{{ $i }}</button></li>
-              @endfor
-              <li class="page-item {{ ($page >= $maxPage)?'disabled':'' }}">
-                <button class="page-link" onclick="formSubmit('page', {{$page+1}})" aria-label="Next">
-                  <span aria-hidden="true"><i class="fab fa fa-angle-right"></i></span>
-                </button>
-              </li>
-          </ul>
-        </nav>
-        <!-- Pagination end -->
+        @include('themes.car-web.includes.car-list-contents')
         </form>
       </div>
     </div>
   </div>
-
 </section>
 
 <!-- Banner start -->
@@ -158,7 +64,7 @@ Car dealer
 <!-- Banner end -->
 
 <!-- Hot deal Grid -->
-@include('themes.car-web.includes.section-slider', array('title'=>'Hot Deal', 'contents'=>$premium->get(), 'morelink'=>url('/buy?premium=True')))
+@include('themes.car-web.includes.section-slider', array('title'=>'Hot Deal', 'contents'=>\Modules\Car\Entities\Car::filterByPremium()->get(), 'morelink'=>url('/buy?premium=True')))
 <!-- Hot deal End -->
 @endsection
 
@@ -172,14 +78,6 @@ Car dealer
     }
     $('#mainForm').submit();
   }
-
-  $("input[type=radio]").click(function(event) {
-    event.preventDefault();
-    if (event.target.defaultChecked) {
-      event.target.checked = false;
-    }
-    $('#mainForm').submit();
-  });
 
   function addToInterest(event, value) {
     event.stopPropagation();

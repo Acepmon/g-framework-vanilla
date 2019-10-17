@@ -1,6 +1,6 @@
 @if($car)
-<div class="card">
-    <div class="card-body">
+<a class="card" href="{{ $car->slug }}">
+<div class="card-body">
         <div class="card-img">
             @if(isPremium($car))
             <div class="premium-tag shadow-soft-blue"><img src="{{ asset('car-web/img/icons/corona.svg') }}" alt=""></div>
@@ -9,7 +9,7 @@
         </div>
         <div class="card-description">
             <div class="card-caption">
-                <a href="{{ $car->slug }}"><div class="card-title">{{ $car->title }}</div></a>
+                <div class="card-title">{{ $car->title }}</div>
                 <div class="meta">{{ $car->metaValue('buildYear') }}/{{ $car->metaValue('importDate') }} | {{ $car->metaValue('mileage') }}km</div>
                 <div class="price">{{ numerizePrice($car->metaValue('priceAmount')) }} {{ $car->metaValue('priceUnit') }}</div>
                 @if($car->metaValue('interest')) <!-- TODO: Change this Conditional -->
@@ -55,5 +55,5 @@
             </div>
         </div>
     </div>
-</div>
+</a>
 @endif

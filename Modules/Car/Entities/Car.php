@@ -16,6 +16,11 @@ class Car extends Content
         if ($contents == Null) {
             $contents = self::all();
         }
+
+        if ($orderBy == 'priceAmount') {
+            $order = 'asc';
+        }
+
         if ($orderBy != 'updated_at') {
             $contents = $contents->join('content_metas', 'contents.id', '=', 'content_metas.content_id')
                 ->where('content_metas.key', '=', $orderBy)->select('contents.*')->addSelect('content_metas.value');
@@ -26,43 +31,19 @@ class Car extends Content
         return $contents;
     }
 
-    public static function filter($filter) {
-
-    }
-
-    public static function filterFromRequest($contents, $filter = Null) {
+    public static function filter($contents, $filter = Null) {
         if ($contents == Null) {
             $contents = self::all()->orderBy('updated_at', 'desc');
         }
 
-        $request = [];
-        $request['type'] = request('car-type', Null);
-        $request['markName'] = request('car-manufacturer', Null);
-        $request['colorName'] = request('car-colors', Null);
-        $request['fuelType'] = request('car-fuel', Null);
-        $request['transmission'] = request('car-transmission', Null);
-        $request['advantages'] = request('car-advantage', Null);
-        $request['manCount'] = request('car-mancount', Null);
-        $request['wheelPosition'] = request('car-wheel-pos', Null);
-        $request['countryName'] = request('provinces', Null);
-        $request['buildYear'] = request('year', Null);
-        $request['distanceDriven'] = request('distance_driven', Null);
-        $request['doctorVerified'] = request('doctors_verified', Null);
-        $request['doctorVerified'] = ($request['doctorVerified'] == 'Баталгаажсан')?'1':'0';
-
-        foreach ($request as $key => $value) {
+        foreach ($filter as $key => $value) {
             if ($value != Null) {
                 $contents = metaHas($contents, $key, $value);
             }
-        };
-        
-        $request['minPrice'] = request('min_price', Null);
-        $request['maxPrice'] = request('max_price', Null);
-        $minPrice = intVal($request['minPrice']) * 1000;
-        $maxPrice = intVal($request['maxPrice']) * 1000;
-        $contents = metaHas($contents, 'priceAmount', $value, 'range', $minPrice, $maxPrice);
+        }
+        $contents = metaHas($contents, 'priceAmount', $value, 'range', $filter['minPrice'], $filter['maxPrice']);
 
-        return [$contents, $request];
+        return $contents;
     }
 
     public static function filterByPremium($limit = Null, $contents = Null) {
@@ -76,16 +57,45 @@ class Car extends Content
             $query->where([['key', 'publishVerifiedEnd'],['value','>=',$now]]);
         });
 
+        // >>>>>>>>>>>> USE THIS
         // $premium = metaHas(clone $filtered, 'publishType', 'premium')->get();
         // $best_premium = metaHas(clone $filtered, 'publishType', 'best_premium')->get();
         // $filtered = $best_premium->push($premium);
-        $filtered = metaHas($filtered, 'publishType', 'best_premium');
-        //$filtered = metaHas($filtered, 'publishType', 'premium');
+        // <<<<<<<<<<<< OR THIS
+        $filtered = $filtered->whereHas('metas', function ($query) {
+            $query->where('key', 'publishType');
+            $query->where('value', 'best_premium')->orWhere('value', 'premium');
+        });
 
         if ($limit) {
             $filtered = $filtered->paginate($limit);
         }
         // dd($filtered->get());
         return $filtered;
+    }
+
+    /*
+    * Converts GET request paramaters to content_meta object array
+    * Used in car lists
+    */
+    public static function manageRequest() {
+        $request = [];
+        $request['type'] = request('car-type', Null);
+        $request['markName'] = request('car-manufacturer', Null);
+        $request['colorName'] = request('car-colors', Null);
+        $request['fuelType'] = request('car-fuel', Null);
+        $request['transmission'] = request('car-transmission', Null);
+        $request['advantages'] = request('car-advantage', Null);
+        $request['manCount'] = request('car-mancount', Null);
+        $request['wheelPosition'] = request('car-wheel-pos', Null);
+        $request['countryName'] = request('provinces', Null);
+        $request['buildYear'] = request('year', Null);
+        $request['distanceDriven'] = request('distance_driven', Null);
+        $request['doctorVerified'] = request('doctors_verified', Null);
+        $request['minPrice'] = intVal(request('min_price', Null)) * 1000;
+        $request['maxPrice'] = intVal(request('max_price', Null)) * 1000;
+
+        // $request = json_encode($request);
+        return $request;
     }
 }

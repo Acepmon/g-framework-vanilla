@@ -96,3 +96,15 @@ $categoryName = [
     @endforeach
 
 </div>
+
+@push('scripts')
+<script>
+$("input[type=radio]").click(function(event) {
+    event.preventDefault();
+    if (event.target.defaultChecked) {
+      event.target.checked = false;
+    }
+    $('#mainForm').submit();
+});
+</script>
+@endpush

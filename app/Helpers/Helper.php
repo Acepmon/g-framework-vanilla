@@ -54,8 +54,13 @@ function put_blade_section(string $path, string $section, $replacement)
 }
 
 function numerizePrice($value) {
-    $value /= 1000000;
-    return $value . ' сая';
+    if ($value < 1000) {
+        return $value;
+    } else if ($value < 1000000) {
+        return ($value / 1000) . ' мянга';
+    } else {
+        return ($value / 1000000) . ' сая';
+    }
 }
 
 function getMetasValue($metas, $key) {
