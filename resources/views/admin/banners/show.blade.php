@@ -16,7 +16,7 @@
 
 @section('content')
 <div class="row">
-    <div class="col-md-12">
+    <div class="col-lg-6">
         <div class="card">
             <div class="card-header header-elements-inline">
                 <div>
