@@ -43,34 +43,34 @@ try {
           <div class="card-header">
             <div class="step-process sp-4">
               <div class='progress_inner_step active'>
-                <a for='step-1' data-toggle="tab" href="#step-1" id="tab-step-1" class="text-decoration-none">Add details</a>
+                <a class="nav-link" for='step-1' data-toggle="tab" href="#step-1" id="tab-step-1" role="tab">Add details</a>
               </div>
               <div class='progress_inner_step'>
-                <a for='step-2' data-toggle="tab" href="#step-2" id="tab-step-2">Upload media</a>
+                <a class="nav-link" for='step-2' data-toggle="tab" href="#step-2" id="tab-step-2" role="tab">Upload media</a>
               </div>
               <div class='progress_inner_step'>
-                <a for='step-3' data-toggle="tab" href="#step-3" id="tab-step-3">Add price</a>
+                <a class="nav-link" for='step-3' data-toggle="tab" href="#step-3" id="tab-step-3" role="tab" aria-controls="step-3" aria-selected="false">Add price</a>
               </div>
               <div class='progress_inner_step'>
-                <a for='step-4' data-toggle="tab" href="#step-4" id="tab-step-4">Publish type</a>
+                <a class="nav-link" for='step-4' data-toggle="tab" href="#step-4" id="tab-step-4" role="tab">Publish type</a>
               </div>
             </div>
           </div>
           <div class="card-body pb-5 tab-content" id="steps">
-              <div id="step-1" class="tab-pane fade active show">
+              <div id="step-1" class="tab-pane active show">
                 @include('pages.' . App\Content::where('slug', 'sell-car-page-2-step-1')->first()->currentView())
               </div>
-              <div id="step-2" class="tab-pane fade">
+              <div id="step-2" class="tab-pane">
                 @include('pages.' . App\Content::where('slug', 'sell-car-page-2-step-2')->first()->currentView())
               </div>
-              <div id="step-3" class="tab-pane fade">
+              <div id="step-3" class="tab-pane" role="tabpanel" aria-labelledby="tab-step-3">
                 @if($car->metaValue('isAuction'))
                 @include('pages.' . App\Content::where('slug', 'sell-car-auction')->first()->currentView())
                 @else
                 @include('pages.' . App\Content::where('slug', 'sell-car-page-2-step-3')->first()->currentView())
                 @endif
               </div>
-              <div id="step-4" class="tab-pane fade">
+              <div id="step-4" class="tab-pane">
                  @include('pages.' . App\Content::where('slug', 'sell-car-page-2-step-4')->first()->currentView())
               </div>
           </div>
@@ -111,6 +111,7 @@ try {
 
   $(".step-process a").each(function(index) {
     $(this).on('click', function () {
+      console.log("ON CLICK!" + index);
       for (var i = index; i>=1; i--) {
         $('#tab-step-'+i).parent().removeClass('active');
         $('#tab-step-'+i).parent().addClass('done');
@@ -120,6 +121,9 @@ try {
         $('#tab-step-'+i).parent().removeClass('done');
       }
       $(this).parent().addClass('active');
+      
+      $('#steps > .active').removeClass('active').removeClass('show');
+      $("#step-"+(index+1)).addClass('active').addClass('show');
     });
   });
 
