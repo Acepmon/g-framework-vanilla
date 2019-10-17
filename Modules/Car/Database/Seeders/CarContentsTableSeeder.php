@@ -41,7 +41,7 @@ class CarContentsTableSeeder extends Seeder
             // Random values
 
             $markName = TaxonomyManager::collection('car-manufacturer')->random()->term->name;
-            $modelName = TaxonomyManager::collection('car-toyota')->random()->term->name;
+            $modelName = TaxonomyManager::collection('car-' . \Str::kebab($markName))->random()->term->name;
             $type = TaxonomyManager::collection('car-type')->random()->term->name;
             // $className = '';
             $manCount = TaxonomyManager::collection('car-mancount')->random()->term->name;
@@ -223,7 +223,7 @@ class CarContentsTableSeeder extends Seeder
             $content->metas()->saveMany($medias);
 
             // Update title by merging markName and modelName
-            $content->title = $content->metaValue('markName') . ' ' . $content->metaValue('modelName');
+            $content->title = \Str::startsWith($content->metaValue('modelName'), $content->metaValue('markName')) ? $content->metaValue('modelName') : $content->metaValue('markName') . ' ' . $content->metaValue('modelName');
             $content->slug = 'posts/' . $content->id;
             $content->save();
 
