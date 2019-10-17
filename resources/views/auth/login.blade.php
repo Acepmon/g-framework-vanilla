@@ -13,7 +13,7 @@
                 <div class="row">
                     <div class="col-lg-7 col-md-12 d-flex align-items-end">
                         <div class="hero-slider owl-carousel owl-theme">
-                            @banners([{"field":"location_id", "key":1}])
+                            @banners([{"field":"location_id", "key":2}])
                             @if(count($banners) > 0)
                                 @foreach($banners as $bnr)
                                     <div class="slider-item">
