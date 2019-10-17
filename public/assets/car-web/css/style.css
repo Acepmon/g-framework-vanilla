@@ -657,13 +657,35 @@ header.masthead .masthead-search .mh-search-input .search-button {
   transition: all 0.7s cubic-bezier(0.32, 1.33, 0.43, 1.01);
 }
 
+header.masthead .masthead-search .mh-search-input .search-button svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: 0 auto;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 35px;
+  transform-origin: center;
+  transition: transform 0.7s cubic-bezier(0.32, 1.33, 0.43, 1.01);
+}
+
 header.masthead .masthead-search .mh-search-input.expand .search {
   width: calc(100% - 2.5rem);
   padding: 0.5rem 1.5rem 0.5rem 3rem;
 }
 
 header.masthead .masthead-search .mh-search-input.expand .search-button {
-  right: calc(100% - 5.5rem);
+  right: calc(100% - 5.8rem);
+}
+
+header.masthead .masthead-search .mh-search-input.expand .search-button svg {
+  transform: translateY(-50%) rotate(90deg);
+}
+
+header.masthead .masthead-search .mh-search-input.expand .search-button svg .search-icon-1 {
+  fill: #fff;
 }
 
 header.masthead .masthead-search .card-header {
@@ -1209,6 +1231,20 @@ select {
   transition: all 0.7s cubic-bezier(0.32, 1.33, 0.43, 1.01);
 }
 
+.left-bar-title .mh-search-input .search-button svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: 0 auto;
+  top: calc(50% + 5px);
+  transform: translateY(-50%);
+  width: 35px;
+  transform-origin: center;
+  transition: transform 0.7s cubic-bezier(0.32, 1.33, 0.43, 1.01);
+}
+
 .left-bar-title .mh-search-input.expand .search {
   border: 1px solid #E0E5EB;
   background: #fff;
@@ -1218,6 +1254,14 @@ select {
 
 .left-bar-title .mh-search-input.expand .search-button {
   right: calc(100% - 3rem);
+}
+
+.left-bar-title .mh-search-input.expand .search-button svg {
+  transform: translateY(-50%) rotate(90deg);
+}
+
+.left-bar-title .mh-search-input.expand .search-button svg .search-icon-1 {
+  fill: #fff;
 }
 
 .car-filter .grid-radio {
@@ -1742,6 +1786,18 @@ select {
   font-weight: 600;
   color: #858994;
   text-transform: uppercase;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.detail-page .vehicle-info-top .vehicle-brand img {
+  width: 40px;
+  margin-right: 10px;
+}
+
+.detail-page .vehicle-info-top .vehicle-brand p {
+  margin: 0;
 }
 
 @media (max-width: 767.98px) {
@@ -2560,10 +2616,6 @@ select {
 .shadow-soft-blue {
   box-shadow: 0 5px 10px 0 rgba(43, 54, 81, 0.2) !important;
   transition: all .3s ease;
-}
-
-.shadow-soft-blue:hover {
-  box-shadow: 0 5px 10px -5px rgba(43, 54, 81, 0.2) !important;
 }
 
 .shadow-red {
@@ -3551,7 +3603,13 @@ section .owl-carousel .owl-nav button.owl-next, section .owl-carousel .owl-nav b
   padding-left: 1.5rem;
   font-size: 1.125rem;
   text-shadow: 0 1px 1px rgba(0, 0, 0, 0.8);
-  letter-spacing: 0.33333rem;
+}
+
+.card-list.auction .card .card-img .card-caption .countdown span {
+  text-transform: none;
+  font-size: .75rem;
+  font-weight: 600;
+  margin-right: 5px;
 }
 
 .card-list.auction .card .card-img .card-caption .favorite {

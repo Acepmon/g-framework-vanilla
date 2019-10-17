@@ -360,7 +360,13 @@
                         padding-left: $spacer * 1.5;
                         font-size: 1.125rem;
                         text-shadow:  0 1px 1px rgba(0, 0, 0, .8); 
-                        letter-spacing: $spacer / 3;
+
+                        span{
+                            text-transform: none;
+                            font-size: .75rem;
+                            font-weight: 600;
+                            margin-right: 5px;
+                        }
                     }
                     .favorite{
                         width: 10%;

@@ -59,6 +59,23 @@
           transform: translateY(-50%);
           outline: none;
           transition: all .7s cubic-bezier(.32,1.33,.43,1.01);
+
+          svg{
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            margin: 0 auto;
+            top: calc(50% + 5px);
+            transform: translateY(-50%);
+            width: 35px;
+            transform-origin: center;
+            -webkit-transition: -webkit-transform .7s cubic-bezier(.32,1.33,.43,1.01); 
+            -moz-transition: -moz-transform .7s cubic-bezier(.32,1.33,.43,1.01);
+            -o-transition: -o-transform .7s cubic-bezier(.32,1.33,.43,1.01);
+            transition: transform .7s cubic-bezier(.32,1.33,.43,1.01);
+          }
       }
   
       &.expand{
@@ -70,6 +87,12 @@
         }
         .search-button{
           right: calc(100% - 3rem);
+          svg{
+            transform: translateY(-50%) rotate(90deg);
+            .search-icon-1{
+              fill: #fff;
+            }
+          }
         }
       }
         

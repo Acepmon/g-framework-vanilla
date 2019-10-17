@@ -15,10 +15,10 @@
         </div>
         <div class="card-description">
             <div class="card-caption">
-                <div class="card-title">{{ $car->title }}</div>
+                <div class="card-title">{{ (strlen($car->title) > 40)?substr($car->title, 0, 37) . '...':$car->title }}</div>
                 <div class="meta">{{ $car->metaValue('buildYear') }}/{{ $car->metaValue('importDate') }} | {{ $car->metaValue('mileage') }}km</div>
                 <div class="price">{{ numerizePrice($car->metaValue('priceAmount')) }} {{ $car->metaValue('priceUnit') }}</div>
-                @if(count(metaHas(Auth::user(), 'interestedCars', $car->id)->get()) > 0) <!-- TODO: Change this Conditional -->
+                @if(count(metaHas(Auth::user(), 'interestedCars', $car->id)->get()) > 0)
                 <div class="favorite" onclick="addToInterest(event, {{$car->id}})">
                     <span class="text-danger"><i class="fas fa-heart"></i> Added to interest list</span>
                 </div>
@@ -35,7 +35,7 @@
                 </span>
                 <span class="info-icon">
                     <img src="{{ asset('car-web/img/icons/wheel.svg') }}" alt="">
-                    <p>{{ ucfirst($car->metaValue('wheelPosition')) }} wheel</p>
+                    <p>{{ ucfirst($car->metaValue('wheelPosition')) }}</p>
                 </span>
                 <span class="info-icon">
                     <img src="{{ asset('car-web/img/icons/gearShift.svg') }}" alt="">
@@ -49,7 +49,7 @@
                     <img src="{{ asset('car-web/img/icons/transmision.svg') }}" alt="">
                     <p>{{ $car->metaValue('axleCount') }} WD</p>
                 </span>
-                <span class="info-icon color" data-color="{{ $car->metaValue('colorName') }}">
+                <span class="info-icon color" data-color="{{ strtolower($car->metaValue('colorName')) }}">
                     <p>{{ ucfirst($car->metaValue('colorName')) }}</p>
                 </span>
 
