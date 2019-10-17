@@ -11,6 +11,7 @@ use App\TermTaxonomy;
 use App\ContentMeta;
 use DB;
 use Modules\Content\Transformers\TaxonomyCollection;
+use Illuminate\Support\Carbon;
 
 class GframeworkServiceProvider extends ServiceProvider
 {
@@ -79,6 +80,9 @@ class GframeworkServiceProvider extends ServiceProvider
         Blade::directive('banners', function ($expression) {
             $someObject = json_decode($expression);
             $banners = Banner::select('id', 'banner', 'link', 'location_id', 'status')->whereRaw('1 = 1')->orderBy('id', 'asc');
+            $banners = $banners->where('status', '=', 'active');
+            $banners = $banners->whereDate('starts_at', '<', Carbon::now()->toDateTimeString());
+            $banners = $banners->whereDate('ends_at', '>', Carbon::now()->toDateTimeString());
             foreach ($someObject as $some) {
                 $banners = $banners->where($some->field, '=', $some->key);
             }

@@ -238,10 +238,12 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
                                 </a>
                             </div>
                         @endforeach
-                    @else
+                    @elseif(count($banners) == 1)
                         <a href="{{$bnr->link}}" target="_blank">
                             <img src="{{$bnr->banner}}" alt="">
                         </a>
+                    @else
+                        <img src="{{asset('car-web/img/banner.png')}}" class="img-fluid" alt="">
                     @endif
                 </div>
             </div>
@@ -276,10 +278,12 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
                                 </a>
                             </div>
                         @endforeach
+                    @elseif (count($banners) == 1)
+                    <a href="{{$bnr->link}}" target="_blank">
+                        <img src="{{$bnr->banner}}" alt="">
+                    </a>
                     @else
-                        <a href="{{$bnr->link}}" target="_blank">
-                            <img src="{{$bnr->banner}}" alt="">
-                        </a>
+                        <img src="{{asset('car-web/img/banner.png')}}" class="img-fluid" alt="">
                     @endif
                 </div>
             </div>
