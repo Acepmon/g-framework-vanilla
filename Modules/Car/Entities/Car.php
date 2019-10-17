@@ -41,7 +41,7 @@ class Car extends Content
                 $contents = metaHas($contents, $key, $value);
             }
         }
-        $contents = metaHas($contents, 'priceAmount', $value, 'range', $filter['minPrice'], $filter['maxPrice']);
+        // $contents = metaHas($contents, 'priceAmount', $value, 'range', $filter['minPrice'], $filter['maxPrice']);
 
         return $contents;
     }
