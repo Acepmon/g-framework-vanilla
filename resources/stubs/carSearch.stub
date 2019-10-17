@@ -2,12 +2,6 @@
 
 
 @php
-function metaHas($items, $key, $value)
-{
-return $items->whereHas('metas', function ($query) use ($key, $value) {
-$query->where('key', $key)->where('value', $value);
-});
-}
 $categorySlug = [
 'car-type', 'car-manufacturer', 'car-year', 'car-distance-driven', 'car-price', 'car-colors', 'car-fuel', 'car-transmission', 'car-options', 'car-accident', 'car-mancount', 'car-wheel-pos', 'provinces'
 ];
