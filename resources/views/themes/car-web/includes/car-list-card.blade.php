@@ -1,9 +1,15 @@
 @if($car)
-<a class="card" href="{{ $car->slug }}">
+<a class="card {{ (isset($auction) && $auction)?'auction-car':'' }}" href="{{ $car->slug }}">
 <div class="card-body">
         <div class="card-img">
             @if(isPremium($car))
             <div class="premium-tag shadow-soft-blue"><img src="{{ asset('car-web/img/icons/corona.svg') }}" alt=""></div>
+            @endif
+            @if(isset($auction) && $auction && $car->metaValue('isAuction'))
+            <div class="maz-auction-time">
+                <div id="countdown" class="countdown" data-countdown="{{ $car->metaValue('endsAt') }}"></div>
+                <!-- may 5, 2020 15:37:25 -->
+            </div>
             @endif
             <img src="{{ (substr($car->metaValue('thumbnail'), 0, 4) !== 'http')?(App\Config::getStorage() . $car->metaValue('thumbnail')):$car->metaValue('thumbnail') }}" class="img-fluid" alt="alt">
         </div>
@@ -12,12 +18,12 @@
                 <div class="card-title">{{ $car->title }}</div>
                 <div class="meta">{{ $car->metaValue('buildYear') }}/{{ $car->metaValue('importDate') }} | {{ $car->metaValue('mileage') }}km</div>
                 <div class="price">{{ numerizePrice($car->metaValue('priceAmount')) }} {{ $car->metaValue('priceUnit') }}</div>
-                @if($car->metaValue('interest')) <!-- TODO: Change this Conditional -->
-                <div class="favorite" onclick="addToInterest(event, '{{$car->slug}}')">
+                @if(count(metaHas(Auth::user(), 'interestedCars', $car->id)->get()) > 0) <!-- TODO: Change this Conditional -->
+                <div class="favorite" onclick="addToInterest(event, {{$car->id}})">
                     <span class="text-danger"><i class="fas fa-heart"></i> Added to interest list</span>
                 </div>
                 @else
-                <div class="favorite" onclick="addToInterest(event, '{{$car->slug}}')">
+                <div class="favorite" onclick="addToInterest(event, {{$car->id}})">
                     <span class=""><i class="far fa-heart"></i> Add to interest list</span>
                 </div>
                 @endif

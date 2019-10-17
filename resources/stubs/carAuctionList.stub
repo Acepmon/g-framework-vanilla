@@ -40,11 +40,11 @@ Car dealer
             </div>
           </div>
         </form>
-        <form action="buy" id="mainForm">
+        <form action="{{ url('/auction') }}" id="mainForm">
         @include('themes.car-web.includes.car-list-menu')
       </div>
       <div class="col-md-9">
-        @include('themes.car-web.includes.car-list-contents', ['allItems' => $allItems])
+        @include('themes.car-web.includes.car-list-contents', ['allItems' => $allItems, 'auction' => True])
         </form>
       </div>
     </div>
@@ -74,6 +74,12 @@ Car dealer
 <script src="{{ asset('car-web/vendor/bootstrap-slider/bootstrap-slider.min.js') }}"></script>
 <script src="{{ asset('car-web/vendor/owl.carousel.thumbs/owl.carousel2.thumbs.min.js') }}"></script>
 <script>
+$.ajaxSetup({
+headers: {
+    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+}
+});
+
   function formSubmit(id, value) {
     if (value != 'no-value') {
       document.getElementById(id).value = value;
@@ -82,10 +88,68 @@ Car dealer
   }
 
   function addToInterest(event, value) {
+    event.preventDefault();
     event.stopPropagation();
-    var target = event.target;
-    target.innerHTML = "";
-    target.innerHTML = '<span class="text-danger"><i class="fas fa-heart"></i> Added to interest list</span>';
+    var target = event.target.closest('div');
+    // target.innerHTML = 'Loading';
+
+    $.ajax({
+      url: '/ajax/user/interested_cars', 
+      dataType: 'json',
+      method: 'PUT',
+      data: {
+          'content_id': value
+      },
+      success: function (data) {
+        if (data.status == 'added') {
+          target.innerHTML = '<span class="text-danger"><i class="fas fa-heart"></i> Added to interest list</span>';
+        } else if (data.status == 'removed') {
+          target.innerHTML = '<span class=""><i class="far fa-heart"></i> Add to interest list</span>';
+        }
+      },
+      error: function (error) {
+        if (error.status == 401) {
+          window.location.href = "{{ route('login') }}";
+        }
+      }
+    });
   }
+  
+  var carList = $('.auction-car');
+
+  carList.each(function(i,e){
+    var mazCountdown = $(e).find('.countdown');
+    var mazCDtime = mazCountdown.data('countdown');
+
+    console.log(mazCDtime);
+    var countDownDate = new Date(mazCDtime).getTime();
+
+    // Update the count down every 1 second
+    var x = setInterval(function() {
+
+      // Get today's date and time
+      var now = new Date().getTime();
+
+      // Find the distance between now and the count down date
+      var distance = countDownDate - now;
+
+      // Time calculations for days, hours, minutes and seconds
+      var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      // Display the result in the element with id="demo"
+      mazCountdown.html((hours + days * 24) + "<span>Цаг</span> "
+      + minutes + "<span>Мин</span> " + seconds + "<span>Сек</span> ");
+
+      // If the count down is finished, write some text
+      if (distance < 0) {
+        clearInterval(x);
+        mazCountdown.html("EXPIRED");
+      }
+    }, 1000);
+  })
+
 </script>
 @endsection

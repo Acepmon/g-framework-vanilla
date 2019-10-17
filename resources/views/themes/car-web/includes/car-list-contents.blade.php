@@ -58,11 +58,17 @@ if ($itemCount < $page * $itemsPerPage) {
     </div>
     </div>
     @if ($items->all() && sizeof($items->all()) != 0)
-    <div class="car-list">
+    <div class="car-list {{ (isset($auction) && $auction)?'auction-list':'' }}">
     <input type="hidden" name="advantage" id="advantage" value="{{ $request['advantages'] }}" />
-    @foreach($items->forPage($page, $itemsPerPage) as $car)
-        @include('themes.car-web.includes.car-list-card', array('car'=>$car))
-    @endforeach
+    @if (isset($auction) && $auction)
+        @foreach($items->forPage($page, $itemsPerPage) as $car)
+            @include('themes.car-web.includes.car-list-card', array('car'=>$car, 'auction'=>True))
+        @endforeach
+    @else
+        @foreach($items->forPage($page, $itemsPerPage) as $car)
+            @include('themes.car-web.includes.car-list-card', array('car'=>$car))
+        @endforeach
+    @endif
     </div>
     @else
     <div class="text-center text-muted col-lg-12 mt-3">

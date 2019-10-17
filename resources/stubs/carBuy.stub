@@ -38,11 +38,11 @@ Car dealer
             </div>
           </div>
         </form>
-        <form action="buy" id="mainForm">
+        <form action="{{ url('/buy') }}" id="mainForm">
         @include('themes.car-web.includes.car-list-menu')
       </div>
       <div class="col-md-9">
-        @include('themes.car-web.includes.car-list-contents')
+        @include('themes.car-web.includes.car-list-contents', ['allItems' => \Modules\Car\Entities\Car::all()])
         </form>
       </div>
     </div>
@@ -80,10 +80,31 @@ Car dealer
   }
 
   function addToInterest(event, value) {
+    event.preventDefault();
     event.stopPropagation();
-    var target = event.target;
-    target.innerHTML = "";
-    target.innerHTML = '<span class="text-danger"><i class="fas fa-heart"></i> Added to interest list</span>';
+    var target = event.target.closest('div');
+    // target.innerHTML = 'Loading';
+
+    $.ajax({
+      url: '/ajax/user/interested_cars', 
+      dataType: 'json',
+      method: 'PUT',
+      data: {
+          'content_id': value
+      },
+      success: function (data) {
+        if (data.status == 'added') {
+          target.innerHTML = '<span class="text-danger"><i class="fas fa-heart"></i> Added to interest list</span>';
+        } else if (data.status == 'removed') {
+          target.innerHTML = '<span class=""><i class="far fa-heart"></i> Add to interest list</span>';
+        }
+      },
+      error: function (error) {
+        if (error.status == 401) {
+          window.location.href = "{{ route('login') }}";
+        }
+      }
+    });
   }
 </script>
 @endsection
