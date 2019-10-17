@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 
+use App\Entities\TaxonomyManager;
+
 class CarOptionController extends Controller
 {
     /**
@@ -41,9 +43,11 @@ class CarOptionController extends Controller
      * @param int $id
      * @return Response
      */
-    public function show($id)
+    public function show($taxonomy)
     {
-        return view('car::admin.car.options.show');
+        $taxonomies = TaxonomyManager::collection($taxonomy);
+
+        return view('car::admin.car.options.show', ['taxonomies' => $taxonomies]);
     }
 
     /**

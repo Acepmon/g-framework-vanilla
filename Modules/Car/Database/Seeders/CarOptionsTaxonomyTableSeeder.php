@@ -16,7 +16,7 @@ class CarOptionsTaxonomyTableSeeder extends Seeder
      */
     public function run()
     {
-        $options = ['Exterior', 'Guts', 'Safety', 'Convenience', 'Clean'];
+        $options = ['Exterior', 'Guts', 'Safety', 'Convenience'];
 
         $parent = TaxonomyManager::register('Options', 'car');
 
