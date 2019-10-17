@@ -23,9 +23,11 @@ class CarOptionController extends Controller
      * Show the form for creating a new resource.
      * @return Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        return view('car::admin.car.options.create');
+        $taxonomy = $request->input('taxonomy');
+
+        return view('car::admin.car.options.create', ['taxonomy' => $taxonomy]);
     }
 
     /**
@@ -47,7 +49,7 @@ class CarOptionController extends Controller
     {
         $taxonomies = TaxonomyManager::collection($taxonomy);
 
-        return view('car::admin.car.options.show', ['taxonomies' => $taxonomies]);
+        return view('car::admin.car.options.show', ['taxonomies' => $taxonomies, 'taxonomy' => $taxonomy]);
     }
 
     /**

@@ -1,8 +1,6 @@
 @extends('themes.limitless.layouts.default')
 
-@section('title')
-
-@endsection
+@section('title', 'Taxonomy Terms')
 
 @section('load-before')
 
@@ -27,6 +25,13 @@
         <div class="card">
             <div class="card-header bg-transparent header-elements-inline">
                 <h6 class="card-title">Terms</h6>
+
+                <div class="header-elements">
+                    <a href="{{ route('admin.modules.car.options.create') }}?taxonomy={{ $taxonomy }}" class="btn btn-primary">
+                        <span class="icon-plus3 mr-2"></span>
+                        New Term
+                    </a>
+                </div>
             </div>
 
             <table class="table">
@@ -38,17 +43,17 @@
                         <th>Actions</th>
                     </tr>
                 </thead>
-                @foreach ($taxonomies as $index => $taxonomy)
+                @foreach ($taxonomies as $index => $item)
                     <tr>
                         <td>{{ $index + 1 }}</td>
-                        <td>{{ $taxonomy->term->name }}</td>
-                        <td>{{ $taxonomy->term->slug }}</td>
+                        <td>{{ $item->term->name }}</td>
+                        <td>{{ $item->term->slug }}</td>
                         <td>
                             <div class="btn-group">
-                                <a href="{{ route('admin.modules.car.options.edit', $taxonomy->id) }}" class="btn btn-light btn-icon btn-sm">
+                                <a href="{{ route('admin.modules.car.options.edit', $item->id) }}?taxonomy={{ $taxonomy }}" class="btn btn-light btn-icon btn-sm">
                                     <span class="icon-pencil"></span>
                                 </a>
-                                <a href="{{ route('admin.modules.car.options.edit', $taxonomy->id) }}" class="btn btn-light btn-icon btn-sm">
+                                <a href="{{ route('admin.modules.car.options.edit', $item->id) }}?taxonomy={{ $taxonomy }}" class="btn btn-light btn-icon btn-sm">
                                     <span class="icon-trash"></span>
                                 </a>
                             </div>
