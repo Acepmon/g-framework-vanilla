@@ -17,57 +17,21 @@
                                 <input type="text" value="{{ $content->metaValue('priceAmount') }}" name="carPrice" id="carPrice" hidden>
                                 <p>Advance payment (first 20%)</p>
                                 <div class="select-first-price">
-                                    <div class="custom-control custom-radio custom-control-inline">
-                                        <input type="radio" id="20%" name="advancePaymentPercent" value="20" class="advancePayment custom-control-input" checked>
-                                        <label class="custom-control-label" for="20%">20%</label>
-                                    </div>
-                                    <div class="custom-control custom-radio custom-control-inline">
-                                        <input type="radio" id="30%" name="advancePaymentPercent" value="30" class="advancePayment custom-control-input">
-                                        <label class="custom-control-label" for="30%">30%</label>
-                                    </div>
-                                    <div class="custom-control custom-radio custom-control-inline">
-                                        <input type="radio" id="40%" name="advancePaymentPercent" value="40" class="advancePayment custom-control-input">
-                                        <label class="custom-control-label" for="40%">40%</label>
-                                    </div>
-                                    <div class="custom-control custom-radio custom-control-inline">
-                                        <input type="radio" id="50%" name="advancePaymentPercent" value="50" class="advancePayment custom-control-input">
-                                        <label class="custom-control-label" for="50%">50%</label>
-                                    </div>
-                                    <div class="custom-control custom-radio custom-control-inline">
-                                        <input type="radio" id="60%" name="advancePaymentPercent" value="60" class="advancePayment custom-control-input">
-                                        <label class="custom-control-label" for="60%">60%</label>
-                                    </div>
-                                    <div class="custom-control custom-radio custom-control-inline">
-                                        <input type="radio" id="70%" name="advancePaymentPercent" value="70" class="advancePayment custom-control-input">
-                                        <label class="custom-control-label" for="70%">70%</label>
-                                    </div>
-                                    <div class="custom-control custom-radio custom-control-inline">
-                                        <input type="radio" id="80%" name="advancePaymentPercent" value="80" class="advancePayment custom-control-input">
-                                        <label class="custom-control-label" for="80%">80%</label>
-                                    </div>
+                                    @foreach (\App\Entities\TaxonomyManager::collection('car-advance-payments') as $index => $advancePayment)
+                                        <div class="custom-control custom-radio custom-control-inline">
+                                            <input type="radio" id="{{ $advancePayment->term->name }}%" name="advancePaymentPercent" value="{{ $advancePayment->term->name }}" class="advancePayment custom-control-input" {{ $index == 0 ? 'checked' : ''}}>
+                                            <label class="custom-control-label" for="{{ $advancePayment->term->name }}%">{{ $advancePayment->term->name }}%</label>
+                                        </div>
+                                    @endforeach
                                 </div>
                                 <p>Installment period</p>
                                 <div class="select-month">
-                                    <div class="custom-control custom-radio custom-control-inline">
-                                        <input type="radio" id="6month" name="loanTerm" value="6" class="loanTerm custom-control-input" checked>
-                                        <label class="custom-control-label" for="6month">6 month</label>
-                                    </div>
-                                    <div class="custom-control custom-radio custom-control-inline">
-                                        <input type="radio" id="12month" name="loanTerm" value="12" class="loanTerm custom-control-input" checked>
-                                        <label class="custom-control-label" for="12month">12 month</label>
-                                    </div>
-                                    <div class="custom-control custom-radio custom-control-inline">
-                                        <input type="radio" id="18month" name="loanTerm" value="18" class="loanTerm custom-control-input">
-                                        <label class="custom-control-label" for="18month">18 month</label>
-                                    </div>
-                                    <div class="custom-control custom-radio custom-control-inline">
-                                        <input type="radio" id="24month" name="loanTerm" value="24" class="loanTerm custom-control-input">
-                                        <label class="custom-control-label" for="24month">24 month</label>
-                                    </div>
-                                    <div class="custom-control custom-radio custom-control-inline">
-                                        <input type="radio" id="30month" name="loanTerm" value="30" class="loanTerm custom-control-input">
-                                        <label class="custom-control-label" for="30month">30 month</label>
-                                    </div>
+                                    @foreach (\App\Entities\TaxonomyManager::collection('car-loan-terms') as $index => $loanTerm)
+                                        <div class="custom-control custom-radio custom-control-inline">
+                                            <input type="radio" id="{{ $loanTerm->term->name }}month" name="loanTerm" value="{{ $loanTerm->term->name }}" data-interest="{{ $loanTerm->term->metaValue('interest') }}" class="loanTerm custom-control-input" {{ $index == 0 ? 'checked' : ''}}>
+                                            <label class="custom-control-label" for="{{ $loanTerm->term->name }}month">{{ $loanTerm->term->name }} month</label>
+                                        </div>
+                                    @endforeach
                                 </div>
                             </form>
                         </div>
@@ -146,24 +110,10 @@ function PMT(rate, nper, pv, fv, type) {
     return pmt;
 }
 
-function monthlyInterestCalculation(loanTerm) {
-    switch (parseInt(loanTerm)) {
-        case 6: return 2.5;
-        case 12: return 2.5;
-        case 18: return 2.6;
-        case 24: return 2.7;
-        case 30: return 2.8;
-    }
-}
-
-function loanAmountCalculation(carPrice, advancePaymentAmount) {
-    return carPrice - advancePaymentAmount;
-}
-
-function loanCalculation(price, advancePayment, loanTerm) {
+function loanCalculation(price, advancePayment, loanTerm, interest = 2.5) {
     var advancePaymentAmount = price / 100 * advancePayment;
-    var loanAmount = loanAmountCalculation(price, advancePaymentAmount);
-    var monthlyInterest = monthlyInterestCalculation(loanTerm);
+    var loanAmount = price - advancePaymentAmount;
+    var monthlyInterest = interest;
     var yearlyInterest = monthlyInterest * 12;
     var interestPaymentMonthly = 0;
     var monthlyPaymentAmount = Math.round((PMT(monthlyInterest / 100, loanTerm - interestPaymentMonthly, -loanAmount, 0, 0)), 2);
@@ -180,22 +130,22 @@ function loanCalculation(price, advancePayment, loanTerm) {
     }
 }
 
-function calculate(carPrice, advancePayment, loanTerm) {
-    var result = loanCalculation(parseFloat(carPrice), parseInt(advancePayment), parseInt(loanTerm));
+function calculate(carPrice, advancePayment, loanTerm, interest) {
+    var result = loanCalculation(parseFloat(carPrice), parseInt(advancePayment), parseInt(loanTerm), parseFloat(interest));
     $("#advancePaymentAmount").html(number_format(result.advancePaymentAmount));
     $("#monthlyPaymentAmount").html(number_format(result.monthlyPaymentAmount));
 }
 
 $(document).ready(function() {
     $(".advancePayment").change(function () {
-        calculate($("#carPrice").val(), $(".advancePayment:checked").val(), $(".loanTerm:checked").val());
+        calculate($("#carPrice").val(), $(".advancePayment:checked").val(), $(".loanTerm:checked").val(), $(".loanTerm:checked").data('interest'));
     });
 
     $(".loanTerm").change(function () {
-        calculate($("#carPrice").val(), $(".advancePayment:checked").val(), $(".loanTerm:checked").val());
+        calculate($("#carPrice").val(), $(".advancePayment:checked").val(), $(".loanTerm:checked").val(), $(".loanTerm:checked").data('interest'));
     });
 
-    calculate($("#carPrice").val(), $(".advancePayment:checked").val(), $(".loanTerm:checked").val());
+    calculate($("#carPrice").val(), $(".advancePayment:checked").val(), $(".loanTerm:checked").val(), $(".loanTerm:checked").data('interest'));
 });
 
 </script>

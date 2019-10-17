@@ -33,8 +33,9 @@
 @section('content')
 <div class="row">
     <div class="col-lg-6">
-        <form action="{{ route('admin.banners.store') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('admin.banners.update', $banner->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
+            @method('PUT')
             <div class="card">
                 <div class="card-header header-elements-inline">
                     <h6 class="card-title">Edit Banner</h6>
@@ -100,7 +101,7 @@
                                 <span class="action btn btn-light" style="user-select: none;">Choose File</span>
                             </div>
                             <input type="text" name="banner_cropped" id="banner_cropped" hidden>
-                            <div class="card" id="banner_preview_container" style="display: block;">
+                            <div class="card" id="banner_preview_container" style="display: {{ $banner->banner ? 'block' : 'none' }};">
                                 <div class="card-img-actions m-1">
                                     <img class="card-img img-fluid" src="{{ $banner->banner }}" alt="" id="banner_preview">
                                     <div class="card-img-actions-overlay card-img">
@@ -123,7 +124,7 @@
                             <label for="status" class="col-form-label">Status <span class="text-danger">*</span></label>
                             <select name="status" id="status" class="form-control text-capitalize">
                                 @foreach (\App\Banner::STATUS_ARRAY as $status)
-                                    <option value="{{ $status }}" {{ $status == \App\Banner::STATUS_DRAFT ? 'selected' : '' }}>{{ $status }}</option>
+                                    <option value="{{ $status }}" {{ $status == $banner->status ? 'selected' : '' }}>{{ $status }}</option>
                                 @endforeach
                             </select>
                             @error('status')
