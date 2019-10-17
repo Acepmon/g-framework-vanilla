@@ -40,6 +40,7 @@ class GframeworkServiceProvider extends ServiceProvider
         });
 
         Blade::directive('content', function ($expression) {
+            // Parsing of passed expression
             $parsed = $this->parseExpression($expression);
             $variable = $parsed->variable;
             $returnArg = "";
@@ -50,7 +51,7 @@ class GframeworkServiceProvider extends ServiceProvider
             $contents = "\App\Content";
             foreach ($parsed->filters as $index => $filter) {
                 $inputExcept = ['title', 'slug', 'content', 'type', 'status', 'visibility', 'limit', 'page', 'author_id', '_token'];
-                $inputExcept2 = ['title', 'slug', 'content', 'type', 'status', 'visibility', 'author_id', '_token'];
+                $inputExcept2 = ['title', 'slug', 'content', 'type', 'author_id', '_token'];
                 $pointer = $index == 0 ? '::' : '->';
 
                 if (in_array($filter['field'], $inputExcept)) {
@@ -67,6 +68,11 @@ class GframeworkServiceProvider extends ServiceProvider
                 }
             }
 
+            // Static filter
+            $contents = $contents . $pointer . $this->where('status', Content::STATUS_PUBLISHED);
+            $contents = $contents . $pointer . $this->where('visibility', Content::VISIBILITY_PUBLIC);
+
+            // Collection return type
             $contents = $contents . "->" . $parsed->return . "(" . $returnArg . ")";
 
             return "<?php foreach($contents as $variable) { ?>";
