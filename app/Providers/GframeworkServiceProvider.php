@@ -74,7 +74,7 @@ class GframeworkServiceProvider extends ServiceProvider
 
             // Collection return type
             $contents = $contents . "->" . $parsed->return . "(" . $returnArg . ")";
-
+//            dd($contents);
             return "<?php foreach($contents as $variable) { ?>";
         });
 
@@ -170,25 +170,28 @@ class GframeworkServiceProvider extends ServiceProvider
             $variable = trim(explode("as", $expression)[1]);
             $return = 'get';
         }
-
+        //dd($filters);
         $filters = explode(",", $filters);
+        //dd($filters);
         $filters = array_map(function ($filter) {
+            //dd($filter);
             return $this->parseFilter(trim($filter));
         }, $filters);
-
+        //dd($filters);
         $parsed = new \stdclass;
         $parsed->filters = $filters;
         $parsed->variable = $variable;
         $parsed->return = $return;
-
         return $parsed;
     }
 
     private function parseFilter($filter) {
-        $operators = ['=', '!=', '>', '>=', '<', '<='];
+        $operators = ['=', '!=', ' >', '>=', ' <', '<='];
+        //dd($filter);
         foreach ($operators as $operator) {
             if (\Str::contains($filter, $operator)) {
                 $split = explode($operator, $filter);
+                //dd($split);
                 return [
                     'field' => trim($split[0]),
                     'operator' => trim($operator),
@@ -206,7 +209,7 @@ class GframeworkServiceProvider extends ServiceProvider
     }
 
     private function whereValueStr($value) {
-        if (\Str::startsWith($value, 'request()')) {
+        if (\Str::startsWith($value, 'request()') || \Str::startsWith($value, 'intval(')) {
             return $value;
         } else {
             return "'" . $value . "'";

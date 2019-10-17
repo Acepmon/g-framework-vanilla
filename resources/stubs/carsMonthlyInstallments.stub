@@ -23,6 +23,9 @@
                 var firstPayValue= Math.round(totalPrice*(fPay/100));
                 document.getElementById("firstPayValue").innerHTML = firstPayValue + '₮ (' + fPay +'%)';
                 document.getElementById("totalPrice").innerHTML = totalPrice+' ₮';
+                //document.getElementById("searchByTotPrice"). =;
+                $('#searchByTotPrice').attr("value", totalPrice);
+
             });
 
             $("#searchFitCars").on('click', function(event){
@@ -145,7 +148,12 @@
                 </div>
             </div>
             <div class="col-md-12 text-center">
-                <button type="button" id="searchFitCars" class="btn btn-danger rounded mt-5">Хайлт хийх</button>
+                <form method="GET" action="/monthly-installments">
+                    @csrf
+                    <input hidden id="searchByTotPrice" name="priceAmount">
+                    <button type="submit" id="searchFitCars" class="btn btn-danger rounded mt-5">Хайлт хийх</button>
+                </form>
+
             </div>
         </div>
     </section>
@@ -159,42 +167,17 @@
 
                 <div class="card-list">
                     <div class="row">
-                        @contents({"filter":[{"field":"type", "key":"car"}, {"field":"status", "key":"published"}], "metasFilter": [{"key":"publishType", "value":"best_premium"}], "limit":12, "returnVariable":"carDataPremium"})
-                        @foreach($carDataPremium as $rr)
-                            <div class="col-md-3 px-2">
-                                <!-- card start -->
-                                <div class="card cd-box">
-                                    <div class="premium-tag shadow-soft-blue"><img src="{{asset('car-web/img/icons/corona.svg')}}" alt=""></div>
-                                    <div class="card-img">
-                                        <img src="{{(getMetasValue($rr->metas, 'thumbnail'))}}" class="img-fluid" alt="alt">
+                        {{--@contents({"filter":[{"field":"type", "key":"car"}, {"field":"status", "key":"published"}], "metasFilter": [{"key":"publishType", "value":"best_premium"}], "limit":12, "returnVariable":"carDataPremium"})--}}
+                        @content(type=car, priceAmount < intval(request()->input("priceAmount")) as $carDataMonthly | paginate)
+                        <div>
+                        {{$carDataMonthly->metaValue("publishType")}}
+                        </div>
+                        @endcontent
 
-                                        <div class="card-caption">
-                                            <div class="meta"><?php echo getMetasValue($rr->metas, 'mileageAmount') ?> <?php echo getMetasValue($rr->metas, 'mileageUnit') ?> | <?php echo getMetasValue($rr->metas, 'fuelType') ?> | <?php echo getMetasValue($rr->metas, 'capacityAmount') ?> <?php echo getMetasValue($rr->metas, 'capacityUnit') ?></div>
-                                            <div class="favorite">
-                                                <i class="icon-heart"></i>
-                                            </div>
-                                        </div>
-                                    </div>
 
-                                    <div class="card-body py-2">
-                                        <div class="card-description">
-                                            <div class="card-desc-top">
-                                                <a href="detail-page.html" class="card-title">{{$rr->title}}</a>
-                                                <div class="price">{{(getMetasValue($rr->metas, 'priceAmount'))}}{{(getMetasValue($rr->metas, 'priceUnit'))}}</div>
-                                            </div>
 
-                                            <div class="card-meta">
-                                                <div class="year"><?php echo getMetasValue($rr->metas, 'buildYear') ?> / <?php echo getMetasValue($rr->metas, 'importDate') ?></div>
-                                            </div>
-                                            <div class="status"><?php echo getMetasValue($rr->metas, 'priceType') ?> / Finance</div>
-                                        </div>
 
-                                    </div>
 
-                                </div>
-                                <!-- card end -->
-                            </div>
-                        @endforeach
                     </div>
                 </div>
             </div>
