@@ -35,4 +35,23 @@
             </div>
         </div>
     </div>
+
+    @push('scripts')
+        <script>
+            $(document).ready(function () {
+                $.ajax({
+                    url: '/ajax/contents/{{ $content->id }}',
+                    method: 'PUT',
+                    data: {
+                        action: 'increment',
+                        actionField: 'viewed',
+                        actionValue: '1'
+                    },
+                    success: function (data) {
+                        console.log(data);
+                    }
+                })
+            });
+        </script>
+    @endpush
 @endif

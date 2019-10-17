@@ -71,9 +71,9 @@
 <div class="row">
     @foreach ($themes as $theme)
         <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
-            <div class="panel">
-                <div class="panel-body panel-body-accent">
-                    <h4 class="text-semibold no-margin">
+            <div class="card">
+                <div class="card-body card-body-accent">
+                    <h4 class="font-weight-semibold no-margin">
                         <a href="{{ route('admin.themes.show', $theme->id) }}" class="text-default">{{ $theme->title }}</a>
                     </h4>
 

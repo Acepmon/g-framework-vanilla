@@ -189,12 +189,12 @@ class CarPagesTableSeeder extends Seeder
         $content_meta->value = json_encode($value);
         $content_meta->save();
 
-        // $file_content = file_get_contents(resource_path('stubs/carWishlist.stub'));
-        // $file_name = $rootPath . DIRECTORY_SEPARATOR . 'wishlist' . Content::NAMING_CONVENTION . $content->status . Content::NAMING_CONVENTION . $time;
-        // $file_ext = 'blade.php';
-        // $file_path = $file_name . '.' . $file_ext;
+        $file_content = file_get_contents(resource_path('stubs/carWishlist.stub'));
+        $file_name = $rootPath . DIRECTORY_SEPARATOR . 'wishlist' . Content::NAMING_CONVENTION . $content->status . Content::NAMING_CONVENTION . $time;
+        $file_ext = 'blade.php';
+        $file_path = $file_name . '.' . $file_ext;
 
-        // file_put_contents(base_path($file_path), $file_content);
+        file_put_contents(base_path($file_path), $file_content);
 
         // ------------- car-web sell more information -------------
 
