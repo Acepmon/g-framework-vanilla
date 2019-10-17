@@ -25,11 +25,6 @@
                                         <h1 class="vehicle-title">{{ $content->title }}</h1>
                                     @endif
 
-                                    <!-- Testing something here -->
-                                    @content(type=car, markName=request()->input('markName'), limit=request()->input('limit') as $content | paginate)
-                                        <div>{{ $content->title }}</div>
-                                    @endcontent
-
                                     @if ($content->metaArray('advantages'))
                                         <p class="vehicle-meta text-muted">{{ implode(' | ', $content->metaArray('advantages')->toArray()) }}</p>
                                     @endif
