@@ -89,7 +89,7 @@ class CarContentsTableSeeder extends Seeder
                 new ContentMeta(['key' => 'countryName', 'value' => $countryName]),
                 new ContentMeta(['key' => 'markName', 'value' => $markName]),
                 new ContentMeta(['key' => 'modelName', 'value' => $modelName]),
-                new ContentMeta(['key' => 'type', 'value' => $type]),
+                new ContentMeta(['key' => 'carType', 'value' => $type]),
                 new ContentMeta(['key' => 'className', 'value' => 'luxury']),
                 new ContentMeta(['key' => 'manCount', 'value' => $manCount]),
 
