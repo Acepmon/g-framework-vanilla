@@ -146,6 +146,15 @@ $('.maz-burger-menu').on('click', function(){
               }
           }
       });
+        $('.banner-slider').owlCarousel({
+          loop:true,
+          margin: 0,
+          autoplay: true,
+          autoplaySpeed: 2000,
+          thumbs: false,
+          nav: false,
+          items: 1,
+      });
       
         $('.vehicle-imgSlider').owlCarousel({
             autoplay: false,

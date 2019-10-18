@@ -61,7 +61,7 @@
                 padding: 1.25rem;
 
                 .card-description{
-
+                    position: relative;
                     .card-title{
                         line-height: $spacer * 1.2;
                         color: $gray-900;
@@ -101,9 +101,6 @@
     }
 
     .card{
-        &.cd-box{
-            margin-bottom: 1rem;
-        }
         text-decoration: none;
         font-family: $segoe;
         position: relative;
@@ -256,7 +253,7 @@
             padding: 1.25rem;
 
             .card-description{
-                
+                position: relative;
                 .card-desc-top{
                     display: flex;
                     justify-content: space-between;
@@ -279,9 +276,12 @@
                     }
                     .price{
                         font-size: 1.25rem;
-                        font-weight: 700;
-                        text-align: right;
-                        color: $gray-900;
+                            font-weight: 700;
+                            text-align: right;
+                            color: $gray-900;
+                            position: absolute;
+                            bottom: 0;
+                            right: 0;
                     }
                 }
 
@@ -360,7 +360,13 @@
                         padding-left: $spacer * 1.5;
                         font-size: 1.125rem;
                         text-shadow:  0 1px 1px rgba(0, 0, 0, .8); 
-                        letter-spacing: $spacer / 3;
+
+                        span{
+                            text-transform: none;
+                            font-size: .75rem;
+                            font-weight: 600;
+                            margin-right: 5px;
+                        }
                     }
                     .favorite{
                         width: 10%;
@@ -373,8 +379,9 @@
                 
                 padding: 1.25rem;
                 .card-description{
+                    position: relative;
                     
-                    .card-desc-top{
+                    .card-meta{
                         .price{
                             font-size: 1rem;
                             font-weight: 700;
@@ -396,9 +403,6 @@
 
 .people-wish-list{
     .card{
-        &.cd-box{
-            margin-bottom: 1rem;
-        }
         .card-top{
             padding: 15px;
             border-top-left-radius: 4px;
