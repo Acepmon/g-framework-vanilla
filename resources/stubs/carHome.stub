@@ -230,7 +230,7 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
             <div class="row">
                 <div class="banner-slider owl-carousel owl-theme">
                     @banners([{"field":"location_id", "key":5}])
-                    @if(count($banners) > 1)
+                    @if(count($banners) > 0)
                         @foreach($banners as $bnr)
                             <div class="banner-item" style="height: 160px; min-height: 160px;">
                                 <a href="{{$bnr->link}}" target="_blank">
@@ -238,10 +238,6 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
                                 </a>
                             </div>
                         @endforeach
-                    @elseif(count($banners) == 1)
-                        <a href="{{$bnr->link}}" target="_blank">
-                            <img src="{{$bnr->banner}}" alt="">
-                        </a>
                     @else
                         <img src="{{asset('car-web/img/banner.png')}}" class="img-fluid" alt="">
                     @endif
@@ -270,7 +266,7 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
             <div class="row">
                 <div class="banner-slider owl-carousel owl-theme">
                     @banners([{"field":"location_id", "key":5}])
-                    @if(count($banners) > 1)
+                    @if(count($banners) > 0)
                         @foreach($banners as $bnr)
                             <div class="banner-item" style="height: 160px; min-height: 160px;">
                                 <a href="{{$bnr->link}}" target="_blank">
@@ -278,10 +274,6 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
                                 </a>
                             </div>
                         @endforeach
-                    @elseif (count($banners) == 1)
-                    <a href="{{$bnr->link}}" target="_blank">
-                        <img src="{{$bnr->banner}}" alt="">
-                    </a>
                     @else
                         <img src="{{asset('car-web/img/banner.png')}}" class="img-fluid" alt="">
                     @endif

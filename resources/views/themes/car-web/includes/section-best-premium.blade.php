@@ -32,7 +32,7 @@
                                     <div class="card-description">
                                         <div class="card-desc-top">
                                             <div class="card-title">{{$bpCars->title}}</div>
-                                            <div class="price">{{(getMetasValue($bpCars->metas, 'priceAmount'))}} {{(getMetasValue($bpCars->metas, 'priceUnit'))}}</div>
+                                            <div class="price">{{numerizePrice((getMetasValue($bpCars->metas, 'priceAmount')))}} {{(getMetasValue($bpCars->metas, 'priceUnit'))}}</div>
                                         </div>
 
                                         <div class="card-meta">
