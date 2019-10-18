@@ -92,6 +92,24 @@
         <button class="btn btn-danger btn-round shadow-red px-5 py-2" type="button" id="nextBtn" onclick="submitStep4()">Finish</button>
     </div>
 </form>
+<div class="modal fade" id="carRegSuccess">
+    <div class="modal-dialog  modal-dialog-centered">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header text-center">
+                <h4 class="modal-title">Sell car</h4>
+                <img src="{{asset('car-web/img/auction-tag.png')}}" alt="">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body mt-4 pr-lg-5 pl-lg-5 text-center">
+                Car successfully registered!
+            </div>
+        </div>
+    </div>
+</div>
 <script>
     function submitStep4() {
         $("#demo-spinner").css({'display': 'block'});
@@ -123,6 +141,8 @@
             nextPrev(1);
             console.log("DONE!");
             console.log(data);
+            $('#carRegSuccess').modal('show');
+            window.location.href = "/";
         }).fail(function(err) {
             $("#demo-spinner").css({'display': 'none'});
             console.error("FAIL!");
