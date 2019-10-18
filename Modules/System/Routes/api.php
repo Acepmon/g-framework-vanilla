@@ -66,7 +66,7 @@ Route::prefix('v1')->group(function () {
                     $user->save();
                 }
 
-                return $user;
+                return new UserResource($user);
             });
 
             Route::get('/user/notifications', function () {
