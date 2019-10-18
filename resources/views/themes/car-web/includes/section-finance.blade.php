@@ -1,5 +1,5 @@
 @if ($content)
-    <section class="mainPage-items bg-light text-center mt-5 finance-section">
+    <section class="mainPage-items bg-light text-center mt-5 finance-section" id="section-finance">
         <div class="container">
             <div class="row">
                 <div class="col-md-12 text-center ">

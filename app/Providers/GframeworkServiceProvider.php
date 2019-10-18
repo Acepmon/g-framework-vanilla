@@ -206,11 +206,13 @@ class GframeworkServiceProvider extends ServiceProvider
     }
 
     private function whereValueStr($value) {
-        if (\Str::startsWith($value, 'request()')) {
-            return $value;
-        } else {
-            return "'" . $value . "'";
+        $ignores = ['request(', 'Auth::user()', 'intval('];
+        foreach ($ignores as $key => $ignore) {
+            if (\Str::startsWith($value, $ignore)) {
+                return $value;
+            }
         }
+        return "'" . $value . "'";
     }
 
     private function whereHas($table, $queries = array()) {

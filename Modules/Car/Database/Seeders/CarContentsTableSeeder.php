@@ -111,6 +111,7 @@ class CarContentsTableSeeder extends Seeder
                 new ContentMeta(['key' => 'advantages', 'value' => 'no accident']),
                 new ContentMeta(['key' => 'advantages', 'value' => 'fresh smell']),
                 new ContentMeta(['key' => 'advantages', 'value' => 'president rode it']),
+                new ContentMeta(['key' => 'isSold', 'value' => rand(0, 1)]),
                 new ContentMeta(['key' => 'priceAmount', 'value' => rand(1, 10000) . '000']),
                 new ContentMeta(['key' => 'priceUnit', 'value' => '₮']),
                 new ContentMeta(['key' => 'priceType', 'value' => 'loan']),
