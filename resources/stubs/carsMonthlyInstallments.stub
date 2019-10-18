@@ -7,34 +7,42 @@
 @section('load')
     <script type="text/javascript">
         $(document).ready(function () {
-            $(".insMonth").on('click', function(event){
+            $(".insMonth").on('click', function (event) {
                 event.stopPropagation();
                 event.stopImmediatePropagation();
                 var mPay = $('#monthlyPrice').val();
                 var fPay = $('#firstPay').val();
                 var months = $(this).val();
-                var invest=0.03;
-                if(months<=12){invest=0.025}
-                else if(months>12 && months<=18){invest=0.026}
-                else if(months>12 && months<=24){invest=0.027}
-                else if(months>24){invest=0.028}
+                var invest = 0.03;
+                if (months <= 12) {
+                    invest = 0.025
+                }
+                else if (months > 12 && months <= 18) {
+                    invest = 0.026
+                }
+                else if (months > 12 && months <= 24) {
+                    invest = 0.027
+                }
+                else if (months > 24) {
+                    invest = 0.028
+                }
                 var loValue = mPay / (invest / (1 - Math.pow(1 + invest, -months)))
-                var totalPrice =Math.round(loValue+(loValue*fPay/(100-fPay)));
-                var firstPayValue= Math.round(totalPrice*(fPay/100));
-                document.getElementById("firstPayValue").innerHTML = firstPayValue + '₮ (' + fPay +'%)';
-                document.getElementById("totalPrice").innerHTML = totalPrice+' ₮';
+                var totalPrice = Math.round(loValue + (loValue * fPay / (100 - fPay)));
+                var firstPayValue = Math.round(totalPrice * (fPay / 100));
+                document.getElementById("firstPayValue").innerHTML = firstPayValue + '₮ (' + fPay + '%)';
+                document.getElementById("totalPrice").innerHTML = totalPrice + ' ₮';
                 //document.getElementById("searchByTotPrice"). =;
                 $('#searchByTotPrice').attr("value", totalPrice);
 
             });
 
-            $("#searchFitCars").on('click', function(event){
+            $("#searchFitCars").on('click', function (event) {
                 event.stopPropagation();
                 event.stopImmediatePropagation();
 
             });
 
-            function number_format (number, decimals, dec_point, thousands_sep) {
+            function number_format(number, decimals, dec_point, thousands_sep) {
                 // Strip all characters but numerical ones.
                 number = (number + '').replace(/[^0-9+\-Ee.]/g, '');
                 var n = !isFinite(+number) ? 0 : +number,
@@ -97,7 +105,103 @@
 
 @section('content')
 
-    <div class="bg-page-header"></div>
+    {{--<div class="bg-page-header"></div>--}}
+
+    <section id="loan" class="bg-light text-center mt-5  finance-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <div class="finance-title">
+                        <h1>This car I want to buy, how much is the month?</h1>
+                        <p>Save your money and make an installment.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-8 col-md-7">
+                    <div class="card shadow-soft-blue">
+                        <div class="card-body text-left">
+                            <form>
+                                <p>Advance payment (first 20%)</p>
+                                <div class="select-first-price">
+                                    <div class="custom-control custom-radio custom-control-inline">
+                                        <input type="radio" id="20%" name="firstPrice" class="custom-control-input" checked>
+                                        <label class="custom-control-label" for="20%">20%</label>
+                                    </div>
+                                    <div class="custom-control custom-radio custom-control-inline">
+                                        <input type="radio" id="30%" name="firstPrice" class="custom-control-input">
+                                        <label class="custom-control-label" for="30%">30%</label>
+                                    </div>
+                                    <div class="custom-control custom-radio custom-control-inline">
+                                        <input type="radio" id="40%" name="firstPrice" class="custom-control-input">
+                                        <label class="custom-control-label" for="40%">40%</label>
+                                    </div>
+                                    <div class="custom-control custom-radio custom-control-inline">
+                                        <input type="radio" id="50%" name="firstPrice" class="custom-control-input">
+                                        <label class="custom-control-label" for="50%">50%</label>
+                                    </div>
+                                    <div class="custom-control custom-radio custom-control-inline">
+                                        <input type="radio" id="60%" name="firstPrice" class="custom-control-input">
+                                        <label class="custom-control-label" for="60%">60%</label>
+                                    </div>
+                                    <div class="custom-control custom-radio custom-control-inline">
+                                        <input type="radio" id="70%" name="firstPrice" class="custom-control-input">
+                                        <label class="custom-control-label" for="70%">70%</label>
+                                    </div>
+                                    <div class="custom-control custom-radio custom-control-inline">
+                                        <input type="radio" id="80%" name="firstPrice" class="custom-control-input">
+                                        <label class="custom-control-label" for="80%">80%</label>
+                                    </div>
+                                </div>
+                                <p>Installment period</p>
+                                <div class="select-month">
+                                    <div class="custom-control custom-radio custom-control-inline">
+                                        <input type="radio" id="6month" name="financeMonth" class="custom-control-input" checked>
+                                        <label class="custom-control-label" for="6month">6 month</label>
+                                    </div>
+                                    <div class="custom-control custom-radio custom-control-inline">
+                                        <input type="radio" id="12month" name="financeMonth" class="custom-control-input">
+                                        <label class="custom-control-label" for="12month">12 month</label>
+                                    </div>
+                                    <div class="custom-control custom-radio custom-control-inline">
+                                        <input type="radio" id="24month" name="financeMonth" class="custom-control-input">
+                                        <label class="custom-control-label" for="24month">18 month</label>
+                                    </div>
+                                    <div class="custom-control custom-radio custom-control-inline">
+                                        <input type="radio" id="48month" name="financeMonth" class="custom-control-input">
+                                        <label class="custom-control-label" for="48month">24 month</label>
+                                    </div>
+                                    <div class="custom-control custom-radio custom-control-inline">
+                                        <input type="radio" id="48month" name="financeMonth" class="custom-control-input">
+                                        <label class="custom-control-label" for="48month">30 month</label>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-5">
+                    <div class="card monthly-payment">
+                        <div class="card-body d-flex flex-column justify-content-between">
+                            <div class="payment-information">
+                                <div class="info">
+                                    <p>First pay</p>
+                                    <p class="font-weight-bold">1,400,000 $</p>
+                                </div>
+                                <div class="info">
+                                    <p>Monthly paymant</p>
+                                    <p class="monthly">427,938 $</p>
+                                </div>
+                            </div>
+                            <a class="btn btn-light btn-round btn-block my-3 shadow-soft-blue p-2" href="#" data-toggle="modal"
+                               data-target="#exampleModal" data-whatever="@getbootstrap">loan calculator</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
 
     <section class="bg-dark p-5 text-white position-relative">
         <div class="container">
@@ -133,11 +237,16 @@
                         <h6 class="pl-2">Installment period</h6>
                     </div>
                     <div class="row pl-4 pr-4 mt-3 text-center">
-                        <button type="button" value="6" class="insMonth btn btn-outline-danger ml-2 mr-3">6 Month</button>
-                        <button type="button" value="12" class="insMonth btn btn-outline-danger ml-2 mr-3">12 Month</button>
-                        <button type="button" value="18" class="insMonth btn btn-outline-danger ml-2 mr-3">18 Month</button>
-                        <button type="button" value="24" class="insMonth btn btn-outline-danger ml-2 mr-3">24 Month</button>
-                        <button type="button" value="30" class="insMonth btn btn-outline-danger ml-2 mr-3">30 Month</button>
+                        <button type="button" value="6" class="insMonth btn btn-outline-danger ml-2 mr-3">6 Month
+                        </button>
+                        <button type="button" value="12" class="insMonth btn btn-outline-danger ml-2 mr-3">12 Month
+                        </button>
+                        <button type="button" value="18" class="insMonth btn btn-outline-danger ml-2 mr-3">18 Month
+                        </button>
+                        <button type="button" value="24" class="insMonth btn btn-outline-danger ml-2 mr-3">24 Month
+                        </button>
+                        <button type="button" value="30" class="insMonth btn btn-outline-danger ml-2 mr-3">30 Month
+                        </button>
                     </div>
                 </div>
                 <div class="col-md-4 text-center rounded border border-light" style="z-index: 1">
@@ -158,6 +267,10 @@
         </div>
     </section>
 
+
+
+
+
     <section id="hot-deal" class="mainPage-items bg-white">
         <div class="container">
             <div class="row">
@@ -168,16 +281,50 @@
                 <div class="card-list">
                     <div class="row">
                         {{--@contents({"filter":[{"field":"type", "key":"car"}, {"field":"status", "key":"published"}], "metasFilter": [{"key":"publishType", "value":"best_premium"}], "limit":12, "returnVariable":"carDataPremium"})--}}
-                        @content(type=car, priceAmount < intval(request()->input("priceAmount")) as $carDataMonthly | paginate)
-                        <div>
-                        {{$carDataMonthly->metaValue("publishType")}}
-                        </div>
-                        @endcontent
+                        @content(type=car, priceAmount < intval(request()->input("priceAmount")) as $carDataMonthly |
+                        paginate)
 
+                        {{--{{$carDataMonthly->slug}}--}}
+                        <!-- col-start -->
+                            <div class="col-lg-3 col-md-4">
+                                <!-- card start -->
+                                <a href="{{$carDataMonthly->slug}}" target="_blank" class="card cd-box">
+                                    <div class="premium-tag shadow-soft-blue"><img
+                                            src="{{asset('car-web/img/icons/corona.svg')}}" alt=""></div>
+                                    <div class="card-img">
+                                        <img src="{{$carDataMonthly->metaValue("thumbnail")}}" class="img-fluid"
+                                             alt="alt">
 
+                                        <div class="card-caption">
+                                            <div
+                                                class="meta">{{$carDataMonthly->metaValue("mileageAmaount")}} {{$carDataMonthly->metaValue("mileageUnit")}}
+                                                | {{$carDataMonthly->metaValue("fuelType")}}
+                                                | {{$carDataMonthly->metaValue("capacityAmount")}} {{$carDataMonthly->metaValue("capacityunit")}}</div>
+                                            <div class="favorite">
+                                                <i class="icon-heart"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-body py-2">
+                                        <div class="card-description">
+                                            <div class="card-desc-top">
+                                                <div class="card-title">{{$carDataMonthly->title}}</div>
+                                                <div
+                                                    class="price">{{numerizePrice($carDataMonthly->metaValue("priceAmount"))}} {{$carDataMonthly->metaValue("priceUnit")}}</div>
+                                            </div>
 
-
-
+                                            <div class="card-meta">
+                                                <div class="year">{{$carDataMonthly->metaValue("buildYear")}}
+                                                    / {{$carDataMonthly->metaValue("importDate")}}</div>
+                                            </div>
+                                            <div class="status">{{$carDataMonthly->metaValue("priceType")}}</div>
+                                        </div>
+                                    </div>
+                                </a>
+                                <!-- card end -->
+                            </div>
+                            <!-- col-end -->
+                            @endcontent
                     </div>
                 </div>
             </div>
