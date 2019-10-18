@@ -187,6 +187,10 @@ class CarController extends Controller
             $data = ContentManager::discernMetasFromRequest($request->input());
             ContentManager::syncMetas($content->id, $data);
 
+            $content->title = \Str::startsWith($content->metaValue('modelName'), $content->metaValue('markName')) ? $content->metaValue('modelName') : $content->metaValue('markName') . ' ' . $content->metaValue('modelName');
+            $content->slug = 'posts/' . $content->id;
+            $content->save();
+
             DB::commit();
 
             $resp = ContentManager::contentToArray($content);
