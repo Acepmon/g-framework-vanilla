@@ -130,11 +130,13 @@
                                 <div class="form-group col-md-6 float-left">
                                     <label for="firstPay">First pay</label>
                                     <select class="form-control" id="firstPay">
+                                        <option value="80">80%</option>
+                                        <option value="70">70%</option>
+                                        <option value="60">60%</option>
+                                        <option value="50">50%</option>
+                                        <option value="40">40%</option>
+                                        <option value="30">30%</option>
                                         <option value="20">20%</option>
-                                        <option value="15">15%</option>
-                                        <option value="10">10%</option>
-                                        <option value="5">5%</option>
-                                        <option value="0">0%</option>
                                     </select>
                                 </div>
                             </div>
@@ -168,12 +170,12 @@
                 </div>
                 <div class="col-lg-4 col-md-5">
                     <div class="card monthly-payment" style="border: 1px solid #858994">
-                    <div class="card-body">
-                        <p class="text-muted">First pay</p>
-                        <h4 class="font-weight-bolder" id="firstPayValue">₮ (20%)</h4>
-                        <p class="mt-3 text-muted">Total price of vehicle</p>
-                        <h2 class="font-weight-bolder" id="totalPrice">₮</h2>
-                    </div>
+                        <div class="card-body">
+                            <p class="text-muted">First pay</p>
+                            <h4 class="font-weight-bolder" id="firstPayValue">0 ₮ </h4>
+                            <p class="mt-3 text-muted">Total price of vehicle</p>
+                            <h2 class="font-weight-bolder" id="totalPrice">0 ₮</h2>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -200,47 +202,47 @@
                         @content(type=car, priceAmount < intval(request()->input("priceAmount")) as $carDataMonthly |
                         paginate)
 
-                        {{--{{$carDataMonthly->slug}}--}}
-                        <!-- col-start -->
-                            <div class="col-lg-3 col-md-4">
-                                <!-- card start -->
-                                <a href="{{$carDataMonthly->slug}}" target="_blank" class="card cd-box">
-                                    <div class="premium-tag shadow-soft-blue"><img
-                                            src="{{asset('car-web/img/icons/corona.svg')}}" alt=""></div>
-                                    <div class="card-img">
-                                        <img src="{{$carDataMonthly->metaValue("thumbnail")}}" class="img-fluid"
-                                             alt="alt">
+                    {{--{{$carDataMonthly->slug}}--}}
+                    <!-- col-start -->
+                        <div class="col-lg-3 col-md-4">
+                            <!-- card start -->
+                            <a href="{{$carDataMonthly->slug}}" target="_blank" class="card cd-box">
+                                <div class="premium-tag shadow-soft-blue"><img
+                                        src="{{asset('car-web/img/icons/corona.svg')}}" alt=""></div>
+                                <div class="card-img">
+                                    <img src="{{$carDataMonthly->metaValue("thumbnail")}}" class="img-fluid"
+                                         alt="alt">
 
-                                        <div class="card-caption">
+                                    <div class="card-caption">
+                                        <div
+                                            class="meta">{{$carDataMonthly->metaValue("mileageAmaount")}} {{$carDataMonthly->metaValue("mileageUnit")}}
+                                            | {{$carDataMonthly->metaValue("fuelType")}}
+                                            | {{$carDataMonthly->metaValue("capacityAmount")}} {{$carDataMonthly->metaValue("capacityunit")}}</div>
+                                        <div class="favorite">
+                                            <i class="icon-heart"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body py-2">
+                                    <div class="card-description">
+                                        <div class="card-desc-top">
+                                            <div class="card-title">{{$carDataMonthly->title}}</div>
                                             <div
-                                                class="meta">{{$carDataMonthly->metaValue("mileageAmaount")}} {{$carDataMonthly->metaValue("mileageUnit")}}
-                                                | {{$carDataMonthly->metaValue("fuelType")}}
-                                                | {{$carDataMonthly->metaValue("capacityAmount")}} {{$carDataMonthly->metaValue("capacityunit")}}</div>
-                                            <div class="favorite">
-                                                <i class="icon-heart"></i>
-                                            </div>
+                                                class="price">{{numerizePrice($carDataMonthly->metaValue("priceAmount"))}} {{$carDataMonthly->metaValue("priceUnit")}}</div>
                                         </div>
-                                    </div>
-                                    <div class="card-body py-2">
-                                        <div class="card-description">
-                                            <div class="card-desc-top">
-                                                <div class="card-title">{{$carDataMonthly->title}}</div>
-                                                <div
-                                                    class="price">{{numerizePrice($carDataMonthly->metaValue("priceAmount"))}} {{$carDataMonthly->metaValue("priceUnit")}}</div>
-                                            </div>
 
-                                            <div class="card-meta">
-                                                <div class="year">{{$carDataMonthly->metaValue("buildYear")}}
-                                                    / {{$carDataMonthly->metaValue("importDate")}}</div>
-                                            </div>
-                                            <div class="status">{{$carDataMonthly->metaValue("priceType")}}</div>
+                                        <div class="card-meta">
+                                            <div class="year">{{$carDataMonthly->metaValue("buildYear")}}
+                                                / {{$carDataMonthly->metaValue("importDate")}}</div>
                                         </div>
+                                        <div class="status">{{$carDataMonthly->metaValue("priceType")}}</div>
                                     </div>
-                                </a>
-                                <!-- card end -->
-                            </div>
-                            <!-- col-end -->
-                            @endcontent
+                                </div>
+                            </a>
+                            <!-- card end -->
+                        </div>
+                        <!-- col-end -->
+                        @endcontent
                     </div>
                 </div>
             </div>
