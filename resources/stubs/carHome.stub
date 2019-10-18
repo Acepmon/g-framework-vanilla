@@ -123,21 +123,18 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
                                     @csrf
                                     <input type="text" name="title" hidden class="searchTitle">
                                     <div class="form-group">
-                                        <select class="form-control" name="manufacturer" onchange="manufacturer(this)">
-                                            @getTaxonomys({"filter":[{"field":"taxonomy", "key":"manufacturer"}], "returnValue":"manufacturers"})
+                                        <select id="vehicleManufacturer" class="form-control" name="manufacturer">
                                             <option>Manufacturer</option>
+                                            @getTaxonomys({"filter":[{"field":"taxonomy", "key":"car-manufacturer"}], "returnValue":"manufacturers"})
                                             @foreach($manufacturers as $data)
-                                                <option>{{$data->description}}</option>
+                                                <option value="{{$data->term->name}}">{{$data->term->name}}</option>
                                             @endforeach
                                         </select>
                                     </div>
                                     <div class="form-group">
-                                        <select class="form-control" name="model">
-                                            @getTaxonomys({"filter":[{"field":"taxonomy", "key":"model"}], "returnValue":"models"})
+                                        <select id="vehicleManufacturerModels" class="form-control" name="model">
                                             <option>Model</option>
-                                            @foreach($models as $data)
-                                                <option>{{$data->description}}</option>
-                                            @endforeach
+                                            {{--//@getTaxonomys({"filter":[{"field":"taxonomy", "key":"model"}], "returnValue":"models"})--}}
                                         </select>
                                     </div>
                                     <div class="form-group">
@@ -156,8 +153,7 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
                                             @endfor
                                         </select>
                                     </div>
-                                    <button type="submit" class="btn btn-danger btn-lg btn-round shadow mt-4">Search
-                                    </button>
+                                    <button type="submit" class="btn btn-danger btn-lg btn-round shadow mt-4 pl-5 pr-5">Search</button>
                                 </form>
                             </div>
                             <div class="tab-pane fade" id="budget" role="tabpanel" aria-labelledby="auction-tab">
@@ -190,7 +186,7 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
                                         <input class="form-control" name="Max-price" type="number"
                                                placeholder="max-price" aria-label="Search">
                                     </div>
-                                    <button type="submit" class="btn btn-danger btn-lg btn-round shadow mt-4">Search</button>
+                                    <button type="submit" class="btn btn-danger btn-lg btn-round shadow mt-4 pl-5 pr-5">Search</button>
                                 </form>
                             </div>
                         </div>

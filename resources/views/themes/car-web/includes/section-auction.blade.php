@@ -1,16 +1,17 @@
 <section class="mainPage-items bg-dark">
     <div class="container">
         <div class="row">
+            @contents({"filter":[{"field":"type", "key":"car"}, {"field":"status", "key":"published"}],
+            "metasFilter": [{"key": "isAuction", "value": 1}],"limit":12, "returnVariable":"carAuctionPremium"})
             <div class="section-title text-light">
                 <h2>Auction cars</h2>
                 <span>
-            <a href="#">See all (123) <i class="fab fa fa-angle-right"></i></a>
+            <a href="/auction">See all ({{count($carAuctionPremium)}}) <i class="fab fa fa-angle-right"></i></a>
           </span>
             </div>
             <div class="card-list auction">
                 <div class="row">
-                    @contents({"filter":[{"field":"type", "key":"car"}, {"field":"status", "key":"published"}],
-                    "metasFilter": [{"key": "isAuction", "value": 1}],"limit":12, "returnVariable":"carAuctionPremium"})
+
                     @foreach($carAuctionPremium as $auctionPrmCars)
                         <div class="col-lg-3 col-md-4">
                             <!-- card start -->

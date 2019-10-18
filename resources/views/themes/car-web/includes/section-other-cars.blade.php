@@ -1,10 +1,11 @@
 <section class="mainPage-items bg-light homeFreeCars">
     <div class="container">
+
         <div class="row">
             <div class="section-title">
                 <h2>Normal cars</h2>
                 <span>
-            <a href="#">See all (123) <i class="fab fa fa-angle-right"></i></a>
+            <a href="/buy">See all ( @contentsTotal({"filter":[{"field":"type", "key":"car"}, {"field":"status", "key":"published"}]}) ) <i class="fab fa fa-angle-right"></i></a>
           </span>
             </div>
             <div class="car-list">
