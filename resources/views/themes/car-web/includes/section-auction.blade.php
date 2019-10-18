@@ -10,11 +10,11 @@
             <div class="card-list auction">
                 <div class="row">
                     @contents({"filter":[{"field":"type", "key":"car"}, {"field":"status", "key":"published"}],
-                    "metasFilter": [{"key": "isAuction", "value": 1}, {"key": "publishType", "value":"best_premium"}],"limit":12, "returnVariable":"carAuctionPremium"})
+                    "metasFilter": [{"key": "isAuction", "value": 1}],"limit":12, "returnVariable":"carAuctionPremium"})
                     @foreach($carAuctionPremium as $auctionPrmCars)
                         <div class="col-lg-3 col-md-4">
                             <!-- card start -->
-                            <div class="card cd-box">
+                            <div class="card cd-box auction-car">
                                 <div class="premium-tag shadow-soft-blue"><img src="{{asset('car-web/img/icons/corona.svg')}}" alt=""></div>
                                     <div class="card-img">
                                         <img src="{{(getMetasValue($auctionPrmCars->metas, 'thumbnail'))}}" class="img-fluid" alt="alt">
@@ -27,7 +27,7 @@
                                         <span class="color" data-color="white"><p>{{(getMetasValue($auctionPrmCars->metas, 'colorName'))}}</p></span>
                                     </div>
                                     <div class="card-caption">
-                                        <div class="countdown">00h:00m:00s</div>
+                                        <div id="countdown" class="countdown"  data-countdown="Jan 5, 2020 15:37:25"></div>
                                         <div class="favorite">
                                             <i class="icon-heart"></i>
                                         </div>
@@ -37,11 +37,11 @@
                                     <div class="card-description">
                                         <div class="card-desc-top">
                                             <a href="{{$auctionPrmCars->slug}}" class="card-title">{{$auctionPrmCars->title}}</a>
-                                            <div class="price">{{(getMetasValue($auctionPrmCars->metas, 'priceAmount'))}}{{(getMetasValue($auctionPrmCars->metas, 'priceUnit'))}}</div>
+
                                         </div>
                                         <div class="card-meta">
                                             <div class="year">{{(getMetasValue($auctionPrmCars->metas, 'buildYear'))}} / {{(getMetasValue($auctionPrmCars->metas, 'importDate'))}}</div>
-                                            <div class="bids">0 Bids</div>
+                                            <div class="price">{{(getMetasValue($auctionPrmCars->metas, 'priceAmount'))}}{{(getMetasValue($auctionPrmCars->metas, 'priceUnit'))}}</div>
                                         </div>
                                         <div class="overall">{{(getMetasValue($auctionPrmCars->metas, 'mileageAmount'))}} {{(getMetasValue($auctionPrmCars->metas, 'mileageUnit'))}}
                                             | {{(getMetasValue($auctionPrmCars->metas, 'fuelType'))}}
