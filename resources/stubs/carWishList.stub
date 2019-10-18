@@ -74,7 +74,7 @@ $items = $items->get();
 <header class="masthead text-center">
     <div class="container">
       <div class="row">
-        <div class="col-lg-5 col-md-12 ml-5" style="z-index: 1">
+        <div class="col-lg-5" style="z-index: 1">
 
           <div class="card masthead-search shadow-lg-3d">
             <div class="">
@@ -85,7 +85,7 @@ $items = $items->get();
             <div class="tab-content p-5" id="heroTabFilter">
               <form>
                 <div class="form-group">
-                  <select class="form-control">
+                  <select id="selectManufacturer" class="form-control">
                   <option value="0">Manufacturer</option>
                     @foreach(App\TermTaxonomy::where('taxonomy', 'car-manufacturer')->get() as $taxonomy)
                     <option>{{$taxonomy->term->name}}</option>
@@ -93,11 +93,14 @@ $items = $items->get();
                   </select>
                 </div>
                 <div class="form-group">
-                  <select class="form-control">
+                  <select id="modelSelect" class="form-control">
                   <option value="0">Model</option>
-                    @foreach(App\TermTaxonomy::where('taxonomy', 'car-bugatti')->get() as $taxonomy)
-                    <option>{{$taxonomy->term->name}}</option>
+                  
+                  @foreach(App\TermTaxonomy::where('taxonomy', 'car-manufacturer')->get() as $taxonomy)
+                    @foreach(App\TermTaxonomy::where('taxonomy', 'car-'.strtolower($taxonomy->term->name))->get() as $model)
+                    <option title="{{$taxonomy->term->name}}">{{$model->term->name}}</option>
                     @endforeach
+                  @endforeach
                   </select>
                 </div>
                 <div class="form-group">
@@ -123,15 +126,18 @@ $items = $items->get();
           </div>
 
         </div>
-        <div class="col-lg-7 col-md-12 wishList-illustration">
-          <div id="maz-animation"> </div>
-        </div>
+        <div class="col-lg-7">
+          <div id="maz-animation">
 
-        <a href="#wish-list" class="js-scroll-trigger discover">
-          <span></span>
-          <p>Хүслийн машинууд</p>
-        </a>
+          </div>
+        </div>
       </div>
+      <div class="row">
+          <a href="#wish-list" class="js-scroll-trigger discover">
+            <span></span>
+            <p>Хүслийн машинууд</p>
+          </a>
+        </div>
     </div>
 
   </header>
@@ -196,10 +202,44 @@ $items = $items->get();
 @section('script')
 <script src="{{ asset('car-web/vendor/bootstrap-slider/bootstrap-slider.min.js') }}"></script>
 <script src="{{ asset('car-web/vendor/owl.carousel.thumbs/owl.carousel2.thumbs.min.js') }}"></script>
-<script>
+  <script src="{{ asset('car-web/vendor/jquery/jquery.min.js') }}"></script>
+  <script src="{{ asset('car-web/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+  <script src="{{ asset('car-web/vendor/owl.carousel/owl.carousel.min.js') }}"></script>
+  <script src="{{ asset('car-web/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
+  <script src="{{ asset('car-web/vendor/lottie-web/player/lottie.min.js') }}"></script>
+  <script src="{{ asset('car-web/js/script.min.js') }}"></script>
+
+  <script>
+    var animation = bodymovin.loadAnimation({
+      container: document.getElementById('maz-animation'),
+      renderer: 'svg',
+      loop: true,
+      rendererSettings: {
+          progressiveLoad: true
+      },
+      autoplay: true,
+      path: '{{ asset('car-web/img/wish.json') }}'
+    });
+
   function formSubmit(id, value) {
     document.getElementById(id).value = value;
     $('#mainForm').submit();
   }
+
+  function watchPhone(id, phone){
+    $('#phone' + id).html(phone);
+    $('#watchBtn' + id).css('visibility', 'hidden');
+  }
+
+  $(document).ready(function(){
+    $('#selectManufacturer').change(function (){
+      var val = $(this).val();
+      console.log($(this).val());
+
+      $('#modelSelect option[title!='+val+']').css('display', 'none');
+      
+      $('#modelSelect option[title='+val+']').css('display', 'block');
+    });
+  });
 </script>
 @endsection
