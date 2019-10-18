@@ -10,8 +10,9 @@
             <i class="icon-tag mr-4"></i>{{ numerizePrice($car->metaValue('priceAmountStart')) }} {{ $car->metaValue('priceUnit') }}
         </div>
         <div class="wl-detail-row">
-            <i class="icon-phone mr-4"></i>{{ str_limit($car->author->metaValue('phone'), 9) }}
-            <button class="btn btn-sm btn-outline-dark float-right" type="button">Watch</button>
+            <i class="icon-phone mr-4"></i>
+            <span id="phone{{$car->id}}">{{ str_limit($car->author->metaValue('phone'), 9) }}</span>
+            <button id="watchBtn{{$car->id}}" class="btn btn-sm btn-outline-dark float-right" type="button" onclick="watchPhone('{{$car->id}}', '{{$car->author->metaValue('phone')}}')">Watch</button>
         </div>
         <div class="wl-detail-row mt-2">
             <img src="{{asset('car-web/img/Cars/4.jpg')}}"
