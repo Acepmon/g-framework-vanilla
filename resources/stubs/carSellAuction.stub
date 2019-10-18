@@ -105,6 +105,7 @@ if ($startsAt) {
   </div>
 </form>
 
+@push('scripts')
 <script>
   $(document).ready(function() {
     $('#scheduleDate').datepicker({
@@ -151,9 +152,10 @@ if ($startsAt) {
     console.log(carId);
     console.log(paramObjs);
 
+    $("#demo-spinner").css({'display': 'block'});
     $.ajax({
       type: 'PUT',
-      url: {{ route('ajax.contents.metas.sync', ['id' => $carId]) }},// '/ajax/contents/' + carId + '/metas/sync',
+      url: '/ajax/contents/{{ $carId }}/metas/sync',
       data: paramObjs
     }).done(function(data) {
       $("#demo-spinner").css({
@@ -170,9 +172,12 @@ if ($startsAt) {
     });
   }
 </script>
+@endpush
+@push('styles')
 <style>
   input:disabled,
   select:disabled {
     color: #AAAEBF;
   }
 </style>
+@endpush

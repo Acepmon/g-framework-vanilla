@@ -54,8 +54,13 @@ function put_blade_section(string $path, string $section, $replacement)
 }
 
 function numerizePrice($value) {
-    $value /= 1000000;
-    return $value . ' сая';
+    if ($value < 1000) {
+        return $value;
+    } else if ($value < 1000000) {
+        return ($value / 1000) . ' мянга';
+    } else {
+        return ($value / 1000000) . ' сая';
+    }
 }
 
 function getMetasValue($metas, $key) {
@@ -76,9 +81,23 @@ function isPremium($car) {
         ($car->metaValue('publishType') == 'best_premium' || $car->metaValue('publishType') == 'premium');
 }
 
-function metaHas($items, $key, $value) {
-    return $items->whereHas('metas', function ($query) use ($key, $value) {
-        $query->where('key', $key)->where('value', $value);
+function metaHas($items, $key, $value, $operator = '=', $min = Null, $max = Null) {
+    return $items->whereHas('metas', function ($query) use ($key, $value, $operator, $min, $max) {
+        $query->where('key', $key);
+        if ($operator == 'in') {
+            $query->whereIn('value', explode('|', $value));
+        } else if ($operator == 'not in') {
+            $query->whereNotIn('value', explode('|', $value));
+        } else if ($operator == 'range'){
+            if ($min != Null) {
+                $query->where('value', '>=', $min);
+            }
+            if ($max != Null) {
+                $query->where('value', '<=', $max);
+            }
+        } else {
+            $query->where('value', $operator, $value);
+        }
     });
 }
 
