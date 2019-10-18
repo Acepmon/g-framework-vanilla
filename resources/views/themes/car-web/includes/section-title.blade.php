@@ -41,7 +41,7 @@
                                     @if ($content->metaValue('markName'))
                                         <div class="vehicle-brand">
                                             <img src="{{ url(asset('images/manufacturers/' . \Str::slug($content->metaValue('markName')) . '.png')) }}" alt="" width="80" class="mr-2 mt-2" style="vertical-align: top">
-                                            {{ $content->metaValue('markName') }}
+                                            <p>{{ $content->metaValue('markName') }}</p>
                                         </div>
                                     @endif
 
