@@ -93,7 +93,16 @@ class RegisterController extends Controller
         }
 
         if (array_key_exists('avatar', $data)) {
-            $user->avatar = $data['avatar'];
+            if (request()->hasFile('avatar')) {
+                if (!file_exists(storage_path('app/public/avatars'))) {
+                    mkdir(storage_path('app/public/avatars'));
+                }
+                $user->avatar = request()->file('avatar')->store('public/avatars');
+                $user->avatar = str_replace("public/", "", $user->avatar);
+                $user->avatar = url('storage/' . $user->avatar);
+            } else {
+                $user->avatar = $data['avatar'];
+            }
             $user->save();
         }
 
