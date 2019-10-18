@@ -127,6 +127,7 @@
                 <!-- Modal Header -->
                 <div class="modal-header text-center">
                     <h4 class="modal-title">Forget password</h4>
+                    <img src="{{asset('car-web/img/auction-tag.png')}}" alt="">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
 
