@@ -27,7 +27,7 @@ class CarSellPagesTableSeeder extends Seeder
             // --- car sell page 1 ---
             $content = new Content;
             $content->title = 'Sell Car Page 1';
-            $content->slug = 'sell-car-page-1';
+            $content->slug = 'sell';
             $content->type = Content::TYPE_PAGE;
             $content->status = Content::STATUS_PUBLISHED;
             $content->visibility = Content::VISIBILITY_PUBLIC;
@@ -48,7 +48,7 @@ class CarSellPagesTableSeeder extends Seeder
             $content_meta->save();
 
             $file_content = file_get_contents(resource_path('stubs/carSellPage1.stub'));
-            $file_name = $rootPath . DIRECTORY_SEPARATOR . 'sell-car-page-1' . Content::NAMING_CONVENTION . $content->status . Content::NAMING_CONVENTION . $time;
+            $file_name = $rootPath . DIRECTORY_SEPARATOR . 'sell' . Content::NAMING_CONVENTION . $content->status . Content::NAMING_CONVENTION . $time;
             $file_ext = 'blade.php';
             $file_path = $file_name . '.' . $file_ext;
 

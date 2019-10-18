@@ -1,16 +1,5 @@
 (function($){
 
-  var animation = bodymovin.loadAnimation({
-    container: document.getElementById('maz-animation'),
-    renderer: 'svg',
-    loop: true,
-    rendererSettings: {
-        progressiveLoad: true
-    },
-    autoplay: true,
-    path: '/img/wish.json'
-});
-
 $(document).ready(function(){
 
   var conWidth = $('.container').width();
@@ -156,6 +145,15 @@ $('.maz-burger-menu').on('click', function(){
               items: 1,
               }
           }
+      });
+        $('.banner-slider').owlCarousel({
+          loop:true,
+          margin: 0,
+          autoplay: true,
+          autoplaySpeed: 2000,
+          thumbs: false,
+          nav: false,
+          items: 1,
       });
       
         $('.vehicle-imgSlider').owlCarousel({

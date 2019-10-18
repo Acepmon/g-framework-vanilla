@@ -5,7 +5,7 @@
         </div>
         <div class="pro-detail">
             <div class="username">{{ Auth::user()->name }}</div>
-            <div class="edit"> <a href="#">Edit profile</a></div>
+            <div class="edit"> <a href="{{ url('/home?edit=True') }}">Edit profile</a></div>
         </div>
     </div>
 @endif

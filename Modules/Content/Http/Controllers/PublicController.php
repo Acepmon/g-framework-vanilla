@@ -26,7 +26,7 @@ class PublicController extends Controller
             abort(404);
         } else {
             if ($content->visibility == Content::VISIBILITY_AUTH && !Auth::check()) {
-                $this->middleware('auth');
+                return redirect()->route('login');
             }
 
             $viewPath = config('content.'.$content->type.'s.viewPath');

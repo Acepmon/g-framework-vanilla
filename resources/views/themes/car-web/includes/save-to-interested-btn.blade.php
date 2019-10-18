@@ -39,6 +39,11 @@
                             $("#saveToInterested").html('<span class=""><i class="far fa-heart"></i> Add to interest list</span>')
                             $("#saveToInterested").prop('disabled', false);
                         }
+                    },
+                    error: function (error) {
+                        if (error.status == 401) {
+                            window.location.href = "{{ route('login') }}";
+                        }
                     }
                 });
             });

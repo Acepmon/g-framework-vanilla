@@ -133,7 +133,7 @@ class BannerController extends Controller
         }
 
         if ($request->has('location')) {
-            $banner->location = $request->input('location');
+            $banner->location_id = $request->input('location');
         }
 
         if ($request->has('status')) {
@@ -149,8 +149,22 @@ class BannerController extends Controller
         }
 
         if ($request->has('banner_remove')) {
+            if (isset($banner->banner)) {
+                $parsed = parse_url($banner->banner);
+                if (file_exists(public_path($parsed['path']))) {
+                    unlink(public_path($parsed['path']));
+                }
+            }
+
             $banner->banner = null;
         } else if ($request->hasFile('banner') && $request->has('banner_cropped')) {
+            if (isset($banner->banner)) {
+                $parsed = parse_url($banner->banner);
+                if (file_exists(public_path($parsed['path']))) {
+                    unlink(public_path($parsed['path']));
+                }
+            }
+
             $filename = $this->saveBase64Image($request->input('banner_cropped'), $request->banner->getMimeType(), $request->banner->extension());
             $banner->banner = url(Storage::url($filename));
         }
@@ -181,18 +195,33 @@ class BannerController extends Controller
         }
     }
 
-    private function saveBase64Image($base64, $imageType, $extension)
+    private function saveBase64Image($data, $mime, $type)
     {
-        $base64 = str_replace('data:'.$imageType.';base64,', '', $base64);
-        $base64 = str_replace(' ', '+', $base64);
-        $filename = str_random(10).'.'.$extension;
+        if (preg_match('/^data:image\/(\w+);base64,/', $data, $type)) {
+            $data = substr($data, strpos($data, ',') + 1);
+            $type = strtolower($type[1]); // jpg, png, gif
+
+            if (!in_array($type, [ 'jpg', 'jpeg', 'gif', 'png' ])) {
+                throw new \Exception('invalid image type');
+            }
+
+            $data = base64_decode($data);
+
+            if ($data === false) {
+                throw new \Exception('base64_decode failed');
+            }
+        } else {
+            throw new \Exception('did not match data URI with image data');
+        }
+
+        $filename = str_random(10).'.'.$type;
         $storagePath = storage_path('app/public/banners/');
 
         if (!File::exists($storagePath)) {
             File::makeDirectory($storagePath);
         }
 
-        if (File::put($storagePath . DIRECTORY_SEPARATOR . $filename, base64_decode($base64))) {
+        if (File::put($storagePath . DIRECTORY_SEPARATOR . $filename, $data)) {
             return 'banners/'. $filename;
         }
     }

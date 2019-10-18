@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 
+use App\Entities\TaxonomyManager;
+
 class CarOptionController extends Controller
 {
     /**
@@ -21,9 +23,11 @@ class CarOptionController extends Controller
      * Show the form for creating a new resource.
      * @return Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        return view('car::admin.car.options.create');
+        $taxonomy = $request->input('taxonomy');
+
+        return view('car::admin.car.options.create', ['taxonomy' => $taxonomy]);
     }
 
     /**
@@ -41,9 +45,11 @@ class CarOptionController extends Controller
      * @param int $id
      * @return Response
      */
-    public function show($id)
+    public function show($taxonomy)
     {
-        return view('car::admin.car.options.show');
+        $taxonomies = TaxonomyManager::collection($taxonomy);
+
+        return view('car::admin.car.options.show', ['taxonomies' => $taxonomies, 'taxonomy' => $taxonomy]);
     }
 
     /**

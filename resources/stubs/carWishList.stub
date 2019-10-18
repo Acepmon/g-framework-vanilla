@@ -1,12 +1,6 @@
 @extends('themes.car-web.layouts.absolute')
 
 @php
-function metaHas($items, $key, $value)
-{
-return $items->whereHas('metas', function ($query) use ($key, $value) {
-$query->where('key', $key)->where('value', $value);
-});
-}
 function idize($value)
 {
 return str_replace(' ', '_', strtolower($value));
@@ -31,6 +25,21 @@ $allItems = $allItems->orderBy($orderBy, $order);
 }
 $items = $allItems;
 
+function getPremiumDeal($type, $now) {
+  $deals = App\Content::where('type', App\Content::TYPE_CAR)->where('status', App\Content::STATUS_PUBLISHED)->where('visibility', App\Content::VISIBILITY_PUBLIC);
+  $deals = metaHas($deals, 'publishType', $type);
+  $deals = metaHas($deals, 'publishVerified', True);
+  return $deals->whereHas('metas', function ($query) use ($now) {
+    $query->where([['key', 'publishVerifiedEnd'],['value','>=',$now]]);
+  });
+}
+
+// HOT Deals
+$now = now();
+$best_premium = getPremiumDeal('best_premium', $now)->get();
+$premium = getPremiumDeal('premium', $now)->get();
+$hotDeals = $best_premium->merge($premium);
+
 // Post items filtering
 $itemCount = count($items->get());
 $maxPage = intval(ceil($itemCount / $itemsPerPage));
@@ -52,14 +61,20 @@ $items = $items->get();
 @endsection
 
 @section('load')
-
+<style>
+#tooltip {
+  white-space: nowrap; 
+  overflow: hidden;
+  text-overflow: ellipsis; 
+}
+</style>
 @endsection
 
 @section('content')
 <header class="masthead text-center">
     <div class="container">
       <div class="row">
-        <div class="col-lg-5 col-md-12" style="z-index: 1">
+        <div class="col-lg-5" style="z-index: 1">
 
           <div class="card masthead-search shadow-lg-3d">
             <div class="">
@@ -70,7 +85,7 @@ $items = $items->get();
             <div class="tab-content p-5" id="heroTabFilter">
               <form>
                 <div class="form-group">
-                  <select class="form-control">
+                  <select id="selectManufacturer" class="form-control">
                   <option value="0">Manufacturer</option>
                     @foreach(App\TermTaxonomy::where('taxonomy', 'car-manufacturer')->get() as $taxonomy)
                     <option>{{$taxonomy->term->name}}</option>
@@ -78,16 +93,19 @@ $items = $items->get();
                   </select>
                 </div>
                 <div class="form-group">
-                  <select class="form-control">
+                  <select id="modelSelect" class="form-control">
                   <option value="0">Model</option>
-                    @foreach(App\TermTaxonomy::where('taxonomy', 'car-bugatti')->get() as $taxonomy)
-                    <option>{{$taxonomy->term->name}}</option>
+                  
+                  @foreach(App\TermTaxonomy::where('taxonomy', 'car-manufacturer')->get() as $taxonomy)
+                    @foreach(App\TermTaxonomy::where('taxonomy', 'car-'.strtolower($taxonomy->term->name))->get() as $model)
+                    <option title="{{$taxonomy->term->name}}">{{$model->term->name}}</option>
                     @endforeach
+                  @endforeach
                   </select>
                 </div>
                 <div class="form-group">
                   <select class="form-control">
-                  <option value="0">Min</option>
+                  <option value="0">Min price</option>
                         @for($i=100; $i<=10000; $i+=100)
                         <option value="{{ $i }}">{{ $i }} мянга</option>
                         @endfor
@@ -95,72 +113,45 @@ $items = $items->get();
                 </div>
                 <div class="form-group">
                   <select class="form-control">
-                  <option value="">Select year</option>
+                  <option value="">Entry year</option>
                   @for($i=date('Y'); $i>=1990; $i--)
                     <option value="{{ $i }}">{{ $i }}</option>
                     @endfor
                   </select>
                 </div>
-                <button type="submit" class="btn btn-danger btn-lg btn-round shadow mt-4 px-5">Submit</button>
+                <button type="submit" class="btn btn-danger btn-lg btn-round shadow mt-4 px-5">Filter</button>
               </form>
             </div>
 
           </div>
 
         </div>
-        <div class="col-lg-7 col-md-12 wishList-illustration">
-          <div id="maz-animation"> </div>
-        </div>
+        <div class="col-lg-7">
+          <div id="maz-animation">
 
-        <a href="#wish-list" class="js-scroll-trigger discover">
-          <span></span>
-          <p>Хүслийн машинууд</p>
-        </a>
+          </div>
+        </div>
       </div>
+      <div class="row">
+          <a href="#wish-list" class="js-scroll-trigger discover">
+            <span></span>
+            <p>Хүслийн машинууд</p>
+          </a>
+        </div>
     </div>
 
   </header>
+@include('themes.car-web.includes.fixed-right-sidebar', array('sideBanners'=>$sideBanners, 'premium'=>$hotDeals))
 
 <section id="wish-list" class="section">
     <div class="container mt-5">
-        <div class="section-title">
-          <h2>People's wish list</h2>
-          <span>
-            <a> {{$itemCount}} wishs</a>
-          </span>
-        </div>
-
-        <form action="car-write-wanna-buy" id="mainForm">
+        <form action="wishlist" id="mainForm">
         <div class="card-list">
             <div class="row mt-2">
                     @foreach($items->forPage($page, $itemsPerPage) as $car)
                     <div class="col-md-3 px-2 mt-2">
                     <!-- card start -->
-                        <div class="card">
-                            <div class="card-header wish-title bg-dark text-white font-weight-bold rounded-top">
-                                <div class="brand-name"></div>
-                                <span class=font-size-lg>"</span>{{ $car->title }}
-                            </div>
-                            <div class="wish-detail text-black rounded-bottom border pl-4 pr-4"
-                                style="background-color: #f8f9fa">
-                                <div class="wl-detail-row mt-2">
-                                    <i class="icon-tag mr-4"></i>{{ numerizePrice($car->metaValue('priceAmountStart')) }} {{ $car->metaValue('priceUnit') }}
-                                </div>
-                                <div class="wl-detail-row">
-                                    <i class="icon-phone mr-4"></i>9999 ....
-                                    <button class="btn btn-sm btn-outline-dark float-right">Watch</button>
-                                </div>
-                                <div class="wl-detail-row mt-2">
-                                    <img src="{{asset('car-web/img/Cars/4.jpg')}}"
-                                        class="rounded-circle float-left mr-2 mt-2" width="32px" height="32"
-                                        style="width: 32px" alt="alt">
-                                    <p class="">Enkhtuvshin
-                                        <br>
-                                        <span>2019-03-01</span>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
+                      @include('themes.car-web.includes.car-wishlist-card', array('car'=>$car))
                     <!-- card end -->
                     </div>
                     @endforeach
@@ -191,9 +182,11 @@ $items = $items->get();
     </div>
 </section>
 
+
 <!-- Banner start -->
+@if($banner)
 <section class="mainPage-items bg-white">
-  <div class="container">
+  <div class="container pl-0 pr-0">
     <a href="{{ $banner->link }}" class="text-primary text-decoration-none">
       <div class="banner">
         <!-- {{ $banner->title }} -->
@@ -201,6 +194,7 @@ $items = $items->get();
     </a>
   </div>
 </section>
+@endif
 <!-- Banner end -->
 
 @endsection
@@ -208,10 +202,44 @@ $items = $items->get();
 @section('script')
 <script src="{{ asset('car-web/vendor/bootstrap-slider/bootstrap-slider.min.js') }}"></script>
 <script src="{{ asset('car-web/vendor/owl.carousel.thumbs/owl.carousel2.thumbs.min.js') }}"></script>
-<script>
+  <script src="{{ asset('car-web/vendor/jquery/jquery.min.js') }}"></script>
+  <script src="{{ asset('car-web/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+  <script src="{{ asset('car-web/vendor/owl.carousel/owl.carousel.min.js') }}"></script>
+  <script src="{{ asset('car-web/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
+  <script src="{{ asset('car-web/vendor/lottie-web/player/lottie.min.js') }}"></script>
+  <script src="{{ asset('car-web/js/script.min.js') }}"></script>
+
+  <script>
+    var animation = bodymovin.loadAnimation({
+      container: document.getElementById('maz-animation'),
+      renderer: 'svg',
+      loop: true,
+      rendererSettings: {
+          progressiveLoad: true
+      },
+      autoplay: true,
+      path: '{{ asset('car-web/img/wish.json') }}'
+    });
+
   function formSubmit(id, value) {
     document.getElementById(id).value = value;
     $('#mainForm').submit();
   }
+
+  function watchPhone(id, phone){
+    $('#phone' + id).html(phone);
+    $('#watchBtn' + id).css('visibility', 'hidden');
+  }
+
+  $(document).ready(function(){
+    $('#selectManufacturer').change(function (){
+      var val = $(this).val();
+      console.log($(this).val());
+
+      $('#modelSelect option[title!='+val+']').css('display', 'none');
+      
+      $('#modelSelect option[title='+val+']').css('display', 'block');
+    });
+  });
 </script>
 @endsection

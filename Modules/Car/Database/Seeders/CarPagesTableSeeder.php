@@ -189,12 +189,12 @@ class CarPagesTableSeeder extends Seeder
         $content_meta->value = json_encode($value);
         $content_meta->save();
 
-        // $file_content = file_get_contents(resource_path('stubs/carWishlist.stub'));
-        // $file_name = $rootPath . DIRECTORY_SEPARATOR . 'wishlist' . Content::NAMING_CONVENTION . $content->status . Content::NAMING_CONVENTION . $time;
-        // $file_ext = 'blade.php';
-        // $file_path = $file_name . '.' . $file_ext;
+        $file_content = file_get_contents(resource_path('stubs/carWishlist.stub'));
+        $file_name = $rootPath . DIRECTORY_SEPARATOR . 'wishlist' . Content::NAMING_CONVENTION . $content->status . Content::NAMING_CONVENTION . $time;
+        $file_ext = 'blade.php';
+        $file_path = $file_name . '.' . $file_ext;
 
-        // file_put_contents(base_path($file_path), $file_content);
+        file_put_contents(base_path($file_path), $file_content);
 
         // ------------- car-web sell more information -------------
 
@@ -203,7 +203,7 @@ class CarPagesTableSeeder extends Seeder
         $content->slug = 'sell-car-page-2-step-1';
         $content->type = Content::TYPE_PAGE;
         $content->status = Content::STATUS_PUBLISHED;
-        $content->visibility = Content::VISIBILITY_PUBLIC;
+        $content->visibility = Content::VISIBILITY_AUTH;
         $content->author_id = 1;
         $content->save();
 
@@ -234,7 +234,7 @@ class CarPagesTableSeeder extends Seeder
         $content->slug = 'interested-car';
         $content->type = Content::TYPE_PAGE;
         $content->status = Content::STATUS_PUBLISHED;
-        $content->visibility = Content::VISIBILITY_PUBLIC;
+        $content->visibility = Content::VISIBILITY_AUTH;
         $content->author_id = 1;
         $content->save();
 
@@ -265,7 +265,7 @@ class CarPagesTableSeeder extends Seeder
         $content->slug = 'interested-car-registration-alert';
         $content->type = Content::TYPE_PAGE;
         $content->status = Content::STATUS_PUBLISHED;
-        $content->visibility = Content::VISIBILITY_PUBLIC;
+        $content->visibility = Content::VISIBILITY_AUTH;
         $content->author_id = 1;
         $content->save();
 
@@ -296,7 +296,7 @@ class CarPagesTableSeeder extends Seeder
         $content->slug = 'sell-page-on-sell';
         $content->type = Content::TYPE_PAGE;
         $content->status = Content::STATUS_PUBLISHED;
-        $content->visibility = Content::VISIBILITY_PUBLIC;
+        $content->visibility = Content::VISIBILITY_AUTH;
         $content->author_id = 1;
         $content->save();
 
@@ -327,7 +327,7 @@ class CarPagesTableSeeder extends Seeder
         $content->slug = 'sell-page-sold';
         $content->type = Content::TYPE_PAGE;
         $content->status = Content::STATUS_PUBLISHED;
-        $content->visibility = Content::VISIBILITY_PUBLIC;
+        $content->visibility = Content::VISIBILITY_AUTH;
         $content->author_id = 1;
         $content->save();
 
@@ -359,7 +359,7 @@ class CarPagesTableSeeder extends Seeder
         $content->slug = 'purchase-page-published';
         $content->type = Content::TYPE_PAGE;
         $content->status = Content::STATUS_PUBLISHED;
-        $content->visibility = Content::VISIBILITY_PUBLIC;
+        $content->visibility = Content::VISIBILITY_AUTH;
         $content->author_id = 1;
         $content->save();
 
@@ -390,7 +390,7 @@ class CarPagesTableSeeder extends Seeder
         $content->slug = 'purchase-page-checking';
         $content->type = Content::TYPE_PAGE;
         $content->status = Content::STATUS_PUBLISHED;
-        $content->visibility = Content::VISIBILITY_PUBLIC;
+        $content->visibility = Content::VISIBILITY_AUTH;
         $content->author_id = 1;
         $content->save();
 

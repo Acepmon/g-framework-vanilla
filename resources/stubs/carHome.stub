@@ -49,7 +49,7 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
                             <div class="card-header px-5 pt-5 pb-3">
                                 <h1>Vehicle search</h1>
                                 <div class="mh-search-input">
-                                    <input class="search" onchange="searchTitle(event)" type="search" placeholder="Search" aria-label="Search">
+                                    <input class="search" onchange="searchTitle(event)" type="search" placeholder="Search by id or title" aria-label="Search">
                                     <button type="button" class="search-button">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="20.4" height="20.4"
                                              viewBox="0 0 20.4 20.4">
@@ -115,7 +115,7 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
                                             @endfor
                                         </select>
                                     </div>
-                                    <button type="submit" class="btn btn-danger btn-lg btn-round shadow mt-4 pl-5 pr-5">Submit</button>
+                                    <button type="submit" class="btn btn-danger btn-lg btn-round shadow mt-4 pl-5 pr-5">Search</button>
                                 </form>
                             </div>
                             <div class="tab-pane fade" id="auction" role="tabpanel" aria-labelledby="used-tab">
@@ -156,7 +156,7 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
                                             @endfor
                                         </select>
                                     </div>
-                                    <button type="submit" class="btn btn-danger btn-lg btn-round shadow mt-4">Submit
+                                    <button type="submit" class="btn btn-danger btn-lg btn-round shadow mt-4">Search
                                     </button>
                                 </form>
                             </div>
@@ -190,8 +190,7 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
                                         <input class="form-control" name="Max-price" type="number"
                                                placeholder="max-price" aria-label="Search">
                                     </div>
-                                    <button type="submit" class="btn btn-danger btn-lg btn-round shadow mt-4">Submit
-                                    </button>
+                                    <button type="submit" class="btn btn-danger btn-lg btn-round shadow mt-4">Search</button>
                                 </form>
                             </div>
                         </div>
@@ -239,10 +238,12 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
                                 </a>
                             </div>
                         @endforeach
-                    @else
+                    @elseif(count($banners) == 1)
                         <a href="{{$bnr->link}}" target="_blank">
                             <img src="{{$bnr->banner}}" alt="">
                         </a>
+                    @else
+                        <img src="{{asset('car-web/img/banner.png')}}" class="img-fluid" alt="">
                     @endif
                 </div>
             </div>
@@ -277,10 +278,12 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
                                 </a>
                             </div>
                         @endforeach
+                    @elseif (count($banners) == 1)
+                    <a href="{{$bnr->link}}" target="_blank">
+                        <img src="{{$bnr->banner}}" alt="">
+                    </a>
                     @else
-                        <a href="{{$bnr->link}}" target="_blank">
-                            <img src="{{$bnr->banner}}" alt="">
-                        </a>
+                        <img src="{{asset('car-web/img/banner.png')}}" class="img-fluid" alt="">
                     @endif
                 </div>
             </div>

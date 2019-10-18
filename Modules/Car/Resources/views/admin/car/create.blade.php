@@ -9,6 +9,7 @@
 <script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/plugins/forms/tags/tokenfield.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/demo_pages/form_tags_input.js') }}"></script>
 <script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/demo_pages/form_checkboxes_radios.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/demo_pages/form_select2.js') }}"></script>
 @endsection
 @section('load-before')
 <script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/plugins/loaders/pace.min.js') }}"></script>
@@ -395,7 +396,6 @@
                     <div class="row">
                         <div class="col-lg-10" id="image-container"></div>
                     </div>
-                    <input type="file" class="file-input-ajax" multiple="multiple">
 
                     <div class="row">
                         <div class="col-lg-6">

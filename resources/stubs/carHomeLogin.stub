@@ -11,50 +11,26 @@
     <header class="masthead text-center">
         <div class="container">
                 <div class="row">
-                    <div class="col-md-7">
+                    <div class="col-lg-7 col-md-12 d-flex align-items-end">
                         <div class="hero-slider owl-carousel owl-theme">
-
-                            @banners([{"field":"location_id", "key":1}])
+                            @banners([{"field":"location_id", "key":2}])
                             @if(count($banners) > 0)
                                 @foreach($banners as $bnr)
                                     <div class="slider-item">
-                                        <div class="slider-img animated slideInLeft" style="bottom: 0; left: -50px;">
-                                            <a href="{{$bnr->link}}" target="_blank">
-                                                <img src="{{$bnr->banner}}" alt="">
-                                            </a>
-                                        </div>
+                                        <a href="{{$bnr->link}}" target="_blank">
+                                            <img src="{{$bnr->banner}}" alt="">
+                                        </a>
                                     </div>
                                 @endforeach
                             @else
                                 <div class="slider-item">
-                                    <div class="slider-text animated slideInLeft" style="top: 0; left: 100px">
-                                        <h1>Зээлийн хүү</h1>
-                                    </div>
-                                    <div class="slider-text animated slideInLeft slider-highlight"
-                                         style="top: 50px; left: 50px">3%
-                                    </div>
-                                    <div class="slider-text animated slideInLeft" style="top: 200px; left: 200px">
-                                        <h1>Жилийн</h1>
-                                    </div>
-                                    <div class="slider-img animated slideInLeft" style="bottom: 0; left: -50px;">
-                                        <img src="{{asset('car-web/img/slider-1.png')}}" alt="">
-                                    </div>
+                                    <img src="{{asset('car-web/img/slider-1.png')}}" alt="">
                                 </div>
                                 <div class="slider-item">
-                                    <div class="slider-text" style="top: 5%; left: 90px">
-                                        <h1>Авто машины</h1>
-                                    </div>
-                                    <div class="slider-text" style="top: 18%; left: 100px; ">
-                                        <h1 style="font-size: 2rem;">Дуудлага худалдаа</h1>
-                                    </div>
-                                    <div class="slider-img" style="top: 50%; left: 50px;">
-                                        <img src="{{asset('car-web/img/slider-2.png')}}" alt="" class="img-fluid">
-                                    </div>
-                                    <div class="slider-img" style="top: 25%; left: 0; z-index:-1;">
-                                        <img src="{{asset('car-web/img/auction.png')}}" alt="" class="img-fluid">
-                                    </div>
+                                    <img src="{{asset('car-web/img/slider-2.png')}}" alt="" class="img-fluid">
                                 </div>
                             @endif
+
                         </div>
                     </div>
                     <div class="col-md-5" style="z-index: 1">
@@ -64,12 +40,17 @@
                                     <h1>Car dealer login</h1>
                                 </div>
                                 <div class="col-12 p-5">
+                                    @if (session('status'))
+                                        <div class="alert alert-success" role="alert">
+                                            {{ session('status') }}
+                                        </div>
+                                    @endif
                                     <form method="POST" action="{{ route('login') }}">
                                         @csrf
                                         <div class="form-group mb-3 text-left form-group-feedback form-group-feedback-left">
                                             <span class="font-weight-bold">Username</span>
 
-                                            <input class="form-control mt-2 @error('name') is-invalid @enderror" id="username" type="text" placeholder="Username" name="username" value="{{ old('username', env('APP_ENV') == 'development' ? 'admin' : '') }}" required autocomplete="username" autofocus>
+                                            <input class="form-control mt-2 @error('username') is-invalid @enderror" id="username" type="text" placeholder="Username" name="username" value="{{ old('username', env('APP_ENV') == 'development' ? 'admin' : '') }}" required autocomplete="username" autofocus>
                                             @error('username')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -89,7 +70,7 @@
                                     </form>
                                     <a href="#" data-toggle="modal" data-target="#myModal">Forget password</a>
                                     <div class="col-12 mt-5">
-                                        <a href="/register" type="button" class="btn bg-secondary col-9 btn-default btn-lg btn-round mt-4">Sign up</a>
+                                        <button onclick="window.location.href='/register'" type="button" class="btn btn-light btn-round px-5 py-2 col-9">Sign up</button>
                                     </div>
                                 </div>
                             </div>
@@ -131,7 +112,8 @@
 
                 <!-- Modal footer -->
                 <div class="modal-footer">
-                    <a type="button" href="/register" class="btn btn-round btn-default bg-secondary mt-5 col-md-6 mb-5">sign up</a>
+                    {{--<a type="button" href="/register" class="btn btn-round btn-default bg-secondary mt-5 col-md-6 mb-5">sign up</a>--}}
+                    <button onclick="window.location.href='/register'" type="button" class="btn btn-light btn-round px-5 py-2 col-9 mb-5">Sign up</button>
                 </div>
 
             </div>
