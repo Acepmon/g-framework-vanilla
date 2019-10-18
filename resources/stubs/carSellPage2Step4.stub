@@ -1,14 +1,16 @@
 <form id="step-4-publish" class="maz-form">
     <div class="row">
-        <div class="col-md-1">
-            <div class="custom-control custom-radio custom-control-inline">
-                <input type="radio" id="bestPremium" name="publishType" value="best" class="custom-control-input">
-                <label class="custom-control-label" for="bestPremium"></label>
-            </div>
-        </div>
-        <div class="col-md-11">
+
+        <label for="bestPremium" class="col-md-12">
             <div class="col-md-6 float-left">
-                <h6 class="font-weight-bold">Best Premium</h6>
+                <div class="d-flex">
+                    <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="bestPremium" name="publishType" value="best" class="custom-control-input">
+                        <label class="custom-control-label" for="bestPremium"></label>
+                    </div>
+                    <h6 class="font-weight-bold mb-0">Best Premium</h6>
+                </div>
+
                 <select class="custom-select my-1 mr-sm-2" name="publishPriceAmountBest">
                     @getTaxonomys({"filter":[{"field":"taxonomy", "key":"best_premium"}], "returnValue":"bestPremium"})
                     <option selected  value="0">Choose...</option>
@@ -28,18 +30,19 @@
             <div class="col-md-6 float-left">
                 <img src="{{asset('car-web/img/hero_bg.png')}}" class="img-fluid" alt="">
             </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-1">
-            <div class="custom-control custom-radio custom-control-inline">
-                <input type="radio" id="premium" name="publishType" value="premium" class="custom-control-input">
-                <label class="custom-control-label" for="premium"></label>
-            </div>
-        </div>
-        <div class="col-md-11">
+        </label>
+
+
+        <label for="premium" class="col-md-12">
             <div class="col-md-6 float-left">
-                <h6 class="font-weight-bold">Premium</h6>
+                <div class="d-flex">
+                    <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="premium" name="publishType" value="premium" class="custom-control-input">
+                        <label class="custom-control-label" for="premium"></label>
+                    </div>
+                    <h6 class="font-weight-bold mb-0">Premium</h6>
+                </div>
+
                 <select class="custom-select my-1 mr-sm-2" name="publishPriceAmountPremium">
                     @getTaxonomys({"filter":[{"field":"taxonomy", "key":"premium"}], "returnValue":"premium"})
                     <option selected  value="0">Choose...</option>
@@ -60,18 +63,17 @@
                 <img src="{{asset('car-web/img/hero_bg.png')}}" class="img-fluid" alt="">
             </div>
 
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-1">
-            <div class="custom-control custom-radio custom-control-inline">
-                <input type="radio" id="free" name="publishType" value="free" class="custom-control-input">
-                <label class="custom-control-label" for="free"></label>
-            </div>
-        </div>
-        <div class="col-md-11">
+        </label>
+
+        <label for="free" class="col-md-12">
             <div class="col-md-6 float-left">
-                <h6 class="font-weight-bold">Regular</h6>
+                <div class="d-flex">
+                    <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="free" name="publishType" value="free" class="custom-control-input">
+                        <label class="custom-control-label" for="free"></label>
+                    </div>
+                    <h6 class="font-weight-bold mb-0">Regular</h6>
+                </div>
                 <p>
                     5 дахин хурдан худалдана.
                     </br>
@@ -84,14 +86,33 @@
                 <img src="{{asset('car-web/img/hero_bg.png')}}" class="img-fluid" alt="">
             </div>
 
-        </div>
-    </div>
+        </label>
+
     <!-- NEXT PREV BUTTON START -->
     <div style="float:right;" class="mt-5">
         <button class="btn btn-light btn-round px-5 py-2 mr-3" type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
         <button class="btn btn-danger btn-round shadow-red px-5 py-2" type="button" id="nextBtn" onclick="submitStep4()">Finish</button>
     </div>
+    </div>
 </form>
+<div class="modal fade" id="carRegSuccess">
+    <div class="modal-dialog  modal-dialog-centered">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header text-center">
+                <h4 class="modal-title">Sell car</h4>
+                <img src="{{asset('car-web/img/auction-tag.png')}}" alt="">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body mt-4 pr-lg-5 pl-lg-5 text-center">
+                Car successfully registered!
+            </div>
+        </div>
+    </div>
+</div>
 <script>
     function submitStep4() {
         $("#demo-spinner").css({'display': 'block'});
@@ -123,6 +144,8 @@
             nextPrev(1);
             console.log("DONE!");
             console.log(data);
+            $('#carRegSuccess').modal('show');
+            window.location.href = "/";
         }).fail(function(err) {
             $("#demo-spinner").css({'display': 'none'});
             console.error("FAIL!");

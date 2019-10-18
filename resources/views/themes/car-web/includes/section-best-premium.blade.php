@@ -4,7 +4,7 @@
             <div class="section-title">
                 <h2>Our best</h2>
                 <span>
-            <a href="#">See all (123) <i class="fab fa fa-angle-right"></i></a>
+            <a href="/buy?best_premium=true">See all<i class="fab fa fa-angle-right"></i></a>
           </span>
             </div>
 

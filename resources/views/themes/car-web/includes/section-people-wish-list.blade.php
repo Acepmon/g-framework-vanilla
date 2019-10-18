@@ -1,10 +1,12 @@
 <section class="mainPage-items bg-white">
     <div class="container">
+        @contents({"filter":[{"field":"type", "key":"wanna-buy"}, {"field":"status", "key":"published"}], "limit":12,
+        "returnVariable":"wannabuy"})
         <div class="row">
             <div class="section-title">
                 <h2>People's wish list</h2>
                 <span>
-            <a href="#">See all (123) <i class="fab fa fa-angle-right"></i></a>
+            <a href="/wishlist">See all ({{count($wannabuy)}}) <i class="fab fa fa-angle-right"></i></a>
 
           </span>
             </div>
@@ -14,8 +16,7 @@
         <div class="container">
             <div class="row">
                 <div class="card-slide owl-carousel owl-theme">
-                    @contents({"filter":[{"field":"type", "key":"wanna-buy"}, {"field":"status", "key":"published"}], "limit":12,
-                    "returnVariable":"wannabuy"})
+
                     @foreach($wannabuy as $wannaBuyData)
 
                     <!-- card start -->
