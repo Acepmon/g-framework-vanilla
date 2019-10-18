@@ -138,6 +138,24 @@
             </div>
         </div>
     </div>
+    <div class="modal fade" id="mailFail">
+        <div class="modal-dialog  modal-dialog-centered">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header text-center">
+                    <h4 class="modal-title">Forget password</h4>
+                    <img src="{{asset('car-web/img/auction-tag.png')}}" alt="">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body mt-4 pr-lg-5 pl-lg-5 text-center">
+                    User not present!
+                </div>
+            </div>
+        </div>
+    </div>
 
 @endsection
 
@@ -155,16 +173,25 @@
 
             $.ajax({
                 type:'POST',
-                url: "{{ route('password.email') }}",
+                url: "/ajax/user_exists?email="+email,
                 data:{email:email},
                 success:function(data){
-                    $('#myModal').modal('hide');
-                    $('#mailSuccess').modal('show');
+                    $.ajax({
+                        type:'POST',
+                        url: "{{ route('password.email') }}",
+                        data:{email:email},
+                        success:function(data){
+                            $('#myModal').modal('hide');
+                            $('#mailSuccess').modal('show');
 
+                        }
+                    })
                 }
             }).fail(function(data){
                 //$("#demo-spinner").css({'display': 'none'});
                 console.error("FAIL!");
+                //$('#myModal').modal('hide');
+                $('#mailFail').modal('show');
                 //console.error(err);
             });
 
