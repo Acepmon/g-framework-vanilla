@@ -6,10 +6,10 @@
             </a>
         </div>
         <div class="card">
-            <a href="#" target="_blank">
+            <a href="{{ config('car.appStoreLink') }}" target="_blank">
                 <img src="{{ asset('car-web/img/store_app.png') }}" style="width: 120px"/>
             </a>
-            <a href="#" target="_blank">
+            <a href="{{ config('car.playStoreLink') }}" target="_blank">
                 <img src="{{ asset('car-web/img/store_play.png') }}" style="width: 120px; padding-top: 1px"/>
             </a>
         </div>

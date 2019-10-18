@@ -31,6 +31,44 @@ Route::prefix('v1')->group(function () {
                 return new UserResource(Auth::user());
             });
 
+            Route::put('/user', function (Request $request) {
+                $user = Auth::user();
+
+                if ($request->has('username')) {
+                    $user->username = $request->input('username');
+                    $user->save();
+                }
+
+                if ($request->has('email')) {
+                    $user->email = $request->input('email');
+                    $user->save();
+                }
+
+                if ($request->has('name')) {
+                    $user->name = $request->input('name');
+                    $user->save();
+                }
+
+                if ($request->has('password')) {
+                    $user->password = Hash::make($request->input('password'));
+                    $user->save();
+                }
+
+                if ($request->has('language')) {
+                    $user->language = $request->input('language');
+                    $user->save();
+                }
+
+                if ($request->has('social_id') && $request->has('social_provider') && $request->has('social_token')) {
+                    $user->social_id = $request->input('social_id');
+                    $user->social_provider = $request->input('social_provider');
+                    $user->social_token = $request->input('social_token');
+                    $user->save();
+                }
+
+                return new UserResource($user);
+            });
+
             Route::get('/user/notifications', function () {
                 return new UserNotificationCollection(Auth::user()->notifications);
             });
