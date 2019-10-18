@@ -1,27 +1,21 @@
 @if($car)
-<div class="card">
-    <div class="card-header wish-title bg-dark text-white font-weight-bold rounded-top">
-        
-        <div id="tooltip" title="{{$car->title}}"><span class=font-size-lg>"</span> {{$car->title}}</div>
+<div class="card cd-box">
+    <div class="card-top">
+        <h2 class="title" id="tooltip" title="{{$car->title}}">{{$car->title}}</h1>
     </div>
-    <div class="wish-detail text-black rounded-bottom border pl-4 pr-4"
-        style="background-color: #f8f9fa">
-        <div class="wl-detail-row mt-2">
-            <i class="icon-tag mr-4"></i>{{ numerizePrice($car->metaValue('priceAmountStart')) }} {{ $car->metaValue('priceUnit') }}
+    <div class="card-body py-2">
+        <div class="wish-detail">
+        <div class="price"><i class="icon-tag"></i> {{ numerizePrice($car->metaValue('priceAmountStart')) }} {{ $car->metaValue('priceUnit') }}</div>
+        <div class="phone">
+            <i class="icon-phone"></i> <span id="phone{{$car->id}}">{{ str_limit($car->author->metaValue('phone'), 9) }}</span>
+        <button id="watchBtn{{$car->id}}" class="btn btn-sm btn-outline-dark float-right" type="button" onclick="watchPhone('{{$car->id}}', '{{$car->author->metaValue('phone')}}')">Watch</button>
         </div>
-        <div class="wl-detail-row">
-            <i class="icon-phone mr-4"></i>
-            <span id="phone{{$car->id}}">{{ str_limit($car->author->metaValue('phone'), 9) }}</span>
-            <button id="watchBtn{{$car->id}}" class="btn btn-sm btn-outline-dark float-right" type="button" onclick="watchPhone('{{$car->id}}', '{{$car->author->metaValue('phone')}}')">Watch</button>
         </div>
-        <div class="wl-detail-row mt-2">
-            <img src="{{asset('car-web/img/Cars/4.jpg')}}"
-                class="rounded-circle float-left mr-2 mt-2" width="32px" height="32"
-                style="width: 32px" alt="alt">
-            <p class="">Enkhtuvshin
-                <br>
-                <span>2019-03-01</span>
-            </p>
+        <div class="wish-user">
+        <div class="profile-img"><img src="{{asset('car-web/img/blog/4.jpg')}}" alt=""></div>
+        <div class="username">Enkhtuvshin <div class="date">2019-09-20</div>
+        </div>
+
         </div>
     </div>
 </div>
