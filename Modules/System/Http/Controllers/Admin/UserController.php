@@ -46,6 +46,15 @@ class UserController extends Controller
         return view('admin.users.operators', ['users' => $users]);
     }
 
+    public function guests()
+    {
+        $users = User::whereHas('groups', function ($query) {
+            $query->where('id', 4);
+        })->get();
+
+        return view('admin.users.guests', ['users' => $users]);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
