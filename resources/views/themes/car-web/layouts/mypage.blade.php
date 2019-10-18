@@ -32,6 +32,11 @@
         @yield('load')
 
         @stack('styles')
+        <style>
+            .maz-menu {
+                margin-left: -5px!important;
+            }
+        </style>
     </head>
 
     <body>

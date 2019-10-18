@@ -1,102 +1,10 @@
 @extends('themes.car-web.layouts.default')
 
 @php
-function metaHas($items, $key, $value)
-{
-return $items->whereHas('metas', function ($query) use ($key, $value) {
-$query->where('key', $key)->where('value', $value);
-});
-}
-
-function idize($value)
-{
-return str_replace(' ', '_', strtolower($value));
-}
-
-$categories = [
-'Car Type', 'Manufacturer', 'Year', 'Distance Driven', 'Price', 'Color', 'Fuel', 'Transmission', 'Option', 'Passenger', 'Steering Wheel', 'Area', 'Doctors Verified'
-];
-
-// Get All items
-$orderBy = request('orderBy', "updated_at");
-$order = request('order', "desc");
-$page = request('page', "1");
-$itemsPerPage = request('itemsPerPage', "10");
-$allItems = App\Content::with('metas')->where('type', App\Content::TYPE_CAR);
-if ($orderBy != 'updated_at') {
-$allItems = $allItems->join('content_metas', 'contents.id', '=', 'content_metas.content_id')
-->where('content_metas.key', '=', $orderBy)->select('contents.*')->addSelect('content_metas.value');
-$allItems = $allItems->orderBy('value', $order);
-} else {
-$allItems = $allItems->orderBy($orderBy, $order);
-}
+$request = \Modules\Car\Entities\Car::manageRequest();
+$allItems = \Modules\Car\Entities\Car::all();
 $allItems = metaHas($allItems, 'isAuction', '1');
-$items = $allItems;
-
-// Items filtering
-$request = [];
-$request['type'] = request('car_type', 'Sedan');
-$request['markName'] = request('manufacturer', Null);
-$request['colorName'] = request('color', Null);
-$request['fuelType'] = request('fuel', Null);
-$request['transmission'] = request('transmission', Null);
-$request['advantages'] = request('advantage', Null);
-$request['manCount'] = request('passenger', Null);
-$request['wheelPosition'] = request('steering_wheel', Null);
-$request['countryName'] = request('area', Null);
-$request['buildYear'] = request('year', Null);
-$request['distanceDriven'] = request('distance_driven', Null);
-$request['doctorVerified'] = request('doctors_verified', Null);
-$request['doctorVerified'] = ($request['doctorVerified'] == 'Баталгаажсан')?'1':'0';
-foreach ($request as $key => $value) {
-if ($value != Null) {
-$items = metaHas($items, $key, $value);
-}
-};
-
-$request['minPrice'] = request('min_price', 100);
-$request['maxPrice'] = request('max_price', Null);
-$minPrice = intVal($request['minPrice']) * 1000;
-$maxPrice = intVal($request['maxPrice']) * 1000;
-$items = $items->whereHas('metas', function ($query) use ($minPrice, $maxPrice) {
-  if ($minPrice && $maxPrice) {
-    return $query->where([['key', 'priceAmount'], ['value', '>=', $minPrice], ['value', '<=', $maxPrice]]);
-  } else if ($minPrice) {
-    return $query->where([['key', 'priceAmount'], ['value', '>=', $minPrice]]);
-  } else if ($maxPrice) {
-    return $query->where([['key', 'priceAmount'], ['value', '<=', $maxPrice]]);
-  }
-});
-
-function getPremiumDeal($type, $now) {
-  $deals = App\Content::where('type', App\Content::TYPE_CAR)->where('status', App\Content::STATUS_PUBLISHED)->where('visibility', App\Content::VISIBILITY_PUBLIC);
-  $deals = metaHas($deals, 'publishType', $type);
-  $deals = metaHas($deals, 'publishVerified', True);
-  return $deals->whereHas('metas', function ($query) use ($now) {
-    $query->where([['key', 'publishVerifiedEnd'],['value','>=',$now]]);
-  });
-}
-
-// HOT Deals
-$now = now();
-$best_premium = getPremiumDeal('best_premium', $now)->get();
-$premium = getPremiumDeal('premium', $now)->get();
-$hotDeals = $best_premium->merge($premium);
-//dd($hotDeals);
-//$hotDeals = $hotDeals->paginate(5);
-$items = $items->get();
-
-// Post items filtering
-$itemCount = count($items->all());
-$maxPage = intval(ceil($itemCount / $itemsPerPage));
-if ($itemCount < $page * $itemsPerPage) {
-  $page= $maxPage;
-}
-
-// Banner
-$banner = App\Banner::where('location_id', 5)->where('status', 'active')->inRandomOrder()->first();
-// $sideBanners = App\Banner::where('location_id', 4)->where('status', 'active')->get();
-$sideBanners = App\Banner::where('location_id', 4)->get();
+$banner = \App\Banner::where('location_id', 5)->where('status', 'active')->inRandomOrder()->first();
 @endphp
 
 @section('title')
@@ -106,186 +14,92 @@ Car dealer
 @section('load')
 <link href="{{ asset('car-web/vendor/simple-line-icons/css/simple-line-icons.css') }}" rel="stylesheet" type="text/css">
 <link href="{{ asset('car-web/vendor/bootstrap-slider/css/bootstrap-slider.min.css') }}" rel="stylesheet">
-<style>
-.banner {
-  width: 100%;
-  padding-bottom: 15%;
-  @if($banner)
-  background-image: url({{ $banner->banner }});
-  @endif
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-
-.search {
-  background: transparent;
-  border: none;
-  outline: none;
-  font-weight: 700;
-  color: #2b3651;
-}
-.search::placeholder {
-  color: #2b3651;
-}
-
-/* Custom css */
-.detail-page .car-list .card-img img {
-  min-height: 100%;
-  object-fit: cover;
-}
-</style>
 @endsection
 
 @section('content')
 
 <div class="bg-page-header"></div>
 
-@include('themes.car-web.includes.fixed-right-sidebar', array('sideBanners'=>$sideBanners, 'premium'=>$hotDeals))
-
+@include('themes.car-web.includes.fixed-right-sidebar', array('sideBanners'=>\App\Banner::where('location_id', 4)->where('status', 'active')->get(), 'premium'=>\Modules\Car\Entities\Car::filterByPremium(5)))
 <section class="section detail-page">
   <div class="container">
     <div class="row">
       <div class="col-md-3">
-        <form action="car-search" id="searchForm">
-          <input type="hidden" name="search" id="search">
-        </form>
-        <form action="buy" id="mainForm">
-          <div class="left-bar-title">
-            <input type="text" class="search" id="searchInput" placeholder="SEARCH VEHICLE" />
-            <button class="btn shadow-none" id="searchBtn"><i class="fab fa fa-search"></i></button>
+        <input type="hidden" name="search" id="search">
+        <form action="{{ url('search') }}" id="searchForm">
+          <div class="left-bar-title"><h3>Vehicle search</h3>
+            <div class="mh-search-input">
+              <input class="search" type="search" placeholder="Search" aria-label="Search" name="search" id="searchInput">
+              <button type="button" class="search-button" id="searchBtn">
+                <svg id="search-icon" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30">
+                  <defs>
+                      <style>
+                          .search-icon-1 {
+                              fill: #85c9ef;
+                          }
+              
+                          .search-icon-2 {
+                              fill: none;
+                          }
+              
+                          .search-icon-3 {
+                              fill: #2b3651;
+                          }
+              
+                          .search-icon-4 {
+                              fill: #fff;
+                          }
+                      </style>
+                  </defs>
+                  <title>search-icon</title>
+                  <g id="Group_3443" data-name="Group 3443">
+                      <g id="Ellipse_345" data-name="Ellipse 345">
+                          <circle class="search-icon-1" cx="13.3" cy="13.63" r="9.5" />
+                      </g>
+                      <g id="Ellipse_344" data-name="Ellipse 344">
+                          <circle class="search-icon-2" cx="13.3" cy="13.63" r="9.5" />
+                          <path class="search-icon-3"
+                              d="M13.3,23.13a9.5,9.5,0,1,1,9.5-9.5A9.51,9.51,0,0,1,13.3,23.13Zm0-17a7.5,7.5,0,1,0,7.5,7.5A7.51,7.51,0,0,0,13.3,6.13Z" />
+                      </g>
+                      <g id="Path_2595" data-name="Path 2595">
+                          <path class="search-icon-3"
+                              d="M23.15,25.46a1,1,0,0,1-.71-.31l-3.65-3.73a1,1,0,0,1,0-1.41,1,1,0,0,1,1.42,0l3.65,3.74a1,1,0,0,1,0,1.41A1,1,0,0,1,23.15,25.46Z" />
+                      </g>
+                      <path class="search-icon-4"
+                          d="M19.45,14.13a.5.5,0,0,1-.5-.5A5.65,5.65,0,0,0,13.3,8a.5.5,0,0,1,0-1A6.65,6.65,0,0,1,20,13.63.5.5,0,0,1,19.45,14.13Z" />
+                  </g>
+                </svg>
+              </button>
+            </div>
           </div>
-          @include('themes.car-web.includes.car-list-menu')
+        </form>
+        <form action="{{ url('/auction') }}" id="mainForm">
+        @include('themes.car-web.includes.car-list-menu')
       </div>
       <div class="col-md-9">
-        <div class="row">
-          <div class="card shadow-soft-blue page-top-navbar">
-            <div class="d-flex justify-content-start">
-              <span class="total-cars">{{ count($allItems->get()) }} VEHICLES</span>
-              <input type="hidden" name="orderBy" id="orderBy" value="{{ $orderBy }}" />
-
-              <div class="sort-cars">
-                <ul>
-                  <li class="{{ ($orderBy=='updated_at')?'active':'' }}"><a href="#" onclick="formSubmit('orderBy', 'updated_at')">Recent cars</a></li>
-                  <li class="{{ ($orderBy=='buildYear')?'active':'' }}"><a href="#" onclick="formSubmit('orderBy', 'buildYear')">Product year</a></li>
-                  <li class="{{ ($orderBy=='importDate')?'active':'' }}"><a href="#" onclick="formSubmit('orderBy', 'importDate')">Income year</a></li>
-                  <li class="{{ ($orderBy=='price')?'active':'' }}"><a href="#" onclick="formSubmit('orderBy', 'price')">Low price</a></li>
-                </ul>
-              </div>
-            </div>
-          </div>
-          @if ($items->all() && sizeof($items->all()) != 0)
-          <div class="car-list">
-            <input type="hidden" name="advantage" id="advantage" value="{{ $request['advantages'] }}" />
-            @foreach($items->forPage($page, $itemsPerPage) as $car)
-            <div class="card" onclick="window.open('{{ $car->slug }}','_blank');">
-                <div class="card-body">
-                    <div class="card-img">
-                        <a href="{{ $car->slug }}">
-                            <img src="{{ (substr($car->metaValue('thumbnail'), 0, 4) !== 'http')?(App\Config::getStorage() . $car->metaValue('thumbnail')):$car->metaValue('thumbnail') }}" class="img-fluid" alt="alt">
-                        </a>
-                    </div>
-                    <div class="card-description">
-                        <div class="card-caption">
-                            <div class="card-title"><a href="{{ $car->slug }}" style="color: inherit">{{ $car->title }}</a></div>
-                            <div class="meta">{{ $car->metaValue('buildYear') }}/{{ $car->metaValue('importDate') }} | {{ $car->metaValue('mileage') }}km</div>
-                            <div class="price">{{ numerizePrice($car->metaValue('priceAmount')) }} {{ $car->metaValue('priceUnit') }}</div>
-                            @if($car->metaValue('interest')) <!-- TODO: Change this Conditional -->
-                            <div class="favorite" onclick="addToInterest(event, '{{$car->slug}}')">
-                                <span class="text-danger"><i class="fas fa-heart"></i> Added to interest list</span>
-                            </div>
-                            @else
-                            <div class="favorite" onclick="addToInterest(event, '{{$car->slug}}')">
-                                <span class=""><i class="far fa-heart"></i> Add to interest list</span>
-                            </div>
-                            @endif
-                        </div>
-                        <div class="info">
-                            <span class="info-icon">
-                                <img src="{{ asset('car-web/img/icons/engine.svg') }}" alt="">
-                                <p>{{ ucfirst($car->metaValue('capacityAmount')) . ' ' . strtoupper($car->metaValue('capacityUnit')) }}</p>
-                            </span>
-                            <span class="info-icon">
-                                <img src="{{ asset('car-web/img/icons/wheel.svg') }}" alt="">
-                                <p>{{ ucfirst($car->metaValue('wheelPosition')) }} wheel</p>
-                            </span>
-                            <span class="info-icon">
-                                <img src="{{ asset('car-web/img/icons/gearShift.svg') }}" alt="">
-                                <p>{{ ucfirst($car->metaValue('transmission')) }}</p>
-                            </span>
-                            <span class="info-icon">
-                                <img src="{{ asset('car-web/img/icons/fuel.svg') }}" alt="">
-                                <p>{{ ucfirst($car->metaValue('fuelType')) }} </p>
-                            </span>
-                            <span class="info-icon">
-                                <img src="{{ asset('car-web/img/icons/transmision.svg') }}" alt="">
-                                <p>{{ $car->metaValue('axleCount') }} WD</p>
-                            </span>
-                            <span class="info-icon color" data-color="{{ $car->metaValue('colorName') }}">
-                                <p>{{ ucfirst($car->metaValue('colorName')) }}</p>
-                            </span>
-
-                            <div class="tag">
-                                @foreach($car->metas->where('key', 'advantages') as $advantage)
-                                <div onclick="formSubmit('advantage', '{{$advantage->value}}')">{{ $advantage->value }}</div>
-                                @endforeach
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            @endforeach
-          </div>
-          @else
-          <div class="text-center text-muted col-lg-12 mt-3">
-            <p>No results found</p>
-          </div>
-          @endif
-        </div>
-
-        <!-- Pagination -->
-        <nav aria-label="Page navigation">
-          <input type="hidden" value="{{ $page }}" name="page" id="page" />
-          <ul class="pagination d-flex justify-content-end">
-            <li class="page-item {{ ($page <= 1)?'disabled':'' }}">
-              <button class="page-link" onclick="formSubmit('page', {{$page-1}})" aria-label="Previous">
-                <span aria-hidden="true"><i class="fab fa fa-angle-left"></i></span>
-              </button>
-            </li>
-            @for($i = 1; $i <= $maxPage; $i++)
-              <li class="page-item {{ ($i == $page)?'active':'' }}"><button class="page-link" onclick="formSubmit('page', {{$i}})">{{ $i }}</button></li>
-              @endfor
-              <li class="page-item {{ ($page >= $maxPage)?'disabled':'' }}">
-                <button class="page-link" onclick="formSubmit('page', {{$page+1}})" aria-label="Next">
-                  <span aria-hidden="true"><i class="fab fa fa-angle-right"></i></span>
-                </button>
-              </li>
-          </ul>
-        </nav>
-        <!-- Pagination end -->
+        @include('themes.car-web.includes.car-list-contents', ['allItems' => $allItems, 'auction' => True])
         </form>
       </div>
     </div>
   </div>
-
 </section>
 
 <!-- Banner start -->
 @if($banner)
-<section class="mainPage-items bg-white">
-  <div class="container pl-0 pr-0">
-    <a href="{{ $banner->link }}" class="text-primary text-decoration-none">
-      <div class="banner">
-        <!-- {{ $banner->title }} -->
-      </div>
-    </a>
+<section class="banner pt-5 bg-white">
+  <div class="container">
+    <div class="row">
+      <a href="{{ $banner->link }}" class="text-primary text-decoration-none">
+        <img src="{{ $banner->banner }}" class="img-fluid" alt="">
+      </a>
+    </div>
   </div>
 </section>
 @endif
 <!-- Banner end -->
 
 <!-- Hot deal Grid -->
-@include('themes.car-web.includes.section-slider', array('title'=>'Hot Deal', 'contents'=>$hotDeals, 'morelink'=>'#'))
+@include('themes.car-web.includes.section-slider', array('title'=>'Hot Deal', 'contents'=>\Modules\Car\Entities\Car::filterByPremium()->get(), 'morelink'=>url('/buy?premium=True')))
 <!-- Hot deal End -->
 @endsection
 
@@ -293,6 +107,12 @@ Car dealer
 <script src="{{ asset('car-web/vendor/bootstrap-slider/bootstrap-slider.min.js') }}"></script>
 <script src="{{ asset('car-web/vendor/owl.carousel.thumbs/owl.carousel2.thumbs.min.js') }}"></script>
 <script>
+$.ajaxSetup({
+headers: {
+    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+}
+});
+
   function formSubmit(id, value) {
     if (value != 'no-value') {
       document.getElementById(id).value = value;
@@ -300,31 +120,69 @@ Car dealer
     $('#mainForm').submit();
   }
 
-  $("input[type=radio]").click(function(event) {
-    event.preventDefault();
-    if (event.target.defaultChecked) {
-      event.target.checked = false;
-    }
-    $('#mainForm').submit();
-  });
-
-  $("#searchBtn").click(function(event) {
-    event.preventDefault();
-    var value = $("#searchInput").val();
-    if (value) {
-      $("#search").val(value);
-      console.log($("#search").val());
-      $("#searchForm").submit();
-    } else {
-      $("#searchInput").focus();
-    }
-  });
-
   function addToInterest(event, value) {
+    event.preventDefault();
     event.stopPropagation();
-    var target = event.target;
-    target.innerHTML = "";
-    target.innerHTML = '<span class="text-danger"><i class="fas fa-heart"></i> Added to interest list</span>';
+    var target = event.target.closest('div');
+    // target.innerHTML = 'Loading';
+
+    $.ajax({
+      url: '/ajax/user/interested_cars', 
+      dataType: 'json',
+      method: 'PUT',
+      data: {
+          'content_id': value
+      },
+      success: function (data) {
+        if (data.status == 'added') {
+          target.innerHTML = '<span class="text-danger"><i class="fas fa-heart"></i> Added to interest list</span>';
+        } else if (data.status == 'removed') {
+          target.innerHTML = '<span class=""><i class="far fa-heart"></i> Add to interest list</span>';
+        }
+      },
+      error: function (error) {
+        if (error.status == 401) {
+          window.location.href = "{{ route('login') }}";
+        }
+      }
+    });
   }
+  
+  var carList = $('.auction-car');
+
+  carList.each(function(i,e){
+    var mazCountdown = $(e).find('.countdown');
+    var mazCDtime = mazCountdown.data('countdown');
+
+    console.log(mazCDtime);
+    var countDownDate = new Date(mazCDtime).getTime();
+
+    // Update the count down every 1 second
+    var x = setInterval(function() {
+
+      // Get today's date and time
+      var now = new Date().getTime();
+
+      // Find the distance between now and the count down date
+      var distance = countDownDate - now;
+
+      // Time calculations for days, hours, minutes and seconds
+      var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      // Display the result in the element with id="demo"
+      mazCountdown.html((hours + days * 24) + "<span>Цаг</span> "
+      + minutes + "<span>Мин</span> " + seconds + "<span>Сек</span> ");
+
+      // If the count down is finished, write some text
+      if (distance < 0) {
+        clearInterval(x);
+        mazCountdown.html("EXPIRED");
+      }
+    }, 1000);
+  })
+
 </script>
 @endsection

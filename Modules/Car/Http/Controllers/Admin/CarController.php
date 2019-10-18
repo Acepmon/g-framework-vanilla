@@ -246,7 +246,7 @@ class CarController extends Controller
             $content->updateMeta('sellerDescription', $request->sellerDescription);
             $content->updateMeta('price', $request->price);
             $content->updateMeta('priceType', $request->priceType);
-            $media_list = $this->uploadFiles($request->medias);
+            $media_list = $this->uploadFiles($request->medias, $request->imagesCrop);
             foreach ($media_list as $media) {
                 $content->attachMeta('medias', $media);
             }
