@@ -66,7 +66,7 @@ class ContentController extends Controller
             $content = new Content();
 
             $content->title = $request->title;
-            $content->slug = $request->slug;
+            $content->slug = $request->has('slug')?$request->slug:\Str::uuid();
             $content->type = $request->type;
             $content->status = $request->status;
             $content->visibility = $request->visibility;
