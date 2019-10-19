@@ -1,7 +1,7 @@
 @if($car)
-<a class="card {{ (isset($auction) && $auction)?'auction-car':'' }}" href="{{ $car->slug }}">
-<div class="card-body">
-        <div class="card-img">
+<div class="card {{ (isset($auction) && $auction)?'auction-car':'' }}">
+    <div class="card-body">
+        <a class="card-img" href="{{ $car->slug }}" target="_blank">
             @if(isPremium($car))
             <div class="premium-tag shadow-soft-blue"><img src="{{ asset('car-web/img/icons/corona.svg') }}" alt=""></div>
             @endif
@@ -12,12 +12,14 @@
             </div>
             @endif
             <img src="{{ (substr($car->metaValue('thumbnail'), 0, 4) !== 'http')?(App\Config::getStorage() . $car->metaValue('thumbnail')):$car->metaValue('thumbnail') }}" class="img-fluid" alt="alt">
-        </div>
+        </a>
         <div class="card-description">
             <div class="card-caption">
-                <div class="card-title">{{ (strlen($car->title) > 40)?substr($car->title, 0, 37) . '...':$car->title }}</div>
-                <div class="meta">{{ $car->metaValue('buildYear') }}/{{ $car->metaValue('importDate') }} | {{ $car->metaValue('mileage') }}km</div>
-                <div class="price">{{ numerizePrice($car->metaValue('priceAmount')) }} {{ $car->metaValue('priceUnit') }}</div>
+                <a href="{{ $car->slug }}" target="_blank">
+                    <div class="card-title">{{ (strlen($car->title) > 40)?substr($car->title, 0, 37) . '...':$car->title }}</div>
+                    <div class="meta">{{ $car->metaValue('buildYear') }}/{{ $car->metaValue('importDate') }} | {{ $car->metaValue('mileage') }}km</div>
+                    <div class="price">{{ numerizePrice($car->metaValue('priceAmount')) }} {{ $car->metaValue('priceUnit') }}</div>
+                </a>
                 @if(count(metaHas(Auth::user(), 'interestedCars', $car->id)->get()) > 0)
                 <div class="favorite" onclick="addToInterest(event, {{$car->id}})">
                     <span class="text-danger"><i class="fas fa-heart"></i> Added to interest list</span>
@@ -53,13 +55,13 @@
                     <p>{{ ucfirst($car->metaValue('colorName')) }}</p>
                 </span>
 
-                <div class="tag">
+                <div class="advantage-slider owl-carousel owl-theme">
                     @foreach($car->metas->where('key', 'advantages') as $advantage)
-                    <div onclick="event.preventDefault(); formSubmit('advantage', '{{$advantage->value}}')">{{ $advantage->value }}</div>
+                    <a class="advantage-item" onclick="formSubmit('advantage', '{{$advantage->value}}')">{{ $advantage->value }}</a>
                     @endforeach
                 </div>
             </div>
         </div>
     </div>
-</a>
+</div>
 @endif
