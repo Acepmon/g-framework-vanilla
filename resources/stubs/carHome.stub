@@ -123,7 +123,7 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
                                     @csrf
                                     <input type="text" name="title" hidden class="searchTitle">
                                     <div class="form-group">
-                                        <select id="vehicleManufacturer" class="form-control" name="manufacturer">
+                                        <select id="vehicleManufacturer1" class="form-control" name="manufacturer">
                                             <option>Manufacturer</option>
                                             @getTaxonomys({"filter":[{"field":"taxonomy", "key":"car-manufacturer"}], "returnValue":"manufacturers"})
                                             @foreach($manufacturers as $data)
@@ -132,7 +132,7 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
                                         </select>
                                     </div>
                                     <div class="form-group">
-                                        <select id="vehicleManufacturerModels" class="form-control" name="model">
+                                        <select id="vehicleManufacturerModels1" class="form-control" name="model">
                                             <option>Model</option>
                                             {{--//@getTaxonomys({"filter":[{"field":"taxonomy", "key":"model"}], "returnValue":"models"})--}}
                                         </select>
@@ -161,21 +161,18 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
                                     @csrf
                                     <input name="title" type="text" hidden class="searchTitle">
                                     <div class="form-group">
-                                        <select class="form-control" name="manufacturer">
-                                            @getTaxonomys({"filter":[{"field":"taxonomy", "key":"manufacturer"}], "returnValue":"manufacturers"})
+                                        <select id="vehicleManufacturer2" class="form-control" name="manufacturer">
                                             <option>Manufacturer</option>
+                                            @getTaxonomys({"filter":[{"field":"taxonomy", "key":"car-manufacturer"}], "returnValue":"manufacturers"})
                                             @foreach($manufacturers as $data)
-                                                <option>{{$data->description}}</option>
+                                                <option value="{{$data->term->name}}">{{$data->term->name}}</option>
                                             @endforeach
                                         </select>
                                     </div>
                                     <div class="form-group">
-                                        <select class="form-control" name="model">
-                                            @getTaxonomys({"filter":[{"field":"taxonomy", "key":"model"}], "returnValue":"models"})
+                                        <select id="vehicleManufacturerModels2" class="form-control" name="model">
                                             <option>Model</option>
-                                            @foreach($models as $data)
-                                                <option>{{$data->description}}</option>
-                                            @endforeach
+                                            {{--//@getTaxonomys({"filter":[{"field":"taxonomy", "key":"model"}], "returnValue":"models"})--}}
                                         </select>
                                     </div>
                                     <div class="form-group">
@@ -302,7 +299,6 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
                 .map(x => x.toLowerCase())
                 .join('-');
         $(document).ready(function () {
-
             $("#vehicleManufacturer").change(
                 function (e) {
                     var markName=$(this).val();
@@ -333,7 +329,69 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
                     });
                 }
             )
+            $("#vehicleManufacturer1").change(
+                function (e) {
+                    var markName=$(this).val();
+                    $.ajax({
+                        type: 'Get',
+                        url: '/api/v1/taxonomies/car-'+toKebabCase(markName),
+                        // /data: paramObjs
+                    }).done(function(data) {
+                        console.log("DONE!");
+                        var modelList=data;
+                        $('#vehicleManufacturerModels1')
+                            .find('option')
+                            .remove()
+                            .end()
+                            .append('<option>Model</option>')
+                            .val('')
+                        ;
+                        console.log(modelList.data);
+                        var i;
+                        for (i = 0; i < modelList.data.length; i++) {
+                            console.log(modelList.data[i].term.name);
+                            $("#vehicleManufacturerModels1").append(new Option(modelList.data[i].term.name, modelList.data[i].id));
+                        }
+                    }).fail(function(err) {
+                        // $("#demo-spinner").css({'display': 'none'});
+                        console.error("FAIL!");
+                        console.error(err);
+                    });
+                }
+            )
+            $("#vehicleManufacturer2").change(
+                function (e) {
+                    var markName=$(this).val();
+                    $.ajax({
+                        type: 'Get',
+                        url: '/api/v1/taxonomies/car-'+toKebabCase(markName),
+                        // /data: paramObjs
+                    }).done(function(data) {
+                        console.log("DONE!");
+                        var modelList=data;
+                        $('#vehicleManufacturerModels2')
+                            .find('option')
+                            .remove()
+                            .end()
+                            .append('<option>Model</option>')
+                            .val('')
+                        ;
+                        console.log(modelList.data);
+                        var i;
+                        for (i = 0; i < modelList.data.length; i++) {
+                            console.log(modelList.data[i].term.name);
+                            $("#vehicleManufacturerModels2").append(new Option(modelList.data[i].term.name, modelList.data[i].id));
+                        }
+                    }).fail(function(err) {
+                        // $("#demo-spinner").css({'display': 'none'});
+                        console.error("FAIL!");
+                        console.error(err);
+                    });
+                }
+            )
         })
+
+
 
     </script>
     <script>
