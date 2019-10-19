@@ -50,7 +50,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-4 col-lg-3">
-                        @include('themes.car-web.includes.profile')
+                        {{-- @include('themes.car-web.includes.profile') --}}
 
                         <div class="card shadow-soft-blue my-page-left">
                             <ul class="list-group list-group-flush">

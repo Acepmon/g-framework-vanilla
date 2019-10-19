@@ -177,10 +177,11 @@ hr {
 .page-top-navbar {
   width: 100%;
   position: relative;
-  padding: .75rem;
+  padding: .75rem 0;
 }
 
 .page-top-navbar .total-cars {
+  margin-left: 1rem;
   font-size: 1rem;
   font-family: "Segoe UI", "Open Sans", Helvetica, sans-serif;
   font-weight: 700;
@@ -230,12 +231,25 @@ hr {
   font-weight: 600;
   font-size: 1rem;
   transition: all .3s ease;
+  width: 100%;
+  text-align: center;
 }
 
 .page-top-navbar a.active {
   color: #2B3651;
   font-weight: 700;
   font-size: 1.1rem;
+  position: relative;
+}
+
+.page-top-navbar a.active::before {
+  height: 2px;
+  width: 100%;
+  content: '';
+  position: absolute;
+  bottom: -.8rem;
+  left: 0;
+  background: #df2626;
 }
 
 .page-top-navbar a:hover {
@@ -1416,7 +1430,6 @@ select {
   position: relative;
   border-color: transparent;
   margin-bottom: .875rem;
-  cursor: pointer;
   box-shadow: 0 0 0 0 rgba(43, 54, 81, 0.1) !important;
   transition: all .3s ease-in-out;
   border: 1px solid #E0E5EB;
@@ -1501,6 +1514,14 @@ select {
   z-index: 1;
   padding-top: 1rem;
   width: 40%;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.car-list .card .card-body .card-caption a {
+  text-decoration: none;
 }
 
 .car-list .card .card-body .card-caption .meta {
@@ -1601,14 +1622,14 @@ select {
   margin-bottom: 0;
 }
 
-.car-list .card .card-body .info .tag {
+.car-list .card .card-body .info .advantage-slider {
   grid-column-start: 1;
   grid-column-end: 4;
-  overflow: hidden;
-  white-space: nowrap;
+  position: relative;
+  width: calc(100% - 28px);
 }
 
-.car-list .card .card-body .info .tag div {
+.car-list .card .card-body .info .advantage-slider .advantage-item {
   display: inline-block;
   padding: .25rem .875rem;
   margin-bottom: .25rem;
@@ -1622,9 +1643,64 @@ select {
   color: #2B3651;
 }
 
-.car-list .card .card-body .info .tag div:hover {
+.car-list .card .card-body .info .advantage-slider .advantage-item:hover {
   background: #F8F9FB;
   box-shadow: 0 5px 10px 0 rgba(43, 54, 81, 0.1);
+}
+
+.car-list .card .card-body .info .advantage-slider .owl-nav {
+  text-align: right;
+  -webkit-tap-highlight-color: transparent;
+  position: absolute;
+  top: -2px;
+  margin: 0;
+  right: 0;
+  width: 100%;
+  z-index: -1;
+}
+
+.car-list .card .card-body .info .advantage-slider .owl-nav .disabled {
+  opacity: .1 !important;
+}
+
+.car-list .card .card-body .info .advantage-slider .owl-nav button.owl-prev {
+  background: #fff;
+  color: inherit;
+  border: none;
+  padding: 0 !important;
+  font-size: 1.5rem;
+  outline: 0;
+  height: 28px;
+  width: 28px;
+  margin: 0;
+  border-radius: 0;
+  border: none;
+  position: absolute;
+  left: -28px;
+  top: -4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.car-list .card .card-body .info .advantage-slider .owl-nav button.owl-next {
+  background: #fff;
+  color: inherit;
+  border: none;
+  padding: 0 !important;
+  font-size: 1.5rem;
+  outline: 0;
+  height: 28px;
+  width: 28px;
+  margin: 0;
+  border-radius: 0;
+  border: none;
+  position: absolute;
+  right: -28px;
+  top: -4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .car-list .card.sold .card-body .card-img {
@@ -1743,10 +1819,10 @@ select {
     width: 26px;
     height: 26px;
   }
-  .car-list .card .card-body .card-description .info .tag {
+  .car-list .card .card-body .card-description .info .advantage-slider {
     white-space: normal;
   }
-  .car-list .card .card-body .card-description .info .tag div {
+  .car-list .card .card-body .card-description .info .advantage-slider .advantage-.item {
     font-size: .875rem;
   }
 }
@@ -2510,6 +2586,10 @@ body.menu-absolute .header-menu {
   font-family: "Segoe UI", "Open Sans", Helvetica, sans-serif;
 }
 
+.maz-navbar .maz-brand img {
+  width: 220px;
+}
+
 .maz-navbar .maz-menu {
   display: flex;
   align-items: center;
@@ -2781,6 +2861,10 @@ body.menu-absolute .header-menu {
   padding: .5rem 1rem;
   border-bottom: 1px solid #eef1f3;
   box-sizing: border-box;
+}
+
+.maz-mobile-brand img {
+  height: 50px;
 }
 
 @media (max-width: 767.98px) {
@@ -3956,7 +4040,7 @@ section .owl-carousel .owl-nav button.owl-next, section .owl-carousel .owl-nav b
 }
 
 .mypage-nav {
-  margin: 0 -.75rem;
+  margin: 0;
 }
 
 .mypage-nav ul {

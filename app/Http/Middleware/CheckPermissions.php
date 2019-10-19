@@ -36,10 +36,15 @@ class CheckPermissions
         {
             $id = array_pop($id);
             if ($id) {
+                $whitelist = config('car.whitelist.personal');
+                if($id == $user->id && in_array($permission_title, $whitelist)) {
+                    return $next($request);
+                }
+
                 if ($user->hasPermission($permission_title . '_' . $id))
                 {
                     $permission_title = $permission_title . '_' . $id;
-                } else if ($user->permissionGranted($permission_title)){
+                } else if ($user->permissionGranted($permission_title)) {
                     return $next($request);
                 }
             }
