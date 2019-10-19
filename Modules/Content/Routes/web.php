@@ -16,7 +16,7 @@ Route::middleware(['auth'])->group(function () {
         Route::namespace('Ajax')->group(function () {
 
             Route::get('contents/', 'ContentController@index');
-            Route::put('contents/{contentId}', 'ContentController@updateContent');
+            Route::put('contents/{contentId}', 'ContentController@update');
             Route::post('contents/{contentId}/metas', 'ContentMetaController@createMeta');
             Route::put('contents/{contentId}/metas', 'ContentMetaController@updateMeta');
             Route::put('contents/{contentId}/metas/sync', 'ContentMetaController@syncMetas');

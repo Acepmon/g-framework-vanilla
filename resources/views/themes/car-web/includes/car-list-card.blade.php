@@ -20,7 +20,7 @@
                     <div class="meta">{{ $car->metaValue('buildYear') }}/{{ $car->metaValue('importDate') }} | {{ $car->metaValue('mileage') }}km</div>
                     <div class="price">{{ numerizePrice($car->metaValue('priceAmount')) }} {{ $car->metaValue('priceUnit') }}</div>
                 </a>
-                @if(count(metaHas(Auth::user(), 'interestedCars', $car->id)->get()) > 0)
+                @if(Auth::user() && count(metaHas(Auth::user(), 'interestedCars', $car->id)->get()) > 0)
                 <div class="favorite" onclick="addToInterest(event, {{$car->id}})">
                     <span class="text-danger"><i class="fas fa-heart"></i> Added to interest list</span>
                 </div>

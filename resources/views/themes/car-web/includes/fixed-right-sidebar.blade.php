@@ -1,7 +1,7 @@
 <div class="fixed-sidebar sticky-top">
     <div class="sticky-content">
         <div class="card">
-            <a href="#">
+            <a href="{{ url('wishlist') }}">
                 <img src="{{ asset('car-web/img/bg-showcase-2.jpg') }}" style="width: 120px"/>
             </a>
         </div>
@@ -18,8 +18,8 @@
             @foreach($premium as $car)
             <div class="slider-item">
                 <a href="{{ $car->slug }}" target="_blank" class="text-decoration-none text-dark">
-                    <img src="{{ (substr($car->metaValue('thumbnail'), 0, 4) !== 'http')?(App\Config::getStorage() . $car->metaValue('thumbnail')):$car->metaValue('thumbnail') }}">
-                    <span>{{ $car->title }}</span>
+                    <img class="img-fluid" src="{{ (substr($car->metaValue('thumbnail'), 0, 4) !== 'http')?(App\Config::getStorage() . $car->metaValue('thumbnail')):$car->metaValue('thumbnail') }}">
+                    <div class="p-2 font-weight-bold">{{ $car->title }}</div>
                 </a>
             </div>
             @endforeach

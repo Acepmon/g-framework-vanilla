@@ -133,6 +133,49 @@ class ContentController extends Controller
     public function update(Request $request, Content $content)
     {
         //
+        $request->validate([
+            'title' => 'max:191',
+            'slug' => 'max:255|unique:contents,slug',
+            'content' => 'nullable',
+            'status' => 'max:50',
+            'visibility' => 'max:50',
+            'author_id' => 'integer|exists:users,id'
+        ]);
+
+        try {
+            DB::beginTransaction();
+            $content_id = $request->route('contentId');
+            $content = Content::findOrFail($content_id);
+
+            if ($request->has('title')) {
+                $content->title = $request->title;
+            }
+            if ($request->has('slug')) {
+                $content->slug = $request->slug;
+            }
+            if ($request->has('type')) {
+                $content->type = $request->type;
+            }
+            if ($request->has('status')) {
+                $content->status = $request->status;
+            }
+            if ($request->has('visibility')) {
+                $content->visibility = $request->visibility;
+            }
+            if ($request->has('author_id')) {
+                $content->author_id = $request->author_id;
+            }
+            $content->save();
+
+            $data = ContentManager::discernMetasFromRequest($request->input());
+            ContentManager::syncMetas($content->id, $data);
+
+            DB::commit();
+            return response()->json($content);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            abort(500, 'Something went wrong!');
+        }
     }
 
     /**
