@@ -6,9 +6,18 @@
 $hotDeals=App\Content::where('type', App\Content::TYPE_CAR)->paginate(5);
 // $sideBanners = App\Banner::where('location_id', 4)->where('status', 'active')->get();
 $sideBanners = App\Banner::where('location_id', 4)->get();
+$itsIntCar=false;
 @endphp
 
-
+@if(Auth::user()!=null)
+    @php
+        $interestedCars=Auth::user()->metaArray('interestedCars');
+    @endphp
+@else
+    @php
+        $interestedCars=[];
+    @endphp
+@endif
 
 @endsection
 @section('title')
@@ -239,6 +248,8 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
         </div>
     </section>
 
+
+
     {{--<section class="banner mb-5">--}}
         {{--<div class="container pr-2 pl-2">--}}
             {{--<div class="row">--}}
@@ -403,7 +414,7 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
             var mazCountdown = $(e).find('.countdown');
             var mazCDtime = mazCountdown.data('countdown');
 
-            console.log(mazCDtime);
+            //console.log(mazCDtime);
             var countDownDate = new Date(mazCDtime).getTime();
 
             // Update the count down every 1 second
@@ -434,5 +445,58 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
         })
 
 
+    </script>
+    {{--interested car script--}}
+    <script>
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $(document).ready(function () {
+            // $.ajax({
+            //     url: '/ajax/user/interested_cars/200',
+            //     dataType: 'json',
+            //     success: function (data) {
+            //         $("#saveToInterested").html('<span class="text-danger"><i class="fas fa-heart"></i> Added to interest list</span>');
+            //         $("#saveToInterested").prop('disabled', false);
+            //     },
+            //     error: function (data) {
+            //         $("#saveToInterested").html('<span class=""><i class="far fa-heart"></i> Add to interest list</span>')
+            //         $("#saveToInterested").prop('disabled', false);
+            //     }
+            // });
+
+            $(".saveToInterested").click(function () {
+                // $("#saveToInterested").html('Loading...');
+                // $("#saveToInterested").prop('disabled', true);
+                var id = $(this).attr('data-target');
+                $.ajax({
+                    url: '/ajax/user/interested_cars',
+                    dataType: 'json',
+                    method: 'PUT',
+                    data: {
+                        'content_id': id
+                    },
+                    success: function (data) {
+                        console.log("success")
+                        if (data.status == 'added') {
+                            $("#saveToInterested").html('<span class="text-danger"><i class="fas fa-heart"></i> Added to interest list</span>');
+                            $("#saveToInterested").prop('disabled', false);
+                        } else if (data.status == 'removed') {
+                            $("#saveToInterested").html('<span class=""><i class="far fa-heart"></i> Add to interest list</span>')
+                            $("#saveToInterested").prop('disabled', false);
+                        }
+                    },
+                    error: function (error) {
+                        console.log("failed")
+                        console.log(error.status)
+                        if (error.status == 401  ){//|| error.status == 404) {
+                            window.location.href = "http://localhost:8000/login";
+                        }
+                    }
+                });
+            });
+        });
     </script>
 @endsection
