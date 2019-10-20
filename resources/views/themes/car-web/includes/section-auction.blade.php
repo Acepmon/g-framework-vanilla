@@ -13,6 +13,20 @@
                 <div class="row">
 
                     @foreach($carAuctionPremium as $auctionPrmCars)
+                        @if(count($interestedCars) > 0)
+                            @foreach($interestedCars as $intCars)
+                                @if($intCars == $auctionPrmCars->id)
+                                    @php
+                                        $itsIntCar=true;
+                                    @endphp
+                                    @break;
+                                @else
+                                    @php
+                                        $itsIntCar=false;
+                                    @endphp
+                                @endif
+                            @endforeach
+                        @endif
                         <div class="col-lg-3 col-md-4">
                             <!-- card start -->
                             <div class="card cd-box auction-car">
@@ -29,8 +43,12 @@
                                     </div>
                                     <div class="card-caption">
                                         <div id="countdown" class="countdown"  data-countdown="Jan 5, 2020 15:37:25"></div>
-                                        <div class="favorite">
-                                            <i class="icon-heart"></i>
+                                        <div class="favorite saveToInterested" data-target="{{ $auctionPrmCars->id }}">
+                                            @if($itsIntCar==true)
+                                                <i class="fas fa-heart"></i>
+                                            @else
+                                                <i class="icon-heart"></i>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
