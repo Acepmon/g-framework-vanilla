@@ -14,6 +14,20 @@
                     "returnVariable":"carsOther"})
 
                     @foreach($carsOther as $othCars)
+                        @if(count($interestedCars) > 0)
+                            @foreach($interestedCars as $intCars)
+                                @if($intCars == $othCars->id)
+                                    @php
+                                        $itsIntCar=true;
+                                    @endphp
+                                    @break;
+                                @else
+                                    @php
+                                        $itsIntCar=false;
+                                    @endphp
+                                @endif
+                            @endforeach
+                        @endif
                         <div class="col-lg-6 col-md-6">
                             <!-- card start -->
                             <a href="{{$othCars->slug}}" target="_blank" class="card">
@@ -25,9 +39,13 @@
                                         <div class="card-caption">
                                             <div class="card-title">{{$othCars->title}}</div>
                                             <div class="meta">{{(getMetasValue($othCars->metas,'buildYear'))}} / {{(getMetasValue($othCars->metas,'importDate'))}} | {{(getMetasValue($othCars->metas,'mileageAmount'))}} {{(getMetasValue($othCars->metas,'mileageUnit'))}}</div>
-                                            <div class="price">{{(getMetasValue($othCars->metas,'priceAmount'))}} {{(getMetasValue($othCars->metas, 'priceUnit'))}}</div>
-                                            <div class="favorite">
-                                                <i class="icon-heart"></i> Add to interest list
+                                            <div class="price">{{numerizePrice((getMetasValue($othCars->metas,'priceAmount')))}} {{(getMetasValue($othCars->metas, 'priceUnit'))}}</div>
+                                            <div class="favorite saveToInterested" data-target="{{ $othCars->id }}">
+                                                @if($itsIntCar==true)
+                                                    <i class="fas fa-heart"></i> Added to interest list
+                                                @else
+                                                    <i class="icon-heart"></i> Add to interest list
+                                                @endif
                                             </div>
                                         </div>
                                     </div>
