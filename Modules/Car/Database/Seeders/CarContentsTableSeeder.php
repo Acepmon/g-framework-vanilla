@@ -26,7 +26,7 @@ class CarContentsTableSeeder extends Seeder
         $time = time();
         $rootPath = config('content.cars.rootPath');
 
-        factory(Content::class, 50)->create(['type' => Content::TYPE_CAR])->each(function ($content) use ($time, $rootPath) {
+        factory(Content::class, 250)->create(['type' => Content::TYPE_CAR])->each(function ($content) use ($time, $rootPath) {
 
             $content->slug = config('content.cars.containerPage') . '/' . $content->slug;
             $content->save();
@@ -40,6 +40,7 @@ class CarContentsTableSeeder extends Seeder
 
             // Random values
 
+            $countryName = TaxonomyManager::collection('countries')->random()->term->name;
             $markName = TaxonomyManager::collection('car-manufacturer')->random()->term->name;
             $modelName = TaxonomyManager::collection('car-' . \Str::kebab($markName))->random()->term->name;
             $type = TaxonomyManager::collection('car-type')->random()->term->name;
@@ -49,18 +50,32 @@ class CarContentsTableSeeder extends Seeder
             $colorName = TaxonomyManager::collection('car-colors')->random()->term->name;
             $transmission = TaxonomyManager::collection('car-transmission')->random()->term->name;
             $wheelPosition = TaxonomyManager::collection('car-wheel-pos')->random()->term->name;
+            $wheel = TaxonomyManager::collection('car-wheel')->random()->term->name;
+            $condition = TaxonomyManager::collection('car-conditions')->random()->term->name;
+            $colorInterior = TaxonomyManager::collection('car-colors')->random()->term->name;
+            $colorExterior = TaxonomyManager::collection('car-colors')->random()->term->name;
 
-            // -------------
-            $thumbWidth = 640;
-            $thumbHeight = 360;
-            $mediaWidth = 1920;
-            $mediaHeight = 1080;
-            $placeholderUrl = 'https://via.placeholder.com';
-            $thumbnail = $placeholderUrl . '/' . $thumbWidth . 'x' . $thumbHeight . '/';
+            // via.placeholder.com images
+            // $thumbWidth = 640;
+            // $thumbHeight = 360;
+            // $mediaWidth = 1920;
+            // $mediaHeight = 1080;
+            // $placeholderUrl = 'https://via.placeholder.com';
+            // $thumbnail = $placeholderUrl . '/' . $thumbWidth . 'x' . $thumbHeight . '/';
+            // $medias = [];
+            // $mediasLimit = rand(1, 20);
+            // for ($i = 0; $i < $mediasLimit; $i++) {
+            //     $media = $placeholderUrl . '/' . $mediaWidth . 'x' . $mediaHeight . '/';
+            //     $meta = new ContentMeta(['key' => 'medias', 'value' => $media]);
+            //     array_push($medias, $meta);
+            // }
+
+            // static images
+            $thumbnail = url(asset('car-web/img/Cars/' . rand(1, 12) . '.jpg'));
             $medias = [];
             $mediasLimit = rand(1, 20);
             for ($i = 0; $i < $mediasLimit; $i++) {
-                $media = $placeholderUrl . '/' . $mediaWidth . 'x' . $mediaHeight . '/';
+                $media = url(asset('car-web/img/Cars/' . rand(1, 12) . '.jpg'));
                 $meta = new ContentMeta(['key' => 'medias', 'value' => $media]);
                 array_push($medias, $meta);
             }
@@ -69,12 +84,12 @@ class CarContentsTableSeeder extends Seeder
             $publishTypes = ['free', 'premium', 'best_premium'];
 
             $content->metas()->saveMany([
-                new ContentMeta(['key' => 'plateNumber', 'value' => '0035UNA']),
-                new ContentMeta(['key' => 'cabinNumber', 'value' => 'VF3 3CRFNC 12345678']),
-                new ContentMeta(['key' => 'countryName', 'value' => 'japan']),
+                new ContentMeta(['key' => 'plateNumber', 'value' => rand(1000, 9999) . \Str::random(3)]),
+                new ContentMeta(['key' => 'cabinNumber', 'value' => \Str::uuid()]),
+                new ContentMeta(['key' => 'countryName', 'value' => $countryName]),
                 new ContentMeta(['key' => 'markName', 'value' => $markName]),
                 new ContentMeta(['key' => 'modelName', 'value' => $modelName]),
-                new ContentMeta(['key' => 'type', 'value' => $type]),
+                new ContentMeta(['key' => 'carType', 'value' => $type]),
                 new ContentMeta(['key' => 'className', 'value' => 'luxury']),
                 new ContentMeta(['key' => 'manCount', 'value' => $manCount]),
 
@@ -89,22 +104,22 @@ class CarContentsTableSeeder extends Seeder
                 new ContentMeta(['key' => 'heightUnit', 'value' => 'cm']),
                 new ContentMeta(['key' => 'capacityAmount', 'value' => rand(1, 5000)]),
                 new ContentMeta(['key' => 'capacityUnit', 'value' => 'cc']),
-                new ContentMeta(['key' => 'motorNumber', 'value' => '2H2tXA598WDY987665']),
+                new ContentMeta(['key' => 'motorNumber', 'value' => \Str::uuid()]),
                 new ContentMeta(['key' => 'colorName', 'value' => $colorName]),
                 new ContentMeta(['key' => 'axleCount', 'value' => '2']),
-                new ContentMeta(['key' => 'certificateNumber', 'value' => '2H2tXA598WDY987665']),
-                new ContentMeta(['key' => 'importDate', 'value' => '2006']),
+                new ContentMeta(['key' => 'certificateNumber', 'value' => \Str::uuid()]),
+                new ContentMeta(['key' => 'importDate', 'value' => rand(1990, 2020)]),
                 new ContentMeta(['key' => 'intent', 'value' => 'use']),
                 new ContentMeta(['key' => 'transmission', 'value' => $transmission]),
-                new ContentMeta(['key' => 'archiveDate', 'value' => '2008']),
-                new ContentMeta(['key' => 'buildYear', 'value' => '2003']),
+                new ContentMeta(['key' => 'archiveDate', 'value' => rand(1990, 2020)]),
+                new ContentMeta(['key' => 'buildYear', 'value' => rand(1990, 2020)]),
                 new ContentMeta(['key' => 'archiveFirstNumber', 'value' => 'A598WDY987']),
                 new ContentMeta(['key' => 'wheelPosition', 'value' => $wheelPosition]),
                 new ContentMeta(['key' => 'lengthAmount', 'value' => '4']),
                 new ContentMeta(['key' => 'lengthUnit', 'value' => 'm']),
                 new ContentMeta(['key' => 'archiveNumber', 'value' => 'A598WDY987']),
-                new ContentMeta(['key' => 'carCondition', 'value' => 'used']),
-                new ContentMeta(['key' => 'wheelDrive', 'value' => 'back']),
+                new ContentMeta(['key' => 'carCondition', 'value' => $condition]),
+                new ContentMeta(['key' => 'wheelDrive', 'value' => $wheel]),
                 new ContentMeta(['key' => 'mileageAmount', 'value' => rand(1, 5000)]),
                 new ContentMeta(['key' => 'mileageUnit', 'value' => 'km']),
                 new ContentMeta(['key' => 'advantages', 'value' => 'used in womans hand']),
@@ -130,15 +145,15 @@ class CarContentsTableSeeder extends Seeder
                 new ContentMeta(['key' => 'endsAt', 'value' => '2019-09-18']),
 
                 // Analytical logs
-                new ContentMeta(['key' => 'viewed', 'value' => '419']),
-                new ContentMeta(['key' => 'interested', 'value' => '51']),
+                new ContentMeta(['key' => 'viewed', 'value' => rand(1, 10000)]),
+                new ContentMeta(['key' => 'interested', 'value' => rand(1, 100)]),
 
                 new ContentMeta(['key' => 'engine', 'value' => '1499 L']),
                 new ContentMeta(['key' => 'chassis', 'value' => '4 WD']),
                 new ContentMeta(['key' => 'speedLimitAmount', 'value' => '180']),
                 new ContentMeta(['key' => 'speedLimitUnit', 'value' => 'km/h']),
-                new ContentMeta(['key' => 'colorNameInterior', 'value' => 'beige']),
-                new ContentMeta(['key' => 'colorNameExterior', 'value' => 'black']),
+                new ContentMeta(['key' => 'colorNameInterior', 'value' => $colorInterior]),
+                new ContentMeta(['key' => 'colorNameExterior', 'value' => $colorExterior]),
                 new ContentMeta(['key' => 'doorCount', 'value' => '4']),
 
                 // Doctor Service Verification

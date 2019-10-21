@@ -15,11 +15,11 @@
                     <div class="title">Overall</div>
                     <div class="info-list">
                         <ul>
-                            @if ($content->metaValue('type'))
+                            @if ($content->metaValue('carType'))
                                 <li>
                                     <span class="info-icon">
                                         <img src="{{ asset('car-web/img/icons/sedan.svg') }}" alt="">
-                                        <p>{{ $content->metaValue('type') }}</p>
+                                        <p>{{ $content->metaValue('carType') }}</p>
                                     </span>
                                 </li>
                             @endif

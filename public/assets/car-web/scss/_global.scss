@@ -190,9 +190,10 @@ hr {
 .page-top-navbar{
   width: 100%;
   position: relative;
-  padding: .75rem;
+  padding: .75rem 0;
 
   .total-cars{
+    margin-left: 1rem;
     font-size: 1rem;
     font-family: $segoe;
     font-weight: 700;
@@ -238,11 +239,23 @@ hr {
       font-weight: 600;
       font-size: 1rem;
       transition: all .3s ease;
+      width: 100%;
+      text-align: center;
 
       &.active{
           color: $secondary;
           font-weight: 700;
           font-size: 1.1rem;
+          position: relative;
+          &::before{
+            height: 2px;
+            width: 100%;
+            content: '';
+            position: absolute;
+            bottom: -.8rem;
+            left: 0;
+            background: #df2626;
+          }
       }
 
       &:hover{
@@ -312,7 +325,8 @@ hr {
 
 .card{
   &.cd-box{
-      margin-bottom: 1rem;
+      padding-bottom: 1rem;
+      height: 100%;
   }
 }
 
@@ -337,4 +351,31 @@ hr {
 }
 .fixed-sidebar .owl-dot {
   zoom: 0.6!important;
+}
+
+.banner-slider{
+  .owl-dots{
+    position: absolute;
+    top: 0;
+    left: 1rem;
+
+    .owl-dot span {
+      width: 8px;
+      height: 8px;
+      margin: 5px 5px;
+      background: $white;
+      display: block;
+      -webkit-backface-visibility: visible;
+      transition: opacity 200ms ease;
+      border-radius: 30px;
+      transition: all .3s linear;
+  }
+  }
+}
+
+section .owl-theme .owl-dots .owl-dot.active span {
+  background: #2680eb;
+  width: 20px;
+  outline: 0;
+  transition: all .3s linear;
 }

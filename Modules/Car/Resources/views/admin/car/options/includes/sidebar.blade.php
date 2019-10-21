@@ -7,6 +7,33 @@
         <!-- Sub navigation -->
         <div class="card">
             <div class="card-header bg-transparent header-elements-inline">
+                <span class="text-uppercase font-size-sm font-weight-semibold">System Taxonomies</span>
+                <div class="header-elements">
+                    <div class="list-icons">
+                        <a class="list-icons-item" data-action="collapse"></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-body p-0">
+                <ul class="nav nav-sidebar mb-2" data-nav-type="accordion">
+                    <li class="nav-item">
+                        <a href="{{ route('admin.modules.car.options.show', 'countries') }}" class="nav-link {{ request()->is('admin/modules/car/options/countries') ? 'active' : '' }}">
+                            Countries
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('admin.modules.car.options.show', 'provinces') }}" class="nav-link {{ request()->is('admin/modules/car/options/provinces') ? 'active' : '' }}">
+                            Provinces
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Sub navigation -->
+        <div class="card">
+            <div class="card-header bg-transparent header-elements-inline">
                 <span class="text-uppercase font-size-sm font-weight-semibold">Finance Calculations</span>
                 <div class="header-elements">
                     <div class="list-icons">
@@ -87,11 +114,6 @@
                     <li class="nav-item">
                         <a href="{{ route('admin.modules.car.options.show', 'car-transmission') }}" class="nav-link {{ request()->is('admin/modules/car/options/car-transmission') ? 'active' : '' }}">
                             Transmission
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ route('admin.modules.car.options.show', 'provinces') }}" class="nav-link {{ request()->is('admin/modules/car/options/provinces') ? 'active' : '' }}">
-                            Provinces
                         </a>
                     </li>
                     <li class="nav-item">

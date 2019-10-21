@@ -55,11 +55,11 @@
     -ms-flex-wrap: wrap;
     flex-wrap: wrap;
 }
-.card-list .owl-item {
+/* .card-list .owl-item {
     display: -webkit-flex;
     display: -ms-flexbox;
     display: flex;
     height: auto !important;
-}
+} */
 </style>
 @endif

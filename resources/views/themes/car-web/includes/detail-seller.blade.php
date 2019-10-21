@@ -7,7 +7,7 @@
             </div>
             <div class="dealer-meta">
                 <div class="dealer-name">{{ $user->name }}</div>
-                <div class="dealer-status">{{ $user->metaValue('type') }}</div>
+                <div class="dealer-status">{{ $user->metaValue('carType') }}</div>
                 <div class="dealer-contact"> <i class="icon-phone"></i> {{ $user->metaValue('phone') }}</div>
             </div>
         </div>

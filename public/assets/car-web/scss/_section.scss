@@ -94,6 +94,10 @@ section{
         background: $primary;
         outline: none;
     }
+    .owl-theme .owl-dots .owl-dot span {
+        background: $gray-300;
+        margin: 5px;
+    }
     .owl-carousel .owl-nav button.owl-next, .owl-carousel .owl-nav button.owl-prev, .owl-carousel button.owl-dot {
         outline: none;
     }

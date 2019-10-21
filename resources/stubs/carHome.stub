@@ -6,9 +6,18 @@
 $hotDeals=App\Content::where('type', App\Content::TYPE_CAR)->paginate(5);
 // $sideBanners = App\Banner::where('location_id', 4)->where('status', 'active')->get();
 $sideBanners = App\Banner::where('location_id', 4)->get();
+$itsIntCar=false;
 @endphp
 
-
+@if(Auth::user()!=null)
+    @php
+        $interestedCars=Auth::user()->metaArray('interestedCars');
+    @endphp
+@else
+    @php
+        $interestedCars=[];
+    @endphp
+@endif
 
 @endsection
 @section('title')
@@ -123,21 +132,18 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
                                     @csrf
                                     <input type="text" name="title" hidden class="searchTitle">
                                     <div class="form-group">
-                                        <select class="form-control" name="manufacturer" onchange="manufacturer(this)">
-                                            @getTaxonomys({"filter":[{"field":"taxonomy", "key":"manufacturer"}], "returnValue":"manufacturers"})
+                                        <select id="vehicleManufacturer1" class="form-control" name="manufacturer">
                                             <option>Manufacturer</option>
+                                            @getTaxonomys({"filter":[{"field":"taxonomy", "key":"car-manufacturer"}], "returnValue":"manufacturers"})
                                             @foreach($manufacturers as $data)
-                                                <option>{{$data->description}}</option>
+                                                <option value="{{$data->term->name}}">{{$data->term->name}}</option>
                                             @endforeach
                                         </select>
                                     </div>
                                     <div class="form-group">
-                                        <select class="form-control" name="model">
-                                            @getTaxonomys({"filter":[{"field":"taxonomy", "key":"model"}], "returnValue":"models"})
+                                        <select id="vehicleManufacturerModels1" class="form-control" name="model">
                                             <option>Model</option>
-                                            @foreach($models as $data)
-                                                <option>{{$data->description}}</option>
-                                            @endforeach
+                                            {{--//@getTaxonomys({"filter":[{"field":"taxonomy", "key":"model"}], "returnValue":"models"})--}}
                                         </select>
                                     </div>
                                     <div class="form-group">
@@ -156,8 +162,7 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
                                             @endfor
                                         </select>
                                     </div>
-                                    <button type="submit" class="btn btn-danger btn-lg btn-round shadow mt-4">Search
-                                    </button>
+                                    <button type="submit" class="btn btn-danger btn-lg btn-round shadow mt-4 pl-5 pr-5">Search</button>
                                 </form>
                             </div>
                             <div class="tab-pane fade" id="budget" role="tabpanel" aria-labelledby="auction-tab">
@@ -165,21 +170,18 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
                                     @csrf
                                     <input name="title" type="text" hidden class="searchTitle">
                                     <div class="form-group">
-                                        <select class="form-control" name="manufacturer">
-                                            @getTaxonomys({"filter":[{"field":"taxonomy", "key":"manufacturer"}], "returnValue":"manufacturers"})
+                                        <select id="vehicleManufacturer2" class="form-control" name="manufacturer">
                                             <option>Manufacturer</option>
+                                            @getTaxonomys({"filter":[{"field":"taxonomy", "key":"car-manufacturer"}], "returnValue":"manufacturers"})
                                             @foreach($manufacturers as $data)
-                                                <option>{{$data->description}}</option>
+                                                <option value="{{$data->term->name}}">{{$data->term->name}}</option>
                                             @endforeach
                                         </select>
                                     </div>
                                     <div class="form-group">
-                                        <select class="form-control" name="model">
-                                            @getTaxonomys({"filter":[{"field":"taxonomy", "key":"model"}], "returnValue":"models"})
+                                        <select id="vehicleManufacturerModels2" class="form-control" name="model">
                                             <option>Model</option>
-                                            @foreach($models as $data)
-                                                <option>{{$data->description}}</option>
-                                            @endforeach
+                                            {{--//@getTaxonomys({"filter":[{"field":"taxonomy", "key":"model"}], "returnValue":"models"})--}}
                                         </select>
                                     </div>
                                     <div class="form-group">
@@ -190,7 +192,7 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
                                         <input class="form-control" name="Max-price" type="number"
                                                placeholder="max-price" aria-label="Search">
                                     </div>
-                                    <button type="submit" class="btn btn-danger btn-lg btn-round shadow mt-4">Search</button>
+                                    <button type="submit" class="btn btn-danger btn-lg btn-round shadow mt-4 pl-5 pr-5">Search</button>
                                 </form>
                             </div>
                         </div>
@@ -245,6 +247,8 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
             </div>
         </div>
     </section>
+
+
 
     {{--<section class="banner mb-5">--}}
         {{--<div class="container pr-2 pl-2">--}}
@@ -306,7 +310,6 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
                 .map(x => x.toLowerCase())
                 .join('-');
         $(document).ready(function () {
-
             $("#vehicleManufacturer").change(
                 function (e) {
                     var markName=$(this).val();
@@ -337,7 +340,163 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
                     });
                 }
             )
+            $("#vehicleManufacturer1").change(
+                function (e) {
+                    var markName=$(this).val();
+                    $.ajax({
+                        type: 'Get',
+                        url: '/api/v1/taxonomies/car-'+toKebabCase(markName),
+                        // /data: paramObjs
+                    }).done(function(data) {
+                        console.log("DONE!");
+                        var modelList=data;
+                        $('#vehicleManufacturerModels1')
+                            .find('option')
+                            .remove()
+                            .end()
+                            .append('<option>Model</option>')
+                            .val('')
+                        ;
+                        console.log(modelList.data);
+                        var i;
+                        for (i = 0; i < modelList.data.length; i++) {
+                            console.log(modelList.data[i].term.name);
+                            $("#vehicleManufacturerModels1").append(new Option(modelList.data[i].term.name, modelList.data[i].id));
+                        }
+                    }).fail(function(err) {
+                        // $("#demo-spinner").css({'display': 'none'});
+                        console.error("FAIL!");
+                        console.error(err);
+                    });
+                }
+            )
+            $("#vehicleManufacturer2").change(
+                function (e) {
+                    var markName=$(this).val();
+                    $.ajax({
+                        type: 'Get',
+                        url: '/api/v1/taxonomies/car-'+toKebabCase(markName),
+                        // /data: paramObjs
+                    }).done(function(data) {
+                        console.log("DONE!");
+                        var modelList=data;
+                        $('#vehicleManufacturerModels2')
+                            .find('option')
+                            .remove()
+                            .end()
+                            .append('<option>Model</option>')
+                            .val('')
+                        ;
+                        console.log(modelList.data);
+                        var i;
+                        for (i = 0; i < modelList.data.length; i++) {
+                            console.log(modelList.data[i].term.name);
+                            $("#vehicleManufacturerModels2").append(new Option(modelList.data[i].term.name, modelList.data[i].id));
+                        }
+                    }).fail(function(err) {
+                        // $("#demo-spinner").css({'display': 'none'});
+                        console.error("FAIL!");
+                        console.error(err);
+                    });
+                }
+            )
         })
 
+
+
+    </script>
+    <script>
+        var carList = $('.auction-car');
+
+        carList.each(function(i,e){
+
+
+            var mazCountdown = $(e).find('.countdown');
+            var mazCDtime = mazCountdown.data('countdown');
+
+            //console.log(mazCDtime);
+            var countDownDate = new Date(mazCDtime).getTime();
+
+            // Update the count down every 1 second
+            var x = setInterval(function() {
+
+                // Get today's date and time
+                var now = new Date().getTime();
+
+                // Find the distance between now and the count down date
+                var distance = countDownDate - now;
+
+                // Time calculations for days, hours, minutes and seconds
+                var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                // Display the result in the element with id="demo"
+                mazCountdown.html((hours + days * 24) + "<span>Цаг</span> "
+                    + minutes + "<span>Мин</span> " + seconds + "<span>Сек</span> ");
+
+                // If the count down is finished, write some text
+                if (distance < 0) {
+                    clearInterval(x);
+                    mazCountdown.html("EXPIRED");
+                }
+            }, 1000);
+        })
+
+
+    </script>
+    {{--interested car script--}}
+    <script>
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $(document).ready(function () {
+            // $.ajax({
+            //     url: '/ajax/user/interested_cars/200',
+            //     dataType: 'json',
+            //     success: function (data) {
+            //         $("#saveToInterested").html('<span class="text-danger"><i class="fas fa-heart"></i> Added to interest list</span>');
+            //         $("#saveToInterested").prop('disabled', false);
+            //     },
+            //     error: function (data) {
+            //         $("#saveToInterested").html('<span class=""><i class="far fa-heart"></i> Add to interest list</span>')
+            //         $("#saveToInterested").prop('disabled', false);
+            //     }
+            // });
+
+            $(".saveToInterested").click(function () {
+                // $("#saveToInterested").html('Loading...');
+                // $("#saveToInterested").prop('disabled', true);
+                var id = $(this).attr('data-target');
+                $.ajax({
+                    url: '/ajax/user/interested_cars',
+                    dataType: 'json',
+                    method: 'PUT',
+                    data: {
+                        'content_id': id
+                    },
+                    success: function (data) {
+                        console.log("success")
+                        if (data.status == 'added') {
+                            $("#saveToInterested").html('<span class="text-danger"><i class="fas fa-heart"></i> Added to interest list</span>');
+                            $("#saveToInterested").prop('disabled', false);
+                        } else if (data.status == 'removed') {
+                            $("#saveToInterested").html('<span class=""><i class="far fa-heart"></i> Add to interest list</span>')
+                            $("#saveToInterested").prop('disabled', false);
+                        }
+                    },
+                    error: function (error) {
+                        console.log("failed")
+                        console.log(error.status)
+                        if (error.status == 401  ){//|| error.status == 404) {
+                            window.location.href = "http://localhost:8000/login";
+                        }
+                    }
+                });
+            });
+        });
     </script>
 @endsection

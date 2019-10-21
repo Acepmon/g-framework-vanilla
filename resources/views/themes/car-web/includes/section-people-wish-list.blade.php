@@ -1,10 +1,12 @@
 <section class="mainPage-items bg-white">
     <div class="container">
+        @contents({"filter":[{"field":"type", "key":"wanna-buy"}, {"field":"status", "key":"published"}], "limit":12,
+        "returnVariable":"wannabuy"})
         <div class="row">
             <div class="section-title">
                 <h2>People's wish list</h2>
                 <span>
-            <a href="#">See all (123) <i class="fab fa fa-angle-right"></i></a>
+            <a href="/wishlist">See all ({{count($wannabuy)}}) <i class="fab fa fa-angle-right"></i></a>
 
           </span>
             </div>
@@ -14,8 +16,7 @@
         <div class="container">
             <div class="row">
                 <div class="card-slide owl-carousel owl-theme">
-                    @contents({"filter":[{"field":"type", "key":"wanna-buy"}, {"field":"status", "key":"published"}], "limit":12,
-                    "returnVariable":"wannabuy"})
+
                     @foreach($wannabuy as $wannaBuyData)
 
                     <!-- card start -->
@@ -25,7 +26,7 @@
                             </div>
                             <div class="card-body py-2">
                                 <div class="wish-detail">
-                                    <div class="price"><i class="icon-tag"></i>{{(getMetasValue($wannaBuyData->metas,'priceAmountStart'))}}-{{(getMetasValue($wannaBuyData->metas,'priceAmountEnd'))}} {{(getMetasValue($wannaBuyData->metas,'priceUnit'))}}</div>
+                                    <div class="price"><i class="icon-tag"></i>{{numerizePrice((getMetasValue($wannaBuyData->metas,'priceAmountStart')))}}-{{numerizePrice((getMetasValue($wannaBuyData->metas,'priceAmountEnd')))}} {{(getMetasValue($wannaBuyData->metas,'priceUnit'))}}</div>
                                     <div class="phone"><i class="icon-phone"></i> {{(getMetasValue($wannaBuyData->metas,'retailPhone'))}}</div>
                                 </div>
                                 <div class="wish-user">

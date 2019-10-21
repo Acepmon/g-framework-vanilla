@@ -11,9 +11,23 @@
 |
 */
 
+use Illuminate\Http\Request;
+
 if (!file_exists(base_path('.env')) && config('app.env_install')) {
     \Artisan::call('env:install');
 }
+
+Route::prefix('ajax')->group(function () {
+    Route::namespace('Ajax')->group(function () {
+
+        Route::get('user_exists', function (Request $request) {
+            return response()->json([
+                'status' => \App\User::where('email', $request->input('email'))->count() > 0 ? true : false
+            ]);
+        });
+
+    });
+});
 
 Route::middleware(['auth', 'admin'])->group(function () {
     Route::prefix('admin')->group(function () {
