@@ -35,19 +35,22 @@
     <div class="form-row">
         <div class="form-group col-md-6">
             <label for="Manufacturer">Manufacturer:</label>
-            <select id="Manufacturer" name="markName" class="form-control">
-                <option value="" selected>Choose...</option>
+            <select id="selectManufacturer" name="markName" class="form-control">
+                <option value="0">Manufacturer</option>
                 @foreach(App\TermTaxonomy::where('taxonomy', 'car-manufacturer')->get() as $taxonomy)
-                <option value="{{ $taxonomy->term->name }}">{{$taxonomy->term->name}}</option>
+                <option>{{$taxonomy->term->name}}</option>
                 @endforeach
             </select>
         </div>
         <div class="form-group col-md-6">
             <label for="Model">Model:</label>
-            <select id="Model" name="modelName" class="form-control">
-                <option value="" selected>Choose...</option>
-                @foreach(App\TermTaxonomy::where('taxonomy', 'car-toyota')->get() as $taxonomy)
-                <option value="{{ $taxonomy->term->name }}">{{$taxonomy->term->name}}</option>
+            <select id="modelSelect" name="modelName" class="form-control">
+                <option value="0">Model</option>
+                
+                @foreach(App\TermTaxonomy::where('taxonomy', 'car-manufacturer')->get() as $taxonomy)
+                @foreach(App\TermTaxonomy::where('taxonomy', 'car-'.strtolower($taxonomy->term->name))->get() as $model)
+                <option title="{{$taxonomy->term->name}}">{{$model->term->name}}</option>
+                @endforeach
                 @endforeach
             </select>
         </div>
@@ -329,5 +332,16 @@
             console.error(err);
         });
     }
+
+    $(document).ready(function(){
+    $('#selectManufacturer').change(function (){
+      var val = $(this).val();
+      console.log($(this).val());
+
+      $('#modelSelect option[title!='+val+']').css('display', 'none');
+      
+      $('#modelSelect option[title='+val+']').css('display', 'block');
+    });
+  });
 </script>
 @endpush
