@@ -145,7 +145,7 @@
             console.log("DONE!");
             console.log(data);
             $('#carRegSuccess').modal('show');
-            window.location.href = "/";
+            window.location.href = "/post/"+carId;
         }).fail(function(err) {
             $("#demo-spinner").css({'display': 'none'});
             console.error("FAIL!");

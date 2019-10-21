@@ -46,7 +46,13 @@
                 <ul class="maz-menu">
                     @foreach ($topbarMenus as $menu)
                         @if($menu->link == '/wishlist')
-                            <li class="maz-menu-item"><a data-toggle="modal" href="#modalAddWishlist">/ {{ $menu->title }} /</a></li>
+                            @if (Route::has('login'))
+                                @auth
+                                    <li class="maz-menu-item"><a data-toggle="modal" href="#modalAddWishlist">/ {{ $menu->title }} /</a></li>
+                                @else
+                                    <li class="maz-menu-item"><a href="{{ $menu->link }}">/ {{ $menu->title }} /</a></li>
+                                @endauth
+                            @endif
                         @else
                             <li class="maz-menu-item"><a href="{{ $menu->link }}">/ {{ $menu->title }} /</a></li>
                         @endif
@@ -73,5 +79,9 @@
         border-color: #E0E5EB;
     }
 </style>
-
-@include('themes.car-web.includes.car-wishlist-add')
+@if (Route::has('login'))
+    @auth
+        @include('themes.car-web.includes.car-wishlist-add')
+    @else
+    @endauth
+@endif
