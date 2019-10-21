@@ -19,16 +19,25 @@ class CarFreeController extends Controller
         $published = Content::where('type', 'car')->where('status', Content::STATUS_PUBLISHED)->whereHas('metas', function ($query) {
             $query->where('key', 'publishType');
             $query->where('value', 'free');
+        })->whereHas('metas', function ($query) {
+            $query->where('key', 'isAuction');
+            $query->where('value', '0');
         })->orderBy('visibility', 'desc')->get();
 
         $pending = Content::where('type', 'car')->where('status', Content::STATUS_DRAFT)->whereHas('metas', function ($query) {
             $query->where('key', 'publishType');
             $query->where('value', 'free');
+        })->whereHas('metas', function ($query) {
+            $query->where('key', 'isAuction');
+            $query->where('value', '0');
         })->orderBy('visibility', 'desc')->get();
 
         $draft = Content::where('type', 'car')->where('status', Content::STATUS_PUBLISHED)->whereHas('metas', function ($query) {
             $query->where('key', 'publishType');
             $query->where('value', 'free');
+        })->whereHas('metas', function ($query) {
+            $query->where('key', 'isAuction');
+            $query->where('value', '0');
         })->orderBy('visibility', 'desc')->get();
 
         $contents = [

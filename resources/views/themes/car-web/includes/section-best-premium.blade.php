@@ -4,15 +4,30 @@
             <div class="section-title">
                 <h2>Our best</h2>
                 <span>
-            <a href="#">See all (123) <i class="fab fa fa-angle-right"></i></a>
+            <a href="/buy?best_premium=true">See all<i class="fab fa fa-angle-right"></i></a>
           </span>
             </div>
+        </div>
 
-            <div class="card-list">
+            <div class="card-list mx-n3">
                 <div class="row">
-                    @contents({"filter":[{"field":"type", "key":"car"}, {"field":"status", "key":"published"}], "metasFilter": [{"key":"publishType", "value":"best_premium"}], "limit":12, "returnVariable":"carDataPremium"})
+                    @content(type=car, status=published, visibility=public, publishType=best_premium, isAuction=0, limit=12 as $bpCars | paginate)
 
-                    @foreach($carDataPremium as $bpCars)
+                        @if(count($interestedCars) > 0)
+                            @foreach($interestedCars as $intCars)
+                                @if($intCars==$bpCars->id)
+                                    @php
+                                        $itsIntCar=true;
+                                    @endphp
+                                    @break;
+                                @else
+                                    @php
+                                        $itsIntCar=false;
+                                    @endphp
+                                @endif
+                            @endforeach
+                        @endif
+
                           <!-- col-start -->
                         <div class="col-lg-3 col-md-4">
                             <!-- card start -->
@@ -23,15 +38,19 @@
 
                                     <div class="card-caption">
                                         <div class="meta">{{(getMetasValue($bpCars->metas, 'mileageAmaount'))}} {{(getMetasValue($bpCars->metas, 'mileageUnit'))}}| {{(getMetasValue($bpCars->metas, 'fuelType'))}} | {{(getMetasValue($bpCars->metas, 'capacityAmount'))}} {{(getMetasValue($bpCars->metas, 'capacityunit'))}}</div>
-                                        <div class="favorite">
-                                            <i class="icon-heart"></i>
+                                        <div class="favorite saveToInterested" data-target="{{ $bpCars->id }}">
+                                            @if($itsIntCar==true)
+                                                <span class="text-danger"><i class="fas fa-heart"></i></span>
+                                            @else
+                                                <i class="icon-heart"></i>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
                                 <div class="card-body py-2">
                                     <div class="card-description">
                                         <div class="card-desc-top">
-                                            <div class="card-title">{{$bpCars->title}}</div>
+                                            <div class="card-title">{{$bpCars->title}} {{$bpCars->id}}</div>
                                             <div class="price">{{numerizePrice((getMetasValue($bpCars->metas, 'priceAmount')))}} {{(getMetasValue($bpCars->metas, 'priceUnit'))}}</div>
                                         </div>
 
@@ -45,9 +64,8 @@
                             <!-- card end -->
                         </div>
                         <!-- col-end -->
-                    @endforeach
+                    @endcontent
                 </div>
             </div>
         </div>
-    </div>
 </section>

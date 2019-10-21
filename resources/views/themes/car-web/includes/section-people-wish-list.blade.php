@@ -4,7 +4,7 @@
             <div class="section-title">
                 <h2>People's wish list</h2>
                 <span>
-            <a href="#">See all (123) <i class="fab fa fa-angle-right"></i></a>
+            <a href="/wishlist">See all ( @contentsTotal({"filter":[{"field":"type", "key":"wanna-buy"}, {"field":"status", "key":"published"}, {"field":"visibility", "key":"public"}]}) ) <i class="fab fa fa-angle-right"></i></a>
 
           </span>
             </div>
@@ -14,10 +14,9 @@
         <div class="container">
             <div class="row">
                 <div class="card-slide owl-carousel owl-theme">
-                    @contents({"filter":[{"field":"type", "key":"wanna-buy"}, {"field":"status", "key":"published"}], "limit":12,
-                    "returnVariable":"wannabuy"})
-                    @foreach($wannabuy as $wannaBuyData)
 
+
+                    @content(type=wanna-buy, status=published, visibility=public, limit=12 as $wannaBuyData | paginate)
                     <!-- card start -->
                         <div class="card">
                             <div class="card-top">
@@ -25,7 +24,7 @@
                             </div>
                             <div class="card-body py-2">
                                 <div class="wish-detail">
-                                    <div class="price"><i class="icon-tag"></i>{{(getMetasValue($wannaBuyData->metas,'priceAmountStart'))}}-{{(getMetasValue($wannaBuyData->metas,'priceAmountEnd'))}} {{(getMetasValue($wannaBuyData->metas,'priceUnit'))}}</div>
+                                    <div class="price"><i class="icon-tag"></i>{{numerizePrice((getMetasValue($wannaBuyData->metas,'priceAmountStart')))}}-{{numerizePrice((getMetasValue($wannaBuyData->metas,'priceAmountEnd')))}}</div>
                                     <div class="phone"><i class="icon-phone"></i> {{(getMetasValue($wannaBuyData->metas,'retailPhone'))}}</div>
                                 </div>
                                 <div class="wish-user">
@@ -36,7 +35,7 @@
                             </div>
                         </div>
                     <!-- card end -->
-                    @endforeach
+                    @endcontent
                 </div>
             </div>
         </div>

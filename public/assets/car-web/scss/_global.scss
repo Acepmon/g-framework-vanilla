@@ -94,12 +94,23 @@ h6 {
       position: relative;
   }
 }
-.color[data-color^="white"] {
+.color[data-color^="white-ivory"] {
   &:before{
       content: '';
       width: 20px;
       height: 20px;
-      background:  radial-gradient(circle at top center, #fefefe 20%, #c7c5c8 100%);
+      background:  radial-gradient(circle at top center, #fff 20%, #DEDAE1 100%);
+      border-radius: 50%;
+      display: inline-block;
+      position: relative;
+  }
+}
+.color[data-color^="white-pearl"] {
+  &:before{
+      content: '';
+      width: 20px;
+      height: 20px;
+      background:  radial-gradient(circle at top center, #fff 20%, #D6D9D0 100%);
       border-radius: 50%;
       display: inline-block;
       position: relative;
@@ -116,12 +127,12 @@ h6 {
       position: relative;
   }
 }
-.color[data-color^="dark-gray"] {
+.color[data-color^="asphalt-gray"] {
   &:before{
       content: '';
       width: 20px;
       height: 20px;
-      background:  radial-gradient(circle at top center, #A5A5A5 20%, #646466 100%);
+      background:  radial-gradient(circle at top center, #A6AFB1 20%, #40474A 100%);
       border-radius: 50%;
       display: inline-block;
       position: relative;
@@ -132,7 +143,7 @@ h6 {
       content: '';
       width: 20px;
       height: 20px;
-      background:  radial-gradient(circle at top center, #FFC9CE 20%, #DF2626 100%);
+      background:  radial-gradient(circle at top center, #FF6F39 20%, #B20000 100%);
       border-radius: 50%;
       display: inline-block;
       position: relative;
@@ -143,7 +154,18 @@ h6 {
       content: '';
       width: 20px;
       height: 20px;
-      background:  radial-gradient(circle at top center, #84A3EF 20%, #2B3651 100%);
+      background:  radial-gradient(circle at top center, #7ECBFF 20%, #355BB8 100%);
+      border-radius: 50%;
+      display: inline-block;
+      position: relative;
+  }
+}
+.color[data-color^="blue-dark"] {
+  &:before{
+      content: '';
+      width: 20px;
+      height: 20px;
+      background:  radial-gradient(circle at top center, #1A3D91 20%, #131B30 100%);
       border-radius: 50%;
       display: inline-block;
       position: relative;
@@ -155,6 +177,94 @@ h6 {
       width: 20px;
       height: 20px;
       background:  radial-gradient(circle at top center, #D4EDEF 20%, #94ADAF 100%);
+      border-radius: 50%;
+      display: inline-block;
+      position: relative;
+  }
+}
+.color[data-color^="brown"] {
+  &:before{
+      content: '';
+      width: 20px;
+      height: 20px;
+      background:  radial-gradient(circle at top center, #E17E4B 20%, #532E1B 100%);
+      border-radius: 50%;
+      display: inline-block;
+      position: relative;
+  }
+}
+.color[data-color^="bronze"] {
+  &:before{
+      content: '';
+      width: 20px;
+      height: 20px;
+      background:  radial-gradient(circle at top center, #FFF4D1 20%, #AF9C78 100%);
+      border-radius: 50%;
+      display: inline-block;
+      position: relative;
+  }
+}
+.color[data-color^="green"] {
+  &:before{
+      content: '';
+      width: 20px;
+      height: 20px;
+      background:  radial-gradient(circle at top center, #1DEFB7 20%, #006A4E 100%);
+      border-radius: 50%;
+      display: inline-block;
+      position: relative;
+  }
+}
+.color[data-color^="green-light"] {
+  &:before{
+      content: '';
+      width: 20px;
+      height: 20px;
+      background:  radial-gradient(circle at top center, #EFF3D9 20%, #86BC90 100%);
+      border-radius: 50%;
+      display: inline-block;
+      position: relative;
+  }
+}
+.color[data-color^="gold"] {
+  &:before{
+      content: '';
+      width: 20px;
+      height: 20px;
+      background:  radial-gradient(circle at top center, #FFF174 20%, #D59B12 100%);
+      border-radius: 50%;
+      display: inline-block;
+      position: relative;
+  }
+}
+.color[data-color^="copper"] {
+  &:before{
+      content: '';
+      width: 20px;
+      height: 20px;
+      background:  radial-gradient(circle at top center, #FEDFCD 20%, #9F5A38 100%);
+      border-radius: 50%;
+      display: inline-block;
+      position: relative;
+  }
+}
+.color[data-color^="beige"] {
+  &:before{
+      content: '';
+      width: 20px;
+      height: 20px;
+      background:  radial-gradient(circle at top center, #F8EDDD 20%, #EAC6B7 100%);
+      border-radius: 50%;
+      display: inline-block;
+      position: relative;
+  }
+}
+.color[data-color^="gray"] {
+  &:before{
+      content: '';
+      width: 20px;
+      height: 20px;
+      background:  radial-gradient(circle at top center, #F5EFFB 20%, #C8C5CB 100%);
       border-radius: 50%;
       display: inline-block;
       position: relative;
@@ -190,9 +300,10 @@ hr {
 .page-top-navbar{
   width: 100%;
   position: relative;
-  padding: .75rem;
+  padding: .75rem 0;
 
   .total-cars{
+    margin-left: 1rem;
     font-size: 1rem;
     font-family: $segoe;
     font-weight: 700;
@@ -238,11 +349,23 @@ hr {
       font-weight: 600;
       font-size: 1rem;
       transition: all .3s ease;
+      width: 100%;
+      text-align: center;
 
       &.active{
           color: $secondary;
           font-weight: 700;
           font-size: 1.1rem;
+          position: relative;
+          &::before{
+            height: 2px;
+            width: 100%;
+            content: '';
+            position: absolute;
+            bottom: -.8rem;
+            left: 0;
+            background: #df2626;
+          }
       }
 
       &:hover{
@@ -312,7 +435,8 @@ hr {
 
 .card{
   &.cd-box{
-      margin-bottom: 1rem;
+      padding-bottom: 1rem;
+      height: 100%;
   }
 }
 
@@ -320,6 +444,8 @@ hr {
   width: max-content;
   height: 0;
   display: none;
+  z-index: 1040;
+  top: 20px;
 
   @media (max-width: 768px) {
     display: none;
@@ -330,6 +456,20 @@ hr {
   margin-left: 40px;
   display: grid;
   grid-gap: 10px;
+  
+  a{
+    color: $secondary;
+    text-decoration: none;
+  }
+
+  .wish-list{
+    padding: .5rem;
+    h5{
+      margin-top: 1rem;
+      font-size: 1rem;
+      text-transform: uppercase;
+    }
+  }
 }
 
 .fixed-sidebar .owl-stage {
@@ -337,4 +477,31 @@ hr {
 }
 .fixed-sidebar .owl-dot {
   zoom: 0.6!important;
+}
+
+.banner-slider{
+  .owl-dots{
+    position: absolute;
+    top: 0;
+    left: 1rem;
+
+    .owl-dot span {
+      width: 8px;
+      height: 8px;
+      margin: 5px 5px;
+      background: $white;
+      display: block;
+      -webkit-backface-visibility: visible;
+      transition: opacity 200ms ease;
+      border-radius: 30px;
+      transition: all .3s linear;
+  }
+  }
+}
+
+section .owl-theme .owl-dots .owl-dot.active span {
+  background: #2680eb;
+  width: 20px;
+  outline: 0;
+  transition: all .3s linear;
 }

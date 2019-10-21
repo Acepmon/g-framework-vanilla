@@ -29,6 +29,7 @@ class CarMenusTableSeeder extends Seeder
                 ['Premium', '/admin/modules/car/premium', '', 'Car'],
                 ['Free', '/admin/modules/car/free', '', 'Car']
             ]],
+            ['Auction Cars', '/admin/modules/car/auction', 'icon-hammer2', 'Car'],
             ['Verification Requests', '/admin/modules/car/verifications', 'icon-clipboard2', 'Car'],
             ['Car Options', '/admin/modules/car/options', 'icon-cog', 'Car'],
         ];

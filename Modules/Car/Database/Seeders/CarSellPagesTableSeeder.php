@@ -30,7 +30,7 @@ class CarSellPagesTableSeeder extends Seeder
             $content->slug = 'sell';
             $content->type = Content::TYPE_PAGE;
             $content->status = Content::STATUS_PUBLISHED;
-            $content->visibility = Content::VISIBILITY_PUBLIC;
+            $content->visibility = Content::VISIBILITY_AUTH;
             $content->author_id = 1;
             $content->save();
 

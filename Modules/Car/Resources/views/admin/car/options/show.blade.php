@@ -34,7 +34,7 @@
                 </div>
             </div>
 
-            <table class="table">
+            <table class="table table-sm">
                 <thead>
                     <tr>
                         <th>#</th>
@@ -50,10 +50,10 @@
                         <td>{{ $item->term->slug }}</td>
                         <td>
                             <div class="btn-group">
-                                <a href="{{ route('admin.modules.car.options.edit', $item->id) }}?taxonomy={{ $taxonomy }}" class="btn btn-light btn-icon btn-sm">
+                                <a href="{{ route('admin.modules.car.options.edit', $item->id) }}?taxonomy={{ $taxonomy }}" class="btn btn-icon btn-sm">
                                     <span class="icon-pencil"></span>
                                 </a>
-                                <a href="{{ route('admin.modules.car.options.edit', $item->id) }}?taxonomy={{ $taxonomy }}" class="btn btn-light btn-icon btn-sm">
+                                <a href="{{ route('admin.modules.car.options.edit', $item->id) }}?taxonomy={{ $taxonomy }}" class="btn btn-icon btn-sm">
                                     <span class="icon-trash"></span>
                                 </a>
                             </div>

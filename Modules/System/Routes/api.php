@@ -10,6 +10,7 @@ use Modules\System\Transformers\UserCommentCollection;
 use Modules\System\Transformers\UserContentCollection;
 
 use App\Entities\ContentManager;
+use App\UserMeta;
 
 /*
 |--------------------------------------------------------------------------
@@ -66,7 +67,28 @@ Route::prefix('v1')->group(function () {
                     $user->save();
                 }
 
-                return $user;
+                $except = ['username', 'email', 'name', 'password', 'password_confirmation', 'emailVerifiedAt', 'password', 'language', 'avatar', 'group', 'social_id', 'social_provider', 'social_token', 'remember_token', '_token'];
+                $except = array_filter($request->input(), function ($key) use ($except) {
+                    return !in_array($key, $except);
+                }, ARRAY_FILTER_USE_KEY);
+                foreach ($except as $index=>$value) {
+                    $meta = UserMeta::where('key', $index)->where('user_id', $user->id)->first();
+
+                    if (isset($value) && $meta == null) {
+                        $meta = new UserMeta();
+                        $meta->key = $index;
+                        $meta->user_id = $user->id;
+                        $meta->value = $value;
+                        $meta->save();
+                    } else if (!isset($value) && $meta != null) {
+                        $meta->delete();
+                    } else {
+                        $meta->value = $value;
+                        $meta->save();
+                    }
+                }
+
+                return new UserResource($user);
             });
 
             Route::get('/user/notifications', function () {
@@ -91,7 +113,7 @@ Route::prefix('v1')->group(function () {
 
             Route::get('/user/contents', function () {
                 $authUser = Auth::user();
-                $contents = ContentManager::serializeRequest(request());
+                $contents = ContentManager::serializeRequest(request(), $authUser->id);
 
                 $contents->getCollection()->transform(function ($content) use ($authUser) {
                     if (isset($authUser)) {

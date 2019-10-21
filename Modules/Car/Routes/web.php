@@ -29,6 +29,15 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::prefix('admin/modules')->group(function () {
         Route::namespace('Admin')->group(function () {
 
+            Route::resource('car/auction', 'CarAuctionController')->names([
+                'index' => 'admin.modules.car.auction.index',
+                'create' => 'admin.modules.car.auction.create',
+                'store' => 'admin.modules.car.auction.store',
+                'show' => 'admin.modules.car.auction.show',
+                'edit' => 'admin.modules.car.auction.edit',
+                'update' => 'admin.modules.car.auction.update',
+                'destroy' => 'admin.modules.car.auction.destroy'
+            ]);
             Route::resource('car/options', 'CarOptionController')->names([
                 'index' => 'admin.modules.car.options.index',
                 'create' => 'admin.modules.car.options.create',

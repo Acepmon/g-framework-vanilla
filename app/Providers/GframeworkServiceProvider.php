@@ -39,6 +39,35 @@ class GframeworkServiceProvider extends ServiceProvider
             return $view->with('content', $content)->with('banners', $banners);
         });
 
+
+        //$users = DB::table('users')->count();
+
+        Blade::directive('contentsTotal', function ($expression) {
+            //dd($expression);
+            $someObject = json_decode($expression);
+            $contents = Content::whereRaw('1 = 1');
+//            dd($someObject);
+            $metaInputs=[];
+            if(array_key_exists("metasFilter",$someObject)){
+                foreach ($someObject->metasFilter as $item) {
+                    $metaInputs[$item->key] = $item->value;
+                }
+            }
+            foreach ($someObject->filter as $some) {
+                $contents = $contents->where($some->field, '=', $some->key);
+            }
+            foreach ($metaInputs as $key => $value) {
+                $contents = $contents->whereHas('metas', function ($query) use ($key, $value) {
+                    $query->where('key', $key);
+                    $query->where('value', $value);
+                });
+            }
+
+            $contents = $contents->get()->count();
+            return $contents;
+        });
+
+
         Blade::directive('content', function ($expression) {
             // Parsing of passed expression
             $parsed = $this->parseExpression($expression);
@@ -96,13 +125,17 @@ class GframeworkServiceProvider extends ServiceProvider
             foreach ($someObject->filter as $some) {
                     $contents = $contents->where($some->field, '=', $some->key);
             }
-            $contents = $contents->whereHas('metas', function ($query) use ($metaInputs) {
-                foreach ($metaInputs as $key => $value) {
+            foreach ($metaInputs as $key => $value) {
+                $contents = $contents->whereHas('metas', function ($query) use ($key, $value) {
                     $query->where('key', $key);
                     $query->where('value', $value);
-                }
-            });
-            $contents = $contents->take($someObject->limit);
+                });
+            }
+//            /dd($someObject);
+            if(property_exists($someObject,"limit")){
+                $contents = $contents->take($someObject->limit);
+            }
+
             $contents = $contents->get();
             foreach ($contents as $content){
                 $content->author = $content->author;
