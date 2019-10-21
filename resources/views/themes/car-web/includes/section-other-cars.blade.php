@@ -10,10 +10,7 @@
             </div>
             <div class="car-list">
                 <div class="row">
-                    @contents({"filter":[{"field":"type", "key":"car"}, {"field":"status", "key":"published"}], "limit":10,
-                    "returnVariable":"carsOther"})
-
-                    @foreach($carsOther as $othCars)
+                    @content(type=car, status=published, limit=10 as $othCars | paginate)
                         @if(count($interestedCars) > 0)
                             @foreach($interestedCars as $intCars)
                                 @if($intCars == $othCars->id)
@@ -53,7 +50,7 @@
                             </a>
                         </div>
                         <!-- card end -->
-                    @endforeach
+                    @endcontent
 
                 </div>
                 <div class="row">

@@ -182,13 +182,13 @@ class ContentManager extends Manager
         }
 
         if (count($metaInputs) > 0) {
-            $contents = $contents->whereHas('metas', function ($query) use ($metaInputs, $request) {
-                foreach ($metaInputs as $key => $value) {
+            foreach ($metaInputs as $key => $value) {
+                $contents = $contents->whereHas('metas', function ($query) use ($key, $value, $request) {
                     $meta = self::requestOperator($key, $request);
                     $query->where('key', $key);
                     $query->where('value', $meta['operator'], $meta['value']);
-                }
-            });
+                });
+            }
         }
 
         $contents = $contents->paginate($limit['value']);
