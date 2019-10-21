@@ -24,5 +24,6 @@ class CarPermissionsTableSeeder extends Seeder
         PermissionManager::newPermissionCrud('admin_modules_car_premium');
         PermissionManager::newPermissionCrud('admin_modules_car_free');
         PermissionManager::newPermissionCrud('admin_modules_car_verifications');
+        PermissionManager::newPermissionCrud('admin_modules_car_auction');
     }
 }

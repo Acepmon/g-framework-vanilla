@@ -215,7 +215,6 @@ class Content extends Model
             }
         } catch (\Exception $ex) {
             return [];
-
         }
         return [];
     }

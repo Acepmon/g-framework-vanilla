@@ -113,7 +113,7 @@ Route::prefix('v1')->group(function () {
 
             Route::get('/user/contents', function () {
                 $authUser = Auth::user();
-                $contents = ContentManager::serializeRequest(request());
+                $contents = ContentManager::serializeRequest(request(), $authUser->id);
 
                 $contents->getCollection()->transform(function ($content) use ($authUser) {
                     if (isset($authUser)) {
