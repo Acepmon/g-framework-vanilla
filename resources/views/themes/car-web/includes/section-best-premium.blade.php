@@ -40,7 +40,7 @@
                                         <div class="meta">{{(getMetasValue($bpCars->metas, 'mileageAmaount'))}} {{(getMetasValue($bpCars->metas, 'mileageUnit'))}}| {{(getMetasValue($bpCars->metas, 'fuelType'))}} | {{(getMetasValue($bpCars->metas, 'capacityAmount'))}} {{(getMetasValue($bpCars->metas, 'capacityunit'))}}</div>
                                         <div class="favorite saveToInterested" data-target="{{ $bpCars->id }}">
                                             @if($itsIntCar==true)
-                                                <i class="fas fa-heart"></i>
+                                                <span class="text-danger"><i class="fas fa-heart"></i></span>
                                             @else
                                                 <i class="icon-heart"></i>
                                             @endif

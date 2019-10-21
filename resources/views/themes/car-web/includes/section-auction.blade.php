@@ -45,7 +45,7 @@
                                         <div id="countdown" class="countdown"  data-countdown="Jan 5, 2020 15:37:25"></div>
                                         <div class="favorite saveToInterested" data-target="{{ $auctionPrmCars->id }}">
                                             @if($itsIntCar==true)
-                                                <i class="fas fa-heart"></i>
+                                                <span class="text-danger"><i class="fas fa-heart"></i></span>
                                             @else
                                                 <i class="icon-heart"></i>
                                             @endif
