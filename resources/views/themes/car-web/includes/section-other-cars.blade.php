@@ -54,6 +54,9 @@
                         </div>
                         <!-- card end -->
                     @endforeach
+
+                </div>
+                <div class="row">
                     <a class="btn btn-danger btn-round shadow-red mx-auto my-3 px-5" href="/buy">See all vehicles</a>
                 </div>
             </div>

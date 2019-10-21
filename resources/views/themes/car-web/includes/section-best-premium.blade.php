@@ -7,8 +7,9 @@
             <a href="/buy?best_premium=true">See all<i class="fab fa fa-angle-right"></i></a>
           </span>
             </div>
+        </div>
 
-            <div class="card-list">
+            <div class="card-list mx-n3">
                 <div class="row">
                     @contents({"filter":[{"field":"type", "key":"car"}, {"field":"status", "key":"published"}, {"field":"visibility", "key":"public"}], "metasFilter": [{"key":"publishType", "value":"best_premium"}], "limit":12, "returnVariable":"carDataPremium"})
 
@@ -68,5 +69,4 @@
                 </div>
             </div>
         </div>
-    </div>
 </section>

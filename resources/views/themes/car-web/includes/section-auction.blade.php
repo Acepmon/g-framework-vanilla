@@ -9,7 +9,8 @@
             <a href="/auction">See all ({{count($carAuctionPremium)}}) <i class="fab fa fa-angle-right"></i></a>
           </span>
             </div>
-            <div class="card-list auction">
+        </div>
+            <div class="card-list auction mx-n3">
                 <div class="row">
 
                     @foreach($carAuctionPremium as $auctionPrmCars)
@@ -77,6 +78,5 @@
                 </div>
             </div>
         </div>
-    </div>
 </section>
 
