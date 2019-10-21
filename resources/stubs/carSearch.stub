@@ -249,7 +249,10 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
               <div class="car-list">
                 <input type="hidden" name="advantage" id="advantage" value="{{ $request['advantages'] }}" />
                 @foreach($items->forPage($page, $itemsPerPage) as $car)
-                  @include('themes.car-web.includes.car-list-card', array('car'=>$car))
+                
+                  @if ($car->status == 'published' && $car->visibility == 'public')
+                      @include('themes.car-web.includes.car-list-card', array('car'=>$car))
+                  @endif
                 @endforeach
               </div>
               @else
