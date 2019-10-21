@@ -1,82 +1,90 @@
 @extends('themes.car-web.layouts.default')
-@section('load')
 
-@endsection
+
+@php
+
+function getPremiumDeal($type, $now) {
+  $deals = App\Content::where('type', App\Content::TYPE_CAR)->where('status', App\Content::STATUS_PUBLISHED)->where('visibility', App\Content::VISIBILITY_PUBLIC);
+  $deals = metaHas($deals, 'publishType', $type);
+  $deals = metaHas($deals, 'publishVerified', True);
+  return $deals->whereHas('metas', function ($query) use ($now) {
+    $query->where([['key', 'publishVerifiedEnd'],['value','>=',$now]]);
+  });
+}
+
+// HOT Deals
+$now = now();
+$best_premium = getPremiumDeal('best_premium', $now)->get();
+$premium = getPremiumDeal('premium', $now)->get();
+$hotDeals = $best_premium->merge($premium);
+
+
+@endphp
+
 @section('title')
 
 @endsection
 
+@section('load')
+
+@endsection
+
 @section('content')
-    <!-- Masthead -->
-    <header class="masthead text-center">
-        <div class="container">
-                <div class="row">
-                    <div class="col-md-7">
-                        <div class="hero-slider owl-carousel owl-theme">
+<div class="bg-page-header"></div>
 
-                            @banners([{"field":"location_id", "key":3}])
-                            @if(count($banners) > 0)
-                                @foreach($banners as $bnr)
-                                    <div class="slider-item">
-                                        <div class="slider-img animated slideInLeft" style="bottom: 0; left: -50px;">
-                                            <a href="{{$bnr->link}}" target="_blank">
-                                                <img src="{{$bnr->banner}}" alt="">
-                                            </a>
-                                        </div>
-                                    </div>
-                                @endforeach
-                            @else
-                                <div class="slider-item">
-                                    <div class="slider-text animated slideInLeft" style="top: 0; left: 100px">
-                                        <h1>Зээлийн хүү</h1>
-                                    </div>
-                                    <div class="slider-text animated slideInLeft slider-highlight"
-                                         style="top: 50px; left: 50px">3%
-                                    </div>
-                                    <div class="slider-text animated slideInLeft" style="top: 200px; left: 200px">
-                                        <h1>Жилийн</h1>
-                                    </div>
-                                    <div class="slider-img animated slideInLeft" style="bottom: 0; left: -50px;">
-                                        <img src="{{asset('car-web/img/slider-1.png')}}" alt="">
-                                    </div>
-                                </div>
-                                <div class="slider-item">
-                                    <div class="slider-text" style="top: 5%; left: 90px">
-                                        <h1>Авто машины</h1>
-                                    </div>
-                                    <div class="slider-text" style="top: 18%; left: 100px; ">
-                                        <h1 style="font-size: 2rem;">Дуудлага худалдаа</h1>
-                                    </div>
-                                    <div class="slider-img" style="top: 50%; left: 50px;">
-                                        <img src="{{asset('car-web/img/slider-2.png')}}" alt="" class="img-fluid">
-                                    </div>
-                                    <div class="slider-img" style="top: 25%; left: 0; z-index:-1;">
-                                        <img src="{{asset('car-web/img/auction.png')}}" alt="" class="img-fluid">
-                                    </div>
-                                </div>
-                            @endif
-                        </div>
-                    </div>
-                </div>
+<section class="bg-dark p-5 text-white position-relative">
+    <div class="container">
+      <div class="row">
+        <div class="card shadow-soft-blue page-top-navbar mb-5">
+          <div class="d-flex justify-content-around">
+            <a class="active" href="#">Finance information</a>
+            <a href="#">Search your vehicle for monthly installments</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row d-flex align-items-center">
+        <div class="col-md-7">
+          <div class="hero-slider owl-carousel owl-theme">
+            <div class="slider-item">
+              <img src="{{ asset('car-web/img/Slide-1.png') }}" alt="">
             </div>
-    </header>
 
-    <!-- Loan Check -->
-    <a class="btn btn-light btn-round btn-block my-3 shadow-soft-blue p-2" href="#" data-toggle="modal"
-                            data-target="#modalLoanCalculator" data-whatever="@getbootstrap">Зээл авах боломжтой эсэх</a>
-    @include('themes.car-web.includes.modal-loan-check')
-    <!-- Loan Check END -->
+          </div>
+        </div>
+        <div class="col-md-5" style="z-index: 1">
+          <div class="title-mid-line white">
+            <h2>Сайн байна уу?</h2>
+          </div>
+          <div class="finance-information">
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorum nemo est dolores. Incidunt fugit vero,
+              quidem illum, fugiat cumque laboriosam provident fuga commodi tempora possimus. Harum reiciendis natus
+              quidem consectetur hic, cum optio nam rerum. Dolorem hic explicabo eum, nobis deserunt inventore! Impedit
+              voluptates corporis sed quas, error quia, asperiores ipsam officia aliquid vel modi, quos nulla fuga
+              corrupti necessitatibus.</p>
+            <div class="col-md-8">
+              <a class="btn btn-primary btn-round btn-block my-4 shadow-soft-blue p-2 btn-icon-right" href="#">View
+                finance cars <i class="fab fa fa-angle-right"></i></a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <div class="row justify-content-md-center">
+            <div class="col-md-6 text-center">
+              <a class="btn btn-danger btn-round my-4 shadow-red btn-lg px-5" href="#">Loan calculator</a>
+              <a class="btn btn-light btn-round my-4 shadow-soft-blue btn-lg px-5" href="#">Check loan</a>
+            </div>
+          </div>
+        </div>
+      </div>
+  </section>
+
+<!-- Hot deal Grid -->
+@include('themes.car-web.includes.section-slider', array('title'=>'Hot Deal', 'contents'=>$hotDeals, 'morelink'=>'#'))
+<!-- Hot deal End -->
 
 @endsection
 
 @section('script')
-    <script>
-        $('.scrollDown').click(function(event){
-            // Preventing default action of the event
-            event.preventDefault();
-            // Getting the height of the document
-            var n = $(document).height();
-            $('html, body').animate({ scrollTop: 1200 }, 400);
-        });
-    </script>
 @endsection
