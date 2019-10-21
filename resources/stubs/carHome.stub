@@ -523,7 +523,7 @@ $itsIntCar=false;
                         console.log("failed")
                         console.log(error.status)
                         if (error.status == 401  ){//|| error.status == 404) {
-                            window.location.href = "http://localhost:8000/login";
+                            window.location.href = "/login";
                         }
                     }
                 });
@@ -550,7 +550,7 @@ $itsIntCar=false;
                         console.log("failed")
                         console.log(error.status)
                         if (error.status == 401  ){//|| error.status == 404) {
-                            window.location.href = "http://localhost:8000/login";
+                            window.location.href = "/login";
                         }
                     }
                 });
