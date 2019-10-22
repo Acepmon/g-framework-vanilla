@@ -96,6 +96,8 @@ function metaHas($items, $key, $value, $operator = '=', $min = Null, $max = Null
             if ($max != Null) {
                 $query->where('value', '<=', $max);
             }
+        } else if (is_array($value)){
+            $query->whereIn('value', $value);
         } else {
             $query->where('value', $operator, $value);
         }

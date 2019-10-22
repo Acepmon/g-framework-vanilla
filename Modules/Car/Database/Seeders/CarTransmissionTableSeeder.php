@@ -18,7 +18,7 @@ class CarTransmissionTableSeeder extends Seeder
     {
         $transmission = ['Auto', 'Semi Auto', 'Manual', 'CVT'];
 
-        $parent = TaxonomyManager::register('Car transmission', 'car');
+        $parent = TaxonomyManager::register('Car transmission', 'car', null, ['metaKey' => 'transmission']);
 
         foreach ($transmission as $key => $type) {
             TaxonomyManager::register($type, 'car-transmission', $parent->term->id);

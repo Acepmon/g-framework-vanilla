@@ -18,7 +18,7 @@ class CarTypeTableSeeder extends Seeder
     {
         $carTypes = ['Sedan', 'SUV', 'Sport', 'Trucks', 'Vans', 'Bus'];
 
-        $parent = TaxonomyManager::register('Car Type', 'car');
+        $parent = TaxonomyManager::register('Car Type', 'car', null, ['metaKey' => 'carType']);
 
         foreach ($carTypes as $key => $type) {
             TaxonomyManager::register($type, 'car-type', $parent->term->id);

@@ -18,7 +18,7 @@ class CarManCountTableSeeder extends Seeder
     {
         $manCount = ['Four seater', '5 passengers', '7 passengers', '9 passengers', '11 passengers', '13 passengers', '15 passengers', 'Direct input'];
 
-        $parent = TaxonomyManager::register('Man Count', 'car');
+        $parent = TaxonomyManager::register('Man Count', 'car', null, ['metaKey' => 'manCount']);
 
         foreach ($manCount as $key => $count) {
             TaxonomyManager::register($count, 'car-mancount', $parent->term->id);

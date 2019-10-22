@@ -18,7 +18,7 @@ class CarColorTableSeeder extends Seeder
     {
         $colour = ['black', 'white-ivory', 'white-pearl', 'asphalt-gray', 'red', 'blue', 'blue-dark', 'sea', 'brown', 'bronze', 'green', 'green-light', 'gold', 'copper', 'beige'];
 
-        $parent = TaxonomyManager::register('Color', 'car');
+        $parent = TaxonomyManager::register('Color', 'car', null, ['metaKey' => 'colorName']);
 
         foreach ($colour as $key => $color) {
             TaxonomyManager::register($color, 'car-colors', $parent->term->id);

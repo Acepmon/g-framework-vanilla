@@ -23,11 +23,26 @@ $categoryName = [
         <div class="card-body bg-light grid-radio gr-3">
             @foreach(App\TermTaxonomy::where('taxonomy', $category)->get() as $taxonomy)
             <div class="cd-radio">
-            <input type="radio" id="{{ $taxonomy->term->name }}" name="{{ $category }}" class="custom-control-input" value="{{ $taxonomy->term->name }}" {{ $request['type']==$taxonomy->term->name?'checked':''}}>
+            <input type="checkbox" id="{{ $taxonomy->term->name }}" name="{{ $category }}[]" class="custom-control-input" value="{{ $taxonomy->term->name }}" {{ in_array($taxonomy->term->name, $request['carType'])?'checked':''}}>
             <label class="custom-control-label " for="{{ $taxonomy->term->name }}">
                 <img src="{{ asset('car-web/img/icons/'.strtolower($taxonomy->term->name).'.svg') }}">
                 <span>{{ $taxonomy->term->name }}</span>
             </label>
+            </div>
+            @endforeach
+        </div>
+        </div>
+        @elseif($category == 'car-colors')
+        <div id="{{ $category }}" class="collapse {{ request($category, False)?'show':'' }}" aria-labelledby="{{ $category }}">
+        <div class="card-body bg-light grid-radio gr-2">
+            @foreach(App\TermTaxonomy::where('taxonomy', $category)->get() as $taxonomy)
+            <div class="custom-control custom-radio">
+            <input type="checkbox" id="color-{{ strtolower($taxonomy->term->name) }}" name="{{ $category }}[]" class="custom-control-input"
+                value="{{ $taxonomy->term->name }}" {{ in_array($taxonomy->term->name, $request['colorName'])?'checked':''}}>
+            <label class="custom-control-label d-flex" for="color-{{ strtolower($taxonomy->term->name) }}"><span class="color-icon color"
+                data-color="{{ strtolower($taxonomy->term->name) }}">
+                <p>{{ ucfirst($taxonomy->term->name) }}</p>
+                </span></label>
             </div>
             @endforeach
         </div>
@@ -83,7 +98,7 @@ $categoryName = [
             @foreach(App\TermTaxonomy::where('taxonomy', $category)->get() as $taxonomy)
             <div class="custom-control custom-radio">
             <!-- <a href="/car-list?{{ $category . '=' . $taxonomy->term->name }}" class="text-body text-decoration-none"> -->
-            <input type="radio" id="{{$taxonomy->term->name}}" name="{{ $category }}" class="custom-control-input" value="{{ $taxonomy->term->name }}" {{ (request($category, Null)==$taxonomy->term->name)?'checked':'' }}>
+            <input type="checkbox" id="{{$taxonomy->term->name}}" name="{{ $category }}[]" class="custom-control-input" value="{{ $taxonomy->term->name }}" {{ in_array($taxonomy->term->name, request($category, []))?'checked':'' }}>
             <label class="custom-control-label  d-flex justify-content-between" for="{{$taxonomy->term->name}}">{{ $taxonomy->term->name }}
                 <div class="text-muted">{{ $taxonomy->count }}</div>
             </label>
@@ -99,12 +114,15 @@ $categoryName = [
 
 @push('scripts')
 <script>
-$("input[type=radio]").click(function(event) {
+$("input[type=radio]").click(submitMenu);
+$("input[type=checkbox]").click(submitMenu);
+
+function submitMenu(event) {
     event.preventDefault();
     if (event.target.defaultChecked) {
       event.target.checked = false;
     }
     $('#mainForm').submit();
-});
+}
 </script>
 @endpush

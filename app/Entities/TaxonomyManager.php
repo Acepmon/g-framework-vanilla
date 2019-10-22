@@ -103,4 +103,23 @@ class TaxonomyManager extends Manager
         $taxonomy = TermTaxonomy::where('taxonomy', $taxonomy)->firstOrFail();
         return $taxonomy;
     }
+
+    public static function updateCount($key, $value)
+    {
+        $term = self::findTerm($value);
+        $parent_term = Term::findOrFail($term->group_id);
+        $metaKey = $parent_term->metaValue('metaKey');
+        if ($key == $metaKey) {
+            
+        }
+        // $taxonomy = TermTaxonomy::where('');
+        // $key = $taxonomy->term()->metaValue('metaKey');
+        // $value = '';
+        // Content::whereHas('metas', function ($query) use ($key, $value) {
+        //     $query->where('key', $key);
+        //     $query->where('value', $value);
+        // });
+        // $count = count();
+        // $taxonomy->count = $count;
+    }
 }
