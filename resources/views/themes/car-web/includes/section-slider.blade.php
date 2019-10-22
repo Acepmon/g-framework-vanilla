@@ -9,7 +9,7 @@
                 </span>
             </div>
             <div class="card-slide owl-carousel owl-theme">
-                @foreach($contents->take(8) as $car)
+                @foreach($contents->take(12) as $car)
                 <div class="card cd-box">
                     @if($car->metaValue('publishType') == 'best_premium' || $car->metaValue('publishType') == 'premium')
                     <div class="premium-tag shadow-soft-blue"><img src="{{ asset('car-web/img/icons/corona.svg') }}" alt=""></div>

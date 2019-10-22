@@ -74,7 +74,7 @@ class ContentMetaObserver
     }
 
     public function decrementCount($key, $value) {
-        $term = TaxonomyManager::findTerm($value)->first();
+        $term = Term::where('name', $value)->first();
         if ($term && $term->group && $key == $term->group->metaValue('metaKey')) {
             $taxonomy = TermTaxonomy::where('term_id', $term->id)->first();
             if ($taxonomy) {

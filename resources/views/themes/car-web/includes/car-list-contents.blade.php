@@ -48,28 +48,28 @@ if ($itemCount < $page * $itemsPerPage) {
 </style>
 @endpush
 
-    <div class="card shadow-soft-blue page-top-navbar">
-        @if($type == 'search')
-            <div class="card-body">
-                <span class="d-flex justify-content-start total-cars">
-                    Search result
-                </span>
-                <input name="search" type="text" class="form-control" placeholder="Enter search text" value="{{$search}}">
-                <button type="submit" hidden>Search</button>
-            </div>
-        @endif
+<div class="card shadow-soft-blue page-top-navbar">
+    @if($type == 'search')
+        <div class="card-body">
+            <span class="d-flex justify-content-start total-cars">
+                Search result
+            </span>
+            <input name="search" type="text" class="form-control" placeholder="Enter search text" value="{{$search}}">
+            <button type="submit" hidden>Search</button>
+        </div>
+    @endif
     <div class="d-flex justify-content-start">
         <span class="total-cars">{{ count($items) }} VEHICLES</span>
         <input type="hidden" name="orderBy" id="orderBy" value="{{ $orderBy }}" />
         <input type="hidden" name="premium" id="premium" value="{{ $filterPremium }}" />
 
     <div class="sort-cars">
-    <ul>
-        <li class="{{ ($orderBy=='updated_at')?'active':'' }}"><a href="#" onclick="formSubmit('orderBy', 'updated_at')">Recent cars</a></li>
-        <li class="{{ ($orderBy=='buildYear')?'active':'' }}"><a href="#" onclick="formSubmit('orderBy', 'buildYear')">Product year</a></li>
-        <li class="{{ ($orderBy=='importDate')?'active':'' }}"><a href="#" onclick="formSubmit('orderBy', 'importDate')">Income year</a></li>
-        <li class="{{ ($orderBy=='priceAmount')?'active':'' }}"><a href="#" onclick="formSubmit('orderBy', 'priceAmount')">Low price</a></li>
-    </ul>
+        <ul>
+            <li class="{{ ($orderBy=='updated_at')?'active':'' }}"><a href="#" onclick="formSubmit('orderBy', 'updated_at')">Recent cars</a></li>
+            <li class="{{ ($orderBy=='buildYear')?'active':'' }}"><a href="#" onclick="formSubmit('orderBy', 'buildYear')">Product year</a></li>
+            <li class="{{ ($orderBy=='importDate')?'active':'' }}"><a href="#" onclick="formSubmit('orderBy', 'importDate')">Income year</a></li>
+            <li class="{{ ($orderBy=='priceAmount')?'active':'' }}"><a href="#" onclick="formSubmit('orderBy', 'priceAmount')">Low price</a></li>
+        </ul>
     </div>
 </div>
 </div>

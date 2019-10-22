@@ -293,7 +293,7 @@
     });
 
     function step1Submit() {
-        var title = $("#Manufacturer").val() + ' ' + $("#Model").val();
+        var title = $("#selectManufacturer").val() + ' ' + $("#modelSelect").val();
         $("#demo-spinner").css({'display': 'block'});
         $.ajax({
             type: 'PUT',
