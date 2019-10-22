@@ -16,6 +16,13 @@ $allItems = \Modules\Car\Entities\Car::order($orderBy, $order, $allItems);
 
 // Items filtering
 $items = \Modules\Car\Entities\Car::filter(clone $allItems, $request);
+
+if($type == 'search'){
+    // Search
+    $search = request('search', "");
+    $items = $items->where('title', 'LIKE', '%'.$search.'%');
+}
+
 if (!$filterPremium) {
   $items = \Modules\Car\Entities\Car::filterByPremium(null, clone $items)->get()->merge($items->get());
 } else {
@@ -42,6 +49,15 @@ if ($itemCount < $page * $itemsPerPage) {
 
 <div class="row">
     <div class="card shadow-soft-blue page-top-navbar">
+        @if($type == 'search')
+            <div class="card-body">
+                <span class="d-flex justify-content-start total-cars">
+                    Search result
+                </span>
+                <input name="search" type="text" class="form-control" placeholder="Enter search text" value="{{$search}}">
+                <button type="submit" hidden>Search</button>
+            </div>
+        @endif
     <div class="d-flex justify-content-start">
         <span class="total-cars">{{ count($items) }} VEHICLES</span>
         <input type="hidden" name="orderBy" id="orderBy" value="{{ $orderBy }}" />
