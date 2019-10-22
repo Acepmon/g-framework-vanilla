@@ -13,69 +13,60 @@
     <div class="card shadow-soft-blue page-top-navbar">
         <div class="mypage-nav">
             <ul>
-                <li class="list-item "><a href="/purchase-page-published">Published purchase</a></li>
-                <li class="list-item active"> <a href="#">Purchase request checking</a></li>
+                <li class="list-item active"><a href="#">Published purchase</a></li>
+                <li class="list-item "> <a href="/purchase-page-checking">Purchase request checking</a></li>
             </ul>
         </div>
     </div>
     <div class="car-list sell-car">
-
+        @content(type=car, author_id=Auth::user()->id, publishType=best_premium as $published | paginate)
         <!-- card start -->
-        <a href="detail-page.html" target="_blank" class="card">
+        <a href="{{$published->slug}}" target="_blank" class="card">
 
             <div class="card-body">
                 <div class="card-img">
 
-                    <img src="{{asset('car-web/img/Cars/2.jpg')}}" class="img-fluid" alt="alt" />
+                    <img src="{{$published->metaValue("thumbnail")}}" class="img-fluid" alt="alt" />
                 </div>
 
                 <div class="card-description">
                     <div class="card-caption">
-                        <div href="#" class="card-title">Hyundai Santa fe</div>
-                        <div class="meta">2006/2013 | 17,820km</div>
-                        <div class="price">12 Сая ₮</div>
-                        <div class="is-premium font-weight-normal text-danger">Checking</div>
+                        <div href="#" class="card-title">{{$published->title}}</div>
+                        <div class="meta">{{$published->metaValue("buildYear")}} / {{$published->metaValue("importDate")}} | {{$published->metaValue("mileageAmount")}}{{$published->metaValue("mileageUnit")}}</div>
+                        <div class="price">{{numerizePrice($published->metaValue("priceAmount"))}} {{$published->metaValue("priceUnit")}}</div>
+                        <div class="is-premium"><img src="{{asset('car-web/img/icons/corona.svg')}}" alt="">Best premium</div>
                     </div>
-                    <div class="info">
-            <span class="info-icon">
-            <img src="{{asset('car-web/img/icons/engine.svg')}}" alt="">
-            <p>1499 L</p>
-            </span>
-                        <span class="info-icon">
-            <img src="{{asset('car-web/img/icons/wheel.svg')}}" alt="">
-            <p>Right wheel</p>
-            </span>
-                        <span class="info-icon">
-            <img src="{{asset('car-web/img/icons/gearShift.svg')}}" alt="">
-            <p>Automatic</p>
-            </span>
-                        <span class="info-icon">
-            <img src="{{asset('car-web/img/icons/fuel.svg')}}" alt="">
-            <p>Gasoline</p>
-            </span>
-                        <span class="info-icon">
-            <img src="{{asset('car-web/img/icons/transmision.svg')}}" alt="">
-            <p>4 WD</p>
-            </span>
-                        <span class="info-icon color" data-color="black">
-            <p>Black</p>
-            </span>
-
+                    <div class="info" style="display: inline-block; color:black">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p >Started: 2019-10-02</p>
+                            </div>
+                            <div class="col-md-6">
+                                <p>Views: 1200</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p>End: 2019-10-09</p>
+                            </div>
+                            <div class="col-md-6">
+                                <p>Watch phone: 900</p>
+                            </div>
+                        </div>
                         <div class="sell-action">
                             <div onclick="window.open('edit.html','mywindow');">Edit</div>
                             <div onclick="window.open('edit.html','mywindow');">Delete</div>
                             <div onclick="window.open('edit.html','mywindow');">Mark as sold</div>
                             <div onclick="window.open('edit.html','mywindow');">Unpublish</div>
                         </div>
-
                     </div>
                 </div>
             </div>
         </a>
+        @endcontent
     </div>
 
 </div>
-
 @endsection
 
 @section('script')

@@ -2,96 +2,14 @@
 
 
 @php
-$categorySlug = [
-'car-type', 'car-manufacturer', 'car-year', 'car-distance-driven', 'car-price', 'car-colors', 'car-fuel', 'car-transmission', 'car-options', 'car-accident', 'car-mancount', 'car-wheel-pos', 'provinces'
-];
-$categoryName = [
-'Car Type', 'Manufacturer', 'Year', 'Distance Driven', 'Price / Installment', 'Color', 'Fuel', 'Transmission', 'Option', 'An accident', 'Passenger', 'Steering Wheel', 'Area'
-];
-
-// Get All items
-$orderBy = request('orderBy', "updated_at");
-$order = request('order', "desc");
-$page = request('page', "1");
-$itemsPerPage = request('itemsPerPage', "10");
-$allItems = App\Content::with('metas')->where('type', App\Content::TYPE_CAR);
-if ($orderBy != 'updated_at') {
-$allItems = $allItems->join('content_metas', 'contents.id', '=', 'content_metas.content_id')
-->where('content_metas.key', '=', $orderBy)->select('contents.*')->addSelect('content_metas.value');
-$allItems = $allItems->orderBy('value', $order);
-} else {
-$allItems = $allItems->orderBy($orderBy, $order);
-}
-$items = $allItems;
-
-// Items filtering
-$request = [];
-$request['type'] = request('car-type', 'Sedan');
-$request['markName'] = request('car-manufacturer', Null);
-$request['colorName'] = request('car-colors', Null);
-$request['fuelType'] = request('car-fuel', Null);
-$request['transmission'] = request('car-transmission', Null);
-$request['advantages'] = request('car-advantage', Null);
-$request['manCount'] = request('car-mancount', Null);
-$request['wheelPosition'] = request('car-wheel-pos', Null);
-$request['countryName'] = request('provinces', Null);
-$request['buildYear'] = request('year', Null);
-$request['distanceDriven'] = request('distance_driven', Null);
-$request['doctorVerified'] = request('doctors_verified', Null);
-$request['doctorVerified'] = ($request['doctorVerified'] == 'Баталгаажсан')?'1':'0';
-foreach ($request as $key => $value) {
-if ($value != Null) {
-$items = metaHas($items, $key, $value);
-}
-};
-
-$request['minPrice'] = request('min_price', 100);
-$request['maxPrice'] = request('max_price', Null);
-$minPrice = intVal($request['minPrice']) * 1000;
-$maxPrice = intVal($request['maxPrice']) * 1000;
-$items = $items->whereHas('metas', function ($query) use ($minPrice, $maxPrice) {
-  if ($minPrice && $maxPrice) {
-    return $query->where([['key', 'priceAmount'], ['value', '>=', $minPrice], ['value', '<=', $maxPrice]]);
-  } else if ($minPrice) {
-    return $query->where([['key', 'priceAmount'], ['value', '>=', $minPrice]]);
-  } else if ($maxPrice) {
-    return $query->where([['key', 'priceAmount'], ['value', '<=', $maxPrice]]);
-  }
-});
-
 // Search
-$search = request('search', "");
-$items = $items->where('title', 'LIKE', '%'.$search.'%')->get();
+//$search = request('search', "");
+//$items = $items->where('title', 'LIKE', '%'.$search.'%')->get();
 
-function getPremiumDeal($type, $now) {
-  $deals = App\Content::where('type', App\Content::TYPE_CAR)->where('status', App\Content::STATUS_PUBLISHED)->where('visibility', App\Content::VISIBILITY_PUBLIC);
-  $deals = metaHas($deals, 'publishType', $type);
-  $deals = metaHas($deals, 'publishVerified', True);
-  return $deals->whereHas('metas', function ($query) use ($now) {
-    $query->where([['key', 'publishVerifiedEnd'],['value','>=',$now]]);
-  });
-}
-
-// HOT Deals
-$now = now();
-$best_premium = getPremiumDeal('best_premium', $now)->get();
-$premium = getPremiumDeal('premium', $now)->get();
-$hotDeals = $best_premium->merge($premium);
-//dd($hotDeals);
-//$hotDeals = $hotDeals->paginate(5);
-$items = $hotDeals->merge($items);
-
-// Post items filtering
-$itemCount = count($items->all());
-$maxPage = intval(ceil($itemCount / $itemsPerPage));
-if ($itemCount < $page * $itemsPerPage) {
-  $page= $maxPage;
-}
+$request = \Modules\Car\Entities\Car::manageRequest();
 
 // Banner
 $banner = App\Banner::where('location_id', 5)->where('status', 'active')->inRandomOrder()->first();
-// $sideBanners = App\Banner::where('location_id', 4)->where('status', 'active')->get();
-$sideBanners = App\Banner::where('location_id', 4)->get();
 
 @endphp
 
@@ -102,25 +20,11 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
 @section('load')
 <link href="{{ asset('car-web/vendor/simple-line-icons/css/simple-line-icons.css') }}" rel="stylesheet" type="text/css">
 <link href="{{ asset('car-web/vendor/bootstrap-slider/css/bootstrap-slider.min.css') }}" rel="stylesheet">
-<style>
-.banner {
-  width: 100%;
-  padding-bottom: 15%;
-  @if($banner)
-  background-image: url({{ $banner->banner }});
-  @endif
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-</style>
-
 @endsection
 
 @section('content')
 <div class="bg-page-header"></div>
-
-@include('themes.car-web.includes.fixed-right-sidebar', array('sideBanners'=>$sideBanners, 'premium'=>$hotDeals))
+@include('themes.car-web.includes.fixed-right-sidebar', array('sideBanners'=>\App\Banner::where('location_id', 4)->where('status', 'active')->get(), 'premium'=>\Modules\Car\Entities\Car::filterByPremium(5)))
 <section class="section">
     <div class="container">
       <form action="search" id="mainForm">
@@ -129,159 +33,10 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
               <div class="left-bar-title">
                   Sort Vehicle <i class="fab fa fa-search"></i>
               </div>
-              
-            <div class="car-filter accordion shadow-soft-blue" id="accordionExample">
-            @foreach($categorySlug as $index=>$category)
-            <div class="card">
-              <div class="accordian-head" id="{{ $category }}-accordion">
-                <h2 class="mb-0">
-                  <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#{{ $category }}" aria-expanded="false" aria-controls="{{ $category }}">
-                    {{ $categoryName[$index] }}<i class="fab fa fa-angle-down"></i>
-                  </button>
-                </h2>
-              </div>
-
-              @if($category == 'car-type')
-              <div id="{{ $category }}" class="collapse {{ request($category, False)?'show':'' }}" aria-labelledby="{{ $category }}">
-                <div class="card-body bg-light grid-radio gr-3">
-                  @foreach(App\TermTaxonomy::where('taxonomy', $category)->get() as $taxonomy)
-                  <div class="cd-radio">
-                    <input type="radio" id="{{ $taxonomy->term->name }}" name="{{ $category }}" class="custom-control-input" value="{{ $taxonomy->term->name }}" {{ $request['type']==$taxonomy->term->name?'checked':''}}>
-                    <label class="custom-control-label " for="{{ $taxonomy->term->name }}">
-                      <img src="{{ asset('car-web/img/icons/'.strtolower($taxonomy->term->name).'.svg') }}">
-                      <span>{{ $taxonomy->term->name }}</span>
-                    </label>
-                  </div>
-                  @endforeach
-                </div>
-              </div>
-              @elseif($category == 'car-year')
-              <div id="{{ $category }}" class="collapse {{ request($category, False)?'show':'' }}" aria-labelledby="{{ $category }}">
-                <div class="card-body bg-light grid-radio">
-                  <select id="min-year" class="form-control" name="year" onchange="formSubmit('year','year')">
-                    <option value="">Select year</option>
-                    @for($i=date('Y'); $i>=1990; $i--)
-                    <option value="{{ $i }}" {{ $request['buildYear']==$i?'selected':'' }}>{{ $i }}</option>
-                    @endfor
-                  </select>
-                </div>
-              </div>
-              @elseif($category == 'car-distance-driven')
-              <div id="{{ $category }}" class="collapse {{ request($category, False)?'show':'' }}" aria-labelledby="{{ $category }}">
-                <div class="card-body bg-light grid-radio">
-                  <select id="distance_driven" class="form-control" name="distance_driven" onchange="formSubmit('distance_driven','no-value')">
-                    <option value="">Select distance</option>
-                    @for($i=1; $i<=10; $i++)
-                    <option value="{{ $i }}" {{ $request['distanceDriven']==$i?'selected':'' }}>{{ $i }}km</option>
-                    @endfor
-                  </select>
-                </div>
-              </div>
-              @elseif($category == 'car-price')
-              <div id="{{ $category }}" class="collapse {{ (request('min_price', False) || request('max_price'))?'show':'' }}" aria-labelledby="{{ $category }}">
-                <div class="card-body bg-light grid-radio">
-                  <div class="form-row">
-                    <div class="col-md-6">
-                      <select id="min_price" class="form-control" name="min_price" onchange="formSubmit('min_price','no-value')">
-                        <option value="0">Min</option>
-                        @for($i=100; $i<=10000; $i+=100)
-                        <option value="{{ $i }}" {{ $request['minPrice']==$i?'selected':'' }}>{{ $i }} мянга</option>
-                        @endfor
-                      </select>
-                    </div>
-                    <div class="col-md-6">
-                      <select id="max_price" class="form-control" name="max_price" onchange="formSubmit('max_price','no-value')">
-                        <option value="">Max</option>
-                        @for($i=$request['minPrice']; $i<=10000; $i+=100)
-                        <option value="{{ $i }}" {{ $request['maxPrice']==$i?'selected':'' }}>{{ $i }} мянга</option>
-                        @endfor
-                      </select>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              @else
-              <div id="{{ $category }}" class="collapse {{ request($category, False)?'show':'' }}" aria-labelledby="{{ $category }}">
-                <div class="card-body bg-light">
-                  @foreach(App\TermTaxonomy::where('taxonomy', $category)->get() as $taxonomy)
-                  <div class="custom-control custom-radio">
-                    <!-- <a href="/car-list?{{ $category . '=' . $taxonomy->term->name }}" class="text-body text-decoration-none"> -->
-                    <input type="radio" id="{{$taxonomy->term->name}}" name="{{ $category }}" class="custom-control-input" value="{{ $taxonomy->term->name }}" {{ (request($category, Null)==$taxonomy->term->name)?'checked':'' }}>
-                    <label class="custom-control-label  d-flex justify-content-between" for="{{$taxonomy->term->name}}">{{ $taxonomy->term->name }}
-                      <div class="text-muted">{{ $taxonomy->count }}</div>
-                    </label>
-                  </div>
-                  @endforeach
-                </div>
-              </div>
-              @endif
-            </div>
-            @endforeach
-            </div>
+              @include('themes.car-web.includes.car-list-menu')
           </div>
           <div class="col-md-9">
-            <div class="row">
-              <div class="card shadow-soft-blue page-top-navbar">
-                  <div class="card-body">
-                      <span class="d-flex justify-content-between">
-                          Search result
-                      </span>
-                      <input name="search" type="text" class="form-control" placeholder="Enter search text" value="{{$search}}">
-                      <button type="submit" hidden>Search</button>
-                  </div>
-                  <div class="d-flex justify-content-start">
-                      <span class="total-cars">{{ count($allItems->get()) }} VEHICLES</span>
-                      <input type="hidden" name="orderBy" id="orderBy" value="{{ $orderBy }}" />
-
-                      <div class="sort-cars">
-                          <ul>
-                          <li class="{{ ($orderBy=='updated_at')?'active':'' }}"><a href="#" onclick="formSubmit('orderBy', 'updated_at')">Recent cars</a></li>
-                          <li class="{{ ($orderBy=='buildYear')?'active':'' }}"><a href="#" onclick="formSubmit('orderBy', 'buildYear')">Product year</a></li>
-                          <li class="{{ ($orderBy=='importDate')?'active':'' }}"><a href="#" onclick="formSubmit('orderBy', 'importDate')">Income year</a></li>
-                          <li class="{{ ($orderBy=='price')?'active':'' }}"><a href="#" onclick="formSubmit('orderBy', 'price')">Low price</a></li>
-                          <li class="{{ ($orderBy=='price')?'active':'' }}"><a href="#" onclick="formSubmit('orderBy', 'price')">Ascending</a></li>
-                          </ul>
-                      </div>
-                  </div>
-              </div>
-              
-              @if ($items->all() && sizeof($items->all()) != 0)
-              <div class="car-list">
-                <input type="hidden" name="advantage" id="advantage" value="{{ $request['advantages'] }}" />
-                @foreach($items->forPage($page, $itemsPerPage) as $car)
-                
-                  @if ($car->status == 'published' && $car->visibility == 'public')
-                      @include('themes.car-web.includes.car-list-card', array('car'=>$car))
-                  @endif
-                @endforeach
-              </div>
-              @else
-                <div class="text-center text-muted col-lg-12 mt-3">
-                  <p>No results found</p>
-                </div>
-              @endif
-            </div>
-
-            <!-- Pagination -->
-            <nav aria-label="Page navigation">
-            <input type="hidden" value="{{ $page }}" name="page" id="page" />
-            <ul class="pagination d-flex justify-content-end">
-                <li class="page-item {{ ($page <= 1)?'disabled':'' }}">
-                <button class="page-link" onclick="formSubmit('page', {{$page-1}})" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                </button>
-                </li>
-                @for($i = 1; $i <= $maxPage; $i++)
-                <li class="page-item {{ ($i == $page)?'active':'' }}"><button class="page-link" onclick="formSubmit('page', {{$i}})">{{ $i }}</button></li>
-                @endfor
-                <li class="page-item {{ ($page >= $maxPage)?'disabled':'' }}">
-                    <button class="page-link" onclick="formSubmit('page', {{$page+1}})" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                    </button>
-                </li>
-            </ul>
-            </nav>
-            <!-- Pagination end -->
+            @include('themes.car-web.includes.car-list-contents', ['allItems' => \Modules\Car\Entities\Car::all(), 'type' => 'search'])
           </div>
         </div>
       </form>
@@ -290,20 +45,20 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
 
 <!-- Banner start -->
 @if($banner)
-<section class="mainPage-items bg-white">
-  <div class="container pl-0 pr-0">
-    <a href="{{ $banner->link }}" class="text-primary text-decoration-none">
-      <div class="banner">
-        <!-- {{ $banner->title }} -->
-      </div>
-    </a>
+<section class="banner pt-5 bg-white">
+  <div class="container">
+    <div class="row">
+      <a href="{{ $banner->link }}" class="text-primary text-decoration-none">
+        <img src="{{ $banner->banner }}" class="img-fluid" alt="">
+      </a>
+    </div>
   </div>
 </section>
 @endif
 <!-- Banner end -->
 
 <!-- Hot deal Grid -->
-@include('themes.car-web.includes.section-slider', array('title'=>'Hot Deal', 'contents'=>$hotDeals, 'morelink'=>'#'))
+@include('themes.car-web.includes.section-slider', array('title'=>'Hot Deal', 'contents'=>\Modules\Car\Entities\Car::filterByPremium()->get(), 'morelink'=>url('/buy?premium=True')))
 <!-- Hot deal End -->
 
 @endsection
@@ -319,19 +74,32 @@ $sideBanners = App\Banner::where('location_id', 4)->get();
     $('#mainForm').submit();
   }
 
-  $("input[type=radio]").click(function(event) {
-    event.preventDefault();
-    if (event.target.defaultChecked) {
-      event.target.checked = false;
-    }
-    $('#mainForm').submit();
-  });
-
   function addToInterest(event, value) {
+    event.preventDefault();
     event.stopPropagation();
-    var target = event.target;
-    target.innerHTML = "";
-    target.innerHTML = '<span class="text-danger"><i class="fas fa-heart"></i> Added to interest list</span>';
+    var target = event.target.closest('div');
+    // target.innerHTML = 'Loading';
+
+    $.ajax({
+      url: '/ajax/user/interested_cars', 
+      dataType: 'json',
+      method: 'PUT',
+      data: {
+          'content_id': value
+      },
+      success: function (data) {
+        if (data.status == 'added') {
+          target.innerHTML = '<span class="text-danger"><i class="fas fa-heart"></i> Added to interest list</span>';
+        } else if (data.status == 'removed') {
+          target.innerHTML = '<span class=""><i class="far fa-heart"></i> Add to interest list</span>';
+        }
+      },
+      error: function (error) {
+        if (error.status == 401) {
+          window.location.href = "{{ route('login') }}";
+        }
+      }
+    });
   }
 </script>
 @endsection
