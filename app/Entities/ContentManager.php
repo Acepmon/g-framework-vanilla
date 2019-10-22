@@ -164,20 +164,23 @@ class ContentManager extends Manager
      * Filter & Serialize mixed request of Content and ContentMetas to Content Object with ContentMeta subarray
      * @return Paginated Content
      */
-    public static function serializeRequest(Request $request)
+    public static function serializeRequest(Request $request, $author_id = null)
     {
         $type = self::requestOperator('type', $request, Content::TYPE_POST);
         $status = self::requestOperator('status', $request, Content::STATUS_PUBLISHED);
         $visibility = self::requestOperator('visibility', $request, Content::VISIBILITY_PUBLIC);
         $limit = self::requestOperator('limit', $request, 10);
+        $sort = $request->input('sort', '+id');
 
         $metaInputs = self::discernMetasFromRequest($request->input());
         $contents = Content::where($type['field'], $type['operator'], $type['value'])
         ->where($status['field'], $status['operator'], $status['value'])
         ->where($visibility['field'], $visibility['operator'], $visibility['value']);
 
-        if ($request->has('author_id')) {
-            $author_id =self::requestOperator('author_id', $request);
+        if (isset($author_id)) {
+            $contents = $contents->where('author_id', $author_id);
+        } else if ($request->has('author_id')) {
+            $author_id = self::requestOperator('author_id', $request);
             $contents = $contents->where($author_id['field'], $author_id['operator'], $author_id['value']);
         }
 
@@ -191,6 +194,18 @@ class ContentManager extends Manager
             }
         }
 
+        // Sort parameter
+        if (\Str::startsWith($sort, '-')) {
+            $sort = substr($sort, 1);
+            $sortDir = 'desc';
+        } else if (\Str::startsWith($sort, '+')) {
+            $sort = substr($sort, 1);
+            $sortDir = 'asc';
+        } else {
+            $sortDir = 'asc';
+        }
+        $contents = $contents->orderBy($sort, $sortDir);
+
         $contents = $contents->paginate($limit['value']);
         return $contents;
     }
@@ -201,7 +216,7 @@ class ContentManager extends Manager
      */
     public static function discernMetasFromRequest($input)
     {
-        $inputExcept = ['title', 'slug', 'content', 'type', 'status', 'visibility', 'limit', 'page', 'author_id', '_token'];
+        $inputExcept = ['title', 'slug', 'content', 'type', 'status', 'visibility', 'limit', 'page', 'author_id', '_token', 'sort'];
         $metaInputs = array_filter($input, function ($key) use ($inputExcept) {
             return !in_array($key, $inputExcept);
         }, ARRAY_FILTER_USE_KEY);

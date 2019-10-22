@@ -56,12 +56,12 @@ class GframeworkServiceProvider extends ServiceProvider
             foreach ($someObject->filter as $some) {
                 $contents = $contents->where($some->field, '=', $some->key);
             }
-            $contents = $contents->whereHas('metas', function ($query) use ($metaInputs) {
-                foreach ($metaInputs as $key => $value) {
+            foreach ($metaInputs as $key => $value) {
+                $contents = $contents->whereHas('metas', function ($query) use ($key, $value) {
                     $query->where('key', $key);
                     $query->where('value', $value);
-                }
-            });
+                });
+            }
 
             $contents = $contents->get()->count();
             return $contents;
@@ -125,12 +125,12 @@ class GframeworkServiceProvider extends ServiceProvider
             foreach ($someObject->filter as $some) {
                     $contents = $contents->where($some->field, '=', $some->key);
             }
-            $contents = $contents->whereHas('metas', function ($query) use ($metaInputs) {
-                foreach ($metaInputs as $key => $value) {
+            foreach ($metaInputs as $key => $value) {
+                $contents = $contents->whereHas('metas', function ($query) use ($key, $value) {
                     $query->where('key', $key);
                     $query->where('value', $value);
-                }
-            });
+                });
+            }
 //            /dd($someObject);
             if(property_exists($someObject,"limit")){
                 $contents = $contents->take($someObject->limit);

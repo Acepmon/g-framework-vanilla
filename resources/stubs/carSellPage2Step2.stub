@@ -64,7 +64,13 @@
     {{--</div>--}}
 {{--</form>--}}
 
-<form action="#" class="dropzone" id="dropzone_multiple"></form>
+<form action="#" class="dropzone" id="dropzone_multiple">
+
+</form>
+<div style="float:right;">
+    <button class="btn btn-light btn-round px-5 py-2 mr-3" type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
+    <button class="btn btn-danger btn-round shadow-red px-5 py-2" type="button" id="nextBtn" onclick="step2Submit()">Next</button>
+</div>
 
 <div class="modal fade docs-cropped" id="getCroppedCanvasModal" tabindex="-1">
     <div class="modal-dialog">

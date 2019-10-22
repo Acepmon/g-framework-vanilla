@@ -59,11 +59,18 @@
                             <div class="col-md-12 mb-2">
                                 @include('themes.car-web.includes.detail-seller', ['user' => $content->author])
                             </div>
+                            @if ($content->metaValue('isAuction'))
+                                <div class="col-md-12 mb-2">
+                                    @include('themes.car-web.includes.detail-auction', ['user' => $content->author])
+                                </div>
+                            @endif
                             <div class="col-md-12 mb-2">
                                 @include('themes.car-web.includes.detail-car-stats', ['content' => $content])
                             </div>
                             <div class="col-md-12 px-5">
-                                <a class="btn btn-danger btn-round btn-block my-4 shadow-red p-3" href="#section-finance">Зээлийн боломжийг шалгах</a>
+                                @if (!$content->metaValue('isAuction'))
+                                    <a class="btn btn-danger btn-round btn-block my-4 shadow-red p-3" href="#section-finance">Зээлийн боломжийг шалгах</a>
+                                @endif
 
                                 @include('themes.car-web.includes.save-to-interested-btn', ['content' => $content])
                             </div>

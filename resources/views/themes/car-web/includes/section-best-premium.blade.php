@@ -11,9 +11,8 @@
 
             <div class="card-list mx-n3">
                 <div class="row">
-                    @contents({"filter":[{"field":"type", "key":"car"}, {"field":"status", "key":"published"}, {"field":"visibility", "key":"public"}], "metasFilter": [{"key":"publishType", "value":"best_premium"}], "limit":12, "returnVariable":"carDataPremium"})
+                    @content(type=car, status=published, visibility=public, publishType=best_premium, isAuction=0, limit=12 as $bpCars | paginate)
 
-                    @foreach($carDataPremium as $bpCars)
                         @if(count($interestedCars) > 0)
                             @foreach($interestedCars as $intCars)
                                 @if($intCars==$bpCars->id)
@@ -65,7 +64,7 @@
                             <!-- card end -->
                         </div>
                         <!-- col-end -->
-                    @endforeach
+                    @endcontent
                 </div>
             </div>
         </div>
