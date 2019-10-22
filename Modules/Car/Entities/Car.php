@@ -7,6 +7,7 @@ use App\Content;
 class Car extends Content
 {
     protected $fillable = [];
+    protected const EXCEPT = ['minPrice', 'maxPrice'];
 
     public static function all($columns = []) {
         return Content::where('type', Content::TYPE_CAR)->where('status', Content::STATUS_PUBLISHED)->where('visibility', Content::VISIBILITY_PUBLIC);
@@ -38,11 +39,13 @@ class Car extends Content
         }
 
         foreach ($filter as $key => $value) {
-            if ($value != Null) {
+            if ($value != Null && !in_array($key, self::EXCEPT)) {
                 $contents = metaHas($contents, $key, $value);
             }
         }
-        // $contents = metaHas($contents, 'priceAmount', $value, 'range', $filter['minPrice'], $filter['maxPrice']);
+        $minPrice = $filter['minPrice'];
+        $maxPrice = $filter['maxPrice'];
+        $contents = metaHas($contents, 'priceAmount', '', 'range', $minPrice, $maxPrice);
 
         return $contents;
     }
@@ -93,8 +96,8 @@ class Car extends Content
         $request['buildYear'] = request('year', Null);
         $request['distanceDriven'] = request('distance_driven', Null);
         $request['doctorVerified'] = request('doctors_verified', Null);
-        $request['minPrice'] = intVal(request('min_price', Null)) * 1000;
-        $request['maxPrice'] = intVal(request('max_price', Null)) * 1000;
+        $request['minPrice'] = request('min_price', Null);
+        $request['maxPrice'] = request('max_price', Null);
 
         // $request = json_encode($request);
         return $request;

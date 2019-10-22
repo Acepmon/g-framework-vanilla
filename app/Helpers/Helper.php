@@ -91,10 +91,10 @@ function metaHas($items, $key, $value, $operator = '=', $min = Null, $max = Null
             $query->whereNotIn('value', explode('|', $value));
         } else if ($operator == 'range'){
             if ($min != Null) {
-                $query->where('value', '>=', $min);
+                $query->whereRAW('cast(value as unsigned) >= ' .$min);
             }
             if ($max != Null) {
-                $query->where('value', '<=', $max);
+                $query->whereRAW('cast(value as unsigned) <= ' .$max);
             }
         } else if (is_array($value)){
             $query->whereIn('value', $value);

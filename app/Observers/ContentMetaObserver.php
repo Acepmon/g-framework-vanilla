@@ -34,7 +34,7 @@ class ContentMetaObserver
         $content = $contentMeta->content;
         if ($content->status == Content::STATUS_PUBLISHED && $content->visibility == Content::VISIBILITY_PUBLIC) {
             $this->incrementCount($contentMeta->key, $contentMeta->value);
-//            $this->decrementCount($contentMeta->key, $contentMeta->getOriginal($contentMeta->key));
+            $this->decrementCount($contentMeta->key, $contentMeta->getOriginal($contentMeta->key));
         }
 
         if ($contentMeta->key == 'startsAt') {

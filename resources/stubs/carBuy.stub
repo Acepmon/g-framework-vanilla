@@ -19,7 +19,7 @@ Car dealer
 <div class="bg-page-header"></div>
 
 @include('themes.car-web.includes.fixed-right-sidebar', array('sideBanners'=>\App\Banner::where('location_id', 4)->where('status', 'active')->get(), 'premium'=>\Modules\Car\Entities\Car::filterByPremium(5)))
-<section class="section detail-page">
+<section class="section">
   <div class="container">
     <div class="row">
       <div class="col-lg-3 col-md-4">

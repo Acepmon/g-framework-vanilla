@@ -48,9 +48,9 @@ $categoryName = [
         </div>
         </div>
         @elseif($category == 'car-year')
-        <div id="{{ $category }}" class="collapse {{ request($category, False)?'show':'' }}" aria-labelledby="{{ $category }}">
+        <div id="{{ $category }}" class="collapse {{ request('year', False)?'show':'' }}" aria-labelledby="{{ $category }}">
         <div class="card-body bg-light grid-radio">
-            <select id="min-year" class="form-control" name="year" onchange="formSubmit('year','year')">
+            <select id="min-year" class="form-control" name="year" onchange="formSubmit('year','no-value')">
             <option value="">Select year</option>
             @for($i=date('Y'); $i>=1990; $i--)
             <option value="{{ $i }}" {{ $request['buildYear']==$i?'selected':'' }}>{{ $i }}</option>
@@ -59,11 +59,11 @@ $categoryName = [
         </div>
         </div>
         @elseif($category == 'car-distance-driven')
-        <div id="{{ $category }}" class="collapse {{ request($category, False)?'show':'' }}" aria-labelledby="{{ $category }}">
+        <div id="{{ $category }}" class="collapse {{ request('distance_driven', False)?'show':'' }}" aria-labelledby="{{ $category }}">
         <div class="card-body bg-light grid-radio">
             <select id="distance_driven" class="form-control" name="distance_driven" onchange="formSubmit('distance_driven','no-value')">
             <option value="">Select distance</option>
-            @for($i=1; $i<=10; $i++)
+            @for($i=1; $i<=1000; $i++)
             <option value="{{ $i }}" {{ $request['distanceDriven']==$i?'selected':'' }}>{{ $i }}km</option>
             @endfor
             </select>
@@ -76,16 +76,16 @@ $categoryName = [
             <div class="col-md-6">
                 <select id="min_price" class="form-control" name="min_price" onchange="formSubmit('min_price','no-value')">
                 <option value="0">Min</option>
-                @for($i=100; $i<=10000; $i+=100)
-                <option value="{{ $i }}" {{ $request['minPrice']==$i?'selected':'' }}>{{ $i }} мянга</option>
+                @for($i=100000; $i<=50000000; $i+=100000)
+                <option value="{{ $i }}" {{ $request['minPrice']==$i?'selected':'' }}>{{ numerizePrice($i) }}</option>
                 @endfor
                 </select>
             </div>
             <div class="col-md-6">
                 <select id="max_price" class="form-control" name="max_price" onchange="formSubmit('max_price','no-value')">
                 <option value="">Max</option>
-                @for($i=$request['minPrice']; $i<=10000; $i+=100)
-                <option value="{{ $i }}" {{ $request['maxPrice']==$i?'selected':'' }}>{{ $i }} мянга</option>
+                @for($i=$request['minPrice']?$request['minPrice']:100000; $i<=50000000; $i+=100000)
+                <option value="{{ $i }}" {{ $request['maxPrice']==$i?'selected':'' }}>{{ numerizePrice($i) }}</option>
                 @endfor
                 </select>
             </div>

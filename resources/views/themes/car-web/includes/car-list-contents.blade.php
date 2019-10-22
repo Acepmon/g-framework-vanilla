@@ -41,7 +41,7 @@ if ($itemCount < $page * $itemsPerPage) {
 
 @push('styles')
 <style>
-.detail-page .car-list .card-img .img-fluid {
+.car-list .card-img .img-fluid {
   min-height: 100%;
   object-fit: cover;
 }
