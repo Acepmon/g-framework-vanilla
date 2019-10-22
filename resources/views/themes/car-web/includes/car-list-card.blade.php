@@ -51,7 +51,7 @@
                     <img src="{{ asset('car-web/img/icons/transmision.svg') }}" alt="">
                     <p>{{ $car->metaValue('axleCount') }} WD</p>
                 </span>
-                <span class="info-icon color" data-color="black"><!--{{ strtolower($car->metaValue('colorName')) }}">-->
+                <span class="info-icon color" data-color="{{ strtolower($car->metaValue('colorName')) }}">
                     <p>{{ ucfirst($car->metaValue('colorName')) }}</p>
                 </span>
 

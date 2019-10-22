@@ -56,7 +56,7 @@ class ContentMetaObserver
     public function incrementCount($key, $value) {
         $term = Term::where('name', $value)->first();
         if ($term && $term->group && $key == $term->group->metaValue('metaKey')) {
-            $taxonomy = TermTaxonomy::where('term_id', $term->id)->first();
+            $taxonomy = TermTaxonomy::where('term', $term)->first();
             if ($taxonomy) {
                 $taxonomy->increment('count');
             }

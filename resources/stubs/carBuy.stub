@@ -22,7 +22,7 @@ Car dealer
 <section class="section detail-page">
   <div class="container">
     <div class="row">
-      <div class="col-md-3">
+      <div class="col-lg-3 col-md-4">
         <input type="hidden" name="search" id="search">
         <form action="{{ url('search') }}" id="searchForm">
           <div class="left-bar-title"><h3>Vehicle search</h3>
@@ -74,7 +74,7 @@ Car dealer
         <form action="{{ url('/buy') }}" id="mainForm">
         @include('themes.car-web.includes.car-list-menu')
       </div>
-      <div class="col-md-9">
+      <div class="col-lg-9 col-md-8">
         @include('themes.car-web.includes.car-list-contents', ['allItems' => \Modules\Car\Entities\Car::all()])
         </form>
       </div>

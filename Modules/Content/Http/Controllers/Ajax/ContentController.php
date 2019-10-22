@@ -86,6 +86,10 @@ class ContentController extends Controller
                 $user->groups()->attach(Group::where('title', 'Guest')->get());
             }
             $content->save();
+            if ($content->type == Content::TYPE_CAR) {
+                $content->slug = config('content.cars.containerPage') . '/' . $content->id;
+                $content->save();
+            }
             Session::put('createdCarId', $content->id);
 
             $data = ContentManager::discernMetasFromRequest($request->input());
