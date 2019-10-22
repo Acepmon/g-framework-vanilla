@@ -143,6 +143,7 @@ class CarContentsTableSeeder extends Seeder
                 new ContentMeta(['key' => 'maxBidUnit', 'value' => '₮']),
                 new ContentMeta(['key' => 'startsAt', 'value' => '2019-09-15']),
                 new ContentMeta(['key' => 'endsAt', 'value' => '2019-09-18']),
+                new ContentMeta(['key' => 'bids', 'value' => '24']),
 
                 // Analytical logs
                 new ContentMeta(['key' => 'viewed', 'value' => rand(1, 10000)]),

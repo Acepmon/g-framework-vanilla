@@ -16,7 +16,7 @@ class CarColorTableSeeder extends Seeder
      */
     public function run()
     {
-        $colour = ['White', 'Black', 'Rusty', 'Pearl gray', 'Silver', 'Aluminum', 'Beige', 'Blue', 'Brown', 'Bronze', 'Claret', 'Copper', 'Cream', 'Gold', 'Gray', 'Green', 'Maroon', 'Metallic', 'Navy', 'Orange', 'Pink', 'Purple', 'Red', 'Rose', 'Tan', 'RoTurquoisese', 'Yellow'];
+        $colour = ['black', 'white-ivory', 'white-pearl', 'asphalt-gray', 'red', 'blue', 'blue-dark', 'sea', 'brown', 'bronze', 'green', 'green-light', 'gold', 'copper', 'beige'];
 
         $parent = TaxonomyManager::register('Color', 'car', null, ['metaKey' => 'colorName']);
 

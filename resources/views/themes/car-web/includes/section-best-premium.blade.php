@@ -7,12 +7,12 @@
             <a href="/buy?best_premium=true">See all<i class="fab fa fa-angle-right"></i></a>
           </span>
             </div>
+        </div>
 
-            <div class="card-list">
+            <div class="card-list mx-n3">
                 <div class="row">
-                    @contents({"filter":[{"field":"type", "key":"car"}, {"field":"status", "key":"published"}, {"field":"visibility", "key":"public"}], "metasFilter": [{"key":"publishType", "value":"best_premium"}], "limit":12, "returnVariable":"carDataPremium"})
+                    @content(type=car, status=published, visibility=public, publishType=best_premium, isAuction=0, limit=12 as $bpCars | paginate)
 
-                    @foreach($carDataPremium as $bpCars)
                         @if(count($interestedCars) > 0)
                             @foreach($interestedCars as $intCars)
                                 @if($intCars==$bpCars->id)
@@ -40,7 +40,7 @@
                                         <div class="meta">{{(getMetasValue($bpCars->metas, 'mileageAmaount'))}} {{(getMetasValue($bpCars->metas, 'mileageUnit'))}}| {{(getMetasValue($bpCars->metas, 'fuelType'))}} | {{(getMetasValue($bpCars->metas, 'capacityAmount'))}} {{(getMetasValue($bpCars->metas, 'capacityunit'))}}</div>
                                         <div class="favorite saveToInterested" data-target="{{ $bpCars->id }}">
                                             @if($itsIntCar==true)
-                                                <i class="fas fa-heart"></i>
+                                                <span class="text-danger"><i class="fas fa-heart"></i></span>
                                             @else
                                                 <i class="icon-heart"></i>
                                             @endif
@@ -64,9 +64,8 @@
                             <!-- card end -->
                         </div>
                         <!-- col-end -->
-                    @endforeach
+                    @endcontent
                 </div>
             </div>
         </div>
-    </div>
 </section>

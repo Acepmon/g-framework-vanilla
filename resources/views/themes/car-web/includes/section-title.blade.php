@@ -34,6 +34,13 @@
                                             <div class="vehicle-price"> <i class="icon-tag"></i> Price: <span>{{ numerizePrice($content->metaValue('priceAmount')) }} {{ $content->metaValue('priceUnit') }}</span> </div>
                                         @endif
 
+                                        @if ($content->metaValue('isAuction'))
+                                            <div class="vehicle-price ml-3">
+                                                <img src="{{ asset('car-web/img/auction.svg') }}" alt="">
+                                                End Time: <span class="countdown" data-countdown="{{ $content->metaValue('endsAt') }}"></span>
+                                            </div>
+                                        @endif
+
                                         <div class="vehicle-id">ID: <span>#{{ $content->id }}</span></div>
                                     </div>
                                 </div>
@@ -112,6 +119,40 @@
                 $('[data-toggle="tooltip"]').tooltip()
             });
         </script>
-    @endpush()
+    @endpush
+
+    @push('scripts')
+        <script>
+            var mazCountdown = $('.countdown');
+            var mazCDtime = mazCountdown.data('countdown');
+
+            var countDownDate = new Date(mazCDtime).getTime();
+
+            // Update the count down every 1 second
+            var x = setInterval(function() {
+                // Get today's date and time
+                var now = new Date().getTime();
+
+                // Find the distance between now and the count down date
+                var distance = countDownDate - now;
+
+                // Time calculations for days, hours, minutes and seconds
+                var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                // Display the result in the element with id="demo"
+                mazCountdown.html((hours + days * 24) + "<span>Цаг</span> "
+                + minutes + "<span>Мин</span> " + seconds + "<span>Сек</span> ");
+
+                // If the count down is finished, write some text
+                if (distance < 0) {
+                    clearInterval(x);
+                    mazCountdown.html("EXPIRED");
+                }
+            }, 1000);
+        </script>
+    @endpush
 
 @endif

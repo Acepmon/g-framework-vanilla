@@ -15,7 +15,6 @@ $order = request('order', "desc");
 $page = request('page', "1");
 $itemsPerPage = request('itemsPerPage', "16");
 $allItems = App\Content::with('metas')->where('type', "wanna-buy");
-
 if ($orderBy != 'updated_at') {
 $allItems = $allItems->join('content_metas', 'contents.id', '=', 'content_metas.content_id')
 ->where('content_metas.key', '=', $orderBy)->select('contents.*')->addSelect('content_metas.value');
@@ -24,6 +23,7 @@ $allItems = $allItems->orderBy('value', $order);
 $allItems = $allItems->orderBy($orderBy, $order);
 }
 $items = $allItems;
+
 
 function getPremiumDeal($type, $now) {
   $deals = App\Content::where('type', App\Content::TYPE_CAR)->where('status', App\Content::STATUS_PUBLISHED)->where('visibility', App\Content::VISIBILITY_PUBLIC);
@@ -146,10 +146,10 @@ $items = $items->get();
 <section id="wish-list" class="section">
     <div class="container mt-5">
         <form action="wishlist" id="mainForm">
-        <div class="card-list">
+        <div class="people-wish-list">
             <div class="row mt-2">
                     @foreach($items->forPage($page, $itemsPerPage) as $car)
-                    <div class="col-md-3 px-2 mt-2">
+                    <div class="col-lg-3 col-md-4">
                     <!-- card start -->
                       @include('themes.car-web.includes.car-wishlist-card', array('car'=>$car))
                     <!-- card end -->

@@ -8,7 +8,7 @@ use Illuminate\Routing\Controller;
 
 use App\Content;
 
-class CarFreeController extends Controller
+class CarAuctionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,27 +17,18 @@ class CarFreeController extends Controller
     public function index()
     {
         $published = Content::where('type', 'car')->where('status', Content::STATUS_PUBLISHED)->whereHas('metas', function ($query) {
-            $query->where('key', 'publishType');
-            $query->where('value', 'free');
-        })->whereHas('metas', function ($query) {
             $query->where('key', 'isAuction');
-            $query->where('value', '0');
+            $query->where('value', '1');
         })->orderBy('visibility', 'desc')->get();
 
         $pending = Content::where('type', 'car')->where('status', Content::STATUS_DRAFT)->whereHas('metas', function ($query) {
-            $query->where('key', 'publishType');
-            $query->where('value', 'free');
-        })->whereHas('metas', function ($query) {
             $query->where('key', 'isAuction');
-            $query->where('value', '0');
+            $query->where('value', '1');
         })->orderBy('visibility', 'desc')->get();
 
         $draft = Content::where('type', 'car')->where('status', Content::STATUS_PUBLISHED)->whereHas('metas', function ($query) {
-            $query->where('key', 'publishType');
-            $query->where('value', 'free');
-        })->whereHas('metas', function ($query) {
             $query->where('key', 'isAuction');
-            $query->where('value', '0');
+            $query->where('value', '1');
         })->orderBy('visibility', 'desc')->get();
 
         $contents = [
@@ -46,16 +37,16 @@ class CarFreeController extends Controller
             Content::STATUS_DRAFT => $draft,
         ];
 
-        return view('car::admin.car.free.index', ['contents' => $contents]);
+        return view('car::admin.car.auction.index', ['contents' => $contents]);
     }
 
     /**
      * Show the form for creating a new resource.
      * @return Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        return view('car::admin.car.free.create');
+        return view('car::admin.car.auction.create');
     }
 
     /**
@@ -75,7 +66,7 @@ class CarFreeController extends Controller
      */
     public function show($id)
     {
-        return view('car::admin.car.free.show');
+        return view('car::admin.car.auction.show');
     }
 
     /**
@@ -85,7 +76,7 @@ class CarFreeController extends Controller
      */
     public function edit($id)
     {
-        return view('car::admin.car.free.edit');
+        return view('car::admin.car.auction.edit');
     }
 
     /**

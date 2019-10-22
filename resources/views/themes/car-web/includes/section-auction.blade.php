@@ -1,18 +1,17 @@
 <section class="mainPage-items bg-dark">
     <div class="container">
         <div class="row">
-            @contents({"filter":[{"field":"type", "key":"car"}, {"field":"status", "key":"published"}],
-            "metasFilter": [{"key": "isAuction", "value": 1}],"limit":12, "returnVariable":"carAuctionPremium"})
             <div class="section-title text-light">
                 <h2>Auction cars</h2>
                 <span>
-            <a href="/auction">See all ({{count($carAuctionPremium)}}) <i class="fab fa fa-angle-right"></i></a>
+            <a href="/auction">See all ( @contentsTotal({"filter":[{"field":"type", "key":"car"}, {"field":"status", "key":"published"}], "metasFilter": [{"key": "isAuction", "value": 1}] }) ) <i class="fab fa fa-angle-right"></i></a>
           </span>
             </div>
-            <div class="card-list auction">
+        </div>
+            <div class="card-list auction mx-n3">
                 <div class="row">
 
-                    @foreach($carAuctionPremium as $auctionPrmCars)
+                    @content(type=car, status=published, visibility=public, publishType=best_premium, isAuction=1, limit=12 as $auctionPrmCars | paginate)
                         @if(count($interestedCars) > 0)
                             @foreach($interestedCars as $intCars)
                                 @if($intCars == $auctionPrmCars->id)
@@ -45,7 +44,7 @@
                                         <div id="countdown" class="countdown"  data-countdown="Jan 5, 2020 15:37:25"></div>
                                         <div class="favorite saveToInterested" data-target="{{ $auctionPrmCars->id }}">
                                             @if($itsIntCar==true)
-                                                <i class="fas fa-heart"></i>
+                                                <span class="text-danger"><i class="fas fa-heart"></i></span>
                                             @else
                                                 <i class="icon-heart"></i>
                                             @endif
@@ -73,10 +72,9 @@
                             <!-- card end -->
                         </div>
                         <!-- col-end -->
-                    @endforeach
+                    @endcontent
                 </div>
             </div>
         </div>
-    </div>
 </section>
 

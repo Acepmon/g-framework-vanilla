@@ -10,10 +10,7 @@
             </div>
             <div class="car-list">
                 <div class="row">
-                    @contents({"filter":[{"field":"type", "key":"car"}, {"field":"status", "key":"published"}], "limit":10,
-                    "returnVariable":"carsOther"})
-
-                    @foreach($carsOther as $othCars)
+                    @content(type=car, status=published, limit=10 as $othCars | paginate)
                         @if(count($interestedCars) > 0)
                             @foreach($interestedCars as $intCars)
                                 @if($intCars == $othCars->id)
@@ -40,9 +37,9 @@
                                             <div class="card-title">{{$othCars->title}}</div>
                                             <div class="meta">{{(getMetasValue($othCars->metas,'buildYear'))}} / {{(getMetasValue($othCars->metas,'importDate'))}} | {{(getMetasValue($othCars->metas,'mileageAmount'))}} {{(getMetasValue($othCars->metas,'mileageUnit'))}}</div>
                                             <div class="price">{{numerizePrice((getMetasValue($othCars->metas,'priceAmount')))}} {{(getMetasValue($othCars->metas, 'priceUnit'))}}</div>
-                                            <div class="favorite saveToInterested" data-target="{{ $othCars->id }}">
+                                            <div class="favorite saveToInterestedOther" data-target="{{ $othCars->id }}">
                                                 @if($itsIntCar==true)
-                                                    <i class="fas fa-heart"></i> Added to interest list
+                                                    <span class="text-danger"><i class="fas fa-heart"></i> Added to interest list</span>
                                                 @else
                                                     <i class="icon-heart"></i> Add to interest list
                                                 @endif
@@ -53,7 +50,10 @@
                             </a>
                         </div>
                         <!-- card end -->
-                    @endforeach
+                    @endcontent
+
+                </div>
+                <div class="row">
                     <a class="btn btn-danger btn-round shadow-red mx-auto my-3 px-5" href="/buy">See all vehicles</a>
                 </div>
             </div>
