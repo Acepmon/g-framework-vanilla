@@ -188,8 +188,9 @@ class ContentController extends Controller
      * @param  \App\Content  $content
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Content $content)
+    public function destroy(Request $request, Content $content)
     {
-        //
+        $content_id = $request->route('contentId');
+        Content::destroy($content_id);
     }
 }
