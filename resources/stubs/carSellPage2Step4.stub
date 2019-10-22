@@ -134,22 +134,38 @@
 
         delete paramObjs.publishPriceAmountBest;
         delete paramObjs.publishPriceAmountPremium;
+        var publishType
+        paramObjs
+        console.log(paramObjs);
 
         $.ajax({
             type: 'PUT',
             url: '/ajax/contents/' + carId + '/metas/sync',
             data: paramObjs
         }).done(function(data) {
-            $("#demo-spinner").css({'display': 'none'});
-            nextPrev(1);
-            console.log("DONE!");
-            console.log(data);
-            $('#carRegSuccess').modal('show');
+            $.ajax({
+                type: 'PUT',
+                url: '/ajax/contents/' + carId,
+                data: {"status":'{{ \App\Content::STATUS_PUBLISHED}}', "visibility":'{{ \App\Content::VISIBILITY_PUBLIC }}'}
+            }).done(function(data) {
+                $("#demo-spinner").css({'display': 'none'});
+                nextPrev(1);
+                console.log("DONE!");
+                console.log(data);
+                $('#carRegSuccess').modal('show');
+                window.location.href = "/post/"+carId;
+            }).fail(function(err) {
+                $("#demo-spinner").css({'display': 'none'});
+                console.error("FAIL!");
+                console.error(err);
+            });
             window.location.href = "/post/"+carId;
         }).fail(function(err) {
             $("#demo-spinner").css({'display': 'none'});
             console.error("FAIL!");
             console.error(err);
         });
+
+
     }
 </script>
