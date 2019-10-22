@@ -80,7 +80,7 @@ class Car extends Content
     */
     public static function manageRequest() {
         $request = [];
-        $request['type'] = request('car-type', Null);
+        $request['carType'] = request('car-type', Null);
         $request['markName'] = request('car-manufacturer', Null);
         $request['colorName'] = request('car-colors', Null);
         $request['fuelType'] = request('car-fuel', Null);

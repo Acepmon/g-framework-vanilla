@@ -18,7 +18,7 @@ class CarFuelTypeTableSeeder extends Seeder
     {
         $fuelType = ['Gasoline', 'Diesel', 'LPG', 'Gasoline + Electricity', 'LPG + Electricity', 'Gasoline + CNG', 'Diesel + Electricity', 'Electricity', 'LNG'];
 
-        $parent = TaxonomyManager::register('Car Fuel', 'car');
+        $parent = TaxonomyManager::register('Car Fuel', 'car', null, ['metaKey' => 'fuelType']);
 
         foreach ($fuelType as $key => $fuel) {
             TaxonomyManager::register($fuel, 'car-fuel', $parent->term->id);

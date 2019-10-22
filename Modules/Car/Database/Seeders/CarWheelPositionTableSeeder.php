@@ -18,7 +18,7 @@ class CarWheelPositionTableSeeder extends Seeder
     {
         $wheelPosition = ['Right', 'Left'];
 
-        $parent = TaxonomyManager::register('WheelPosition', 'car');
+        $parent = TaxonomyManager::register('WheelPosition', 'car', null, ['metaKey' => 'wheelPosition']);
 
         foreach ($wheelPosition as $key => $position) {
             TaxonomyManager::register($position, 'car-wheel-pos', $parent->term->id);

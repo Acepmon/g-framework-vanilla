@@ -18,7 +18,7 @@ class CarAccidentsTableSeeder extends Seeder
     {
         $accidents = ['Unassuming', 'Simple exchange', 'Simple accident'];
 
-        $parent = TaxonomyManager::register('Accident', 'car');
+        $parent = TaxonomyManager::register('Accident', 'car', null, ['metaKey' => 'accidents']);
 
         foreach ($accidents as $key => $accident) {
             TaxonomyManager::register($accident, 'car-accident', $parent->term->id);

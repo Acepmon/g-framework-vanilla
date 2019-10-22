@@ -20,7 +20,7 @@ class CarConditionsTableSeeder extends Seeder
 
         $conditions = ['Used', 'New', 'Import'];
 
-        $parent = TaxonomyManager::register('Car Conditions', 'car');
+        $parent = TaxonomyManager::register('Car Conditions', 'car', null, ['metaKey' => 'carCondition']);
 
         foreach ($conditions as $key => $condition) {
             TaxonomyManager::register($condition, 'car-conditions', $parent->term->id);

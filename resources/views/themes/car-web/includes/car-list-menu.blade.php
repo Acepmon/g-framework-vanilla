@@ -23,7 +23,7 @@ $categoryName = [
         <div class="card-body bg-light grid-radio gr-3">
             @foreach(App\TermTaxonomy::where('taxonomy', $category)->get() as $taxonomy)
             <div class="cd-radio">
-            <input type="radio" id="{{ $taxonomy->term->name }}" name="{{ $category }}" class="custom-control-input" value="{{ $taxonomy->term->name }}" {{ $request['type']==$taxonomy->term->name?'checked':''}}>
+            <input type="radio" id="{{ $taxonomy->term->name }}" name="{{ $category }}" class="custom-control-input" value="{{ $taxonomy->term->name }}" {{ $request['carType']==$taxonomy->term->name?'checked':''}}>
             <label class="custom-control-label " for="{{ $taxonomy->term->name }}">
                 <img src="{{ asset('car-web/img/icons/'.strtolower($taxonomy->term->name).'.svg') }}">
                 <span>{{ $taxonomy->term->name }}</span>
