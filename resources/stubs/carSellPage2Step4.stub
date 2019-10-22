@@ -159,7 +159,6 @@
                 console.error("FAIL!");
                 console.error(err);
             });
-            window.location.href = "/post/"+carId;
         }).fail(function(err) {
             $("#demo-spinner").css({'display': 'none'});
             console.error("FAIL!");
