@@ -1,44 +1,28 @@
 @extends('themes.car-web.layouts.absolute')
 
 @php
-function idize($value)
-{
-return str_replace(' ', '_', strtolower($value));
-}
-$categories = [
-'Car Type', 'Manufacturer', 'Color', 'Fuel', 'Transmission', 'Option', 'An accident', 'Passenger', 'Steering Wheel', 'Area'
-];
 
 // Get All items
-$orderBy = request('orderBy', "updated_at");
-$order = request('order', "desc");
 $page = request('page', "1");
 $itemsPerPage = request('itemsPerPage', "16");
 $allItems = App\Content::with('metas')->where('type', "wanna-buy");
-if ($orderBy != 'updated_at') {
-$allItems = $allItems->join('content_metas', 'contents.id', '=', 'content_metas.content_id')
-->where('content_metas.key', '=', $orderBy)->select('contents.*')->addSelect('content_metas.value');
-$allItems = $allItems->orderBy('value', $order);
-} else {
-$allItems = $allItems->orderBy($orderBy, $order);
-}
+
 $items = $allItems;
 
+//Filter
+$manufacturer = request('manufacturer', Null);
+$model = request('model', Null);
+$minPrice = request('minPrice', Null);
 
-function getPremiumDeal($type, $now) {
-  $deals = App\Content::where('type', App\Content::TYPE_CAR)->where('status', App\Content::STATUS_PUBLISHED)->where('visibility', App\Content::VISIBILITY_PUBLIC);
-  $deals = metaHas($deals, 'publishType', $type);
-  $deals = metaHas($deals, 'publishVerified', True);
-  return $deals->whereHas('metas', function ($query) use ($now) {
-    $query->where([['key', 'publishVerifiedEnd'],['value','>=',$now]]);
-  });
+if($manufacturer != null){
+  $items = metaHas($items, 'markName', $manufacturer);
 }
-
-// HOT Deals
-$now = now();
-$best_premium = getPremiumDeal('best_premium', $now)->get();
-$premium = getPremiumDeal('premium', $now)->get();
-$hotDeals = $best_premium->merge($premium);
+if($model != null){
+  $items = metaHas($items, 'modelName', $model);
+}
+if($minPrice != null){
+  $items = metaHas($items, 'priceAmount', $minPrice, '<');
+}
 
 // Post items filtering
 $itemCount = count($items->get());
@@ -49,8 +33,6 @@ if ($itemCount < $page * $itemsPerPage) {
 
 // Banner
 $banner = App\Banner::where('location_id', 5)->where('status', 'active')->inRandomOrder()->first();
-// $sideBanners = App\Banner::where('location_id', 4)->where('status', 'active')->get();
-$sideBanners = App\Banner::where('location_id', 4)->get();
 
 $items = $items->get();
 
@@ -83,40 +65,27 @@ $items = $items->get();
               </div>
             </div>
             <div class="tab-content p-5" id="heroTabFilter">
-              <form>
+              <form action="/wishlist" method="GET">
                 <div class="form-group">
-                  <select id="selectManufacturer" class="form-control">
-                  <option value="0">Manufacturer</option>
-                    @foreach(App\TermTaxonomy::where('taxonomy', 'car-manufacturer')->get() as $taxonomy)
-                    <option>{{$taxonomy->term->name}}</option>
-                    @endforeach
-                  </select>
+                    <select id="vehicleManufacturer" class="form-control" name="manufacturer">
+                        <option value="" selected>Manufacturer</option>
+                        @getTaxonomys({"filter":[{"field":"taxonomy", "key":"car-manufacturer"}], "returnValue":"manufacturers"})
+                        @foreach($manufacturers as $data)
+                            <option value="{{$data->term->name}}" {{ ($data->term->name == $manufacturer)?'selected':'' }}>{{$data->term->name}}</option>
+                        @endforeach
+                    </select>
                 </div>
                 <div class="form-group">
-                  <select id="modelSelect" class="form-control">
-                  <option value="0">Model</option>
-                  
-                  @foreach(App\TermTaxonomy::where('taxonomy', 'car-manufacturer')->get() as $taxonomy)
-                    @foreach(App\TermTaxonomy::where('taxonomy', 'car-'.strtolower($taxonomy->term->name))->get() as $model)
-                    <option title="{{$taxonomy->term->name}}">{{$model->term->name}}</option>
-                    @endforeach
-                  @endforeach
-                  </select>
+                    <select id="vehicleManufacturerModels" class="form-control" name="model">
+                        <option value="">Model</option>
+                    </select>
                 </div>
                 <div class="form-group">
-                  <select class="form-control">
-                  <option value="0">Min price</option>
-                        @for($i=100; $i<=10000; $i+=100)
-                        <option value="{{ $i }}">{{ $i }} мянга</option>
+                  <select class="form-control" name="minPrice">
+                  <option value="">Min price</option>
+                        @for($i=100000; $i<=10000000; $i+=100000)
+                        <option value="{{ $i }}">{{numerizePrice($i)}}</option>
                         @endfor
-                  </select>
-                </div>
-                <div class="form-group">
-                  <select class="form-control">
-                  <option value="">Entry year</option>
-                  @for($i=date('Y'); $i>=1990; $i--)
-                    <option value="{{ $i }}">{{ $i }}</option>
-                    @endfor
                   </select>
                 </div>
                 <button type="submit" class="btn btn-danger btn-lg btn-round shadow mt-4 px-5">Filter</button>
@@ -141,7 +110,7 @@ $items = $items->get();
     </div>
 
   </header>
-@include('themes.car-web.includes.fixed-right-sidebar', array('sideBanners'=>$sideBanners, 'premium'=>$hotDeals))
+  @include('themes.car-web.includes.fixed-right-sidebar', array('sideBanners'=>\App\Banner::where('location_id', 4)->where('status', 'active')->get(), 'premium'=>\Modules\Car\Entities\Car::filterByPremium(5)))
 
 <section id="wish-list" class="section">
     <div class="container mt-5">
@@ -185,13 +154,13 @@ $items = $items->get();
 
 <!-- Banner start -->
 @if($banner)
-<section class="mainPage-items bg-white">
-  <div class="container pl-0 pr-0">
-    <a href="{{ $banner->link }}" class="text-primary text-decoration-none">
-      <div class="banner">
-        <!-- {{ $banner->title }} -->
-      </div>
-    </a>
+<section class="banner pt-5 bg-white">
+  <div class="container">
+    <div class="row">
+      <a href="{{ $banner->link }}" class="text-primary text-decoration-none">
+        <img src="{{ $banner->banner }}" class="img-fluid" alt="">
+      </a>
+    </div>
   </div>
 </section>
 @endif
@@ -231,15 +200,42 @@ $items = $items->get();
     $('#watchBtn' + id).css('visibility', 'hidden');
   }
 
-  $(document).ready(function(){
-    $('#selectManufacturer').change(function (){
-      var val = $(this).val();
-      console.log($(this).val());
+  const toKebabCase = str =>
+            str &&
+            str
+                .match(/[A-Z]{2,}(?=[A-Z][a-z]+[0-9]*|\b)|[A-Z]?[a-z]+[0-9]*|[A-Z]|[0-9]+/g)
+                .map(x => x.toLowerCase())
+                .join('-');
 
-      $('#modelSelect option[title!='+val+']').css('display', 'none');
-      
-      $('#modelSelect option[title='+val+']').css('display', 'block');
-    });
-  });
+  $("#vehicleManufacturer").change(
+                function (e) {
+                    var markName=$(this).val();
+                    $.ajax({
+                        type: 'Get',
+                        url: '/api/v1/taxonomies/car-'+toKebabCase(markName),
+                        // /data: paramObjs
+                    }).done(function(data) {
+                        console.log("DONE!");
+                        var modelList=data;
+                        $('#vehicleManufacturerModels')
+                            .find('option')
+                            .remove()
+                            .end()
+                            .append('<option value="">Model</option>')
+                            .val('')
+                        ;
+                        console.log(modelList.data);
+                        var i;
+                        for (i = 0; i < modelList.data.length; i++) {
+                            console.log(modelList.data[i].term.name);
+                            $("#vehicleManufacturerModels").append(new Option(modelList.data[i].term.name, modelList.data[i].id));
+                        }
+                    }).fail(function(err) {
+                        // $("#demo-spinner").css({'display': 'none'});
+                        console.error("FAIL!");
+                        console.error(err);
+                    });
+                }
+            )
 </script>
 @endsection

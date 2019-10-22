@@ -1,26 +1,5 @@
 @extends('themes.car-web.layouts.default')
 
-
-@php
-
-function getPremiumDeal($type, $now) {
-  $deals = App\Content::where('type', App\Content::TYPE_CAR)->where('status', App\Content::STATUS_PUBLISHED)->where('visibility', App\Content::VISIBILITY_PUBLIC);
-  $deals = metaHas($deals, 'publishType', $type);
-  $deals = metaHas($deals, 'publishVerified', True);
-  return $deals->whereHas('metas', function ($query) use ($now) {
-    $query->where([['key', 'publishVerifiedEnd'],['value','>=',$now]]);
-  });
-}
-
-// HOT Deals
-$now = now();
-$best_premium = getPremiumDeal('best_premium', $now)->get();
-$premium = getPremiumDeal('premium', $now)->get();
-$hotDeals = $best_premium->merge($premium);
-
-
-@endphp
-
 @section('title')
 
 @endsection
@@ -38,7 +17,7 @@ $hotDeals = $best_premium->merge($premium);
         <div class="card shadow-soft-blue page-top-navbar mb-5">
           <div class="d-flex justify-content-around">
             <a class="active" href="#">Finance information</a>
-            <a href="#">Search your vehicle for monthly installments</a>
+            <a href="/monthly-installments">Search your vehicle for monthly installments</a>
           </div>
         </div>
       </div>
@@ -81,7 +60,7 @@ $hotDeals = $best_premium->merge($premium);
   </section>
 
 <!-- Hot deal Grid -->
-@include('themes.car-web.includes.section-slider', array('title'=>'Hot Deal', 'contents'=>$hotDeals, 'morelink'=>'#'))
+@include('themes.car-web.includes.section-slider', array('title'=>'Hot Deal', 'contents'=>\Modules\Car\Entities\Car::filterByPremium()->get(), 'morelink'=>url('/buy?premium=True')))
 <!-- Hot deal End -->
 
 @endsection
