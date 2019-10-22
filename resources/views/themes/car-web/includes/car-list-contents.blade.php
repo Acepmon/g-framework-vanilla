@@ -48,14 +48,6 @@ if ($itemCount < $page * $itemsPerPage) {
 </style>
 @endpush
 
-<<<<<<< HEAD
-<div class="card shadow-soft-blue page-top-navbar">
-<div class="d-flex justify-content-start">
-    <span class="total-cars">{{ count($items) }} VEHICLES</span>
-    <input type="hidden" name="orderBy" id="orderBy" value="{{ $orderBy }}" />
-    <input type="hidden" name="premium" id="premium" value="{{ $filterPremium }}" />
-=======
-<div class="row">
     <div class="card shadow-soft-blue page-top-navbar">
         @if($type == 'search')
             <div class="card-body">
@@ -70,7 +62,6 @@ if ($itemCount < $page * $itemsPerPage) {
         <span class="total-cars">{{ count($items) }} VEHICLES</span>
         <input type="hidden" name="orderBy" id="orderBy" value="{{ $orderBy }}" />
         <input type="hidden" name="premium" id="premium" value="{{ $filterPremium }}" />
->>>>>>> 52483721e0d00e7bcf8c35e4f8f2d2fd2ef84e34
 
     <div class="sort-cars">
     <ul>
