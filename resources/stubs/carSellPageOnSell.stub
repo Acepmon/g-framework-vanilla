@@ -18,50 +18,48 @@
             </ul>
         </div>
     </div>
-    <div class="car-list sell-car">
-        @content(type=car, authorId = Auth::user()->id as $onSale |
-        paginate)
-        <a href="{{$onSale->slug}}" target="_blank" class="card">
+    @php
 
+    @endphp
+    <div class="car-list sell-car">
+        @content(type=car, author_id=Auth::user()->id, isSold=0 as $onSale | paginate)
+        <a href="{{$onSale->slug}}" target="_blank" class="card">
             <div class="card-body">
                 <div class="card-img">
-
-                    <img src="{{asset('car-web/img/Cars/2.jpg')}}" class="img-fluid" alt="alt" />
+                    <img src="{{$onSale->metaValue("thumbnail")}}" class="img-fluid" alt="alt" />
                 </div>
-
                 <div class="card-description">
                     <div class="card-caption">
-                        <div href="#" class="card-title">Hyundai Santa fe</div>
-                        <div class="meta">2006/2013 | 17,820km</div>
-                        <div class="price">12 Сая ₮</div>
+                        <div href="#" class="card-title">{{$onSale->title}}</div>
+                        <div class="meta">{{$onSale->metaValue("buildYear")}} / {{$onSale->metaValue("importDate")}} | {{$onSale->metaValue("mileageAmount")}}{{$onSale->metaValue("mileageUnit")}}</div>
+                        <div class="price">{{numerizePrice($onSale->metaValue("priceAmount"))}} {{$onSale->metaValue("priceUnit")}}</div>
                         <button class="btn btn-warning btn-round shadow-soft-blue btn-icon-left px-3 btn-sm mt-2"
                                 href="#"> Make premium ad</button>
                     </div>
                     <div class="info">
                       <span class="info-icon">
                         <img src="{{asset('car-web/img/icons/engine.svg')}}" alt="">
-                        <p>1499 L</p>
+                        <p>{{$onSale->metaValue("capacityAmount")}}{{$onSale->metaValue("capacityUnit")}}</p>
                       </span>
                         <span class="info-icon">
                         <img src="{{asset('car-web/img/icons/wheel.svg')}}" alt="">
-                        <p>Right wheel</p>
+                        <p>{{$onSale->metaValue("wheelPosition")}}</p>
                       </span>
                         <span class="info-icon">
                         <img src="{{asset('car-web/img/icons/gearShift.svg')}}" alt="">
-                        <p>Automatic</p>
+                        <p>{{$onSale->metaValue("transmission")}}</p>
                       </span>
                         <span class="info-icon">
                         <img src="{{asset('car-web/img/icons/fuel.svg')}}" alt="">
-                        <p>Gasoline</p>
+                        <p>{{$onSale->metaValue("fuelType")}}</p>
                       </span>
                         <span class="info-icon">
                         <img src="{{asset('car-web/img/icons/transmision.svg')}}" alt="">
-                        <p>4 WD</p>
+                        <p>{{$onSale->metaValue("chassis")}}</p>
                       </span>
                         <span class="info-icon color" data-color="black">
-                        <p>Black</p>
+                        <p>{{$onSale->metaValue("colorName")}}</p>
                       </span>
-
                         <div class="sell-action">
                             <div onclick="window.open('edit.html','mywindow');">Edit</div>
                             <div onclick="window.open('edit.html','mywindow');">Delete</div>
