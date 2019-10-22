@@ -75,7 +75,7 @@ Car dealer
         @include('themes.car-web.includes.car-list-menu')
       </div>
       <div class="col-md-9">
-        @include('themes.car-web.includes.car-list-contents', ['allItems' => \Modules\Car\Entities\Car::all()])
+        @include('themes.car-web.includes.car-list-contents', ['allItems' => \Modules\Car\Entities\Car::all(), 'type' => 'buy'])
         </form>
       </div>
     </div>
