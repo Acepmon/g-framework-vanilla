@@ -104,6 +104,8 @@ class GframeworkServiceProvider extends ServiceProvider
             // Collection return type
             $contents = $contents . "->" . $parsed->return . "(" . $returnArg . ")";
 
+            // dd($contents);
+
             return "<?php foreach($contents as $variable) { ?>";
         });
 
@@ -218,7 +220,7 @@ class GframeworkServiceProvider extends ServiceProvider
     }
 
     private function parseFilter($filter) {
-        $operators = ['=', '!=', '>', '>=', '<', '<='];
+        $operators = ['=', '!=', ' in ', '>', '>=', '<', '<=',];
         foreach ($operators as $operator) {
             if (\Str::contains($filter, $operator)) {
                 $split = explode($operator, $filter);
@@ -232,6 +234,9 @@ class GframeworkServiceProvider extends ServiceProvider
     }
 
     private function where($field, $operator, $value = null) {
+        if ($operator == 'in') {
+            return "whereIn('" . $field . "', " . $this->whereValueStr($value) . ")";
+        }
         if (isset($value)) {
             return "where('" . $field . "', '" . $operator . "', " . $this->whereValueStr($value) . ")";
         }

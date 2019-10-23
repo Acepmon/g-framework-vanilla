@@ -81,9 +81,11 @@ if ($itemCount < $page * $itemsPerPage) {
         @include('themes.car-web.includes.car-list-card', array('car'=>$car, 'auction'=>True))
     @endforeach
 @else
-    @foreach($items->forPage($page, $itemsPerPage) as $car)
-        @include('themes.car-web.includes.car-list-card', array('car'=>$car))
-    @endforeach
+
+    @content(type=car, carType in request()->input('car-type'), limit=15 as $car | paginate)
+      @include('themes.car-web.includes.car-list-card', array('car'=>$car))
+    @endcontent
+
 @endif
 </div>
 @else

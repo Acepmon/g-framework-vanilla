@@ -5,12 +5,10 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Blade;
-use Illuminate\Database\Eloquent\Model;
 use App\Content;
-use App\Banner;
 use App\ContentMeta;
+use App\Observers\ContentObserver;
 use App\Observers\ContentMetaObserver;
-use DB;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -32,6 +30,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Schema::defaultStringLength(191);
+        Content::observe(ContentObserver::class);
         ContentMeta::observe(ContentMetaObserver::class);
 
         Blade::extend(function($value) {
