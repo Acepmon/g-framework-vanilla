@@ -13,136 +13,200 @@
     <div class="card shadow-soft-blue page-top-navbar">
         <div class="mypage-nav">
             <ul>
-                <li class="list-item active"><a href="#">Published purchase</a></li>
-                <li class="list-item "> <a href="/purchase-page-checking">Purchase request checking</a></li>
+                <li class="list-item "><a href="/purchase-page-published">Published purchase</a></li>
+                <li class="list-item active"> <a href="#">Purchase request checking</a></li>
             </ul>
         </div>
     </div>
     <div class="car-list sell-car">
-        @content(type=car, author_id=Auth::user()->id, publishType=best_premium as $published | paginate)
+        @content(type=car, author_id=Auth::user()->id, isSold=0, publishType=free as $check | paginate)
         <!-- card start -->
-        <a href="{{$published->slug}}" target="_blank" class="card">
+        <div class="card">
 
             <div class="card-body">
                 <div class="card-img">
 
-                    <img src="{{$published->metaValue("thumbnail")}}" class="img-fluid" alt="alt" />
+                    <img src="{{$check->metaValue("thumbnail")}}" class="img-fluid" alt="alt" />
                 </div>
 
                 <div class="card-description">
                     <div class="card-caption">
-                        <div href="#" class="card-title">{{$published->title}}</div>
-                        <div class="meta">{{$published->metaValue("buildYear")}} / {{$published->metaValue("importDate")}} | {{$published->metaValue("mileageAmount")}}{{$published->metaValue("mileageUnit")}}</div>
-                        <div class="price">{{numerizePrice($published->metaValue("priceAmount"))}} {{$published->metaValue("priceUnit")}}</div>
-                        <div class="is-premium"><img src="{{asset('car-web/img/icons/corona.svg')}}" alt="">Best premium</div>
+                        <a href="{{$check->slug}}" target="_blank">
+                            <div href="#" class="card-title">{{$check->title}}</div>
+                            <div class="meta">{{$check->metaValue("buildYear")}} / {{$check->metaValue("importDate")}} | {{$check->metaValue("mileageAmount")}}{{$check->metaValue("mileageUnit")}}</div>
+                            <div class="price">{{numerizePrice($check->metaValue("priceAmount"))}} {{$check->metaValue("priceUnit")}}</div>
+                            <div class="is-premium font-weight-normal text-danger">Checking</div>
+                        </a>
                     </div>
-                    <div class="info" style="display: inline-block; color:black">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <p >Started: 2019-10-02</p>
-                            </div>
-                            <div class="col-md-6">
-                                <p>Views: 1200</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <p>End: 2019-10-09</p>
-                            </div>
-                            <div class="col-md-6">
-                                <p>Watch phone: 900</p>
-                            </div>
-                        </div>
+                    <div class="info">
+            <span class="info-icon">
+            <img src="{{asset('car-web/img/icons/engine.svg')}}" alt="">
+            <p>{{$check->metaValue("capacityAmount")}} {{$check->metaValue("capacityUnit")}}</p>
+            </span>
+                        <span class="info-icon">
+            <img src="{{asset('car-web/img/icons/wheel.svg')}}" alt="">
+            <p>{{$check->metaValue("wheelPosition")}}</p>
+            </span>
+                        <span class="info-icon">
+            <img src="{{asset('car-web/img/icons/gearShift.svg')}}" alt="">
+            <p>{{$check->metaValue("transmission")}}</p>
+            </span>
+                        <span class="info-icon">
+            <img src="{{asset('car-web/img/icons/fuel.svg')}}" alt="">
+            <p>{{$check->metaValue("fuelType")}}</p>
+            </span>
+                        <span class="info-icon">
+            <img src="{{asset('car-web/img/icons/transmision.svg')}}" alt="">
+            <p>{{$check->metaValue("chassis")}}</p>
+            </span>
+                        <span class="info-icon color" data-color="black">
+            <p>{{$check->metaValue("colorName")}}</p>
+            </span>
+
                         <div class="sell-action">
-                            <div onclick="window.open('edit.html','mywindow');">Edit</div>
-                            <div onclick="window.open('edit.html','mywindow');">Delete</div>
-                            <div onclick="window.open('edit.html','mywindow');">Mark as sold</div>
-                            <div onclick="window.open('edit.html','mywindow');">Unpublish</div>
+                            <div onclick="window.open('/posts/{{$check->id}}/edit');">Edit</div>
+                            <div data-toggle="modal" data-target="#deteleCont" onclick="contsId({{$check->id}})">Delete</div>
+                            <div data-toggle="modal" data-target="#markCont" onclick="contsId({{$check->id}})">Mark as sold</div>
+                            <div data-toggle="modal" data-target="#publishCont" onclick="contsId({{$check->id}})">Unpublish</div>
                         </div>
+
                     </div>
                 </div>
             </div>
-        </a>
+        </div>
         @endcontent
     </div>
 
 </div>
+
 @endsection
+
+@push('modals')
+
+    <div class="modal fade" id="deteleCont" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Delete content</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Delete this content!!!
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="deleteData()">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="markCont" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Delete content</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Sold this content!!!
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="markChange()">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="publishCont" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Delete content</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Unpublish this content!!!
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="statusChange()">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+@endpush
 
 @section('script')
 
     <script type="text/javascript">
+        var contId=null;
+        function contsId(id) {
+            contId=id
+        }
+        function deleteData() {
 
-        function cropImage() {
-            var cropData = [];
-            var container;
-            $("#cropBody img").each(function () {
-                var image = $(this);
-
-                container = image.attr('alt');
-                var cropped = image.cropper('getCroppedCanvas', {});
-
-                if (cropped) {
-                    if (container == 'thumbnail-container') {
-                        $("#" + container).empty();
-                        $("#thumbnailCrop").val(JSON.stringify(image.cropper('getData')));
-                    } else {
-                        cropData.push(image.cropper('getData'));
-                    }
-                    $("#" + container).append(' \
-                    <div class="col-lg-4 col-md-6 col-sm-12 mb-10"> \
-                        <img src="' + cropped.toDataURL('image/jpeg') + '" class="col-lg-12"> \
-                    </div>');
-
-                    image.attr('src', '');
-                }
+            console.log(contId)
+            $.ajax({
+                type: 'delete',
+                url: '/ajax/contents/' + contId,
+            }).done(function(data) {
+                $("#demo-spinner").css({'display': 'none'});
+                console.log("DONE!");
+                //$('#carRegSuccess').modal('show');/
+            }).fail(function(err) {
+                $("#demo-spinner").css({'display': 'none'});
+                console.error("FAIL!");
+                console.error(err);
             });
-            if (container != 'thumbnail-container') {
-                $("#imagesCrop").val(JSON.stringify(cropData));
-            }
+
         }
+        function statusChange() {
 
-        function previewMedia(input, container) {
-            $("#cropBody").empty();
-            $(input.files).each(function (index, value) {
-                var reader = new FileReader();
-                reader.onload = function (e) {
-                    $("#cropBody").append(' \
-                    <div class="image-cropper-container" class="col-lg-12""> \
-                        <img src="' + e.target.result + '" id="cropImage' + index + '" class="col-lg-12">\
-                    </div>');
-
-                    $("#cropImage" + index).attr('src', e.target.result);
-                    $("#cropImage" + index).attr('alt', container);
-                    $('#cropImage' + index).cropper({
-                        dragMode: 'move',
-                        aspectRatio: 16 / 9,
-                        autoCropArea: 0.8,
-                        restore: false,
-                        guides: false,
-                        center: true,
-                        highlight: false,
-                        cropBoxMovable: false,
-                        cropBoxResizable: false,
-                        toggleDragModeOnDblclick: false,
-                    });
-
-                    $("#getCroppedCanvasModal").modal('show');
-                };
-                reader.readAsDataURL(value);
+            console.log(contId)
+            $.ajax({
+                type: 'PUT',
+                url: '/ajax/contents/' + contId,
+                data: {"status":'{{ \App\Content::STATUS_DRAFT}}', "visibility":'{{ \App\Content::VISIBILITY_PRIVATE }}'}
+            }).done(function(data) {
+                $("#demo-spinner").css({'display': 'none'});
+                console.log("DONE!");
+                //$('#carRegSuccess').modal('show');/
+            }).fail(function(err) {
+                $("#demo-spinner").css({'display': 'none'});
+                console.error("FAIL!");
+                console.error(err);
             });
+
         }
 
-        function embedLink(input) {
-            var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
-            var match = input.value.match(regExp);
+        function markChange() {
 
-            if (match && match[2].length == 11) {
-                $("#video-container").empty().append(' \
-            <iframe width="560" height="315" src="//www.youtube.com/embed/' + match[2]
-                    + '" frameborder="0" allowfullscreen></iframe>');
-            }
+            console.log(contId)
+            $.ajax({
+                type: 'PUT',
+                url: '/ajax/contents/' + contId + '/metas/sync',
+                data: {"isSold":"1"}
+            }).done(function(data) {
+                $("#demo-spinner").css({'display': 'none'});
+                console.log("DONE!");
+                console.log(data);
+            }).fail(function(err) {
+                $("#demo-spinner").css({'display': 'none'});
+                console.error("FAIL!");
+                console.error(err);
+            });
+
         }
+
     </script>
 
 @endsection

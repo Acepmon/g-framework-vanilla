@@ -66,7 +66,7 @@
                         <p>{{$onSale->metaValue("colorName")}}</p>
                       </span>
                         <div class="sell-action">
-                            <div onclick="event.preventDefault();editData({{$onSale->id}})">Edit</div>
+                            <div onclick="window.open('/posts/{{$onSale->id}}/edit');">Edit</div>
                             <div data-toggle="modal" data-target="#deteleCont" onclick="contsId({{$onSale->id}})">Delete</div>
                             <div data-toggle="modal" data-target="#markCont" onclick="contsId({{$onSale->id}})">Mark as sold</div>
                             <div data-toggle="modal" data-target="#publishCont" onclick="contsId({{$onSale->id}})">Unpublish</div>

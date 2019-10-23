@@ -20,19 +20,20 @@
     </div>
     <div class="car-list sell-car">
         @content(type=car, author_id=Auth::user()->id, isSold=1 as $sold | paginate)
-        <a href="{{$sold->slug}}" target="_blank" class="card sold">
+        <div  class="card sold">
 
             <div class="card-body">
                 <div class="card-img">
-
                     <img src="{{$sold->metaValue("thumbnail")}}" class="img-fluid" alt="alt" />
                 </div>
 
                 <div class="card-description">
                     <div class="card-caption">
-                        <div href="#" class="card-title">{{$sold->title}}</div>
-                        <div class="meta">{{$sold->metaValue("buildYear")}} / {{$sold->metaValue("importDate")}} | {{$sold->metaValue("mileageAmount")}}{{$sold->metaValue("mileageUnit")}}</div>
-                        <div class="price">{{numerizePrice($sold->metaValue("priceAmount"))}} {{$sold->metaValue("priceUnit")}}</div>
+                        <a href="{{$sold->slug}}" target="_blank">
+                            <div class="card-title">{{$sold->title}}</div>
+                            <div class="meta">{{$sold->metaValue("buildYear")}} / {{$sold->metaValue("importDate")}} | {{$sold->metaValue("mileageAmount")}}{{$sold->metaValue("mileageUnit")}}</div>
+                            <div class="price">{{numerizePrice($sold->metaValue("priceAmount"))}} {{$sold->metaValue("priceUnit")}}</div>
+                        </a>
                     </div>
                     <div class="info">
                 <span class="info-icon">
@@ -58,22 +59,105 @@
                         <span class="info-icon color" data-color="black">
                 <p>{{$sold->metaValue("colorName")}}</p>
                 </span>
-
-                        <div class="sell-action">
-                            <div onclick="window.open('edit.html','mywindow');">Edit</div>
-                            <div onclick="window.open('edit.html','mywindow');">Delete</div>
-                            <div onclick="window.open('edit.html','mywindow');">Back to sell</div>
-                        </div>
+                    <div class="sell-action">
+                        <div onclick="window.open('/posts/{{$sold->id}}/edit');">Edit</div>
+                        <div data-toggle="modal" data-target="#deteleCont" onclick="contsId({{$sold->id}})">Delete</div>
+                        <div data-toggle="modal" data-target="#markCont" onclick="contsId({{$sold->id}})">Back to sell</div>
+                    </div>
 
                     </div>
                 </div>
             </div>
-        </a>
+        </div>
         @endcontent
     </div>
 </div>
 @endsection
+@push('modals')
+
+    <div class="modal fade" id="deteleCont" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Delete content</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Delete this content!!!
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="deleteData()">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="markCont" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Delete content</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Sold this content!!!
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="markChange()">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+@endpush
 
 @section('script')
+    <script type="text/javascript">
+        var contId=null;
+        function contsId(id) {
+            contId=id
+        }
+        function deleteData() {
 
+            console.log(contId)
+            $.ajax({
+                type: 'delete',
+                url: '/ajax/contents/' + contId,
+            }).done(function(data) {
+                $("#demo-spinner").css({'display': 'none'});
+                console.log("DONE!");
+                //$('#carRegSuccess').modal('show');/
+            }).fail(function(err) {
+                $("#demo-spinner").css({'display': 'none'});
+                console.error("FAIL!");
+                console.error(err);
+            });
+
+        }
+
+        function markChange() {
+
+            console.log(contId)
+            $.ajax({
+                type: 'PUT',
+                url: '/ajax/contents/' + contId + '/metas/sync',
+                data: {"isSold":"0"}
+            }).done(function(data) {
+                $("#demo-spinner").css({'display': 'none'});
+                console.log("DONE!");
+                console.log(data);
+            }).fail(function(err) {
+                $("#demo-spinner").css({'display': 'none'});
+                console.error("FAIL!");
+                console.error(err);
+            });
+
+        }
+
+    </script>
 @endsection
