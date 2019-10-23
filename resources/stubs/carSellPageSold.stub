@@ -60,7 +60,7 @@
                 <p>{{$sold->metaValue("colorName")}}</p>
                 </span>
                     <div class="sell-action">
-                        <div onclick="window.open('edit.html','mywindow');">Edit</div>
+                        <div onclick="window.open('/posts/{{$sold->id}}/edit');">Edit</div>
                         <div data-toggle="modal" data-target="#deteleCont" onclick="contsId({{$sold->id}})">Delete</div>
                         <div data-toggle="modal" data-target="#markCont" onclick="contsId({{$sold->id}})">Back to sell</div>
                     </div>
