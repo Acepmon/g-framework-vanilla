@@ -42,7 +42,7 @@ class ContentManager extends Manager
      */
     public static function updateMeta($content_id, $key, $value, $newValue)
     {
-        if ($newValue) {
+        if ($newValue != Null) {
             $metas = ContentMeta::where([['content_id', $content_id], ['key', $key], ['value', $value]])->get();
             $result = null;
             foreach ($metas as $meta) {

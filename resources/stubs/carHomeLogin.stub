@@ -172,7 +172,7 @@
             var email = $("input[name=email]").val();
 
             $.ajax({
-                type:'POST',
+                type:'GET',
                 url: "/ajax/user_exists?email="+email,
                 data:{email:email},
                 success:function(data){
@@ -194,10 +194,6 @@
                 $('#mailFail').modal('show');
                 //console.error(err);
             });
-
-
-
         });
-
     </script>
 @endsection
