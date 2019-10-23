@@ -18,10 +18,16 @@
                         <img src="{{ (substr($car->metaValue('thumbnail'), 0, 4) !== 'http')?(App\Config::getStorage() . $car->metaValue('thumbnail')):$car->metaValue('thumbnail') }}" class="img-fluid" alt="alt">
 
                         <div class="card-caption">
-                            <div class="meta">{{ $car->metaValue('mileage') }}km | {{ ucfirst($car->metaValue('fuelType')) }} | {{ $car->metaValue('capacityAmount') }} {{ $car->metaValue('capacityUnit') }}</div>
-                            <div class="favorite">
-                                <i class="icon-heart"></i>
+                            <div class="meta">{{ $car->metaValue('mileageAmount') }} {{ $car->metaValue('mileageUnit') }} | {{ ucfirst($car->metaValue('fuelType')) }} | {{ $car->metaValue('capacityAmount') }} {{ $car->metaValue('capacityUnit') }}</div>
+                            @if(Auth::user() && count(metaHas(Auth::user(), 'interestedCars', $car->id)->get()) > 0)
+                            <div class="favorite" onclick="addToInterestFromSlider(event, {{$car->id}})">
+                                <span class="text-danger"><i class="fas fa-heart"></i></span>
                             </div>
+                            @else
+                            <div class="favorite" onclick="addToInterestFromSlider(event, {{$car->id}})">
+                                <span class=""><i class="far fa-heart"></i></span>
+                            </div>
+                            @endif
                         </div>
                     </div>
 
@@ -63,3 +69,35 @@
 } */
 </style>
 @endif
+
+@push('scripts')
+<script>
+function addToInterestFromSlider(event, value) {
+    event.preventDefault();
+    event.stopPropagation();
+    var target = event.target.closest('div');
+    // target.innerHTML = 'Loading';
+
+    $.ajax({
+      url: '/ajax/user/interested_cars', 
+      dataType: 'json',
+      method: 'PUT',
+      data: {
+          'content_id': value
+      },
+      success: function (data) {
+        if (data.status == 'added') {
+          target.innerHTML = '<span class="text-danger"><i class="fas fa-heart"></i></span>';
+        } else if (data.status == 'removed') {
+          target.innerHTML = '<span class=""><i class="far fa-heart"></i></span>';
+        }
+      },
+      error: function (error) {
+        if (error.status == 401) {
+          window.location.href = "{{ route('login') }}";
+        }
+      }
+    });
+}
+</script>
+@endpush

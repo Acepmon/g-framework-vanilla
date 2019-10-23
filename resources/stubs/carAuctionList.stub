@@ -107,11 +107,6 @@ Car dealer
 <script src="{{ asset('car-web/vendor/bootstrap-slider/bootstrap-slider.min.js') }}"></script>
 <script src="{{ asset('car-web/vendor/owl.carousel.thumbs/owl.carousel2.thumbs.min.js') }}"></script>
 <script>
-$.ajaxSetup({
-headers: {
-    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-}
-});
 
   function formSubmit(id, value) {
     if (value != 'no-value') {
@@ -120,34 +115,6 @@ headers: {
     $('#mainForm').submit();
   }
 
-  function addToInterest(event, value) {
-    event.preventDefault();
-    event.stopPropagation();
-    var target = event.target.closest('div');
-    // target.innerHTML = 'Loading';
-
-    $.ajax({
-      url: '/ajax/user/interested_cars', 
-      dataType: 'json',
-      method: 'PUT',
-      data: {
-          'content_id': value
-      },
-      success: function (data) {
-        if (data.status == 'added') {
-          target.innerHTML = '<span class="text-danger"><i class="fas fa-heart"></i> Added to interest list</span>';
-        } else if (data.status == 'removed') {
-          target.innerHTML = '<span class=""><i class="far fa-heart"></i> Add to interest list</span>';
-        }
-      },
-      error: function (error) {
-        if (error.status == 401) {
-          window.location.href = "{{ route('login') }}";
-        }
-      }
-    });
-  }
-  
   var carList = $('.auction-car');
 
   carList.each(function(i,e){
