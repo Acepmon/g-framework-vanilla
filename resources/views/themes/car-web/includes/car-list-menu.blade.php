@@ -59,13 +59,18 @@ $categoryName = [
         </div>
         </div>
         @elseif($category == 'car-distance-driven')
-        <div id="{{ $category }}" class="collapse {{ request('distance_driven', False)?'show':'' }}" aria-labelledby="{{ $category }}">
+        <div id="{{ $category }}" class="collapse {{ request('mileageAmount', False)?'show':'' }}" aria-labelledby="{{ $category }}">
         <div class="card-body bg-light grid-radio">
-            <select id="distance_driven" class="form-control" name="distance_driven" onchange="formSubmit('distance_driven','no-value')">
-            <option value="">Select distance</option>
-            @for($i=1; $i<=1000; $i++)
-            <option value="{{ $i }}" {{ $request['distanceDriven']==$i?'selected':'' }}>{{ $i }}km</option>
-            @endfor
+            <select id="mileageAmount" class="form-control" name="mileageAmount" onchange="formSubmit('mileageAmount','no-value')">
+            <option value="">Select distance driven</option>
+            <option value="0-0" {{ $request['mileageAmount']=='0-0'?'selected':'' }}>0km</option>
+            <option value="1-100" {{ $request['mileageAmount']=='1-100'?'selected':'' }}>1-100km</option>
+            <option value="100-1000" {{ $request['mileageAmount']=='100-1000'?'selected':'' }}>100-1,000km</option>
+            <option value="1000-5000" {{ $request['mileageAmount']=='1000-5000'?'selected':'' }}>1,000-5,000km</option>
+            <option value="5000-10000" {{ $request['mileageAmount']=='5000-10000'?'selected':'' }}>5,000-10,000km</option>
+            <option value="10000-50000" {{ $request['mileageAmount']=='10000-50000'?'selected':'' }}>10,000-50,000km</option>
+            <option value="50000-100000" {{ $request['mileageAmount']=='50000-100000'?'selected':'' }}>50,000-100,000km</option>
+            <option value="100000-500000" {{ $request['mileageAmount']=='100000-500000'?'selected':'' }}>100,000-500,000km</option>
             </select>
         </div>
         </div>
