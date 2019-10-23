@@ -16,7 +16,7 @@
                 <div class="card-slide owl-carousel owl-theme">
 
 
-                    @content(type=wanna-buy, status=published, visibility=public, limit=12 as $wannaBuyData | paginate)
+                    @content(type=wanna-buy, limit=12 as $wannaBuyData | paginate)
                     <!-- card start -->
                         <div class="card">
                             <div class="card-top">

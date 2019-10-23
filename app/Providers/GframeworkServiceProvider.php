@@ -43,10 +43,8 @@ class GframeworkServiceProvider extends ServiceProvider
         //$users = DB::table('users')->count();
 
         Blade::directive('contentsTotal', function ($expression) {
-            //dd($expression);
             $someObject = json_decode($expression);
             $contents = Content::whereRaw('1 = 1');
-//            dd($someObject);
             $metaInputs=[];
             if(array_key_exists("metasFilter",$someObject)){
                 foreach ($someObject->metasFilter as $item) {
@@ -88,6 +86,8 @@ class GframeworkServiceProvider extends ServiceProvider
                         $contents = $contents . $pointer . $this->where($filter['field'], $filter['operator'], $filter['value']);
                     } else if ($filter['field'] == 'limit') {
                         $returnArg = $filter['value'];
+                    } else {
+                        $contents = $contents . $pointer . $this->where($filter['field'], $filter['operator'], $filter['value']);
                     }
                 } else {
                     $contents = $contents . $pointer . $this->whereHas('metas', [
@@ -96,10 +96,6 @@ class GframeworkServiceProvider extends ServiceProvider
                     ]);
                 }
             }
-
-            // Static filter
-            $contents = $contents . $pointer . $this->where('status', Content::STATUS_PUBLISHED);
-            $contents = $contents . $pointer . $this->where('visibility', Content::VISIBILITY_PUBLIC);
 
             // Collection return type
             $contents = $contents . "->" . $parsed->return . "(" . $returnArg . ")";
@@ -112,10 +108,8 @@ class GframeworkServiceProvider extends ServiceProvider
         });
 
         Blade::directive('contents', function ($expression) {
-            //dd($expression);
             $someObject = json_decode($expression);
             $contents = Content::whereRaw('1 = 1');
-//            dd($someObject);
             $metaInputs=[];
             if(array_key_exists("metasFilter",$someObject)){
                 foreach ($someObject->metasFilter as $item) {
@@ -131,7 +125,6 @@ class GframeworkServiceProvider extends ServiceProvider
                     $query->where('value', $value);
                 });
             }
-//            /dd($someObject);
             if(property_exists($someObject,"limit")){
                 $contents = $contents->take($someObject->limit);
             }
@@ -144,7 +137,6 @@ class GframeworkServiceProvider extends ServiceProvider
             $carData=null;
             $carData=$contents->toJson();
             //$carData = htmlspecialchars(json_encode($contents), ENT_QUOTES, 'UTF-8');
-            //dd($carData);
             $daaataaa=$someObject->returnVariable;
             if (!starts_with($daaataaa, '$')) {
                 $daaataaa = '$' . $daaataaa;
@@ -209,6 +201,20 @@ class GframeworkServiceProvider extends ServiceProvider
             return $this->parseFilter(trim($filter));
         }, $filters);
 
+        $statusFound = array_filter($filters, function ($item) {
+            return $item['field'] == 'status';
+        });
+        if (count($statusFound) == 0) {
+            array_push($filters, $this->parseFilter(trim('status=' . Content::STATUS_PUBLISHED)));
+        }
+
+        $visibilityFound = array_filter($filters, function ($item) {
+            return $item['field'] == 'visibility';
+        });
+        if (count($visibilityFound) == 0) {
+            array_push($filters, $this->parseFilter(trim('visibility=' . Content::VISIBILITY_PUBLIC)));
+        }
+
         $parsed = new \stdclass;
         $parsed->filters = $filters;
         $parsed->variable = $variable;
@@ -219,13 +225,18 @@ class GframeworkServiceProvider extends ServiceProvider
 
     private function parseFilter($filter) {
         $operators = ['=', '!=', '>', '>=', '<', '<='];
+        $ignore = '->';
+
+        $ignoredFilter = str_replace($ignore, "##", $filter);
+
         foreach ($operators as $operator) {
-            if (\Str::contains($filter, $operator)) {
-                $split = explode($operator, $filter);
+            if (\Str::contains($ignoredFilter, $operator)) {
+                $split = explode($operator, $ignoredFilter);
                 return [
                     'field' => trim($split[0]),
                     'operator' => trim($operator),
-                    'value' => trim($split[1])
+                    'value' => trim(str_replace("##", $ignore, $split[1])),
+                    'original' => trim($filter)
                 ];
             }
         }
@@ -236,6 +247,13 @@ class GframeworkServiceProvider extends ServiceProvider
             return "where('" . $field . "', '" . $operator . "', " . $this->whereValueStr($value) . ")";
         }
         return "where('" . $field . "', " . $this->whereValueStr($operator) . ")";
+    }
+
+    private function whereRaw($query, $parameters = array()) {
+        $part1 = "whereRaw('" . $query . "'";
+        $part2 = count($parameters) > 0 ? ", [" . implode(",", $parameters) . "]" : "";
+        $part3 = ")";
+        return $part1 . $part2 . $part3;
     }
 
     private function whereValueStr($value) {
@@ -258,6 +276,22 @@ class GframeworkServiceProvider extends ServiceProvider
                 }
             } else {
                 $part2 = $part2 . "$" . "query->" . $this->where($field, $value) . ";";
+            }
+        }
+        $part3 = "})";
+        return $part1 . $part2 . $part3;
+    }
+
+    private function whereRawHas($table, $queries = array()) {
+        $part1 = "whereHas('" . $table . "', function ($"."query) {";
+        $part2 = "";
+        foreach ($queries as $field => $value) {
+            if (is_array($value)) {
+                foreach ($value as $operator => $val) {
+                    $part2 = $part2 . "$" . "query->" . $this->whereRaw($value) . ";";
+                }
+            } else {
+                $part2 = $part2 . "$" . "query->" . $this->whereRaw($value) . ";";
             }
         }
         $part3 = "})";
