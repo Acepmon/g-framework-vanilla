@@ -97,6 +97,22 @@ $categoryName = [
             </div>
         </div>
         </div>
+        @elseif($category == 'car-options')
+        <div id="{{ $category }}" class="collapse {{ request($category, False)?'show':'' }}" aria-labelledby="{{ $category }}">
+        <div class="card-body bg-light">
+            @foreach(App\TermTaxonomy::where('taxonomy', $category)->get() as $taxonomy_parent)
+            @foreach($taxonomy_parent->children as $taxonomy)
+            <div class="custom-control custom-radio">
+            <!-- <a href="/car-list?{{ $category . '=' . $taxonomy->term->name }}" class="text-body text-decoration-none"> -->
+            <input type="checkbox" id="{{$taxonomy->term->name}}" name="{{ $category }}[]" class="custom-control-input" value="{{ $taxonomy->term->name }}" {{ in_array($taxonomy->term->name, request($category, []))?'checked':'' }}>
+            <label class="custom-control-label  d-flex justify-content-between" for="{{$taxonomy->term->name}}">{{ $taxonomy->term->name }}
+                <div class="text-muted">{{ $taxonomy->count }}</div>
+            </label>
+            </div>
+            @endforeach
+            @endforeach
+        </div>
+        </div>
         @else
         <div id="{{ $category }}" class="collapse {{ request($category, False)?'show':'' }}" aria-labelledby="{{ $category }}">
         <div class="card-body bg-light">

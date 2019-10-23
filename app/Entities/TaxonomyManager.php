@@ -112,6 +112,14 @@ class TaxonomyManager extends Manager
         if ($term && $term->group && $key == $term->group->metaValue('metaKey') && $term->taxonomy) {
             $term->taxonomy->increment('count');
             $term->taxonomy->save();
+        } else if ($value == '1' || $value == '0') {
+            // This is used in Options
+            $term_meta = TermMeta::where('value', $key)->first();
+            if ($term_meta) {
+                $term = $term_meta->term;
+                $term->taxonomy->increment('count');
+                $term->taxonomy->save();
+            }
         }
     }
 
@@ -121,6 +129,13 @@ class TaxonomyManager extends Manager
         if ($term && $term->group && $key == $term->group->metaValue('metaKey') && $term->taxonomy) {
             $term->taxonomy->decrement('count');
             $term->taxonomy->save();
+        } else if ($value == '1' || $value == '0') {
+            $term_meta = TermMeta::where('value', $key)->first();
+            if ($term_meta) {
+                $term = $term_meta->term;
+                $term->taxonomy->decrement('count');
+                $term->taxonomy->save();
+            }
         }
     }
 
