@@ -81,11 +81,9 @@ if ($itemCount < $page * $itemsPerPage) {
         @include('themes.car-web.includes.car-list-card', array('car'=>$car, 'auction'=>True))
     @endforeach
 @else
-
-    @content(type=car, carType in request()->input('car-type'), limit=15 as $car | paginate)
-      @include('themes.car-web.includes.car-list-card', array('car'=>$car))
-    @endcontent
-
+    @foreach($items->forPage($page, $itemsPerPage) as $car)
+        @include('themes.car-web.includes.car-list-card', array('car'=>$car))
+    @endforeach
 @endif
 </div>
 @else
@@ -116,35 +114,3 @@ if ($itemCount < $page * $itemsPerPage) {
 </nav>
 <!-- Pagination end -->
 @endif
-
-@push('scripts')
-<script>
-function addToInterest(event, value) {
-    event.preventDefault();
-    event.stopPropagation();
-    var target = event.target.closest('div');
-    // target.innerHTML = 'Loading';
-
-    $.ajax({
-      url: '/ajax/user/interested_cars', 
-      dataType: 'json',
-      method: 'PUT',
-      data: {
-          'content_id': value
-      },
-      success: function (data) {
-        if (data.status == 'added') {
-          target.innerHTML = '<span class="text-danger"><i class="fas fa-heart"></i> Added to interest list</span>';
-        } else if (data.status == 'removed') {
-          target.innerHTML = '<span class=""><i class="far fa-heart"></i> Add to interest list</span>';
-        }
-      },
-      error: function (error) {
-        if (error.status == 401) {
-          window.location.href = "{{ url('/login') }}";
-        }
-      }
-    });
-}
-</script>
-@endpush
