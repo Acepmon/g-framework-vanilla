@@ -96,9 +96,10 @@
                     <div class="form-group row">
                         <label for="manufacturer" class="col-form-label col-lg-2">Manufacturer</label>
                         <div class="col-lg-10">
-                            <select id="manufacturer" name="manufacturer" class="form-control text-capitalize">
-                                @foreach(App\TermTaxonomy::where('taxonomy', 'manufacturer')->get() as $value)
-                                    <option value="{{ $value->term->name }}" {{ $value->term->name==$content->metaValue('manufacturer')?'selected':'' }}>{{ $value->term->name }}</option>
+                            <select id="manufacturer" name="manufacturer" class="select text-capitalize">
+                                    <option>Manufacturer</option>
+                                    @foreach(App\TermTaxonomy::where('taxonomy', 'car-manufacturer')->get() as $value)
+                                    <option value="{{ $value->term->name }}" {{ $value->term->name==$content->metaValue('markName')?'selected':'' }}>{{ $value->term->name }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -107,9 +108,12 @@
                     <div class="form-group row">
                         <label for="modelName" class="col-form-label col-lg-2">Model</label>
                         <div class="col-lg-4">
-                            <select id="modelName" name="modelName" class="select">
-                                @foreach(App\TermTaxonomy::where('taxonomy', 'model')->get() as $value)
-                                    <option value="{{ $value->term->name }}" {{ $value->term->name==$content->metaValue('model')?'selected':'' }}>{{ $value->term->name }}</option>
+                            <select id="modelName" name="modelName" class="form-control text-capitalize">
+                                <option>Model</option>
+                                @foreach(App\TermTaxonomy::where('taxonomy', 'car-manufacturer')->get() as $taxonomy)
+                                @foreach($taxonomy->children as $model)
+                                    <option title="{{$taxonomy->term->name}}" {{ $model->term->name==$content->metaValue('model')?'selected':'' }}>{{ $model->term->name }}</option>
+                                @endforeach
                                 @endforeach
                                 <option value="{{ $content->metaValue('modelName') }}" selected>{{ $content->metaValue('modelName') }}</option>
                             </select>
@@ -117,8 +121,8 @@
                         <label for="colorName" class="col-form-label col-lg-2">Color</label>
                         <div class="col-lg-4">
                             <select id="colorName" name="colorName" class="form-control text-capitalize">
-                                @foreach(App\TermTaxonomy::where('taxonomy', 'color')->get() as $value)
-                                    <option value="{{ $value->term->name }}" {{ $value->term->name==$content->metaValue('color')?'selected':'' }}>{{ $value->term->name }}</option>
+                                @foreach(App\TermTaxonomy::where('taxonomy', 'car-colors')->get() as $value)
+                                    <option value="{{ $value->term->name }}" {{ $value->term->name==$content->metaValue('colorName')?'selected':'' }}>{{ $value->term->name }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -166,7 +170,7 @@
                         <label for="transmission" class="col-form-label col-lg-2">Transmission</label>
                         <div class="col-lg-4">
                             <select id="transmission" name="transmission" class="form-control text-capitalize">
-                                @foreach(App\TermTaxonomy::where('taxonomy', 'transmission')->get() as $value)
+                                @foreach(App\TermTaxonomy::where('taxonomy', 'car-transmission')->get() as $value)
                                     <option value="{{ $value->term->name }}" {{ $value->term->name==$content->metaValue('transmission')?'selected':'' }}>{{ $value->term->name }}</option>
                                 @endforeach
                             </select>
@@ -177,15 +181,15 @@
                         <label for="wheelPosition" class="col-form-label col-lg-2">Steering wheel</label>
                         <div class="col-lg-4">
                             <select id="wheelPosition" name="wheelPosition" class="form-control text-capitalize">
-                                @foreach(App\TermTaxonomy::where('taxonomy', 'steering-wheel')->get() as $value)
-                                    <option value="{{ $value->term->name }}" {{ $value->term->name==$content->metaValue('steering-wheel')?'selected':'' }}>{{ $value->term->name }}</option>
+                                @foreach(App\TermTaxonomy::where('taxonomy', 'car-wheel-pos')->get() as $value)
+                                    <option value="{{ $value->term->name }}" {{ $value->term->name==$content->metaValue('wheelPosition')?'selected':'' }}>{{ $value->term->name }}</option>
                                 @endforeach
                             </select>
                         </div>
                         <label for="manCount" class="col-form-label col-lg-2">Seating</label>
                         <div class="col-lg-4">
                             <select id="manCount" name="manCount" class="form-control text-capitalize">
-                                @foreach(App\TermTaxonomy::where('taxonomy', 'seating')->get() as $value)
+                                @foreach(App\TermTaxonomy::where('taxonomy', 'car-mancount')->get() as $value)
                                     <option value="{{ $value->term->name }}" {{ $value->term->name==$content->metaValue('manCount')?'selected':'' }}>{{ $value->term->name }}</option>
                                 @endforeach
                             </select>
@@ -196,7 +200,7 @@
                         <label for="fuelType" class="col-form-label col-lg-2">Type of fuel</label>
                         <div class="col-lg-4">
                             <select id="fuelType" name="fuelType" class="form-control text-capitalize">
-                                @foreach(App\TermTaxonomy::where('taxonomy', 'type-of-fuel')->get() as $value)
+                                @foreach(App\TermTaxonomy::where('taxonomy', 'car-fuel')->get() as $value)
                                     <option value="{{ $value->term->name }}" {{ $value->term->name==$content->metaValue('fuelType')?'selected':'' }}>{{ $value->term->name }}</option>
                                 @endforeach
                             </select>
@@ -204,7 +208,7 @@
                         <label for="wheelDrive" class="col-form-label col-lg-2">Wheel drive</label>
                         <div class="col-lg-4">
                             <select id="wheelDrive" name="wheelDrive" class="form-control text-capitalize">
-                                @foreach(App\TermTaxonomy::where('taxonomy', 'wheel-drive')->get() as $value)
+                                @foreach(App\TermTaxonomy::where('taxonomy', 'car-wheel')->get() as $value)
                                     <option value="{{ $value->term->name }}" {{ $value->term->name==$content->metaValue('wheelDrive')?'selected':'' }}>{{ $value->term->name }}</option>
                                 @endforeach
                             </select>
@@ -235,7 +239,7 @@
                         <label for="price" class="col-form-label col-lg-2">Price</label>
                         <div class="col-lg-4">
                             <div class="input-group">
-                                <input value="{{ $content->metaValue('price') }}" id="price" type="number" min="0" class="form-control" name="price" placeholder="Enter price..." invalid="true" class="touchspin-postfix">
+                                <input value="{{ $content->metaValue('priceAmount') }}" id="price" type="number" min="0" class="form-control" name="price" placeholder="Enter price..." invalid="true" class="touchspin-postfix">
                                 <span class="input-group-append">
                                     <span class="input-group-text">₮</span>
                                 </span>
@@ -312,7 +316,7 @@
                         <label for="buyout" class="col-form-label col-lg-2">Buyout</label>
                         <div class="col-lg-4">
                             <div class="input-group">
-                                <input id="buyout" value="{{$content->metaValue('buyout')}}" type="number" min="0" class="form-control" name="buyout" placeholder="Enter buyout..." invalid="true" class="touchspin-postfix">
+                                <input id="buyout" value="{{$content->metaValue('buyoutAmount')}}" type="number" min="0" class="form-control" name="buyout" placeholder="Enter buyout..." invalid="true" class="touchspin-postfix">
                                 <span class="input-group-append">
                                     <span class="input-group-text">₮</span>
                                 </span>
@@ -321,7 +325,7 @@
                         <label for="startPrice" class="col-form-label col-lg-2">Start Price</label>
                         <div class="col-lg-4">
                             <div class="input-group">
-                                <input id="startPrice" value="{{$content->metaValue('startPrice')}}" type="number" min="0" class="form-control" name="startPrice" placeholder="Enter start price..." invalid="true" class="touchspin-postfix">
+                                <input id="startPrice" value="{{$content->metaValue('startPriceAmount')}}" type="number" min="0" class="form-control" name="startPrice" placeholder="Enter start price..." invalid="true" class="touchspin-postfix">
                                 <span class="input-group-append">
                                     <span class="input-group-text">₮</span>
                                 </span>
@@ -333,7 +337,7 @@
                         <label for="maxBid" class="col-form-label col-lg-2">Max Bid</label>
                         <div class="col-lg-4">
                             <div class="input-group">
-                                <input id="maxBid" value="{{$content->metaValue('maxBid')}}" type="number" min="0" class="form-control" name="maxBid" placeholder="Enter max bid..." invalid="true" class="touchspin-postfix">
+                                <input id="maxBid" value="{{$content->metaValue('maxBidAmount')}}" type="number" min="0" class="form-control" name="maxBid" placeholder="Enter max bid..." invalid="true" class="touchspin-postfix">
                                 <span class="input-group-append">
                                     <span class="input-group-text">₮</span>
                                 </span>
@@ -399,6 +403,13 @@
 <script>
     $(document).ready(function() {
         embedLink({"value": "{{ $content->metaValue('youtubeLink') }}"});
+
+        $('#manufacturer').change(function (){
+            var val = $(this).val();
+            console.log(val);
+            $('#modelName option[title!="'+val+'"]').attr('hidden', 'true');
+            $('#modelName option[title="'+val+'"]').removeAttr('hidden');
+        });
     });
 
     function cropImage() {
@@ -492,10 +503,10 @@
         }
     }
 
-    $("#modelName").select2({
-        tags: true,
-        //maximumSelectionLength: 1
-    });
+    // $("#modelName").select2({
+    //     tags: true,
+    //     //maximumSelectionLength: 1
+    // });
 
     $('#endsAtBut').click(function (e) {
         $('#endsAt').AnyTime_noPicker().AnyTime_picker().focus();

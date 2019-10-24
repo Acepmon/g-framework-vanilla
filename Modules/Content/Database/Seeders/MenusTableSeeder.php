@@ -21,7 +21,7 @@ class MenusTableSeeder extends Seeder
 
         $adminMenus = ['Admin', '/admin', '', 'Admin', [
             // Admin
-            ['Dashboard', '/admin/dashboard', 'icon-home4', 'Admin'],
+            ['Dashboard', '/admin/dashboard', 'icon-statistics', 'Admin'],
             ['Changelog', '/admin/changelog', 'icon-list-unordered', 'Admin'],
             // System
             // ['System Users', '', 'icon-user-tie', 'System', [
