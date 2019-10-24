@@ -11,6 +11,13 @@
             <li class="nav-item"><a class="navbar-nav-link sidebar-control sidebar-main-toggle d-none d-md-block"><i class="icon-paragraph-justify3"></i></a></li>
 
             @include('admin.configs.includes.maintenance-menu-item')
+
+            <li class="nav-item">
+                <a href="/" class="navbar-nav-link">
+                    <span class="icon-home2 mr-2"></span>
+                    {{ env('APP_NAME', 'My Site') }}
+                </a>
+            </li>
         </ul>
 
         <ul class="navbar-nav ml-xl-auto">
@@ -69,6 +76,7 @@
                     <span>{{ Auth::user()->name }}</span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right">
+                    <a href="/" class="dropdown-item"><i class="icon-home2"></i> {{ env('APP_NAME', 'My Site') }}</a>
                     <a href="{{ route('admin.profile.index') }}" class="dropdown-item"><i class="icon-user-plus"></i> My profile</a>
                     <div class="dropdown-divider"></div>
                     <div>
