@@ -69,10 +69,10 @@
                     <div class="form-group row">
                         <label for="title" class="col-form-label col-lg-2">Title <span class="text-danger">*</span></label>
                         <div class="col-lg-10">
-                            <input id="title" type="text" class="form-control" name="title" placeholder="Enter car title..." required="required" aria-required="true" invalid="true" onfocusout="create_slug()">
+                            <input id="title" type="text" class="form-control" name="title" placeholder="Enter car title..." required="required" aria-required="true" invalid="true">
                         </div>
                     </div>
-                    <input id="slug" type="hidden" class="form-control" name="slug" placeholder="Enter content slug..." required="required" aria-required="true" invalid="true">
+                    <input id="slug" type="hidden" class="form-control" name="slug" placeholder="Enter content slug..." required="required" aria-required="true" invalid="true" value="{{ \Str::uuid() }}">
 
                     <input type="hidden" name="type" value="car"/>
 
@@ -121,12 +121,6 @@
                                 <label for="modelName" class="col-form-label col-lg-2">Model</label>
                                 <div class="col-lg-10">
                                     <select id="modelName" name="modelName" class="form-control text-capitalize">
-                                        <option>Model</option>
-                                        @foreach(App\TermTaxonomy::where('taxonomy', 'car-manufacturer')->get() as $taxonomy)
-                                        @foreach($taxonomy->children as $model)
-                                            <option title="{{$taxonomy->term->name}}">{{$model->term->name}}</option>
-                                        @endforeach
-                                        @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -256,7 +250,7 @@
                             <div class="form-group row">
                                 <label for="sellerDescription" class="col-form-label col-lg-2">Seller description</label>
                                 <div class="col-lg-10">
-                                    <textarea id="sellerDescription" type="text" class="form-control" name="sellerDescription" placeholder="Enter seller description..." invalid="true"></textarea>
+                                    <textarea id="sellerDescription" type="text" class="form-control" name="sellerDescription" placeholder="Enter seller description..."></textarea>
                                 </div>
                             </div>
                         </div>
@@ -418,8 +412,8 @@
                                             <div class="card-body bg-light">
                                                 @foreach(App\TermTaxonomy::where('taxonomy', 'car-guts')->get() as $taxonomy)
                                                 <div class="custom-control custom-checkbox">
-                                                    <input type="checkbox" id="sedan" name="options" class="custom-control-input">
-                                                    <label class="custom-control-label  d-flex justify-content-between" for="sedan">{{ $taxonomy->term->name }}</label>
+                                                    <input type="checkbox" id="{{ $taxonomy->term->name }}" name="{{ $taxonomy->term->name }}" class="custom-control-input">
+                                                    <label class="custom-control-label  d-flex justify-content-between" for="{{ $taxonomy->term->name }}">{{ $taxonomy->term->name }}</label>
                                                 </div>
                                                 @endforeach
                                             </div>
@@ -435,8 +429,8 @@
                                             <div class="card-body bg-light">
                                                 @foreach(App\TermTaxonomy::where('taxonomy', 'car-safety')->get() as $taxonomy)
                                                 <div class="custom-control custom-checkbox">
-                                                    <input type="checkbox" id="sedan" name="options" class="custom-control-input">
-                                                    <label class="custom-control-label  d-flex justify-content-between" for="sedan">{{ $taxonomy->term->name }}</label>
+                                                    <input type="checkbox" id="{{ $taxonomy->term->name }}" name="{{ $taxonomy->term->name }}" class="custom-control-input">
+                                                    <label class="custom-control-label  d-flex justify-content-between" for="{{ $taxonomy->term->name }}">{{ $taxonomy->term->name }}</label>
                                                 </div>
                                                 @endforeach
                                             </div>
@@ -452,8 +446,8 @@
                                             <div class="card-body bg-light">
                                                 @foreach(App\TermTaxonomy::where('taxonomy', 'car-exterior')->get() as $taxonomy)
                                                 <div class="custom-control custom-checkbox">
-                                                    <input type="checkbox" id="sedan" name="options" class="custom-control-input">
-                                                    <label class="custom-control-label  d-flex justify-content-between" for="sedan">{{ $taxonomy->term->name }}</label>
+                                                    <input type="checkbox" id="{{ $taxonomy->term->name }}" name="{{ $taxonomy->term->name }}" class="custom-control-input">
+                                                    <label class="custom-control-label  d-flex justify-content-between" for="{{ $taxonomy->term->name }}">{{ $taxonomy->term->name }}</label>
                                                 </div>
                                                 @endforeach
                                             </div>
@@ -469,8 +463,8 @@
                                             <div class="card-body bg-light">
                                                 @foreach(App\TermTaxonomy::where('taxonomy', 'car-convenience')->get() as $taxonomy)
                                                 <div class="custom-control custom-checkbox">
-                                                    <input type="checkbox" id="sedan" name="options" class="custom-control-input">
-                                                    <label class="custom-control-label  d-flex justify-content-between" for="sedan">{{ $taxonomy->term->name }}</label>
+                                                    <input type="checkbox" id="{{ $taxonomy->term->name }}" name="{{ $taxonomy->term->name }}" class="custom-control-input">
+                                                    <label class="custom-control-label  d-flex justify-content-between" for="{{ $taxonomy->term->name }}">{{ $taxonomy->term->name }}</label>
                                                 </div>
                                                 @endforeach
                                             </div>
@@ -553,6 +547,16 @@
 
 @section('script')
 <script type="text/javascript">
+    var modelData = {
+        @foreach(App\TermTaxonomy::where('taxonomy', 'car-manufacturer')->get() as $taxonomy)
+        '{{ $taxonomy->term->name}}': [
+            @foreach($taxonomy->children as $model)
+            '{{ $model->term->name }}',
+            @endforeach
+        ],
+        @endforeach
+    };
+
     $(document).ready(function(){
         var theme_layouts = [{
             "text": "default",
@@ -584,9 +588,10 @@
 
         $('#manufacturer').change(function (){
             var val = $(this).val();
-            console.log(val);
-            $('#modelName option[title!="'+val+'"]').attr('hidden', 'true');
-            $('#modelName option[title="'+val+'"]').removeAttr('hidden');
+            $('#modelName').html('');
+            for(var element in modelData[val]) {
+                $("#modelName").append('<option>' + modelData[val][element] + '</option>');
+            }
         });
 
         $(".file-input-ajax").fileinput({

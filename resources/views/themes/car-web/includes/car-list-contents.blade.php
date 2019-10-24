@@ -15,27 +15,8 @@ if ($filterPremium) {
 // $allItems = \Modules\Car\Entities\Car::order($orderBy, $order, $allItems);
 
 // Items filtering
-$items = \Modules\Car\Entities\Car::filter(clone $allItems, $request);
+// $items = \Modules\Car\Entities\Car::filter(clone $allItems, $request);
 
-if($type == 'search'){
-    // Search
-    $search = request('search', "");
-    $items = $items->where('title', 'LIKE', '%'.$search.'%');
-}
-$items = \Modules\Car\Entities\Car::order($orderBy, $order, $items);
-
-if (!$filterPremium) {
-  $items = \Modules\Car\Entities\Car::filterByPremium(null, clone $items)->get()->merge($items->get());
-} else {
-  $items = $items->get();
-}
-
-// Post items filtering
-$itemCount = count($items->all());
-$maxPage = intval(ceil($itemCount / $itemsPerPage));
-if ($itemCount < $page * $itemsPerPage) {
-  $page = $maxPage;
-}
 
 @endphp
 
@@ -51,8 +32,10 @@ if ($itemCount < $page * $itemsPerPage) {
 @contentInline(type=car,
     carType in request()->input("car-type"),
     markName in request()->input("car-manufacturer"),
-    colorName in request()->input("car-colors"),
+    buildYear = intval(request()->input("year")),
     priceAmount >= intval(request()->input("min_price")),
+    priceAmount <= intval(request()->input("max_price")),
+    colorName in request()->input("car-colors"),
     fuelType in request()->input("car-fuel"),
     transmission in request()->input("car-transmission"),
     accident in request()->input("car-accident"),
