@@ -66,40 +66,25 @@ class GframeworkServiceProvider extends ServiceProvider
         });
 
 
+        Blade::directive('contentInline', function ($expression) {
+            // Parsing of passed expression
+            $parsed = $this->parseExpression($expression);
+            $variable = $parsed->variable;
+            $returnArg = "";
+
+            $contents = $this->parseContent($parsed, $returnArg);
+            // dd($contents);
+
+            return "<?php {$variable} = $contents ?>";
+        });
+
         Blade::directive('content', function ($expression) {
             // Parsing of passed expression
             $parsed = $this->parseExpression($expression);
             $variable = $parsed->variable;
             $returnArg = "";
 
-            // End uneheer zavaan uildel hiigdej bgaa!!!
-            // Anhaaraltai yum oorchilno uu.
-            // Er ni yum oorchlood heregguidee. Amarhan evderne!
-            $contents = "\App\Content";
-            foreach ($parsed->filters as $index => $filter) {
-                $inputExcept = ['title', 'slug', 'content', 'type', 'status', 'visibility', 'limit', 'page', 'author_id', '_token'];
-                $inputExcept2 = ['title', 'slug', 'content', 'type', 'author_id', '_token'];
-                $pointer = $index == 0 ? '::' : '->';
-
-                if (in_array($filter['field'], $inputExcept)) {
-                    if (in_array($filter['field'], $inputExcept2)) {
-                        $contents = $contents . $pointer . $this->where($filter['field'], $filter['operator'], $filter['value']);
-                    } else if ($filter['field'] == 'limit') {
-                        $returnArg = $filter['value'];
-                    } else {
-                        $contents = $contents . $pointer . $this->where($filter['field'], $filter['operator'], $filter['value']);
-                    }
-                } else {
-                    $contents = $contents . $pointer . $this->whereHas('metas', [
-                        'key' => $filter['field'],
-                        'value' => [$filter['operator'] => $filter['value']]
-                    ]);
-                }
-            }
-
-            // Collection return type
-            $contents = $contents . "->" . $parsed->return . "(" . $returnArg . ")";
-
+            $contents = $this->parseContent($parsed, $returnArg);
             // dd($contents);
 
             return "<?php foreach($contents as $variable) { ?>";
@@ -184,6 +169,36 @@ class GframeworkServiceProvider extends ServiceProvider
             return "<?php {$daaataaa} = json_decode('$taxonomys');?>";
         });
 
+    }
+
+    private function parseContent($parsed, &$returnArg) {
+        // End uneheer zavaan uildel hiigdej bgaa!!!
+        // Anhaaraltai yum oorchilno uu.
+        // Er ni yum oorchlood heregguidee. Amarhan evderne!
+        $contents = "\App\Content";
+        foreach ($parsed->filters as $index => $filter) {
+            $inputExcept = ['title', 'slug', 'content', 'type', 'status', 'visibility', 'limit', 'page', 'author_id', '_token'];
+            $inputExcept2 = ['title', 'slug', 'content', 'type', 'author_id', '_token'];
+            $pointer = $index == 0 ? '::' : '->';
+
+            if (in_array($filter['field'], $inputExcept)) {
+                if (in_array($filter['field'], $inputExcept2)) {
+                    $contents = $contents . $pointer . $this->where($filter['field'], $filter['operator'], $filter['value']);
+                } else if ($filter['field'] == 'limit') {
+                    $returnArg = $filter['value'];
+                } else {
+                    $contents = $contents . $pointer . $this->where($filter['field'], $filter['operator'], $filter['value']);
+                }
+            } else {
+                $contents = $contents . $pointer . $this->whereHas('metas', [
+                    'key' => $filter['field'],
+                    'value' => [$filter['operator'] => $filter['value']]
+                ]);
+            }
+        }
+
+        // Collection return type
+        return $contents . "->" . $parsed->return . "(" . $returnArg . ")";
     }
 
     private function parseExpression($expression) {
@@ -274,6 +289,23 @@ class GframeworkServiceProvider extends ServiceProvider
     private function whereHas($table, $queries = array()) {
         $part1 = "whereHas('" . $table . "', function ($"."query) {";
         $part2 = "";
+        $part3 = "";
+
+        // Check if given value is empty or not
+        if ($queries['value']) {
+            $value = $queries['value'];
+            if (is_array($value)) {
+                foreach ($value as $operator => $val) {
+                    $value = $this->whereValueStr($val);
+                    break;
+                }
+            } else {
+                $value = $this->whereValueStr($value);
+            }
+            $part2 = $part2 . "if (" . $this->whereValueStr($value) . " != Null && " . $this->whereValueStr($value) . " != []) {";
+            $part3 = "}";
+        }
+
         foreach ($queries as $field => $value) {
             if (is_array($value)) {
                 foreach ($value as $operator => $val) {
@@ -283,7 +315,7 @@ class GframeworkServiceProvider extends ServiceProvider
                 $part2 = $part2 . "$" . "query->" . $this->where($field, $value) . ";";
             }
         }
-        $part3 = "})";
+        $part3 = $part3 . "})";
         return $part1 . $part2 . $part3;
     }
 
