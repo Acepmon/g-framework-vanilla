@@ -81,7 +81,7 @@
             <div class="row">
                 <div class="card shadow-soft-blue page-top-navbar mb-5">
                     <div class="d-flex justify-content-around">
-                        <a href="#">Finance information</a>
+                        <a href="/finance">Finance information</a>
                         <a href="#" class="active">Search your vehicle for monthly installments</a>
                     </div>
                 </div>
@@ -157,7 +157,6 @@
                 </div>
             </div>
             <div class="col-md-12 text-center">
-                    @csrf
                     <input hidden id="searchByTotPrice" name="priceAmount">
                     <button type="submit" id="searchFitCars" class="btn btn-danger btn-round  mt-5 px-5 btn-lg">Хайлт хийх</button>
 
