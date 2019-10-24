@@ -108,8 +108,9 @@
                             <div class="form-group row">
                                 <label for="manufacturer" class="col-form-label col-lg-2">Manufacturer</label>
                                 <div class="col-lg-10">
-                                    <select id="manufacturer" name="manufacturer" class="form-control text-capitalize">
-                                        @foreach(App\TermTaxonomy::where('taxonomy', 'manufacturer')->get() as $value)
+                                    <select id="manufacturer" name="manufacturer" class="select text-capitalize">
+                                        <option>Manufacturer</option>
+                                        @foreach(App\TermTaxonomy::where('taxonomy', 'car-manufacturer')->get() as $value)
                                             <option value="{{ $value->term->name }}">{{ $value->term->name }}</option>
                                         @endforeach
                                     </select>
@@ -119,9 +120,12 @@
                             <div class="form-group row">
                                 <label for="modelName" class="col-form-label col-lg-2">Model</label>
                                 <div class="col-lg-10">
-                                    <select id="modelName" name="modelName" class="select text-capitalize">
-                                        @foreach(App\TermTaxonomy::where('taxonomy', 'model')->get() as $value)
-                                            <option value="{{ $value->term->name }}">{{ $value->term->name }}</option>
+                                    <select id="modelName" name="modelName" class="form-control text-capitalize">
+                                        <option>Model</option>
+                                        @foreach(App\TermTaxonomy::where('taxonomy', 'car-manufacturer')->get() as $taxonomy)
+                                        @foreach($taxonomy->children as $model)
+                                            <option title="{{$taxonomy->term->name}}">{{$model->term->name}}</option>
+                                        @endforeach
                                         @endforeach
                                     </select>
                                 </div>
@@ -157,7 +161,7 @@
                                 <label for="colorName" class="col-form-label col-lg-2">Color</label>
                                 <div class="col-lg-10">
                                     <select id="colorName" name="colorName" class="select text-capitalize">
-                                        @foreach(App\TermTaxonomy::where('taxonomy', 'color')->get() as $value)
+                                        @foreach(App\TermTaxonomy::where('taxonomy', 'car-colors')->get() as $value)
                                             <option value="{{ $value->term->name }}">{{ $value->term->name }}</option>
                                         @endforeach
                                     </select>
@@ -191,7 +195,7 @@
                                 <label for="wheelPosition" class="col-form-label col-lg-2">Steering wheel</label>
                                 <div class="col-lg-10">
                                     <select id="wheelPosition" name="wheelPosition" class="form-control text-capitalize">
-                                        @foreach(App\TermTaxonomy::where('taxonomy', 'steering-wheel')->get() as $value)
+                                        @foreach(App\TermTaxonomy::where('taxonomy', 'car-wheel-pos')->get() as $value)
                                             <option value="{{ $value->term->name }}">{{ $value->term->name }}</option>
                                         @endforeach
                                     </select>
@@ -202,7 +206,7 @@
                                 <label for="fuel" class="col-form-label col-lg-2">Type of fuel</label>
                                 <div class="col-lg-10">
                                     <select id="fuel" name="fuel" class="form-control text-capitalize">
-                                        @foreach(App\TermTaxonomy::where('taxonomy', 'Fuel')->get() as $value)
+                                        @foreach(App\TermTaxonomy::where('taxonomy', 'car-fuel')->get() as $value)
                                             <option value="{{ $value->term->name }}">{{ $value->term->name }}</option>
                                         @endforeach
                                     </select>
@@ -213,7 +217,7 @@
                                 <label for="transmission" class="col-form-label col-lg-2">Transmission</label>
                                 <div class="col-lg-10">
                                     <select id="transmission" name="transmission" class="form-control text-capitalize">
-                                        @foreach(App\TermTaxonomy::where('taxonomy', 'transmission')->get() as $value)
+                                        @foreach(App\TermTaxonomy::where('taxonomy', 'car-transmission')->get() as $value)
                                             <option value="{{ $value->term->name }}">{{ $value->term->name }}</option>
                                         @endforeach
                                     </select>
@@ -224,7 +228,7 @@
                                 <label for="manCount" class="col-form-label col-lg-2">Seating</label>
                                 <div class="col-lg-10">
                                     <select id="manCount" name="manCount" class="form-control text-capitalize">
-                                        @foreach(App\TermTaxonomy::where('taxonomy', 'seating')->get() as $value)
+                                        @foreach(App\TermTaxonomy::where('taxonomy', 'car-mancount')->get() as $value)
                                             <option value="{{ $value->term->name }}">{{ $value->term->name }}</option>
                                         @endforeach
                                     </select>
@@ -235,7 +239,7 @@
                                 <label for="wheelDrive" class="col-form-label col-lg-2">Wheel drive</label>
                                 <div class="col-lg-10">
                                     <select id="wheelDrive" name="wheelDrive" class="form-control text-capitalize">
-                                        @foreach(App\TermTaxonomy::where('taxonomy', 'wheel-drive')->get() as $value)
+                                        @foreach(App\TermTaxonomy::where('taxonomy', 'car-wheel')->get() as $value)
                                             <option value="{{ $value->term->name }}">{{ $value->term->name }}</option>
                                         @endforeach
                                     </select>
@@ -412,7 +416,7 @@
                                         </div>
                                         <div id="guts" class="collapse" aria-labelledby="guts-accordian" data-parent="#accordionExample">
                                             <div class="card-body bg-light">
-                                                @foreach(App\TermTaxonomy::where('taxonomy', 'Guts')->get() as $taxonomy)
+                                                @foreach(App\TermTaxonomy::where('taxonomy', 'car-guts')->get() as $taxonomy)
                                                 <div class="custom-control custom-checkbox">
                                                     <input type="checkbox" id="sedan" name="options" class="custom-control-input">
                                                     <label class="custom-control-label  d-flex justify-content-between" for="sedan">{{ $taxonomy->term->name }}</label>
@@ -429,7 +433,7 @@
                                         </div>
                                         <div id="safety" class="collapse" aria-labelledby="safety-accordian" data-parent="#accordionExample">
                                             <div class="card-body bg-light">
-                                                @foreach(App\TermTaxonomy::where('taxonomy', 'Safety')->get() as $taxonomy)
+                                                @foreach(App\TermTaxonomy::where('taxonomy', 'car-safety')->get() as $taxonomy)
                                                 <div class="custom-control custom-checkbox">
                                                     <input type="checkbox" id="sedan" name="options" class="custom-control-input">
                                                     <label class="custom-control-label  d-flex justify-content-between" for="sedan">{{ $taxonomy->term->name }}</label>
@@ -446,7 +450,7 @@
                                         </div>
                                         <div id="exterior" class="collapse" aria-labelledby="exterior-accordian" data-parent="#accordionExample">
                                             <div class="card-body bg-light">
-                                                @foreach(App\TermTaxonomy::where('taxonomy', 'Exterior')->get() as $taxonomy)
+                                                @foreach(App\TermTaxonomy::where('taxonomy', 'car-exterior')->get() as $taxonomy)
                                                 <div class="custom-control custom-checkbox">
                                                     <input type="checkbox" id="sedan" name="options" class="custom-control-input">
                                                     <label class="custom-control-label  d-flex justify-content-between" for="sedan">{{ $taxonomy->term->name }}</label>
@@ -463,24 +467,7 @@
                                         </div>
                                         <div id="convenience" class="collapse" aria-labelledby="convenience-accordian" data-parent="#accordionExample">
                                             <div class="card-body bg-light">
-                                                @foreach(App\TermTaxonomy::where('taxonomy', 'Convenience')->get() as $taxonomy)
-                                                <div class="custom-control custom-checkbox">
-                                                    <input type="checkbox" id="sedan" name="options" class="custom-control-input">
-                                                    <label class="custom-control-label  d-flex justify-content-between" for="sedan">{{ $taxonomy->term->name }}</label>
-                                                </div>
-                                                @endforeach
-                                            </div>
-                                        </div>
-                                        <div class="accordian-head" id="clean-accordian">
-                                            <h2 class="mb-0">
-                                            <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#clean" aria-expanded="false" aria-controls="clean">
-                                            Clean <i class="fab fa fa-angle-down"></i>
-                                            </button>
-                                            </h2>
-                                        </div>
-                                        <div id="clean" class="collapse" aria-labelledby="clean-accordian" data-parent="#accordionExample">
-                                            <div class="card-body bg-light">
-                                                @foreach(App\TermTaxonomy::where('taxonomy', 'Clean')->get() as $taxonomy)
+                                                @foreach(App\TermTaxonomy::where('taxonomy', 'car-convenience')->get() as $taxonomy)
                                                 <div class="custom-control custom-checkbox">
                                                     <input type="checkbox" id="sedan" name="options" class="custom-control-input">
                                                     <label class="custom-control-label  d-flex justify-content-between" for="sedan">{{ $taxonomy->term->name }}</label>
@@ -594,6 +581,13 @@
             });
         });
         $("#theme").prop('selectedIndex', 0).trigger('change');
+
+        $('#manufacturer').change(function (){
+            var val = $(this).val();
+            console.log(val);
+            $('#modelName option[title!="'+val+'"]').attr('hidden', 'true');
+            $('#modelName option[title="'+val+'"]').removeAttr('hidden');
+        });
 
         $(".file-input-ajax").fileinput({
             uploadUrl: "http://localhost", // server upload action
@@ -713,10 +707,10 @@
         }
     }
 
-    $("#modelName").select2({
-        tags: true,
-        //maximumSelectionLength: 1
-    });
+    // $("#modelName").select2({
+    //     tags: true,
+    //     //maximumSelectionLength: 1
+    // });
 
     $('#endsAtBut').click(function (e) {
         $('#endsAt').AnyTime_noPicker().AnyTime_picker().focus();

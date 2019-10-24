@@ -48,6 +48,21 @@ if ($itemCount < $page * $itemsPerPage) {
 </style>
 @endpush
 
+@contentInline(type=car,
+    carType in request()->input("car-type"),
+    markName in request()->input("car-manufacturer"),
+    colorName in request()->input("car-colors"),
+    priceAmount >= intval(request()->input("min_price")),
+    fuelType in request()->input("car-fuel"),
+    transmission in request()->input("car-transmission"),
+    accident in request()->input("car-accident"),
+    manCount in request()->input("car-manCount"),
+    wheelPosition in request()->input("car-wheel-pos"),
+    countryName in request()->input("car-provinces")
+    as $cars | paginate)
+@php 
+//dd($cars);
+@endphp
 <div class="card shadow-soft-blue page-top-navbar">
     @if($type == 'search')
         <div class="card-body">
@@ -59,7 +74,7 @@ if ($itemCount < $page * $itemsPerPage) {
         </div>
     @endif
     <div class="d-flex justify-content-start">
-        <span class="total-cars">{{ count($items) }} VEHICLES</span>
+        <span class="total-cars">{{ $cars->total() }} VEHICLES</span>
         <input type="hidden" name="orderBy" id="orderBy" value="{{ $orderBy }}" />
         <input type="hidden" name="premium" id="premium" value="{{ $filterPremium }}" />
 
@@ -73,15 +88,15 @@ if ($itemCount < $page * $itemsPerPage) {
     </div>
 </div>
 </div>
-@if ($items->all() && sizeof($items->all()) != 0)
+@if ($cars->total() > 0)
 <div class="car-list {{ (isset($auction) && $auction)?'auction-list':'' }}">
 <input type="hidden" name="advantage" id="advantage" value="{{ $request['advantages'] }}" />
 @if (isset($auction) && $auction)
-    @foreach($items->forPage($page, $itemsPerPage) as $car)
+    @foreach($cars as $car)
         @include('themes.car-web.includes.car-list-card', array('car'=>$car, 'auction'=>True))
     @endforeach
 @else
-    @foreach($items->forPage($page, $itemsPerPage) as $car)
+    @foreach($cars as $car)
         @include('themes.car-web.includes.car-list-card', array('car'=>$car))
     @endforeach
 @endif
@@ -92,20 +107,20 @@ if ($itemCount < $page * $itemsPerPage) {
 </div>
 @endif
 
-@if ($items->all() && sizeof($items->all()) != 0)
+@if ($cars->total() > 0)
 <!-- Pagination -->
 <nav aria-label="Page navigation">
     <input type="hidden" value="{{ max($page, 1) }}" name="page" id="page" />
     <ul class="pagination d-flex justify-content-end">
-    <li class="page-item {{ ($page <= 1)?'disabled':'' }}">
-        <button class="page-link" onclick="formSubmit('page', {{$page-1}})" aria-label="Previous">
-        <span aria-hidden="true"><i class="fab fa fa-angle-left"></i></span>
-        </button>
-    </li>
-    @for($i = 1; $i <= $maxPage; $i++)
+        <li class="page-item {{ ($page <= 1)?'disabled':'' }}">
+            <button class="page-link" onclick="formSubmit('page', {{$page-1}})" aria-label="Previous">
+            <span aria-hidden="true"><i class="fab fa fa-angle-left"></i></span>
+            </button>
+        </li>
+        @for($i = 1; $i <= $cars->lastPage(); $i++)
         <li class="page-item {{ ($i == $page)?'active':'' }}"><button class="page-link" onclick="formSubmit('page', {{$i}})">{{ $i }}</button></li>
         @endfor
-        <li class="page-item {{ ($page >= $maxPage)?'disabled':'' }}">
+        <li class="page-item {{ ($page >= $cars->lastPage())?'disabled':'' }}">
         <button class="page-link" onclick="formSubmit('page', {{$page+1}})" aria-label="Next">
             <span aria-hidden="true"><i class="fab fa fa-angle-right"></i></span>
         </button>

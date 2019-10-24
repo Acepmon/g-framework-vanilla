@@ -80,7 +80,7 @@ $categoryName = [
             <div class="form-row">
             <div class="col-md-6">
                 <select id="min_price" class="form-control" name="min_price" onchange="formSubmit('min_price','no-value')">
-                <option value="0">Min</option>
+                <option value="">Min</option>
                 @for($i=100000; $i<=50000000; $i+=100000)
                 <option value="{{ $i }}" {{ $request['minPrice']==$i?'selected':'' }}>{{ numerizePrice($i) }}</option>
                 @endfor

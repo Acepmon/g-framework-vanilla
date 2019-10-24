@@ -241,7 +241,7 @@ class GframeworkServiceProvider extends ServiceProvider
     }
 
     private function parseFilter($filter) {
-        $operators = ['=', '!=', ' in ', '>', '>=', '<', '<='];
+        $operators = ['>=', '<=', '!=', '=', ' in ', '>', '<'];
         $ignore = '->';
 
         $ignoredFilter = str_replace($ignore, "##", $filter);
