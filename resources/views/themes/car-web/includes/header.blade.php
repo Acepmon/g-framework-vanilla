@@ -30,6 +30,9 @@
                                     @endif
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="headerProfileDropdown">
+                                    @if (Auth::user()->is_admin())
+                                        <a href="{{ route('admin.dashboard') }}" class="dropdown-item">Admin Panel</a>
+                                    @endif
                                     @foreach ($dropdownMenus as $menu)
                                         <a class="dropdown-item" href="{{ url($menu->link) }}">{{ $menu->title }}</a>
                                     @endforeach
