@@ -17,7 +17,7 @@ class ContentMetaObserver
         $contentMeta->value = $this->validate($contentMeta->key, $contentMeta->value);
         $content = $contentMeta->content;
         if ($content->status == Content::STATUS_PUBLISHED && $content->visibility == Content::VISIBILITY_PUBLIC) {
-            $this->incrementCount($contentMeta->key, $contentMeta->value);
+            TaxonomyManager::incrementCount($contentMeta->key, $contentMeta->value);
         }
 
         if ($contentMeta->key == 'startsAt') {
@@ -33,8 +33,8 @@ class ContentMetaObserver
         $contentMeta->value = $this->validate($contentMeta->key, $contentMeta->value);
         $content = $contentMeta->content;
         if ($content->status == Content::STATUS_PUBLISHED && $content->visibility == Content::VISIBILITY_PUBLIC) {
-            $this->incrementCount($contentMeta->key, $contentMeta->value);
-            $this->decrementCount($contentMeta->key, $contentMeta->getOriginal($contentMeta->key));
+            TaxonomyManager::decrementCount($contentMeta->key, $contentMeta->getOriginal('value'));
+            TaxonomyManager::incrementCount($contentMeta->key, $contentMeta->value);
         }
 
         if ($contentMeta->key == 'startsAt') {
@@ -49,45 +49,8 @@ class ContentMetaObserver
     {
         $content = $contentMeta->content;
         if ($content->status == Content::STATUS_PUBLISHED && $content->visibility == Content::VISIBILITY_PUBLIC) {
-            $this->decrementCount($contentMeta->key, $contentMeta->value);
+            TaxonomyManager::decrementCount($contentMeta->key, $contentMeta->value);
         }
-    }
-
-    public function incrementCount($key, $value) {
-        $term = Term::where('name', $value)->first();
-        if ($term && $term->group && $key == $term->group->metaValue('metaKey')) {
-            $taxonomy = TermTaxonomy::where('term', $term)->first();
-            if ($taxonomy) {
-                $taxonomy->increment('count');
-            }
-        }
-        // $term = Term::where('name', 'LIKE', '%'.$value.'%')->whereHas('metas', function($query) use($key) {
-        //     $query->where('key', 'metaKey');
-        //     $query->where('value', 'LIKE', '%'.$key.'%');
-        // })->first();
-        // // $term = TermTaxonomy::where('taxonomy', 'LIKE', '%'.$key.'%')->whereHas('term', function($query) use($value) {
-        // //     return $query->where('name', 'LIKE', '%'.$value.'%');
-        // // })->first();
-        // if ($term) {
-        //     $term->increment('count');
-        // }
-    }
-
-    public function decrementCount($key, $value) {
-        $term = Term::where('name', $value)->first();
-        if ($term && $term->group && $key == $term->group->metaValue('metaKey')) {
-            $taxonomy = TermTaxonomy::where('term_id', $term->id)->first();
-            if ($taxonomy) {
-                $term->decrement('count');
-            }
-        }
-        // $term = TermTaxonomy::where('taxonomy', 'LIKE', '%'.$key.'%')->whereHas('term', function($query) use($value) {
-        //     $query->where('key', 'metaKey');
-        //     $query->where('value', 'LIKE', '%'.$value.'%');
-        // })->first();
-        // if ($term) {
-        //     $term->decrement('count');
-        // }
     }
 
     public function validate($key, $value) {

@@ -2,6 +2,8 @@
 
 namespace App\Entities;
 
+use App\Content;
+use App\ContentMeta;
 use App\TermTaxonomy;
 use App\Term;
 use App\TermMeta;
@@ -104,22 +106,42 @@ class TaxonomyManager extends Manager
         return $taxonomy;
     }
 
-    public static function updateCount($key, $value)
+    public static function incrementCount($key, $value)
     {
-        $term = self::findTerm($value);
-        $parent_term = Term::findOrFail($term->group_id);
-        $metaKey = $parent_term->metaValue('metaKey');
-        if ($key == $metaKey) {
-            
+        $term = Term::where('name', $value)->first();
+        if ($term && $term->group && $key == $term->group->metaValue('metaKey') && $term->taxonomy) {
+            $term->taxonomy->increment('count');
+            $term->taxonomy->save();
+        } else if ($value == '1' || $value == '0') {
+            // This is used in Options
+            $term_meta = TermMeta::where('value', $key)->first();
+            if ($term_meta) {
+                $term = $term_meta->term;
+                $term->taxonomy->increment('count');
+                $term->taxonomy->save();
+            }
         }
-        // $taxonomy = TermTaxonomy::where('');
-        // $key = $taxonomy->term()->metaValue('metaKey');
-        // $value = '';
-        // Content::whereHas('metas', function ($query) use ($key, $value) {
-        //     $query->where('key', $key);
-        //     $query->where('value', $value);
-        // });
-        // $count = count();
-        // $taxonomy->count = $count;
     }
+
+    public static function decrementCount($key, $value)
+    {
+        $term = Term::where('name', $value)->first();
+        if ($term && $term->group && $key == $term->group->metaValue('metaKey') && $term->taxonomy) {
+            $term->taxonomy->decrement('count');
+            $term->taxonomy->save();
+        } else if ($value == '1' || $value == '0') {
+            $term_meta = TermMeta::where('value', $key)->first();
+            if ($term_meta) {
+                $term = $term_meta->term;
+                $term->taxonomy->decrement('count');
+                $term->taxonomy->save();
+            }
+        }
+    }
+
+    public static function recount($key, $value)
+    {
+        
+    }
+
 }

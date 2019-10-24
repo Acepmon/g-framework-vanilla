@@ -13,7 +13,7 @@
         </div>
         <div class="wish-user">
         <div class="profile-img"><img src="{{asset('car-web/img/blog/4.jpg')}}" alt=""></div>
-        <div class="username">Enkhtuvshin <div class="date">2019-09-20</div>
+        <div class="username">{{$car->author->name}} <div class="date">{{ $car->created_at }}</div>
         </div>
 
         </div>

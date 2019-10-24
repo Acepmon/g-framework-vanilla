@@ -16,7 +16,12 @@ class Term extends Model
 
     public function group()
     {
-        return $this->hasOne('App\Term', 'group_id');
+        return $this->belongsTo('App\Term', 'group_id');
+    }
+
+    public function taxonomy()
+    {
+        return $this->hasOne('App\TermTaxonomy', 'term_id');
     }
 
     public function metaValue($key) {

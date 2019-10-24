@@ -22,7 +22,7 @@ class ProvincesTableSeeder extends Seeder
             , 'Dundgobi', 'Zavkhan', 'Orkhon', 'Uvurkhangai', 'Umnugobi', 'Sukhbaatar', 'Selenge', 'Tuv', 'Uvs', 'Khovd', 'Khuvsgul', 'Khentii'];
 
         foreach ($location as $key => $province) {
-            TaxonomyManager::register($province, 'provinces');
+            TaxonomyManager::register($province, 'provinces', null, ['metaKey' => 'area']);
         }
     }
 }

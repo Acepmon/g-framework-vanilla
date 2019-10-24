@@ -11,7 +11,7 @@
 
             <div class="card-list mx-n3">
                 <div class="row">
-                    @content(type=car, status=published, visibility=public, publishType=best_premium, isAuction=0, limit=12 as $bpCars | paginate)
+                    @content(type=car, publishType=best_premium, isAuction=0, limit=12 as $bpCars | paginate)
 
                         @if(count($interestedCars) > 0)
                             @foreach($interestedCars as $intCars)

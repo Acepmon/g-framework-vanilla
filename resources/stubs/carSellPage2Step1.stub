@@ -38,7 +38,7 @@
             <select id="selectManufacturer" name="markName" class="form-control">
                 <option value="0">Manufacturer</option>
                 @foreach(App\TermTaxonomy::where('taxonomy', 'car-manufacturer')->get() as $taxonomy)
-                <option>{{$taxonomy->term->name}}</option>
+                <option {{ ($car->metaValue('markName') == $taxonomy->term->name)?'selected':'' }}>{{$taxonomy->term->name}}</option>
                 @endforeach
             </select>
         </div>
@@ -49,7 +49,7 @@
                 
                 @foreach(App\TermTaxonomy::where('taxonomy', 'car-manufacturer')->get() as $taxonomy)
                 @foreach(App\TermTaxonomy::where('taxonomy', 'car-'.strtolower($taxonomy->term->name))->get() as $model)
-                <option title="{{$taxonomy->term->name}}">{{$model->term->name}}</option>
+                <option title="{{$taxonomy->term->name}}" {{ ($car->metaValue('modelName') == $taxonomy->term->name)?'selected':'' }}>{{$model->term->name}}</option>
                 @endforeach
                 @endforeach
             </select>
@@ -338,9 +338,9 @@
       var val = $(this).val();
       console.log($(this).val());
 
-      $('#modelSelect option[title!='+val+']').css('display', 'none');
+      $('#modelSelect option[title!="'+val+'"]').css('display', 'none');
       
-      $('#modelSelect option[title='+val+']').css('display', 'block');
+      $('#modelSelect option[title="'+val+'"]').css('display', 'block');
     });
   });
 </script>
