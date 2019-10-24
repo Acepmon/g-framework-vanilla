@@ -175,19 +175,18 @@
                 type:'GET',
                 url: "/ajax/user_exists?email="+email,
                 data:{email:email},
-                success:function(data){
-                    $.ajax({
-                        type:'POST',
-                        url: "{{ route('password.email') }}",
-                        data:{email:email},
-                        success:function(data){
-                            $('#myModal').modal('hide');
-                            $('#mailSuccess').modal('show');
-
-                        }
-                    })
+            }).done(function(data) {
+                console.log("DONE!");
+                //console.log(data);
+                if(data.status==true){
+                    $('#myModal').modal('hide');
+                    $('#mailSuccess').modal('show');
                 }
-            }).fail(function(data){
+                else {
+                    $('#mailFail').modal('show');
+                }
+            })
+                .fail(function(data){
                 //$("#demo-spinner").css({'display': 'none'});
                 console.error("FAIL!");
                 //$('#myModal').modal('hide');
