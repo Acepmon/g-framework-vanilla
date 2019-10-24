@@ -17,7 +17,7 @@
         <div class="card shadow-soft-blue page-top-navbar mb-5">
           <div class="d-flex justify-content-around">
             <a class="active" href="#">Finance information</a>
-            <a href="/monthly-installments">Search your vehicle for monthly installments</a>
+            <a href="/monthly-installments?monthlyPrice=500000&firstPay=20&financeMonth=6&priceAmount=4590104">Search your vehicle for monthly installments</a>
           </div>
         </div>
       </div>
