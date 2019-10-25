@@ -12,7 +12,7 @@
                 </div>
             </div>
             <div class="wish-user">
-                <div class="profile-img"><img src="{{asset('car-web/img/blog/4.jpg')}}" alt=""></div>
+                <div class="profile-img"><img src="{{ $car->author->avatar_url() }}" alt=""></div>
                 <div class="username">
                     {{$car->author->name}}
                     <div class="date">{{ $car->created_at }}</div>

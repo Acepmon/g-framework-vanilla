@@ -1,9 +1,21 @@
 <div class="fixed-sidebar sticky-top">
     <div class="sticky-content">
         <div class="card">
-            <a href="{{ url('wishlist') }}">
-                <img src="{{ asset('car-web/img/bg-showcase-2.jpg') }}" style="width: 120px"/>
-            </a>
+            <div class="wish-list text-center">
+                @auth
+                    <a data-toggle="modal" href="#modalAddWishlist">
+                        <span class="badge badge-danger rounded float-right">new</span>
+                        <img src="{{ asset('car-web/img/wish.png') }}" class="img-fluid" />
+                        <strong>WRITE WANNA BUY</strong>
+                    </a>
+                @else
+                    <a href="{{ route('login') }}">
+                        <span class="badge badge-danger rounded float-right">new</span>
+                        <img src="{{ asset('car-web/img/wish.png') }}" class="img-fluid" />
+                        <strong>WRITE WANNA BUY</strong>
+                    </a>
+                @endauth
+            </div>
         </div>
         <div class="card">
             <a href="{{ config('car.appStoreLink') }}" target="_blank">
