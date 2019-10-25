@@ -32,6 +32,7 @@ class CarMenusTableSeeder extends Seeder
             ['Auction Cars', '/admin/modules/car/auction', 'icon-hammer2', 'Car'],
             ['Verification Requests', '/admin/modules/car/verifications', 'icon-clipboard2', 'Car'],
             ['Car Options', '/admin/modules/car/options', 'icon-cog', 'Car'],
+            ['Wishlist', '/admin/modules/car/wishlist', 'icon-star-empty3', 'Car'],
         ];
         $carMainMenus = ['Car Main', '', '', 'Car', [
             ['Home', '/', '', 'Car'],
