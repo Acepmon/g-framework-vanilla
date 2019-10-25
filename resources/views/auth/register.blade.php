@@ -16,13 +16,13 @@
                     <div class="card-header">
                         <div class="step-process sp-3">
                             <div class='progress_inner_step active'>
-                                <a class="nav-link" for='step-1' data-toggle="tab" href="#step-1" id="tab-step-1" role="tab">Agreement</a>
+                                <a class="nav-link" for='step-1' data-toggle="tab" href="#step-1" id="tab-step-1" role="tab" style="pointer-events: none;">Agreement</a>
                             </div>
                             <div class='progress_inner_step'>
-                                <a class="nav-link" for='step-2' data-toggle="tab" href="#step-2" id="tab-step-2" role="tab">Username & Password</a>
+                                <a class="nav-link" for='step-2' data-toggle="tab" href="#step-2" id="tab-step-2" role="tab" style="pointer-events: none;">Username & Password</a>
                             </div>
                             <div class='progress_inner_step'>
-                                <a class="nav-link" for='step-3' data-toggle="tab" href="#step-3" id="tab-step-3" role="tab">More Information</a>
+                                <a class="nav-link" for='step-3' data-toggle="tab" href="#step-3" id="tab-step-3" role="tab" style="pointer-events: none;">More Information</a>
                             </div>
                         </div>
                     </div>
@@ -68,7 +68,7 @@
                                     <div class="col-md-7">
                                         <div class="form-group">
                                             <label for="email">Email:</label>
-                                            <input type="text" name="email" id="email" maxlength="191" class="form-control @error('email') is-invalid @enderror" placeholder="example@mail.com" value="{{ old('email') }}">
+                                            <input type="text" name="email" id="email" maxlength="191" required class="form-control @error('email') is-invalid @enderror" placeholder="example@mail.com" value="{{ old('email') }}">
                                             @error('email')
                                                 <span class="invalid-feedback" role="alert">
                                                     {{ $message }}
@@ -77,7 +77,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="name">Name:</label>
-                                            <input type="text" name="name" id="name" maxlength="191" class="form-control @error('name') is-invalid @enderror" placeholder="Dorj Pagam" value="{{ old('name') }}">
+                                            <input type="text" name="name" id="name" maxlength="191" required class="form-control @error('name') is-invalid @enderror" placeholder="Dorj Pagam" value="{{ old('name') }}">
                                             @error('name')
                                                 <span class="invalid-feedback" role="alert">
                                                     {{ $message }}
@@ -86,7 +86,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="password">Password:</label>
-                                            <input type="password" name="password" id="password" class="form-control @error('password') is-invalid @enderror" placeholder="Type your password">
+                                            <input type="password" name="password" id="password" required class="form-control @error('password') is-invalid @enderror" placeholder="Type your password">
                                             @error('password')
                                                 <span class="invalid-feedback" role="alert">
                                                     {{ $message }}
@@ -95,7 +95,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="password_confirmation">Confirm password:</label>
-                                            <input type="password" name="password_confirmation" id="password_confirmation" class="form-control" id="millage" placeholder="Confirm your password">
+                                            <input type="password" name="password_confirmation" id="password_confirmation" required class="form-control" placeholder="Confirm your password">
                                         </div>
                                     </div>
 
@@ -104,8 +104,8 @@
                                             <div class="social-login-title">
                                                 Login with Social network
                                             </div>
-                                            <a href="{{ route('login.provider', 'facebook') }}" class="btn btn-facebook btn-round btn-block my-2 py-3 shadow-soft-blue btn-icon-left"><i class="icon-social-facebook"></i> Facebook</a>
-                                            <a href="{{ route('login.provider', 'google') }}" class="btn btn-light btn-round btn-block my-2 py-3 shadow-soft-blue btn-icon-left"><i class="icon-social-google"></i> Gmail</a>
+                                            <a href="{{ route('login.provider', 'facebook') }}" class="btn btn-facebook btn-round btn-block my-2 py-3 shadow-soft-blue btn-icon-left"><i class="fab fa-facebook-f"></i> Facebook</a>
+                                            <a href="{{ route('login.provider', 'google') }}" class="btn btn-light btn-round btn-block my-2 py-3 shadow-soft-blue btn-icon-left"><i class="fab fa-google"></i> Gmail</a>
                                         </div>
                                     </div>
                                 </div>
@@ -161,11 +161,11 @@
 @endsection
 
 @section('script')
+{{-- Step Wizard --}}
 <script>
     $(document).ready(function() {
         $(".step-process a").each(function(index) {
             $(this).on('click', function () {
-                console.log("ON CLICK!" + index);
                 for (var i = index; i>=1; i--) {
                     $('#tab-step-'+i).parent().removeClass('active');
                     $('#tab-step-'+i).parent().addClass('done');
@@ -187,14 +187,13 @@
         $("#step2Prev").click(function () {
             $("#tab-step-1").trigger('click');
         });
-        $("#step2Next").click(function () {
-            $("#tab-step-3").trigger('click');
-        });
         $("#step3Prev").click(function () {
             $("#tab-step-2").trigger('click');
         });
     });
 </script>
+
+{{-- Step 1 Validation --}}
 <script>
     $(document).ready(function () {
         var termsOfCondition = $("#termsOfCondition");
@@ -212,18 +211,114 @@
         onlineUseTerm.change(validate);
     });
 </script>
+
+{{-- Step 2 Validation --}}
 <script>
     $(document).ready(function () {
-        var $emailField = $('#email');
-        var $usernameField = $('#username');
-        function onChange() {
-            $usernameField.val($emailField.val());
+        var emailField = $('#email');
+        var usernameField = $('#username');
+        var nameField = $('#name');
+        var passwordField = $('#password');
+        var passwordConfirmationField = $('#password_confirmation');
+        var onEmailChange = function () {
+            usernameField.val(emailField.val());
         };
-        $('#email')
-            .change(onChange)
-            .keyup(onChange);
+        var validateEmail = function (email) {
+            var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            return re.test(String(email).toLowerCase());
+        }
+        var invalidFeedback = function (message) {
+            if (message != null) {
+                return $('<span class="invalid-feedback" role="alert">'+message+'</span>');
+            }
+        }
+        var validFeedback = function (message) {
+            if (message != null) {
+                return $('<span class="valid-feedback" role="alert">'+message+'</span>');
+            }
+        }
+        var showValidation = function (status = 1, message = null, element) {
+            // status == 1 - Successful validation
+            // status == 0 - Validation is loading
+            // status == -1 - Unsuccessful validation
+            var formGroup = element.parent(".form-group");
+            switch (status) {
+                case 1:
+                    element.addClass('is-valid');
+                    formGroup.addClass('form-group-feedback');
+                    formGroup.append(validFeedback(message));
+                    break;
+                case 0:
+                    element.removeClass('is-valid');
+                    element.removeClass('is-invalid');
+                    formGroup.removeClass('form-group-feedback');
+                    formGroup.find('.invalid-feedback').remove();
+                    formGroup.find('.valid-feedback').remove();
+                    break;
+                case -1:
+                    element.addClass('is-invalid');
+                    formGroup.addClass('form-group-feedback');
+                    formGroup.append(invalidFeedback(message));
+                    break;
+            }
+        }
+        var validate = function (e) {
+            e.preventDefault();
+
+            showValidation(0, null, emailField);
+            showValidation(0, null, nameField);
+            showValidation(0, null, passwordField);
+            showValidation(0, null, passwordConfirmationField);
+
+            if (validateEmail(emailField.val())) {
+                $.getJSON('/ajax/user_exists?email=' + emailField.val(), function (data) {
+                    if (!data.status) {
+                        showValidation(1, 'Email is available!', emailField);
+                    } else {
+                        showValidation(-1, 'Email not available!', emailField);
+                    }
+                });
+            } else {
+                showValidation(-1, 'Enter valid email address!', emailField);
+            }
+
+            if (nameField.val().length == 0) {
+                showValidation(-1, 'Enter valid name!', nameField);
+            } else {
+                showValidation(1, null, nameField);
+            }
+
+            if (passwordField.val().length == 0) {
+                showValidation(-1, 'Enter valid password!', passwordField);
+            } else {
+                if (passwordField.val() === passwordConfirmationField.val()) {
+                    if (passwordField.val().length < 8) {
+                        showValidation(-1, 'Password must be atleast 8 characters', passwordField);
+                        showValidation(-1, null, passwordConfirmationField);
+                    } else {
+                        showValidation(1, null, passwordField);
+                        showValidation(1, null, passwordConfirmationField);
+                    }
+                } else {
+                    showValidation(-1, 'Passwords do not match', passwordField);
+                    showValidation(-1, null, passwordConfirmationField);
+                }
+            }
+
+            setTimeout(function () {
+                if (emailField.hasClass('is-valid') && nameField.hasClass('is-valid') && passwordField.hasClass('is-valid') && passwordConfirmationField.hasClass('is-valid')) {
+                    $("#tab-step-3").trigger('click');
+                }
+            }, 1000);
+        };
+
+        $('#email').change(onEmailChange).keyup(onEmailChange);
+        $("#step2Next").click(validate);
+
     });
 </script>
+
+{{-- Step 3 Validation --}}
 <script>
     var readURL = function(input) {
         if (input.files && input.files[0]) {

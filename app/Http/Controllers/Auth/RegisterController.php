@@ -123,11 +123,13 @@ class RegisterController extends Controller
             return !in_array($key, $except);
         }, ARRAY_FILTER_USE_KEY);
         foreach ($except as $index=>$value) {
-            $meta = new UserMeta();
-            $meta->key = $index;
-            $meta->value = $value;
-            $meta->user_id = $user->id;
-            $meta->save();
+            if ($value != null) {
+                $meta = new UserMeta();
+                $meta->key = $index;
+                $meta->value = $value;
+                $meta->user_id = $user->id;
+                $meta->save();
+            }
         }
 
         return $user;
