@@ -171,7 +171,7 @@ class GframeworkServiceProvider extends ServiceProvider
 
     }
 
-    private function parseContent($parsed, &$returnArg) {
+    private function parseContent($parsed, $returnArg) {
         // End uneheer zavaan uildel hiigdej bgaa!!!
         // Anhaaraltai yum oorchilno uu.
         // Er ni yum oorchlood heregguidee. Amarhan evderne!
@@ -297,12 +297,11 @@ class GframeworkServiceProvider extends ServiceProvider
             if (is_array($value)) {
                 foreach ($value as $operator => $val) {
                     $value = $this->whereValueStr($val);
-                    break;
                 }
             } else {
                 $value = $this->whereValueStr($value);
             }
-            $part2 = $part2 . "if (" . $this->whereValueStr($value) . " != Null && " . $this->whereValueStr($value) . " != []) {";
+            $part2 = $part2 . "if (" . $value . " != Null && " . $value . " != []) {";
             $part3 = "}";
         }
 
