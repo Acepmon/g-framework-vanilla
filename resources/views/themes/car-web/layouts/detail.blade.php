@@ -96,10 +96,10 @@
         @include('themes.car-web.includes.section-retail', ['content' => $content])
 
         <!-- Hot deals -->
-        @include('themes.car-web.includes.section-slider', ['title' => 'Hot Deals', 'contents' => \App\Content::getByMetas('publishType', 'best_premium')->where('status', \App\Content::STATUS_PUBLISHED)->get(), 'morelink'=> url('/search?best_premium=true')])
+        @include('themes.car-web.includes.section-slider', ['title' => 'Hot Deals', 'contents' => \App\Content::getByMetas('publishType', 'best_premium')->where('status', \App\Content::STATUS_PUBLISHED)->where('visibility', \App\Content::VISIBILITY_PUBLIC)->get(), 'morelink'=> url('/buy?best_premium=true')])
 
         <!-- Similar Price -->
-        @include('themes.car-web.includes.section-slider', ['title' => 'Similar Price', 'contents' => \App\Content::inRangeMetas('priceAmount', intval($content->metaValue('priceAmount')) - 1000000, $content->metaValue('priceAmount') + 1000000)->where('status', \App\Content::STATUS_PUBLISHED)->get(), 'morelink'=> url('/search?priceAmount[ge]='.($content->metaValue('priceAmount') - 1000000).'&priceAmount[le]='.($content->metaValue('priceAmount') + 1000000))])
+        @include('themes.car-web.includes.section-slider', ['title' => 'Similar Price', 'contents' => \App\Content::inRangeMetas('priceAmount', intval($content->metaValue('priceAmount')) - 1000000, $content->metaValue('priceAmount') + 1000000)->where('status', \App\Content::STATUS_PUBLISHED)->get(), 'morelink'=> url('/search?min_price='.($content->metaValue('priceAmount') - 1000000).'&max_price='.($content->metaValue('priceAmount') + 1000000))])
 
          <!-- Footer -->
         @include('themes.car-web.includes.footer')
