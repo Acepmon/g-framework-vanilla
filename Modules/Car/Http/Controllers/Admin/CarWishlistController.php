@@ -7,6 +7,7 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 
 use App\Content;
+use App\Entities\TaxonomyManager;
 
 class CarWishlistController extends Controller
 {
@@ -14,11 +15,38 @@ class CarWishlistController extends Controller
      * Display a listing of the resource.
      * @return Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $contents = Content::where('type', 'wanna-buy')->get();
+        $contents = Content::where('type', 'wanna-buy');
+        $manufacturers = TaxonomyManager::collection('car-manufacturer');
 
-        return view('car::admin.car.wishlist.index', ['contents' => $contents]);
+        if ($request->has('markName') && $request->input('markName')) {
+            $contents = $contents->whereHas('metas', function ($query) use ($request) {
+                $query->where('key', 'markName');
+                $query->where('value', $request->input('markName'));
+            });
+        }
+
+        if ($request->has('modelName') && $request->input('modelName')) {
+            $contents = $contents->whereHas('metas', function ($query) use ($request) {
+                $query->where('key', 'modelName');
+                $query->where('value', $request->input('modelName'));
+            });
+        }
+
+        if ($request->has('priceAmount') && $request->input('priceAmount')) {
+            $contents = $contents->whereHas('metas', function ($query) use ($request) {
+                $query->where('key', 'priceAmountStart');
+                $query->where('value', '>=', $request->input('priceAmount'));
+            });
+        }
+
+        $contents = $contents->get();
+
+        return view('car::admin.car.wishlist.index', [
+            'contents' => $contents,
+            'manufacturers' => $manufacturers
+        ]);
     }
 
     /**
