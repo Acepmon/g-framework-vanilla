@@ -158,8 +158,8 @@ $('.maz-burger-menu').on('click', function(){
         $('.advantage-slider').owlCarousel({
           loop:false,
           margin: 0,
-          autoplay: true,
-          autoplaySpeed: 2000,
+          autoplay: false,
+          // autoplaySpeed: 2000,
           thumbs: false,
           autoWidth:true,
           dots: false,

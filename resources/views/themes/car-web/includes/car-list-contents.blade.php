@@ -48,16 +48,21 @@ if ($itemCount < $page * $itemsPerPage) {
 </style>
 @endpush
 
-    <div class="card shadow-soft-blue page-top-navbar">
-        @if($type == 'search')
-            <div class="card-body">
-                <span class="d-flex justify-content-start total-cars">
-                    Search result
+<div class="card shadow-soft-blue page-top-navbar">
+    @if($type == 'search')
+        <div class="card-body">
+            <span class="d-flex justify-content-start total-cars">
+                Search result
+            </span>
+            <div class="input-group">
+                <span class="input-group-prepend">
+                    <div class="form-control bg-transparent"><i class="fa fa-search"></i></div>
                 </span>
-                <input name="search" type="text" class="form-control" placeholder="Enter search text" value="{{$search}}">
-                <button type="submit" hidden>Search</button>
+                <input name="search" type="text" class="form-control border-left-0" placeholder="Enter search text" value="{{ $search }}">
             </div>
-        @endif
+            <button type="submit" hidden>Search</button>
+        </div>
+    @endif
     <div class="d-flex justify-content-start">
         <span class="total-cars">{{ count($items) }} VEHICLES</span>
         <input type="hidden" name="orderBy" id="orderBy" value="{{ $orderBy }}" />
@@ -74,9 +79,9 @@ if ($itemCount < $page * $itemsPerPage) {
 </div>
 </div>
 @if ($items->all() && sizeof($items->all()) != 0)
-<div class="car-list {{ (isset($auction) && $auction)?'auction-list':'' }}">
+<div class="car-list {{ ($type == 'auction')?'auction-list':'' }}">
 <input type="hidden" name="advantage" id="advantage" value="{{ $request['advantages'] }}" />
-@if (isset($auction) && $auction)
+@if ($type == 'auction')
     @foreach($items->forPage($page, $itemsPerPage) as $car)
         @include('themes.car-web.includes.car-list-card', array('car'=>$car, 'auction'=>True))
     @endforeach
