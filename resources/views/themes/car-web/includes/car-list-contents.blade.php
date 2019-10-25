@@ -48,55 +48,45 @@ if ($itemCount < $page * $itemsPerPage) {
 </style>
 @endpush
 
-@contentInline(type=car,
-    carType in request()->input("car-type"),
-    markName in request()->input("car-manufacturer"),
-    colorName in request()->input("car-colors"),
-    priceAmount >= intval(request()->input("min_price")),
-    fuelType in request()->input("car-fuel"),
-    transmission in request()->input("car-transmission"),
-    accident in request()->input("car-accident"),
-    manCount in request()->input("car-manCount"),
-    wheelPosition in request()->input("car-wheel-pos"),
-    countryName in request()->input("car-provinces")
-    as $cars | paginate)
-@php 
-//dd($cars);
-@endphp
 <div class="card shadow-soft-blue page-top-navbar">
     @if($type == 'search')
         <div class="card-body">
             <span class="d-flex justify-content-start total-cars">
                 Search result
             </span>
-            <input name="search" type="text" class="form-control" placeholder="Enter search text" value="{{$search}}">
+            <div class="input-group">
+                <span class="input-group-prepend">
+                    <div class="form-control bg-transparent"><i class="fa fa-search"></i></div>
+                </span>
+                <input name="search" type="text" class="form-control border-left-0" placeholder="Enter search text" value="{{ $search }}">
+            </div>
             <button type="submit" hidden>Search</button>
         </div>
     @endif
     <div class="d-flex justify-content-start">
-        <span class="total-cars">{{ $cars->total() }} VEHICLES</span>
+        <span class="total-cars">{{ count($items) }} VEHICLES</span>
         <input type="hidden" name="orderBy" id="orderBy" value="{{ $orderBy }}" />
         <input type="hidden" name="premium" id="premium" value="{{ $filterPremium }}" />
 
     <div class="sort-cars">
-        <ul>
-            <li class="{{ ($orderBy=='updated_at')?'active':'' }}"><a href="#" onclick="formSubmit('orderBy', 'updated_at')">Recent cars</a></li>
-            <li class="{{ ($orderBy=='buildYear')?'active':'' }}"><a href="#" onclick="formSubmit('orderBy', 'buildYear')">Product year</a></li>
-            <li class="{{ ($orderBy=='importDate')?'active':'' }}"><a href="#" onclick="formSubmit('orderBy', 'importDate')">Income year</a></li>
-            <li class="{{ ($orderBy=='priceAmount')?'active':'' }}"><a href="#" onclick="formSubmit('orderBy', 'priceAmount')">Low price</a></li>
-        </ul>
+    <ul>
+        <li class="{{ ($orderBy=='updated_at')?'active':'' }}"><a href="#" onclick="formSubmit('orderBy', 'updated_at')">Recent cars</a></li>
+        <li class="{{ ($orderBy=='buildYear')?'active':'' }}"><a href="#" onclick="formSubmit('orderBy', 'buildYear')">Product year</a></li>
+        <li class="{{ ($orderBy=='importDate')?'active':'' }}"><a href="#" onclick="formSubmit('orderBy', 'importDate')">Income year</a></li>
+        <li class="{{ ($orderBy=='priceAmount')?'active':'' }}"><a href="#" onclick="formSubmit('orderBy', 'priceAmount')">Low price</a></li>
+    </ul>
     </div>
 </div>
 </div>
-@if ($cars->total() > 0)
-<div class="car-list {{ (isset($auction) && $auction)?'auction-list':'' }}">
+@if ($items->all() && sizeof($items->all()) != 0)
+<div class="car-list {{ ($type == 'auction')?'auction-list':'' }}">
 <input type="hidden" name="advantage" id="advantage" value="{{ $request['advantages'] }}" />
-@if (isset($auction) && $auction)
-    @foreach($cars as $car)
+@if ($type == 'auction')
+    @foreach($items->forPage($page, $itemsPerPage) as $car)
         @include('themes.car-web.includes.car-list-card', array('car'=>$car, 'auction'=>True))
     @endforeach
 @else
-    @foreach($cars as $car)
+    @foreach($items->forPage($page, $itemsPerPage) as $car)
         @include('themes.car-web.includes.car-list-card', array('car'=>$car))
     @endforeach
 @endif
@@ -107,20 +97,20 @@ if ($itemCount < $page * $itemsPerPage) {
 </div>
 @endif
 
-@if ($cars->total() > 0)
+@if ($items->all() && sizeof($items->all()) != 0)
 <!-- Pagination -->
 <nav aria-label="Page navigation">
     <input type="hidden" value="{{ max($page, 1) }}" name="page" id="page" />
     <ul class="pagination d-flex justify-content-end">
-        <li class="page-item {{ ($page <= 1)?'disabled':'' }}">
-            <button class="page-link" onclick="formSubmit('page', {{$page-1}})" aria-label="Previous">
-            <span aria-hidden="true"><i class="fab fa fa-angle-left"></i></span>
-            </button>
-        </li>
-        @for($i = 1; $i <= $cars->lastPage(); $i++)
+    <li class="page-item {{ ($page <= 1)?'disabled':'' }}">
+        <button class="page-link" onclick="formSubmit('page', {{$page-1}})" aria-label="Previous">
+        <span aria-hidden="true"><i class="fab fa fa-angle-left"></i></span>
+        </button>
+    </li>
+    @for($i = 1; $i <= $maxPage; $i++)
         <li class="page-item {{ ($i == $page)?'active':'' }}"><button class="page-link" onclick="formSubmit('page', {{$i}})">{{ $i }}</button></li>
         @endfor
-        <li class="page-item {{ ($page >= $cars->lastPage())?'disabled':'' }}">
+        <li class="page-item {{ ($page >= $maxPage)?'disabled':'' }}">
         <button class="page-link" onclick="formSubmit('page', {{$page+1}})" aria-label="Next">
             <span aria-hidden="true"><i class="fab fa fa-angle-right"></i></span>
         </button>

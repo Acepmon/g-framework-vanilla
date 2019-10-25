@@ -11,7 +11,7 @@
             </div>
 
             <div class="dealer-information">
-                <input type="text" class="form-control" placeholder="12,500.00 $-нөөс дээш">
+                <input type="text" class="form-control" placeholder="{{ number_format($content->metaValue('startPriceAmount')) }} {{ $content->metaValue('startPriceUnit') }}-нөөс дээш">
             </div>
 
             <div class="dealer-information">

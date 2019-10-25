@@ -73,8 +73,9 @@ class Car extends Content
         // <<<<<<<<<<<< OR THIS
         $filtered = $filtered->whereHas('metas', function ($query) {
             $query->where('key', 'publishType');
-            // $query->where('value', 'best_premium')->orWhere('value', 'premium');
-            $query->where('value', 'premium');
+            //$query->whereIn('value', 'best_premium')->orWhere('value', 'premium');
+            $query->whereIn('value', ['best_premium', 'premium']);
+            // $query->where('value', 'premium');
         });
 
         if ($limit) {

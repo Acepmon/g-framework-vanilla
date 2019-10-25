@@ -66,20 +66,20 @@ class CarController extends Controller
             'author_id' => 'required|integer|exists:users,id',
             'manufacturer' => 'required|max:255',
             'modelName' => 'required|max:255',
-            'colorName' => 'required|max:255',
-            'displacement' => 'required|max:255',
-            'vin' => 'required|max:255',
-            'buildYear' => 'required|max:255',
-            'importDate' => 'required|max:255',
-            'transmission' => 'required|max:255',
-            'wheelPosition' => 'required|max:255',
-            'manCount' => 'required|max:255',
-            'fuel' => 'required|max:255',
-            'wheelDrive' => 'required|max:255',
-            'mileage' => 'required|max:255',
-            'price' => 'required|int',
-            'priceType' => 'required|max:255',
-            'sellerDescription' => 'required|max:255'
+            'colorName' => 'max:255',
+            'displacement' => 'max:255',
+            'vin' => 'max:255',
+            'buildYear' => 'max:255',
+            'importDate' => 'max:255',
+            'transmission' => 'max:255',
+            'wheelPosition' => 'max:255',
+            'manCount' => 'max:255',
+            'fuel' => 'max:255',
+            'wheelDrive' => 'max:255',
+            'mileage' => 'max:255',
+            'price' => 'int',
+            'priceType' => 'max:255',
+            'sellerDescription' => 'max:255'
         ]);
 
         try {
@@ -92,6 +92,8 @@ class CarController extends Controller
             $content->status = $request->status;
             $content->visibility = $request->visibility;
             $content->author_id = $request->author_id;
+            $content->save();
+            $content->slug = 'posts/' . $content->id;
             $content->save();
 
             $content->attachMeta('manufacturer', $request->manufacturer);
@@ -197,21 +199,21 @@ class CarController extends Controller
             'carTitle' => 'required|max:255',
             'manufacturer' => 'required|max:255',
             'modelName' => 'required|max:255',
-            'colorName' => 'required|max:255',
-            'displacement' => 'required|max:255',
-            'vin' => 'required|max:255',
-            'buildYear' => 'required|max:255',
-            'importDate' => 'required|max:255',
-            'transmission' => 'required|max:255',
-            'wheelPosition' => 'required|max:255',
-            'manCount' => 'required|max:255',
-            'fuel' => 'required|max:255',
-            'wheelDrive' => 'required|max:255',
-            'mileage' => 'required|max:255',
-            'price' => 'required|int',
-            'priceType' => 'required|max:255',
+            'colorName' => 'max:255',
+            'displacement' => 'max:255',
+            'vin' => 'max:255',
+            'buildYear' => 'max:255',
+            'importDate' => 'max:255',
+            'transmission' => 'max:255',
+            'wheelPosition' => 'max:255',
+            'manCount' => 'max:255',
+            'fuel' => 'max:255',
+            'wheelDrive' => 'max:255',
+            'mileage' => 'max:255',
+            'price' => 'int',
+            'priceType' => 'max:255',
             'thumbnail' => 'required',
-            'sellerDescription' => 'required|max:255'
+            'sellerDescription' => 'max:255'
         ]);
 
         try {

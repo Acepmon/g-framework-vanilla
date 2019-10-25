@@ -94,6 +94,20 @@ class GframeworkServiceProvider extends ServiceProvider
             return "<?php } ?>";
         });
 
+        Blade::directive('taxonomy', function ($expression) {
+            $parsed = $this->parseExpression($expression);
+            $variable = $parsed->variable;
+            $returnArg = "";
+
+            $taxonomy = $this->parseTaxonomy($parsed, $returnArg);
+
+            return "<?php foreach($taxonomy as $variable) { ?>";
+        });
+
+        Blade::directive('endtaxonomy', function () {
+            return "<?php } ?>";
+        });
+
         Blade::directive('contents', function ($expression) {
             $someObject = json_decode($expression);
             $contents = Content::whereRaw('1 = 1');
@@ -171,7 +185,7 @@ class GframeworkServiceProvider extends ServiceProvider
 
     }
 
-    private function parseContent($parsed, &$returnArg) {
+    private function parseContent($parsed, $returnArg) {
         // End uneheer zavaan uildel hiigdej bgaa!!!
         // Anhaaraltai yum oorchilno uu.
         // Er ni yum oorchlood heregguidee. Amarhan evderne!
@@ -199,6 +213,28 @@ class GframeworkServiceProvider extends ServiceProvider
 
         // Collection return type
         return $contents . "->" . $parsed->return . "(" . $returnArg . ")";
+    }
+
+    private function parseTaxonomy($parsed, $returnArg) {
+        $taxonomy = "\App\TermTaxonomy";
+        foreach ($parsed->filters as $index => $filter) {
+            $inputExcept = ['id', 'term_id', 'taxonomy', 'description', 'parent_id', 'count', 'limit', 'page'];
+            $inputExcept2 = ['id', 'term_id', 'taxonomy', 'description', 'parent_id', 'count'];
+            $pointer = $index == 0 ? '::' : '->';
+
+            if (in_array($filter['field'], $inputExcept)) {
+                if (in_array($filter['field'], $inputExcept2)) {
+                    $taxonomy = $taxonomy . $pointer . $this->where($filter['field'], $filter['operator'], $filter['value']);
+                } else if ($filter['field'] == 'limit') {
+                    $returnArg = $filter['value'];
+                } else {
+                    $taxonomy = $taxonomy . $pointer . $this->where($filter['field'], $filter['operator'], $filter['value']);
+                }
+            }
+        }
+
+        // Collection return type
+        return $taxonomy . "->" . $parsed->return . "(" . $returnArg . ")";
     }
 
     private function parseExpression($expression) {
@@ -297,12 +333,11 @@ class GframeworkServiceProvider extends ServiceProvider
             if (is_array($value)) {
                 foreach ($value as $operator => $val) {
                     $value = $this->whereValueStr($val);
-                    break;
                 }
             } else {
                 $value = $this->whereValueStr($value);
             }
-            $part2 = $part2 . "if (" . $this->whereValueStr($value) . " != Null && " . $this->whereValueStr($value) . " != []) {";
+            $part2 = $part2 . "if (" . $value . " != Null && " . $value . " != []) {";
             $part3 = "}";
         }
 

@@ -251,12 +251,22 @@ h6 {
   position: relative;
 }
 
+.color[data-color^="yellow"]:before {
+  content: '';
+  width: 20px;
+  height: 20px;
+  background: radial-gradient(circle at top center, #FFFFB8 20%, #F6C00D 100%);
+  border-radius: 50%;
+  display: inline-block;
+  position: relative;
+}
+
 .color:after {
   content: '';
   width: 16px;
   height: 14px;
   left: 2px;
-  top: 0;
+  top: calc(50% - 10px);
   background-image: linear-gradient(180deg, white 0%, rgba(255, 255, 255, 0) 100%);
   border-radius: 50%;
   position: absolute;
@@ -338,7 +348,7 @@ hr {
 .page-top-navbar a.active {
   color: #2B3651;
   font-weight: 700;
-  font-size: 1.1rem;
+  font-size: 1rem;
   position: relative;
 }
 
@@ -632,6 +642,131 @@ section .owl-theme .owl-dots .owl-dot.active span {
   100% {
     opacity: 1;
   }
+}
+
+.intro-advantages {
+  display: flex;
+  justify-content: space-between;
+}
+
+.intro-advantages .intro-advantage {
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid #AAAEB9;
+  text-align: center;
+  padding: 0 3rem;
+  margin-top: 2rem;
+}
+
+.intro-advantages .intro-advantage:last-child {
+  border: none;
+}
+
+.intro-advantages .intro-advantage h4 {
+  font-size: 1rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.intro-advantages .intro-advantage .intro-advantage-img {
+  margin-top: 10px;
+  height: 80px;
+  width: 80px;
+  background: #fff;
+  border-radius: 100%;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.intro-advantages .intro-advantage .intro-advantage-img img {
+  width: 40px;
+}
+
+.about-main-text .list-items {
+  list-style: decimal;
+}
+
+.about-sequences {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  margin: 2rem 0;
+}
+
+.about-sequences .sequence-item {
+  width: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.about-sequences .sequence-item::before {
+  height: 2px;
+  width: 100%;
+  left: 50%;
+  z-index: 0;
+  background: #fff;
+  content: '';
+  position: absolute;
+}
+
+.about-sequences .sequence-item:last-child::before {
+  width: 0;
+}
+
+.about-sequences .sequence-item .sequence-img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
+
+.about-sequences .sequence-item .sequence-img img {
+  width: 65px;
+}
+
+.about-sequences .sequence-item .sequence-title {
+  position: absolute;
+  top: calc(100% + 1rem);
+  padding: 0 .75rem;
+  color: #2B3651;
+  font-size: 1rem;
+  font-weight: 500;
+  text-align: center;
+}
+
+.maz-table {
+  border: 1px solid #E0E5EB;
+  width: 100%;
+}
+
+.maz-table thead {
+  background: #2B3651;
+  color: #fff;
+  text-align: center;
+  font-weight: 600;
+  border: 1px solid #E0E5EB;
+}
+
+.maz-table thead tr td {
+  border: 1px solid #858994;
+  word-wrap: break-word;
+  padding: 1rem;
+  text-align: center;
+}
+
+.maz-table tbody tr td {
+  text-align: center;
 }
 
 header.masthead {
@@ -1113,7 +1248,12 @@ header.masthead .discover span::after {
   margin-bottom: 1rem;
 }
 
+.maz-form .custom-checkbox-cd .custom-control-label {
+  cursor: pointer;
+}
+
 .maz-form .custom-checkbox-cd .custom-control-label::before {
+  cursor: pointer;
   position: absolute;
   top: 0;
   left: -2rem;
@@ -3059,6 +3199,16 @@ body.menu-absolute .header-menu {
   opacity: 0.3;
 }
 
+section.page-section {
+  padding: 50px 0 100px;
+}
+
+section.page-section .section-heading {
+  text-align: center;
+  width: 100%;
+  font-size: 1.25rem;
+}
+
 section.body-section {
   margin-top: 10rem;
 }
@@ -3610,6 +3760,10 @@ section .owl-carousel .owl-nav button.owl-next, section .owl-carousel .owl-nav b
   color: #AAAEB9;
 }
 
+.people-wish-list .card {
+  border: none;
+}
+
 .people-wish-list .card .card-top {
   padding: 15px;
   border-top-left-radius: 4px;
@@ -3626,6 +3780,8 @@ section .owl-carousel .owl-nav button.owl-next, section .owl-carousel .owl-nav b
   color: #fff;
   margin: 0;
   text-transform: uppercase;
+  width: 70%;
+  margin: 0 auto;
 }
 
 .people-wish-list .card .card-top .title::before {
@@ -3638,6 +3794,13 @@ section .owl-carousel .owl-nav button.owl-next, section .owl-carousel .owl-nav b
   top: 10px;
   left: 15px;
   line-height: 4rem;
+}
+
+.people-wish-list .card .card-body {
+  border: 1px solid #E0E5EB;
+  border-bottom-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+  padding-top: 10px;
 }
 
 .people-wish-list .card .card-body .wish-detail {

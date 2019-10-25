@@ -20,14 +20,20 @@
                     <div class="meta">{{ $car->metaValue('buildYear') }}/{{ $car->metaValue('importDate') }} | {{ $car->metaValue('mileageAmount') }} {{ $car->metaValue('mileageUnit') }}</div>
                     <div class="price">{{ numerizePrice($car->metaValue('priceAmount')) }} {{ $car->metaValue('priceUnit') }}</div>
                 </a>
-                @if(Auth::user() && count(metaHas(Auth::user(), 'interestedCars', $car->id)->get()) > 0)
-                <div class="favorite" onclick="addToInterest(event, {{$car->id}})">
-                    <span class="text-danger"><i class="fas fa-heart"></i> Added to interest list</span>
-                </div>
+                @if(Auth::user() && $car->author_id == Auth::user()->id)
+                    <div class="favorite">
+                        <span class=""><i class="fas fa-car"></i> This is your car</span>
+                    </div>
                 @else
-                <div class="favorite" onclick="addToInterest(event, {{$car->id}})">
-                    <span class=""><i class="far fa-heart"></i> Add to interest list</span>
-                </div>
+                    @if(Auth::user() && count(metaHas(Auth::user(), 'interestedCars', $car->id)->get()) > 0)
+                    <div class="favorite" onclick="addToInterest(event, {{$car->id}})">
+                        <span class="text-danger"><i class="fas fa-heart"></i> Added to interest list</span>
+                    </div>
+                    @else
+                    <div class="favorite" onclick="addToInterest(event, {{$car->id}})">
+                        <span class=""><i class="far fa-heart"></i> Add to interest list</span>
+                    </div>
+                    @endif
                 @endif
             </div>
             <div class="info">
