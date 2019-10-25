@@ -179,8 +179,16 @@
                 console.log("DONE!");
                 //console.log(data);
                 if(data.status==true){
-                    $('#myModal').modal('hide');
-                    $('#mailSuccess').modal('show');
+                    $.ajax({
+                        type:'POST',
+                        url: "{{ route('password.email') }}",
+                        data:{email:email},
+                        success:function(data){
+                            $('#myModal').modal('hide');
+                            $('#mailSuccess').modal('show');
+
+                        }
+                    })
                 }
                 else {
                     $('#mailFail').modal('show');
