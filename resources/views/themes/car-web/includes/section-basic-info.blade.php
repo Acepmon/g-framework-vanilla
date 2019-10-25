@@ -44,16 +44,16 @@
 
                             @if ($content->metaValue('colorNameInterior'))
                                 <li>
-                                    <span class="color info-icon" data-color="white">
-                                        <p>{{ $content->metaValue('colorNameInterior') }} (Interior)</p>
+                                    <span class="info-icon color" data-color="{{ strtolower($content->metaValue('colorNameInterior')) }}">
+                                        <p>{{ ucfirst($content->metaValue('colorNameInterior')) }} (Interior)</p>
                                     </span>
                                 </li>
                             @endif
 
                             @if ($content->metaValue('colorNameExterior'))
                                 <li>
-                                    <span class="color info-icon" data-color="black">
-                                        <p>{{ $content->metaValue('colorNameExterior') }} (Exterior)</p>
+                                    <span class="info-icon color" data-color="{{ strtolower($content->metaValue('colorNameExterior')) }}">
+                                        <p>{{ ucfirst($content->metaValue('colorNameExterior')) }} (Exterior)</p>
                                     </span>
                                 </li>
                             @endif
