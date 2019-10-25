@@ -209,6 +209,8 @@
 
         termsOfCondition.change(validate);
         onlineUseTerm.change(validate);
+
+        validate();
     });
 </script>
 
