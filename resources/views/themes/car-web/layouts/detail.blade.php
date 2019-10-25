@@ -83,8 +83,10 @@
         <!-- Basic information -->
         @include('themes.car-web.includes.section-basic-info', ['content' => $content])
 
-        <!-- Finance section -->
-        @include('themes.car-web.includes.section-finance', ['content' => $content])
+        @if (!$content->metaValue('isAuction'))
+            <!-- Finance section -->
+            @include('themes.car-web.includes.section-finance', ['content' => $content])
+        @endif
 
         <!-- Option information -->
         @include('themes.car-web.includes.section-options', ['content' => $content])
