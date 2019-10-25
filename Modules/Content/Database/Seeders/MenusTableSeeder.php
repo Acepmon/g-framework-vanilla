@@ -70,7 +70,17 @@ class MenusTableSeeder extends Seeder
             ['Create Banner', '/admin/banners/create', 'icon-plus3', 'Banner']
         ]];
 
+        $adminProfileMenus = ['Admin Profile', '/admin/profile', 'icon-user', 'Profile', [
+            ['Profile', '/admin/profile', 'icon-user', 'Profile'],
+            ['Pages', '/admin/profile/contents?type=page', 'icon-files-empty2', 'Profile'],
+            ['Blog Posts', '/admin/profile/contents?type=page', 'icon-blog', 'Profile'],
+            ['Permissions', '/admin/profile/permissions', 'icon-key', 'Profile'],
+            ['Notifications', '/admin/profile/notifications', 'icon-bell2', 'Profile'],
+            ['Groups', '/admin/groups', 'icon-users2', 'Profile']
+        ]];
+
         $this->iterate([$adminMenus], 1);
+        $this->iterate([$adminProfileMenus], 1);
     }
 
     private function iterate($array, $sublevel, $parent = null) {
