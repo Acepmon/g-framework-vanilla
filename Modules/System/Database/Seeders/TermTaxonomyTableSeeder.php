@@ -15,6 +15,8 @@ class TermTaxonomyTableSeeder extends Seeder
      */
     public function run()
     {
-        //
+        $this->call(CountriesTableSeeder::class);
+        $this->call(ProvincesTableSeeder::class);
+        $this->call(CallCodesTableSeeder::class);
     }
 }
