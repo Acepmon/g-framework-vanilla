@@ -75,9 +75,9 @@
         </thead>
 
         <tbody>
-            @foreach ($contents as $index => $content)
+            @foreach ($contents as $content)
                 <tr>
-                    <td>{{ $index + 1 }}</td>
+                    <td>{{ $content->id }}</td>
                     <td>{{ $content->title }}</td>
                     <td>
                         <strong>Starts At:</strong> {{ number_format($content->metaValue('priceAmountStart')) }} {{ $content->metaValue('priceUnit') }}
@@ -92,7 +92,7 @@
                         {{ $content->created_at->diffForHumans() }}
                     </td>
                     <td>
-                        <a href="{{ route('admin.modules.car.wishlist.show', $content->id) }}" class="btn btn-light btn-sm">Search Related</a>
+                        <a href="{{ route('admin.modules.car.wishlist.show', $content->id) }}" class="btn btn-light btn-sm">Search Similar</a>
                     </td>
                 </tr>
             @endforeach

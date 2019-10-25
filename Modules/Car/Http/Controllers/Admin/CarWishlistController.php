@@ -75,7 +75,66 @@ class CarWishlistController extends Controller
      */
     public function show($id)
     {
-        return view('car::admin.car.wishlist.show');
+        $content = Content::findOrFail($id);
+
+        $published = Content::where('type', 'car')->where('status', Content::STATUS_PUBLISHED)->whereHas('metas', function ($query) use ($content) {
+            $query->where('key', 'markName');
+            $query->where('value', $content->metaValue('markName'));
+        })->whereHas('metas', function ($query) use ($content) {
+            $query->where('key', 'modelName');
+            $query->where('value', $content->metaValue('modelName'));
+        })->whereHas('metas', function ($query) use ($content) {
+            $query->where('key', 'priceAmount');
+            $query->where('value', '>=', intval($content->metaValue('priceAmountStart')));
+        })->whereHas('metas', function ($query) use ($content) {
+            $query->where('key', 'priceAmount');
+            $query->where('value', '<=', intval($content->metaValue('priceAmountEnd')));
+        })->whereHas('metas', function ($query) {
+            $query->where('key', 'isAuction');
+            $query->where('value', '0');
+        })->orderBy('visibility', 'desc')->get();
+
+        $pending = Content::where('type', 'car')->where('status', Content::STATUS_DRAFT)->whereHas('metas', function ($query) use ($content) {
+            $query->where('key', 'markName');
+            $query->where('value', $content->metaValue('markName'));
+        })->whereHas('metas', function ($query) use ($content) {
+            $query->where('key', 'modelName');
+            $query->where('value', $content->metaValue('modelName'));
+        })->whereHas('metas', function ($query) use ($content) {
+            $query->where('key', 'priceAmount');
+            $query->where('value', '>=', intval($content->metaValue('priceAmountStart')));
+        })->whereHas('metas', function ($query) use ($content) {
+            $query->where('key', 'priceAmount');
+            $query->where('value', '<=', intval($content->metaValue('priceAmountEnd')));
+        })->whereHas('metas', function ($query) {
+            $query->where('key', 'isAuction');
+            $query->where('value', '0');
+        })->orderBy('visibility', 'desc')->get();
+
+        $draft = Content::where('type', 'car')->where('status', Content::STATUS_PUBLISHED)->whereHas('metas', function ($query) use ($content) {
+            $query->where('key', 'markName');
+            $query->where('value', $content->metaValue('markName'));
+        })->whereHas('metas', function ($query) use ($content) {
+            $query->where('key', 'modelName');
+            $query->where('value', $content->metaValue('modelName'));
+        })->whereHas('metas', function ($query) use ($content) {
+            $query->where('key', 'priceAmount');
+            $query->where('value', '>=', intval($content->metaValue('priceAmountStart')));
+        })->whereHas('metas', function ($query) use ($content) {
+            $query->where('key', 'priceAmount');
+            $query->where('value', '<=', intval($content->metaValue('priceAmountEnd')));
+        })->whereHas('metas', function ($query) {
+            $query->where('key', 'isAuction');
+            $query->where('value', '0');
+        })->orderBy('visibility', 'desc')->get();
+
+        $relatedCars = [
+            Content::STATUS_PUBLISHED => $published,
+            Content::STATUS_PENDING => $pending,
+            Content::STATUS_DRAFT => $draft,
+        ];
+
+        return view('car::admin.car.wishlist.show', ['content' => $content, 'relatedCars' => $relatedCars]);
     }
 
     /**
