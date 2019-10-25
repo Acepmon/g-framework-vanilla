@@ -1,0 +1,324 @@
+@extends('themes.car-web.layouts.default')
+
+@section('title', 'Хүслийн машин')
+
+@section('load')
+@endsection
+
+@section('content')
+    <!-- Masthead -->
+    <div class="bg-page-header"> </div>
+
+    <section class="bg-dark p-5 text-white position-relative">
+        <div class="container">
+        <div class="row">
+            <div class="card shadow-soft-blue page-top-navbar mb-5">
+            <div class="d-flex justify-content-around">
+                <a href="{{ url('/about-technical-examination') }}">Техникийн үзлэг</a>
+                <a href="{{ url('/about-auction') }}">Дуудлага худалдаа</a>
+                <a class="active" href="{{ url('/about-dream-car') }}">Хүслийн машин</a>
+                <a href="{{ url('/about-finance') }}">Санхүүжилт</a>
+                <a href="{{ url('/about-paid-ads') }}">Төлбөртэй зар</a>
+                <a href="{{ url('/about-introduction') }}">Танилцуулга</a>
+            </div>
+            </div>
+        </div>
+        </div>
+        <div class="container">
+        <div class="row">
+            <div class="col-md-12 text-center">
+            <h3>Техникийн үзлэг оношлогоо</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 intro-advantages">
+            <div class="intro-advantage">
+                <h4>Машин худалдан авахыг хүссэн хэрэглэгч сонирхосон машины мэдээллийг оруулна
+                </h4>
+                <div class="intro-advantage-img"><img src="{{ asset('car-web/img/icons/engine.svg') }}" alt=""></div>
+            </div>
+
+            <div class="intro-advantage">
+                <h4>Хэрэглэгч борлуулагчдаас өөрийн сонирхосон машины мэдээллийг авах боломжтой
+                </h4>
+                <div class="intro-advantage-img"><img src="{{ asset('car-web/img/icons/fuel.svg') }}" alt=""></div>
+            </div>
+
+            <div class="intro-advantage">
+                <h4>Борлуулагч хэрэглэгчтэй шууд харьцан машинаа сурталчилах боломжтой
+                </h4>
+                <div class="intro-advantage-img"><img src="{{ asset('car-web/img/icons/wheel.svg') }}" alt=""></div>
+            </div>
+            </div>
+        </div>
+        </div>
+    </section>
+
+    <!-- Hot deal Grid -->
+    <section class="section my-5">
+        <div class="container">
+        <div class="row">
+            <div class="col-md-7">
+            <div class="about-main-text">
+                <ul class="list-items">
+                <li class="list-item">
+                    <p>
+                    [Машин худалдан авах хүсэлт гаргах] гэдэг нь хэрэглэгч худалдан авахыг хүссэн машины мэдээллийг
+                    оруулах бөгөөд тухайн зарыг борлуулагч талд харуулах болно. Ингэж харуулснаар машин худалдан авахыг
+                    хүссэн хэрэглэгчийн сонирхолд нийцсэн машиныг утас болон мессэжээр санал болгох боломжтой юм.
+                    </p>
+                </li>
+                <li class="list-item">
+                    <p>
+                    Хэрэглэгчид олон төрлийн машин дундаас харьцуулалт хийн боломжийн үнээр худалдаж авах боломж үүсэх
+                    бөгөөд борлуулагч тал өөрсдийн тээврийн хэрэгслийг богино хугацаанд зарахын тулд шууд худалдан
+                    авагчтай холбоо барьж болно.
+                    </p>
+                </li>
+
+
+                <li class="list-item">
+                    <p>Хэрэглэгч нь эхлээд гишүүнээр бүртгүүлсний дараа ‘Машин худалдан авах хүсэлт’ –ийг гаргах боломжтой.
+                    </p>
+                </li>
+                <li class="list-item">
+                    <p>‘Машин худалдан авах хүсэлт’ гаргахад Main Page дээр доорх зар гарч ирнэ.</p>
+                </li>
+                </ul>
+            </div>
+
+
+            </div>
+            <div class="col-md-5">
+            <img src="{{ asset('car-web/img/sample-img.png') }}" alt="">
+            </div>
+
+        </div>
+        </div>
+    </section>
+
+    <section class="mainPage-items bg-white">
+        <div class="container">
+        <div class="row">
+            <div class="section-title">
+            <h2>People's wish list</h2>
+            <span>
+                <a href="#">See all (123) <i class="fab fa fa-angle-right"></i></a>
+
+            </span>
+            </div>
+        </div>
+        </div>
+        <div class="people-wish-list">
+        <div class="container">
+            <div class="row">
+            <div class="card-slide owl-carousel owl-theme">
+                <!-- card start -->
+                <div class="card cd-box">
+                <div class="card-top">
+                    <h2 class="title">Toyota Crown 210 Худалдаж авна</h1>
+                </div>
+                <div class="card-body py-2">
+                    <div class="wish-detail">
+                    <div class="price"><i class="icon-tag"></i> 12сая ~ 15.5сая</div>
+                    <div class="phone"><i class="icon-phone"></i> 9999-9999</div>
+                    </div>
+                    <div class="wish-user">
+                    <div class="profile-img"><img src="{{ asset('car-web/img/blog/4.jpg') }}" alt=""></div>
+                    <div class="username">Enkhtuvshin <div class="date">2019-09-20</div>
+                    </div>
+
+                    </div>
+
+                </div>
+
+                </div>
+                <!-- card end -->
+                <!-- card start -->
+                <div class="card cd-box">
+                <div class="card-top">
+                    <h2 class="title">Toyota Crown 210 Худалдаж авна</h1>
+                </div>
+                <div class="card-body py-2">
+                    <div class="wish-detail">
+                    <div class="price"><i class="icon-tag"></i> 12сая ~ 15.5сая</div>
+                    <div class="phone"><i class="icon-phone"></i> 9999-9999</div>
+                    </div>
+                    <div class="wish-user">
+                    <div class="profile-img"><img src="{{ asset('car-web/img/blog/4.jpg') }}" alt=""></div>
+                    <div class="username">Enkhtuvshin <div class="date">2019-09-20</div>
+                    </div>
+
+                    </div>
+
+                </div>
+
+                </div>
+                <!-- card end -->
+                <!-- card start -->
+                <div class="card cd-box">
+                <div class="card-top">
+                    <h2 class="title">Toyota Crown 210 Худалдаж авна</h1>
+                </div>
+                <div class="card-body py-2">
+                    <div class="wish-detail">
+                    <div class="price"><i class="icon-tag"></i> 12сая ~ 15.5сая</div>
+                    <div class="phone"><i class="icon-phone"></i> 9999-9999</div>
+                    </div>
+                    <div class="wish-user">
+                    <div class="profile-img"><img src="{{ asset('car-web/img/blog/4.jpg') }}" alt=""></div>
+                    <div class="username">Enkhtuvshin <div class="date">2019-09-20</div>
+                    </div>
+
+                    </div>
+
+                </div>
+
+                </div>
+                <!-- card end -->
+                <!-- card start -->
+                <div class="card cd-box">
+                <div class="card-top">
+                    <h2 class="title">Toyota Crown 210 Худалдаж авна</h1>
+                </div>
+                <div class="card-body py-2">
+                    <div class="wish-detail">
+                    <div class="price"><i class="icon-tag"></i> 12сая ~ 15.5сая</div>
+                    <div class="phone"><i class="icon-phone"></i> 9999-9999</div>
+                    </div>
+                    <div class="wish-user">
+                    <div class="profile-img"><img src="{{ asset('car-web/img/blog/4.jpg') }}" alt=""></div>
+                    <div class="username">Enkhtuvshin <div class="date">2019-09-20</div>
+                    </div>
+
+                    </div>
+
+                </div>
+
+                </div>
+                <!-- card end -->
+                <!-- card start -->
+                <div class="card cd-box">
+                <div class="card-top">
+                    <h2 class="title">Toyota Crown 210 Худалдаж авна</h1>
+                </div>
+                <div class="card-body py-2">
+                    <div class="wish-detail">
+                    <div class="price"><i class="icon-tag"></i> 12сая ~ 15.5сая</div>
+                    <div class="phone"><i class="icon-phone"></i> 9999-9999</div>
+                    </div>
+                    <div class="wish-user">
+                    <div class="profile-img"><img src="{{ asset('car-web/img/blog/4.jpg') }}" alt=""></div>
+                    <div class="username">Enkhtuvshin <div class="date">2019-09-20</div>
+                    </div>
+
+                    </div>
+
+                </div>
+
+                </div>
+                <!-- card end -->
+                <!-- card start -->
+                <div class="card cd-box">
+                <div class="card-top">
+                    <h2 class="title">Toyota Crown 210 Худалдаж авна</h1>
+                </div>
+                <div class="card-body py-2">
+                    <div class="wish-detail">
+                    <div class="price"><i class="icon-tag"></i> 12сая ~ 15.5сая</div>
+                    <div class="phone"><i class="icon-phone"></i> 9999-9999</div>
+                    </div>
+                    <div class="wish-user">
+                    <div class="profile-img"><img src="{{ asset('car-web/img/blog/4.jpg') }}" alt=""></div>
+                    <div class="username">Enkhtuvshin <div class="date">2019-09-20</div>
+                    </div>
+
+                    </div>
+
+                </div>
+
+                </div>
+                <!-- card end -->
+                <!-- card start -->
+                <div class="card cd-box">
+                <div class="card-top">
+                    <h2 class="title">Toyota Crown 210 Худалдаж авна</h1>
+                </div>
+                <div class="card-body py-2">
+                    <div class="wish-detail">
+                    <div class="price"><i class="icon-tag"></i> 12сая ~ 15.5сая</div>
+                    <div class="phone"><i class="icon-phone"></i> 9999-9999</div>
+                    </div>
+                    <div class="wish-user">
+                    <div class="profile-img"><img src="{{ asset('car-web/img/blog/4.jpg') }}" alt=""></div>
+                    <div class="username">Enkhtuvshin <div class="date">2019-09-20</div>
+                    </div>
+
+                    </div>
+
+                </div>
+
+                </div>
+                <!-- card end -->
+                <!-- card start -->
+                <div class="card cd-box">
+                <div class="card-top">
+                    <h2 class="title">Toyota Crown 210 Худалдаж авна</h1>
+                </div>
+                <div class="card-body py-2">
+                    <div class="wish-detail">
+                    <div class="price"><i class="icon-tag"></i> 12сая ~ 15.5сая</div>
+                    <div class="phone"><i class="icon-phone"></i> 9999-9999</div>
+                    </div>
+                    <div class="wish-user">
+                    <div class="profile-img"><img src="{{ asset('car-web/img/blog/4.jpg') }}" alt=""></div>
+                    <div class="username">Enkhtuvshin <div class="date">2019-09-20</div>
+                    </div>
+
+                    </div>
+
+                </div>
+
+                </div>
+                <!-- card end -->
+                <!-- card start -->
+                <div class="card cd-box">
+                <div class="card-top">
+                    <h2 class="title">Toyota Crown 210 Худалдаж авна</h1>
+                </div>
+                <div class="card-body py-2">
+                    <div class="wish-detail">
+                    <div class="price"><i class="icon-tag"></i> 12сая ~ 15.5сая</div>
+                    <div class="phone"><i class="icon-phone"></i> 9999-9999</div>
+                    </div>
+                    <div class="wish-user">
+                    <div class="profile-img"><img src="{{ asset('car-web/img/blog/4.jpg') }}" alt=""></div>
+                    <div class="username">Enkhtuvshin <div class="date">2019-09-20</div>
+                    </div>
+
+                    </div>
+
+                </div>
+
+                </div>
+                <!-- card end -->
+
+            </div>
+            </div>
+        </div>
+        </div>
+    </section>
+    <section class="pageType-footer">
+        <div class="container">
+        <div class="row">
+            <div class="sell-type-img">
+            <img src="{{ asset('car-web/img/sell-car.png') }}" alt="">
+            </div>
+        </div>
+        </div>
+    </section>
+
+@endsection
+
+@section('script')
+@endsection
