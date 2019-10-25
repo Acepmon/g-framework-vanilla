@@ -80,6 +80,7 @@ function isPremium($car) {
         $car->metaValue('publishVerified') == True &&
         $car->metaValue('publishVerifiedEnd') >= now() &&
         ($car->metaValue('publishType') == 'best_premium' || $car->metaValue('publishType') == 'premium');
+        // ($car->metaValue('publishType') == 'premium');
 }
 
 function metaHas($items, $key, $value, $operator = '=', $min = Null, $max = Null) {

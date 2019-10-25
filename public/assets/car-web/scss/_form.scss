@@ -94,7 +94,11 @@
         margin-left: 1rem;
         margin-bottom: 1rem;
 
+        .custom-control-label{
+            cursor: pointer;
+        }
         .custom-control-label::before {
+            cursor: pointer;
             position: absolute;
             top: 0;
             left: -2rem;
