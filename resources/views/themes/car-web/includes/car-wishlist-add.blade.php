@@ -1,7 +1,7 @@
 @push('modals')
     <div class="modal fade" id="modalAddWishlist" tabindex="-1" role="dialog"
         aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -10,7 +10,7 @@
                 </div>
                 <form id="add-wish">
                     @csrf
-                    <div class="modal-body px-7">
+                    <div class="modal-body px-5 pt-0">
                         <div class="maz-modal-title">Авахыг хүсэж буй машина оруулна уу</div>
                         <div class="maz-modal-desc">Та авахыг хүсэж буй машиныхаа зарыг оруулсанаар машин худалдаалагч нар танруу таны хайж буй машиныг тань санал болгох болно. Хүсэж буй машинаа олоход тань амжилт хүсье</div>
                         <div class="form-row mt-5">

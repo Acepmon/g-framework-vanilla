@@ -69,7 +69,7 @@
                             </div>
                             <div class="col-md-12 px-5">
                                 @if (!$content->metaValue('isAuction'))
-                                    <a class="btn btn-danger btn-round btn-block my-4 shadow-red p-3" href="#section-finance">Зээлийн боломжийг шалгах</a>
+                                    <a class="btn btn-danger btn-round btn-block my-4 shadow-red p-3 js-scroll-trigger" href="#section-finance">Зээлийн боломжийг шалгах</a>
                                 @endif
 
                                 @include('themes.car-web.includes.save-to-interested-btn', ['content' => $content])
