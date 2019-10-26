@@ -1,173 +1,50 @@
 
-{{--<form class="vehicle-sell" id="form-2">--}}
-    {{--<div class="form-title"><span>Upload images </span></div>--}}
-
-    {{--<div class="card">--}}
-        {{--<div class="card-header header-elements-inline">--}}
-            {{--<h5 class="card-title">Upload multiple files</h5>--}}
-            {{--<div class="header-elements">--}}
-                {{--<div class="list-icons">--}}
-                    {{--<a class="list-icons-item" data-action="collapse"></a>--}}
-                    {{--<a class="list-icons-item" data-action="reload"></a>--}}
-                    {{--<a class="list-icons-item" data-action="remove"></a>--}}
-                {{--</div>--}}
-            {{--</div>--}}
-        {{--</div>--}}
-
-        {{--<div class="card-body">--}}
-            {{--<p class="content-group">Example of a <code>multiple</code> file uploader based on <code>Dropzone.js</code> library. Dropzone.js is a light weight JavaScript library that turns an HTML element into a dropzone. This means that a user can drag and drop a file onto it, and the file gets uploaded to the server via AJAX. By default Dropzone is a multiple file uploader, so this example is a basic setup. Uploading process runs automatically and image thumbnail previews are shown right after file selection.</p>--}}
-
-            {{--<div class="form-group">--}}
-                {{--<label for="directory" class="font-weight-semibold">Directory Selection</label>--}}
-                {{--<select name="directory" id="directory" class="form-control text-capitalize">--}}
-                    {{--@foreach ($directories as $dir)--}}
-                        {{--<option value="{{ $dir }}" class="text-capitalize">{{ $dir }}</option>--}}
-                    {{--@endforeach--}}
-                {{--</select>--}}
-            {{--</div>--}}
-
-            {{--<p class="font-weight-semibold">Multiple file upload:</p>--}}
-            {{----}}
-        {{--</div>--}}
-
-        {{--<div class="card-footer">--}}
-            {{--<div class="header-elements">--}}
-                {{--<button type="button" class="btn btn-primary heading-btn pull-right"><i class="icon-floppy-disk position-left"></i> Submit Files</button>--}}
-            {{--</div>--}}
-        {{--</div>--}}
-    {{--</div>--}}
-
-
-
-
-    {{--<div class="form-group row">--}}
-
-        {{--<div class="input-group mb-3">--}}
-            {{--<div class="input-group-prepend">--}}
-                {{--<span class="input-group-text" id="inputGroupFileAddon01">Upload</span>--}}
-            {{--</div>--}}
-            {{--<div class="custom-file">--}}
-                {{--<input type="file" class="custom-file-input" id="media" invalid="true" onchange="previewMedia(this, 'image-container')" multiple aria-describedby="inputGroupFileAddon01">--}}
-                {{--<label class="custom-file-label" for="inputGroupFile01">Choose file</label>--}}
-            {{--</div>--}}
-        {{--</div>--}}
-
-        {{----}}
-    {{--</div>--}}
-    {{--<div class="row">--}}
-        {{--<div class="col-lg-10" id="image-container"></div>--}}
-    {{--</div>--}}
-
-    {{--<div style="float:right;">--}}
-        {{--<button class="btn btn-light btn-round px-5 py-2 mr-3" type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>--}}
-        {{--<button class="btn btn-danger btn-round shadow-red px-5 py-2" type="button" id="nextBtn" onclick="step2Submit()">Next</button>--}}
-    {{--</div>--}}
-{{--</form>--}}
-
-<form action="#" class="dropzone" id="dropzone_multiple">
-
-</form>
-<div style="float:right;">
-    <button class="btn btn-light btn-round px-5 py-2 mr-3" type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
-    <button class="btn btn-danger btn-round shadow-red px-5 py-2" type="button" id="nextBtn" onclick="step2Submit()">Next</button>
-</div>
-
-<div class="modal fade docs-cropped" id="getCroppedCanvasModal" tabindex="-1">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h6 class="modal-title" id="getCroppedCanvasTitle">Crop your image</h6>
+<form id="mediaSubmit" >
+    <div class="col-md-12">
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Thumbnail</span>
             </div>
-            <div class="modal-body" id="cropBody">
-                <div class="img-cropper-container" class="col-lg-12">
-                    <img id="cropImage" class="croppable">
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="cropImage()">Done</button>
+            <div class="custom-file">
+                <input type="file" name="thumbnail" class="custom-file-input" id="thumbnail">
+                <label class="custom-file-label" for="thumbnail">Choose file</label>
             </div>
         </div>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Media</span>
+            </div>
+            <div class="custom-file">
+                <input type="file" name="media" multiple class="custom-file-input" id="media">
+                <label class="custom-file-label" for="media">Choose file</label>
+            </div>
+        </div>
+        {{--<div class="form-group row">--}}
+            {{--<label class="custom-file-label" for="thumbnail">Choose file</label>--}}
+            {{--<input type="file" id="thumbnail" name="thumbnail">--}}
+        {{--</div>--}}
     </div>
-</div>
+    <div style="float:right;">
+        <button class="btn btn-light btn-round px-5 py-2 mr-3" type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
+        <button class="btn btn-danger btn-round shadow-red px-5 py-2" type="button" id="nextBtn" onclick="step2Submit()">Next</button>
+    </div>
+</form>
+
+
+
 <style>
 
 </style>
 <script>
-    $(document).ready(function () {
-        $("#dropzone_multiple").dropzone({
-            paramName: "file", // The name that will be used to transfer the file
-            dictDefaultMessage: 'Drop files to upload <span>or CLICK</span>',
-            maxFilesize: 1.0 // MB
-        });
-    });
+    // $(document).ready(function () {
+    //     $("#dropzone_multiple").dropzone({
+    //         paramName: "file", // The name that will be used to transfer the file
+    //         dictDefaultMessage: 'Drop files to upload <span>or CLICK</span>',
+    //         maxFilesize: 1.0 // MB
+    //     });
+    // });
 </script>
 <script type="text/javascript">
-
-
-
-
-    // function cropImage() {
-    //     var cropData = [];
-    //     var container;
-    //     $("#cropBody img").each(function() {
-    //         var image = $(this);
-    //
-    //         container = image.attr('alt');
-    //         var cropped = image.cropper('getCroppedCanvas', {});
-    //
-    //         if (cropped) {
-    //             if (container == 'thumbnail-container') {
-    //                 $("#" + container).empty();
-    //                 $("#thumbnailCrop").val(JSON.stringify(image.cropper('getData')));
-    //             } else {
-    //                 cropData.push(image.cropper('getData'));
-    //             }
-    //             $("#" + container).append(' \
-    //                 <div class="col-lg-4 col-md-6 col-sm-12 mb-10"> \
-    //                     <img src="'+cropped.toDataURL('image/jpeg')+'" class="col-lg-12"> \
-    //                 </div>');
-    //
-    //             image.attr('src', '');
-    //         }
-    //     });
-    //     if (container != 'thumbnail-container') {
-    //         $("#imagesCrop").val(JSON.stringify(cropData));
-    //     }
-    // }
-
-    // function previewMedia(input, container) {
-    //     $("#cropBody").empty();
-    //     $(input.files).each(function(index, value) {
-    //         var reader = new FileReader();
-    //         reader.onload = function (e) {
-    //             $("#cropBody").append(' \
-    //                 <div class="image-cropper-container" class="col-lg-12""> \
-    //                     <img src="'+e.target.result+'" id="cropImage'+index+'" class="col-lg-12">\
-    //                 </div>');
-    //
-    //             $("#cropImage"+index).attr('src', e.target.result);
-    //             $("#cropImage"+index).attr('alt', container);
-    //             $('#cropImage'+index).cropper({
-    //                 dragMode: 'move',
-    //                 aspectRatio: 16 / 9,
-    //                 autoCropArea: 0.8,
-    //                 restore: false,
-    //                 guides: false,
-    //                 center: true,
-    //                 highlight: false,
-    //                 cropBoxMovable: false,
-    //                 cropBoxResizable: false,
-    //                 toggleDragModeOnDblclick: false,
-    //             });
-    //
-    //             $("#getCroppedCanvasModal").modal('show');
-    //         };
-    //         reader.readAsDataURL(value);
-    //     });
-    // }
-
     function embedLink(input) {
         var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
         var match = input.value.match(regExp);
