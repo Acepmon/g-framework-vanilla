@@ -77,7 +77,7 @@
 
     <section id="loan" class="text-center finance-section bg-dark">
         <div class="container">
-            <form method="GET" action="/monthly-installments">
+            <form method="GET" id="mainForm" action="/monthly-installments">
             <div class="row">
                 <div class="card shadow-soft-blue page-top-navbar mb-5">
                     <div class="d-flex justify-content-around">
@@ -157,7 +157,8 @@
                 </div>
             </div>
             <div class="col-md-12 text-center">
-                    <input hidden id="searchByTotPrice" name="priceAmount">
+                    <input hidden id="searchByTotPrice" value="{{ request('priceAmount')}}" name="priceAmount">
+                    <input hidden id="sortBy" name="sort">
                     <button type="submit" id="searchFitCars" class="btn btn-danger btn-round  mt-5 px-5 btn-lg">Хайлт хийх</button>
 
             </div>
@@ -168,14 +169,15 @@
     <section id="hot-deal" class="mainPage-items bg-white">
         <div class="container">
             <div class="row">
-                <div class="section-title">
-
-                </div>
+                <ul class="col-md-12">
+                    <li class="{{ request('sort')=='updated_at' ?'active':'' }}"><a href="#" onclick="formSubmit('sortBy', 'updated_at')">Recent cars</a></li>
+                    <li class="{{ request('sort')=='priceAmount' ?'active':'' }}"><a href="#" onclick="formSubmit('sortBy', 'priceAmount')">Low price</a></li>
+                </ul>
 
                 <div class="card-list">
                     <div class="row">
                         {{--@contents({"filter":[{"field":"type", "key":"car"}, {"field":"status", "key":"published"}], "metasFilter": [{"key":"publishType", "value":"best_premium"}], "limit":12, "returnVariable":"carDataPremium"})--}}
-                        @content(type=car, priceAmount < intval(request()->input("priceAmount")) as $carDataMonthly |
+                        @content(type=car, priceAmount < intval(request()->input("priceAmount")), sort=request()->input("sort") as $carDataMonthly |
                         paginate)
 
                     {{--{{$carDataMonthly->slug}}--}}
@@ -238,5 +240,13 @@
 @endsection
 
 @section('script')
-
+    <script type="text/javascript">
+    function formSubmit(id, value) {
+        console.log(id)
+    if (value != 'no-value') {
+    document.getElementById(id).value = value;
+    }
+    $('#mainForm').submit();
+    }
+    </script>
 @endsection

@@ -7,14 +7,14 @@
             <div class="wish-detail">
                 <div class="price"><i class="icon-tag"></i> {{ numerizePrice($car->metaValue('priceAmountStart')) }} {{ $car->metaValue('priceUnit') }}</div>
                 <div class="phone">
-                    <i class="icon-phone"></i> <span id="phone{{$car->id}}">{{ str_limit($car->author->metaValue('phone'), 9) }}</span>
+                    <i class="icon-phone"></i> <span id="phone{{$car->id}}">{{ str_limit($car->author->metaValue('phone'), 10) }}</span>
                     <button id="watchBtn{{$car->id}}" class="btn btn-sm btn-outline-dark float-right" type="button" onclick="watchPhone('{{$car->id}}', '{{$car->author->metaValue('phone')}}')">Watch</button>
                 </div>
             </div>
             <div class="wish-user">
                 <div class="profile-img"><img src="{{ $car->author->avatar_url() }}" alt=""></div>
                 <div class="username">
-                    {{$car->author->name}}
+                    {{ str_limit($car->author->name, 18) }}
                     <div class="date">{{ $car->created_at }}</div>
                 </div>
             </div>

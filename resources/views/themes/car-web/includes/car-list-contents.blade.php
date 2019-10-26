@@ -51,7 +51,7 @@ if ($itemCount < $page * $itemsPerPage) {
 <div class="card shadow-soft-blue page-top-navbar">
     @if($type == 'search')
         <div class="card-body">
-            <span class="d-flex justify-content-start total-cars">
+            <span class="d-flex justify-content-start font-weight-bold mb-2">
                 Search result
             </span>
             <div class="input-group">
