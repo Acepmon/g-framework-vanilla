@@ -139,7 +139,13 @@
                                         <div class="form-group">
                                             <label for="phone">Phone number</label>
                                             <div class="input-group">
-                                                <input type="phone" class="form-control" name="phone" id="meta_phone" placeholder="Утасны дугаар">
+                                                <input type="text" name="phone" id="phone" hidden>
+                                                <select id="callcode" class="form-control">
+                                                    @taxonomy(taxonomy=callcodes as $code)
+                                                        <option value="{{ $code->term->name }}" {{ $code->term->name == '+976' ? 'selected' : '' }}>{{ $code->term->name }}</option>
+                                                    @endtaxonomy
+                                                </select>
+                                                <input type="number" class="form-control" id="phoneNumber" placeholder="Утасны дугаар" style="width: 200px;">
                                             </div>
                                         </div>
                                     </div>
@@ -338,6 +344,23 @@
 
     $(".upload-button").on('click', function() {
         $(".file-upload").click();
+    });
+
+    $(document).ready(function () {
+        var callCode = $("#callcode");
+        var phoneNumber = $("#phoneNumber");
+        var phone = $("#phone");
+
+        var onPhoneChange = function () {
+            if (phoneNumber.val().length != 0) {
+                phone.val(callCode.val() + " " + phoneNumber.val());
+            }
+        }
+
+        callCode.change(onPhoneChange);
+        phoneNumber.change(onPhoneChange);
+
+        onPhoneChange();
     });
 </script>
 @endsection

@@ -69,7 +69,7 @@
                             </div>
                             <div class="col-md-12 px-5">
                                 @if (!$content->metaValue('isAuction'))
-                                    <a class="btn btn-danger btn-round btn-block my-4 shadow-red p-3" href="#section-finance">Зээлийн боломжийг шалгах</a>
+                                    <a class="btn btn-danger btn-round btn-block my-4 shadow-red p-3 js-scroll-trigger" href="#section-finance">Зээлийн боломжийг шалгах</a>
                                 @endif
 
                                 @include('themes.car-web.includes.save-to-interested-btn', ['content' => $content])
@@ -83,8 +83,10 @@
         <!-- Basic information -->
         @include('themes.car-web.includes.section-basic-info', ['content' => $content])
 
-        <!-- Finance section -->
-        @include('themes.car-web.includes.section-finance', ['content' => $content])
+        @if (!$content->metaValue('isAuction'))
+            <!-- Finance section -->
+            @include('themes.car-web.includes.section-finance', ['content' => $content])
+        @endif
 
         <!-- Option information -->
         @include('themes.car-web.includes.section-options', ['content' => $content])
@@ -96,10 +98,10 @@
         @include('themes.car-web.includes.section-retail', ['content' => $content])
 
         <!-- Hot deals -->
-        @include('themes.car-web.includes.section-slider', ['title' => 'Hot Deals', 'contents' => \App\Content::getByMetas('publishType', 'best_premium')->where('status', \App\Content::STATUS_PUBLISHED)->get(), 'morelink'=> url('/search?best_premium=true')])
+        @include('themes.car-web.includes.section-slider', ['title' => 'Hot Deals', 'contents' => \App\Content::getByMetas('publishType', 'best_premium')->where('status', \App\Content::STATUS_PUBLISHED)->where('visibility', \App\Content::VISIBILITY_PUBLIC)->get(), 'morelink'=> url('/buy?best_premium=true')])
 
         <!-- Similar Price -->
-        @include('themes.car-web.includes.section-slider', ['title' => 'Similar Price', 'contents' => \App\Content::inRangeMetas('priceAmount', intval($content->metaValue('priceAmount')) - 1000000, $content->metaValue('priceAmount') + 1000000)->where('status', \App\Content::STATUS_PUBLISHED)->get(), 'morelink'=> url('/search?priceAmount[ge]='.($content->metaValue('priceAmount') - 1000000).'&priceAmount[le]='.($content->metaValue('priceAmount') + 1000000))])
+        @include('themes.car-web.includes.section-slider', ['title' => 'Similar Price', 'contents' => \App\Content::inRangeMetas('priceAmount', intval($content->metaValue('priceAmount')) - 1000000, $content->metaValue('priceAmount') + 1000000)->where('status', \App\Content::STATUS_PUBLISHED)->get(), 'morelink'=> url('/search?min_price='.($content->metaValue('priceAmount') - 1000000).'&max_price='.($content->metaValue('priceAmount') + 1000000))])
 
          <!-- Footer -->
         @include('themes.car-web.includes.footer')

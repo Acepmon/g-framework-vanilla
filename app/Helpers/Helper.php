@@ -54,7 +54,7 @@ function put_blade_section(string $path, string $section, $replacement)
 }
 
 function numerizePrice($value) {
-    $value = intval($value);
+    $value = floatval($value);
     if ($value < 1000) {
         return $value;
     } else if ($value < 1000000) {

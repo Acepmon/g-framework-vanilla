@@ -108,7 +108,7 @@ $banner = App\Banner::where('location_id', 5)->where('status', 'active')->inRand
             <div class="container mt-5">
                 <div class="people-wish-list">
                     <div class="row mt-2">
-                        @content(type=wanna-buy, markName=request()->input('markName'), modelName=request()->input('modelName'), priceAmountStart>=request()->input('priceAmount'), limit=16 as $car | paginate)
+                        @content(type=wanna-buy, markName=request()->input('markName'), modelName=request()->input('modelName'), priceAmountStart>=request()->input('priceAmount'), sort=-id, limit=16 as $car | paginate)
                             <div class="col-lg-3 col-md-4">
                                 @include('themes.car-web.includes.car-wishlist-card', array('car'=>$car))
                             </div>

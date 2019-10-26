@@ -478,11 +478,11 @@ class CarPagesTableSeeder extends Seeder
 
         file_put_contents(base_path($file_path), $file_content);
 
-        // ------------- car-web about us -------------
+        // ------------- car-web about technical examination -------------
 
         $content = new Content;
-        $content->title = 'About Us';
-        $content->slug = 'about-us';
+        $content->title = 'About - Technical Examination';
+        $content->slug = 'about-technical-examination';
         $content->type = Content::TYPE_PAGE;
         $content->status = Content::STATUS_PUBLISHED;
         $content->visibility = Content::VISIBILITY_PUBLIC;
@@ -502,7 +502,162 @@ class CarPagesTableSeeder extends Seeder
         $content_meta->value = json_encode($value);
         $content_meta->save();
 
-        $file_content = file_get_contents(resource_path('stubs/carAboutUs.stub'));
+        $file_content = file_get_contents(resource_path('stubs/carAboutTechnicalExamination.stub'));
+        $file_name = $rootPath . DIRECTORY_SEPARATOR . $content->slug . Content::NAMING_CONVENTION . $content->status . Content::NAMING_CONVENTION . $time;
+        $file_ext = 'blade.php';
+        $file_path = $file_name . '.' . $file_ext;
+
+        file_put_contents(base_path($file_path), $file_content);
+
+        // ------------- car-web about auction -------------
+
+        $content = new Content;
+        $content->title = 'About - Auction';
+        $content->slug = 'about-auction';
+        $content->type = Content::TYPE_PAGE;
+        $content->status = Content::STATUS_PUBLISHED;
+        $content->visibility = Content::VISIBILITY_PUBLIC;
+        $content->author_id = 1;
+        $content->save();
+
+        $value = new \stdClass;
+        $value->datetime = $time;
+        $value->filename_changed = true;
+        $value->before = $content;
+        $value->after = $content;
+        $value->user = User::find(1);
+
+        $content_meta = new ContentMeta();
+        $content_meta->content_id = $content->id;
+        $content_meta->key = 'initial';
+        $content_meta->value = json_encode($value);
+        $content_meta->save();
+
+        $file_content = file_get_contents(resource_path('stubs/carAboutAuction.stub'));
+        $file_name = $rootPath . DIRECTORY_SEPARATOR . $content->slug . Content::NAMING_CONVENTION . $content->status . Content::NAMING_CONVENTION . $time;
+        $file_ext = 'blade.php';
+        $file_path = $file_name . '.' . $file_ext;
+
+        file_put_contents(base_path($file_path), $file_content);
+
+        // ------------- car-web about dream car -------------
+
+        $content = new Content;
+        $content->title = 'About - Dream Car';
+        $content->slug = 'about-dream-car';
+        $content->type = Content::TYPE_PAGE;
+        $content->status = Content::STATUS_PUBLISHED;
+        $content->visibility = Content::VISIBILITY_PUBLIC;
+        $content->author_id = 1;
+        $content->save();
+
+        $value = new \stdClass;
+        $value->datetime = $time;
+        $value->filename_changed = true;
+        $value->before = $content;
+        $value->after = $content;
+        $value->user = User::find(1);
+
+        $content_meta = new ContentMeta();
+        $content_meta->content_id = $content->id;
+        $content_meta->key = 'initial';
+        $content_meta->value = json_encode($value);
+        $content_meta->save();
+
+        $file_content = file_get_contents(resource_path('stubs/carAboutDreamCar.stub'));
+        $file_name = $rootPath . DIRECTORY_SEPARATOR . $content->slug . Content::NAMING_CONVENTION . $content->status . Content::NAMING_CONVENTION . $time;
+        $file_ext = 'blade.php';
+        $file_path = $file_name . '.' . $file_ext;
+
+        file_put_contents(base_path($file_path), $file_content);
+
+        // ------------- car-web about finance -------------
+
+        $content = new Content;
+        $content->title = 'About - Finance';
+        $content->slug = 'about-finance';
+        $content->type = Content::TYPE_PAGE;
+        $content->status = Content::STATUS_PUBLISHED;
+        $content->visibility = Content::VISIBILITY_PUBLIC;
+        $content->author_id = 1;
+        $content->save();
+
+        $value = new \stdClass;
+        $value->datetime = $time;
+        $value->filename_changed = true;
+        $value->before = $content;
+        $value->after = $content;
+        $value->user = User::find(1);
+
+        $content_meta = new ContentMeta();
+        $content_meta->content_id = $content->id;
+        $content_meta->key = 'initial';
+        $content_meta->value = json_encode($value);
+        $content_meta->save();
+
+        $file_content = file_get_contents(resource_path('stubs/carAboutFinance.stub'));
+        $file_name = $rootPath . DIRECTORY_SEPARATOR . $content->slug . Content::NAMING_CONVENTION . $content->status . Content::NAMING_CONVENTION . $time;
+        $file_ext = 'blade.php';
+        $file_path = $file_name . '.' . $file_ext;
+
+        file_put_contents(base_path($file_path), $file_content);
+
+        // ------------- car-web about paid ads -------------
+
+        $content = new Content;
+        $content->title = 'About - Paid Ads';
+        $content->slug = 'about-paid-ads';
+        $content->type = Content::TYPE_PAGE;
+        $content->status = Content::STATUS_PUBLISHED;
+        $content->visibility = Content::VISIBILITY_PUBLIC;
+        $content->author_id = 1;
+        $content->save();
+
+        $value = new \stdClass;
+        $value->datetime = $time;
+        $value->filename_changed = true;
+        $value->before = $content;
+        $value->after = $content;
+        $value->user = User::find(1);
+
+        $content_meta = new ContentMeta();
+        $content_meta->content_id = $content->id;
+        $content_meta->key = 'initial';
+        $content_meta->value = json_encode($value);
+        $content_meta->save();
+
+        $file_content = file_get_contents(resource_path('stubs/carAboutPaidAds.stub'));
+        $file_name = $rootPath . DIRECTORY_SEPARATOR . $content->slug . Content::NAMING_CONVENTION . $content->status . Content::NAMING_CONVENTION . $time;
+        $file_ext = 'blade.php';
+        $file_path = $file_name . '.' . $file_ext;
+
+        file_put_contents(base_path($file_path), $file_content);
+
+        // ------------- car-web about introduction -------------
+
+        $content = new Content;
+        $content->title = 'About - Introduction';
+        $content->slug = 'about-introduction';
+        $content->type = Content::TYPE_PAGE;
+        $content->status = Content::STATUS_PUBLISHED;
+        $content->visibility = Content::VISIBILITY_PUBLIC;
+        $content->author_id = 1;
+        $content->save();
+
+        $value = new \stdClass;
+        $value->datetime = $time;
+        $value->filename_changed = true;
+        $value->before = $content;
+        $value->after = $content;
+        $value->user = User::find(1);
+
+        $content_meta = new ContentMeta();
+        $content_meta->content_id = $content->id;
+        $content_meta->key = 'initial';
+        $content_meta->value = json_encode($value);
+        $content_meta->save();
+
+        $file_content = file_get_contents(resource_path('stubs/carAboutIntroduction.stub'));
         $file_name = $rootPath . DIRECTORY_SEPARATOR . $content->slug . Content::NAMING_CONVENTION . $content->status . Content::NAMING_CONVENTION . $time;
         $file_ext = 'blade.php';
         $file_path = $file_name . '.' . $file_ext;
