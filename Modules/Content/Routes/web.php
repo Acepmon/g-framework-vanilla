@@ -24,6 +24,8 @@ Route::middleware(['auth'])->group(function () {
             Route::put('contents/{contentId}/metas/attach', 'ContentMetaController@attachMetas');
             Route::put('contents/{contentId}/metas/detach', 'ContentMetaController@detachMetas');
             Route::delete('contents/{contentId}/metas', 'ContentMetaController@deleteMeta');
+            Route::post('/contents/{contentId}/medias', 'ContentController@attachMedias');
+            Route::post('/contents/{contentId}/doc', 'ContentController@attachDoc');
 
             Route::prefix('users')->group(function () {
                 Route::get('', 'UserController@index')->name('ajax.users.index');
