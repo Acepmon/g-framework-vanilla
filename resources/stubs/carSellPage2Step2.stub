@@ -1,5 +1,5 @@
-
-<form id="mediaSubmit" >
+<form id="form-2" method="POST" action="/ajax/contents/{{$carId}}/medias">
+    @csrf
     <div class="col-md-12">
         <div class="input-group mb-3">
             <div class="input-group-prepend">
@@ -15,7 +15,7 @@
                 <span class="input-group-text">Media</span>
             </div>
             <div class="custom-file">
-                <input type="file" name="media" multiple class="custom-file-input" id="media">
+                <input type="file" name="medias" multiple class="custom-file-input" id="media">
                 <label class="custom-file-label" for="media">Choose file</label>
             </div>
         </div>
@@ -67,20 +67,22 @@
         $.each($('#step-1').serializeArray(), function(_, kv) {
             paramObjs[kv.name] = kv.value;
         });
-        $.ajax({
-            type: 'PUT',
-            url: '/ajax/contents/' + carId,
-            data: paramObjs
-        }).done(function(data) {
-            $("#demo-spinner").css({'display': 'none'});
-            nextPrev(1);
-            console.log("DONE!");
-            console.log(data);
-        }).fail(function(err) {
-            $("#demo-spinner").css({'display': 'none'});
-            console.error("FAIL!");
-            console.error(err);
-        });
+        console.log(paramObjs);
+        $('#form-2').submit();
+        // $.ajax({
+        //     type: 'POST',
+        //     url: '/ajax/contents/' + carId+ '/medias',
+        //     data: paramObjs
+        // }).done(function(data) {
+        //     $("#demo-spinner").css({'display': 'none'});
+        //     nextPrev(1);
+        //     console.log("DONE!");
+        //     console.log(data);
+        // }).fail(function(err) {
+        //     $("#demo-spinner").css({'display': 'none'});
+        //     console.error("FAIL!");
+        //     console.error(err);
+        // });
     }
 
 </script>
