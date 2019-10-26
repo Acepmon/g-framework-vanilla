@@ -182,6 +182,55 @@ class ContentController extends Controller
         }
     }
 
+    public function attachMedias(Request $request) {
+        $content_id = $request->route('contentId');
+
+        $media_list = $this->uploadFiles($request->medias);//$request->getContent());
+        $media_list = ['medias' => $media_list];
+        ContentManager::attachMetas($content_id, $media_list);
+
+        return response()->json($media_list);
+    }
+
+    public function attachDoc(Request $request) {
+        $content_id = $request->route('contentId');
+
+        $doc_list = $this->uploadFiles($request->doc);
+        $doc_list = ['doc' => $doc_list];
+        ContentManager::attachMetas($content_id, $doc_list);
+
+        return response()->json($doc_list);
+    }
+    
+    public function uploadFiles($files) {
+        $medias = [];
+        if (is_array($files)) {
+            foreach ($files as $file) {
+                if ($file) {
+                    array_push($medias, $this->storeFile($file));
+                }
+            }
+        } else if($files) {
+            array_push($medias, $this->storeFile($files));
+        }
+        return $medias;
+    }
+
+    public function storeFile($file) {
+        if (is_string($file)) {
+            $ext = getMimeType($file, 'str');
+            $ext = mime2ext($ext);
+            $filename =  Str::uuid() . '.' . $ext;
+            Storage::disk('ftp')->put('public/medias/' . $filename, $file);
+            $filename = 'public/medias/' . $filename;
+        } else {
+            $filename = $file->store('public/medias', 'ftp');
+        }
+        $filename = 'http://' . env('FTP_HOST') . ':3000/' . $filename;
+        return $filename;
+    }
+
+
     /**
      * Remove the specified resource from storage.
      *
