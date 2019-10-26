@@ -5,9 +5,11 @@ namespace Modules\Content\Http\Controllers\Ajax;
 use Session;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Str;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 use App\Content;
 use App\ContentMeta;
@@ -185,11 +187,21 @@ class ContentController extends Controller
     public function attachMedias(Request $request) {
         $content_id = $request->route('contentId');
 
-        $media_list = $this->uploadFiles($request->medias);//$request->getContent());
-        $media_list = ['medias' => $media_list];
-        ContentManager::attachMetas($content_id, $media_list);
+        $result = [];
+            $thumbnail = $this->uploadFiles($request->thumbnail);
+            array_push($result, ['thumbnail' => $thumbnail]);
+            ContentManager::attachMetas($content_id, ['thumbnail' => $thumbnail]);
+            $media_list = $this->uploadFiles($request->medias);
+            $media_list = ['medias' => $media_list];
+            array_push($result, $media_list);
+            ContentManager::attachMetas($content_id, $media_list);
 
-        return response()->json($media_list);
+            if ($request->has('link')) {
+            array_push($result, ['link' => $request->input('link')]);
+            ContentManager::attachMetas($content_id, ['link' => $request->input('link')]);
+        }
+
+        return response()->json($result);
     }
 
     public function attachDoc(Request $request) {
