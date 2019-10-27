@@ -47,7 +47,7 @@ try {
                 <a class="nav-link" for='step-2' data-toggle="tab" href="#step-2" id="tab-step-2" role="tab">Upload media</a>
               </div>
               <div class='progress_inner_step'>
-                <a class="nav-link" for='step-3' data-toggle="tab" href="#step-3" id="tab-step-3" role="tab" aria-controls="step-3" aria-selected="false">Add price</a>
+                <a class="nav-link" for='step-3' data-toggle="tab" href="#step-3" id="tab-step-3" role="tab">Add price</a>
               </div>
               <div class='progress_inner_step'>
                 <a class="nav-link" for='step-4' data-toggle="tab" href="#step-4" id="tab-step-4" role="tab">Publish type</a>
@@ -100,7 +100,7 @@ try {
 
   // DEMO MULTISTEP TODO: CHANGE -->
   function nextPrev(i) {
-    var step = $('#steps').find('div.show').attr('id');
+    var step = $('#steps').find('div.active').attr('id');
     step = parseInt(step.substring(step.length-1)) + i;
     if (step > 0 && step <= 4) {
       $("#tab-step-"+step).trigger('click');

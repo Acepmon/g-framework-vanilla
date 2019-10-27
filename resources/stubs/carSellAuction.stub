@@ -65,7 +65,7 @@ if ($startsAt) {
     <div class="form-group col-md-4">
       <label for="area">Starting price:</label>
       <div class="input-group">
-        <input type="number" name="startPriceAmount" class="form-control" id="starting-price" placeholder="0.00" value="{{ $car->metaValue('startPriceAmount') }}">
+        <input type="number" min="0" name="startPriceAmount" class="form-control" id="starting-price" placeholder="0.00" value="{{ $car->metaValue('startPriceAmount')?doubleval($car->metaValue('startPriceAmount')) / 1000000:'' }}">
         <input type="hidden" name="startPriceUnit" value="{{ $car->metaValue('startPriceUnit')?$car->metaValue('startPriceUnit'):'₮' }}">
         <div class="input-group-prepend">
           <div class="input-group-text-right">Сая ₮</div>
@@ -75,7 +75,7 @@ if ($startsAt) {
     <div class="form-group col-md-4">
       <label for="transmission">Buy Out:</label>
       <div class="input-group">
-        <input type="number" name="buyoutAmount" class="form-control" id="buyout" placeholder="0.00" value="{{ $car->metaValue('buyoutAmount') }}">
+        <input type="number" min="0" name="buyoutAmount" class="form-control" id="buyout" placeholder="0.00" value="{{ $car->metaValue('buyoutAmount')?doubleval($car->metaValue('buyoutAmount')) / 1000000:'' }}">
         <input type="hidden" name="buyoutUnit" value="{{ $car->metaValue('buyoutUnit')?$car->metaValue('buyoutUnit'):'₮' }}">
         <div class="input-group-prepend">
           <div class="input-group-text-right">Сая ₮</div>
@@ -85,10 +85,10 @@ if ($startsAt) {
     <div class="form-group col-md-4">
       <label for="steeringWheel">Reserve price</label> <span class="text-muted">(fees apply)</span>
       <span style="float: right">
-        <i class="icon-question" data-toggle="tooltip" data-placement="top" title="Fees apply tooltip text goes here!"></i>
+        <i class="fas fa-question" data-toggle="tooltip" data-placement="top" title="Fees apply tooltip text goes here!"></i>
       </span>
       <div class="input-group">
-        <input type="number" name="reservePriceAmount" class="form-control" id="reserve-price" placeholder="0.00" value="{{ $car->metaValue('reservePriceAmount') }}">
+        <input type="number" min="0" name="reservePriceAmount" class="form-control" id="reserve-price" placeholder="0.00" value="{{ $car->metaValue('buyoutAmount')?doubleval($car->metaValue('reservePriceAmount')) / 1000000:'' }}">
         <input type="hidden" name="reservePriceUnit" value="{{ $car->metaValue('reservePriceUnit')?$car->metaValue('reservePriceUnit'):'₮' }}">
         <div class="input-group-prepend">
           <div class="input-group-text-right">Сая ₮</div>
@@ -140,7 +140,9 @@ if ($startsAt) {
   function step3Next(i) {
     var paramObjs = {};
     $.each($('#form-3').serializeArray(), function(_, kv) {
-      if (!kv.name.startsWith('schedule')) {
+      if (kv.name.endsWith('Amount')) {
+        paramObjs[kv.name] = parseFloat(kv.value) * 1000000 + "";
+      } else if (!kv.name.startsWith('schedule')) {
         paramObjs[kv.name] = kv.value;
       }
     });

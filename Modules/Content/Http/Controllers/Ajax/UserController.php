@@ -59,6 +59,7 @@ class UserController extends Controller
             'email' => ['nullable', 'string', 'email', 'max:191', Rule::unique('users')->ignore($user->email, 'email'),],
             'password' => ['nullable', 'string', 'min:8', 'confirmed'],
             'name' => ['nullable', 'max:100'],
+            'avatar' => ['nullable', 'image']
         ]);
 
         if ($request->has('username')) {
@@ -97,6 +98,11 @@ class UserController extends Controller
 
         if ($request->has('language')) {
             $user->language = $request->input('language');
+            $user->save();
+        }
+
+        if ($request->hasFile('avatar')) {
+            $user->avatar = 'http://' . env('FTP_HOST') . ':3000/' .  $request->file('avatar')->store('public/avatars', 'ftp');
             $user->save();
         }
 
