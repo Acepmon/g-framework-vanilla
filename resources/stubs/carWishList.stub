@@ -2,32 +2,12 @@
 
 @php
 
-// Get All items
+//Filter
 $page = request('page', "1");
 $itemsPerPage = request('itemsPerPage', "16");
-$items = App\Content::with('metas')->where('type', "wanna-buy");
-
-//Filter
 $markName = request('markName', Null);
 $modelName = request('modelName', Null);
 $priceAmount = request('priceAmount', Null);
-
-if($markName != null){
-  $items = metaHas($items, 'markName', $markName);
-}
-if($modelName != null){
-  $items = metaHas($items, 'modelName', $modelName);
-}
-if($priceAmount != null){
-  $items = metaHas($items, 'priceAmount', $priceAmount, '<');
-}
-
-// Post items filtering
-$itemCount = count($items->get());
-$maxPage = intval(ceil($itemCount / $itemsPerPage));
-if ($itemCount < $page * $itemsPerPage) {
-  $page= $maxPage;
-}
 
 // Banner
 $banner = App\Banner::where('location_id', 5)->where('status', 'active')->inRandomOrder()->first();
@@ -108,12 +88,16 @@ $banner = App\Banner::where('location_id', 5)->where('status', 'active')->inRand
             <div class="container mt-5">
                 <div class="people-wish-list">
                     <div class="row mt-2">
-                        @content(type=wanna-buy, markName=request()->input('markName'), modelName=request()->input('modelName'), priceAmountStart>=request()->input('priceAmount'), sort=-id, limit=16 as $car | paginate)
+                        @contentInline(type=wanna-buy, markName=request()->input('markName'), modelName=request()->input('modelName'), priceAmountStart>=intval(request()->input('priceAmount')), sort=-id, limit=16 as $cars | paginate)
+                        @foreach($cars as $car)
                             <div class="col-lg-3 col-md-4">
                                 @include('themes.car-web.includes.car-wishlist-card', array('car'=>$car))
                             </div>
-                        @endcontent
+                        @endforeach
                     </div>
+                    <input type="hidden" name="markName" value="{{ $markName }}">
+                    <input type="hidden" name="modelName" value="{{ $modelName }}">
+                    <input type="hidden" name="priceAmount" value="{{ $priceAmount }}">
                     <!-- Pagination -->
                     <nav aria-label="Page navigation">
                         <input type="hidden" value="{{ $page }}" name="page" id="page" />
@@ -123,10 +107,10 @@ $banner = App\Banner::where('location_id', 5)->where('status', 'active')->inRand
                                 <span aria-hidden="true">&laquo;</span>
                             </button>
                             </li>
-                            @for($i = 1; $i <= $maxPage; $i++)
+                            @for($i = 1; $i <= $cars->lastPage(); $i++)
                             <li class="page-item {{ ($i == $page)?'active':'' }}"><button class="page-link" onclick="formSubmit('page', {{$i}})">{{ $i }}</button></li>
                             @endfor
-                            <li class="page-item {{ ($page >= $maxPage)?'disabled':'' }}">
+                            <li class="page-item {{ ($page >= $cars->lastPage())?'disabled':'' }}">
                                 <button class="page-link" onclick="formSubmit('page', {{$page+1}})" aria-label="Next">
                                 <span aria-hidden="true">&raquo;</span>
                                 </button>

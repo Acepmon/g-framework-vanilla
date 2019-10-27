@@ -5,9 +5,11 @@ namespace Modules\Content\Http\Controllers\Ajax;
 use Session;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Str;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 use App\Content;
 use App\ContentMeta;
@@ -181,6 +183,65 @@ class ContentController extends Controller
             abort(500, 'Something went wrong!');
         }
     }
+
+    public function attachMedias(Request $request) {
+        $content_id = $request->route('contentId');
+
+        $result = [];
+            $thumbnail = $this->uploadFiles($request->thumbnail);
+            array_push($result, ['thumbnail' => $thumbnail]);
+            ContentManager::attachMetas($content_id, ['thumbnail' => $thumbnail]);
+            $media_list = $this->uploadFiles($request->medias);
+            $media_list = ['medias' => $media_list];
+            array_push($result, $media_list);
+            ContentManager::attachMetas($content_id, $media_list);
+
+            if ($request->has('link')) {
+            array_push($result, ['link' => $request->input('link')]);
+            ContentManager::attachMetas($content_id, ['link' => $request->input('link')]);
+        }
+
+        return response()->json($result);
+    }
+
+    public function attachDoc(Request $request) {
+        $content_id = $request->route('contentId');
+
+        $doc_list = $this->uploadFiles($request->doc);
+        $doc_list = ['doc' => $doc_list];
+        ContentManager::attachMetas($content_id, $doc_list);
+
+        return response()->json($doc_list);
+    }
+    
+    public function uploadFiles($files) {
+        $medias = [];
+        if (is_array($files)) {
+            foreach ($files as $file) {
+                if ($file) {
+                    array_push($medias, $this->storeFile($file));
+                }
+            }
+        } else if($files) {
+            array_push($medias, $this->storeFile($files));
+        }
+        return $medias;
+    }
+
+    public function storeFile($file) {
+        if (is_string($file)) {
+            $ext = getMimeType($file, 'str');
+            $ext = mime2ext($ext);
+            $filename =  Str::uuid() . '.' . $ext;
+            Storage::disk('ftp')->put('public/medias/' . $filename, $file);
+            $filename = 'public/medias/' . $filename;
+        } else {
+            $filename = $file->store('public/medias', 'ftp');
+        }
+        $filename = 'http://' . env('FTP_HOST') . ':3000/' . $filename;
+        return $filename;
+    }
+
 
     /**
      * Remove the specified resource from storage.
