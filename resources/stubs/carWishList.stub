@@ -8,6 +8,7 @@ $itemsPerPage = request('itemsPerPage', "16");
 $markName = request('markName', Null);
 $modelName = request('modelName', Null);
 $priceAmount = request('priceAmount', Null);
+$entryYear = request('entryYear', Null);
 
 // Banner
 $banner = App\Banner::where('location_id', 5)->where('status', 'active')->inRandomOrder()->first();
@@ -19,13 +20,16 @@ $banner = App\Banner::where('location_id', 5)->where('status', 'active')->inRand
 @endsection
 
 @section('load')
-    <style>
-        #tooltip {
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-    </style>
+<style>
+.truncate {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.people-wish-list .card .card-body .wish-user .username {
+    flex: 1;
+}
+</style>
 @endsection
 
 @section('content')
@@ -56,10 +60,19 @@ $banner = App\Banner::where('location_id', 5)->where('status', 'active')->inRand
                                     </select>
                                 </div>
                                 <div class="form-group">
+
                                     <select class="form-control" name="priceAmount">
                                         <option value="">Min price</option>
                                         @for($i=100000; $i<=10000000; $i+=100000)
                                             <option value="{{ $i }}" {{ ($i == $priceAmount) ? 'selected' : '' }}>{{numerizePrice($i)}}</option>
+                                        @endfor
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <select class="form-control" name="entryYear">
+                                        <option value="">Entry Year</option>
+                                        @for($i=date('Y'); $i>=1990; $i--)
+                                        <option value="{{ $i }}" {{ ($i == $entryYear)?'selected':'' }}>{{ $i }}</option>
                                         @endfor
                                     </select>
                                 </div>
@@ -88,12 +101,18 @@ $banner = App\Banner::where('location_id', 5)->where('status', 'active')->inRand
             <div class="container mt-5">
                 <div class="people-wish-list">
                     <div class="row mt-2">
-                        @contentInline(type=wanna-buy, markName=request()->input('markName'), modelName=request()->input('modelName'), priceAmountStart>=intval(request()->input('priceAmount')), sort=-id, limit=16 as $cars | paginate)
+                        @contentInline(type=wanna-buy, markName=request()->input('markName'), modelName=request()->input('modelName'), priceAmountStart>=intval(request()->input('priceAmount')), importDate>=intval(request()->input('entryYear')), sort=-id, limit=16 as $cars | paginate)
+                        @if($cars->total() != 0)
                         @foreach($cars as $car)
                             <div class="col-lg-3 col-md-4">
                                 @include('themes.car-web.includes.car-wishlist-card', array('car'=>$car))
                             </div>
                         @endforeach
+                        @else
+                            <div class="col-lg-3 col-md-4 text-muted justify-content">
+                                No result
+                            </div>
+                        @endif
                     </div>
                     <input type="hidden" name="markName" value="{{ $markName }}">
                     <input type="hidden" name="modelName" value="{{ $modelName }}">
