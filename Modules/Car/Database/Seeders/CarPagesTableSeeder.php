@@ -258,6 +258,37 @@ class CarPagesTableSeeder extends Seeder
 
         file_put_contents(base_path($file_path), $file_content);
 
+        // ------------- car-web my page interested auction car  list -------------
+
+        $content = new Content;
+        $content->title = 'My Page - Interested auction car  list';
+        $content->slug = 'interested-car-acution';
+        $content->type = Content::TYPE_PAGE;
+        $content->status = Content::STATUS_PUBLISHED;
+        $content->visibility = Content::VISIBILITY_AUTH;
+        $content->author_id = 1;
+        $content->save();
+
+        $value = new \stdClass;
+        $value->datetime = $time;
+        $value->filename_changed = true;
+        $value->before = $content;
+        $value->after = $content;
+        $value->user = User::find(1);
+
+        $content_meta = new ContentMeta();
+        $content_meta->content_id = $content->id;
+        $content_meta->key = 'initial';
+        $content_meta->value = json_encode($value);
+        $content_meta->save();
+
+        $file_content = file_get_contents(resource_path('stubs/carAuctionInterestedList.stub'));
+        $file_name = $rootPath . DIRECTORY_SEPARATOR . 'interested-car-auction' . Content::NAMING_CONVENTION . $content->status . Content::NAMING_CONVENTION . $time;
+        $file_ext = 'blade.php';
+        $file_path = $file_name . '.' . $file_ext;
+
+        file_put_contents(base_path($file_path), $file_content);
+
         // ------------- car-web my page interested car registration alert -------------
 
         $content = new Content;
