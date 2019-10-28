@@ -28,7 +28,7 @@
                             <div class="form-group col-md-6">
                                 <label for="priceAmountStart">Start Price</label>
                                 <div class="input-group">
-                                    <input type="number" name="priceAmountStart" class="form-control" required>
+                                    <input type="text" name="priceAmountStart" class="form-control" required>
                                     <div class="input-group-append">
                                         <span class="input-group-text">₮</span>
                                     </div>
@@ -37,7 +37,7 @@
                             <div class="form-group col-md-6">
                                 <label for="priceAmountEnd">End Price</label>
                                 <div class="input-group">
-                                    <input type="number" name="priceAmountEnd" class="form-control" required>
+                                    <input type="text" name="priceAmountEnd" class="form-control" required>
                                     <div class="input-group-append">
                                         <span class="input-group-text">₮</span>
                                     </div>
@@ -125,6 +125,9 @@
         });
 
         onChange($("#addWishMark").val(), $("#add-wish").find('select[name=modelName]'));
+
+        $("#add-wish").find('input[name=priceAmountStart]').inputmask({alias: 'currency'});
+        $("#add-wish").find('input[name=priceAmountEnd]').inputmask({alias: 'currency'});
     });
 </script>
 @endpush

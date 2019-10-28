@@ -101,7 +101,11 @@
         @include('themes.car-web.includes.section-slider', ['title' => 'Hot Deals', 'contents' => \App\Content::getByMetas('publishType', 'best_premium')->where('status', \App\Content::STATUS_PUBLISHED)->where('visibility', \App\Content::VISIBILITY_PUBLIC)->get(), 'morelink'=> url('/buy?best_premium=true')])
 
         <!-- Similar Price -->
-        @include('themes.car-web.includes.section-slider', ['title' => 'Similar Price', 'contents' => \App\Content::inRangeMetas('priceAmount', intval($content->metaValue('priceAmount')) - 1000000, $content->metaValue('priceAmount') + 1000000)->where('status', \App\Content::STATUS_PUBLISHED)->get(), 'morelink'=> url('/search?min_price='.($content->metaValue('priceAmount') - 1000000).'&max_price='.($content->metaValue('priceAmount') + 1000000))])
+        @include('themes.car-web.includes.section-slider', [
+            'title' => 'Similar Price',
+            'contents' => \App\Content::inRangeMetas('priceAmount', (intval($content->metaValue('priceAmount')) - 1000000) < 0 ? '0' : (intval($content->metaValue('priceAmount')) - 1000000), $content->metaValue('priceAmount') + 1000000)->where('status', \App\Content::STATUS_PUBLISHED)->get(),
+            'morelink'=> url('/search?min_price='.($content->metaValue('priceAmount') - 1000000).'&max_price='.($content->metaValue('priceAmount') + 1000000))
+        ])
 
          <!-- Footer -->
         @include('themes.car-web.includes.footer')
@@ -116,6 +120,7 @@
         <script src="{{ asset('car-web/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
         <script src="{{ asset('car-web/vendor/lottie-web/player/lottie.min.js') }}"></script>
         <script src="{{ asset('car-web/js/script.min.js') }}"></script>
+        <script src="{{ asset('inputmask/jquery.inputmask.min.js') }}"></script>
         @yield('script')
 
         @stack('scripts')

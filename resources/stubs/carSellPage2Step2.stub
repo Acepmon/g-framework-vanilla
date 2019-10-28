@@ -62,16 +62,6 @@
 
     function step2Submit() {
         event.preventDefault();
-        // let image_upload = new FormData();
-        // let TotalImages = $('#media')[0].files.length;  //Total Images
-        // let images = $('#media')[0];
-        // let thumbnail = $('#thumbnail')[0];
-        // console.log(images);
-        // for (let i = 0; i < TotalImages; i++) {
-        //     image_upload.append('medias[]', images.files[i]);
-        // }
-        // image_upload.append('thumbnail[]', thumbnail.files[0]);
-        //console.log($('#link').val())
         $.ajax({
             type: 'POST',
             url: '/ajax/contents/' + carId+ '/medias',
@@ -79,22 +69,23 @@
             contentType: false,
             processData: false,
         }).done(function(data) {
-            //$("#demo-spinner").css({'display': 'none'});
+            $("#demo-spinner").css({'display': 'none'});
+            nextPrev(1);
             console.log("DONE Media!");
-            $.ajax({
-                type: 'PUT',
-                url: '/ajax/contents/' + carId + '/metas/sync',
-                data: {"link":$('#link').val()}
-            }).done(function(data) {
-                $("#demo-spinner").css({'display': 'none'});
-                nextPrev(1);
-                console.log("DONE!");
-                console.log(data);
-            }).fail(function(err) {
-                $("#demo-spinner").css({'display': 'none'});
-                console.error("FAIL!");
-                console.error(err);
-            });
+            // $.ajax({
+            //     type: 'PUT',
+            //     url: '/ajax/contents/' + carId + '/metas/sync',
+            //     data: {"link":$('#link').val()}
+            // }).done(function(data) {
+            //     $("#demo-spinner").css({'display': 'none'});
+            //     nextPrev(1);
+            //     console.log("DONE!");
+            //     console.log(data);
+            // }).fail(function(err) {
+            //     $("#demo-spinner").css({'display': 'none'});
+            //     console.error("FAIL!");
+            //     console.error(err);
+            // });
         }).fail(function(err) {
             $("#demo-spinner").css({'display': 'none'});
             console.error("FAIL!");

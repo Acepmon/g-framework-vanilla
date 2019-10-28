@@ -50,7 +50,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-4 col-lg-3">
-                        {{-- @include('themes.car-web.includes.profile') --}}
+                        @include('themes.car-web.includes.profile')
 
                         <div class="card shadow-soft-blue my-page-left">
                             <ul class="list-group list-group-flush">
@@ -89,6 +89,7 @@
         <script src="{{ asset('car-web/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
         <script src="{{ asset('car-web/vendor/lottie-web/player/lottie.min.js') }}"></script>
         <script src="{{ asset('car-web/js/script.min.js') }}"></script>
+        <script src="{{ asset('inputmask/jquery.inputmask.min.js') }}"></script>
         @yield('script')
 
         @stack('scripts')
