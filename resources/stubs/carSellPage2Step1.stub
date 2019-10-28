@@ -35,18 +35,24 @@
     <div class="form-row">
         <div class="form-group col-md-6">
             <label for="Manufacturer">Manufacturer:</label>
-            <select id="manufacturerSelect" name="markName" class="form-control">
+            <select id="manufacturerSelect" name="markName" class="form-control" required>
                 <option value="">Manufacturer</option>
                 @foreach(\App\TermTaxonomy::where('taxonomy', 'car-manufacturer')->get() as $taxonomy)
                 <option {{ ($car->metaValue('markName') == $taxonomy->term->name)?'selected':'' }}>{{$taxonomy->term->name}}</option>
                 @endforeach
             </select>
+            <span id="manufacturerSelectAlert" class="invalid-feedback" role="alert" style="display: none">
+                Please choose your manufacturer
+            </span>
         </div>
         <div class="form-group col-md-6">
             <label for="Model">Model:</label>
-            <select id="modelSelect" name="modelName" class="form-control">
-                <option value="{{ $taxonomy->term->name?$taxonomy->term->name:'' }}">{{ $car->metaValue('modelName')?$car->metaValue('modelName'):'' }}</option>
+            <select id="modelSelect" name="modelName" class="form-control" required>
+                <option value="{{ $taxonomy->term->name?$taxonomy->term->name:'' }}">{{ $car->metaValue('modelName')?$car->metaValue('modelName'):'Model' }}</option>
             </select>
+            <span id="modelSelectAlert" class="invalid-feedback" role="alert" style="display: none">
+                Please choose your model
+            </span>
         </div>
     </div>
     <div class="form-row">
@@ -206,14 +212,14 @@
     <div class="form-row">
         <div class="col-md-3">
             <div class="custom-control custom-switch">
-                <input type="checkbox" class="custom-control-input" id="customSwitch1">
-                <label class="custom-control-label" for="customSwitch1">Doctor verify</label>
+                <input name="doctorVerified" type="checkbox" class="custom-control-input" id="doctorVerifySwitch">
+                <label class="custom-control-label" for="doctorVerifySwitch">Doctor verify</label>
             </div>
         </div>
         <div class="col-md-9">
             <div class="custom-file">
-                <input type="file" class="custom-file-input" id="customFile">
-                <label class="custom-file-label" for="customFile">Choose file</label>
+                <input name="doc" type="file" class="custom-file-input" id="docFile" disabled>
+                <label class="custom-file-label" for="docFile">Choose file</label>
             </div>
         </div>
     </div>
@@ -278,6 +284,7 @@
 <script src="{{ asset('car-web/vendor/bootstrap-select/js/bootstrap-select.min.js') }}"></script>
 <script>
     var modelData = {
+        '': [''],
         @foreach(App\ TermTaxonomy::where('taxonomy', 'car-manufacturer')->get() as $taxonomy)
         '{{ $taxonomy->term->name}}': [
             @foreach($taxonomy-> children as $model)
@@ -301,10 +308,50 @@
             for (var element in modelData[val]) {
                 $("#modelSelect").append('<option>' + modelData[val][element] + '</option>');
             }
+            $('#modelSelect').removeClass('is-invalid');
+            $('#modelSelectAlert').css('display', 'none');
+        });
+
+        $('input[required], select[required]').on('change', function() {
+            console.log($(this).val());
+            if ($(this).val() != "") {
+                let id = $(this).attr('id');
+                $('#' + id).removeClass('is-invalid');
+                $('#' + id + 'Alert').css('display', 'none');
+            }
+        });
+        
+        $("#doctorVerifySwitch").on('click', function() {
+            if (this.checked) {
+                $("#docFile").removeAttr('disabled');
+            } else {
+                $("#docFile").attr('disabled', 'disabled');
+            }
         });
     });
 
     function step1Submit() {
+        let validated = true;
+        $('input[required], select[required]').each(function() {
+            if ($(this).val() == "") {
+                let id = $(this).attr('id');
+                if (id) {
+                    $('#' + id).addClass('is-invalid');
+                    $('#' + id + 'Alert').css('display', 'block');
+                    if (validated) {
+                        scrollTo(id);
+                    }
+
+                    validated = false;
+                }
+            }
+        });
+        if (validated) {
+            step1SubmitAjax();
+        }
+    }
+        
+    function step1SubmitAjax() {
         var title = $("#manufacturerSelect").val() + ' ' + $("#modelSelect").val();
 
         $("#demo-spinner").css({'display': 'block'});
@@ -322,10 +369,12 @@
                 } else if (kv.value == 'off') {
                     kv.value = '0';
                 }
-                if (kv.name == 'advantages') {
-                    paramObjs[kv.name] = $("#advantage").val();
-                } else {
-                    paramObjs[kv.name] = kv.value;
+                if (kv.name != 'doc') {
+                    if (kv.name == 'advantages') {
+                        paramObjs[kv.name] = $("#advantage").val();
+                    } else {
+                        paramObjs[kv.name] = kv.value;
+                    }
                 }
             });
 
@@ -334,20 +383,45 @@
                 url: '/ajax/contents/' + carId + '/metas/sync',
                 data: paramObjs
             }).done(function(data) {
-                $("#demo-spinner").css({'display': 'none'});
-                nextPrev(1);
-                console.log("DONE!");
-                console.log(data);
-            }).fail(function(err) {
-                $("#demo-spinner").css({'display': 'none'});
-                console.error("FAIL!");
-                console.error(err);
-            });
-        }).fail(function(err) {
-            $("#demo-spinner").css({'display': 'none'});
+                // Send doctors file
+                let doctorsFile = $("#docFile")[0].files[0];
+                if (doctorsFile) {
+                    var docData = new FormData();
+                    docData.append('doc', doctorsFile);
+                    $.ajax({
+                        type: 'POST',
+                        url: '/ajax/contents/' + carId + '/doc',
+                        enctype: 'multipart/form-data',
+                        processData: false,
+                        contentType: false,
+                        cache: false,
+                        data: docData
+                    }).done(function(data) {
+                        $("#demo-spinner").css({'display': 'none'});
+                        nextPrev(1);
+                        console.log("DONE!");
+                        console.log(data);
+                    }).fail(fail);
+                } else {
+                    $("#demo-spinner").css({'display': 'none'});
+                    nextPrev(1);
+                    console.log("DONE!");
+                    console.log(data);
+                }
+            }).fail(fail);
+        }).fail(fail);
+    }
+
+    function scrollTo(id) {
+        $([document.documentElement, document.body]).animate({
+            scrollTop: $("#" + id).offset().top - 40
+        }, 500);
+    }
+
+    function fail(err) {
+        $("#demo-spinner").css({'display': 'none'});
             console.error("FAIL!");
             console.error(err);
-        });
     }
 </script>
 @endpush
