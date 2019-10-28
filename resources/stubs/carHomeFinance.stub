@@ -43,7 +43,7 @@
               voluptates corporis sed quas, error quia, asperiores ipsam officia aliquid vel modi, quos nulla fuga
               corrupti necessitatibus.</p>
             <div class="col-md-8">
-              <a class="btn btn-primary btn-round btn-block my-4 shadow-soft-blue p-2 btn-icon-right" href="#">View
+              <a class="btn btn-primary btn-round btn-block my-4 shadow-soft-blue p-2 btn-icon-right" href="{{ url('/auction') }}">View
                 finance cars <i class="fab fa fa-angle-right"></i></a>
             </div>
           </div>
@@ -52,7 +52,7 @@
           <div class="row justify-content-md-center">
             <div class="col-md-6 text-center">
               <a class="btn btn-danger btn-round my-4 shadow-red btn-lg px-5" href="#">Loan calculator</a>
-              <a class="btn btn-light btn-round my-4 shadow-soft-blue btn-lg px-5" href="#">Check loan</a>
+              <a class="btn btn-light btn-round my-4 shadow-soft-blue btn-lg px-5" href="#" data-toggle="modal" data-target="#modalLoanCalculator">Check loan</a>
             </div>
           </div>
         </div>
@@ -60,8 +60,9 @@
   </section>
 
 <!-- Hot deal Grid -->
-@include('themes.car-web.includes.section-slider', array('title'=>'Hot Deal', 'contents'=>\Modules\Car\Entities\Car::filterByPremium()->get(), 'morelink'=>url('/buy?premium=True')))
+@include('themes.car-web.includes.section-slider', ['title' => 'Hot Deals', 'contents' => \App\Content::getByMetas('publishType', 'best_premium')->where('status', \App\Content::STATUS_PUBLISHED)->where('visibility', \App\Content::VISIBILITY_PUBLIC)->get(), 'morelink'=> url('/buy?best_premium=true')])
 <!-- Hot deal End -->
+@include('themes.car-web.includes.modal-loan-check')
 
 @endsection
 
