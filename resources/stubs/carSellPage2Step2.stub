@@ -19,6 +19,10 @@
                 <label class="custom-file-label" for="media">Choose file</label>
             </div>
         </div>
+        <div class="form-group">
+            <label for="link">Youtube link</label>
+            <input type="text" name="link" class="form-control" id="link">
+        </div>
         {{--<div class="form-group row">--}}
         {{--<label class="custom-file-label" for="thumbnail">Choose file</label>--}}
         {{--<input type="file" id="thumbnail" name="thumbnail">--}}
@@ -67,7 +71,7 @@
         //     image_upload.append('medias[]', images.files[i]);
         // }
         // image_upload.append('thumbnail[]', thumbnail.files[0]);
-
+        //console.log($('#link').val())
         $.ajax({
             type: 'POST',
             url: '/ajax/contents/' + carId+ '/medias',
@@ -75,10 +79,22 @@
             contentType: false,
             processData: false,
         }).done(function(data) {
-            $("#demo-spinner").css({'display': 'none'});
-            //nextPrev(1);
-            console.log("DONE!");
-            console.log(data);
+            //$("#demo-spinner").css({'display': 'none'});
+            console.log("DONE Media!");
+            $.ajax({
+                type: 'PUT',
+                url: '/ajax/contents/' + carId + '/metas/sync',
+                data: {"link":$('#link').val()}
+            }).done(function(data) {
+                $("#demo-spinner").css({'display': 'none'});
+                nextPrev(1);
+                console.log("DONE!");
+                console.log(data);
+            }).fail(function(err) {
+                $("#demo-spinner").css({'display': 'none'});
+                console.error("FAIL!");
+                console.error(err);
+            });
         }).fail(function(err) {
             $("#demo-spinner").css({'display': 'none'});
             console.error("FAIL!");
