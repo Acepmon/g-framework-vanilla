@@ -104,9 +104,13 @@ $categoryName = [
             @foreach($taxonomy_parent->children as $taxonomy)
             <div class="custom-control custom-radio">
             <!-- <a href="/car-list?{{ $category . '=' . $taxonomy->term->name }}" class="text-body text-decoration-none"> -->
-            <input type="checkbox" id="{{$taxonomy->term->name}}" name="{{ $category }}[]" class="custom-control-input" value="{{ $taxonomy->term->name }}" {{ in_array($taxonomy->term->name, request($category, []))?'checked':'' }}>
-            <label class="custom-control-label  d-flex justify-content-between" for="{{$taxonomy->term->name}}">{{ $taxonomy->term->name }}
+            <input type="checkbox" id="{{ $taxonomy->term->name }}" name="{{ $category }}[]" class="custom-control-input" value="{{ $taxonomy->term->name }}" {{ in_array($taxonomy->term->name, request($category, []))?'checked':'' }}>
+            <label class="custom-control-label  d-flex justify-content-between" for="{{ $taxonomy->term->name }}">{{ $taxonomy->term->name }}
+                @if($taxonomy->term)
+                <div class="text-muted">{{ metaHas(clone $allItems, $taxonomy->term->metaValue('metaKey'), '1')->count() }}</div>
+                @else
                 <div class="text-muted">{{ $taxonomy->count }}</div>
+                @endif
             </label>
             </div>
             @endforeach
@@ -121,7 +125,11 @@ $categoryName = [
             <!-- <a href="/car-list?{{ $category . '=' . $taxonomy->term->name }}" class="text-body text-decoration-none"> -->
             <input type="checkbox" id="{{$taxonomy->term->name}}" name="{{ $category }}[]" class="custom-control-input" value="{{ $taxonomy->term->name }}" {{ in_array($taxonomy->term->name, request($category, []))?'checked':'' }}>
             <label class="custom-control-label  d-flex justify-content-between" for="{{$taxonomy->term->name}}">{{ $taxonomy->term->name }}
+                @if($taxonomy->term->group)
+                <div class="text-muted">{{ metaHas(clone $allItems, $taxonomy->term->group->metaValue('metaKey'), $taxonomy->term->name)->count() }}</div>
+                @else
                 <div class="text-muted">{{ $taxonomy->count }}</div>
+                @endif
             </label>
             </div>
             @endforeach
