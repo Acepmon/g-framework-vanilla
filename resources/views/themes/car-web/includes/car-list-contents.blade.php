@@ -13,15 +13,14 @@ if ($filterPremium) {
 }
 
 // $allItems = \Modules\Car\Entities\Car::order($orderBy, $order, $allItems);
-
-// Items filtering
-$items = \Modules\Car\Entities\Car::filter(clone $allItems, $request);
-
 if($type == 'search'){
     // Search
     $search = request('search', "");
-    $items = $items->where('title', 'LIKE', '%'.$search.'%');
+    $allItems = $allItems->where('title', 'LIKE', '%'.$search.'%');
 }
+
+// Items filtering
+$items = \Modules\Car\Entities\Car::filter(clone $allItems, $request);
 $items = \Modules\Car\Entities\Car::order($orderBy, $order, $items);
 
 if (!$filterPremium) {
@@ -48,6 +47,13 @@ if ($itemCount < $page * $itemsPerPage) {
 </style>
 @endpush
 
+@include('themes.car-web.includes.car-list-menu')
+</div>
+
+@php
+@endphp
+
+<div class="col-lg-9 col-md-8">
 <div class="card shadow-soft-blue page-top-navbar">
     @if($type == 'search')
         <div class="card-body">
@@ -119,3 +125,34 @@ if ($itemCount < $page * $itemsPerPage) {
 </nav>
 <!-- Pagination end -->
 @endif
+
+@push('scripts')
+<script>
+function addToInterest(event, value) {
+    event.preventDefault();
+    event.stopPropagation();
+    var target = event.target.closest('div');
+    // target.innerHTML = 'Loading';
+    $.ajax({
+      url: '/ajax/user/interested_cars', 
+      dataType: 'json',
+      method: 'PUT',
+      data: {
+          'content_id': value
+      },
+      success: function (data) {
+        if (data.status == 'added') {
+          target.innerHTML = '<span class="text-danger"><i class="fas fa-heart"></i> Added to interest list</span>';
+        } else if (data.status == 'removed') {
+          target.innerHTML = '<span class=""><i class="far fa-heart"></i> Add to interest list</span>';
+        }
+      },
+      error: function (error) {
+        if (error.status == 401) {
+          window.location.href = "{{ url('/login') }}";
+        }
+      }
+    });
+}
+</script>
+@endpush

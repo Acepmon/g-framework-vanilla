@@ -33,9 +33,6 @@ $banner = App\Banner::where('location_id', 5)->where('status', 'active')->inRand
               <div class="left-bar-title">
                   Sort Vehicle <i class="fab fa fa-search"></i>
               </div>
-              @include('themes.car-web.includes.car-list-menu')
-          </div>
-          <div class="col-md-9">
             @include('themes.car-web.includes.car-list-contents', ['allItems' => \Modules\Car\Entities\Car::all(), 'type' => 'search'])
           </div>
         </div>

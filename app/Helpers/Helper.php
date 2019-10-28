@@ -64,6 +64,14 @@ function numerizePrice($value) {
     }
 }
 
+function getDateFromDatetime($value) {
+    if ($value) {
+        $value = new DateTime($value);
+        return $value->format('Y-m-d');
+    }
+    return $value;
+}
+
 function getMetasValue($metas, $key) {
     foreach($metas as $meta){
         if($meta->key==$key){

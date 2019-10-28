@@ -19,13 +19,16 @@ $banner = App\Banner::where('location_id', 5)->where('status', 'active')->inRand
 @endsection
 
 @section('load')
-    <style>
-        #tooltip {
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-    </style>
+<style>
+.truncate {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.people-wish-list .card .card-body .wish-user .username {
+    flex: 1;
+}
+</style>
 @endsection
 
 @section('content')
@@ -63,6 +66,7 @@ $banner = App\Banner::where('location_id', 5)->where('status', 'active')->inRand
                                         @endfor
                                     </select>
                                 </div>
+
                                 <button type="submit" class="btn btn-danger btn-lg btn-round shadow mt-4 px-5">Filter</button>
                             </form>
                         </div>
@@ -89,11 +93,17 @@ $banner = App\Banner::where('location_id', 5)->where('status', 'active')->inRand
                 <div class="people-wish-list">
                     <div class="row mt-2">
                         @contentInline(type=wanna-buy, markName=request()->input('markName'), modelName=request()->input('modelName'), priceAmountStart>=intval(request()->input('priceAmount')), sort=-id, limit=16 as $cars | paginate)
+                        @if($cars->total() != 0)
                         @foreach($cars as $car)
                             <div class="col-lg-3 col-md-4">
                                 @include('themes.car-web.includes.car-wishlist-card', array('car'=>$car))
                             </div>
                         @endforeach
+                        @else
+                            <div class="col-lg-3 col-md-4 text-muted justify-content">
+                                No result
+                            </div>
+                        @endif
                     </div>
                     <input type="hidden" name="markName" value="{{ $markName }}">
                     <input type="hidden" name="modelName" value="{{ $modelName }}">
