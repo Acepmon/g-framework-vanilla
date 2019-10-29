@@ -8,14 +8,14 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form id="loan-check" method="post" action="{{ route('ajax.contents.store') }}">
+            <form id="loan-check">
             @csrf
             <div class="modal-body px-5">
                 <div class="maz-modal-title">Check loan condition</div>
                 <div class="maz-modal-desc">Please fill this form than we will contact you as soon as possible</div>
                     <div class="form-group">
                         <label for="name" class="col-form-label">Your name:</label>
-                        <input type="text" class="form-control" id="name" name="name">
+                        <input type="text" class="form-control" id="name" name="name" required>
                     </div>
                     <input type="hidden" name="title" value="Loan Check">
                     <input type="hidden" name="slug" value="{{ \Str::uuid() }}">
@@ -99,16 +99,16 @@
                             </select>
                         </div>
                         <div class="form-group col-md-8">
-                            <input type="number" class="form-control" id="reg-num">
+                            <input type="number" class="form-control" id="reg-num" required>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="phone" class="col-form-label">Phone number:</label>
-                        <input type="text" class="form-control" id="phone" name="phone">
+                        <input type="text" class="form-control" id="phone" name="phone" required>
                     </div>
                 </div>
                 <div class="modal-footer pb-5">
-                    <button type="button" id="btnSendLoanCheck" class="btn btn-danger btn-round px-5 py-2 shadow-red">Send</button>
+                    <button type="submit" id="btnSendLoanCheck" class="btn btn-danger btn-round px-5 py-2 shadow-red">Send</button>
                 </div>
             </form>
         </div>
@@ -125,7 +125,9 @@ $.ajaxSetup({
 });
 
 $(document).ready(function() {
-    $("#btnSendLoanCheck").on('click', function() {
+    $("#btnSendLoanCheck").on('click', function(event) {
+        event.stopPropagation();
+        event.preventDefault();
         var paramObjs = {};
         paramObjs['registrationNumber'] = $("#reg-letter-1").val() + $("#reg-letter-2").val() + $("#reg-num").val();
         $.each($('#loan-check').serializeArray(), function(_, kv) {

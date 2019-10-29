@@ -105,6 +105,7 @@ class Car extends Content
         $request['buildYear'] = request('year', Null);
         $request['mileageAmount'] = request('mileageAmount', Null);
         $request['doctorVerified'] = request('doctors_verified', Null);
+        $request['publishType'] = request('publishType', Null);
         $request['minPrice'] = request('min_price', Null);
         $request['maxPrice'] = request('max_price', Null);
 

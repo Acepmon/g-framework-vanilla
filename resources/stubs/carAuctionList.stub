@@ -96,7 +96,7 @@ Car dealer
 <!-- Banner end -->
 
 <!-- Hot deal Grid -->
-@include('themes.car-web.includes.section-slider', array('title'=>'Hot Deal', 'contents'=>\App\Content::getByMetas('publishType', 'best_premium')->where('status', \App\Content::STATUS_PUBLISHED)->where('visibility', \App\Content::VISIBILITY_PUBLIC)->get(), 'morelink'=>url('/buy?premium=True')))
+@include('themes.car-web.includes.section-slider', array('title'=>'Hot Deal', 'contents'=>\App\Content::getByMetas('publishType', 'best_premium')->where('status', \App\Content::STATUS_PUBLISHED)->where('visibility', \App\Content::VISIBILITY_PUBLIC)->get(), 'morelink'=>url('/buy?publishType=best_premium')))
 <!-- Hot deal End -->
 @endsection
 

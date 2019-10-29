@@ -98,7 +98,7 @@
         @include('themes.car-web.includes.section-retail', ['content' => $content])
 
         <!-- Hot deals -->
-        @include('themes.car-web.includes.section-slider', ['title' => 'Hot Deals', 'contents' => \App\Content::getByMetas('publishType', 'best_premium')->where('status', \App\Content::STATUS_PUBLISHED)->where('visibility', \App\Content::VISIBILITY_PUBLIC)->orderBy('id', 'desc')->get(), 'morelink'=> url('/buy?best_premium=true')])
+        @include('themes.car-web.includes.section-slider', ['title' => 'Hot Deals', 'contents' => \App\Content::getByMetas('publishType', 'best_premium')->where('status', \App\Content::STATUS_PUBLISHED)->where('visibility', \App\Content::VISIBILITY_PUBLIC)->orderBy('id', 'desc')->get(), 'morelink'=> url('/buy?publishType=best_premium')])
 
         <!-- Similar Price -->
         @include('themes.car-web.includes.section-slider', [
