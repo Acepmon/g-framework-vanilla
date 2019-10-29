@@ -45,7 +45,9 @@ class Car extends Content
         }
         $minPrice = $filter['minPrice'];
         $maxPrice = $filter['maxPrice'];
-        $contents = metaHas($contents, 'priceAmount', '', 'range', $minPrice, $maxPrice);
+        if ($minPrice || $maxPrice) {
+            $contents = metaHas($contents, 'priceAmount', '', 'range', $minPrice, $maxPrice);
+        }
         $mileage = $filter['mileageAmount'];
         if ($mileage) {
             [$minMileage, $maxMileage] = explode('-', $mileage);

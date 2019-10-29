@@ -22,7 +22,6 @@ if($type == 'search'){
 // Items filtering
 $items = \Modules\Car\Entities\Car::filter(clone $allItems, $request);
 $items = \Modules\Car\Entities\Car::order($orderBy, $order, $items);
-
 if (!$filterPremium) {
   $items = \Modules\Car\Entities\Car::filterByPremium(null, clone $items)->get()->merge($items->get());
 } else {

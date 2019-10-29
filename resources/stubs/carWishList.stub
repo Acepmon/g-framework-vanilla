@@ -171,13 +171,6 @@ $banner = App\Banner::where('location_id', 5)->where('status', 'active')->inRand
         $('#watchBtn' + id).css('visibility', 'hidden');
     }
 
-    const toKebabCase = str =>
-            str &&
-            str
-                .match(/[A-Z]{2,}(?=[A-Z][a-z]+[0-9]*|\b)|[A-Z]?[a-z]+[0-9]*|[A-Z]|[0-9]+/g)
-                .map(x => x.toLowerCase())
-                .join('-');
-
     $(document).ready(function () {
         var onChange = function () {
             var markName=$("#vehicleManufacturer").val();
