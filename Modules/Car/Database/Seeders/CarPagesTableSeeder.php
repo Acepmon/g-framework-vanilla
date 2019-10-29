@@ -262,7 +262,7 @@ class CarPagesTableSeeder extends Seeder
 
         $content = new Content;
         $content->title = 'My Page - Interested auction car  list';
-        $content->slug = 'interested-car-acution';
+        $content->slug = 'interested-car-auction';
         $content->type = Content::TYPE_PAGE;
         $content->status = Content::STATUS_PUBLISHED;
         $content->visibility = Content::VISIBILITY_AUTH;
