@@ -15,11 +15,14 @@ if ($startsAt) {
   <div class="form-row">
     <div class="form-group col-md-4">
       <label for="durationDay">Duration Day:</label>
-      <select id="durationDay" name="publishDuration" class="form-control">
+      <select id="durationDay" name="publishDuration" class="form-control" required>
         <option value="">Choose...</option>
         @for($i=1; $i<=7; $i++) <option value="{{$i}}" {{ ($car->metaValue('publishDuration') == $i)?'selected':'' }}>{{$i}} Days</option>
           @endfor
       </select>
+      <span id="durationDayAlert" class="invalid-feedback" role="alert" style="display: none">
+        Please choose your duration day
+      </span>
     </div>
   </div>
   <div class="form-row">
@@ -65,21 +68,27 @@ if ($startsAt) {
     <div class="form-group col-md-4">
       <label for="area">Starting price:</label>
       <div class="input-group">
-        <input type="number" min="0" name="startPriceAmount" class="form-control" id="starting-price" placeholder="0.00" value="{{ $car->metaValue('startPriceAmount')?doubleval($car->metaValue('startPriceAmount')) / 1000000:'' }}">
+        <input type="number" min="0" id="startPrice" name="startPriceAmount" class="form-control" placeholder="0.00" required value="{{ $car->metaValue('startPriceAmount')?doubleval($car->metaValue('startPriceAmount')) / 1000000:'' }}">
         <input type="hidden" name="startPriceUnit" value="{{ $car->metaValue('startPriceUnit')?$car->metaValue('startPriceUnit'):'₮' }}">
         <div class="input-group-prepend">
           <div class="input-group-text-right">Сая ₮</div>
         </div>
+        <span id="startPriceAlert" class="invalid-feedback" role="alert" style="display: none">
+            Start Price cannot be empty or greater than buyout
+        </span>
       </div>
     </div>
     <div class="form-group col-md-4">
       <label for="transmission">Buy Out:</label>
       <div class="input-group">
-        <input type="number" min="0" name="buyoutAmount" class="form-control" id="buyout" placeholder="0.00" value="{{ $car->metaValue('buyoutAmount')?doubleval($car->metaValue('buyoutAmount')) / 1000000:'' }}">
+        <input type="number" min="0" id="buyout" name="buyoutAmount" class="form-control" placeholder="0.00" required value="{{ $car->metaValue('buyoutAmount')?doubleval($car->metaValue('buyoutAmount')) / 1000000:'' }}">
         <input type="hidden" name="buyoutUnit" value="{{ $car->metaValue('buyoutUnit')?$car->metaValue('buyoutUnit'):'₮' }}">
         <div class="input-group-prepend">
           <div class="input-group-text-right">Сая ₮</div>
         </div>
+        <span id="buyoutAlert" class="invalid-feedback" role="alert" style="display: none">
+          Please choose buyout amount
+        </span>
       </div>
     </div>
     <div class="form-group col-md-4">
@@ -88,11 +97,14 @@ if ($startsAt) {
         <i class="fas fa-question" data-toggle="tooltip" data-placement="top" title="Fees apply tooltip text goes here!"></i>
       </span>
       <div class="input-group">
-        <input type="number" min="0" name="reservePriceAmount" class="form-control" id="reserve-price" placeholder="0.00" value="{{ $car->metaValue('buyoutAmount')?doubleval($car->metaValue('reservePriceAmount')) / 1000000:'' }}">
+        <input type="number" min="0" id="reservePrice" name="reservePriceAmount" class="form-control" placeholder="0.00" required value="{{ $car->metaValue('buyoutAmount')?doubleval($car->metaValue('reservePriceAmount')) / 1000000:'' }}">
         <input type="hidden" name="reservePriceUnit" value="{{ $car->metaValue('reservePriceUnit')?$car->metaValue('reservePriceUnit'):'₮' }}">
         <div class="input-group-prepend">
           <div class="input-group-text-right">Сая ₮</div>
         </div>
+        <span id="reservePriceAlert" class="invalid-feedback" role="alert" style="display: none">
+          Please choose reserve price
+        </span>
       </div>
     </div>
   </div>
@@ -138,6 +150,39 @@ if ($startsAt) {
   });
 
   function step3Next(i) {
+    let validated = true;
+    $('#form-3 input[required], #form-3 select[required]').each(function() {
+      if ($(this).val() == "") {
+          let id = $(this).attr('id');
+          if (id) {
+              $('#' + id).addClass('is-invalid');
+              $('#' + id + 'Alert').css('display', 'block');
+              if (validated) {
+                  scrollTo(id);
+              }
+
+              validated = false;
+          }
+      }
+    });
+    let startPrice = parseFloat($('input[name=startPriceAmount]').val());
+    let buyout = parseFloat($('input[name=buyoutAmount]').val());
+    if (startPrice >= buyout) {
+      let id = 'startPrice';
+      $('#' + id).addClass('is-invalid');
+      $('#' + id + 'Alert').css('display', 'block');
+      if (validated) {
+          scrollTo(id);
+      }
+      validated = false;
+    }
+
+    if (validated) {
+      step3Submit();
+    }
+  }
+
+  function step3Submit() {
     var paramObjs = {};
     $.each($('#form-3').serializeArray(), function(_, kv) {
       if (kv.name.endsWith('Amount')) {
