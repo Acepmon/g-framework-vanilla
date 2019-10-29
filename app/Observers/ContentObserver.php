@@ -19,7 +19,15 @@ class ContentObserver
     {
         if ($content->isDirty('status') && $content->status == Content::STATUS_PUBLISHED && 
             $content->isDirty('visibility') && $content->visibility == Content::VISIBILITY_PUBLIC) {
-                
+
+            // Start my listings when I submit them
+            if ($content->metaValue('auctionStart') == 'start') {
+                $meta = new ContentMeta();
+                $meta->content_id = $content->id;
+                $meta->key = 'startsAt';
+                $meta->value = date("Y-m-d H:i:s");
+                $meta->save();
+            }
         }
     }
 

@@ -332,7 +332,7 @@
 
     function step1Submit() {
         let validated = true;
-        $('input[required], select[required]').each(function() {
+        $('#form-1 input[required], select[required]').each(function() {
             if ($(this).val() == "") {
                 let id = $(this).attr('id');
                 if (id) {

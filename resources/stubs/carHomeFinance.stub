@@ -42,16 +42,12 @@
               quidem consectetur hic, cum optio nam rerum. Dolorem hic explicabo eum, nobis deserunt inventore! Impedit
               voluptates corporis sed quas, error quia, asperiores ipsam officia aliquid vel modi, quos nulla fuga
               corrupti necessitatibus.</p>
-            <div class="col-md-8">
-              <a class="btn btn-primary btn-round btn-block my-4 shadow-soft-blue p-2 btn-icon-right" href="{{ url('/auction') }}">View
-                finance cars <i class="fab fa fa-angle-right"></i></a>
-            </div>
           </div>
         </div>
         <div class="col-md-12">
           <div class="row justify-content-md-center">
             <div class="col-md-6 text-center">
-              <a class="btn btn-danger btn-round my-4 shadow-red btn-lg px-5" href="#">Loan calculator</a>
+              <a class="btn btn-danger btn-round my-4 shadow-red btn-lg px-5" href="/monthly-installments?monthlyPrice=500000&firstPay=20&financeMonth=6&priceAmount=4590104">Loan calculator</a>
               <a class="btn btn-light btn-round my-4 shadow-soft-blue btn-lg px-5" href="#" data-toggle="modal" data-target="#modalLoanCalculator">Check loan</a>
             </div>
           </div>
