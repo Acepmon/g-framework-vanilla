@@ -100,7 +100,7 @@ try {
 
   // DEMO MULTISTEP TODO: CHANGE -->
   function nextPrev(i) {
-    var step = $('#steps').find('div.active').attr('id');
+    var step = $('#steps > .active').attr('id');
     step = parseInt(step.substring(step.length-1)) + i;
     if (step > 0 && step <= 4) {
       $("#tab-step-"+step).trigger('click');
