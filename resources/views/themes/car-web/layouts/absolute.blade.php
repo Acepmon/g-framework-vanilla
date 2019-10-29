@@ -30,6 +30,7 @@
 	<!-- /global stylesheets -->
 
     <script src="{{ asset('car-web/vendor/jquery/jquery.min.js') }}"></script>
+    <script src="{{ asset('car-web/js/helpers.js') }}"></script>
     @yield('load')
 
     @stack('styles')

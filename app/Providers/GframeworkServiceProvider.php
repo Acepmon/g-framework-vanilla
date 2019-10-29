@@ -402,7 +402,7 @@ class GframeworkServiceProvider extends ServiceProvider
     }
 
     private function sort($sort = 'id', $sortDir = 'asc') {
-        return "orderBy('" . $sort . "', '" . $sortDir . "')";
+        return "orderBy(" . $this->whereValueStr($sort) . ", '" . $sortDir . "')";
     }
 
     private function limit($limit = 15) {
