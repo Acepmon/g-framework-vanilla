@@ -2,6 +2,7 @@
 
 namespace Modules\Car\Entities;
 
+use DB;
 use App\Content;
 
 class Car extends Content
@@ -20,8 +21,11 @@ class Car extends Content
 
         
         if ($orderBy != 'updated_at') {
-            $contents = $contents->join('content_metas', 'contents.id', '=', 'content_metas.content_id')
-            ->where('content_metas.key', '=', $orderBy)->select('contents.*')->addSelect('content_metas.value');
+            $contents = $contents->leftJoin('content_metas', function($join) use($orderBy) {
+                $join->on('contents.id', '=', 'content_metas.content_id');
+                $join->where('content_metas.key', '=', $orderBy);
+            });
+            $contents = $contents->select('contents.*', DB::raw('IFNULL(content_metas.value, "0") as value'));//->addSelect('content_metas.value');
             if ($orderBy == 'priceAmount') {
                 $order = 'asc';
                 $contents = $contents->orderByRaw('LENGTH(value)', $order);
