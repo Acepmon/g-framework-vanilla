@@ -126,10 +126,11 @@
                             </div>
 
                             <div class="form-group row">
-                                <label for="displacement" class="col-form-label col-lg-2">Displacement</label>
+                                <label for="capacityAmount" class="col-form-label col-lg-2">Displacement</label>
                                 <div class="col-lg-10">
                                     <div class="input-group">
-                                        <input id="displacement" type="number" class="form-control" name="displacement" placeholder="Enter displacement volume..." invalid="true">
+                                        <input id="capacityAmount" type="number" class="form-control" name="capacityAmount" placeholder="Enter displacement volume..." invalid="true">
+                                        <input type="hidden" class="form-control" name="capacityUnit" value="cc">
                                         <span class="input-group-append">
                                             <span class="input-group-text">cc</span>
                                         </span>
