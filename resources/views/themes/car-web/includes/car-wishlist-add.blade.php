@@ -98,8 +98,8 @@
                     "markName": markName,
                     "modelName": modelName,
                     "priceUnit": priceUnit,
-                    "priceAmountStart": priceAmountStart,
-                    "priceAmountEnd": priceAmountEnd
+                    "priceAmountStart": parseInt(priceAmountStart.replace(/,/g, '')),
+                    "priceAmountEnd": parseInt(priceAmountEnd.replace(/,/g, ''))
                 };
                 $.ajax({
                     type: 'POST',

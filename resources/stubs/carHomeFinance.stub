@@ -37,11 +37,9 @@
             <h2>Сайн байна уу?</h2>
           </div>
           <div class="finance-information">
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorum nemo est dolores. Incidunt fugit vero,
-              quidem illum, fugiat cumque laboriosam provident fuga commodi tempora possimus. Harum reiciendis natus
-              quidem consectetur hic, cum optio nam rerum. Dolorem hic explicabo eum, nobis deserunt inventore! Impedit
-              voluptates corporis sed quas, error quia, asperiores ipsam officia aliquid vel modi, quos nulla fuga
-              corrupti necessitatibus.</p>
+            <p>Манай Auto Finance нь машин худалдаж авах гэж буй хэрэглэгч та бүхний төлбөрийн санаа зоволтыг багасгахын тулд, 
+              хамгийн бага хүүтэй лизингийн зээл болон машины барьцаат зээлийг санал болгож байна.</p>
+            <p>Хэрэглэгч таны авахыг хүссэн машин лизингийн зээл авах боломжтой эсэхийг мэдэхийг хүсвэл бидэнтэй холбогдоно уу.</p>
           </div>
         </div>
         <div class="col-md-12">
@@ -56,7 +54,7 @@
   </section>
 
 <!-- Hot deal Grid -->
-@include('themes.car-web.includes.section-slider', ['title' => 'Hot Deals', 'contents' => \App\Content::getByMetas('publishType', 'best_premium')->where('status', \App\Content::STATUS_PUBLISHED)->where('visibility', \App\Content::VISIBILITY_PUBLIC)->get(), 'morelink'=> url('/buy?best_premium=true')])
+@include('themes.car-web.includes.section-slider', ['title' => 'Hot Deals', 'contents' => \App\Content::getByMetas('publishType', 'best_premium')->where('status', \App\Content::STATUS_PUBLISHED)->where('visibility', \App\Content::VISIBILITY_PUBLIC)->get(), 'morelink'=> url('/buy?publishType=best_premium')])
 <!-- Hot deal End -->
 @include('themes.car-web.includes.modal-loan-check')
 

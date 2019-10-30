@@ -78,7 +78,7 @@
     <div class="form-row">
         <div class="form-group col-md-6">
             <label for="yearProduct">Year of Product:</label>
-            <select id="yearProduct" name="yearProduct" class="form-control">
+            <select id="yearProduct" name="buildYear" class="form-control">
                 <option value="" selected>Choose...</option>
                 @for($i=date('Y'); $i>=1990; $i--)
                 <option value="{{ $i }}" {{ ($car->metaValue('yearProduct') == $i)?'selected':'' }}>{{ $i }}</option>
@@ -87,7 +87,7 @@
         </div>
         <div class="form-group col-md-6">
             <label for="yearEntry">Year of Entry:</label>
-            <select id="yearEntry" name="yearEntry" class="form-control">
+            <select id="yearEntry" name="importDate" class="form-control">
                 <option value="" selected>Choose...</option>
                 @for($i=date('Y'); $i>=1990; $i--)
                 <option value="{{ $i }}" {{ ($car->metaValue('yearEntry') == $i)?'selected':'' }}>{{ $i }}</option>
@@ -414,6 +414,7 @@
     }
 
     function scrollTo(id) {
+        console.log(id);
         $([document.documentElement, document.body]).animate({
             scrollTop: $("#" + id).offset().top - 40
         }, 500);

@@ -1,4 +1,4 @@
-@if ($content)
+@if ($content && $content->author_id != Auth::id())
     <button type="button" id="saveToInterested" data-target="{{ $content->id }}" class="btn btn-light btn-round btn-block my-4 shadow-soft-blue p-3 btn-icon-left" disabled>
         Loading...
     </button>
@@ -41,9 +41,7 @@
                         }
                     },
                     error: function (error) {
-                        if (error.status == 401) {
-                            window.location.href = "{{ route('login') }}";
-                        }
+                        window.location.href = "{{ route('login') }}";
                     }
                 });
             });

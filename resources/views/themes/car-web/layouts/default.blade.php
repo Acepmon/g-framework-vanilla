@@ -30,6 +30,7 @@
 	<!-- /global stylesheets -->
 
     <script src="{{ asset('car-web/vendor/jquery/jquery.min.js') }}"></script>
+    <script src="{{ asset('car-web/js/helpers.js') }}"></script>
     @yield('load')
 
     @stack('styles')
@@ -52,11 +53,11 @@
     <script src="{{ asset('car-web/js/script.min.js') }}"></script>
     <script src="{{ asset('inputmask/jquery.inputmask.min.js') }}"></script>
     <script>
-    $.ajaxSetup({
-    headers: {
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    }
-    });
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
     </script>
     @yield('script')
 
