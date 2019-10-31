@@ -10,65 +10,141 @@
 
 @section('content')
 <div class="row">
-    <div class="car-list">
-
-        <!-- card start -->
-        <a href="detail-page.html" target="_blank" class="card">
-
-        <div class="card-body">
-            <div class="card-img">
-            <div class="premium-tag shadow-soft-blue"><img src="{{asset('car-web/img/icons/corona.svg')}}" alt=""></div>
-            <img src="{{asset('car-web/img/Cars/2.jpg')}}" class="img-fluid" alt="alt" />
-            </div>
-
-            <div class="card-description">
-            <div class="card-caption">
-                <div href="#" class="card-title">Hyundai Santa fe</div>
-                <div class="meta">2006/2013 | 17,820km</div>
-                <div class="price">12 Сая ₮</div>
-                <div class="favorite"><i class="icon-heart"></i> Add to interest list</div>
-            </div>
-            <!-- card info start -->
-            <div class="info">
-                <span class="info-icon">
-                <img src="{{asset('car-web/img/icons/engine.svg')}}" alt="">
-                <p>1499 L</p>
-                </span>
-                <span class="info-icon">
-                <img src="{{asset('car-web/img/icons/wheel.svg')}}" alt="">
-                <p>Right wheel</p>
-                </span>
-                <span class="info-icon">
-                <img src="{{asset('car-web/img/icons/gearShift.svg')}}" alt="">
-                <p>Automatic</p>
-                </span>
-                <span class="info-icon">
-                <img src="{{asset('car-web/img/icons/fuel.svg')}}" alt="">
-                <p>Gasoline</p>
-                </span>
-                <span class="info-icon">
-                <img src="{{asset('car-web/img/icons/transmision.svg')}}" alt="">
-                <p>4 WD</p>
-                </span>
-                <span class="info-icon color" data-color="black">
-                <p>Black</p>
-                </span>
-
-                <div class="tag">
-                <div onclick="">1 person</div>
-                <div onclick="">In Garage</div>
-                <div onclick="">4 Season tire</div>
-                <div onclick="">Bank Loan</div>
+    <h3 class="text-dark mt-1 mb-5">Interested car registration alert</h3>
+    {{--<ul class="col-md-12">--}}
+        {{--<li class="{{ request('sort')=='updated_at' ?'active':'' }}"><a href="#" onclick="formSubmit('sortBy', 'updated_at')">Recent cars</a></li>--}}
+        {{--<li class="{{ request('sort')=='priceAmount' ?'active':'' }}"><a href="#" onclick="formSubmit('sortBy', 'priceAmount')">Low price</a></li>--}}
+    {{--</ul>--}}
+    <div class="car-list sell-car card mb-5">
+        @content(type=car, as $car | paginate)
+        <div class="card border-left-0 border-right-0" style="border-radius: 0">
+            <div class="card-body">
+                <div class="card-img">
+                    <img src="{{$car->metaValue("thumbnail")}}" class="img-fluid" alt="alt" />
                 </div>
-
+                <div class="card-description">
+                    <div class="card-caption">
+                        <a href="{{ $car->slug }}" target="_blank">
+                            <div class="card-title">{{ (strlen($car->title) > 40)?substr($car->title, 0, 37) . '...':$car->title }}</div>
+                            <div class="meta">{{ $car->metaValue('buildYear') }}/{{ $car->metaValue('importDate') }} | {{ $car->metaValue('mileage') }}km</div>
+                            <div class="price">{{ numerizePrice($car->metaValue('priceAmount')) }} {{ $car->metaValue('priceUnit') }}</div>
+                        </a>
+                        @if(Auth::user() && $car->author_id == Auth::user()->id)
+                            <div class="favorite">
+                                <span class=""><i class="fas fa-car"></i> This is your car</span>
+                            </div>
+                        @else
+                            @if(Auth::user() && count(metaHas(Auth::user(), 'interestedCars', $car->id)->get()) > 0)
+                                <div class="favorite" onclick="addToInterest(event, {{$car->id}})">
+                                    <span class="text-danger"><i class="fas fa-heart"></i> Added to interest list</span>
+                                </div>
+                            @else
+                                <div class="favorite" onclick="addToInterest(event, {{$car->id}})">
+                                    <span class=""><i class="far fa-heart"></i> Add to interest list</span>
+                                </div>
+                            @endif
+                        @endif
+                    </div>
+                    <div class="info">
+                      <span class="info-icon">
+                        <img src="{{asset('car-web/img/icons/engine.svg')}}" alt="">
+                        <p>{{$car->metaValue("capacityAmount")}}{{$car->metaValue("capacityUnit")}}</p>
+                      </span>
+                        <span class="info-icon">
+                        <img src="{{asset('car-web/img/icons/wheel.svg')}}" alt="">
+                        <p>{{$car->metaValue("wheelPosition")}}</p>
+                      </span>
+                        <span class="info-icon">
+                        <img src="{{asset('car-web/img/icons/gearShift.svg')}}" alt="">
+                        <p>{{$car->metaValue("transmission")}}</p>
+                      </span>
+                        <span class="info-icon">
+                        <img src="{{asset('car-web/img/icons/fuel.svg')}}" alt="">
+                        <p>{{$car->metaValue("fuelType")}}</p>
+                      </span>
+                        <span class="info-icon">
+                        <img src="{{asset('car-web/img/icons/transmision.svg')}}" alt="">
+                        <p>{{$car->metaValue("chassis")}}</p>
+                      </span>
+                        <span class="info-icon color" data-color="black">
+                        <p>{{$car->metaValue("colorName")}}</p>
+                      </span>
+                        <div class="advantage-slider owl-carousel owl-theme">
+                            @foreach($car->metas->where('key', 'advantages') as $advantage)
+                                <a class="advantage-item" onclick="formSubmit('advantage', '{{$advantage->value}}')">{{ $advantage->value }}</a>
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
             </div>
-            <!-- card info end -->
-            </div>
-            <!-- card description end -->
         </div>
-        <!-- card body end -->
-        </a>
-        <!-- card end -->
+        @endcontent
+    </div>
+
+    <div class="car-list sell-car card">
+        @content(type=car, as $car | paginate)
+        <div class="card">
+            <div class="card-body">
+                <div class="card-img">
+                    <img src="{{$car->metaValue("thumbnail")}}" class="img-fluid" alt="alt" />
+                </div>
+                <div class="card-description">
+                    <div class="card-caption">
+                        <a href="{{ $car->slug }}" target="_blank">
+                            <div class="card-title">{{ (strlen($car->title) > 40)?substr($car->title, 0, 37) . '...':$car->title }}</div>
+                            <div class="meta">{{ $car->metaValue('buildYear') }}/{{ $car->metaValue('importDate') }} | {{ $car->metaValue('mileage') }}km</div>
+                            <div class="price">{{ numerizePrice($car->metaValue('priceAmount')) }} {{ $car->metaValue('priceUnit') }}</div>
+                        </a>
+                        @if(Auth::user() && $car->author_id == Auth::user()->id)
+                            <div class="favorite">
+                                <span class=""><i class="fas fa-car"></i> This is your car</span>
+                            </div>
+                        @else
+                            @if(Auth::user() && count(metaHas(Auth::user(), 'interestedCars', $car->id)->get()) > 0)
+                                <div class="favorite" onclick="addToInterest(event, {{$car->id}})">
+                                    <span class="text-danger"><i class="fas fa-heart"></i> Added to interest list</span>
+                                </div>
+                            @else
+                                <div class="favorite" onclick="addToInterest(event, {{$car->id}})">
+                                    <span class=""><i class="far fa-heart"></i> Add to interest list</span>
+                                </div>
+                            @endif
+                        @endif
+                    </div>
+                    <div class="info">
+                      <span class="info-icon">
+                        <img src="{{asset('car-web/img/icons/engine.svg')}}" alt="">
+                        <p>{{$car->metaValue("capacityAmount")}}{{$car->metaValue("capacityUnit")}}</p>
+                      </span>
+                        <span class="info-icon">
+                        <img src="{{asset('car-web/img/icons/wheel.svg')}}" alt="">
+                        <p>{{$car->metaValue("wheelPosition")}}</p>
+                      </span>
+                        <span class="info-icon">
+                        <img src="{{asset('car-web/img/icons/gearShift.svg')}}" alt="">
+                        <p>{{$car->metaValue("transmission")}}</p>
+                      </span>
+                        <span class="info-icon">
+                        <img src="{{asset('car-web/img/icons/fuel.svg')}}" alt="">
+                        <p>{{$car->metaValue("fuelType")}}</p>
+                      </span>
+                        <span class="info-icon">
+                        <img src="{{asset('car-web/img/icons/transmision.svg')}}" alt="">
+                        <p>{{$car->metaValue("chassis")}}</p>
+                      </span>
+                        <span class="info-icon color" data-color="black">
+                        <p>{{$car->metaValue("colorName")}}</p>
+                      </span>
+                        <div class="advantage-slider owl-carousel owl-theme">
+                            @foreach($car->metas->where('key', 'advantages') as $advantage)
+                                <a class="advantage-item" onclick="formSubmit('advantage', '{{$advantage->value}}')">{{ $advantage->value }}</a>
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @endcontent
     </div>
 
 </div>
