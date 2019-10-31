@@ -23,7 +23,7 @@ $categoryName = [
         <div class="card-body bg-light grid-radio gr-3">
             @foreach(App\TermTaxonomy::where('taxonomy', $category)->get() as $taxonomy)
             <div class="cd-radio">
-            <input type="checkbox" id="{{ $taxonomy->term->name }}" name="{{ $category }}[]" class="custom-control-input" value="{{ $taxonomy->term->name }}" {{ in_array($taxonomy->term->name, $request['carType'])?'checked':''}}>
+            <input type="radio" id="{{ $taxonomy->term->name }}" name="{{ $category }}" class="custom-control-input" value="{{ $taxonomy->term->name }}" {{ ($taxonomy->term->name == $request['carType'])?'checked':''}}>
             <label class="custom-control-label " for="{{ $taxonomy->term->name }}">
                 <img src="{{ asset('car-web/img/icons/'.strtolower($taxonomy->term->name).'.svg') }}">
                 <span>{{ $taxonomy->term->name }}</span>
@@ -37,8 +37,8 @@ $categoryName = [
         <div class="card-body bg-light grid-radio gr-2">
             @foreach(App\TermTaxonomy::where('taxonomy', $category)->get() as $taxonomy)
             <div class="custom-control custom-radio">
-            <input type="checkbox" id="color-{{ strtolower($taxonomy->term->name) }}" name="{{ $category }}[]" class="custom-control-input"
-                value="{{ $taxonomy->term->name }}" {{ in_array($taxonomy->term->name, $request['colorName'])?'checked':''}}>
+            <input type="radio" id="color-{{ strtolower($taxonomy->term->name) }}" name="{{ $category }}" class="custom-control-input"
+                value="{{ $taxonomy->term->name }}" {{ ($taxonomy->term->name == $request['colorName'])?'checked':''}}>
             <label class="custom-control-label d-flex" for="color-{{ strtolower($taxonomy->term->name) }}"><span class="color-icon color"
                 data-color="{{ strtolower($taxonomy->term->name) }}">
                 <p>{{ ucfirst($taxonomy->term->name) }}</p>
@@ -104,7 +104,7 @@ $categoryName = [
             @foreach($taxonomy_parent->children as $taxonomy)
             <div class="custom-control custom-radio">
             <!-- <a href="/car-list?{{ $category . '=' . $taxonomy->term->name }}" class="text-body text-decoration-none"> -->
-            <input type="checkbox" id="{{ $taxonomy->term->name }}" name="{{ $category }}[]" class="custom-control-input" value="{{ $taxonomy->term->name }}" {{ in_array($taxonomy->term->name, request($category, []))?'checked':'' }}>
+            <input type="radio" id="{{ $taxonomy->term->name }}" name="{{ $category }}" class="custom-control-input" value="{{ $taxonomy->term->name }}" {{ ($taxonomy->term->name == request($category, Null))?'checked':'' }}>
             <label class="custom-control-label  d-flex justify-content-between" for="{{ $taxonomy->term->name }}">{{ $taxonomy->term->name }}
                 @if($taxonomy->term)
                 <div class="text-muted">{{ metaHas(clone $allItems, $taxonomy->term->metaValue('metaKey'), '1')->count() }}</div>
@@ -123,10 +123,10 @@ $categoryName = [
             @foreach(App\TermTaxonomy::where('taxonomy', $category)->get() as $taxonomy)
             <div class="custom-control custom-radio">
             <!-- <a href="/car-list?{{ $category . '=' . $taxonomy->term->name }}" class="text-body text-decoration-none"> -->
-            <input type="checkbox" id="{{$taxonomy->term->name}}" name="{{ $category }}[]" class="custom-control-input" value="{{ $taxonomy->term->name }}" {{ in_array($taxonomy->term->name, request($category, []))?'checked':'' }}>
+            <input type="radio" id="{{$taxonomy->term->name}}" name="{{ $category }}" class="custom-control-input" value="{{ $taxonomy->term->name }}" {{ ($taxonomy->term->name == request($category, Null))?'checked':'' }}>
             <label class="custom-control-label  d-flex justify-content-between" for="{{$taxonomy->term->name}}">{{ $taxonomy->term->name }}
                 @if($taxonomy->term->group)
-                <div class="text-muted">{{ metaHas(clone $allItems, $taxonomy->term->group->metaValue('metaKey'), $taxonomy->term->name)->count() }}</div>
+                <div class="text-muted">{{ metaHas(\Modules\Car\Entities\Car::filter(clone $allItems, $request, $taxonomy->term->group->metaValue('metaKey')), $taxonomy->term->group->metaValue('metaKey'), $taxonomy->term->name)->count() }}</div>
                 @else
                 <div class="text-muted">{{ $taxonomy->count }}</div>
                 @endif

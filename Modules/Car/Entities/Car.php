@@ -37,13 +37,13 @@ class Car extends Content
         return $contents;
     }
 
-    public static function filter($contents, $filter = Null) {
+    public static function filter($contents, $filter = Null, $exclude = Null) {
         if ($contents == Null) {
             $contents = self::all()->orderBy('updated_at', 'desc');
         }
 
         foreach ($filter as $key => $value) {
-            if ($value != Null && !in_array($key, self::EXCEPT)) {
+            if ($key != $exclude && $value != Null && !in_array($key, self::EXCEPT)) {
                 $contents = metaHas($contents, $key, $value);
             }
         }
@@ -97,9 +97,9 @@ class Car extends Content
     */
     public static function manageRequest() {
         $request = [];
-        $request['carType'] = request('car-type', []);
+        $request['carType'] = request('car-type', Null);
         $request['markName'] = request('car-manufacturer', Null);
-        $request['colorName'] = request('car-colors', []);
+        $request['colorName'] = request('car-colors', Null);
         $request['fuelType'] = request('car-fuel', Null);
         $request['transmission'] = request('car-transmission', Null);
         $request['advantages'] = request('car-advantage', Null);
