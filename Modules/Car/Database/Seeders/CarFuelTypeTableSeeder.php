@@ -16,7 +16,7 @@ class CarFuelTypeTableSeeder extends Seeder
      */
     public function run()
     {
-        $fuelType = ['Бинзен', 'Цахилгаан', 'Дизель', 'Хайбрид', 'Газ'];
+        $fuelType = ['Gasoline', 'Electricity', 'Diesel', 'Hybrid', 'Gas'];
 
         $parent = TaxonomyManager::register('Car Fuel', 'car', null, ['metaKey' => 'fuelType']);
 
