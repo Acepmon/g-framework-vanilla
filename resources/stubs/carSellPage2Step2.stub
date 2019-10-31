@@ -161,20 +161,20 @@
             $("#demo-spinner").css({'display': 'none'});
             nextPrev(1);
             console.log("DONE Media!");
-            // $.ajax({
-            //     type: 'PUT',
-            //     url: '/ajax/contents/' + carId + '/metas/sync',
-            //     data: {"link":$('#link').val()}
-            // }).done(function(data) {
-            //     $("#demo-spinner").css({'display': 'none'});
-            //     nextPrev(1);
-            //     console.log("DONE!");
-            //     console.log(data);
-            // }).fail(function(err) {
-            //     $("#demo-spinner").css({'display': 'none'});
-            //     console.error("FAIL!");
-            //     console.error(err);
-            // });
+            $.ajax({
+                type: 'PUT',
+                url: '/ajax/contents/' + carId + '/metas/sync',
+                data: {"link":$('#link').val()}
+            }).done(function(data) {
+                $("#demo-spinner").css({'display': 'none'});
+                nextPrev(1);
+                console.log("DONE!");
+                console.log(data);
+            }).fail(function(err) {
+                $("#demo-spinner").css({'display': 'none'});
+                console.error("FAIL!");
+                console.error(err);
+            });
         }).fail(function(err) {
             $("#demo-spinner").css({'display': 'none'});
             console.error("FAIL!");
