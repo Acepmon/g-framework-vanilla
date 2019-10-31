@@ -5,7 +5,7 @@
             <div class="section-title">
                 <h2>Normal cars</h2>
                 <span>
-            <a href="/buy">See all ( @contentsTotal({"filter":[{"field":"type", "key":"car"}, {"field":"status", "key":"published"}]}) ) <i class="fab fa fa-angle-right"></i></a>
+            <a href="/buy">See all ( @contentsTotal({"filter":[{"field":"type", "key":"car"}, {"field":"status", "key":"published"}, {"field":"visibility", "key":"public"}]}) ) <i class="fab fa fa-angle-right"></i></a>
           </span>
             </div>
             <div class="car-list">

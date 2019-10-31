@@ -1,3 +1,4 @@
+{{--<form action="/file-upload"    class="dropzone"  id="my-awesome-dropzone"></form>--}}
 <form id="form-2" enctype="multipart/form-data">
     @csrf
     <div class="col-md-12">
@@ -10,6 +11,9 @@
                 <label class="custom-file-label" for="thumbnail">Choose file</label>
             </div>
         </div>
+        <div class="col-md-12">
+            <div id="preview-thumb"></div>
+        </div>
         <div class="input-group mb-3">
             <div class="input-group-prepend">
                 <span class="input-group-text">Media</span>
@@ -19,14 +23,18 @@
                 <label class="custom-file-label" for="media">Choose file</label>
             </div>
         </div>
-        <div class="form-group">
-            <label for="link">Youtube link</label>
-            <input type="text" name="link" class="form-control" id="link">
+        <div class="col-md-12">
+            <div id="preview-image"></div>
         </div>
-        {{--<div class="form-group row">--}}
-        {{--<label class="custom-file-label" for="thumbnail">Choose file</label>--}}
-        {{--<input type="file" id="thumbnail" name="thumbnail">--}}
-        {{--</div>--}}
+        <div class="col-md-12">
+            <div class="form-group">
+                <label for="link">Youtube link</label>
+                <input type="text" name="link" class="form-control" id="link" onchange="embedLink(this)">
+                <div class="col-md-12 text-center mt-3">
+                    <div id="video-container"></div>
+                </div>
+            </div>
+        </div>
     </div>
     <div style="float:right;">
         <button class="btn btn-light btn-round px-5 py-2 mr-3" type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
@@ -35,9 +43,21 @@
 </form>
 
 
-
-<style>
-
+<style type="text/css">
+    .thumbimage {
+        float:left;
+        height: 150px;
+        position:relative;
+        padding:5px;
+    }
+    #preview-image {
+        width: 100%;
+        display: inline-block;
+    }
+    #preview-thumb {
+        width: 100%;
+        display: inline-block;
+    }
 </style>
 <script>
     // $(document).ready(function () {
@@ -59,6 +79,75 @@
                 +'" frameborder="0" allowfullscreen></iframe>');
         }
     }
+
+    $("#thumbnail").on('change', function () {
+
+        var countFiles = $(this)[0].files.length;
+
+        var imgPath = $(this)[0].value;
+        var extn = imgPath.substring(imgPath.lastIndexOf('.') + 1).toLowerCase();
+        var image_holder = $("#preview-thumb");
+        image_holder.empty();
+
+        if (extn == "gif" || extn == "png" || extn == "jpg" || extn == "jpeg") {
+            if (typeof (FileReader) != "undefined") {
+
+                for (var i = 0; i < countFiles; i++) {
+
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        $("<img />", {
+                            "src": e.target.result,
+                            "class": "thumbimage"
+                        }).appendTo(image_holder);
+                    }
+
+                    image_holder.show();
+                    reader.readAsDataURL($(this)[0].files[i]);
+                }
+
+            } else {
+                alert("It doesn't supports");
+            }
+        } else {
+            alert("Select Only images");
+        }
+    });
+
+    $("#media").on('change', function () {
+
+        var countFiles = $(this)[0].files.length;
+
+        var imgPath = $(this)[0].value;
+        var extn = imgPath.substring(imgPath.lastIndexOf('.') + 1).toLowerCase();
+        var image_holder = $("#preview-image");
+        image_holder.empty();
+
+        if (extn == "gif" || extn == "png" || extn == "jpg" || extn == "jpeg") {
+            if (typeof (FileReader) != "undefined") {
+
+                for (var i = 0; i < countFiles; i++) {
+
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        $("<img />", {
+                            "src": e.target.result,
+                            "class": "thumbimage"
+                        }).appendTo(image_holder);
+                    }
+
+                    image_holder.show();
+                    reader.readAsDataURL($(this)[0].files[i]);
+                }
+
+            } else {
+                alert("It doesn't supports");
+            }
+        } else {
+            alert("Select Only images");
+        }
+    });
+
 
     function step2Submit() {
         event.preventDefault();
