@@ -107,7 +107,7 @@ $categoryName = [
             <input type="radio" id="{{ $taxonomy->term->name }}" name="{{ $category }}" class="custom-control-input" value="{{ $taxonomy->term->name }}" {{ ($taxonomy->term->name == request($category, Null))?'checked':'' }}>
             <label class="custom-control-label  d-flex justify-content-between" for="{{ $taxonomy->term->name }}">{{ $taxonomy->term->name }}
                 @if($taxonomy->term)
-                <div class="text-muted">{{ metaHas(clone $allItems, $taxonomy->term->metaValue('metaKey'), '1')->count() }}</div>
+                <div class="text-muted">{{ metaHas(\Modules\Car\Entities\Car::filter(clone $allItems, $request, $taxonomy->term->group->metaValue('metaKey')), $taxonomy->term->metaValue('metaKey'), '1')->count() }}</div>
                 @else
                 <div class="text-muted">{{ $taxonomy->count }}</div>
                 @endif
@@ -141,10 +141,22 @@ $categoryName = [
 
 </div>
 
+@push('modals')
+<!-- DEMO SPINNER TODO: CHANGE -->
+<div class="spinner-border" id="demo-spinner" role="status" style="position: fixed; z-index: 1000; top: 50%; left: 50%; display: none">
+  <span class="sr-only">Loading...</span>
+</div>
+@endpush
+
 @push('scripts')
 <script>
 $("input[type=radio]").click(submitMenu);
 $("input[type=checkbox]").click(submitMenu);
+$("input[type=radio], .page-link, .advantage-item, .sort-cars li").click(load);
+
+function load(event) {
+    $("#demo-spinner").css('display', 'block');
+}
 
 function submitMenu(event) {
     event.preventDefault();
