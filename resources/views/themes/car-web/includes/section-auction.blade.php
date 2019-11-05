@@ -12,29 +12,23 @@
                 <div class="row">
 
                     @content(type=car, publishType=best_premium, isAuction=1, limit=12 as $auctionPrmCars | paginate)
-                    @if($auctionPrmCars->author_id==Auth::user()->id)
-                        @php
-                            $itsIntCar=null
-                        @endphp
+                    @if(count($interestedCars) > 0)
+                        @foreach($interestedCars as $intCars)
+                            @if($intCars==$auctionPrmCars->id)
+                                @php
+                                    $itsIntCar=true;
+                                @endphp
+                                @break;
+                            @else
+                                @php
+                                    $itsIntCar=false;
+                                @endphp
+                            @endif
+                        @endforeach
                     @else
-                        @if(count($interestedCars) > 0)
-                            @foreach($interestedCars as $intCars)
-                                @if($intCars==$bpCars->id)
-                                    @php
-                                        $itsIntCar=true;
-                                    @endphp
-                                    @break;
-                                @else
-                                    @php
-                                        $itsIntCar=false;
-                                    @endphp
-                                @endif
-                            @endforeach
-                        @else
-                            @php
-                                $itsIntCar=false;
-                            @endphp
-                        @endif
+                        @php
+                            $itsIntCar=false;
+                        @endphp
                     @endif
                         <div class="col-lg-3 col-md-4">
                             <!-- card start -->
@@ -52,12 +46,12 @@
                                     </div>
                                     <div class="card-caption">
                                         <div id="countdown" class="countdown"  data-countdown="Jan 5, 2020 15:37:25"></div>
-                                        @if($itsIntCar==null)
+                                        @if(Auth::user()!=null && $auctionPrmCars->author_id==Auth::user()->id)
                                             <div class="favorite">
                                                 <span class=""><i class="fas fa-car"></i></span>
                                             </div>
                                         @else
-                                            <div class="favorite saveToInterested" data-target="{{ $bpCars->id }}">
+                                            <div class="favorite saveToInterested" data-target="{{ $auctionPrmCars->id }}">
                                                 @if($itsIntCar==true)
                                                     <span class="text-danger"><i class="fas fa-heart"></i></span>
                                                 @else

@@ -56,11 +56,11 @@ function put_blade_section(string $path, string $section, $replacement)
 function numerizePrice($value) {
     $value = floatval($value);
     if ($value < 1000) {
-        return $value;
+        return round($value, 2);
     } else if ($value < 1000000) {
-        return ($value / 1000) . ' мянга';
+        return round(($value / 1000), 2) . ' мянга';
     } else {
-        return ($value / 1000000) . ' сая';
+        return round(($value / 1000000), 2) . ' сая';
     }
 }
 
