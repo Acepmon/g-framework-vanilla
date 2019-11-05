@@ -12,9 +12,14 @@
                 <div class="row">
 
                     @content(type=car, publishType=best_premium, isAuction=1, limit=12 as $auctionPrmCars | paginate)
+                    @if($auctionPrmCars->author_id==Auth::user()->id)
+                        @php
+                            $itsIntCar=null
+                        @endphp
+                    @else
                         @if(count($interestedCars) > 0)
                             @foreach($interestedCars as $intCars)
-                                @if($intCars == $auctionPrmCars->id)
+                                @if($intCars==$bpCars->id)
                                     @php
                                         $itsIntCar=true;
                                     @endphp
@@ -25,7 +30,12 @@
                                     @endphp
                                 @endif
                             @endforeach
+                        @else
+                            @php
+                                $itsIntCar=false;
+                            @endphp
                         @endif
+                    @endif
                         <div class="col-lg-3 col-md-4">
                             <!-- card start -->
                             <div class="card cd-box auction-car">
@@ -42,13 +52,19 @@
                                     </div>
                                     <div class="card-caption">
                                         <div id="countdown" class="countdown"  data-countdown="Jan 5, 2020 15:37:25"></div>
-                                        <div class="favorite saveToInterested" data-target="{{ $auctionPrmCars->id }}">
-                                            @if($itsIntCar==true)
-                                                <span class="text-danger"><i class="fas fa-heart"></i></span>
-                                            @else
-                                                <i class="icon-heart"></i>
-                                            @endif
-                                        </div>
+                                        @if($itsIntCar==null)
+                                            <div class="favorite">
+                                                <span class=""><i class="fas fa-car"></i></span>
+                                            </div>
+                                        @else
+                                            <div class="favorite saveToInterested" data-target="{{ $bpCars->id }}">
+                                                @if($itsIntCar==true)
+                                                    <span class="text-danger"><i class="fas fa-heart"></i></span>
+                                                @else
+                                                    <i class="icon-heart"></i>
+                                                @endif
+                                            </div>
+                                        @endif
                                     </div>
                                 </div>
                                 <div class="card-body py-2">
