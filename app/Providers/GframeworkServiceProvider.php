@@ -73,7 +73,7 @@ class GframeworkServiceProvider extends ServiceProvider
             $returnArg = "";
 
             $contents = $this->parseContent($parsed, $returnArg);
-
+//            dd($contents);
             return "<?php {$variable} = $contents ?>";
         });
 
@@ -116,7 +116,7 @@ class GframeworkServiceProvider extends ServiceProvider
                 }
             }
             foreach ($someObject->filter as $some) {
-                    $contents = $contents->where($some->field, '=', $some->key);
+                $contents = $contents->where($some->field, '=', $some->key);
             }
             foreach ($metaInputs as $key => $value) {
                 $contents = $contents->whereHas('metas', function ($query) use ($key, $value) {
@@ -190,8 +190,8 @@ class GframeworkServiceProvider extends ServiceProvider
         $contents = "\App\Content";
         $sort = null;
         foreach ($parsed->filters as $index => $filter) {
-            $inputExcept = ['id', 'title', 'slug', 'content', 'type', 'status', 'visibility', 'limit', 'page', 'sort', 'author_id', '_token'];
-            $inputExcept2 = ['id', 'title', 'slug', 'content', 'type', 'author_id', '_token'];
+            $inputExcept = ['id', 'contents.id', 'title', 'slug', 'content', 'type', 'status', 'visibility', 'limit', 'page', 'sort', 'author_id', '_token'];
+            $inputExcept2 = ['id', 'contents.id', 'title', 'slug', 'content', 'type', 'author_id', '_token'];
             $pointer = $index == 0 ? '::' : '->';
 
             if (in_array($filter['field'], $inputExcept)) {
@@ -207,9 +207,9 @@ class GframeworkServiceProvider extends ServiceProvider
                 }
             } else {
                 $contents = $contents . $pointer . $this->whereHas('metas', [
-                    'key' => $filter['field'],
-                    'value' => [$filter['operator'] => $filter['value']]
-                ]);
+                        'key' => $filter['field'],
+                        'value' => [$filter['operator'] => $filter['value']]
+                    ]);
             }
         }
 
@@ -404,10 +404,10 @@ class GframeworkServiceProvider extends ServiceProvider
     private function sort($sort = 'id', $sortDir = 'asc') {
         $return = "";
         $sort = $this->whereValueStr($sort);
-        $return = $return . "leftJoin('content_metas', function(\$join) {" . 
-            "\$join->on('contents.id', '=', 'content_metas.content_id');" . 
+        $return = $return . "leftJoin('content_metas', function(\$join) {" .
+            "\$join->on('contents.id', '=', 'content_metas.content_id');" .
             "\$join->where('content_metas.key', '=', " . $sort . ");".
-            "})->select('contents.*', DB::raw('IFNULL(content_metas.value, \"0\") as '.".$sort."))->orderByRaw('LENGTH('.".$sort.".')', '" . $sortDir. "')->";
+            "})->select('contents.*', DB::raw('contents.id as id'), DB::raw('IFNULL(content_metas.value, \"0\") as '.".$sort."))->orderByRaw('LENGTH('.".$sort.".')', '" . $sortDir. "')->";
         $return = $return . "orderBy(".$sort.", '" . $sortDir . "')";
         return $return;
     }
