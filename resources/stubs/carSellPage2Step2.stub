@@ -165,7 +165,6 @@
             processData: false,
         }).done(function(data) {
             $("#demo-spinner").css({'display': 'none'});
-            nextPrev(1);
             console.log("DONE Media!");
             $.ajax({
                 type: 'PUT',

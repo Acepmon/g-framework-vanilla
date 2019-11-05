@@ -37,7 +37,7 @@
                                         @if ($content->metaValue('isAuction'))
                                             <div class="vehicle-price ml-3">
                                                 <img src="{{ asset('car-web/img/auction.svg') }}" alt="">
-                                                End Time: <span class="countdown" data-countdown="{{ $content->metaValue('endsAt') }}"></span>
+                                                End Time: <span class="countdown" data-countdown="{{ \Carbon\Carbon::parse($content->metaValue('endsAt'))->timezone(config('app.timezone')) }}"></span>
                                             </div>
                                         @endif
 
