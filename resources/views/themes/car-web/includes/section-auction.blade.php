@@ -69,7 +69,7 @@
                                         </div>
                                         <div class="card-meta">
                                             <div class="year">{{(getMetasValue($auctionPrmCars->metas, 'buildYear'))}} / {{(getMetasValue($auctionPrmCars->metas, 'importDate'))}}</div>
-                                            <div class="price">{{(getMetasValue($auctionPrmCars->metas, 'priceAmount'))}}{{(getMetasValue($auctionPrmCars->metas, 'priceUnit'))}}</div>
+                                            <div class="price">{{number_format((getMetasValue($auctionPrmCars->metas, 'priceAmount')))}}{{(getMetasValue($auctionPrmCars->metas, 'priceUnit'))}}</div>
                                         </div>
                                         <div class="overall">{{(getMetasValue($auctionPrmCars->metas, 'mileageAmount'))}} {{(getMetasValue($auctionPrmCars->metas, 'mileageUnit'))}}
                                             | {{(getMetasValue($auctionPrmCars->metas, 'fuelType'))}}

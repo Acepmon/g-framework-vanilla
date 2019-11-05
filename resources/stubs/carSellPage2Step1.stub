@@ -4,30 +4,30 @@
         <label for="carType">Select Car type:</label>
         <div class="grid-radio">
             <div class="cd-radio">
-                <input type="radio" id="sedan" name="carType" class="custom-control-input" checked>
+                <input type="radio" id="sedan" name="carType" value="Sedan" class="custom-control-input" checked>
                 <label class="custom-control-label " for="sedan"> <img src="{{ asset('car-web/img/icons/sedan.svg') }}" alt=""><span>Sedan</span>
                 </label>
             </div>
             <div class="cd-radio">
-                <input type="radio" id="suv" name="carType" class="custom-control-input">
+                <input type="radio" id="suv" name="carType" value="SUV" class="custom-control-input">
                 <label class="custom-control-label" for="suv"> <img src="{{ asset('car-web/img/icons/suv.svg') }}" alt=""><span>SUV</span> </label>
             </div>
             <div class="cd-radio">
-                <input type="radio" id="sport" name="carType" class="custom-control-input">
+                <input type="radio" id="sport" name="carType" value="Sport" class="custom-control-input">
                 <label class="custom-control-label " for="sport"> <img src="{{ asset('car-web/img/icons/sport.svg') }}" alt=""><span>Sport</span>
                 </label>
             </div>
             <div class="cd-radio">
-                <input type="radio" id="trucks" name="carType" class="custom-control-input">
+                <input type="radio" id="trucks" name="carType" value="Trucks" class="custom-control-input">
                 <label class="custom-control-label " for="trucks"> <img src="{{ asset('car-web/img/icons/truck.svg') }}" alt=""><span>Truck</span>
                 </label>
             </div>
             <div class="cd-radio">
-                <input type="radio" id="vans" name="carType" class="custom-control-input">
+                <input type="radio" id="vans" name="carType" value="Vans" class="custom-control-input">
                 <label class="custom-control-label " for="vans"> <img src="{{ asset('car-web/img/icons/van.svg') }}" alt=""><span>Van</span> </label>
             </div>
             <div class="cd-radio">
-                <input type="radio" id="bus" name="carType" class="custom-control-input">
+                <input type="radio" id="bus" name="carType" value="Bus" class="custom-control-input">
                 <label class="custom-control-label " for="bus"> <img src="{{ asset('car-web/img/icons/bus.svg') }}" alt=""><span>Bus</span></label>
             </div>
         </div>
@@ -81,7 +81,7 @@
             <select id="yearProduct" name="buildYear" class="form-control">
                 <option value="" selected>Choose...</option>
                 @for($i=date('Y'); $i>=1990; $i--)
-                <option value="{{ $i }}" {{ ($car->metaValue('yearProduct') == $i)?'selected':'' }}>{{ $i }}</option>
+                <option value="{{ $i }}" {{ ($car->metaValue('buildYear') == $i)?'selected':'' }}>{{ $i }}</option>
                 @endfor
             </select>
         </div>
@@ -90,7 +90,7 @@
             <select id="yearEntry" name="importDate" class="form-control">
                 <option value="" selected>Choose...</option>
                 @for($i=date('Y'); $i>=1990; $i--)
-                <option value="{{ $i }}" {{ ($car->metaValue('yearEntry') == $i)?'selected':'' }}>{{ $i }}</option>
+                <option value="{{ $i }}" {{ ($car->metaValue('importDate') == $i)?'selected':'' }}>{{ $i }}</option>
                 @endfor
             </select>
         </div>
@@ -276,8 +276,13 @@
         </div>
     </div>
 
+    @if(isset($edit) && $edit)
+    <div style="float:left;">
+        <button class="btn btn-success btn-round shadow-green px-5 py-2" type="button" id="saveBtn" onclick="save()">Save</button>
+    </div>
+    @endif
     <div style="float:right;">
-        <button class="btn btn-danger btn-round shadow-red px-5 py-2" type="button" id="nextBtn" onclick="step1Submit()">Next</button>
+        <button class="btn btn-danger btn-round shadow-red px-5 py-2" type="button" id="nextBtn" onclick="{{ (isset($edit) && $edit)?'nextPrev(1)':'step1Submit(()=>{})' }}">Next</button>
     </div>
 </form>
 
@@ -331,7 +336,7 @@
         });
     });
 
-    function step1Submit() {
+    function step1Submit(__callback) {
         let validated = true;
         $('#form-1 input[required], #form-1 select[required]').each(function() {
             if ($(this).val() == "") {
@@ -348,11 +353,13 @@
             }
         });
         if (validated) {
-            step1SubmitAjax();
+            step1SubmitAjax(__callback);
+        } else {
+            __callback(0);
         }
     }
-        
-    function step1SubmitAjax() {
+
+    function step1SubmitAjax(__callback) {
         var title = $("#manufacturerSelect").val() + ' ' + $("#modelSelect").val();
 
         $("#demo-spinner").css({'display': 'block'});
@@ -402,28 +409,18 @@
                         nextPrev(1);
                         console.log("DONE!");
                         console.log(data);
+                        __callback(1);
                     }).fail(fail);
                 } else {
                     $("#demo-spinner").css({'display': 'none'});
                     nextPrev(1);
                     console.log("DONE!");
                     console.log(data);
+                    __callback(1);
                 }
             }).fail(fail);
         }).fail(fail);
     }
 
-    function scrollTo(id) {
-        console.log(id);
-        $([document.documentElement, document.body]).animate({
-            scrollTop: $("#" + id).offset().top - 40
-        }, 500);
-    }
-
-    function fail(err) {
-        $("#demo-spinner").css({'display': 'none'});
-            console.error("FAIL!");
-            console.error(err);
-    }
 </script>
 @endpush

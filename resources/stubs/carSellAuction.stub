@@ -110,10 +110,14 @@ if ($startsAt) {
   </div>
   <br>
 
-  <!-- NEXT PREV BUTTON START -->
+  @if(isset($edit) && $edit)
+  <div style="float:left;">
+      <button class="btn btn-success btn-round shadow-green px-5 py-2" type="button" id="saveBtn" onclick="save()">Save</button>
+  </div>
+  @endif
   <div style="float:right;">
     <button class="btn btn-light btn-round px-5 py-2 mr-3" type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
-    <button class="btn btn-danger btn-round shadow-red px-5 py-2" type="button" id="nextBtn" onclick="step3Next(1)">Next</button>
+    <button class="btn btn-danger btn-round shadow-red px-5 py-2" type="button" id="nextBtn" onclick="{{ (isset($edit) && $edit)?'nextPrev(1)':'step3Submit(()=>{})' }}">Next</button>
   </div>
 </form>
 
@@ -149,7 +153,7 @@ if ($startsAt) {
     @endif
   });
 
-  function step3Next(i) {
+  function step3Submit(__callback) {
     let validated = true;
     $('#form-3 input[required], #form-3 select[required]').each(function() {
       if ($(this).val() == "") {
@@ -178,11 +182,13 @@ if ($startsAt) {
     }
 
     if (validated) {
-      step3Submit();
+      step3SubmitAjax(__callback);
+    } else {
+      __callback(0);
     }
   }
 
-  function step3Submit() {
+  function step3SubmitAjax(__callback) {
     var paramObjs = {};
     $.each($('#form-3').serializeArray(), function(_, kv) {
       if (kv.name.endsWith('Amount')) {
@@ -209,14 +215,9 @@ if ($startsAt) {
         'display': 'none'
       });
       console.log("STEP 3 DONE!");
-      nextPrev(1);        
-    }).fail(function(err) {
-      $("#demo-spinner").css({
-        'display': 'none'
-      });
-      console.error("FAIL!");
-      console.error(err);
-    });
+      nextPrev(1);
+      __callback(1);
+    }).fail(fail);
   }
 </script>
 @endpush

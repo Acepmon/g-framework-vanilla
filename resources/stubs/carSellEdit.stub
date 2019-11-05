@@ -39,37 +39,31 @@ try {
       <div class="col-md-10">
         <div class="card sell-car shadow-soft-blue">
           <div class="card-header">
-            <div class="step-process sp-4">
+            <div class="step-process sp-3">
               <div class='progress_inner_step active'>
-                <a class="nav-link" for='step-1' data-toggle="tab" href="#step-1" id="tab-step-1" role="tab">Add details</a>
+                <a class="nav-link" for='step-1' data-toggle="tab" href="#step-1" id="tab-step-1" role="tab">Edit details</a>
               </div>
               <div class='progress_inner_step'>
                 <a class="nav-link" for='step-2' data-toggle="tab" href="#step-2" id="tab-step-2" role="tab">Upload media</a>
               </div>
               <div class='progress_inner_step'>
-                <a class="nav-link" for='step-3' data-toggle="tab" href="#step-3" id="tab-step-3" role="tab">Add price</a>
-              </div>
-              <div class='progress_inner_step'>
-                <a class="nav-link" for='step-4' data-toggle="tab" href="#step-4" id="tab-step-4" role="tab">Publish type</a>
+                <a class="nav-link" for='step-3' data-toggle="tab" href="#step-3" id="tab-step-3" role="tab">Edit price</a>
               </div>
             </div>
           </div>
           <div class="card-body pb-5 tab-content" id="steps">
               <div id="step-1" class="tab-pane active show">
-                @include('pages.' . App\Content::where('slug', 'sell-car-page-2-step-1')->first()->currentView())
+                @include('pages.' . App\Content::where('slug', 'sell-car-page-2-step-1')->first()->currentView(), ['edit' => True])
               </div>
               <div id="step-2" class="tab-pane">
-                @include('pages.' . App\Content::where('slug', 'sell-car-page-2-step-2')->first()->currentView())
+                @include('pages.' . App\Content::where('slug', 'sell-car-page-2-step-2')->first()->currentView(), ['edit' => True])
               </div>
               <div id="step-3" class="tab-pane" role="tabpanel" aria-labelledby="tab-step-3">
                 @if($car->metaValue('isAuction'))
-                @include('pages.' . App\Content::where('slug', 'sell-car-auction')->first()->currentView())
+                @include('pages.' . App\Content::where('slug', 'sell-car-auction')->first()->currentView(), ['edit' => True])
                 @else
-                @include('pages.' . App\Content::where('slug', 'sell-car-page-2-step-3')->first()->currentView())
+                @include('pages.' . App\Content::where('slug', 'sell-car-page-2-step-3')->first()->currentView(), ['edit' => True])
                 @endif
-              </div>
-              <div id="step-4" class="tab-pane">
-                 @include('pages.' . App\Content::where('slug', 'sell-car-page-2-step-4')->first()->currentView())
               </div>
           </div>
         </div>
@@ -105,6 +99,30 @@ try {
     if (step > 0 && step <= 4) {
       $("#tab-step-"+step).trigger('click');
     }
+  }
+
+  function save() {
+    step1Submit((result) => {
+      if (result == 1) {
+        result = step2Submit((result) => {
+          console.log("saving step 2");
+          if (result == 1) {
+            result = step3Submit((result) => {
+              console.log("saving step 3");
+              if (result == 1) {
+                window.location.href = "/posts/{{ $carId }}";
+              } else {
+                $("#tab-step-3").click();
+              }
+            });
+          } else {
+            $("#tab-step-2").click();
+          }
+        });
+      } else {
+        $("#tab-step-1").click();
+      }
+    });
   }
 
   $(".step-process a").each(function(index) {
@@ -143,7 +161,7 @@ try {
     }, 500);
   }
 
-  function fail(err) {
+  function fail(err, __callback) {
     $("#demo-spinner").css({'display': 'none'});
     console.error("FAIL!");
     console.error(err);

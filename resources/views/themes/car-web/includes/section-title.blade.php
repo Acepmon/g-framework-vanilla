@@ -66,7 +66,7 @@
                                             @endif
 
                                             @if (Auth::user()->id == $content->author_id)
-                                                <a class="btn btn-light btn-round shadow-soft-blue px-3 ml-3" href="{{ url($content->slug . '/edit') }}">edit</a>
+                                                <a class="btn btn-light btn-round shadow-soft-blue px-3 ml-3" href="{{ url('edit?id='.$content->id) }}">Edit</a>
                                             @endif
                                         @endif
                                     </div>
