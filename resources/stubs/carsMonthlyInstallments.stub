@@ -289,5 +289,51 @@
     }
     $('#mainForm').submit();
     }
+
+    $(document).ready(function () {
+        // $.ajax({
+        //     url: '/ajax/user/interested_cars/200',
+        //     dataType: 'json',
+        //     success: function (data) {
+        //         $("#saveToInterested").html('<span class="text-danger"><i class="fas fa-heart"></i> Added to interest list</span>');
+        //         $("#saveToInterested").prop('disabled', false);
+        //     },
+        //     error: function (data) {
+        //         $("#saveToInterested").html('<span class=""><i class="far fa-heart"></i> Add to interest list</span>')
+        //         $("#saveToInterested").prop('disabled', false);
+        //     }
+        // });
+
+        $(".saveToInterested").click(function (event) {
+            event.preventDefault();
+            var id = $(this).attr('data-target');
+            var elm = $(this);
+            $.ajax({
+                url: '/ajax/user/interested_cars',
+                dataType: 'json',
+                method: 'PUT',
+                data: {
+                    'content_id': id
+                },
+                success: function (data) {
+                    console.log("success")
+
+                    if (data.status == 'added') {
+                        elm.html('<span class="text-danger"><i class="fas fa-heart"></i></span>');
+                    } else if (data.status == 'removed') {
+                        elm.html('<span class=""><i class="far fa-heart"></i></span>');
+                    }
+                },
+                error: function (error) {
+                    console.log("failed")
+                    console.log(error.status)
+                    if (error.status == 401  ){//|| error.status == 404) {
+                        window.location.href = "/login";
+                    }
+                }
+            });
+        });
+    });
+
     </script>
 @endsection
