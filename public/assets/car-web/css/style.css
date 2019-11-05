@@ -434,12 +434,12 @@ hr {
   width: -moz-max-content;
   width: max-content;
   height: 0;
-  display: none;
+  visibility: hidden;
   z-index: 1040;
   top: 20px;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1279.98px) {
   .fixed-sidebar {
     display: none;
   }
@@ -646,7 +646,7 @@ section .owl-theme .owl-dots .owl-dot.active span {
 
 .intro-advantages {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
 }
 
 .intro-advantages .intro-advantage {
@@ -656,6 +656,7 @@ section .owl-theme .owl-dots .owl-dot.active span {
   text-align: center;
   padding: 0 3rem;
   margin-top: 2rem;
+  width: 100%;
 }
 
 .intro-advantages .intro-advantage:last-child {
@@ -685,8 +686,49 @@ section .owl-theme .owl-dots .owl-dot.active span {
   width: 40px;
 }
 
-.about-main-text .list-items {
-  list-style: decimal;
+.about-heading-title {
+  font-size: 1.625rem;
+  color: #2B3651;
+  font-weight: 700;
+  position: relative;
+  margin-bottom: 30px;
+  text-transform: uppercase;
+}
+
+.about-heading-title::after {
+  content: '';
+  position: absolute;
+  height: 3px;
+  width: 80px;
+  background: #DF2626;
+  top: 50%;
+  transform: translateX(-50%);
+  margin-left: 60px;
+}
+
+.about-text {
+  color: #2B3651;
+  font-size: 1rem;
+}
+
+.about-text ol {
+  counter-reset: item;
+  margin: 0 0 1.5em;
+  padding: 0;
+}
+
+.about-text ol li {
+  list-style: none;
+  counter-increment: item;
+  padding-left: 30px;
+  position: relative;
+}
+
+.about-text ol li::before {
+  position: absolute;
+  margin-left: -30px;
+  font-weight: 700;
+  content: counter(item) ".";
 }
 
 .about-sequences {
@@ -711,7 +753,7 @@ section .owl-theme .owl-dots .owl-dot.active span {
   width: 100%;
   left: 50%;
   z-index: 0;
-  background: #fff;
+  background: #EAEEF1;
   content: '';
   position: absolute;
 }
@@ -724,7 +766,7 @@ section .owl-theme .owl-dots .owl-dot.active span {
   width: 150px;
   height: 150px;
   border-radius: 50%;
-  background: #fff;
+  background: #EAEEF1;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1559,6 +1601,22 @@ select {
 
 .left-bar-title .mh-search-input.expand .search-button svg .search-icon-1 {
   fill: #fff;
+}
+
+.car-filter #manufacture .models {
+  display: none;
+}
+
+.car-filter #manufacture .models .models-back {
+  cursor: pointer;
+  color: #2B3651;
+  margin-top: -.5rem;
+  margin-bottom: .5rem;
+  transition: all .3s ease;
+}
+
+.car-filter #manufacture .models .models-back:hover {
+  color: #2680EB;
 }
 
 .car-filter .grid-radio {
@@ -2735,6 +2793,142 @@ body.menu-absolute .header-menu {
   }
 }
 
+.header-menu.is-mobile .maz-navbar {
+  visibility: hidden;
+  position: fixed !important;
+  align-items: flex-start;
+  top: 0;
+  left: auto;
+  right: 0;
+  bottom: 0;
+  margin-top: 0;
+  background: #2B3651;
+  width: 320px;
+  height: 100%;
+  padding: 1rem 0;
+  transform: translateX(100%);
+  transition: transform .5s ease-in-out, visibility .5s linear .6s;
+}
+
+.header-menu.is-mobile .maz-navbar.extend {
+  visibility: visible;
+  z-index: 2020;
+  background: #2B3651;
+  transform: translateX(0);
+}
+
+.header-menu.is-mobile .maz-navbar .maz-menu {
+  width: 100%;
+  margin: 0;
+  align-items: start;
+  flex-direction: column;
+  padding: 0;
+}
+
+.header-menu.is-mobile .maz-navbar .maz-menu .maz-menu-list {
+  flex-direction: column;
+  position: relative;
+  width: 100%;
+  padding: 0;
+  margin-top: 4rem;
+}
+
+.header-menu.is-mobile .maz-navbar .maz-menu .maz-menu-list .maz-menu-item {
+  justify-content: flex-start;
+}
+
+.header-menu.is-mobile .maz-navbar .maz-menu .maz-menu-list .maz-menu-item .maz-menu-link {
+  color: #fff;
+  margin: 1rem 0;
+}
+
+.header-menu.is-mobile .maz-navbar .maz-menu .maz-menu-list .maz-menu-item .btn {
+  width: 100%;
+}
+
+.header-menu.is-mobile .maz-navbar.sticky {
+  background: #2B3651;
+}
+
+.header-menu.is-mobile .maz-navbar.sticky.hider {
+  transform: translateY(0) !important;
+}
+
+.header-menu.is-mobile .maz-navbar .maz-brand {
+  color: #EAEEF1;
+}
+
+.header-menu.is-mobile .maz-burger-menu {
+  display: flex;
+  overflow: hidden;
+  z-index: 999999999;
+  padding: 0.5rem;
+  box-sizing: content-box;
+}
+
+.header-menu.is-mobile .maz-burger-menu.extend {
+  height: 24px;
+}
+
+.header-menu.is-mobile .maz-burger-menu.extend span:nth-child(1) {
+  background: #F8F9FB;
+  transform: rotate(45deg) translate(4px, 0px);
+}
+
+.header-menu.is-mobile .maz-burger-menu.extend span:nth-child(2) {
+  transform: translateX(200%) translate(0, 0);
+}
+
+.header-menu.is-mobile .maz-burger-menu.extend span:nth-child(3) {
+  background: #F8F9FB;
+  transform: rotate(-45deg) translate(3px, 1px);
+}
+
+.header-menu.is-mobile .maz-mobile-brand {
+  display: block;
+  z-index: 2000;
+  box-sizing: border-box;
+}
+
+.header-menu.is-mobile .maz-mobile-brand img {
+  padding: .1rem 1rem;
+}
+
+.header-menu.is-mobile .maz-menu-top {
+  position: relative;
+  top: 0;
+}
+
+.header-menu.is-mobile .maz-menu-top .maz-menu {
+  position: relative;
+  left: 0;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-content: flex-start;
+  flex-wrap: wrap;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.header-menu.is-mobile .maz-menu-top .maz-menu .maz-menu-item {
+  text-align: left;
+  padding: 0 1rem;
+  margin: 1rem 0;
+}
+
+.header-menu.is-mobile .maz-menu-top .maz-menu .maz-menu-item.active a {
+  color: #DF2626;
+  font-weight: 600;
+}
+
+.header-menu.is-mobile .maz-menu-top .maz-menu .maz-menu-item a {
+  color: #E0E5EB;
+}
+
+.header-menu.is-mobile .maz-menu-top .maz-menu .maz-menu-item a:hover {
+  opacity: .5;
+}
+
 .maz-burger-menu {
   width: 24px;
   height: 21px;
@@ -3206,7 +3400,8 @@ section.page-section {
 section.page-section .section-heading {
   text-align: center;
   width: 100%;
-  font-size: 1.25rem;
+  font-size: 1.625rem;
+  margin-bottom: 4rem;
 }
 
 section.body-section {

@@ -99,6 +99,7 @@ class Car extends Content
         $request = [];
         $request['carType'] = request('car-type', Null);
         $request['markName'] = request('car-manufacturer', Null);
+        $request['modelName'] = request('car-model', Null);
         $request['colorName'] = request('car-colors', Null);
         $request['fuelType'] = request('car-fuel', Null);
         $request['transmission'] = request('car-transmission', Null);
