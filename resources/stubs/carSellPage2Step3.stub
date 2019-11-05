@@ -3,50 +3,85 @@
     <div class="form-row">
         <div class="form-group col-md-7">
             <label for="durationDay">Price</label>
-            </br>
+            <br>
             <h5>
                 <p class="text-secondary"><small>This is popular price of your car. You can tap to change price</small></p>
             </h5>
         </div>
         <div class="input-group col-md-7">
-            <input type="number" name="priceAmount" class="form-control" id="reserve-price" placeholder="0.00">
+            <input type="number" name="priceAmount" class="form-control" id="reserve-price" placeholder="0.00" required value="{{ $car->metaValue('priceAmount')?doubleval($car->metaValue('priceAmount')) / 1000000:'' }}">
             <div class="input-group-prepend">
                 <div class="input-group-text-right">Сая ₮</div>
             </div>
+            <span id="reserve-priceAlert" class="invalid-feedback" role="alert" style="display: none">
+                Please choose your price
+            </span>
         </div>
     </div>
     <div class="form-row mt-4">
         <div class="col-md-2">
             <div class="custom-control custom-radio">
-                <input type="radio" name="priceType" class="custom-control-input" id="sell-negotiate" value="negotiate" checked>
+                <input type="radio" name="priceType" class="custom-control-input" id="sell-negotiate" value="negotiate" {{ ($car->metaValue('priceType') == Null || $car->metaValue('priceType') == 'negotiate')?'checked':'' }}>
                 <label class="custom-control-label" for="sell-negotiate">Negotiate</label>
             </div>
         </div>
         <div class="col-md-2">
             <div class="custom-control custom-radio">
-                <input type="radio" name="priceType" class="custom-control-input" id="sell-change" value="change">
+                <input type="radio" name="priceType" class="custom-control-input" id="sell-change" value="change" {{ ($car->metaValue('priceType') == 'change')?'checked':'' }}>
                 <label class="custom-control-label" for="sell-change">Change</label>
             </div>
         </div>
         <div class="col-md-2">
             <div class="custom-control custom-radio">
-                <input type="radio" name="priceType" class="custom-control-input" id="sell-loan" value="loan">
+                <input type="radio" name="priceType" class="custom-control-input" id="sell-loan" value="loan" {{ ($car->metaValue('priceType') == 'loan')?'checked':'' }}>
                 <label class="custom-control-label" for="sell-loan">Loan</label>
             </div>
         </div>
     </div>
-    <!-- NEXT PREV BUTTON START -->
+    
+    @if(isset($edit) && $edit)
+    <div style="float:left;" class="mt-5">
+        <button class="btn btn-success btn-round shadow-green px-5 py-2" type="button" id="saveBtn" onclick="save()">Save</button>
+    </div>
+    @endif
     <div style="float:right;" class="mt-5">
         <button class="btn btn-light btn-round px-5 py-2 mr-3" type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
-        <button class="btn btn-danger btn-round shadow-red px-5 py-2" type="button" id="nextBtn" onclick="step3Submit()">Next</button>
+        <button class="btn btn-danger btn-round shadow-red px-5 py-2" type="button" id="nextBtn" onclick="{{ (isset($edit) && $edit)?'nextPrev(1)':'step3Submit(()=>{})' }}">Next</button>
     </div>
 </form>
 <script>
-    function step3Submit() {
+    function step3Submit(__callback) {
+        let validated = true;
+        $('#step-3-price input[required]').each(function() {
+            if ($(this).val() == "") {
+                let id = $(this).attr('id');
+                if (id) {
+                    $('#' + id).addClass('is-invalid');
+                    $('#' + id + 'Alert').css('display', 'block');
+                    if (validated) {
+                        scrollTo(id);
+                    }
+
+                    validated = false;
+                }
+            }
+        });
+        if (validated) {
+            step3SubmitAjax(__callback);
+        } else {
+            __callback(0);
+        }
+    }
+
+    function step3SubmitAjax(__callback) {
         $("#demo-spinner").css({'display': 'block'});
         var paramObjs = {};
         $.each($('#step-3-price').serializeArray(), function(_, kv) {
-            paramObjs[kv.name] = kv.value;
+            if (kv.name.endsWith('Amount')) {
+                paramObjs[kv.name] = parseFloat(kv.value) * 1000000 + "";
+            } else {
+                paramObjs[kv.name] = kv.value;
+            }
         });
         console.log(paramObjs);
         $.ajax({
@@ -58,10 +93,7 @@
             nextPrev(1);
             console.log("DONE!");
             console.log(data);
-        }).fail(function(err) {
-            $("#demo-spinner").css({'display': 'none'});
-            console.error("FAIL!");
-            console.error(err);
-        });
+            __callback(1);
+        }).fail(fail);
     }
 </script>
