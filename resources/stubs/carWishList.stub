@@ -92,7 +92,7 @@ $banner = App\Banner::where('location_id', 5)->where('status', 'active')->inRand
             <div class="container mt-5">
                 <div class="people-wish-list">
                     <div class="row mt-2">
-                        @contentInline(type=wanna-buy, markName=request()->input('markName'), modelName=request()->input('modelName'), priceAmountStart>=intval(request()->input('priceAmount')), sort=updated_at, limit=16 as $cars | paginate)
+                        @contentInline(type=wanna-buy, markName=request()->input('markName'), modelName=request()->input('modelName'), priceAmountStart>=intval(request()->input('priceAmount')), sortDir=desc, sort=updated_at, limit=16 as $cars | paginate)
                         @if($cars->total() != 0)
                         @foreach($cars as $car)
                             <div class="col-lg-3 col-md-4">

@@ -407,7 +407,7 @@ class GframeworkServiceProvider extends ServiceProvider
     private function sort($sort = 'id', $sortDir = 'asc') {
         $return = "";
         $sort = $this->whereValueStr($sort);
-        if ($sort != 'updated_at') {
+        if ($sort != "'updated_at'") {
             $return = $return . "leftJoin('content_metas', function(\$join) {" .
             "\$join->on('contents.id', '=', 'content_metas.content_id');" .
             "\$join->where('content_metas.key', '=', " . $sort . ");".
