@@ -166,20 +166,25 @@
         </div>
     </section>
 
-    <section id="hot-deal" class="mainPage-items bg-white">
+    <section id="hot-deal" class="mainPage-items bg-white pt-3">
         <div class="container">
             <div class="row">
-                {{--<ul class="col-md-12">--}}
-                    {{--<li class="{{ request('sort')=='updated_at' ?'active':'' }}"><a href="#" onclick="formSubmit('sortBy', 'updated_at')">Recent cars</a></li>--}}
-                    {{--<li class="{{ request('sort')=='priceAmount' ?'active':'' }}"><a href="#" onclick="formSubmit('sortBy', 'priceAmount')">Low price</a></li>--}}
-                {{--</ul>--}}
+                <div class="card page-top-navbar border-0">
+                    <div class="d-flex justify-content-start">
+                        @contentInline(type=car, priceAmount < intval(request()->input("priceAmount")) as $carDataMonthlyCount | paginate)
+                        <span class="total-cars ml-0" >{{count($carDataMonthlyCount)}} VEHICLES</span>
+                        <div class="sort-cars col-md-9">
+                            <ul>
+                                <li class="{{ request('sort')=='updated_at' ?'active':'' }}"><a href="#" onclick="formSubmit('sortBy', 'updated_at')">Recent cars</a></li>
+                                <li class="{{ request('sort')=='priceAmount' ?'active':'' }}"><a href="#" onclick="formSubmit('sortBy', 'priceAmount')">Low price</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
 
-                <div class="card-list">
+                <div class="card-list pt-3">
                     <div class="row">
-                        {{--@contents({"filter":[{"field":"type", "key":"car"}, {"field":"status", "key":"published"}], "metasFilter": [{"key":"publishType", "value":"best_premium"}], "limit":12, "returnVariable":"carDataPremium"})--}}
-                        {{--@content(type=car, priceAmount < intval(request()->input("priceAmount")), sort=request()->input("sort") as $carDataMonthly | paginate)--}}
-                        @content(type=car, priceAmount < intval(request()->input("priceAmount")), as $carDataMonthly | paginate)
-                    {{--{{$carDataMonthly->slug}}--}}
+                        @content(type=car, priceAmount < intval(request()->input("priceAmount")), sort=request()->input("sort") as $carDataMonthly | paginate)
                     <!-- col-start -->
                         <div class="col-lg-3 col-md-4">
                             <!-- card start -->
