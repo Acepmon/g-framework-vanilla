@@ -106,7 +106,12 @@ class UserController extends Controller
             $user->save();
         }
 
-        $inputExcept = ['id', 'username', 'email', 'email_verified_at', 'password', 'password_confirmation', 'name', 'avatar', 'language', 'remember_token', 'created_at', 'updated_at', 'deleted_at', 'social_id', 'social_provider', 'social_token'];
+        if ($request->has('phone') && $request->has('callcode')) {
+            $user->setMetaValue('phone', $request->input('callcode') . ' ' . $request->input('phone'));
+        }
+
+        $inputExcept = ['id', 'username', 'email', 'email_verified_at', 'password', 'password_confirmation', 'name', 'avatar', 'language', 'remember_token', 'created_at', 'updated_at', 'deleted_at', 'social_id', 'social_provider', 'social_token',
+            'phone', 'callcode'];
         $metaInputs = array_filter($request->input(), function ($key) use ($inputExcept) {
             return !in_array($key, $inputExcept);
         }, ARRAY_FILTER_USE_KEY);

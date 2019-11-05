@@ -113,6 +113,25 @@ function metaHas($items, $key, $value, $operator = '=', $min = Null, $max = Null
     });
 }
 
+function getTaxonomyCount($taxonomy, $items, $request) {
+    $count = $taxonomy->count;
+    if ($taxonomy->term->group) {
+        $count = metaHas(\Modules\Car\Entities\Car::filter(clone $items, $request, $taxonomy->term->group->metaValue('metaKey')), $taxonomy->term->group->metaValue('metaKey'), $taxonomy->term->name)->count();
+    }
+    return $count;
+}
+
+function countModel($items) {
+    $items->join('content_metas', function($join) {
+        $join->on('contents.id', '=', 'content_metas.content_id');
+        $join->where('content_metas.key', '=', 'modelName');
+    });
+    $items = $items->select('contents.*', 'content_metas.value');
+    $items = $items->groupBy('value');
+    dd($items->get());
+
+}
+
 function format_phone($phone) {
     $phone = trim($phone);
     $phone = str_replace(' ', '', $phone);

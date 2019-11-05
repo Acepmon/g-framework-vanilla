@@ -41,7 +41,7 @@
 
                                     <div class="card-caption">
                                         <div class="meta">{{$itsIntCar}}{{(getMetasValue($bpCars->metas, 'mileageAmaount'))}} {{(getMetasValue($bpCars->metas, 'mileageUnit'))}}| {{(getMetasValue($bpCars->metas, 'fuelType'))}} | {{(getMetasValue($bpCars->metas, 'capacityAmount'))}} {{(getMetasValue($bpCars->metas, 'capacityunit'))}}</div>
-                                        @if($bpCars->author_id==Auth::user()->id)
+                                        @if(Auth::user()!=null && $bpCars->author_id==Auth::user()->id)
                                             <div class="favorite">
                                                 <span class=""><i class="fas fa-car"></i></span>
                                             </div>

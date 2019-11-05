@@ -5,6 +5,15 @@
 @endsection
 
 @section('load')
+    @if(Auth::user()!=null)
+        @php
+            $interestedCars=Auth::user()->metaArray('interestedCars');
+        @endphp
+    @else
+        @php
+            $interestedCars=[];
+        @endphp
+    @endif
     <script type="text/javascript">
         $(document).ready(function () {
 
@@ -68,7 +77,6 @@
             }
         })
     </script>
-
 @endsection
 
 @section('content')
@@ -166,21 +174,45 @@
         </div>
     </section>
 
-    <section id="hot-deal" class="mainPage-items bg-white">
+    <section id="hot-deal" class="mainPage-items bg-white pt-3">
         <div class="container">
             <div class="row">
-                {{--<ul class="col-md-12">--}}
-                    {{--<li class="{{ request('sort')=='updated_at' ?'active':'' }}"><a href="#" onclick="formSubmit('sortBy', 'updated_at')">Recent cars</a></li>--}}
-                    {{--<li class="{{ request('sort')=='priceAmount' ?'active':'' }}"><a href="#" onclick="formSubmit('sortBy', 'priceAmount')">Low price</a></li>--}}
-                {{--</ul>--}}
+                <div class="card page-top-navbar border-0">
+                    <div class="d-flex justify-content-start">
+                        @contentInline(type=car, priceAmount < intval(request()->input("priceAmount")) as $carDataMonthlyCount | paginate)
+                        <span class="total-cars ml-0" >{{count($carDataMonthlyCount)}} VEHICLES</span>
+                        <div class="sort-cars col-md-9">
+                            <ul>
+                                <li class="{{ request('sort')=='updated_at' ?'active':'' }}"><a href="#" onclick="formSubmit('sortBy', 'updated_at')">Recent cars</a></li>
+                                <li class="{{ request('sort')=='priceAmount' ?'active':'' }}"><a href="#" onclick="formSubmit('sortBy', 'priceAmount')">Low price</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
 
-                <div class="card-list">
+                <div class="card-list pt-3">
                     <div class="row">
-                        {{--@contents({"filter":[{"field":"type", "key":"car"}, {"field":"status", "key":"published"}], "metasFilter": [{"key":"publishType", "value":"best_premium"}], "limit":12, "returnVariable":"carDataPremium"})--}}
-                        {{--@content(type=car, priceAmount < intval(request()->input("priceAmount")), sort=request()->input("sort") as $carDataMonthly | paginate)--}}
-                        @content(type=car, priceAmount < intval(request()->input("priceAmount")), as $carDataMonthly | paginate)
-                    {{--{{$carDataMonthly->slug}}--}}
+                        @content(type=car, priceAmount < intval(request()->input("priceAmount")), sort=request()->input("sort") as $carDataMonthly | paginate)
+                        @if(count($interestedCars) > 0)
+                            @foreach($interestedCars as $intCars)
+                                @if($intCars==$carDataMonthly->id)
+                                    @php
+                                        $itsIntCar=true;
+                                    @endphp
+                                    @break;
+                            @else
+                                @php
+                                    $itsIntCar=false;
+                                @endphp
+                            @endif
+                        @endforeach
+                    @else
+                        @php
+                            $itsIntCar=false;
+                        @endphp
+                    @endif
                     <!-- col-start -->
+
                         <div class="col-lg-3 col-md-4">
                             <!-- card start -->
                             <a href="{{$carDataMonthly->slug}}" target="_blank" class="card cd-box">
@@ -195,9 +227,19 @@
                                             class="meta">{{$carDataMonthly->metaValue("mileageAmaount")}} {{$carDataMonthly->metaValue("mileageUnit")}}
                                             | {{$carDataMonthly->metaValue("fuelType")}}
                                             | {{$carDataMonthly->metaValue("capacityAmount")}} {{$carDataMonthly->metaValue("capacityunit")}}</div>
-                                        <div class="favorite">
-                                            <i class="icon-heart"></i>
-                                        </div>
+                                        @if(Auth::user()!=null && $carDataMonthly->author_id==Auth::user()->id)
+                                            <div class="favorite">
+                                                <span class=""><i class="fas fa-car"></i></span>
+                                            </div>
+                                        @else
+                                            <div class="favorite saveToInterested" data-target="{{ $carDataMonthly->id }}">
+                                                @if($itsIntCar==true)
+                                                    <span class="text-danger"><i class="fas fa-heart"></i></span>
+                                                @else
+                                                    <i class="icon-heart"></i>
+                                                @endif
+                                            </div>
+                                        @endif
                                     </div>
                                 </div>
                                 <div class="card-body py-2">
@@ -247,5 +289,51 @@
     }
     $('#mainForm').submit();
     }
+
+    $(document).ready(function () {
+        // $.ajax({
+        //     url: '/ajax/user/interested_cars/200',
+        //     dataType: 'json',
+        //     success: function (data) {
+        //         $("#saveToInterested").html('<span class="text-danger"><i class="fas fa-heart"></i> Added to interest list</span>');
+        //         $("#saveToInterested").prop('disabled', false);
+        //     },
+        //     error: function (data) {
+        //         $("#saveToInterested").html('<span class=""><i class="far fa-heart"></i> Add to interest list</span>')
+        //         $("#saveToInterested").prop('disabled', false);
+        //     }
+        // });
+
+        $(".saveToInterested").click(function (event) {
+            event.preventDefault();
+            var id = $(this).attr('data-target');
+            var elm = $(this);
+            $.ajax({
+                url: '/ajax/user/interested_cars',
+                dataType: 'json',
+                method: 'PUT',
+                data: {
+                    'content_id': id
+                },
+                success: function (data) {
+                    console.log("success")
+
+                    if (data.status == 'added') {
+                        elm.html('<span class="text-danger"><i class="fas fa-heart"></i></span>');
+                    } else if (data.status == 'removed') {
+                        elm.html('<span class=""><i class="far fa-heart"></i></span>');
+                    }
+                },
+                error: function (error) {
+                    console.log("failed")
+                    console.log(error.status)
+                    if (error.status == 401  ){//|| error.status == 404) {
+                        window.location.href = "/login";
+                    }
+                }
+            });
+        });
+    });
+
     </script>
 @endsection

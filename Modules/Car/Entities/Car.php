@@ -19,7 +19,6 @@ class Car extends Content
             $contents = self::all();
         }
 
-        
         if ($orderBy != 'updated_at') {
             $contents = $contents->leftJoin('content_metas', function($join) use($orderBy) {
                 $join->on('contents.id', '=', 'content_metas.content_id');
@@ -99,6 +98,7 @@ class Car extends Content
         $request = [];
         $request['carType'] = request('car-type', Null);
         $request['markName'] = request('car-manufacturer', Null);
+        $request['modelName'] = request('car-model', Null);
         $request['colorName'] = request('car-colors', Null);
         $request['fuelType'] = request('car-fuel', Null);
         $request['transmission'] = request('car-transmission', Null);
