@@ -19,7 +19,6 @@ class Car extends Content
             $contents = self::all();
         }
 
-        
         if ($orderBy != 'updated_at') {
             $contents = $contents->leftJoin('content_metas', function($join) use($orderBy) {
                 $join->on('contents.id', '=', 'content_metas.content_id');

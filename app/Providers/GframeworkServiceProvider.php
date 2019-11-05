@@ -402,7 +402,14 @@ class GframeworkServiceProvider extends ServiceProvider
     }
 
     private function sort($sort = 'id', $sortDir = 'asc') {
-        return "orderBy(" . $this->whereValueStr($sort) . ", '" . $sortDir . "')";
+        $return = "";
+        $sort = $this->whereValueStr($sort);
+        $return = $return . "leftJoin('content_metas', function(\$join) {" . 
+            "\$join->on('contents.id', '=', 'content_metas.content_id');" . 
+            "\$join->where('content_metas.key', '=', " . $sort . ");".
+            "})->select('contents.*', DB::raw('IFNULL(content_metas.value, \"0\") as '.".$sort."))->orderByRaw('LENGTH('.".$sort.".')', '" . $sortDir. "')->";
+        $return = $return . "orderBy(".$sort.", '" . $sortDir . "')";
+        return $return;
     }
 
     private function limit($limit = 15) {
