@@ -46,7 +46,7 @@
                                     </div>
                                     <div class="card-caption">
                                         <div id="countdown" class="countdown"  data-countdown="Jan 5, 2020 15:37:25"></div>
-                                        @if($auctionPrmCars->author_id==Auth::user()->id)
+                                        @if(Auth::user()!=null && $auctionPrmCars->author_id==Auth::user()->id)
                                             <div class="favorite">
                                                 <span class=""><i class="fas fa-car"></i></span>
                                             </div>

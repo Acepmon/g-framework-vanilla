@@ -41,7 +41,7 @@
                                             <div class="card-title">{{$othCars->title}}</div>
                                             <div class="meta">{{(getMetasValue($othCars->metas,'buildYear'))}} / {{(getMetasValue($othCars->metas,'importDate'))}} | {{(getMetasValue($othCars->metas,'mileageAmount'))}} {{(getMetasValue($othCars->metas,'mileageUnit'))}}</div>
                                             <div class="price">{{numerizePrice((getMetasValue($othCars->metas,'priceAmount')))}} {{(getMetasValue($othCars->metas, 'priceUnit'))}}</div>
-                                            @if($othCars->author_id==Auth::user()->id)
+                                            @if(Auth::user()!=null && $othCars->author_id==Auth::user()->id)
                                                 <div class="favorite">
                                                     <span class=""><i class="fas fa-car"></i> This is your car</span>
                                                 </div>
