@@ -27,7 +27,7 @@
                 @if ($content->metaValue('interested'))
                     <div class="dealer-more">
                         <div class="value">
-                            <p>{{ $content->metaValue('interested') }}</p>
+                            <p id="interestedStat">{{ $content->metaValue('interested') }}</p>
                         </div>
                         <div class="title">Нийт сонирхсон</div>
                     </div>
@@ -35,23 +35,4 @@
             </div>
         </div>
     </div>
-
-    @push('scripts')
-        <script>
-            $(document).ready(function () {
-                $.ajax({
-                    url: '/ajax/contents/{{ $content->id }}',
-                    method: 'PUT',
-                    data: {
-                        action: 'increment',
-                        actionField: 'viewed',
-                        actionValue: '1'
-                    },
-                    success: function (data) {
-                        console.log(data);
-                    }
-                })
-            });
-        </script>
-    @endpush
 @endif

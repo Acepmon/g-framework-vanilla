@@ -178,8 +178,8 @@ class Content extends Model
                 $meta->save();
                 return $meta;
             } else {
-                $newMeta = new UserMeta();
-                $newMeta->user_id = $this->user_id;
+                $newMeta = new ContentMeta();
+                $newMeta->content_id = $this->id;
                 $newMeta->key = $key;
                 $newMeta->value = $value;
                 $newMeta->save();
@@ -193,12 +193,33 @@ class Content extends Model
 
     public function attachMetaArray($key, $value) {
         try {
-            $newMeta = new UserMeta();
-            $newMeta->user_id = $this->user_id;
+            $newMeta = new ContentMeta();
+            $newMeta->content_id = $this->id;
             $newMeta->key = $key;
             $newMeta->value = $value;
             $newMeta->save();
             return $newMeta;
+        } catch (\Exception $ex) {
+            return Null;
+        }
+        return Null;
+    }
+
+    public function incrementMetaValue($key, $inc = 1) {
+        try {
+            $meta = $this->metas->where('key', $key)->first();
+            if (isset($meta)) {
+                $meta->value = $inc + (int) $meta->value;
+                $meta->save();
+                return $meta;
+            } else {
+                $newMeta = new ContentMeta();
+                $newMeta->content_id = $this->id;
+                $newMeta->key = $key;
+                $newMeta->value = "1";
+                $newMeta->save();
+                return $newMeta;
+            }
         } catch (\Exception $ex) {
             return Null;
         }
