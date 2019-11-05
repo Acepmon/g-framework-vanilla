@@ -12,20 +12,29 @@
             <div class="card-list mx-n3">
                 <div class="row">
                     @content(type=car, publishType=best_premium, isAuction=0, limit=12 as $bpCars | paginate)
-
-                        @if(count($interestedCars) > 0)
-                            @foreach($interestedCars as $intCars)
-                                @if($intCars==$bpCars->id)
-                                    @php
-                                        $itsIntCar=true;
-                                    @endphp
-                                    @break;
-                                @else
-                                    @php
-                                        $itsIntCar=false;
-                                    @endphp
-                                @endif
-                            @endforeach
+                        @if($bpCars->author_id==Auth::user()->id)
+                            @php
+                                $itsIntCar=null
+                            @endphp
+                        @else
+                            @if(count($interestedCars) > 0)
+                                @foreach($interestedCars as $intCars)
+                                    @if($intCars==$bpCars->id)
+                                        @php
+                                            $itsIntCar=true;
+                                        @endphp
+                                        @break;
+                                    @else
+                                        @php
+                                            $itsIntCar=false;
+                                        @endphp
+                                    @endif
+                                @endforeach
+                            @else
+                                @php
+                                    $itsIntCar=false;
+                                @endphp
+                            @endif
                         @endif
 
                           <!-- col-start -->
@@ -38,13 +47,19 @@
 
                                     <div class="card-caption">
                                         <div class="meta">{{(getMetasValue($bpCars->metas, 'mileageAmaount'))}} {{(getMetasValue($bpCars->metas, 'mileageUnit'))}}| {{(getMetasValue($bpCars->metas, 'fuelType'))}} | {{(getMetasValue($bpCars->metas, 'capacityAmount'))}} {{(getMetasValue($bpCars->metas, 'capacityunit'))}}</div>
-                                        <div class="favorite saveToInterested" data-target="{{ $bpCars->id }}">
-                                            @if($itsIntCar==true)
-                                                <span class="text-danger"><i class="fas fa-heart"></i></span>
-                                            @else
-                                                <i class="icon-heart"></i>
-                                            @endif
-                                        </div>
+                                        @if($itsIntCar==null)
+                                            <div class="favorite">
+                                                <span class=""><i class="fas fa-car"></i></span>
+                                            </div>
+                                        @else
+                                            <div class="favorite saveToInterested" data-target="{{ $bpCars->id }}">
+                                                @if($itsIntCar==true)
+                                                    <span class="text-danger"><i class="fas fa-heart"></i></span>
+                                                @else
+                                                    <i class="icon-heart"></i>
+                                                @endif
+                                            </div>
+                                        @endif
                                     </div>
                                 </div>
                                 <div class="card-body py-2">
