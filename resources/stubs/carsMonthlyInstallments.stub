@@ -5,6 +5,15 @@
 @endsection
 
 @section('load')
+    @if(Auth::user()!=null)
+        @php
+            $interestedCars=Auth::user()->metaArray('interestedCars');
+        @endphp
+    @else
+        @php
+            $interestedCars=[];
+        @endphp
+    @endif
     <script type="text/javascript">
         $(document).ready(function () {
 
@@ -68,7 +77,6 @@
             }
         })
     </script>
-
 @endsection
 
 @section('content')
@@ -185,7 +193,26 @@
                 <div class="card-list pt-3">
                     <div class="row">
                         @content(type=car, priceAmount < intval(request()->input("priceAmount")), sort=request()->input("sort") as $carDataMonthly | paginate)
+                        @if(count($interestedCars) > 0)
+                            @foreach($interestedCars as $intCars)
+                                @if($intCars==$carDataMonthly->id)
+                                    @php
+                                        $itsIntCar=true;
+                                    @endphp
+                                    @break;
+                            @else
+                                @php
+                                    $itsIntCar=false;
+                                @endphp
+                            @endif
+                        @endforeach
+                    @else
+                        @php
+                            $itsIntCar=false;
+                        @endphp
+                    @endif
                     <!-- col-start -->
+
                         <div class="col-lg-3 col-md-4">
                             <!-- card start -->
                             <a href="{{$carDataMonthly->slug}}" target="_blank" class="card cd-box">
@@ -200,9 +227,19 @@
                                             class="meta">{{$carDataMonthly->metaValue("mileageAmaount")}} {{$carDataMonthly->metaValue("mileageUnit")}}
                                             | {{$carDataMonthly->metaValue("fuelType")}}
                                             | {{$carDataMonthly->metaValue("capacityAmount")}} {{$carDataMonthly->metaValue("capacityunit")}}</div>
-                                        <div class="favorite">
-                                            <i class="icon-heart"></i>
-                                        </div>
+                                        @if(Auth::user()!=null && $carDataMonthly->author_id==Auth::user()->id)
+                                            <div class="favorite">
+                                                <span class=""><i class="fas fa-car"></i></span>
+                                            </div>
+                                        @else
+                                            <div class="favorite saveToInterested" data-target="{{ $carDataMonthly->id }}">
+                                                @if($itsIntCar==true)
+                                                    <span class="text-danger"><i class="fas fa-heart"></i></span>
+                                                @else
+                                                    <i class="icon-heart"></i>
+                                                @endif
+                                            </div>
+                                        @endif
                                     </div>
                                 </div>
                                 <div class="card-body py-2">
