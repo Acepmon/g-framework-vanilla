@@ -84,7 +84,7 @@
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <button type="button" id="modalVerifyCarClose" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
@@ -98,15 +98,19 @@
                                     <span data-toggle="tooltip" data-placement="top" title="I don't know what to say here!" class="ml-2 icon-question"></span>
                                 </label>
 
-                                <div class="dropzone">
+                                <!-- <div class="dropzone">
                                     <input type="file" name="doctorVerificationFile" id="doctorVerificationFile" hidden>
                                     <span>Upload</span>
+                                </div> -->
+                                <div class="custom-file">
+                                    <input name="doc" type="file" class="custom-file-input" id="docFile">
+                                    <label class="custom-file-label" for="docFile">Choose file</label>
                                 </div>
                             </div>
                         </form>
                     </div>
                     <div class="modal-footer pb-5">
-                        <button type="button" class="btn btn-danger btn-round px-5 py-2 shadow-red">Send</button>
+                        <button type="button" class="btn btn-danger btn-round px-5 py-2 shadow-red" onclick="sendDoctorVerify()">Send</button>
                     </div>
                 </div>
             </div>
@@ -152,6 +156,28 @@
                     mazCountdown.html("EXPIRED");
                 }
             }, 1000);
+
+            function sendDoctorVerify() {
+                $("#demo-spinner").css({'display': 'block'});
+                var docData = new FormData();
+                let doctorsFile = $("#docFile")[0].files[0];
+                docData.append('doc', doctorsFile);
+                $.ajax({
+                    type: 'POST',
+                    url: '/ajax/contents/{{ $content->id }}/doc',
+                    enctype: 'multipart/form-data',
+                    processData: false,
+                    contentType: false,
+                    cache: false,
+                    data: docData
+                }).done(function(data) {
+                    $("#demo-spinner").css({'display': 'none'});
+                    $("#modalVerifyCarClose").click();
+                }).fail(function () {
+                    $("#demo-spinner").css({'display': 'none'});
+                    alert("File is not uploaded. Please try again later");
+                });
+            }
         </script>
     @endpush
 
