@@ -45,7 +45,7 @@
                                         <span class="color" data-color="white"><p>{{(getMetasValue($auctionPrmCars->metas, 'colorName'))}}</p></span>
                                     </div>
                                     <div class="card-caption">
-                                        <div id="countdown" class="countdown"  data-countdown="Jan 5, 2020 15:37:25"></div>
+                                        <div id="countdown" class="countdown"  data-countdown="{{ $auctionPrmCars->metaValue('endsAt') }}"></div>
                                         @if(Auth::user()!=null && $auctionPrmCars->author_id==Auth::user()->id)
                                             <div class="favorite">
                                                 <span class=""><i class="fas fa-car"></i></span>
@@ -69,7 +69,7 @@
                                         </div>
                                         <div class="card-meta">
                                             <div class="year">{{(getMetasValue($auctionPrmCars->metas, 'buildYear'))}} / {{(getMetasValue($auctionPrmCars->metas, 'importDate'))}}</div>
-                                            <div class="price">{{(getMetasValue($auctionPrmCars->metas, 'priceAmount'))}}{{(getMetasValue($auctionPrmCars->metas, 'priceUnit'))}}</div>
+                                            <div class="price">{{number_format((getMetasValue($auctionPrmCars->metas, 'priceAmount')))}}{{(getMetasValue($auctionPrmCars->metas, 'priceUnit'))}}</div>
                                         </div>
                                         <div class="overall">{{(getMetasValue($auctionPrmCars->metas, 'mileageAmount'))}} {{(getMetasValue($auctionPrmCars->metas, 'mileageUnit'))}}
                                             | {{(getMetasValue($auctionPrmCars->metas, 'fuelType'))}}
