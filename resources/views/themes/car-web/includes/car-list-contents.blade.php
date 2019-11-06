@@ -71,7 +71,7 @@ if ($itemCount < $page * $itemsPerPage) {
     <div class="d-flex justify-content-start">
         <span class="total-cars">{{ count($items) }} VEHICLES</span>
         <input type="hidden" name="orderBy" id="orderBy" value="{{ $orderBy }}" />
-        <input type="hidden" name="premium" id="premium" value="{{ $filterPremium }}" />
+        <input type="hidden" name="publishType" id="publishType" value="{{ $request['publishType'] }}" />
 
     <div class="sort-cars">
     <ul>

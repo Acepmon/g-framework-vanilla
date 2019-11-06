@@ -9,7 +9,7 @@
             </div>
         </div>
 
-            <div class="card-list mx-n3">
+            <div class="card-list mx-n2">
                 <div class="row">
                     @content(type=car, publishType=best_premium, isAuction=0, limit=12 as $bpCars | paginate)
                     @if(count($interestedCars) > 0)
