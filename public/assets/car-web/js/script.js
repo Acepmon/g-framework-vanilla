@@ -297,6 +297,8 @@
                 html += '</div>';
                 $('#manufacturerBody').append(html);
                 switchToModel(val);
+                $("input[type=radio][name=\"car-model\"]").click(submitMenu);
+                $("input[type=radio][name=\"car-model\"]").click(load);
             }).fail(function(err) {
                 // $("#demo-spinner").css({'display': 'none'});
                 console.error("FAIL!");

@@ -41,8 +41,8 @@ $categoryName = [
         <div id="manufacturerBody" class="card-body bg-light">
             <div class="manufacturer">
                 @php
-                //$mmrequest = array_diff_key($request, ['markName'=>Null, 'modelName'=>Null]);
-                //$mmItems = \Modules\Car\Entities\Car::filter(clone $allItems, $mmrequest);
+                $mmrequest = array_diff_key($request, ['markName'=>Null, 'modelName'=>Null]);
+                $mmItems = \Modules\Car\Entities\Car::filter(clone $allItems, $mmrequest);
                 //$mmItems->leftJoin('content_metas', function($join) {
                 //    $join->on('contents.id', 'content_metas.id');
                 //    $join->where('key', 'markName');
@@ -52,7 +52,7 @@ $categoryName = [
                 
                 @foreach(App\TermTaxonomy::where('taxonomy', $category)->get() as $taxonomy)
                 @php
-                $count = getTaxonomyCount($taxonomy, $allItems, $request);
+                $count = getTaxonomyCount($taxonomy, $mmItems, $request);
                 @endphp
                 @if($count > 0)
                 @php
