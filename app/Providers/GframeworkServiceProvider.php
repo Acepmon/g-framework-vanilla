@@ -407,13 +407,14 @@ class GframeworkServiceProvider extends ServiceProvider
     private function sort($sort = 'updated_at', $sortDir = 'desc') {
         $return = "";
         $sort = $this->whereValueStr($sort);
+        $sortDir = $this->whereValueStr($sortDir);
         $return = $return . "; if(" . $sort . " != 'updated_at') {\$tmp = \$tmp->";
         $return = $return . "leftJoin('content_metas', function(\$join) {" .
         "\$join->on('contents.id', '=', 'content_metas.content_id');" .
         "\$join->where('content_metas.key', '=', " . $sort . ");" .
-        "})->select('contents.*', DB::raw('contents.id as id'), DB::raw('IFNULL(content_metas.value, \"0\") as '.".$sort."))->orderByRaw('LENGTH('.".$sort.".')', '" . $sortDir. "')";
+        "})->select('contents.*', DB::raw('contents.id as id'), DB::raw('IFNULL(content_metas.value, \"0\") as '.".$sort."))->orderByRaw('LENGTH('.".$sort.".')', " . $sortDir. ")";
         $return = $return . ";}\$tmp = \$tmp";
-        $return = $return . "->orderBy(".$sort.", '" . $sortDir . "')";
+        $return = $return . "->orderBy(".$sort.", " . $sortDir . ")";
         return $return;
     }
 
