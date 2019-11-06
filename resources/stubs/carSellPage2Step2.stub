@@ -20,7 +20,7 @@
                 <span class="input-group-text">Media</span>
             </div>
             <div class="custom-file">
-                <input type="file" name="medias[]" multiple class="custom-file-input" id="media">
+                <input type="file" name="medias[]" multiple class="custom-file-input" id="media" accept="image/x-png,image/gif,image/jpeg">
                 <label class="custom-file-label" for="media">Choose file</label>
             </div>
         </div>
