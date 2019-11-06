@@ -5,7 +5,15 @@
 @endsection
 
 @section('load')
-
+    @if(Auth::user()!=null)
+        @php
+            $interestedCars=Auth::user()->metaArray('interestedCars');
+        @endphp
+    @else
+        @php
+            $interestedCars=[];
+        @endphp
+    @endif
 @endsection
 
 @section('content')
@@ -37,7 +45,7 @@
             <h2>Сайн байна уу?</h2>
           </div>
           <div class="finance-information">
-            <p>Манай Auto Finance нь машин худалдаж авах гэж буй хэрэглэгч та бүхний төлбөрийн санаа зоволтыг багасгахын тулд, 
+            <p>Манай Auto Finance нь машин худалдаж авах гэж буй хэрэглэгч та бүхний төлбөрийн санаа зоволтыг багасгахын тулд,
               хамгийн бага хүүтэй лизингийн зээл болон машины барьцаат зээлийг санал болгож байна.</p>
             <p>Хэрэглэгч таны авахыг хүссэн машин лизингийн зээл авах боломжтой эсэхийг мэдэхийг хүсвэл бидэнтэй холбогдоно уу.</p>
           </div>
@@ -45,20 +53,172 @@
         <div class="col-md-12">
           <div class="row justify-content-md-center">
             <div class="col-md-6 text-center">
-              <a class="btn btn-danger btn-round my-4 shadow-red btn-lg px-5" href="/monthly-installments?monthlyPrice=500000&firstPay=20&financeMonth=6&priceAmount=4590104">Loan calculator</a>
+              <a class="btn btn-danger btn-round my-4 shadow-red btn-lg px-5" href="/monthly-installments?monthlyPrice=500000&firstPay=20&financeMonth=6&priceAmount=4590104&sort=updated_at">Loan calculator</a>
               <a class="btn btn-light btn-round my-4 shadow-soft-blue btn-lg px-5" href="#" data-toggle="modal" data-target="#modalLoanCalculator">Check loan</a>
             </div>
           </div>
         </div>
       </div>
+    </div>
   </section>
 
 <!-- Hot deal Grid -->
-@include('themes.car-web.includes.section-slider', ['title' => 'Hot Deals', 'contents' => \App\Content::getByMetas('publishType', 'best_premium')->where('status', \App\Content::STATUS_PUBLISHED)->where('visibility', \App\Content::VISIBILITY_PUBLIC)->get(), 'morelink'=> url('/buy?publishType=best_premium')])
+<section id="hot-deal" class="mainPage-items bg-white">
+    <div class="container">
+        <div class="row">
+            <div class="section-title">
+                <h2>Loan cars</h2>
+                <span>
+            <a href="/buy">See all<i class="fab fa fa-angle-right"></i></a>
+          </span>
+            </div>
+        </div>
+
+        <div class="card-list mx-n3">
+            <div class="row">
+                @content(type=car, author_id=1 isAuction=0 as $finCars | paginate)
+                @if(count($interestedCars) > 0)
+                    @foreach($interestedCars as $intCars)
+                        @if($intCars==$finCars->id)
+                            @php
+                                $itsIntCar=true;
+                            @endphp
+                            @break;
+                    @else
+                        @php
+                            $itsIntCar=false;
+                        @endphp
+                    @endif
+                @endforeach
+            @else
+                @php
+                    $itsIntCar=false;
+                @endphp
+            @endif
+
+            <!-- col-start -->
+                <div class="col-lg-3 col-md-4">
+                    <!-- card start -->
+                    <a href="{{$finCars->slug}}" target="_blank" class="card cd-box">
+
+                        @if((getMetasValue($finCars->metas, 'publishType'))=="best_premium")
+                        <div class="premium-tag shadow-soft-blue">
+                            <img src="{{asset('car-web/img/icons/corona.svg')}}" alt="">
+                        </div>
+                            @else
+                        @endif
+                        <div class="card-img">
+                            <img src="{{(getMetasValue($finCars->metas, 'thumbnail'))}}" class="img-fluid" alt="alt">
+
+                            <div class="card-caption">
+                                <div class="meta">{{$itsIntCar}}{{(getMetasValue($finCars->metas, 'mileageAmaount'))}} {{(getMetasValue($finCars->metas, 'mileageUnit'))}}| {{(getMetasValue($finCars->metas, 'fuelType'))}} | {{(getMetasValue($finCars->metas, 'capacityAmount'))}} {{(getMetasValue($finCars->metas, 'capacityunit'))}}</div>
+                                @if(Auth::user()!=null && $finCars->author_id==Auth::user()->id)
+                                    <div class="favorite">
+                                        <span class=""><i class="fas fa-car"></i></span>
+                                    </div>
+                                @else
+                                    <div class="favorite saveToInterested" data-target="{{ $finCars->id }}">
+                                        @if($itsIntCar==true)
+                                            <span class="text-danger"><i class="fas fa-heart"></i></span>
+                                        @else
+                                            <i class="icon-heart"></i>
+                                        @endif
+                                    </div>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="card-body py-2">
+                            <div class="card-description">
+                                <div class="card-desc-top">
+                                    <div class="card-title">{{$finCars->title}} {{(getMetasValue($finCars->metas, 'publishType'))}}</div>
+                                    <div class="price">{{numerizePrice((getMetasValue($finCars->metas, 'priceAmount')))}} {{(getMetasValue($finCars->metas, 'priceUnit'))}}</div>
+                                </div>
+
+                                <div class="card-meta">
+                                    <div class="year">{{(getMetasValue($finCars->metas, 'buildYear'))}} / {{(getMetasValue($finCars->metas, 'importDate'))}}</div>
+                                </div>
+                                <div class="status">{{(getMetasValue($finCars->metas, 'priceType'))}}</div>
+                            </div>
+                        </div>
+                    </a>
+                    <!-- card end -->
+                </div>
+                <!-- col-end -->
+                @endcontent
+            </div>
+        </div>
+    </div>
+</section>
 <!-- Hot deal End -->
 @include('themes.car-web.includes.modal-loan-check')
 
 @endsection
 
 @section('script')
+    <script>
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $(document).ready(function () {
+
+            $(".saveToInterested").click(function (event) {
+                event.preventDefault();
+                var id = $(this).attr('data-target');
+                var elm = $(this);
+                $.ajax({
+                    url: '/ajax/user/interested_cars',
+                    dataType: 'json',
+                    method: 'PUT',
+                    data: {
+                        'content_id': id
+                    },
+                    success: function (data) {
+                        console.log("success")
+
+                        if (data.status == 'added') {
+                            elm.html('<span class="text-danger"><i class="fas fa-heart"></i></span>');
+                        } else if (data.status == 'removed') {
+                            elm.html('<span class=""><i class="far fa-heart"></i></span>');
+                        }
+                    },
+                    error: function (error) {
+                        console.log("failed")
+                        console.log(error.status)
+                        if (error.status == 401  ){//|| error.status == 404) {
+                            window.location.href = "/login";
+                        }
+                    }
+                });
+            });
+            $(".saveToInterestedOther").click(function (event) {
+                event.preventDefault();
+                var id = $(this).attr('data-target');
+                var elm = $(this);
+                $.ajax({
+                    url: '/ajax/user/interested_cars',
+                    dataType: 'json',
+                    method: 'PUT',
+                    data: {
+                        'content_id': id
+                    },
+                    success: function (data) {
+                        if (data.status == 'added') {
+                            elm.html('<span class="text-danger"><i class="fas fa-heart"></i> Added to interest list</span>');
+                        } else if (data.status == 'removed') {
+                            elm.html('<span class=""><i class="far fa-heart"></i> Add to interest list</span>');
+                        }
+                    },
+                    error: function (error) {
+                        console.log("failed")
+                        console.log(error.status)
+                        if (error.status == 401  ){//|| error.status == 404) {
+                            window.location.href = "/login";
+                        }
+                    }
+                });
+            });
+        });
+    </script>
 @endsection

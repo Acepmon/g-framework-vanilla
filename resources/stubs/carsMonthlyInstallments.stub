@@ -167,8 +167,8 @@
             <div class="col-md-12 text-center">
                     <input hidden id="searchByTotPrice" value="{{ request('priceAmount')}}" name="priceAmount">
                     <input hidden id="sortBy" name="sort">
+                    <input hidden id="sortDir" name="sortDir">
                     <button type="submit" id="searchFitCars" class="btn btn-danger btn-round  mt-5 px-5 btn-lg">Хайлт хийх</button>
-
             </div>
             </form>
         </div>
@@ -183,8 +183,8 @@
                         <span class="total-cars ml-0" >{{count($carDataMonthlyCount)}} VEHICLES</span>
                         <div class="sort-cars col-md-9">
                             <ul>
-                                <li class="{{ request('sort')=='updated_at' ?'active':'' }}"><a href="#" onclick="formSubmit('sortBy', 'updated_at')">Recent cars</a></li>
-                                <li class="{{ request('sort')=='priceAmount' ?'active':'' }}"><a href="#" onclick="formSubmit('sortBy', 'priceAmount')">Low price</a></li>
+                                <li class="{{ request('sort')=='updated_at' ?'active':'' }}"><a href="#" onclick="formSubmit('sortBy', 'updated_at', 'sortDir', 'desc')">Recent cars</a></li>
+                                <li class="{{ request('sort')=='priceAmount' ?'active':'' }}"><a href="#" onclick="formSubmit('sortBy', 'priceAmount', 'sortDir', 'asc')">Low price</a></li>
                             </ul>
                         </div>
                     </div>
@@ -282,28 +282,18 @@
 
 @section('script')
     <script type="text/javascript">
-    function formSubmit(id, value) {
+    function formSubmit(id, value, sortDir, sortDirValue) {
         console.log(id)
     if (value != 'no-value') {
     document.getElementById(id).value = value;
+    }
+    if (sortDir != 'no-value'){
+        document.getElementById(sortDir).value = sortDirValue;
     }
     $('#mainForm').submit();
     }
 
     $(document).ready(function () {
-        // $.ajax({
-        //     url: '/ajax/user/interested_cars/200',
-        //     dataType: 'json',
-        //     success: function (data) {
-        //         $("#saveToInterested").html('<span class="text-danger"><i class="fas fa-heart"></i> Added to interest list</span>');
-        //         $("#saveToInterested").prop('disabled', false);
-        //     },
-        //     error: function (data) {
-        //         $("#saveToInterested").html('<span class=""><i class="far fa-heart"></i> Add to interest list</span>')
-        //         $("#saveToInterested").prop('disabled', false);
-        //     }
-        // });
-
         $(".saveToInterested").click(function (event) {
             event.preventDefault();
             var id = $(this).attr('data-target');
