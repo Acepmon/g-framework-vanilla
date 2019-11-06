@@ -14,6 +14,7 @@
         <div class="col-md-12">
             <div id="preview-thumb"></div>
         </div>
+
         <div class="input-group mb-3">
             <div class="input-group-prepend">
                 <span class="input-group-text">Media</span>
@@ -75,6 +76,7 @@
     // });
 </script>
 <script type="text/javascript">
+
     function embedLink(input) {
         var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
         var match = input.value.match(regExp);
@@ -120,14 +122,20 @@
         }
     });
 
-    $("#media").on('change', function () {
+    var fileList = [];
 
+    $("#media").on('change', function () {
+        var files = $(this)[0].files;
+        for (var i=0; i<files.length; i++) {
+            fileList.push(files[0]);
+        }
+        console.log(fileList);
         var countFiles = $(this)[0].files.length;
 
         var imgPath = $(this)[0].value;
         var extn = imgPath.substring(imgPath.lastIndexOf('.') + 1).toLowerCase();
         var image_holder = $("#preview-image");
-        image_holder.empty();
+        //image_holder.empty();
 
         if (extn == "gif" || extn == "png" || extn == "jpg" || extn == "jpeg") {
             if (typeof (FileReader) != "undefined") {
@@ -136,10 +144,25 @@
 
                     var reader = new FileReader();
                     reader.onload = function (e) {
-                        $("<img />", {
-                            "src": e.target.result,
-                            "class": "thumbimage"
+                        var srcimg= e.target.result
+                        $("<div class='previewImg' style='margin-left:15px'>" +
+                            "<img src='"+srcimg+"' class='thumbimage' />" +
+                            "<button class='btn btn-round btn-sm btn-danger position-absolute' style='z-index:1'><i class='fas fa-times'></button>"+
+                            "</div>", {
+
                         }).appendTo(image_holder);
+                        var srcimg
+                        // $("<img />", {
+                        //     "src": e.target.result,
+                        //     "class": "thumbimage"
+                        // }).appendTo();
+                        // $("<img />", {
+                        //     "src": e.target.result,
+                        //     "class": "thumbimage"
+                        // }).appendTo(image_holder);
+                        // $("<button>X Delete</button>", {
+                        //     "class": "deleteImg"
+                        // }).appendTo(image_holder);
                     }
 
                     image_holder.show();
@@ -157,10 +180,15 @@
 
     function step2Submit(__callback) {
         event.preventDefault();
+        formData = new FormData($("#form-2")[0]);
+        formData.delete("medias[]");
+        for (var i=0; i<fileList.length; i++) {
+            formData.append("medias[]", fileList[i]);
+        }
         $.ajax({
             type: 'POST',
             url: '/ajax/contents/' + carId+ '/medias',
-            data: new FormData($("#form-2")[0]),
+            data: formData,
             contentType: false,
             processData: false,
         }).done(function(data) {
@@ -172,7 +200,7 @@
                 data: {"link":$('#link').val()}
             }).done(function(data) {
                 $("#demo-spinner").css({'display': 'none'});
-                nextPrev(1);
+                // /nextPrev(1);
                 console.log("DONE!");
                 console.log(data);
                 __callback(1);
