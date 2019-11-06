@@ -454,11 +454,11 @@ hr {
 .fixed-sidebar {
   width: max-content;
   height: 0;
-  display: none;
+  visibility: hidden;
   z-index: 1040;
   top: 20px;
 
-  @media (max-width: 768px) {
+  @media (max-width: 1279.98px) {
     display: none;
   }
 }

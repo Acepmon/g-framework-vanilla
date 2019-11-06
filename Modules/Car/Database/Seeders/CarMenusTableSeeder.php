@@ -32,6 +32,7 @@ class CarMenusTableSeeder extends Seeder
             ['Auction Cars', '/admin/modules/car/auction', 'icon-hammer2', 'Car'],
             ['Verification Requests', '/admin/modules/car/verifications', 'icon-clipboard2', 'Car'],
             ['Car Options', '/admin/modules/car/options', 'icon-cog', 'Car'],
+            ['Wishlist', '/admin/modules/car/wishlist', 'icon-star-empty3', 'Car'],
         ];
         $carMainMenus = ['Car Main', '', '', 'Car', [
             ['Home', '/', '', 'Car'],
@@ -42,11 +43,11 @@ class CarMenusTableSeeder extends Seeder
             ['Wish List', '/wishlist', '', 'Car']
         ]];
         $carTopbarMenus = ['Car Topbar', '', '', 'Car', [
-            ['About Us', '/about-us', '', 'Car'],
+            ['About Us', '/about-technical-examination', '', 'Car'],
             ['Write wanna buy', '/wishlist', '', 'Car']
         ]];
         $carFooterMenus = ['Car Footer', '', '', 'Car', [
-            ['About', '/about-us', '', 'Car'],
+            ['About Us', '/about-technical-examination', '', 'Car'],
             ['Write wanna buy', '/wishlist', '', 'Car']
         ]];
         $carProfileDropdownMenus = ['Car Profile Dropdown', '', '', 'Car', [

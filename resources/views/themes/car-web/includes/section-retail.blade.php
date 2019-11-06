@@ -12,47 +12,47 @@
             </div>
             <div class="row">
                 <div class="col-md-5">
-                    @if ($content->metaValue('retailImage'))
-                        <img src="{{ $content->metaValue('retailImage') }}" alt="" class="img-fluid">
+                    @if ($content->metaValue('image'))
+                        <img src="{{ $content->metaValue('image') }}" alt="" class="img-fluid">
                     @endif
                 </div>
                 <div class="col-md-7">
                     <div class="retail-information">
-                        @if ($content->metaValue('retailName'))
+                        @if ($content->title)
                             <div class="d-flex justify-content-between retail-head py-2">
-                                <div class="retail-name">{{ $content->metaValue('retailName') }}</div>
+                                <div class="retail-name">{{ $content->title }}</div>
 
-                                @if ($content->metaValue('retailPhone'))
-                                    <div class="retail-phone">{{ format_phone($content->metaValue('retailPhone')) }}</div>
+                                @if ($content->metaValue('phone'))
+                                    <div class="retail-phone">{{ format_phone($content->metaValue('phone')) }}</div>
                                 @endif
                             </div>
                         @endif
 
-                        @if ($content->metaValue('retailAddress'))
+                        @if ($content->metaValue('address'))
                             <div class="retail-row">
                                 <div class="row-title">Retail address</div>
-                                <div class="row-info">{{ $content->metaValue('retailAddress') }}</div>
+                                <div class="row-info">{{ $content->metaValue('address') }}</div>
                             </div>
                         @endif
 
-                        @if ($content->metaValue('retailOpenHours'))
+                        @if ($content->metaValue('openHours'))
                             <div class="retail-row">
                                 <div class="row-title">Open hours</div>
-                                <div class="row-info">{{ $content->metaValue('retailOpenHours') }}</div>
+                                <div class="row-info">{{ $content->metaValue('openHours') }}</div>
                             </div>
                         @endif
 
-                        @if ($content->metaValue('retailVehicles'))
+                        @if ($content->metaValue('vehicles'))
                             <div class="retail-row">
                                 <div class="row-title">A reserved vehicle</div>
-                                <div class="row-info">{{ $content->metaValue('retailVehicles') }} vehicles</div>
+                                <div class="row-info">{{ $content->metaValue('vehicles') }} vehicles</div>
                             </div>
                         @endif
 
-                        @if ($content->metaValue('retailWebsite'))
+                        @if ($content->metaValue('website'))
                             <div class  ="retail-row">
                                 <div class="row-title">Website</div>
-                                <div class="row-info">{{ $content->metaValue('retailWebsite') }}</div>
+                                <div class="row-info">{{ $content->metaValue('website') }}</div>
                             </div>
                         @endif
                     </div>

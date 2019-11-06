@@ -1,16 +1,28 @@
 <div class="fixed-sidebar sticky-top">
     <div class="sticky-content">
         <div class="card">
-            <a href="{{ url('wishlist') }}">
-                <img src="{{ asset('car-web/img/bg-showcase-2.jpg') }}" style="width: 120px"/>
-            </a>
+            <div class="wish-list text-center">
+                @auth
+                    <a data-toggle="modal" href="#modalAddWishlist">
+                        <span class="badge badge-danger rounded float-right">new</span>
+                        <img src="{{ asset('car-web/img/wish.png') }}" class="img-fluid" />
+                        <strong>WRITE WANNA BUY</strong>
+                    </a>
+                @else
+                    <a href="{{ route('login') }}">
+                        <span class="badge badge-danger rounded float-right">new</span>
+                        <img src="{{ asset('car-web/img/wish.png') }}" class="img-fluid" />
+                        <strong>WRITE WANNA BUY</strong>
+                    </a>
+                @endauth
+            </div>
         </div>
-        <div class="card">
+        <div class="card border-0">
             <a href="{{ config('car.appStoreLink') }}" target="_blank">
                 <img src="{{ asset('car-web/img/store_app.png') }}" style="width: 120px"/>
             </a>
             <a href="{{ config('car.playStoreLink') }}" target="_blank">
-                <img src="{{ asset('car-web/img/store_play.png') }}" style="width: 120px; padding-top: 1px"/>
+                <img src="{{ asset('car-web/img/store_play.png') }}" style="width: 120px; padding-top: 2px"/>
             </a>
         </div>
 

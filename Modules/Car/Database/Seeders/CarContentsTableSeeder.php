@@ -26,7 +26,7 @@ class CarContentsTableSeeder extends Seeder
         $time = time();
         $rootPath = config('content.cars.rootPath');
 
-        factory(Content::class, 125)->create(['type' => Content::TYPE_CAR])->each(function ($content) use ($time, $rootPath) {
+        factory(Content::class, 500)->create(['type' => Content::TYPE_CAR])->each(function ($content) use ($time, $rootPath) {
 
             $content->slug = config('content.cars.containerPage') . '/' . $content->slug;
             $content->save();
@@ -54,6 +54,7 @@ class CarContentsTableSeeder extends Seeder
             $condition = TaxonomyManager::collection('car-conditions')->random()->term->name;
             $colorInterior = TaxonomyManager::collection('car-colors')->random()->term->name;
             $colorExterior = TaxonomyManager::collection('car-colors')->random()->term->name;
+            $retail = Content::where('type', 'retail')->get()->random()->id;
 
             // via.placeholder.com images
             // $thumbWidth = 640;
@@ -164,13 +165,7 @@ class CarContentsTableSeeder extends Seeder
                 new ContentMeta(['key' => 'doctorVerificationFile', 'value' => '']),
 
                 // Retail
-                new ContentMeta(['key' => 'retailName', 'value' => 'Amgalan Auto Plaza']),
-                new ContentMeta(['key' => 'retailAddress', 'value' => 'БЗД, Амгалангийн тойрог / Нохойны хөшөөтэй/ зүүн тийш өнгөрөөд 300м яваад төв замын хойд талд']),
-                new ContentMeta(['key' => 'retailOpenHours', 'value' => 'Monday to Saturday 9:00am to 18:00 pm Lunch 12:00 to 13:00']),
-                new ContentMeta(['key' => 'retailWebsite', 'value' => 'www.yourdomain.com']),
-                new ContentMeta(['key' => 'retailPhone', 'value' => '+976 99999999']),
-                new ContentMeta(['key' => 'retailVehicles', 'value' => '132']),
-                new ContentMeta(['key' => 'retailImage', 'value' => url(asset('car-web/img/retail.png'))]),
+                new ContentMeta(['key' => 'retail', 'value' => $retail]),
 
                 // Seller
                 new ContentMeta(['key' => 'sellerDescription', 'value' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum ullam, explicabo iure delectus asperiores sed aliquam provident magnam similique accusantium magni! Neque dolorum similique aliquam id recusandae aliquid nihil sit, blanditiis corporis? Odit, repudiandae recusandae. Libero rem aliquid, distinctio vel ad ab nostrum nulla repellendus modi officia eligendi officiis ducimus labore? Ad, praesentium laborum fugiat vitae doloremque qui beatae consectetur.']),

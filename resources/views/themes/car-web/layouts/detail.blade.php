@@ -29,6 +29,8 @@
 
         <!-- /global stylesheets -->
 
+        <script src="{{ asset('car-web/js/helpers.js') }}"></script>
+
         @yield('load')
 
         @stack('styles')
@@ -69,7 +71,7 @@
                             </div>
                             <div class="col-md-12 px-5">
                                 @if (!$content->metaValue('isAuction'))
-                                    <a class="btn btn-danger btn-round btn-block my-4 shadow-red p-3" href="#section-finance">Зээлийн боломжийг шалгах</a>
+                                    <a class="btn btn-danger btn-round btn-block my-4 shadow-red p-3 js-scroll-trigger" href="#section-finance">Зээлийн боломжийг шалгах</a>
                                 @endif
 
                                 @include('themes.car-web.includes.save-to-interested-btn', ['content' => $content])
@@ -83,8 +85,10 @@
         <!-- Basic information -->
         @include('themes.car-web.includes.section-basic-info', ['content' => $content])
 
-        <!-- Finance section -->
-        @include('themes.car-web.includes.section-finance', ['content' => $content])
+        @if (!$content->metaValue('isAuction'))
+            <!-- Finance section -->
+            @include('themes.car-web.includes.section-finance', ['content' => $content])
+        @endif
 
         <!-- Option information -->
         @include('themes.car-web.includes.section-options', ['content' => $content])
@@ -93,18 +97,27 @@
         @include('themes.car-web.includes.section-seller-description', ['content' => $content])
 
         <!-- Retail Store -->
-        @include('themes.car-web.includes.section-retail', ['content' => $content])
+        @include('themes.car-web.includes.section-retail', ['content' => \App\Content::find($content->metaValue('retail'))])
 
         <!-- Hot deals -->
-        @include('themes.car-web.includes.section-slider', ['title' => 'Hot Deals', 'contents' => \App\Content::getByMetas('publishType', 'premium')->where('status', \App\Content::STATUS_PUBLISHED)->get(), 'morelink'=> url('/search?best_premium=true&premium=true')])
+        @include('themes.car-web.includes.section-slider', ['title' => 'Hot Deals', 'contents' => \App\Content::getByMetas('publishType', 'best_premium')->where('id', '!=', $content->id)->where('status', \App\Content::STATUS_PUBLISHED)->where('visibility', \App\Content::VISIBILITY_PUBLIC)->orderBy('id', 'desc')->get(), 'morelink'=> url('/buy?publishType=best_premium')])
 
         <!-- Similar Price -->
-        @include('themes.car-web.includes.section-slider', ['title' => 'Similar Price', 'contents' => \App\Content::inRangeMetas('priceAmount', intval($content->metaValue('priceAmount')) - 1000000, $content->metaValue('priceAmount') + 1000000)->where('status', \App\Content::STATUS_PUBLISHED)->get(), 'morelink'=> url('/search?priceAmount[ge]='.($content->metaValue('priceAmount') - 1000000).'&priceAmount[le]='.($content->metaValue('priceAmount') + 1000000))])
+        @include('themes.car-web.includes.section-slider', [
+            'title' => 'Similar Price',
+            'contents' => \App\Content::inRangeMetas('priceAmount', (intval($content->metaValue('priceAmount')) - 1000000) < 0 ? '0' : (intval($content->metaValue('priceAmount')) - 1000000), $content->metaValue('priceAmount') + 1000000)->where('id', '!=', $content->id)->where('status', \App\Content::STATUS_PUBLISHED)->where('visibility', 'public')->orderBy('id', 'desc')->get(),
+            'morelink'=> url('/search?min_price='.(($content->metaValue('priceAmount') - 1000000) < 0 ? 0 : ($content->metaValue('priceAmount') - 1000000)).'&max_price='.($content->metaValue('priceAmount') + 1000000))
+        ])
 
          <!-- Footer -->
         @include('themes.car-web.includes.footer')
 
         @stack('modals')
+
+        <!-- DEMO SPINNER TODO: CHANGE -->
+        <div class="spinner-border" id="demo-spinner" role="status" style="position: fixed; z-index: 1000; top: 50%; left: 50%; display: none">
+        <span class="sr-only">Loading...</span>
+        </div>
 
         <!-- Bootstrap core JavaScript -->
         <script src="{{ asset('car-web/vendor/jquery/jquery.min.js') }}"></script>
@@ -114,6 +127,7 @@
         <script src="{{ asset('car-web/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
         <script src="{{ asset('car-web/vendor/lottie-web/player/lottie.min.js') }}"></script>
         <script src="{{ asset('car-web/js/script.min.js') }}"></script>
+        <script src="{{ asset('inputmask/jquery.inputmask.min.js') }}"></script>
         @yield('script')
 
         @stack('scripts')

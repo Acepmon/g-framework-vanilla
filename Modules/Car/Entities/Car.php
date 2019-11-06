@@ -2,6 +2,7 @@
 
 namespace Modules\Car\Entities;
 
+use DB;
 use App\Content;
 
 class Car extends Content
@@ -18,10 +19,12 @@ class Car extends Content
             $contents = self::all();
         }
 
-        
         if ($orderBy != 'updated_at') {
-            $contents = $contents->join('content_metas', 'contents.id', '=', 'content_metas.content_id')
-            ->where('content_metas.key', '=', $orderBy)->select('contents.*')->addSelect('content_metas.value');
+            $contents = $contents->leftJoin('content_metas', function($join) use($orderBy) {
+                $join->on('contents.id', '=', 'content_metas.content_id');
+                $join->where('content_metas.key', '=', $orderBy);
+            });
+            $contents = $contents->select('contents.*', DB::raw('IFNULL(content_metas.value, "0") as value'));//->addSelect('content_metas.value');
             if ($orderBy == 'priceAmount') {
                 $order = 'asc';
                 $contents = $contents->orderByRaw('LENGTH(value)', $order);
@@ -33,19 +36,21 @@ class Car extends Content
         return $contents;
     }
 
-    public static function filter($contents, $filter = Null) {
+    public static function filter($contents, $filter = Null, $exclude = Null) {
         if ($contents == Null) {
             $contents = self::all()->orderBy('updated_at', 'desc');
         }
 
         foreach ($filter as $key => $value) {
-            if ($value != Null && !in_array($key, self::EXCEPT)) {
+            if ($key != $exclude && $value != Null && !in_array($key, self::EXCEPT)) {
                 $contents = metaHas($contents, $key, $value);
             }
         }
         $minPrice = $filter['minPrice'];
         $maxPrice = $filter['maxPrice'];
-        $contents = metaHas($contents, 'priceAmount', '', 'range', $minPrice, $maxPrice);
+        if ($minPrice || $maxPrice) {
+            $contents = metaHas($contents, 'priceAmount', '', 'range', $minPrice, $maxPrice);
+        }
         $mileage = $filter['mileageAmount'];
         if ($mileage) {
             [$minMileage, $maxMileage] = explode('-', $mileage);
@@ -91,9 +96,10 @@ class Car extends Content
     */
     public static function manageRequest() {
         $request = [];
-        $request['carType'] = request('car-type', []);
+        $request['carType'] = request('car-type', Null);
         $request['markName'] = request('car-manufacturer', Null);
-        $request['colorName'] = request('car-colors', []);
+        $request['modelName'] = request('car-model', Null);
+        $request['colorName'] = request('car-colors', Null);
         $request['fuelType'] = request('car-fuel', Null);
         $request['transmission'] = request('car-transmission', Null);
         $request['advantages'] = request('car-advantage', Null);
@@ -103,6 +109,7 @@ class Car extends Content
         $request['buildYear'] = request('year', Null);
         $request['mileageAmount'] = request('mileageAmount', Null);
         $request['doctorVerified'] = request('doctors_verified', Null);
+        $request['publishType'] = request('publishType', Null);
         $request['minPrice'] = request('min_price', Null);
         $request['maxPrice'] = request('max_price', Null);
 

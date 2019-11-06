@@ -1,0 +1,115 @@
+@extends('themes.car-web.layouts.default')
+
+@section('title', 'Хүслийн машин')
+
+@section('load')
+@endsection
+
+@section('content')
+    <!-- Masthead -->
+    <div class="bg-page-header"> </div>
+
+    <section class="bg-dark p-5 text-white position-relative">
+        <div class="container">
+        <div class="row">
+            <div class="card shadow-soft-blue page-top-navbar mb-5">
+            <div class="d-flex justify-content-around">
+                <a href="{{ url('/about-technical-examination') }}">Техникийн үзлэг</a>
+                <a href="{{ url('/about-auction') }}">Дуудлага худалдаа</a>
+                <a class="active" href="{{ url('/about-dream-car') }}">Хүслийн машин</a>
+                <a href="{{ url('/about-finance') }}">Санхүүжилт</a>
+                <a href="{{ url('/about-paid-ads') }}">Төлбөртэй зар</a>
+                <a href="{{ url('/about-introduction') }}">Танилцуулга</a>
+            </div>
+            </div>
+        </div>
+        </div>
+        <div class="container">
+        <div class="row">
+            <div class="col-md-12 text-center">
+            <h3>Техникийн үзлэг оношлогоо</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 intro-advantages">
+            <div class="intro-advantage">
+                <h4>Машин худалдан авахыг хүссэн хэрэглэгч сонирхосон машины мэдээллийг оруулна
+                </h4>
+                <div class="intro-advantage-img"><img src="{{ asset('car-web/img/icons/engine.svg') }}" alt=""></div>
+            </div>
+
+            <div class="intro-advantage">
+                <h4>Хэрэглэгч борлуулагчдаас өөрийн сонирхосон машины мэдээллийг авах боломжтой
+                </h4>
+                <div class="intro-advantage-img"><img src="{{ asset('car-web/img/icons/fuel.svg') }}" alt=""></div>
+            </div>
+
+            <div class="intro-advantage">
+                <h4>Борлуулагч хэрэглэгчтэй шууд харьцан машинаа сурталчилах боломжтой
+                </h4>
+                <div class="intro-advantage-img"><img src="{{ asset('car-web/img/icons/wheel.svg') }}" alt=""></div>
+            </div>
+            </div>
+        </div>
+        </div>
+    </section>
+
+    <!-- Hot deal Grid -->
+    <section class="section my-5">
+        <div class="container">
+        <div class="row">
+            <div class="col-md-7">
+            <div class="about-main-text">
+                <ul class="list-items">
+                <li class="list-item">
+                    <p>
+                    [Машин худалдан авах хүсэлт гаргах] гэдэг нь хэрэглэгч худалдан авахыг хүссэн машины мэдээллийг
+                    оруулах бөгөөд тухайн зарыг борлуулагч талд харуулах болно. Ингэж харуулснаар машин худалдан авахыг
+                    хүссэн хэрэглэгчийн сонирхолд нийцсэн машиныг утас болон мессэжээр санал болгох боломжтой юм.
+                    </p>
+                </li>
+                <li class="list-item">
+                    <p>
+                    Хэрэглэгчид олон төрлийн машин дундаас харьцуулалт хийн боломжийн үнээр худалдаж авах боломж үүсэх
+                    бөгөөд борлуулагч тал өөрсдийн тээврийн хэрэгслийг богино хугацаанд зарахын тулд шууд худалдан
+                    авагчтай холбоо барьж болно.
+                    </p>
+                </li>
+
+
+                <li class="list-item">
+                    <p>Хэрэглэгч нь эхлээд гишүүнээр бүртгүүлсний дараа ‘Машин худалдан авах хүсэлт’ –ийг гаргах боломжтой.
+                    </p>
+                </li>
+                <li class="list-item">
+                    <p>‘Машин худалдан авах хүсэлт’ гаргахад Main Page дээр доорх зар гарч ирнэ.</p>
+                </li>
+                </ul>
+            </div>
+
+
+            </div>
+            <div class="col-md-5">
+            <img src="{{ asset('car-web/img/sample-img.png') }}" alt="">
+            </div>
+
+        </div>
+        </div>
+    </section>
+
+    @include('themes.car-web.includes.section-wishlist', ['title' => "People's wish list", 'contents' => \App\Content::where('type', 'wanna-buy')->get(), 'morelink' => url('/wishlist')])
+
+    <section class="pageType-footer">
+        <div class="container">
+            <div class="row">
+                <div class="sell-type-img">
+                <img src="{{ asset('car-web/img/sell-car.png') }}" alt="">
+                </div>
+            </div>
+        </div>
+    </section>
+
+@endsection
+
+@section('script')
+@endsection

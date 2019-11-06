@@ -59,6 +59,7 @@ class UserController extends Controller
             'email' => ['nullable', 'string', 'email', 'max:191', Rule::unique('users')->ignore($user->email, 'email'),],
             'password' => ['nullable', 'string', 'min:8', 'confirmed'],
             'name' => ['nullable', 'max:100'],
+            'avatar' => ['nullable', 'image']
         ]);
 
         if ($request->has('username')) {
@@ -100,7 +101,17 @@ class UserController extends Controller
             $user->save();
         }
 
-        $inputExcept = ['id', 'username', 'email', 'email_verified_at', 'password', 'password_confirmation', 'name', 'avatar', 'language', 'remember_token', 'created_at', 'updated_at', 'deleted_at', 'social_id', 'social_provider', 'social_token'];
+        if ($request->hasFile('avatar')) {
+            $user->avatar = 'http://' . env('FTP_HOST') . ':3000/' .  $request->file('avatar')->store('public/avatars', 'ftp');
+            $user->save();
+        }
+
+        if ($request->has('phone') && $request->has('callcode')) {
+            $user->setMetaValue('phone', $request->input('callcode') . ' ' . $request->input('phone'));
+        }
+
+        $inputExcept = ['id', 'username', 'email', 'email_verified_at', 'password', 'password_confirmation', 'name', 'avatar', 'language', 'remember_token', 'created_at', 'updated_at', 'deleted_at', 'social_id', 'social_provider', 'social_token',
+            'phone', 'callcode'];
         $metaInputs = array_filter($request->input(), function ($key) use ($inputExcept) {
             return !in_array($key, $inputExcept);
         }, ARRAY_FILTER_USE_KEY);

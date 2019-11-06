@@ -1,0 +1,147 @@
+@extends('themes.car-web.layouts.default')
+
+@section('title', 'Техникийн үзлэг')
+
+@section('load')
+@endsection
+
+@section('content')
+    <!-- Masthead -->
+    <div class="bg-page-header"> </div>
+
+    <section class="bg-dark p-5 text-white position-relative">
+        <div class="container">
+        <div class="row">
+            <div class="card shadow-soft-blue page-top-navbar mb-5">
+            <div class="d-flex justify-content-around">
+                <a class="active" href="{{ url('/about-technical-examination') }}">Техникийн үзлэг</a>
+                <a href="{{ url('/about-auction') }}">Дуудлага худалдаа</a>
+                <a href="{{ url('/about-dream-car') }}">Хүслийн машин</a>
+                <a href="{{ url('/about-finance') }}">Санхүүжилт</a>
+                <a href="{{ url('/about-paid-ads') }}">Төлбөртэй зар</a>
+                <a href="{{ url('/about-introduction') }}">Танилцуулга</a>
+            </div>
+            </div>
+        </div>
+        </div>
+        <div class="container">
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <h3>Техникийн үзлэг оношлогоо</h3>
+            </div>
+            </div>
+            <div class="row">
+            <div class="col-md-12 intro-advantages">
+                <div class="intro-advantage">
+                    <h4>Техникийн үзлэг оношлогоо</h4>
+                    <div class="intro-advantage-img"><img src="{{ asset('car-web/img/icons/engine.svg') }}" alt=""></div>
+                </div>
+
+                <div class="intro-advantage">
+                    <h4>Техникийн үзлэг оношлогоо</h4>
+                    <div class="intro-advantage-img"><img src="{{ asset('car-web/img/icons/fuel.svg') }}" alt=""></div>
+                </div>
+
+                <div class="intro-advantage">
+                    <h4>Техникийн үзлэг оношлогоо</h4>
+                    <div class="intro-advantage-img"><img src="{{ asset('car-web/img/icons/wheel.svg') }}" alt=""></div>
+                </div>
+            </div>
+            </div>
+            </div>
+    </section>
+
+    <!-- Hot deal Grid -->
+    <section class="section my-5">
+        <div class="container">
+        <div class="row">
+            <div class="col-md-7">
+            <div class="about-main-text">
+                <ul class="list-items">
+                <li class="list-item">
+                    <p class="font-weight-bold">Техникийн үзлэг оношлогоо</p>
+                    <p> Манай байгууллагатай хамтран ажилладаг авто засварын газарт өөрөө
+                    явагч хэрэгслийн техникийн үзлэгт хамрагдан гадна  болон дотор, моторын
+                    үзүүлэлт зэргийг шалгуулан тодорхойлолт гаргуулах.  </p>
+                </li>
+                <li class="list-item">
+                    <p><strong>“Техникийн үзлэг оношлогоо”–ны</strong> тодорхойлолтыг худалдах гэж буй
+                    машины зар дээр нэмэлт мэдээлэл болгон оруулах боломжтой. Ингэснээр
+                    худалдан авагч талд илүү итгэл төрүүлнэ.</p>
+                </li>
+                <li class="list-item">
+                    <p class="font-weight-bold">“Техникийн үзлэг оношлогоо” хийлгэх  </p>
+                    <p> - Хэрэглэгч өөрийн машинаа техникийн оношлогоонд оруулах хүсэлтээ
+                        хамтран ажилдаг авто сервисын төвд гаргана.</p>
+                        <p>- Товлогдсон өдөр оношилгоонд хамрагдана.</p>
+                        <p>- Үзлэг оношлогоонд хамрагдсаны дараа тодорхойлолт гаргаж өгөх
+                        бөгөөд хэрэглэгч үүнийг худалдах гэж буй машины зар дээр нэмж
+                        оруулах боломжтой юм. Энэ үед тухайн зар дээр техникийн
+                        оношлогоонд хамрагдсан баталгаат наалт нааж өгнө.</p>
+                </li>
+                <li class="list-item">
+                    <p class="font-weight-bold">“Техникийн үзлэг оношлогоо”-ны үнэ </p>
+                    <p>1 удаа хамрагдахад 20,000₮ бөгөөд (Техникийн оношлогоонд хамрагдсан
+                    баталгаат стикер багтсан)</p>
+                </li>
+                <li class="list-item">
+                    <p class="font-weight-bold">Техникийн оношлогооны талаар лавлах болон захиалга өгөх  </p>
+                    <p><strong>DOCTOR авто сүлжээ</strong> үйлчилгээний төв : …………………………..</p>
+                </li>
+                </ul>
+            </div>
+
+
+            </div>
+            <div class="col-md-5">
+            <img src="{{ asset('car-web/img/sample-img.png') }}" alt="">
+            </div>
+
+        </div>
+        </div>
+    </section>
+
+    <section class="page-section bg-light mb-5">
+        <div class="container">
+        <div class="row text-center">
+            <h4 class="section-heading">Зар оруулах дараалал</h4>
+        </div>
+        <div class="row">
+            <div class="about-sequences">
+            <div class="sequence-item">
+                <div class="sequence-img"><img src="{{ asset('car-web/img/sample/001-alarm clock.png') }}" alt=""></div>
+                <div class="sequence-title">Техникийн үзлэгийн цаг захиалах</div>
+            </div>
+            <div class="sequence-item">
+                <div class="sequence-img"><img src="{{ asset('car-web/img/sample/002-audio book.png') }}" alt=""></div>
+                <div class="sequence-title">Техникийн үзлэгийн цаг захиалах</div>
+            </div>
+            <div class="sequence-item">
+                <div class="sequence-img"><img src="{{ asset('car-web/img/sample/020-player.png') }}" alt=""></div>
+                <div class="sequence-title">Техникийн үзлэгийн цаг захиалах</div>
+            </div>
+            <div class="sequence-item">
+                <div class="sequence-img"><img src="{{ asset('car-web/img/sample/022-customer service.png') }}" alt=""></div>
+                <div class="sequence-title">Техникийн үзлэгийн цаг захиалах</div>
+            </div>
+            <div class="sequence-item">
+                <div class="sequence-img"><img src="{{ asset('car-web/img/sample/023-smartphone.png') }}" alt=""></div>
+                <div class="sequence-title">Техникийн үзлэгийн цаг захиалах</div>
+            </div>
+            </div>
+        </div>
+        </div>
+    </section>
+    <section class="pageType-footer">
+        <div class="container">
+            <div class="row">
+            <div class="sell-type-img">
+                <img src="{{ asset('car-web/img/sell-car.png') }}" alt="">
+            </div>
+            </div>
+        </div>
+        </section>
+@endsection
+
+@section('script')
+@endsection

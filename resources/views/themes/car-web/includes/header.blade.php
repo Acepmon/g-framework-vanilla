@@ -53,7 +53,7 @@
                                 @auth
                                     <li class="maz-menu-item"><a data-toggle="modal" href="#modalAddWishlist">/ {{ $menu->title }} /</a></li>
                                 @else
-                                    <li class="maz-menu-item"><a href="{{ $menu->link }}">/ {{ $menu->title }} /</a></li>
+                                    <li class="maz-menu-item"><a href="{{ route('login') }}">/ {{ $menu->title }} /</a></li>
                                 @endauth
                             @endif
                         @else

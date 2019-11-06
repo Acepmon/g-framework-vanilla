@@ -2,39 +2,15 @@
 
 @php
 
-// Get All items
+//Filter
 $page = request('page', "1");
 $itemsPerPage = request('itemsPerPage', "16");
-$allItems = App\Content::with('metas')->where('type', "wanna-buy");
-
-$items = $allItems;
-
-//Filter
-$manufacturer = request('manufacturer', Null);
-$model = request('model', Null);
-$minPrice = request('minPrice', Null);
-
-if($manufacturer != null){
-  $items = metaHas($items, 'markName', $manufacturer);
-}
-if($model != null){
-  $items = metaHas($items, 'modelName', $model);
-}
-if($minPrice != null){
-  $items = metaHas($items, 'priceAmount', $minPrice, '<');
-}
-
-// Post items filtering
-$itemCount = count($items->get());
-$maxPage = intval(ceil($itemCount / $itemsPerPage));
-if ($itemCount < $page * $itemsPerPage) {
-  $page= $maxPage;
-}
+$markName = request('markName', Null);
+$modelName = request('modelName', Null);
+$priceAmount = request('priceAmount', Null);
 
 // Banner
 $banner = App\Banner::where('location_id', 5)->where('status', 'active')->inRandomOrder()->first();
-
-$items = $items->get();
 
 @endphp
 
@@ -44,198 +20,191 @@ $items = $items->get();
 
 @section('load')
 <style>
-#tooltip {
-  white-space: nowrap; 
-  overflow: hidden;
-  text-overflow: ellipsis; 
+.truncate {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.people-wish-list .card .card-body .wish-user .username {
+    flex: 1;
 }
 </style>
 @endsection
 
 @section('content')
-<header class="masthead text-center">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-5" style="z-index: 1">
+    <header class="masthead text-center">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-5" style="z-index: 1">
 
-          <div class="card masthead-search shadow-lg-3d">
-            <div class="">
-              <div class="card-header px-5 pt-5 pb-3">
-                <h1>People's wish list</h1>
-              </div>
-            </div>
-            <div class="tab-content p-5" id="heroTabFilter">
-              <form action="/wishlist" method="GET">
-                <div class="form-group">
-                    <select id="vehicleManufacturer" class="form-control" name="manufacturer">
-                        <option value="" selected>Manufacturer</option>
-                        @getTaxonomys({"filter":[{"field":"taxonomy", "key":"car-manufacturer"}], "returnValue":"manufacturers"})
-                        @foreach($manufacturers as $data)
-                            <option value="{{$data->term->name}}" {{ ($data->term->name == $manufacturer)?'selected':'' }}>{{$data->term->name}}</option>
-                        @endforeach
-                    </select>
-                </div>
-                <div class="form-group">
-                    <select id="vehicleManufacturerModels" class="form-control" name="model">
-                        <option value="">Model</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                  <select class="form-control" name="minPrice">
-                  <option value="">Min price</option>
-                        @for($i=100000; $i<=10000000; $i+=100000)
-                        <option value="{{ $i }}">{{numerizePrice($i)}}</option>
-                        @endfor
-                  </select>
-                </div>
-                <button type="submit" class="btn btn-danger btn-lg btn-round shadow mt-4 px-5">Filter</button>
-              </form>
-            </div>
+                    <div class="card masthead-search shadow-lg-3d">
+                        <div class="">
+                            <div class="card-header px-5 pt-5 pb-3">
+                                <h1>People's wish list</h1>
+                            </div>
+                        </div>
+                        <div class="tab-content p-5" id="heroTabFilter">
+                            <form action="/wishlist" method="GET">
+                                <div class="form-group">
+                                    <select id="vehicleManufacturer" class="form-control" name="markName">
+                                        <option value="" selected>Manufacturer</option>
+                                        @taxonomy(taxonomy=car-manufacturer as $data)
+                                            <option value="{{$data->term->name}}" {{ ($data->term->name == $markName) ? 'selected' : '' }}>{{$data->term->name}}</option>
+                                        @endtaxonomy
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <select id="vehicleManufacturerModels" class="form-control" name="modelName">
+                                        <option value="">Model</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <select class="form-control" name="priceAmount">
+                                        <option value="">Min price</option>
+                                        @for($i=100000; $i<=10000000; $i+=100000)
+                                            <option value="{{ $i }}" {{ ($i == $priceAmount) ? 'selected' : '' }}>{{numerizePrice($i)}}</option>
+                                        @endfor
+                                    </select>
+                                </div>
 
-          </div>
-
-        </div>
-        <div class="col-lg-7">
-          <div id="maz-animation">
-
-          </div>
-        </div>
-      </div>
-      <div class="row">
-          <a href="#wish-list" class="js-scroll-trigger discover">
-            <span></span>
-            <p>Хүслийн машинууд</p>
-          </a>
-        </div>
-    </div>
-
-  </header>
-  @include('themes.car-web.includes.fixed-right-sidebar', array('sideBanners'=>\App\Banner::where('location_id', 4)->where('status', 'active')->get(), 'premium'=>\Modules\Car\Entities\Car::filterByPremium(5)))
-
-<section id="wish-list" class="section">
-    <div class="container mt-5">
-        <form action="wishlist" id="mainForm">
-        <div class="people-wish-list">
-            <div class="row mt-2">
-                    @foreach($items->forPage($page, $itemsPerPage) as $car)
-                    <div class="col-lg-3 col-md-4">
-                    <!-- card start -->
-                      @include('themes.car-web.includes.car-wishlist-card', array('car'=>$car))
-                    <!-- card end -->
+                                <button type="submit" class="btn btn-danger btn-lg btn-round shadow mt-4 px-5">Filter</button>
+                            </form>
+                        </div>
                     </div>
-                    @endforeach
+                </div>
+                <div class="col-lg-7">
+                    <div id="maz-animation"></div>
+                </div>
             </div>
-            <!-- Pagination -->
-            <nav aria-label="Page navigation">
-                <input type="hidden" value="{{ $page }}" name="page" id="page" />
-                <ul class="pagination d-flex justify-content-end mt-2">
-                    <li class="page-item {{ ($page <= 1)?'disabled':'' }}">
-                    <button class="page-link" onclick="formSubmit('page', {{$page-1}})" aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
-                    </button>
-                    </li>
-                    @for($i = 1; $i <= $maxPage; $i++)
-                    <li class="page-item {{ ($i == $page)?'active':'' }}"><button class="page-link" onclick="formSubmit('page', {{$i}})">{{ $i }}</button></li>
-                    @endfor
-                    <li class="page-item {{ ($page >= $maxPage)?'disabled':'' }}">
-                        <button class="page-link" onclick="formSubmit('page', {{$page+1}})" aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
-                        </button>
-                    </li>
-                </ul>
-                </nav>
-            <!-- Pagination end -->
+            <div class="row">
+                <a href="#wish-list" class="js-scroll-trigger discover">
+                    <span></span>
+                    <p>Хүслийн машинууд</p>
+                </a>
+            </div>
         </div>
-      </div>
-      </form>
-    </div>
-</section>
+    </header>
 
+    @include('themes.car-web.includes.fixed-right-sidebar', array('sideBanners'=>\App\Banner::where('location_id', 4)->where('status', 'active')->get(), 'premium'=>\Modules\Car\Entities\Car::filterByPremium(5)))
 
-<!-- Banner start -->
-@if($banner)
-<section class="banner pt-5 bg-white">
-  <div class="container">
-    <div class="row">
-      <a href="{{ $banner->link }}" class="text-primary text-decoration-none">
-        <img src="{{ $banner->banner }}" class="img-fluid" alt="">
-      </a>
-    </div>
-  </div>
-</section>
-@endif
-<!-- Banner end -->
+    <section id="wish-list" class="section">
+        <form action="wishlist" id="mainForm">
+            <div class="container mt-5">
+                <div class="people-wish-list">
+                    <div class="row mt-2">
+                        @contentInline(type=wanna-buy, markName=request()->input('markName'), modelName=request()->input('modelName'), priceAmountStart>=intval(request()->input('priceAmount')), sortDir=desc, sort=updated_at, limit=16 as $cars | paginate)
+                        @if($cars->total() != 0)
+                        @foreach($cars as $car)
+                            <div class="col-lg-3 col-md-4">
+                                @include('themes.car-web.includes.car-wishlist-card', array('car'=>$car))
+                            </div>
+                        @endforeach
+                        @else
+                            <div class="col-lg-3 col-md-4 text-muted justify-content">
+                                No result
+                            </div>
+                        @endif
+                    </div>
+                    <input type="hidden" name="markName" value="{{ $markName }}">
+                    <input type="hidden" name="modelName" value="{{ $modelName }}">
+                    <input type="hidden" name="priceAmount" value="{{ $priceAmount }}">
+                    <!-- Pagination -->
+                    <nav aria-label="Page navigation">
+                        <input type="hidden" value="{{ $page }}" name="page" id="page" />
+                        <ul class="pagination d-flex justify-content-end mt-2">
+                            <li class="page-item {{ ($page <= 1)?'disabled':'' }}">
+                            <button class="page-link" onclick="formSubmit('page', {{$page-1}})" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </button>
+                            </li>
+                            @for($i = 1; $i <= $cars->lastPage(); $i++)
+                            <li class="page-item {{ ($i == $page)?'active':'' }}"><button class="page-link" onclick="formSubmit('page', {{$i}})">{{ $i }}</button></li>
+                            @endfor
+                            <li class="page-item {{ ($page >= $cars->lastPage())?'disabled':'' }}">
+                                <button class="page-link" onclick="formSubmit('page', {{$page+1}})" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                                </button>
+                            </li>
+                        </ul>
+                    </nav>
+                    <!-- Pagination end -->
+                </div>
+            </div>
+        </form>
+    </section>
 
+    <!-- Banner start -->
+    @if($banner)
+        <section class="banner pt-5 bg-white">
+            <div class="container">
+                <div class="row">
+                    <a href="{{ $banner->link }}" class="text-primary text-decoration-none">
+                        <img src="{{ $banner->banner }}" class="img-fluid" alt="">
+                    </a>
+                </div>
+            </div>
+        </section>
+    @endif
+    <!-- Banner end -->
 @endsection
 
 @section('script')
-<script src="{{ asset('car-web/vendor/bootstrap-slider/bootstrap-slider.min.js') }}"></script>
-<script src="{{ asset('car-web/vendor/owl.carousel.thumbs/owl.carousel2.thumbs.min.js') }}"></script>
-  <script src="{{ asset('car-web/vendor/jquery/jquery.min.js') }}"></script>
-  <script src="{{ asset('car-web/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-  <script src="{{ asset('car-web/vendor/owl.carousel/owl.carousel.min.js') }}"></script>
-  <script src="{{ asset('car-web/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
-  <script src="{{ asset('car-web/vendor/lottie-web/player/lottie.min.js') }}"></script>
-  <script src="{{ asset('car-web/js/script.min.js') }}"></script>
-
-  <script>
+<script>
     var animation = bodymovin.loadAnimation({
-      container: document.getElementById('maz-animation'),
-      renderer: 'svg',
-      loop: true,
-      rendererSettings: {
-          progressiveLoad: true
-      },
-      autoplay: true,
-      path: '{{ asset('car-web/img/wish.json') }}'
+        container: document.getElementById('maz-animation'),
+        renderer: 'svg',
+        loop: true,
+        rendererSettings: {
+            progressiveLoad: true
+        },
+        autoplay: true,
+        path: '{{ asset('car-web/img/wish.json') }}'
     });
 
-  function formSubmit(id, value) {
-    document.getElementById(id).value = value;
-    $('#mainForm').submit();
-  }
+    function formSubmit(id, value) {
+        document.getElementById(id).value = value;
+        $('#mainForm').submit();
+    }
 
-  function watchPhone(id, phone){
-    $('#phone' + id).html(phone);
-    $('#watchBtn' + id).css('visibility', 'hidden');
-  }
+    function watchPhone(id, phone){
+        $('#phone' + id).html(phone);
+        $('#watchBtn' + id).css('visibility', 'hidden');
+    }
 
-  const toKebabCase = str =>
-            str &&
-            str
-                .match(/[A-Z]{2,}(?=[A-Z][a-z]+[0-9]*|\b)|[A-Z]?[a-z]+[0-9]*|[A-Z]|[0-9]+/g)
-                .map(x => x.toLowerCase())
-                .join('-');
-
-  $("#vehicleManufacturer").change(
-                function (e) {
-                    var markName=$(this).val();
-                    $.ajax({
-                        type: 'Get',
-                        url: '/api/v1/taxonomies/car-'+toKebabCase(markName),
-                        // /data: paramObjs
-                    }).done(function(data) {
-                        console.log("DONE!");
-                        var modelList=data;
-                        $('#vehicleManufacturerModels')
-                            .find('option')
-                            .remove()
-                            .end()
-                            .append('<option value="">Model</option>')
-                            .val('')
-                        ;
-                        console.log(modelList.data);
-                        var i;
-                        for (i = 0; i < modelList.data.length; i++) {
-                            console.log(modelList.data[i].term.name);
-                            $("#vehicleManufacturerModels").append(new Option(modelList.data[i].term.name, modelList.data[i].id));
-                        }
-                    }).fail(function(err) {
-                        // $("#demo-spinner").css({'display': 'none'});
-                        console.error("FAIL!");
-                        console.error(err);
-                    });
+    $(document).ready(function () {
+        var onChange = function () {
+            var markName=$("#vehicleManufacturer").val();
+            var requestModelName = '{{ $modelName }}'
+            $.ajax({
+                type: 'Get',
+                url: '/api/v1/taxonomies/car-' + toKebabCase(markName),
+            }).done(function(data) {
+                var modelList=data;
+                $('#vehicleManufacturerModels')
+                    .find('option')
+                    .remove()
+                    .end()
+                    .append('<option value="">Model</option>')
+                    .val('')
+                ;
+                for (var i = 0; i < modelList.data.length; i++) {
+                    var option = new Option(modelList.data[i].term.name, modelList.data[i].term.name);
+                    if (modelList.data[i].term.name == requestModelName) {
+                        option.selected = true;
+                    }
+                    $("#vehicleManufacturerModels").append(option);
                 }
-            )
+            }).fail(function(err) {
+                // $("#demo-spinner").css({'display': 'none'});
+                console.error("FAIL!");
+                console.error(err);
+            });
+        }
+
+        $("#vehicleManufacturer").change(onChange);
+
+        setTimeout(onChange, 1000);
+    });
+
 </script>
 @endsection

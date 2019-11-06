@@ -23,6 +23,9 @@ class GroupMenuTableSeeder extends Seeder
         // Attach Admin menus to Operator Group
         Group::findOrFail(2)->menus()->attach(Menu::where('module', 'Admin')->get());
 
+        // Attach Admin Profile menus to Operator Group
+        Group::findOrFail(2)->menus()->attach(Menu::where('module', 'Profile')->get());
+
         // Attach System Menus to System Operator Group
         Group::findOrFail(5)->menus()->attach(Menu::where('module', 'System')->get());
 

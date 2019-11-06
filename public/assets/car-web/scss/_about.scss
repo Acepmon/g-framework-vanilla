@@ -1,6 +1,6 @@
 .intro-advantages{
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   .intro-advantage{
     display: flex;
     flex-direction: column;
@@ -8,6 +8,7 @@
     text-align: center;
     padding: 0 3rem;
     margin-top: 2rem;
+    width: 100%;
 
     &:last-child{
       border: none;
@@ -37,10 +38,46 @@
   }
 }
 
-.about-main-text{
+.about-heading-title{
+  font-size: 1.625rem;
+  color: $secondary;
+  font-weight: 700;
+  position: relative;
+  margin-bottom: 30px;
+  text-transform: uppercase;
+  &::after{
+    content: '';
+    position: absolute;
+    height: 3px;
+    width: 80px;
+    background: $red;
+    top: 50%;
+    transform: translateX(-50%);
+    margin-left: 60px;
+  }
+}
 
-  .list-items{
-    list-style: decimal;
+.about-text{
+  color: $gray-600;
+  font-size: 1rem;
+
+  ol{
+    counter-reset: item;
+    margin:0 0 1.5em;
+    padding:0;
+    li{
+      list-style: none;
+      counter-increment: item;
+      padding-left: 30px;
+      position: relative;
+      &::before{
+        position: absolute;
+        // display: inline-block;
+        margin-left: -30px;
+        font-weight: 700;
+        content: counter(item)"."; 
+      }
+    }
   }
 }
 
@@ -62,7 +99,7 @@
       width: 100%;
       left: 50%;
       z-index: 0;
-      background: $white;
+      background: $gray-200;
       content: '';
       position: absolute;
     }
@@ -75,7 +112,7 @@
       width: 150px;
       height: 150px;
       border-radius: 50%;
-      background: $white;
+      background: $gray-200;
       display: flex;
       align-items: center;
       justify-content: center;

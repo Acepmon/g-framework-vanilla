@@ -28,6 +28,11 @@ class PublicController extends Controller
             if ($content->visibility == Content::VISIBILITY_AUTH && !Auth::check()) {
                 return redirect()->route('login');
             }
+            if ($content->visibility == Content::VISIBILITY_AUTH && Auth::check() && $content->id == Auth::user()->id) {
+                return redirect()->route('login');
+            }
+
+            $content->incrementMetaValue("viewed");
 
             $viewPath = config('content.'.$content->type.'s.viewPath');
             return view($viewPath . '.' . $content->currentView());

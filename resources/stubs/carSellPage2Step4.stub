@@ -154,17 +154,7 @@
                 console.log(data);
                 $('#carRegSuccess').modal('show');
                 window.location.href = "/posts/"+carId;
-            }).fail(function(err) {
-                $("#demo-spinner").css({'display': 'none'});
-                console.error("FAIL!");
-                console.error(err);
-            });
-        }).fail(function(err) {
-            $("#demo-spinner").css({'display': 'none'});
-            console.error("FAIL!");
-            console.error(err);
-        });
-
-
+            }).fail(fail);
+        }).fail(fail);
     }
 </script>

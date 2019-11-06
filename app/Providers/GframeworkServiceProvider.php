@@ -73,8 +73,7 @@ class GframeworkServiceProvider extends ServiceProvider
             $returnArg = "";
 
             $contents = $this->parseContent($parsed, $returnArg);
-            // dd($contents);
-
+//            dd($contents);
             return "<?php {$variable} = $contents ?>";
         });
 
@@ -85,12 +84,25 @@ class GframeworkServiceProvider extends ServiceProvider
             $returnArg = "";
 
             $contents = $this->parseContent($parsed, $returnArg);
-            // dd($contents);
 
             return "<?php foreach($contents as $variable) { ?>";
         });
 
         Blade::directive('endcontent', function () {
+            return "<?php } ?>";
+        });
+
+        Blade::directive('taxonomy', function ($expression) {
+            $parsed = $this->parseExpression($expression);
+            $variable = $parsed->variable;
+            $returnArg = "";
+
+            $taxonomy = $this->parseTaxonomy($parsed, $returnArg);
+
+            return "<?php foreach($taxonomy as $variable) { ?>";
+        });
+
+        Blade::directive('endtaxonomy', function () {
             return "<?php } ?>";
         });
 
@@ -104,7 +116,7 @@ class GframeworkServiceProvider extends ServiceProvider
                 }
             }
             foreach ($someObject->filter as $some) {
-                    $contents = $contents->where($some->field, '=', $some->key);
+                $contents = $contents->where($some->field, '=', $some->key);
             }
             foreach ($metaInputs as $key => $value) {
                 $contents = $contents->whereHas('metas', function ($query) use ($key, $value) {
@@ -176,14 +188,21 @@ class GframeworkServiceProvider extends ServiceProvider
         // Anhaaraltai yum oorchilno uu.
         // Er ni yum oorchlood heregguidee. Amarhan evderne!
         $contents = "\App\Content";
+        $sort = null;
+        $sortDir = 'asc';
         foreach ($parsed->filters as $index => $filter) {
-            $inputExcept = ['title', 'slug', 'content', 'type', 'status', 'visibility', 'limit', 'page', 'author_id', '_token'];
-            $inputExcept2 = ['title', 'slug', 'content', 'type', 'author_id', '_token'];
+            $inputExcept = ['id', 'contents.id', 'title', 'slug', 'content', 'type', 'status', 'visibility', 'limit', 'page', 'sort', 'sortDir', 'author_id', '_token'];
+            $inputExcept2 = ['id', 'contents.id', 'title', 'slug', 'content', 'type', 'author_id', '_token'];
             $pointer = $index == 0 ? '::' : '->';
 
             if (in_array($filter['field'], $inputExcept)) {
                 if (in_array($filter['field'], $inputExcept2)) {
                     $contents = $contents . $pointer . $this->where($filter['field'], $filter['operator'], $filter['value']);
+                } else if ($filter['field'] == 'sort') {
+                    $parsedSort = $this->parseSort($filter['value']);
+                    $sort = $this->sort($parsedSort->sort, $sortDir);
+                } else if ($filter['field'] == 'sortDir') {
+                    $sortDir = $filter['value'];
                 } else if ($filter['field'] == 'limit') {
                     $returnArg = $filter['value'];
                 } else {
@@ -191,25 +210,59 @@ class GframeworkServiceProvider extends ServiceProvider
                 }
             } else {
                 $contents = $contents . $pointer . $this->whereHas('metas', [
-                    'key' => $filter['field'],
-                    'value' => [$filter['operator'] => $filter['value']]
-                ]);
+                        'key' => $filter['field'],
+                        'value' => [$filter['operator'] => $filter['value']]
+                    ]);
             }
+        }
+
+        if (isset($sort)) {
+            $contents = $contents . "->" . $sort;
         }
 
         // Collection return type
         return $contents . "->" . $parsed->return . "(" . $returnArg . ")";
     }
 
+    private function parseTaxonomy($parsed, $returnArg) {
+        $taxonomy = "\App\TermTaxonomy";
+        $sort = null;
+        foreach ($parsed->filters as $index => $filter) {
+            $inputExcept = ['id', 'term_id', 'taxonomy', 'description', 'parent_id', 'count', 'limit', 'page', 'sort', 'sortDir'];
+            $inputExcept2 = ['id', 'term_id', 'taxonomy', 'description', 'parent_id', 'count'];
+            $pointer = $index == 0 ? '::' : '->';
+
+            if (in_array($filter['field'], $inputExcept)) {
+                if (in_array($filter['field'], $inputExcept2)) {
+                    $taxonomy = $taxonomy . $pointer . $this->where($filter['field'], $filter['operator'], $filter['value']);
+                } else if ($filter['field'] == 'sort') {
+                    $parsedSort = $this->parseSort($filter['value']);
+                    $sort = $this->sort($parsedSort->sort, $parsedSort->sortDir);
+                } else if ($filter['field'] == 'limit') {
+                    $returnArg = $filter['value'];
+                } else {
+                    $taxonomy = $taxonomy . $pointer . $this->where($filter['field'], $filter['operator'], $filter['value']);
+                }
+            }
+        }
+
+        if (isset($sort)) {
+            $taxonomy = $taxonomy . "->" . $sort;
+        }
+
+        // Collection return type
+        return $taxonomy . "->" . $parsed->return . "(" . $returnArg . ")";
+    }
+
     private function parseExpression($expression) {
         if (\Str::contains($expression, '|')) {
             $expressionReturn = explode("|", $expression);
-            $filters = trim(explode("as", trim($expressionReturn[0]))[0]);
-            $variable = trim(explode("as", trim($expressionReturn[0]))[1]);
+            $filters = trim(explode(" as ", trim($expressionReturn[0]))[0]);
+            $variable = trim(explode(" as ", trim($expressionReturn[0]))[1]);
             $return = trim($expressionReturn[1]);
         } else {
-            $filters = trim(explode("as", $expression)[0]);
-            $variable = trim(explode("as", $expression)[1]);
+            $filters = trim(explode(" as ", $expression)[0]);
+            $variable = trim(explode(" as ", $expression)[1]);
             $return = 'get';
         }
 
@@ -236,6 +289,23 @@ class GframeworkServiceProvider extends ServiceProvider
         $parsed->filters = $filters;
         $parsed->variable = $variable;
         $parsed->return = $return;
+
+        return $parsed;
+    }
+
+    private function parseSort($sort = '+id') {
+        $parsed = new \stdclass;
+
+        if (\Str::startsWith($sort, '+')) {
+            $parsed->sort = substr($sort, 1);
+            $parsed->sortDir = 'asc';
+        } else if (\Str::startsWith($sort, '-')) {
+            $parsed->sort = substr($sort, 1);
+            $parsed->sortDir = 'desc';
+        } else {
+            $parsed->sort = $sort;
+            $parsed->sortDir = 'asc';
+        }
 
         return $parsed;
     }
@@ -332,6 +402,19 @@ class GframeworkServiceProvider extends ServiceProvider
         }
         $part3 = "})";
         return $part1 . $part2 . $part3;
+    }
+
+    private function sort($sort = 'id', $sortDir = 'asc') {
+        $return = "";
+        $sort = $this->whereValueStr($sort);
+        if ($sort != "'updated_at'") {
+            $return = $return . "leftJoin('content_metas', function(\$join) {" .
+            "\$join->on('contents.id', '=', 'content_metas.content_id');" .
+            "\$join->where('content_metas.key', '=', " . $sort . ");".
+            "})->select('contents.*', DB::raw('contents.id as id'), DB::raw('IFNULL(content_metas.value, \"0\") as '.".$sort."))->orderByRaw('LENGTH('.".$sort.".')', '" . $sortDir. "')->";
+        }
+        $return = $return . "orderBy(".$sort.", '" . $sortDir . "')";
+        return $return;
     }
 
     private function limit($limit = 15) {

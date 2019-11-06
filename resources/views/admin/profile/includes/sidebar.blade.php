@@ -21,26 +21,28 @@
                 <div class="card card-sidebar-mobile">
                     <ul class="nav nav-sidebar" data-nav-type="accordion">
                         <li class="nav-item-header">Navigation</li>
-                        <li class="nav-item"><a class="nav-link" href="{{ route('admin.profile.index') }}"><i class="icon-user"></i> Profile</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{{ route('admin.profile.contents.index', ['type' => 'page']) }}"><i class="icon-files-empty2"></i> <span>Pages</span></a></li>
-                        <li class="nav-item"><a class="nav-link" href="{{ route('admin.profile.contents.index', ['type' => 'post']) }}"><i class="icon-blog"></i> <span>Blog Posts</span></a></li>
-                        <li class="nav-item"><a class="nav-link" href="{{ route('admin.profile.permissions.index') }}"><i class="icon-key"></i> Permissions</a></li>
-                        @auth
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('admin.profile.notifications.index') }}"><i class="icon-bell2"></i> Notifications
-                                @if (Auth::user()->unreadNotifications->count() > 0)
-                                <span id="notificationsCount" class="badge bg-warning-400">{{ Auth::user()->unreadNotifications->count() }}</span>
-                                @endif
-                            </a>
-                        </li>
-                        <li class="navigation-divider"></li>
-                        <li class="nav-item">
 
-                            <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="icon-switch2"></i> Logout</a>
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                @csrf
-                            </form>
-                        </li>
+                        @auth
+                            @foreach (Auth::user()->menus->where('title', 'Admin Profile')->first()->children as $item)
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ $item->link }}">
+                                        @if (isset($item->icon))
+                                            <i class="{{ $item->icon }}"></i>
+                                        @endif
+
+                                        {{ $item->title }}
+                                    </a>
+                                </li>
+                            @endforeach
+
+                            <li class="nav-item-divider"></li>
+                            <li class="nav-item">
+
+                                <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="icon-switch2"></i> Logout</a>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                    @csrf
+                                </form>
+                            </li>
                         @endauth
                     </ul>
                 </div>

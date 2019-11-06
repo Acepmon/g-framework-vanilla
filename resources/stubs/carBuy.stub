@@ -72,9 +72,6 @@ Car dealer
           </div>
         </form>
         <form action="{{ url('/buy') }}" id="mainForm">
-        @include('themes.car-web.includes.car-list-menu')
-      </div>
-      <div class="col-lg-9 col-md-8">
         @include('themes.car-web.includes.car-list-contents', ['allItems' => \Modules\Car\Entities\Car::all(), 'type' => 'buy'])
         </form>
       </div>
@@ -97,7 +94,7 @@ Car dealer
 <!-- Banner end -->
 
 <!-- Hot deal Grid -->
-@include('themes.car-web.includes.section-slider', array('title'=>'Hot Deal', 'contents'=>\Modules\Car\Entities\Car::filterByPremium()->get(), 'morelink'=>url('/buy?premium=True')))
+@include('themes.car-web.includes.section-slider', array('title'=>'Hot Deal', 'contents'=>\App\Content::getByMetas('publishType', 'best_premium')->where('status', \App\Content::STATUS_PUBLISHED)->where('visibility', \App\Content::VISIBILITY_PUBLIC)->get(), 'morelink'=>url('/buy?publishType=best_premium')))
 <!-- Hot deal End -->
 @endsection
 
