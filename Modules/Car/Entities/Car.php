@@ -46,15 +46,25 @@ class Car extends Content
                 $contents = metaHas($contents, $key, $value);
             }
         }
-        $minPrice = $filter['minPrice'];
-        $maxPrice = $filter['maxPrice'];
+
+        $minPrice = Null;
+        $maxPrice = Null;
+        if (array_key_exists('minPrice', $filter)) {
+            $minPrice = $filter['minPrice'];
+        }
+        if (array_key_exists('maxPrice', $filter)) {
+            $maxPrice = $filter['maxPrice'];
+        }
         if ($minPrice || $maxPrice) {
             $contents = metaHas($contents, 'priceAmount', '', 'range', $minPrice, $maxPrice);
         }
-        $mileage = $filter['mileageAmount'];
-        if ($mileage) {
-            [$minMileage, $maxMileage] = explode('-', $mileage);
-            $contents = metaHas($contents, 'mileageAmount', '', 'range', $minMileage, $maxMileage);
+
+        if (array_key_exists('mileageAmount', $filter)) {
+            $mileage = $filter['mileageAmount'];
+            if ($mileage) {
+                [$minMileage, $maxMileage] = explode('-', $mileage);
+                $contents = metaHas($contents, 'mileageAmount', '', 'range', $minMileage, $maxMileage);
+            }
         }
 
         return $contents;
