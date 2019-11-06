@@ -273,7 +273,7 @@
     $("input.manufacture").on("change", function () {
 
         $(".car-filter .models.active").hide();
-        var subList = $(".car-filter .models[name=\"" + $(this).val() + "\"");
+        var subList = $(".car-filter .models." + $(this).val());
         if (subList.length) {
             $('.car-filter .manufacturer').hide(300);
             subList.show(300);
