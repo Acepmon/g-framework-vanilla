@@ -50,7 +50,7 @@
     <script src="{{ asset('car-web/vendor/owl.carousel/owl.carousel.min.js') }}"></script>
     <script src="{{ asset('car-web/vendor/owl.carousel.thumbs/owl.carousel2.thumbs.min.js') }}"></script>
     <script src="{{ asset('car-web/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
-    <script src="{{ asset('car-web/js/script.js') }}"></script>
+    <script src="{{ asset('car-web/js/script.min.js') }}"></script>
     <script src="{{ asset('inputmask/jquery.inputmask.min.js') }}"></script>
     <script>
         $.ajaxSetup({
