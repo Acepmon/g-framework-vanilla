@@ -36,15 +36,9 @@
             </div>
         </div>
     </div>
-
-    @if(isset($edit) && $edit)
-    <div style="float:left;">
-        <button class="btn btn-success btn-round shadow-green px-5 py-2" type="button" id="saveBtn" onclick="save()">Save</button>
-    </div>
-    @endif
     <div style="float:right;">
         <button class="btn btn-light btn-round px-5 py-2 mr-3" type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
-        <button class="btn btn-danger btn-round shadow-red px-5 py-2" type="button" id="nextBtn" onclick="{{ (isset($edit) && $edit)?'nextPrev(1)':'step2Submit(()=>{})' }}">Next</button>
+        <button class="btn btn-danger btn-round shadow-red px-5 py-2" type="button" id="nextBtn" onclick="step2Submit()">Next</button>
     </div>
 </form>
 
@@ -155,7 +149,7 @@
     });
 
 
-    function step2Submit(__callback) {
+    function step2Submit() {
         event.preventDefault();
         $.ajax({
             type: 'POST',
@@ -175,9 +169,16 @@
                 nextPrev(1);
                 console.log("DONE!");
                 console.log(data);
-                __callback(1);
-            }).fail(fail);
-        }).fail(fail);
+            }).fail(function(err) {
+                $("#demo-spinner").css({'display': 'none'});
+                console.error("FAIL!");
+                console.error(err);
+            });
+        }).fail(function(err) {
+            $("#demo-spinner").css({'display': 'none'});
+            console.error("FAIL!");
+            console.error(err);
+        });
     }
 
 </script>
