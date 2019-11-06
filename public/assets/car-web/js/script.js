@@ -271,9 +271,43 @@
     $(document).ready(responsiveNav);
 
     $("input.manufacture").on("change", function () {
+        let val = $(this).val();
+        console.log(val);
+        let subList = $(".car-filter .models[name=\"" + val + "\"");
 
+        if (subList.length) {
+            switchToModel(val);
+        } else {
+            $.ajax({
+                type: 'Get',
+                url: '/api/v1/taxonomies/car-' + toKebabCase(val),
+            }).done(function(data) {
+                var modelList=data;
+                console.log(modelList);
+                var html = '<div class="models" name="'+val+'"> \
+                <div class="models-back"><i class="fab fa fa-angle-left"></i> back</div> ';
+
+                for (var i = 0; i < modelList.data.length; i++) {
+                    let termname = modelList.data[i].term.name;
+                    html = html + '<div class="custom-control custom-radio"> '+ 
+                        '<input type="radio" id="' + termname + '" name="car-model" value="' + termname + '" class="custom-control-input"> '+
+                        '<label class="custom-control-label d-flex justify-content-between" for="' + termname + '">' + termname + '</label></div>';
+                }
+
+                html += '</div>';
+                $('#manufacturerBody').append(html);
+                switchToModel(val);
+            }).fail(function(err) {
+                // $("#demo-spinner").css({'display': 'none'});
+                console.error("FAIL!");
+                console.error(err);
+            });
+        }
+    });
+
+    function switchToModel(val) {
         $(".car-filter .models.active").hide();
-        var subList = $(".car-filter .models[name=\"" + $(this).val() + "\"");
+        var subList = $(".car-filter .models[name=\"" + val + "\"");
         if (subList.length) {
             $('.car-filter .manufacturer').hide(300);
             subList.show(300);
@@ -282,7 +316,7 @@
                 $('.car-filter .manufacturer').show(300);
             })
         }
-    });
+    }
 
 
 })(jQuery)
