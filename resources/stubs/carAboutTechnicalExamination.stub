@@ -51,57 +51,54 @@
             </div>
     </section>
 
-    <!-- Hot deal Grid -->
     <section class="section my-5">
-        <div class="container">
-        <div class="row">
-            <div class="col-md-7">
-            <div class="about-main-text">
-                <ul class="list-items">
-                <li class="list-item">
-                    <p class="font-weight-bold">Техникийн үзлэг оношлогоо</p>
-                    <p> Манай байгууллагатай хамтран ажилладаг авто засварын газарт өөрөө
-                    явагч хэрэгслийн техникийн үзлэгт хамрагдан гадна  болон дотор, моторын
-                    үзүүлэлт зэргийг шалгуулан тодорхойлолт гаргуулах.  </p>
-                </li>
-                <li class="list-item">
-                    <p><strong>“Техникийн үзлэг оношлогоо”–ны</strong> тодорхойлолтыг худалдах гэж буй
-                    машины зар дээр нэмэлт мэдээлэл болгон оруулах боломжтой. Ингэснээр
-                    худалдан авагч талд илүү итгэл төрүүлнэ.</p>
-                </li>
-                <li class="list-item">
-                    <p class="font-weight-bold">“Техникийн үзлэг оношлогоо” хийлгэх  </p>
-                    <p> - Хэрэглэгч өөрийн машинаа техникийн оношлогоонд оруулах хүсэлтээ
-                        хамтран ажилдаг авто сервисын төвд гаргана.</p>
-                        <p>- Товлогдсон өдөр оношилгоонд хамрагдана.</p>
-                        <p>- Үзлэг оношлогоонд хамрагдсаны дараа тодорхойлолт гаргаж өгөх
-                        бөгөөд хэрэглэгч үүнийг худалдах гэж буй машины зар дээр нэмж
-                        оруулах боломжтой юм. Энэ үед тухайн зар дээр техникийн
-                        оношлогоонд хамрагдсан баталгаат наалт нааж өгнө.</p>
-                </li>
-                <li class="list-item">
-                    <p class="font-weight-bold">“Техникийн үзлэг оношлогоо”-ны үнэ </p>
-                    <p>1 удаа хамрагдахад 20,000₮ бөгөөд (Техникийн оношлогоонд хамрагдсан
-                    баталгаат стикер багтсан)</p>
-                </li>
-                <li class="list-item">
-                    <p class="font-weight-bold">Техникийн оношлогооны талаар лавлах болон захиалга өгөх  </p>
-                    <p><strong>DOCTOR авто сүлжээ</strong> үйлчилгээний төв : …………………………..</p>
-                </li>
-                </ul>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 d-flex align-items-center">
+          <div class="about-main-text">
+            <div class="about-heading-title">Техникийн үзлэг оношлогоо</div>
+            <div class="about-text">
+              <p>
+                Манай байгууллагатай хамтран ажилладаг авто засварын газарт өөрөө явагч хэрэгслийн техникийн үзлэгт хамрагдан гадна  болон дотор, моторын үзүүлэлт зэргийг шалгуулан тодорхойлолт гаргуулах.  
+              </p>
+              <p>“Техникийн үзлэг оношлогоо”–ны тодорхойлолтыг худалдах гэж буй машины зар дээр нэмэлт мэдээлэл болгон оруулах боломжтой. Ингэснээр худалдан авагч талд илүү итгэл төрүүлнэ.              </p>
             </div>
-
-
-            </div>
-            <div class="col-md-5">
-            <img src="{{ asset('car-web/img/sample-img.png') }}" alt="">
-            </div>
-
+          </div>
+            
         </div>
+        <div class="col-md-6">
+          <img class="img-fluid" src="{{ asset('car-web/img/service.png')}}" alt="">
         </div>
-    </section>
+        
+      </div>
+    </div>
+  </section>
 
-    <section class="page-section bg-light mb-5">
+  <section class="page-section bg-light">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <h4 class="section-heading">“Техникийн үзлэг оношлогоо” хийлгэх</h4>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-6">
+          <img src="{{ asset('car-web/img/doctor-service.png')}}" class="img-fluid" alt="">
+        </div>
+        <div class="col-lg-6 d-flex align-items-center">
+          <div class="about-text">
+            <p>Хэрэглэгч өөрийн машинаа техникийн оношлогоонд оруулах хүсэлтээ хамтран ажилдаг авто сервисын төвд гаргана</p>
+            <p>Үзлэг оношлогоонд хамрагдсаны дараа тодорхойлолт гаргаж өгөх бөгөөд хэрэглэгч үүнийг худалдах гэж буй машины зар дээр нэмж оруулах боломжтой юм. Энэ үед тухайн зар дээр техникийн оношлогоонд хамрагдсан баталгаат наалт нааж өгнө.
+            </p>
+            <p><b>1 удаа хамрагдахад 20,000₮</b></p>
+            <p><button class="btn btn-danger btn-round px-4 shadow-red btn-lg mt-4">Doctor service</button></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+    <section class="page-section mb-5">
         <div class="container">
         <div class="row text-center">
             <h4 class="section-heading">Зар оруулах дараалал</h4>

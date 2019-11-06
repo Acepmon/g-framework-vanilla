@@ -5,17 +5,29 @@
                 @auth
                     <a data-toggle="modal" href="#modalAddWishlist">
                         <span class="badge badge-danger rounded float-right">new</span>
-                        <img src="{{ asset('car-web/img/wish.png') }}" class="img-fluid" />
-                        <strong>WRITE WANNA BUY</strong>
+                        <div id="wish-animation"> </div>
+                        <h5>People's <br>wish list</h5>
                     </a>
                 @else
                     <a href="{{ route('login') }}">
                         <span class="badge badge-danger rounded float-right">new</span>
-                        <img src="{{ asset('car-web/img/wish.png') }}" class="img-fluid" />
-                        <strong>WRITE WANNA BUY</strong>
+                        <div id="wish-animation"> </div>
+                        <h5>People's <br>wish list</h5>
                     </a>
                 @endauth
             </div>
+            <script>
+                    var animation = bodymovin.loadAnimation({
+                        container: document.getElementById('wish-animation'),
+                        renderer: 'svg',
+                        loop: true,
+                        rendererSettings: {
+                            progressiveLoad: true
+                        },
+                        autoplay: true,
+                        path: '{{ asset("car-web/img/wish.json")}}'
+                    });
+                </script>
         </div>
         <div class="card border-0">
             <a href="{{ config('car.appStoreLink') }}" target="_blank">

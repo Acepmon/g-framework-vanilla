@@ -22,9 +22,9 @@
                             <div class="d-flex justify-content-between retail-head py-2">
                                 <div class="retail-name">{{ $content->title }}</div>
 
-                                @if ($content->metaValue('phone'))
+                                <!-- @if ($content->metaValue('phone'))
                                     <div class="retail-phone">{{ format_phone($content->metaValue('phone')) }}</div>
-                                @endif
+                                @endif -->
                             </div>
                         @endif
 
@@ -42,17 +42,17 @@
                             </div>
                         @endif
 
-                        @if ($content->metaValue('vehicles'))
+                        <!-- @if ($content->metaValue('vehicles'))
                             <div class="retail-row">
                                 <div class="row-title">A reserved vehicle</div>
                                 <div class="row-info">{{ $content->metaValue('vehicles') }} vehicles</div>
                             </div>
-                        @endif
+                        @endif -->
 
                         @if ($content->metaValue('website'))
                             <div class  ="retail-row">
-                                <div class="row-title">Website</div>
-                                <div class="row-info">{{ $content->metaValue('website') }}</div>
+                                <div class="row-title">Phone</div>
+                                <div class="row-info">{{ format_phone($content->metaValue('phone')) }}</div>
                             </div>
                         @endif
                     </div>

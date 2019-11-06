@@ -34,130 +34,101 @@
         </div>
     </section>
 
-    <!-- Hot deal Grid -->
-    <section class="section my-5">
-        <div class="container">
-        <div class="row">
-            <div class="col-md-7">
-            <div class="about-main-text">
-                <ul class="list-items">
-                <li class="list-item">
-                    <p class="font-weight-bold">Төлбөргүй зар </p>
-                    <p> 1.1 Машин зарах гэж байгаа хэрэглэгч гишүүнээр бүртгүүлж орсноор
-                    төлбөргүй зар оруулж болно.
-                    Төлбөргүй зар нь Main Page болон Sub page дээр төлбөртэй зарын
-                    доод талд байрлах болно.
-                    </p>
-                    <p>
-                    1.2 Машин худалдан авахыг хүссэн хэрэглэгч нь төлбөргүй [Машин
-                    худалдан авах хүсэлт] зар гэсэн хэсгийг бөглөхөд болно.
+    <section class="page-section bg-light">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 d-flex align-items-center">
+          <div class="about-main-text">
+            <div class="about-heading-title">Төлбөргүй зар </div>
+            <div class="about-title">
+              <p>Машин зарах гэж байгаа хэрэглэгч гишүүнээр бүртгүүлж орсноор төлбөргүй зар оруулж болно.
+                Төлбөргүй зар нь Main Page болон Sub page дээр төлбөртэй зарын доод талд байрлах болно.</p>
 
-                    </p>
-                </li>
-                <li class="list-item">
-                    <p class="font-weight-bold">BEST зар – төлбөртэй </p>
-                    <p>2.1 богино хугацаанд олон хэрэглэгчид зараа хүргэхийг хүсвэл Best зарын
-                    хэсгийг ашиглаарай.
-                    </p>
-                    <p> 2.2 Best зар нь Main Page болон Sub page-ийн хамгийн дээд хэсэгт байрлах
-                    болно.
-                    </p>
-                    <p>
-                    2.3 энэ хэсэгт зөвхөн 12ш зар харагддаг тул хэрэглэгчид хүрэх хамгийн
-                    өндөр боломжтой юм. </p>
-                    <p>2.4 зарын үнэ </p>
-                    <p>2.5 зарын байршил (зураг)
-
-                    </p>
-                </li>
-
-
-                <li class="list-item">
-                    <p class="font-weight-bold">
-                    Special зар - төлбөртэй
-                    </p>
-                    <p>
-                    3.1 Онцгой машин хайж байгаа хэрэглэгч нарт зориулан өөрийн зарыг
-                    сурталчлах боломж</p>
-                    <p> 3.2 машин хайх хуудасны дээд талд байрлана. </p>
-                    <p>3.3 Special зар олон болсон тохиолдолд Random –оор зарын дараалал
-                    солигдох болно. </p>
-                    <p>3.4 зарын үнэ </p>
-                    <p>3.5 зарын байршил (зураг)
-
-                    </p>
-                </li>
-                <li class="list-item">
-                    <p class="font-weight-bold">
-                    Banner зар – төлбөртэй
-                    </p>
-                    <p> 4.1 машины зарын дундуур Banner зарыг гаргах тул өөрийн зарыг олон
-                    хэрэглэгчдэд хүргэх боломжтой. </p>
-                    <p> 4.2 Энд машины зараас гадна машины сэлбэг, төрөл бүрийн тосны
-                    худалдаа, даатгалын байгууллага, банк бус санхүүгийн байгууллага,
-                    машин борлуулалтын компани зэрэг автомашинтай холбоотой бүх
-                    төрлийн зарыг харуулах боломжтой.</p>
-                    <p> 4.3 5 секунд тутамд нийт 5 сурталчилгаа харуулна.</p>
-                    <p> 4.4 зарын үнэ </p>
-                    <p> 4.5 зарын байршил (зураг)
-                    </p>
-                </li>
-                <li class="list-item">
-                    <p class="font-weight-bold">Зарын талаар лавлах </p>
-                    <p>7011-1211, 9585-1140</p>
-                </li>
-                <li class="list-item">
-                    <p class="font-weight-bold">Зарын төлбөр шилжүүлэх данс</p>
-                </li>
-
-                </ul>
+              <p> Машин худалдан авахыг хүссэн хэрэглэгч нь төлбөргүй [Машин худалдан авах хүсэлт] зар гэсэн хэсгийг
+                бөглөхөд болно.
+              </p>
             </div>
+          </div>
 
-
-            </div>
-            <div class="col-md-5">
-            <img src="{{ asset('car-web/img/sample-img.png') }}" alt="">
-            </div>
 
         </div>
+        <div class="col-md-6">
+          <img src="img/about-illustration.png" class="img-fluid" alt="">
         </div>
-    </section>
 
-    <section class="page-section bg-light mb-5">
-        <div class="container">
-        <div class="row text-center">
-            <h4 class="section-heading">Зээлийн дараалал </h4>
+      </div>
+    </div>
+  </section>
+  <section class="page-section" id="section-best">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <div id="best-zar"></div>
         </div>
-        <div class="row">
-            <div class="about-sequences">
-            <div class="sequence-item">
-                <div class="sequence-img"><img src="{{ asset('car-web/img/sample/001-alarm clock.png') }}" alt=""></div>
-                <div class="sequence-title">Авах машинаа сонгох</div>
+
+        <div class="col-md-6 d-flex align-items-center">
+          <div class="about-main-text">
+            <div class="about-heading-title">BEST зар – төлбөртэй </div>
+            <div class="about-title">
+              <p>Богино хугацаанд олон хэрэглэгчид зараа хүргэхийг хүсвэл Best зарын хэсгийг ашиглаарай.</p>
+
+              <p> Best зар нь Main Page болон Sub page-ийн хамгийн дээд хэсэгт байрлах болно. </p>
+
+              <p> Энэ хэсэгт зөвхөн 12ш зар харагддаг тул хэрэглэгчид хүрэх хамгийн өндөр боломжтой юм.
+              </p>
             </div>
-            <div class="sequence-item">
-                <div class="sequence-img"><img src="{{ asset('car-web/img/sample/002-audio book.png') }}" alt=""></div>
-                <div class="sequence-title">Зээл авах боломжтой эсэхийг шалгах </div>
-            </div>
-            <div class="sequence-item">
-                <div class="sequence-img"><img src="{{ asset('car-web/img/sample/020-player.png') }}" alt=""></div>
-                <div class="sequence-title">Зээлийн судалгаа, зээлийн гэрээ хийх </div>
-            </div>
-            <div class="sequence-item">
-                <div class="sequence-img"><img src="{{ asset('car-web/img/sample/022-customer service.png') }}" alt=""></div>
-                <div class="sequence-title">Тээврийн хэрэгслийн гэрчилгээний нэр солих </div>
-            </div>
-            <div class="sequence-item">
-                <div class="sequence-img"><img src="{{ asset('car-web/img/sample/023-smartphone.png') }}" alt=""></div>
-                <div class="sequence-title">Зээл авах </div>
-            </div>
-            <div class="sequence-item">
-                <div class="sequence-img"><img src="{{ asset('car-web/img/sample/023-smartphone.png') }}" alt=""></div>
-                <div class="sequence-title">Машинаа авах </div>
-            </div>
-            </div>
+          </div>
         </div>
+      </div>
+    </div>
+  </section>
+  <section class="page-section bg-light" id="section-special">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 d-flex align-items-center">
+          <div class="about-main-text">
+            <div class="about-heading-title">Special зар - төлбөртэй </div>
+            <div class="about-title">
+              <p>Онцгой машин хайж байгаа хэрэглэгч нарт зориулан өөрийн зарыг сурталчлах боломж</p>
+
+              <p> Машин хайх хуудасны дээд талд байрлана. </p>
+
+              <p> Special зар олон болсон тохиолдолд Random –оор зарын дараалал солигдох болно. </p>
+            </div>
+          </div>
         </div>
-    </section>
+        <div class="col-md-6">
+            <div id="special-zar"></div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </section>
+  <section class="page-section">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <img src="{{ asset('car-web/img/banner-zar.png')}}" class="img-fluid" alt="">
+        </div>
+        <div class="col-md-6 d-flex align-items-center">
+          <div class="about-main-text">
+            <div class="about-heading-title">Banner зар – төлбөртэй</div>
+            <div class="about-title">
+              <p>Машины зарын дундуур Banner зарыг гаргах тул өөрийн зарыг олон хэрэглэгчдэд хүргэх боломжтой. </p>
+
+              <p>Энд машины зараас гадна машины сэлбэг, төрөл бүрийн тосны худалдаа, даатгалын байгууллага, банк бус
+                санхүүгийн байгууллага, машин борлуулалтын компани зэрэг автомашинтай холбоотой бүх төрлийн зарыг
+                харуулах боломжтой.</p>
+
+              <p> Секунд тутамд нийт 5 сурталчилгаа харуулна.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    </div>
+  </section>
 
     <section class="pageType-footer">
         <div class="container">
@@ -171,4 +142,50 @@
 @endsection
 
 @section('script')
+<script>
+    var bestZar = {
+    container: document.getElementById('best-zar'),
+    renderer: 'svg',
+    loop: false,
+    rendererSettings: {
+        progressiveLoad: true
+    },
+    autoplay: false,
+    path: '{{asset("car-web/animation/bestAD.json")}}'
+};
+anim1 = bodymovin.loadAnimation(bestZar);
+
+    var specialZar = {
+    container: document.getElementById('special-zar'),
+    renderer: 'svg',
+    loop: false,
+    rendererSettings: {
+        progressiveLoad: true
+    },
+    autoplay: false,
+    path: '{{asset("car-web/animation/specialAD.json")}}'
+};
+anim2 = bodymovin.loadAnimation(specialZar);
+        
+$(window).scroll(function(){
+  var currentScroll = $(window).scrollTop();
+
+  $('section').each(function(){
+    var $this = $(this);
+    if(($this.offset().top - $(window).height()/2) < currentScroll && currentScroll < ($this.offset().top - $(window).height()/2) + $this.outerHeight()){
+      if(this.id === "section-best"){
+        anim1.play();
+      }else{
+        anim1.stop();
+      }
+      if(this.id === "section-special"){
+        anim2.play();
+      }else{
+        anim2.stop();
+      }
+      console.log(this.id);
+    }
+  })
+})
+</script>
 @endsection
