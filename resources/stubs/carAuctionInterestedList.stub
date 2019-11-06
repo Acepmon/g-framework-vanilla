@@ -18,6 +18,24 @@
         </ul>
         </div>
     </div>
+    <div class="card page-top-navbar border-0 mt-3 bg-transparent">
+        <div class="d-flex justify-content-start">
+            @contentInline(contents.id in Auth::user()->metaArray('interestedCars'),isAuction=0, type=car,sort=request()->input("sort") as $cars | paginate)
+            <span class="total-cars ml-0" >VEHICLES</span>
+            <div class="sort-cars col-md-9">
+                <ul>
+                    <li class="{{ request('sort')=='updated_at' ?'active':'' }}"><a href="#" onclick="formSubmit('sortBy', 'updated_at', 'sortDir', 'desc')">Recent cars</a></li>
+                    <li class="{{ request('sort')=='priceAmount' ?'active':'' }}"><a href="#" onclick="formSubmit('sortBy', 'priceAmount', 'sortDir', 'asc')">Low price</a></li>
+                </ul>
+            </div>
+        </div>
+        <form method="GET" id="mainForm" action="/interested-car">
+            <div class="col-md-12 text-center">
+                <input hidden id="sortBy" name="sort">
+                <input hidden id="sortDir" name="sortDir">
+            </div>
+        </form>
+    </div>
     <div class="car-list sell-car">
     @content(id in Auth::user()->metaArray('interestedCars'), isAuction=1, type=car as $car | paginate)
     <div class="card">
@@ -32,21 +50,13 @@
                         <div class="meta">{{ $car->metaValue('buildYear') }}/{{ $car->metaValue('importDate') }} | {{ $car->metaValue('mileage') }}km</div>
                         <div class="price">{{ numerizePrice($car->metaValue('priceAmount')) }} {{ $car->metaValue('priceUnit') }}</div>
                     </a>
-                    @if(Auth::user() && $car->author_id == Auth::user()->id)
-                        <div class="favorite">
-                            <span class=""><i class="fas fa-car"></i> This is your car</span>
-                        </div>
-                    @else
+                    <div class="favorite addToInterest" data-target="{{ $car->id }}">
                         @if(Auth::user() && count(metaHas(Auth::user(), 'interestedCars', $car->id)->get()) > 0)
-                            <div class="favorite" onclick="addToInterest(event, {{$car->id}})">
-                                <span class="text-danger"><i class="fas fa-heart"></i> Added to interest list</span>
-                            </div>
+                            <span class="text-danger"><i class="fas fa-heart"></i> Added to interest list</span>
                         @else
-                            <div class="favorite" onclick="addToInterest(event, {{$car->id}})">
-                                <span class=""><i class="far fa-heart"></i> Add to interest list</span>
-                            </div>
+                            <span class=""><i class="far fa-heart"></i> Add to interest list</span>
                         @endif
-                    @endif
+                    </div>
                 </div>
                 <div class="info">
                       <span class="info-icon">
@@ -87,5 +97,52 @@
 @endsection
 
 @section('script')
+    <script>
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
 
+        function formSubmit(id, value, sortDir, sortDirValue) {
+            console.log(id)
+            if (value != 'no-value') {
+                document.getElementById(id).value = value;
+            }
+            if (sortDir != 'no-value'){
+                document.getElementById(sortDir).value = sortDirValue;
+            }
+            $('#mainForm').submit();
+        }
+
+        $(document).ready(function () {
+            $(".addToInterest").click(function (event) {
+                event.preventDefault();
+                var id = $(this).attr('data-target');
+                var elm = $(this);
+                $.ajax({
+                    url: '/ajax/user/interested_cars',
+                    dataType: 'json',
+                    method: 'PUT',
+                    data: {
+                        'content_id': id
+                    },
+                    success: function (data) {
+                        if (data.status == 'added') {
+                            elm.html('<span class="text-danger"><i class="fas fa-heart"></i> Added to interest list</span>');
+                        } else if (data.status == 'removed') {
+                            elm.html('<span class=""><i class="far fa-heart"></i> Add to interest list</span>');
+                        }
+                    },
+                    error: function (error) {
+                        console.log("failed")
+                        console.log(error.status)
+                        if (error.status == 401  ){//|| error.status == 404) {
+                            window.location.href = "/login";
+                        }
+                    }
+                });
+            });
+        });
+    </script>
 @endsection
