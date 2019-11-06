@@ -100,12 +100,12 @@
         @include('themes.car-web.includes.section-retail', ['content' => \App\Content::find($content->metaValue('retail'))])
 
         <!-- Hot deals -->
-        @include('themes.car-web.includes.section-slider', ['title' => 'Hot Deals', 'contents' => \App\Content::getByMetas('publishType', 'best_premium')->where('status', \App\Content::STATUS_PUBLISHED)->where('visibility', \App\Content::VISIBILITY_PUBLIC)->orderBy('id', 'desc')->get(), 'morelink'=> url('/buy?publishType=best_premium')])
+        @include('themes.car-web.includes.section-slider', ['title' => 'Hot Deals', 'contents' => \App\Content::getByMetas('publishType', 'best_premium')->where('id', '!=', $content->id)->where('status', \App\Content::STATUS_PUBLISHED)->where('visibility', \App\Content::VISIBILITY_PUBLIC)->orderBy('id', 'desc')->get(), 'morelink'=> url('/buy?publishType=best_premium')])
 
         <!-- Similar Price -->
         @include('themes.car-web.includes.section-slider', [
             'title' => 'Similar Price',
-            'contents' => \App\Content::inRangeMetas('priceAmount', (intval($content->metaValue('priceAmount')) - 1000000) < 0 ? '0' : (intval($content->metaValue('priceAmount')) - 1000000), $content->metaValue('priceAmount') + 1000000)->where('status', \App\Content::STATUS_PUBLISHED)->where('visibility', 'public')->orderBy('id', 'desc')->get(),
+            'contents' => \App\Content::inRangeMetas('priceAmount', (intval($content->metaValue('priceAmount')) - 1000000) < 0 ? '0' : (intval($content->metaValue('priceAmount')) - 1000000), $content->metaValue('priceAmount') + 1000000)->where('id', '!=', $content->id)->where('status', \App\Content::STATUS_PUBLISHED)->where('visibility', 'public')->orderBy('id', 'desc')->get(),
             'morelink'=> url('/search?min_price='.(($content->metaValue('priceAmount') - 1000000) < 0 ? 0 : ($content->metaValue('priceAmount') - 1000000)).'&max_price='.($content->metaValue('priceAmount') + 1000000))
         ])
 
@@ -113,6 +113,11 @@
         @include('themes.car-web.includes.footer')
 
         @stack('modals')
+
+        <!-- DEMO SPINNER TODO: CHANGE -->
+        <div class="spinner-border" id="demo-spinner" role="status" style="position: fixed; z-index: 1000; top: 50%; left: 50%; display: none">
+        <span class="sr-only">Loading...</span>
+        </div>
 
         <!-- Bootstrap core JavaScript -->
         <script src="{{ asset('car-web/vendor/jquery/jquery.min.js') }}"></script>

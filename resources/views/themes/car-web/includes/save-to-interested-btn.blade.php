@@ -35,9 +35,11 @@
                         if (data.status == 'added') {
                             $("#saveToInterested").html('<span class="text-danger"><i class="fas fa-heart"></i> Added to interest list</span>');
                             $("#saveToInterested").prop('disabled', false);
+                            $("#interestedStat").text(parseInt($("#interestedStat").text()) + 1);
                         } else if (data.status == 'removed') {
                             $("#saveToInterested").html('<span class=""><i class="far fa-heart"></i> Add to interest list</span>')
                             $("#saveToInterested").prop('disabled', false);
+                            $("#interestedStat").text(parseInt($("#interestedStat").text()) - 1);
                         }
                     },
                     error: function (error) {

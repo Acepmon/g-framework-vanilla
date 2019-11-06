@@ -32,6 +32,8 @@ class PublicController extends Controller
                 return redirect()->route('login');
             }
 
+            $content->incrementMetaValue("viewed");
+
             $viewPath = config('content.'.$content->type.'s.viewPath');
             return view($viewPath . '.' . $content->currentView());
         }

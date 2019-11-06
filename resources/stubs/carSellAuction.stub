@@ -201,6 +201,8 @@ if ($startsAt) {
       var startsAt = $('#scheduleDate').val() + ' ' + $('#scheduleTime').val() + ':' + $('#scheduleMinute').val() + ':00';
       paramObjs['startsAt'] = startsAt;
       //startsAt = new Date();
+    } else {
+      paramObjs['startsAt'] = new Date().toISOString();
     }
     console.log(carId);
     console.log(paramObjs);

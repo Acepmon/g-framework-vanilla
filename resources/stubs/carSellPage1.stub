@@ -73,7 +73,6 @@ function postCar(type) {
             url: '/ajax/contents/' + carId + '/metas',
             data: paramObjs
         }).done(function(data) {
-            $("#demo-spinner").css({'display': 'none'});
             window.location.href = "/sell-car-page-2";
         }).fail(function(err) {
             $("#demo-spinner").css({'display': 'none'});

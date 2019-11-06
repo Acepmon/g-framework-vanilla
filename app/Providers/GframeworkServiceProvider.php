@@ -189,8 +189,9 @@ class GframeworkServiceProvider extends ServiceProvider
         // Er ni yum oorchlood heregguidee. Amarhan evderne!
         $contents = "\App\Content";
         $sort = null;
+        $sortDir = 'asc';
         foreach ($parsed->filters as $index => $filter) {
-            $inputExcept = ['id', 'contents.id', 'title', 'slug', 'content', 'type', 'status', 'visibility', 'limit', 'page', 'sort', 'author_id', '_token'];
+            $inputExcept = ['id', 'contents.id', 'title', 'slug', 'content', 'type', 'status', 'visibility', 'limit', 'page', 'sort', 'sortDir', 'author_id', '_token'];
             $inputExcept2 = ['id', 'contents.id', 'title', 'slug', 'content', 'type', 'author_id', '_token'];
             $pointer = $index == 0 ? '::' : '->';
 
@@ -199,7 +200,9 @@ class GframeworkServiceProvider extends ServiceProvider
                     $contents = $contents . $pointer . $this->where($filter['field'], $filter['operator'], $filter['value']);
                 } else if ($filter['field'] == 'sort') {
                     $parsedSort = $this->parseSort($filter['value']);
-                    $sort = $this->sort($parsedSort->sort, $parsedSort->sortDir);
+                    $sort = $this->sort($parsedSort->sort, $sortDir);
+                } else if ($filter['field'] == 'sortDir') {
+                    $sortDir = $filter['value'];
                 } else if ($filter['field'] == 'limit') {
                     $returnArg = $filter['value'];
                 } else {
@@ -225,7 +228,7 @@ class GframeworkServiceProvider extends ServiceProvider
         $taxonomy = "\App\TermTaxonomy";
         $sort = null;
         foreach ($parsed->filters as $index => $filter) {
-            $inputExcept = ['id', 'term_id', 'taxonomy', 'description', 'parent_id', 'count', 'limit', 'page', 'sort'];
+            $inputExcept = ['id', 'term_id', 'taxonomy', 'description', 'parent_id', 'count', 'limit', 'page', 'sort', 'sortDir'];
             $inputExcept2 = ['id', 'term_id', 'taxonomy', 'description', 'parent_id', 'count'];
             $pointer = $index == 0 ? '::' : '->';
 
@@ -254,12 +257,12 @@ class GframeworkServiceProvider extends ServiceProvider
     private function parseExpression($expression) {
         if (\Str::contains($expression, '|')) {
             $expressionReturn = explode("|", $expression);
-            $filters = trim(explode("as", trim($expressionReturn[0]))[0]);
-            $variable = trim(explode("as", trim($expressionReturn[0]))[1]);
+            $filters = trim(explode(" as ", trim($expressionReturn[0]))[0]);
+            $variable = trim(explode(" as ", trim($expressionReturn[0]))[1]);
             $return = trim($expressionReturn[1]);
         } else {
-            $filters = trim(explode("as", $expression)[0]);
-            $variable = trim(explode("as", $expression)[1]);
+            $filters = trim(explode(" as ", $expression)[0]);
+            $variable = trim(explode(" as ", $expression)[1]);
             $return = 'get';
         }
 
@@ -404,10 +407,12 @@ class GframeworkServiceProvider extends ServiceProvider
     private function sort($sort = 'id', $sortDir = 'asc') {
         $return = "";
         $sort = $this->whereValueStr($sort);
-        $return = $return . "leftJoin('content_metas', function(\$join) {" .
+        if ($sort != "'updated_at'") {
+            $return = $return . "leftJoin('content_metas', function(\$join) {" .
             "\$join->on('contents.id', '=', 'content_metas.content_id');" .
             "\$join->where('content_metas.key', '=', " . $sort . ");".
             "})->select('contents.*', DB::raw('contents.id as id'), DB::raw('IFNULL(content_metas.value, \"0\") as '.".$sort."))->orderByRaw('LENGTH('.".$sort.".')', '" . $sortDir. "')->";
+        }
         $return = $return . "orderBy(".$sort.", '" . $sortDir . "')";
         return $return;
     }
