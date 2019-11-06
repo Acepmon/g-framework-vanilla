@@ -4023,7 +4023,6 @@ section .owl-carousel .owl-nav button.owl-next, section .owl-carousel .owl-nav b
 
 .people-wish-list .card .card-body .wish-user {
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
 }
 
@@ -4037,7 +4036,7 @@ section .owl-carousel .owl-nav button.owl-next, section .owl-carousel .owl-nav b
 
 .people-wish-list .card .card-body .wish-user .profile-img img {
   height: 100%;
-  width: auto;
+  width: 100%;
 }
 
 .people-wish-list .card .card-body .wish-user .username {
@@ -4045,6 +4044,9 @@ section .owl-carousel .owl-nav button.owl-next, section .owl-carousel .owl-nav b
   font-size: 1rem;
   font-weight: 600;
   color: #2B3651;
+  white-space: nowrap;
+  width: 70%;
+  overflow: hidden;
 }
 
 .people-wish-list .card .card-body .wish-user .username .date {

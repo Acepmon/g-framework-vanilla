@@ -258,8 +258,6 @@
         var mazMenuList = $('.maz-menu-list').offset().left;
         var mazMenuDistance = mazMenuList - brandOffset;
 
-        console.log(mazMenuDistance);
-
         if (mazMenuDistance <= 5) {
             $('.header-menu').addClass('is-mobile');
         } else {
