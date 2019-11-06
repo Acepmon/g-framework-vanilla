@@ -3196,7 +3196,7 @@ body.menu-absolute .header-menu {
 
 .maz-navbar .maz-menu-top {
   position: absolute;
-  top: -2.5rem;
+  top: -3rem;
   right: 0;
   width: 100%;
   height: auto;
@@ -3957,6 +3957,7 @@ section .owl-carousel .owl-nav button.owl-next, section .owl-carousel .owl-nav b
 
 .people-wish-list .card {
   border: none;
+  height: 100%;
 }
 
 .people-wish-list .card .card-top {

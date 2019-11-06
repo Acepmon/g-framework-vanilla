@@ -20,7 +20,7 @@
                     <div class="card vehicle-info-top shadow-soft-blue">
                         <div class="card-body text-left">
                             <div class="row">
-                                <div class="col-md-7">
+                                <div class="col-md-8">
                                     @if ($content->title)
                                         <h1 class="vehicle-title">{{ $content->title }}</h1>
                                     @endif
@@ -44,7 +44,7 @@
                                         <div class="vehicle-id">ID: <span>#{{ $content->id }}</span></div>
                                     </div>
                                 </div>
-                                <div class="col-md-5 text-right d-flex justify-content-between flex-column">
+                                <div class="col-md-4 text-right d-flex justify-content-between flex-column">
                                     @if ($content->metaValue('markName'))
                                         <div class="vehicle-brand">
                                             <img src="{{ url(asset('images/manufacturers/' . \Str::slug($content->metaValue('markName')) . '.png')) }}" alt="" width="80" class="mr-2 mt-2" style="vertical-align: top">
