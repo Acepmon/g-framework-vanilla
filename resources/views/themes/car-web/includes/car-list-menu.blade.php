@@ -40,33 +40,13 @@ $categoryName = [
         <div id="manufacture" class="collapse {{ request($category, False)?'show':'' }}" aria-labelledby="{{ $category }}">
         <div id="manufacturerBody" class="card-body bg-light">
             <div class="manufacturer">
-                @php
-                $mmrequest = array_diff_key($request, ['markName'=>Null, 'modelName'=>Null]);
-                $mmItems = \Modules\Car\Entities\Car::filter(clone $allItems, $mmrequest);
-                //$mmItems->leftJoin('content_metas', function($join) {
-                //    $join->on('contents.id', 'content_metas.id');
-                //    $join->where('key', 'markName');
-                //})->select('contents.*', 'content_metas.value as markName');
-                //dd($mmItems->get());
-                @endphp
-                
                 @foreach(App\TermTaxonomy::where('taxonomy', $category)->get() as $taxonomy)
-                @php
-                $count = getTaxonomyCount($taxonomy, $mmItems, $request);
-                @endphp
-                @if($count > 0)
-                @php
-                $manufacturers[] = $taxonomy->id;
-                @endphp
                 <div class="custom-control custom-radio">
                     <!-- <a href="/car-list?{{ $category . '=' . $taxonomy->term->name }}" class="text-body text-decoration-none"> -->
                     <input type="radio" id="{{$taxonomy->term->name}}" name="{{ $category }}" class="custom-control-input manufacture" value="{{ $taxonomy->term->name }}" {{ ($taxonomy->term->name == request($category, Null))?'checked':'' }}>
                     <label class="custom-control-label  d-flex justify-content-between" for="{{$taxonomy->term->name}}">{{ $taxonomy->term->name }}
-                        <div class="text-muted">{{ $count }}</div>
                     </label>
                 </div>
-                
-                @endif
                 @endforeach
             </div>
         </div>
@@ -139,44 +119,18 @@ $categoryName = [
         @elseif($category == 'car-options')
         <div id="{{ $category }}" class="collapse {{ request($category, False)?'show':'' }}" aria-labelledby="{{ $category }}">
         <div class="card-body bg-light">
-            @foreach(App\TermTaxonomy::where('taxonomy', $category)->get() as $taxonomy_parent)
-            @foreach($taxonomy_parent->children as $taxonomy)
-                @php
-                if ($taxonomy->term) {
-                    $count = metaHas(\Modules\Car\Entities\Car::filter(clone $allItems, $request, $taxonomy->term->group->metaValue('metaKey')), $taxonomy->term->metaValue('metaKey'), '1')->count();
-                } else {
-                    $count = $taxonomy->count;
-                }
-                @endphp
-                @if($count > 0)
-                <div class="custom-control custom-radio">
-                <!-- <a href="/car-list?{{ $category . '=' . $taxonomy->term->name }}" class="text-body text-decoration-none"> -->
-                <input type="radio" id="{{ $taxonomy->term->name }}" name="{{ $category }}" class="custom-control-input" value="{{ $taxonomy->term->name }}" {{ ($taxonomy->term->name == request($category, Null))?'checked':'' }}>
-                <label class="custom-control-label  d-flex justify-content-between" for="{{ $taxonomy->term->name }}">{{ $taxonomy->term->name }}
-                    <div class="text-muted">{{ $count }}</div>
-                </label>
-                </div>
-                @endif
-            @endforeach
-            @endforeach
         </div>
         </div>
         @else
         <div id="{{ $category }}" class="collapse {{ request($category, False)?'show':'' }}" aria-labelledby="{{ $category }}">
         <div class="card-body bg-light">
             @foreach(App\TermTaxonomy::where('taxonomy', $category)->get() as $taxonomy)
-            @php
-            $count = getTaxonomyCount($taxonomy, $allItems, $request);
-            @endphp
-            @if($count > 0)
             <div class="custom-control custom-radio">
             <!-- <a href="/car-list?{{ $category . '=' . $taxonomy->term->name }}" class="text-body text-decoration-none"> -->
             <input type="radio" id="{{$taxonomy->term->name}}" name="{{ $category }}" class="custom-control-input" value="{{ $taxonomy->term->name }}" {{ ($taxonomy->term->name == request($category, Null))?'checked':'' }}>
             <label class="custom-control-label  d-flex justify-content-between" for="{{$taxonomy->term->name}}">{{ $taxonomy->term->name }}
-                <div class="text-muted">{{ $count }}</div>
             </label>
             </div>
-            @endif
             @endforeach
         </div>
         </div>
