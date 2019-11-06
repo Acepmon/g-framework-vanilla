@@ -74,7 +74,7 @@ class GframeworkServiceProvider extends ServiceProvider
 
             $contents = $this->parseContent($parsed, $returnArg);
 //            dd($contents);
-            return "<?php {$variable} = $contents ?>";
+            return "<?php \$tmp = $contents; {$variable} = \$tmp ?>";
         });
 
         Blade::directive('content', function ($expression) {
@@ -85,7 +85,7 @@ class GframeworkServiceProvider extends ServiceProvider
 
             $contents = $this->parseContent($parsed, $returnArg);
 
-            return "<?php foreach($contents as $variable) { ?>";
+            return "<?php \$tmp = $contents; foreach(\$tmp as $variable) { ?>";
         });
 
         Blade::directive('endcontent', function () {
@@ -189,7 +189,7 @@ class GframeworkServiceProvider extends ServiceProvider
         // Er ni yum oorchlood heregguidee. Amarhan evderne!
         $contents = "\App\Content";
         $sort = null;
-        $sortDir = 'asc';
+        $sortDir = 'desc';
         foreach ($parsed->filters as $index => $filter) {
             $inputExcept = ['id', 'contents.id', 'title', 'slug', 'content', 'type', 'status', 'visibility', 'limit', 'page', 'sort', 'sortDir', 'author_id', '_token'];
             $inputExcept2 = ['id', 'contents.id', 'title', 'slug', 'content', 'type', 'author_id', '_token'];
@@ -215,9 +215,9 @@ class GframeworkServiceProvider extends ServiceProvider
                     ]);
             }
         }
-
+        
         if (isset($sort)) {
-            $contents = $contents . "->" . $sort;
+            $contents = $contents . $sort;
         }
 
         // Collection return type
@@ -247,7 +247,7 @@ class GframeworkServiceProvider extends ServiceProvider
         }
 
         if (isset($sort)) {
-            $taxonomy = $taxonomy . "->" . $sort;
+            $taxonomy = $taxonomy . $sort;
         }
 
         // Collection return type
@@ -266,7 +266,7 @@ class GframeworkServiceProvider extends ServiceProvider
             $return = 'get';
         }
 
-        $filters = explode(",", $filters);
+        $filters = preg_split("/(?<!\")\\,(?!\")/", $filters);
         $filters = array_map(function ($filter) {
             return $this->parseFilter(trim($filter));
         }, $filters);
@@ -404,16 +404,16 @@ class GframeworkServiceProvider extends ServiceProvider
         return $part1 . $part2 . $part3;
     }
 
-    private function sort($sort = 'id', $sortDir = 'asc') {
+    private function sort($sort = 'updated_at', $sortDir = 'desc') {
         $return = "";
         $sort = $this->whereValueStr($sort);
-        if ($sort != "'updated_at'") {
-            $return = $return . "leftJoin('content_metas', function(\$join) {" .
-            "\$join->on('contents.id', '=', 'content_metas.content_id');" .
-            "\$join->where('content_metas.key', '=', " . $sort . ");".
-            "})->select('contents.*', DB::raw('contents.id as id'), DB::raw('IFNULL(content_metas.value, \"0\") as '.".$sort."))->orderByRaw('LENGTH('.".$sort.".')', '" . $sortDir. "')->";
-        }
-        $return = $return . "orderBy(".$sort.", '" . $sortDir . "')";
+        $return = $return . "; if(" . $sort . " != 'updated_at') {\$tmp = \$tmp->";
+        $return = $return . "leftJoin('content_metas', function(\$join) {" .
+        "\$join->on('contents.id', '=', 'content_metas.content_id');" .
+        "\$join->where('content_metas.key', '=', " . $sort . ");" .
+        "})->select('contents.*', DB::raw('contents.id as id'), DB::raw('IFNULL(content_metas.value, \"0\") as '.".$sort."))->orderByRaw('LENGTH('.".$sort.".')', '" . $sortDir. "')";
+        $return = $return . ";}\$tmp = \$tmp";
+        $return = $return . "->orderBy(".$sort.", '" . $sortDir . "')";
         return $return;
     }
 

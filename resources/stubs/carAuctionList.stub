@@ -4,6 +4,7 @@
 $request = \Modules\Car\Entities\Car::manageRequest();
 $allItems = \Modules\Car\Entities\Car::all();
 $allItems = metaHas($allItems, 'isAuction', '1');
+$allItems = metaHas($allItems, 'endsAt', now(), '>=');
 $banner = \App\Banner::where('location_id', 5)->where('status', 'active')->inRandomOrder()->first();
 @endphp
 
