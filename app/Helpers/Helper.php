@@ -58,7 +58,7 @@ function numerizePrice($value) {
     if ($value < 1000) {
         return round($value, 2);
     } else if ($value < 1000000) {
-        return round(($value / 1000), 2) . ' мянга';
+        return round(($value / 1000), 0) . ' мянга';
     } else {
         return round(($value / 1000000), 2) . ' сая';
     }

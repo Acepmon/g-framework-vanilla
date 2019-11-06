@@ -1,5 +1,5 @@
 <div class="fixed-sidebar sticky-top">
-    <div class="sticky-content">
+    <div class="sticky-content" style="width: 120px">
         <div class="card">
             <div class="wish-list text-center">
                 @auth
@@ -29,12 +29,12 @@
                     });
                 </script>
         </div>
-        <div class="card border-0">
+        <div class="border-0">
             <a href="{{ config('car.appStoreLink') }}" target="_blank">
-                <img src="{{ asset('car-web/img/store_app.png') }}" style="width: 120px"/>
+                <img src="{{ asset('car-web/img/store_app.png') }}"/>
             </a>
             <a href="{{ config('car.playStoreLink') }}" target="_blank">
-                <img src="{{ asset('car-web/img/store_play.png') }}" style="width: 120px; padding-top: 2px"/>
+                <img src="{{ asset('car-web/img/store_play.png') }}" style="padding-top: 2px"/>
             </a>
         </div>
 
