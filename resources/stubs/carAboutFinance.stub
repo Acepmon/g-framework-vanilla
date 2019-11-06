@@ -57,61 +57,36 @@
         </div>
     </section>
 
-    <!-- Hot deal Grid -->
     <section class="section my-5">
-        <div class="container">
-        <div class="row">
-            <div class="col-md-7">
-            <div class="about-main-text">
-                <ul class="list-items">
-                <li class="list-item">
-                    <p><strong>“CAR FINANCE”</strong>- ийг хэрэгжүүлж байгаа DAMOA Capital нь 2012оноос эхлэн тогтвортой үйл
-                    ажиллагаагаа явуулж ирсэн бөгөөд үл хөдлөх хөрөнгө, авто машин барьцаалан зээл олгодог банк бус
-                    санхүүгийн байгууллага юм.
-                    </p>
-                </li>
-                <li class="list-item">
-                    <p><strong>DAMOA Capital</strong> нь 30 сарын хугацаатай, бага хүүтэй зээл олгодог бөгөөд хэрэглэгчдийн
-                    итгэлийг даасан компани билээ.</p>
-                </li>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 d-flex align-items-center">
+          <div class="about-main-text">
+            <div class="about-heading-title">Авто машины зээл</div>
+            <div class="about-text">
+              <p>
+                <b>“CAR FINANCE”- ийг</b> хэрэгжүүлж байгаа DAMOA Capital нь 2012оноос эхлэн тогтвортой үйл ажиллагаагаа явуулж ирсэн бөгөөд үл хөдлөх хөрөнгө, авто машин барьцаалан зээл олгодог банк бус санхүүгийн байгууллага юм.
+              </p>
 
+              <p>
+                <b>DAMOA Capital</b> нь 30 сарын хугацаатай, бага хүүтэй зээл олгодог бөгөөд хэрэглэгчдийн итгэлийг даасан компани билээ.
+              </p>
 
-                <li class="list-item">
-                    <p>Hайрсаг харилцаа, хурдан шуурхай үйлчилгээтэй</p>
-                </li>
-                <li class="list-item">
-                    <p>Авто машины лизинг, барьцаат зээлийн талаар сонирхсон хэрэглэгч өөрийн нэр дээр гарах боломжтой
-                    зээлийн хэмжээ, сарын төлөх дүнгийн талаар шууд мэдэх боломжтой юм.
-                    </p>
-                </li>
-                <li class="list-item">
-                    <p><strong>Зээлийн хүү</strong> : сарын 2.0% ~ 2.8%
-                    </p>
-                    <p><strong>зээлийн хугацаа</strong> : хамгийн дээд тал нь 30сар хүртэл
-                    </p>
-                </li>
-                <li class="list-item">
-                    <p><strong>Зээл лавлах утас</strong>: 7011-3322, 7011-8282, 9433-4535, 6350-4535</p>
-                </li>
-                <li class="list-item">
-                    <p><strong>Homepage / Facebook</strong></p>
-                </li>
-                <li class="list-item">
-                    <p><strong>Хаяг</strong>:#404, 405, Usnii Street 18, Sukhbaatar District, Ulaanbaatar City, Mongolia.
-                    </p>
-                </li>
-                </ul>
+              <p>
+                Авто машины лизинг, барьцаат зээлийн талаар сонирхсон хэрэглэгч өөрийн нэр дээр гарах боломжтой зээлийн хэмжээ, сарын төлөх дүнгийн талаар шууд мэдэх боломжтой юм.
+              </p>
             </div>
+          </div>
 
-
-            </div>
-            <div class="col-md-5">
-            <img src="{{ asset('car-web/img/sample-img.png') }}" alt="">
-            </div>
 
         </div>
+        <div class="col-md-6">
+          <img src="{{ asset('car-web/img/finance.png')}}" class="img-fluid" alt="">
         </div>
-    </section>
+
+      </div>
+    </div>
+  </section>
 
     <section class="page-section bg-light mb-5">
         <div class="container">

@@ -54,48 +54,31 @@
         </div>
     </section>
 
-    <!-- Hot deal Grid -->
     <section class="section my-5">
-        <div class="container">
-        <div class="row">
-            <div class="col-md-7">
-            <div class="about-main-text">
-                <ul class="list-items">
-                <li class="list-item">
-                    <p>
-                    [Машин худалдан авах хүсэлт гаргах] гэдэг нь хэрэглэгч худалдан авахыг хүссэн машины мэдээллийг
-                    оруулах бөгөөд тухайн зарыг борлуулагч талд харуулах болно. Ингэж харуулснаар машин худалдан авахыг
-                    хүссэн хэрэглэгчийн сонирхолд нийцсэн машиныг утас болон мессэжээр санал болгох боломжтой юм.
-                    </p>
-                </li>
-                <li class="list-item">
-                    <p>
-                    Хэрэглэгчид олон төрлийн машин дундаас харьцуулалт хийн боломжийн үнээр худалдаж авах боломж үүсэх
-                    бөгөөд борлуулагч тал өөрсдийн тээврийн хэрэгслийг богино хугацаанд зарахын тулд шууд худалдан
-                    авагчтай холбоо барьж болно.
-                    </p>
-                </li>
-
-
-                <li class="list-item">
-                    <p>Хэрэглэгч нь эхлээд гишүүнээр бүртгүүлсний дараа ‘Машин худалдан авах хүсэлт’ –ийг гаргах боломжтой.
-                    </p>
-                </li>
-                <li class="list-item">
-                    <p>‘Машин худалдан авах хүсэлт’ гаргахад Main Page дээр доорх зар гарч ирнэ.</p>
-                </li>
-                </ul>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 d-flex align-items-center">
+          <div class="about-main-text">
+            <div class="about-heading-title">Хүслийн машинаа олоорой</div>
+            <div class="about-text">
+              <ol>
+                <li>Энэ нь хэрэглэгч худалдан авахыг    хүссэн машины мэдээллийг оруулах бөгөөд тухайн зарыг борлуулагч талд харуулах болно. Ингэж харуулснаар машин худалдан авахыг хүссэн хэрэглэгчийн сонирхолд нийцсэн машиныг утас болон мессэжээр санал болгох боломжтой юм.</li>
+                <li>Хэрэглэгчид олон төрлийн машин дундаас харьцуулалт хийн боломжийн үнээр худалдаж авах боломж үүсэх бөгөөд борлуулагч тал өөрсдийн тээврийн хэрэгслийг богино хугацаанд зарахын тулд шууд худалдан авагчтай холбоо барьж болно. </li>
+                <li>Хэрэглэгч нь эхлээд гишүүнээр бүртгүүлсний дараа ‘Машин худалдан авах хүсэлт’ –ийг гаргах боломжтой. </li>
+                <li>‘Машин худалдан авах хүсэлт’ гаргахад Main Page дээр доорх зар гарч ирнэ.  </li>
+              </ol>
             </div>
+          </div>
 
-
-            </div>
-            <div class="col-md-5">
-            <img src="{{ asset('car-web/img/sample-img.png') }}" alt="">
-            </div>
 
         </div>
+        <div class="col-md-6">
+          <div id="maz-animation"> </div>
         </div>
-    </section>
+
+      </div>
+    </div>
+  </section>
 
     @include('themes.car-web.includes.section-wishlist', ['title' => "People's wish list", 'contents' => \App\Content::where('type', 'wanna-buy')->get(), 'morelink' => url('/wishlist')])
 
@@ -112,4 +95,16 @@
 @endsection
 
 @section('script')
+<script>
+    var animation = bodymovin.loadAnimation({
+    container: document.getElementById('maz-animation'),
+    renderer: 'svg',
+    loop: true,
+    rendererSettings: {
+        progressiveLoad: true
+    },
+    autoplay: true,
+    path: '{{ asset("car-web/img/wish.json")}}'
+});
+</script>
 @endsection
