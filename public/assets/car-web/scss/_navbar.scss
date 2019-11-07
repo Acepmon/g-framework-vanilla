@@ -274,7 +274,7 @@ body{
         // padding: .5rem 0;
         .maz-menu-link{
           font-family: $segoe;
-          text-transform: uppercase;
+          // text-transform: uppercase;
           color: $secondary;
           font-weight: 600;
           padding: 0 1.5rem;
@@ -404,7 +404,7 @@ body{
   }
   .maz-menu-top{
     position: absolute;
-    top: -2.5rem;
+    top: -3rem;
     right: 0;
     width: 100%;
     height: auto;

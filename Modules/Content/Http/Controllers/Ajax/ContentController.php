@@ -196,11 +196,6 @@ class ContentController extends Controller
         array_push($result, $media_list);
         ContentManager::attachMetas($content_id, $media_list);
 
-        if ($request->has('link')) {
-            array_push($result, ['link' => $request->input('link')]);
-            ContentManager::attachMetas($content_id, ['link' => $request->input('link')]);
-        }
-
         return response()->json($result);
     }
 
