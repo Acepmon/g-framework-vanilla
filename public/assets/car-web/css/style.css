@@ -500,6 +500,38 @@ section .owl-theme .owl-dots .owl-dot.active span {
   transition: all .3s linear;
 }
 
+#preview-image {
+  width: 100%;
+  display: inline-block;
+}
+
+#preview-image .previewImg {
+  margin-left: 0 !important;
+  position: relative;
+  height: 150px;
+  width: 150px;
+  display: inline-block;
+  padding: 0;
+}
+
+#preview-image .previewImg .thumbimage {
+  float: left;
+  max-width: 100%;
+  height: auto;
+  position: absolute;
+  padding: 5px;
+}
+
+#preview-image .previewImg button {
+  position: absolute;
+  right: -5px;
+  height: 25px;
+  width: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 @-webkit-keyframes floatRight {
   0% {
     transform: translateX(0px);
