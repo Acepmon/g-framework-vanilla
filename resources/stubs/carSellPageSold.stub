@@ -13,13 +13,31 @@
     <div class="card shadow-soft-blue page-top-navbar">
         <div class="mypage-nav">
             <ul>
-            <li class="list-item "><a href="/sell-page-on-sell">On sell</a></li>
+            <li class="list-item "><a href="/sell-page-on-sell?sort=updated_at">On sell</a></li>
             <li class="list-item active"> <a href="#">Sold</a></li>
             </ul>
         </div>
     </div>
+    <div class="card page-top-navbar border-0 mt-3 bg-transparent">
+        <div class="d-flex justify-content-start">
+            @contentInline(type=car, author_id=Auth::user()->id, isSold=1, sort=request()->input("sort") as $solds | paginate)
+            <span class="total-cars ml-0" >VEHICLES</span>
+            <div class="sort-cars col-md-9">
+                <ul>
+                    <li class="{{ request('sort')=='updated_at' ?'active':'' }}"><a href="#" onclick="formSubmit('sortBy', 'updated_at', 'sortDir', 'desc')">Recent cars</a></li>
+                    <li class="{{ request('sort')=='priceAmount' ?'active':'' }}"><a href="#" onclick="formSubmit('sortBy', 'priceAmount', 'sortDir', 'asc')">Low price</a></li>
+                </ul>
+            </div>
+        </div>
+        <form method="GET" id="mainForm" action="/sell-page-sold">
+            <div class="col-md-12 text-center">
+                <input hidden id="sortBy" name="sort">
+                <input hidden id="sortDir" name="sortDir">
+            </div>
+        </form>
+    </div>
     <div class="car-list sell-car">
-        @content(type=car, author_id=Auth::user()->id, isSold=1 as $sold | paginate)
+       @foreach($solds as $sold)
         <div  class="card sold">
 
             <div class="card-body">
@@ -69,7 +87,7 @@
                 </div>
             </div>
         </div>
-        @endcontent
+        @endforeach
     </div>
 </div>
 @endsection
@@ -118,6 +136,24 @@
 
 @section('script')
     <script type="text/javascript">
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        function formSubmit(id, value, sortDir, sortDirValue) {
+            console.log(id)
+            if (value != 'no-value') {
+                document.getElementById(id).value = value;
+            }
+            if (sortDir != 'no-value'){
+                document.getElementById(sortDir).value = sortDirValue;
+            }
+            $('#mainForm').submit();
+        }
+
         var contId=null;
         function contsId(id) {
             contId=id
