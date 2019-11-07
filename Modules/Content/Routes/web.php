@@ -25,6 +25,7 @@ Route::middleware(['auth'])->group(function () {
             Route::put('contents/{contentId}/metas/detach', 'ContentMetaController@detachMetas');
             Route::delete('contents/{contentId}/metas', 'ContentMetaController@deleteMeta');
             Route::post('/contents/{contentId}/medias', 'ContentController@attachMedias');
+            Route::post('/contents/{contentId}/medias/delete', 'ContentController@detachMedias');
             Route::post('/contents/{contentId}/doc', 'ContentController@attachDoc');
 
             Route::prefix('users')->group(function () {

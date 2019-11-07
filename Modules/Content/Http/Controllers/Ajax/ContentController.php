@@ -188,20 +188,31 @@ class ContentController extends Controller
         $content_id = $request->route('contentId');
 
         $result = [];
-            $thumbnail = $this->uploadFiles($request->thumbnail);
-            array_push($result, ['thumbnail' => $thumbnail]);
-            ContentManager::attachMetas($content_id, ['thumbnail' => $thumbnail]);
-            $media_list = $this->uploadFiles($request->medias);
-            $media_list = ['medias' => $media_list];
-            array_push($result, $media_list);
-            ContentManager::attachMetas($content_id, $media_list);
+        $thumbnail = $this->uploadFiles($request->thumbnail);
+        array_push($result, ['thumbnail' => $thumbnail]);
+        ContentManager::attachMetas($content_id, ['thumbnail' => $thumbnail]);
+        $media_list = $this->uploadFiles($request->medias);
+        $media_list = ['medias' => $media_list];
+        array_push($result, $media_list);
+        ContentManager::attachMetas($content_id, $media_list);
 
-            if ($request->has('link')) {
+        if ($request->has('link')) {
             array_push($result, ['link' => $request->input('link')]);
             ContentManager::attachMetas($content_id, ['link' => $request->input('link')]);
         }
 
         return response()->json($result);
+    }
+
+    public function detachMedias(Request $request) {
+        $content_id = $request->route('contentId');
+
+        if ($request->has('medias')) {
+            foreach($request->input("medias") as $media) {
+                ContentManager::deletemeta($content_id, "medias", $media);
+            }
+        }
+        return response()->json($request->medias);
     }
 
     public function attachDoc(Request $request) {

@@ -1,4 +1,4 @@
-@if($contents)
+@if($contents && count($contents) > 0)
 <section class="section card-list my-5">
     <div class="container">
         <div class="row">

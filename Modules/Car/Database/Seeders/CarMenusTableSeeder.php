@@ -43,11 +43,11 @@ class CarMenusTableSeeder extends Seeder
             ['Wish List', '/wishlist', '', 'Car']
         ]];
         $carTopbarMenus = ['Car Topbar', '', '', 'Car', [
-            ['About Us', '/about-technical-examination', '', 'Car'],
+            ['About Us', '/about-introduction', '', 'Car'],
             ['Write wanna buy', '/wishlist', '', 'Car']
         ]];
         $carFooterMenus = ['Car Footer', '', '', 'Car', [
-            ['About Us', '/about-technical-examination', '', 'Car'],
+            ['About Us', '/about-introduction', '', 'Car'],
             ['Write wanna buy', '/wishlist', '', 'Car']
         ]];
         $carProfileDropdownMenus = ['Car Profile Dropdown', '', '', 'Car', [

@@ -12,11 +12,7 @@ $categoryName = [
     <div class="card">
         <div class="accordian-head" id="{{ $category }}-accordion">
         <h2 class="mb-0">
-            @if ($category == 'car-manufacturer')
-            <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#manufacture" aria-expanded="false" aria-controls="{{ $category }}">
-            @else
             <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#{{ $category }}" aria-expanded="false" aria-controls="{{ $category }}">
-            @endif
             {{ $categoryName[$index] }}<i class="fab fa fa-angle-down"></i>
             </button>
         </h2>
@@ -37,13 +33,13 @@ $categoryName = [
         </div>
         </div>
         @elseif($category == 'car-manufacturer')
-        <div id="manufacture" class="collapse {{ request($category, False)?'show':'' }}" aria-labelledby="{{ $category }}">
+        <div id="{{ $category }}" class="collapse {{ request($category, False)?'show':'' }}" aria-labelledby="{{ $category }}">
         <div id="manufacturerBody" class="card-body bg-light">
             <div class="manufacturer">
                 @foreach(App\TermTaxonomy::where('taxonomy', $category)->get() as $taxonomy)
                 <div class="custom-control custom-radio">
                     <!-- <a href="/car-list?{{ $category . '=' . $taxonomy->term->name }}" class="text-body text-decoration-none"> -->
-                    <input type="radio" id="{{$taxonomy->term->name}}" name="{{ $category }}" class="custom-control-input manufacture" value="{{ $taxonomy->term->name }}" {{ ($taxonomy->term->name == request($category, Null))?'checked':'' }}>
+                    <input type="radio" id="{{$taxonomy->term->name}}" name="{{ $category }}" class="custom-control-input car-manufacturer" value="{{ $taxonomy->term->name }}" {{ ($taxonomy->term->name == request($category, Null))?'checked':'' }}>
                     <label class="custom-control-label  d-flex justify-content-between" for="{{$taxonomy->term->name}}">{{ $taxonomy->term->name }}
                     </label>
                 </div>
@@ -165,6 +161,57 @@ function submitMenu(event) {
       event.target.checked = false;
     }
     $('#mainForm').submit();
+}
+
+$("input.car-manufacturer").on("click", function () {
+    let val = $(this).val();
+    console.log(val);
+    let subList = $(".car-filter .models[name=\"" + val + "\"");
+
+    if (subList.length) {
+        switchToModel(val);
+    } else {
+        $.ajax({
+            type: 'Get',
+            url: '/api/v1/taxonomies/car-' + toKebabCase(val),
+        }).done(function(data) {
+            var modelList=data;
+            console.log(modelList);
+            var html = '<div class="models" name="'+val+'"> \
+            <div class="models-back" style="cursor:pointer"><i class="fab fa fa-angle-left"></i> back</div> ';
+
+            for (var i = 0; i < modelList.data.length; i++) {
+                let termname = modelList.data[i].term.name;
+                let checked = (termname == '{{ $request['modelName'] }}')?'checked':'';
+                html = html + '<div class="custom-control custom-radio"> '+ 
+                    '<input type="radio" id="' + termname + '" name="car-model" value="' + termname + '" class="custom-control-input" '+checked+'> '+
+                    '<label class="custom-control-label d-flex justify-content-between" for="' + termname + '">' + termname + '</label></div>';
+            }
+
+            html += '</div>';
+            $('#manufacturerBody').append(html);
+            switchToModel(val);
+            $("input[type=radio][name=\"car-model\"]").click(submitMenu);
+            $("input[type=radio][name=\"car-model\"]").click(load);
+        }).fail(function(err) {
+            // $("#demo-spinner").css({'display': 'none'});
+            console.error("FAIL!");
+            console.error(err);
+        });
+    }
+});
+
+function switchToModel(val) {
+    $(".car-filter .models.active").hide();
+    var subList = $(".car-filter .models[name=\"" + val + "\"");
+    if (subList.length) {
+        $('.car-filter .manufacturer').hide(300);
+        subList.show(300);
+        $('.models-back').on('click', function () {
+            subList.hide(300);
+            $('.car-filter .manufacturer').show(300);
+        })
+    }
 }
 </script>
 @endpush

@@ -6,6 +6,7 @@ use App\Content;
 use App\ContentMeta;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Modules\Content\Transformers\Content as ContentResource;
 
 class ContentManager extends Manager
@@ -78,7 +79,16 @@ class ContentManager extends Manager
                 }
             } else {
                 $metas = ContentMeta::where([['content_id', $content_id], ['key', $key], ['value', $value]])->get();
-                $metas->each->delete();
+                if ($key == 'medias') {
+                    foreach($metas as $meta) {
+                        $filepath = $meta->value;
+                        $filepath = substr($filepath, strpos($filepath, "public/"));
+                        Storage::disk('ftp')->delete($filepath[0]);
+                        $meta->delete();
+                    }
+                } else {
+                    $metas->each->delete();
+                }
             }
         }
     }

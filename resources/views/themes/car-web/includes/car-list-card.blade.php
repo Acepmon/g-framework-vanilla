@@ -1,5 +1,5 @@
 @if($car)
-<div class="card {{ (isset($auction) && $auction)?'auction-car':'' }}">
+<div class="card {{ (isset($auction) && $auction)?'auction-car':'' }} {{ isset($noborder)?'border-0':'' }}">
     <div class="card-body">
         <a class="card-img" href="{{ $car->slug }}" target="_blank">
             @if(isPremium($car))
@@ -16,7 +16,7 @@
         <div class="card-description">
             <div class="card-caption">
                 <a href="{{ $car->slug }}" target="_blank">
-                    <div class="card-title">{{ (strlen($car->title) > 40)?substr($car->title, 0, 37) . '...':$car->title }}</div>
+                    <div class="card-title">{{ (strlen($car->title) > 40)?substr($car->title, 0, 37) . '...':$car->title }} {{$car->updated_at}}</div>
                     <div class="meta">{{ $car->metaValue('buildYear') }}/{{ $car->metaValue('importDate') }} | {{ $car->metaValue('mileageAmount') }} {{ $car->metaValue('mileageUnit') }}</div>
                     <div class="price">{{ numerizePrice($car->metaValue('priceAmount')) }} {{ $car->metaValue('priceUnit') }}</div>
                 </a>
