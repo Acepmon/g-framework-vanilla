@@ -128,6 +128,8 @@ Route::prefix('v1')->group(function () {
 
                 return response()->json($contents);
             });
+
+            Route::post('/user/{userId}/avatar', 'UserController@attachAvatar');
         });
     });
 });

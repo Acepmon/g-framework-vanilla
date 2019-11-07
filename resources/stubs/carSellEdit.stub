@@ -1,14 +1,6 @@
 @php
-try {
   $carId = request('id', 0);
-  if ($carId == 0) {
-    $carId = \Session::has('createdCarId')?\Session::get('createdCarId'):0;
-  }
-  $car = \App\Content::findOrFail($carId);
-} catch (\Exception $ex) {
-  abort(404);
-}
-
+  $car = \App\Content::find($carId);
 @endphp
 
 @extends('themes.car-web.layouts.default')
@@ -31,6 +23,7 @@ try {
 
 @section('content')
 
+@if ($car != Null && $car->author_id == Auth::user()->id)
 <div class="bg-page-header"> </div>
 
 <section class="bg-transparent">
@@ -76,6 +69,7 @@ try {
 <div class="spinner-border" id="demo-spinner" role="status" style="position: fixed; z-index: 1000; top: 50%; left: 50%; display: none">
   <span class="sr-only">Loading...</span>
 </div>
+@endif
 @endsection
 
 @section('script')
@@ -170,4 +164,9 @@ try {
   }
 </script>
 
+@if ($car == Null || $car->author_id != Auth::user()->id)
+<script>
+  window.location = "{{ url('/404') }}";
+</script>
+@endif
 @endsection

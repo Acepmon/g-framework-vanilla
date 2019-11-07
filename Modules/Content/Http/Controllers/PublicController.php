@@ -22,6 +22,12 @@ class PublicController extends Controller
     public function uri($slug = '/') {
         $content = Content::where('slug', $slug)->where('status', Content::STATUS_PUBLISHED)->first();
 
+        if ($slug == 'edit') {
+            $edit = Content::findOrFail(request("id", 0));
+            if ($edit->author_id != Auth::user()->id) {
+                abort(404);
+            }
+        }
         if ($content === null) {
             abort(404);
         } else {
