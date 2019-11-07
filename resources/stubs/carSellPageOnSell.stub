@@ -14,13 +14,13 @@
         <div class="mypage-nav">
             <ul>
                 <li class="list-item active"><a href="#">On sell</a></li>
-                <li class="list-item "> <a href="/sell-page-sold?sort=updated_at">Sold</a></li>
+                <li class="list-item "> <a href="/sell-page-sold">Sold</a></li>
             </ul>
         </div>
     </div>
     <div class="card page-top-navbar border-0 mt-3 bg-transparent">
         <div class="d-flex justify-content-start">
-            @contentInline(type=car, author_id=Auth::user()->id, isSold=0, sortDir=request()->input("sortDir"), sort=request()->input("sort", "updated_at") as $onSales | paginate)
+            @contentInline(type=car, author_id=Auth::user()->id, isSold=0, sortDir=request()->input("sortDir", "desc"), sort=request()->input("sort", "updated_at") as $onSales | paginate)
             <span class="total-cars ml-0" >VEHICLES</span>
             <div class="sort-cars col-md-9">
                 <ul>
