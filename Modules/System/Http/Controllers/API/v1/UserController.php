@@ -84,14 +84,14 @@ class UserController extends Controller
     }
 
     public function attachAvatar(Request $request) {
-        $content_id = $request->route('car');
+        $user = $request->user();
 
         $avatar = $request->avatar;
         $filename = $avatar->store('public/medias', 'ftp');
         $filename = 'http://' . env('FTP_HOST') . ':3000/' . $filename;
-        $response = ['avatar' => $filename];
-        ContentManager::attachMetas($content_id, $response);
+        $user->avatar = $filename;
+        $user->save();
 
-        return response()->json($response);
+        return response()->json($user);
     }
 }

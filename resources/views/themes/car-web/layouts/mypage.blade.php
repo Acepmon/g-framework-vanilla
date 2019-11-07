@@ -62,7 +62,10 @@
                                     </li>
                                 @endif
                                 @foreach (\App\Menu::where('title', 'Car Profile Dropdown')->first()->children as $menu)
-                                    <li class="list-group-item {{ Request::is(\Str::startsWith($menu->link, '/') ? substr($menu->link, 1) : $menu->link) ? 'active' : '' }}"><a href="{{ url($menu->link) }}">{{ $menu->title }}</a></li>
+                                    <li class="list-group-item {{ (Request::is(\Str::startsWith($menu->link, '/') ? substr($menu->link, 1) : $menu->link) ||
+                                        (Request::is('sell-page-*') && \Str::startsWith($menu->link, '/sell-page-')) ||
+                                        (Request::is('purchase-page-*') && \Str::startsWith($menu->link, '/purchase-page-'))
+                                        ) ? 'active' : '' }}"><a href="{{ url($menu->link) }}">{{ $menu->title }}</a></li>
                                 @endforeach
                             </ul>
                         </div>

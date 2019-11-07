@@ -3254,7 +3254,7 @@ body.menu-absolute .header-menu {
 
 .maz-navbar .maz-menu-top {
   position: absolute;
-  top: -2.5rem;
+  top: -3rem;
   right: 0;
   width: 100%;
   height: auto;
@@ -3744,6 +3744,7 @@ section .owl-carousel .owl-nav button.owl-next, section .owl-carousel .owl-nav b
   display: block;
   position: relative;
   overflow: hidden;
+  height: 180px;
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
   border-bottom-left-radius: 0;
@@ -3752,7 +3753,10 @@ section .owl-carousel .owl-nav button.owl-next, section .owl-carousel .owl-nav b
 }
 
 .card-list .card .card-img img {
-  transform: scale(1.2);
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) scale(1.2);
   transition: all 2s cubic-bezier(0.19, 1, 0.22, 1);
 }
 
@@ -3934,7 +3938,9 @@ section .owl-carousel .owl-nav button.owl-next, section .owl-carousel .owl-nav b
 }
 
 .card-list .card:hover .card-img img {
-  transform: scale(1);
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) scale(1);
   transition-delay: .1s;
 }
 
@@ -4015,6 +4021,7 @@ section .owl-carousel .owl-nav button.owl-next, section .owl-carousel .owl-nav b
 
 .people-wish-list .card {
   border: none;
+  height: 100%;
 }
 
 .people-wish-list .card .card-top {

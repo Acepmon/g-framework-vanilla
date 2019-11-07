@@ -213,7 +213,7 @@
     <div class="form-row">
         <div class="col-md-3">
             <div class="custom-control custom-switch">
-                <input name="doctorVerified" type="checkbox" class="custom-control-input" id="doctorVerifySwitch">
+                <input type="checkbox" class="custom-control-input" id="doctorVerifySwitch">
                 <label class="custom-control-label" for="doctorVerifySwitch">Doctor verify</label>
             </div>
         </div>
