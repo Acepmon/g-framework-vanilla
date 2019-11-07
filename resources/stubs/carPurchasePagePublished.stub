@@ -20,7 +20,7 @@
     </div>
     <div class="card page-top-navbar border-0 mt-3 bg-transparent">
         <div class="d-flex justify-content-start">
-            @contentInline(type=car, author_id=Auth::user()->id, publishType=best_premium, sortDir=request()->input("sortDir", "desc"), sort=request()->input("sort", "updated_at") as $cars | paginate)
+            @contentInline(type=car, author_id=Auth::user()->id, publishType=best_premium, isSold=0 sortDir=request()->input("sortDir", "desc"), sort=request()->input("sort", "updated_at") as $cars | paginate)
             <span class="total-cars ml-0" >{{count($cars)}} VEHICLES</span>
             <div class="sort-cars col-md-9">
                 <ul>
