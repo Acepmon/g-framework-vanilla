@@ -28,13 +28,12 @@ $orderBy = request('sortBy', 'priceAmount');
             </div>
         </div>
     </div>
-
         @content(type=wanna-buy, author_id = Auth::user()->id as $car | paginate)
         <div class="car-list sell-car card mb-5">
-            <div class="card-top">
-                <h2 class="title truncate" title="{{$car->title}}">{{$car->title}}</h2>
+            <div class="card-top wish-list-result-header">
+                <h2 class="wish-title" title="{{$car->title}}">{{$car->title}}</h1>
+            <p class="wish-price"><i class="icon-tag"></i> {{ numerizePrice($car->metaValue('priceAmountStart')) . "-" . numerizePrice($car->metaValue('priceAmountEnd')) }}</p>
             </div>
-            {{ numerizePrice($car->metaValue('priceAmountStart')) . "-" . numerizePrice($car->metaValue('priceAmountEnd')) }}
             @php
             $cars = \Modules\Car\Entities\Car::filter(\Modules\Car\Entities\Car::all(), [
                 'minPrice' => $car->metaValue('priceAmountStart'),

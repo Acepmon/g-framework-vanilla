@@ -83,8 +83,8 @@ h6 {
 
 .color[data-color^="black"]:before {
   content: '';
-  width: 20px;
-  height: 20px;
+  width: 15px;
+  height: 15px;
   background-image: radial-gradient(circle at top right, #d9d9d9 0%, black 100%);
   border-radius: 50%;
   display: inline-block;
@@ -93,8 +93,8 @@ h6 {
 
 .color[data-color^="white-ivory"]:before {
   content: '';
-  width: 20px;
-  height: 20px;
+  width: 15px;
+  height: 15px;
   background: radial-gradient(circle at top center, #fff 20%, #DEDAE1 100%);
   border-radius: 50%;
   display: inline-block;
@@ -103,8 +103,8 @@ h6 {
 
 .color[data-color^="white-pearl"]:before {
   content: '';
-  width: 20px;
-  height: 20px;
+  width: 15px;
+  height: 15px;
   background: radial-gradient(circle at top center, #fff 20%, #D6D9D0 100%);
   border-radius: 50%;
   display: inline-block;
@@ -113,8 +113,8 @@ h6 {
 
 .color[data-color^="silver"]:before {
   content: '';
-  width: 20px;
-  height: 20px;
+  width: 15px;
+  height: 15px;
   background: radial-gradient(circle at top center, #dadedf 20%, #888c8e 100%);
   border-radius: 50%;
   display: inline-block;
@@ -123,8 +123,8 @@ h6 {
 
 .color[data-color^="asphalt-gray"]:before {
   content: '';
-  width: 20px;
-  height: 20px;
+  width: 15px;
+  height: 15px;
   background: radial-gradient(circle at top center, #A6AFB1 20%, #40474A 100%);
   border-radius: 50%;
   display: inline-block;
@@ -133,8 +133,8 @@ h6 {
 
 .color[data-color^="red"]:before {
   content: '';
-  width: 20px;
-  height: 20px;
+  width: 15px;
+  height: 15px;
   background: radial-gradient(circle at top center, #FF6F39 20%, #B20000 100%);
   border-radius: 50%;
   display: inline-block;
@@ -143,8 +143,8 @@ h6 {
 
 .color[data-color^="blue"]:before {
   content: '';
-  width: 20px;
-  height: 20px;
+  width: 15px;
+  height: 15px;
   background: radial-gradient(circle at top center, #7ECBFF 20%, #355BB8 100%);
   border-radius: 50%;
   display: inline-block;
@@ -153,8 +153,8 @@ h6 {
 
 .color[data-color^="blue-dark"]:before {
   content: '';
-  width: 20px;
-  height: 20px;
+  width: 15px;
+  height: 15px;
   background: radial-gradient(circle at top center, #1A3D91 20%, #131B30 100%);
   border-radius: 50%;
   display: inline-block;
@@ -163,8 +163,8 @@ h6 {
 
 .color[data-color^="sea"]:before {
   content: '';
-  width: 20px;
-  height: 20px;
+  width: 15px;
+  height: 15px;
   background: radial-gradient(circle at top center, #D4EDEF 20%, #94ADAF 100%);
   border-radius: 50%;
   display: inline-block;
@@ -173,8 +173,8 @@ h6 {
 
 .color[data-color^="brown"]:before {
   content: '';
-  width: 20px;
-  height: 20px;
+  width: 15px;
+  height: 15px;
   background: radial-gradient(circle at top center, #E17E4B 20%, #532E1B 100%);
   border-radius: 50%;
   display: inline-block;
@@ -183,8 +183,8 @@ h6 {
 
 .color[data-color^="bronze"]:before {
   content: '';
-  width: 20px;
-  height: 20px;
+  width: 15px;
+  height: 15px;
   background: radial-gradient(circle at top center, #FFF4D1 20%, #AF9C78 100%);
   border-radius: 50%;
   display: inline-block;
@@ -193,8 +193,8 @@ h6 {
 
 .color[data-color^="green"]:before {
   content: '';
-  width: 20px;
-  height: 20px;
+  width: 15px;
+  height: 15px;
   background: radial-gradient(circle at top center, #1DEFB7 20%, #006A4E 100%);
   border-radius: 50%;
   display: inline-block;
@@ -203,8 +203,8 @@ h6 {
 
 .color[data-color^="green-light"]:before {
   content: '';
-  width: 20px;
-  height: 20px;
+  width: 15px;
+  height: 15px;
   background: radial-gradient(circle at top center, #EFF3D9 20%, #86BC90 100%);
   border-radius: 50%;
   display: inline-block;
@@ -213,8 +213,8 @@ h6 {
 
 .color[data-color^="gold"]:before {
   content: '';
-  width: 20px;
-  height: 20px;
+  width: 15px;
+  height: 15px;
   background: radial-gradient(circle at top center, #FFF174 20%, #D59B12 100%);
   border-radius: 50%;
   display: inline-block;
@@ -223,8 +223,8 @@ h6 {
 
 .color[data-color^="copper"]:before {
   content: '';
-  width: 20px;
-  height: 20px;
+  width: 15px;
+  height: 15px;
   background: radial-gradient(circle at top center, #FEDFCD 20%, #9F5A38 100%);
   border-radius: 50%;
   display: inline-block;
@@ -233,8 +233,8 @@ h6 {
 
 .color[data-color^="beige"]:before {
   content: '';
-  width: 20px;
-  height: 20px;
+  width: 15px;
+  height: 15px;
   background: radial-gradient(circle at top center, #F8EDDD 20%, #EAC6B7 100%);
   border-radius: 50%;
   display: inline-block;
@@ -243,8 +243,8 @@ h6 {
 
 .color[data-color^="gray"]:before {
   content: '';
-  width: 20px;
-  height: 20px;
+  width: 15px;
+  height: 15px;
   background: radial-gradient(circle at top center, #F5EFFB 20%, #C8C5CB 100%);
   border-radius: 50%;
   display: inline-block;
@@ -253,8 +253,8 @@ h6 {
 
 .color[data-color^="yellow"]:before {
   content: '';
-  width: 20px;
-  height: 20px;
+  width: 15px;
+  height: 15px;
   background: radial-gradient(circle at top center, #FFFFB8 20%, #F6C00D 100%);
   border-radius: 50%;
   display: inline-block;
@@ -263,9 +263,9 @@ h6 {
 
 .color:after {
   content: '';
-  width: 16px;
-  height: 14px;
-  left: 2px;
+  width: 15px;
+  height: 12.5px;
+  left: 0;
   top: calc(50% - 10px);
   background-image: linear-gradient(180deg, white 0%, rgba(255, 255, 255, 0) 100%);
   border-radius: 50%;
@@ -498,6 +498,64 @@ section .owl-theme .owl-dots .owl-dot.active span {
   width: 20px;
   outline: 0;
   transition: all .3s linear;
+}
+
+#preview-image {
+  width: 100%;
+  display: inline-block;
+}
+
+#preview-image .previewImg {
+  margin-left: 0 !important;
+  position: relative;
+  height: 110px;
+  width: 150px;
+  display: inline-block;
+  padding: 0;
+}
+
+#preview-image .previewImg .thumbimage {
+  float: left;
+  max-width: 100%;
+  height: 100%;
+  position: absolute;
+  overflow: hidden;
+  padding: 5px;
+}
+
+#preview-image .previewImg .thumbimage img {
+  max-width: 100%;
+}
+
+#preview-image .previewImg button {
+  position: absolute;
+  right: -5px;
+  height: 25px;
+  width: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.wish-list-result-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem 2rem;
+  align-items: center;
+}
+
+.wish-list-result-header .wish-title {
+  font-size: 1.5rem;
+}
+
+.wish-list-result-header .wish-price {
+  color: #2B3651;
+  margin-bottom: 0;
+}
+
+.wish-list-result-header .wish-price i {
+  color: #AAAEB9;
+  margin-right: .5rem;
 }
 
 @-webkit-keyframes floatRight {
