@@ -45,7 +45,7 @@
         <div class="col-md-12">
             <div class="form-group">
                 <label for="link">Youtube link</label>
-                <input type="text" name="link" class="form-control" id="link" onchange="embedLink(this)">
+                <input type="text" name="link" class="form-control" value="{{$car->metaValue("link")}}" id="link" onchange="embedLink(this)">
                 <div class="col-md-12 text-center mt-3">
                     <div id="video-container"></div>
                 </div>
@@ -107,7 +107,7 @@
                 +'" frameborder="0" allowfullscreen></iframe>');
         }
     }
-
+    $("#link").change();
     $("#thumbnail").on('change', function () {
 
         var countFiles = $(this)[0].files.length;
@@ -211,18 +211,22 @@
                 }
             }).done(function(data) {
                 console.log("DONE Deleting!");
-
-                $.ajax({
-                    type: 'PUT',
-                    url: '/ajax/contents/' + carId + '/metas/sync',
-                    data: {"link":$('#link').val()}
-                }).done(function(data) {
-                    $("#demo-spinner").css({'display': 'none'});
-                     nextPrev(1);
-                    console.log("DONE!");
-                    console.log(data);
+                if($('#link').val()!=null && $('#link').val()!=undefined){
+                    $.ajax({
+                        type: 'PUT',
+                        url: '/ajax/contents/' + carId + '/metas/sync',
+                        data: {"link":$('#link').val()}
+                    }).done(function(data) {
+                        $("#demo-spinner").css({'display': 'none'});
+                        nextPrev(1);
+                        console.log("DONE!");
+                        console.log(data);
+                        __callback(1);
+                    }).fail(fail);
+                }
+                else{
                     __callback(1);
-                }).fail(fail);
+                }
             }).fail(fail);
         }).fail(fail);
     }
