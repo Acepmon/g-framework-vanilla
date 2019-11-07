@@ -47,20 +47,6 @@ $categoryName = [
             </div>
         </div>
         </div>
-        @elseif($category == 'car-colors')
-        <div id="{{ $category }}" class="collapse {{ request($category, False)?'show':'' }}" aria-labelledby="{{ $category }}">
-        <div class="card-body bg-light">
-            @foreach(App\TermTaxonomy::where('taxonomy', $category)->get() as $taxonomy)
-            <div class="custom-control custom-radio">
-            <input type="radio" id="color-{{ strtolower($taxonomy->term->name) }}" name="{{ $category }}" class="custom-control-input"
-                value="{{ $taxonomy->term->name }}" {{ ($taxonomy->term->name == $request['colorName'])?'checked':''}}>
-            <label class="custom-control-label d-flex" for="color-{{ strtolower($taxonomy->term->name) }}">
-                <p>{{ ucfirst($taxonomy->term->name) }}</p>
-                </span></label>
-            </div>
-            @endforeach
-        </div>
-        </div>
         @elseif($category == 'car-year')
         <div id="{{ $category }}" class="collapse {{ request('year', False)?'show':'' }}" aria-labelledby="{{ $category }}">
         <div class="card-body bg-light grid-radio">
@@ -117,6 +103,15 @@ $categoryName = [
         @elseif($category == 'car-options')
         <div id="{{ $category }}" class="collapse {{ request($category, False)?'show':'' }}" aria-labelledby="{{ $category }}">
         <div class="card-body bg-light">
+            @foreach(App\TermTaxonomy::where('taxonomy', $category)->get() as $taxonomy_parent)
+            @foreach($taxonomy_parent->children as $taxonomy)
+                <div class="custom-control custom-radio">
+                <input type="radio" id="{{ $taxonomy->term->name }}" name="{{ $category }}" class="custom-control-input" value="{{ $taxonomy->term->name }}" {{ ($taxonomy->term->name == request($category, Null))?'checked':'' }}>
+                <label class="custom-control-label  d-flex justify-content-between" for="{{ $taxonomy->term->name }}">{{ $taxonomy->term->name }}
+                </label>
+                </div>
+            @endforeach
+            @endforeach
         </div>
         </div>
         @else
@@ -126,7 +121,7 @@ $categoryName = [
             <div class="custom-control custom-radio">
             <!-- <a href="/car-list?{{ $category . '=' . $taxonomy->term->name }}" class="text-body text-decoration-none"> -->
             <input type="radio" id="{{$taxonomy->term->name}}" name="{{ $category }}" class="custom-control-input" value="{{ $taxonomy->term->name }}" {{ ($taxonomy->term->name == request($category, Null))?'checked':'' }}>
-            <label class="custom-control-label  d-flex justify-content-between" for="{{$taxonomy->term->name}}">{{ $taxonomy->term->name }}
+            <label class="custom-control-label  d-flex justify-content-between" for="{{$taxonomy->term->name}}">{{ ucfirst($taxonomy->term->name) }}
             </label>
             </div>
             @endforeach
@@ -163,7 +158,10 @@ function submitMenu(event) {
     $('#mainForm').submit();
 }
 
+var waiting = 0;
+
 $("input.car-manufacturer").on("click", function () {
+    if (waiting == 0) {
     let val = $(this).val();
     console.log(val);
     let subList = $(".car-filter .models[name=\"" + val + "\"");
@@ -171,6 +169,7 @@ $("input.car-manufacturer").on("click", function () {
     if (subList.length) {
         switchToModel(val);
     } else {
+        waiting = 1;
         $.ajax({
             type: 'Get',
             url: '/api/v1/taxonomies/car-' + toKebabCase(val),
@@ -193,11 +192,14 @@ $("input.car-manufacturer").on("click", function () {
             switchToModel(val);
             $("input[type=radio][name=\"car-model\"]").click(submitMenu);
             $("input[type=radio][name=\"car-model\"]").click(load);
+            waiting = 0;
         }).fail(function(err) {
             // $("#demo-spinner").css({'display': 'none'});
             console.error("FAIL!");
             console.error(err);
+            waiting = 0;
         });
+    }
     }
 });
 

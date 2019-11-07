@@ -15,11 +15,12 @@ $orderBy = request('sortBy', 'priceAmount');
 @endphp
 <div class="row">
     
-    <h3 class="text-dark">Interested car registration alert</h3>
+    <h3 class="text-dark ml-2">Interested car registration alert</h3>
 
+    @contentInline(type=wanna-buy, author_id = Auth::user()->id as $wishlists | paginate)
     <div class="card page-top-navbar border-0 bg-transparent">
-        <div class="d-flex justify-content-start">
-            <span class="total-cars ml-0" >VEHICLES</span>
+        <div class="d-flex justify-content-start ml-2">
+            <span class="total-cars ml-0">{{ count($wishlists) }} WISHLISTS</span>
             <div class="sort-cars col-md-9">
                 <ul class="col-md-12">
                     <li class="{{ $orderBy=='updated_at' ?'active':'' }}"><a href="#" onclick="formSubmit('sortBy', 'updated_at')">Recent cars</a></li>
@@ -28,27 +29,35 @@ $orderBy = request('sortBy', 'priceAmount');
             </div>
         </div>
     </div>
-        @content(type=wanna-buy, author_id = Auth::user()->id as $car | paginate)
+    
+    @foreach($wishlists as $wishlist)
         <div class="car-list sell-car card mb-5">
             <div class="card-top wish-list-result-header">
-                <h2 class="wish-title" title="{{$car->title}}">{{$car->title}}</h1>
-            <p class="wish-price"><i class="icon-tag"></i> {{ numerizePrice($car->metaValue('priceAmountStart')) . "-" . numerizePrice($car->metaValue('priceAmountEnd')) }}</p>
+                <h2 class="wish-title" title="{{$wishlist->title}}">{{$wishlist->title}}</h1>
+            <p class="wish-price"><i class="icon-tag"></i> {{ numerizePrice($wishlist->metaValue('priceAmountStart')) . "-" . numerizePrice($wishlist->metaValue('priceAmountEnd')) }}</p>
             </div>
             @php
             $cars = \Modules\Car\Entities\Car::filter(\Modules\Car\Entities\Car::all(), [
-                'minPrice' => $car->metaValue('priceAmountStart'),
-                'maxPrice' => $car->metaValue('priceAmountEnd'),
+                'minPrice' => $wishlist->metaValue('priceAmountStart'),
+                'maxPrice' => $wishlist->metaValue('priceAmountEnd'),
                 ]);
             $cars->where('author_id', '!=', Auth::user()->id);
             $cars = \Modules\Car\Entities\Car::order($orderBy, 'desc', $cars);
+            $cars = $cars->get();
 
             @endphp
 
-            @foreach($cars->get() as $car)
+            @if(count($cars) > 0)
+            @foreach($cars as $car)
                 @include('themes.car-web.includes.car-list-card', array('car'=>$car, 'noborder'=>True))
             @endforeach
+            @else
+            <div class="text-center text-muted col-lg-12 mt-3">
+            <p>No results found</p>
+            </div>
+            @endif
         </div>
-        @endcontent
+    @endforeach
 
 </div>
 @endsection
