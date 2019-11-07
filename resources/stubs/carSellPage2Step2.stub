@@ -129,7 +129,7 @@
                     reader.onload = function (e) {
                         var srcimg= e.target.result
                         $("<div class='previewImg'>" +
-                            "<img src='"+srcimg+"' class='thumbimage' />" +
+                            "<div class='thumbimage'><img src='"+srcimg+"' /></div>" +
                             "<button class='btn btn-round btn-sm btn-danger'><i class='fas fa-times'></button>"+
                             "</div>", {
 
