@@ -18,13 +18,29 @@
             </ul>
         </div>
     </div>
-
-    @php
-
-    @endphp
+    <div class="card page-top-navbar border-0 mt-3 bg-transparent">
+        <div class="d-flex justify-content-start">
+            @contentInline(type=car, author_id=Auth::user()->id, isSold=0, sortDir=request()->input("sortDir", "desc"), sort=request()->input("sort", "updated_at") as $onSales | paginate)
+            <span class="total-cars ml-0" >VEHICLES</span>
+            <div class="sort-cars col-md-9">
+                <ul>
+                    <li class="{{ request('sort')=='updated_at' ?'active':'' }}"><a href="#" onclick="formSubmit('sortBy', 'updated_at', 'sortDir', 'desc')">Recent cars</a></li>
+                    <li class="{{ request('sort')=='priceAmount' ?'active':'' }}"><a href="#" onclick="formSubmit('sortBy', 'priceAmount', 'sortDir', 'asc')">Low price</a></li>
+                </ul>
+            </div>
+        </div>
+        <form method="GET" id="mainForm" action="/sell-page-on-sell">
+            <div class="col-md-12 text-center">
+                <input hidden id="sortBy" name="sort">
+                <input hidden id="sortDir" name="sortDir">
+            </div>
+        </form>
+    </div>
     <div class="car-list sell-car">
         {{--@content(type=car, author_id=Auth::user()->id, isSold=0, publishType=best_premium as $onSale | paginate)--}}
-        @content(type=car, author_id=Auth::user()->id, isSold=0, as $onSale | paginate)
+
+        {{--@content(type=car, author_id=Auth::user()->id, isSold=0,  as $onSales | paginate)--}}
+        @foreach($onSales as $onSale)
         <div class="card">
             <div class="card-body">
                 <div class="card-img">
@@ -40,7 +56,7 @@
                         {{--<div href="#" class="card-title">{{$onSale->title}}</div>--}}
                         {{--<div class="meta">{{$onSale->metaValue("buildYear")}} / {{$onSale->metaValue("importDate")}} | {{$onSale->metaValue("mileageAmount")}}{{$onSale->metaValue("mileageUnit")}}</div>--}}
                         {{--<div class="price">{{numerizePrice($onSale->metaValue("priceAmount"))}} {{$onSale->metaValue("priceUnit")}}</div>--}}
-                        <button class="btn btn-warning btn-round shadow-soft-blue btn-icon-left px-3 btn-sm mt-2"
+                        <button class="btn btn-warning btn-round shadow-soft-blue btn-icon-left px-3 btn-sm mr-5 mt-2"
                                 href="#"> Make premium ad</button>
                     </div>
                     <div class="info">
@@ -77,7 +93,7 @@
                 </div>
             </div>
         </div>
-        @endcontent
+        @endforeach
     </div>
 </div>
 
@@ -148,6 +164,25 @@
 
 @section('script')
     <script type="text/javascript">
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        function formSubmit(id, value, sortDir, sortDirValue) {
+            console.log(id)
+            if (value != 'no-value') {
+                document.getElementById(id).value = value;
+            }
+            if (sortDir != 'no-value'){
+                document.getElementById(sortDir).value = sortDirValue;
+            }
+            $('#mainForm').submit();
+        }
+
+
         var contId=null;
         function contsId(id) {
            contId=id

@@ -14,7 +14,7 @@
         <div class="mypage-nav">
         <ul>
             <li class="list-item active"><a href="#">Interested cars</a></li>
-            <li class="list-item "> <a href="/interested-car-auction">Interested Auctions</a></li>
+            <li class="list-item "> <a href="/interested-car-auction?sort=updated_at">Interested Auctions</a></li>
         </ul>
         </div>
     </div>

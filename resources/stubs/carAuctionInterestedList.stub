@@ -13,7 +13,7 @@
     <div class="card shadow-soft-blue page-top-navbar">
         <div class="mypage-nav">
         <ul>
-            <li class="list-item "><a href="/interested-car">Interested cars</a></li>
+            <li class="list-item "><a href="/interested-car?sort=updated_at">Interested cars</a></li>
             <li class="list-item active"> <a href="#">Interested Auctions</a></li>
         </ul>
         </div>
