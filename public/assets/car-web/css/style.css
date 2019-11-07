@@ -508,7 +508,7 @@ section .owl-theme .owl-dots .owl-dot.active span {
 #preview-image .previewImg {
   margin-left: 0 !important;
   position: relative;
-  height: 150px;
+  height: 110px;
   width: 150px;
   display: inline-block;
   padding: 0;
@@ -517,9 +517,14 @@ section .owl-theme .owl-dots .owl-dot.active span {
 #preview-image .previewImg .thumbimage {
   float: left;
   max-width: 100%;
-  height: auto;
+  height: 100%;
   position: absolute;
+  overflow: hidden;
   padding: 5px;
+}
+
+#preview-image .previewImg .thumbimage img {
+  max-width: 100%;
 }
 
 #preview-image .previewImg button {
