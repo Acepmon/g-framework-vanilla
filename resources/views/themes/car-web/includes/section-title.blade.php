@@ -20,7 +20,7 @@
                     <div class="card vehicle-info-top shadow-soft-blue">
                         <div class="card-body text-left">
                             <div class="row">
-                                <div class="col-md-8">
+                                <div class="col-md-7">
                                     @if ($content->title)
                                         <h1 class="vehicle-title">{{ $content->title }}</h1>
                                     @endif
@@ -30,21 +30,23 @@
                                     @endif
 
                                     <div class="d-flex align-items-center">
-                                        @if ($content->metaValue('priceAmount'))
+                                        @if ($content->metaValue('isAuction') && $content->metaValue('startPriceAmount'))
+                                            <div class="vehicle-price"> <i class="icon-tag"></i> Price: <span>{{ numerizePrice($content->metaValue('startPriceAmount')) }} {{ $content->metaValue('startPriceUnit') }}</span> </div>
+                                        @elseif ($content->metaValue('priceAmount'))
                                             <div class="vehicle-price"> <i class="icon-tag"></i> Price: <span>{{ numerizePrice($content->metaValue('priceAmount')) }} {{ $content->metaValue('priceUnit') }}</span> </div>
                                         @endif
 
                                         @if ($content->metaValue('isAuction'))
                                             <div class="vehicle-price ml-3">
                                                 <img src="{{ asset('car-web/img/auction.svg') }}" alt="">
-                                                End Time: <span class="countdown" data-countdown="{{ \Carbon\Carbon::parse($content->metaValue('endsAt'))->timezone(config('app.timezone')) }}"></span>
+                                                End Time: <span class="countdown" style="font-size: 1.2rem" data-countdown="{{ \Carbon\Carbon::parse($content->metaValue('endsAt'))->timezone(config('app.timezone')) }}"></span>
                                             </div>
                                         @endif
 
-                                        <div class="vehicle-id">ID: <span>#{{ $content->id }}</span></div>
+                                        <div class="vehicle-id mt-0">ID: <span>#{{ $content->id }}</span></div>
                                     </div>
                                 </div>
-                                <div class="col-md-4 text-right d-flex justify-content-between flex-column">
+                                <div class="col-md-5 text-right d-flex justify-content-between flex-column">
                                     @if ($content->metaValue('markName'))
                                         <div class="vehicle-brand">
                                             <img src="{{ url(asset('images/manufacturers/' . \Str::slug($content->metaValue('markName')) . '.png')) }}" alt="" width="80" class="mr-2 mt-2" style="vertical-align: top">
@@ -57,16 +59,16 @@
                                             @if ($content->metaValue('publishType') == 'free' && Auth::user()->id == $content->author_id)
                                                 <a class="btn btn-warning btn-round shadow-soft-blue btn-icon-left px-3" href="{{ url('/my-page/premiums') }}">
                                                     @include('themes.car-web.includes.premium-svg')
-                                                    Make premium ad
+                                                    Make premium
                                                 </a>
                                             @endif
 
                                             @if (!$content->metaValue('doctorVerified') && Auth::user()->id == $content->author_id)
-                                                <a class="ml-3" href="#modalVerifyCar" id="modalVerifyCarLabel" data-toggle="modal">Verify car</a>
+                                                <a class="btn btn-round shadow-soft-blue ml-3" href="#modalVerifyCar" id="modalVerifyCarLabel" data-toggle="modal">Verify car</a>
                                             @endif
 
                                             @if (Auth::user()->id == $content->author_id)
-                                                <a class="ml-3" href="{{ url('edit?id='.$content->id) }}">Edit</a>
+                                                <a class="btn btn-round shadow-soft-blue ml-3" href="{{ url('edit?id='.$content->id) }}">Edit</a>
                                             @endif
                                         @endif
                                     </div>
@@ -147,8 +149,8 @@
                 var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
                 // Display the result in the element with id="demo"
-                mazCountdown.html((hours + days * 24) + "<span>Цаг</span> "
-                + minutes + "<span>Мин</span> " + seconds + "<span>Сек</span> ");
+                mazCountdown.html((hours + days * 24) + " цаг "
+                + minutes + " мин " + seconds + " сек ");
 
                 // If the count down is finished, write some text
                 if (distance < 0) {
