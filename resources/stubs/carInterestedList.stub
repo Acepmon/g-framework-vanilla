@@ -20,7 +20,7 @@
     </div>
     <div class="card page-top-navbar border-0 mt-3 bg-transparent">
         <div class="d-flex justify-content-start">
-            @contentInline(contents.id in Auth::user()->metaArray('interestedCars'),isAuction=0, type=car,sort=request()->input("sort") as $cars | paginate)
+            @contentInline(contents.id in Auth::user()->metaArray('interestedCars'),isAuction=0, type=car, sortDir=request()->input("sortDir", "desc"), sort=request()->input("sort", "updated_at") as $cars | paginate)
             <span class="total-cars ml-0" >VEHICLES</span>
             <div class="sort-cars col-md-9">
                 <ul>

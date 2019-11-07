@@ -12,7 +12,11 @@
             </div>
         </div>
         <div class="col-md-12">
-            <div id="preview-thumb"></div>
+            <div id="preview-thumb" class="mb-3">
+                @if($car->metaValue("thumbnail")!=null)
+                    <img class="thumbimage" src="{{$car->metaValue("thumbnail")}}" height="180px"/>
+                @endif
+            </div>
         </div>
 
         <div class="input-group mb-3">
@@ -25,12 +29,23 @@
             </div>
         </div>
         <div class="col-md-12">
-            <div id="preview-image"></div>
+            <div id="preview-image">
+                @if($car->metaArray("medias")!=null)
+                    @foreach($car->metaArray("medias") as $imgs)
+                        <div class='previewImg'>
+                            <div class='thumbimage'>
+                                <img src="{{$imgs}}" />
+                            </div>
+                            <button type="button" onclick="removeImg(this, '{{$imgs}}')" class='btn btn-round btn-sm btn-danger' ><i class='fas fa-times'></i></button>
+                        </div>
+                    @endforeach
+                @endif
+            </div>
         </div>
         <div class="col-md-12">
             <div class="form-group">
                 <label for="link">Youtube link</label>
-                <input type="text" name="link" class="form-control" id="link" onchange="embedLink(this)">
+                <input type="text" name="link" class="form-control" value="{{$car->metaValue("link")}}" id="link" onchange="embedLink(this)">
                 <div class="col-md-12 text-center mt-3">
                     <div id="video-container"></div>
                 </div>
@@ -59,6 +74,28 @@
     // });
 </script>
 <script type="text/javascript">
+    var rmvImgs=[];
+    var fileList = [];
+
+    function removeImg(target, url) {
+        rmvImgs.push(url);
+
+        console.log($(target));
+        $(target).parent().remove();
+    }
+
+    function rmvImgForm(target, id) {
+        var deleteId = 0;
+        for(var i=0; i<fileList.length; i++) {
+            var name = fileList[i].lastModified + "" + fileList[i].name;
+            if (name == id) {
+                deleteId = i;
+                break;
+            }
+        }
+        fileList.pop(deleteId);
+        $(target).parent().remove();
+    }
 
     function embedLink(input) {
         var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
@@ -70,7 +107,7 @@
                 +'" frameborder="0" allowfullscreen></iframe>');
         }
     }
-
+    $("#link").change();
     $("#thumbnail").on('change', function () {
 
         var countFiles = $(this)[0].files.length;
@@ -89,7 +126,8 @@
                     reader.onload = function (e) {
                         $("<img />", {
                             "src": e.target.result,
-                            "class": "thumbimage"
+                            "class": "thumbimage",
+                            "style": "height: 180px;"
                         }).appendTo(image_holder);
                     }
 
@@ -105,15 +143,10 @@
         }
     });
 
-    var fileList = [];
 
     $("#media").on('change', function () {
         var files = $(this)[0].files;
-        for (var i=0; i<files.length; i++) {
-            fileList.push(files[0]);
-        }
-        console.log(fileList);
-        var countFiles = $(this)[0].files.length;
+        var countFiles = files.length;
 
         var imgPath = $(this)[0].value;
         var extn = imgPath.substring(imgPath.lastIndexOf('.') + 1).toLowerCase();
@@ -124,32 +157,25 @@
             if (typeof (FileReader) != "undefined") {
 
                 for (var i = 0; i < countFiles; i++) {
+                    var file = files[i];
+                    fileList.push(file);
+                    console.log(fileList);
+                    console.log(files[i].lastModified);
 
                     var reader = new FileReader();
-                    reader.onload = function (e) {
-                        var srcimg= e.target.result
-                        $("<div class='previewImg'>" +
-                            "<div class='thumbimage'><img src='"+srcimg+"' /></div>" +
-                            "<button class='btn btn-round btn-sm btn-danger'><i class='fas fa-times'></button>"+
-                            "</div>", {
-
-                        }).appendTo(image_holder);
-                        var srcimg
-                        // $("<img />", {
-                        //     "src": e.target.result,
-                        //     "class": "thumbimage"
-                        // }).appendTo();
-                        // $("<img />", {
-                        //     "src": e.target.result,
-                        //     "class": "thumbimage"
-                        // }).appendTo(image_holder);
-                        // $("<button>X Delete</button>", {
-                        //     "class": "deleteImg"
-                        // }).appendTo(image_holder);
-                    }
+                    reader.onload = (function (f) {
+                        var name = f.lastModified + "" + f.name;
+                        return function(e) {
+                            var srcimg = e.target.result;
+                            $("<div class='previewImg'>" +
+                                "<div class='thumbimage'><img src='" + srcimg + "' /></div>" +
+                                "<button type='button' onclick=\"rmvImgForm(this, '" + name + "')\" class='btn btn-round btn-sm btn-danger'><i class='fas fa-times'></button>" +
+                                "</div>", {}).appendTo(image_holder);
+                        };
+                    })(file);
 
                     image_holder.show();
-                    reader.readAsDataURL($(this)[0].files[i]);
+                    reader.readAsDataURL(file);
                 }
 
             } else {
@@ -175,18 +201,32 @@
             contentType: false,
             processData: false,
         }).done(function(data) {
-            $("#demo-spinner").css({'display': 'none'});
             console.log("DONE Media!");
+
             $.ajax({
-                type: 'PUT',
-                url: '/ajax/contents/' + carId + '/metas/sync',
-                data: {"link":$('#link').val()}
+                type: 'POST',
+                url: '/ajax/contents/' + carId+ '/medias/delete',
+                data: {
+                    "medias": rmvImgs
+                }
             }).done(function(data) {
-                $("#demo-spinner").css({'display': 'none'});
-                // /nextPrev(1);
-                console.log("DONE!");
-                console.log(data);
-                __callback(1);
+                console.log("DONE Deleting!");
+                if($('#link').val()!=null && $('#link').val()!=undefined){
+                    $.ajax({
+                        type: 'PUT',
+                        url: '/ajax/contents/' + carId + '/metas/sync',
+                        data: {"link":$('#link').val()}
+                    }).done(function(data) {
+                        $("#demo-spinner").css({'display': 'none'});
+                        nextPrev(1);
+                        console.log("DONE!");
+                        console.log(data);
+                        __callback(1);
+                    }).fail(fail);
+                }
+                else{
+                    __callback(1);
+                }
             }).fail(fail);
         }).fail(fail);
     }

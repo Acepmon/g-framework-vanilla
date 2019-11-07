@@ -37,13 +37,14 @@ $orderBy = request('sortBy', 'priceAmount');
             @php
             $cars = \Modules\Car\Entities\Car::filter(\Modules\Car\Entities\Car::all(), [
                 'minPrice' => $car->metaValue('priceAmountStart'),
-                'maxPrice' => $car->metaValue('priceAmountEnd')
+                'maxPrice' => $car->metaValue('priceAmountEnd'),
                 ]);
+            $cars->where('author_id', '!=', Auth::user()->id);
             $cars = \Modules\Car\Entities\Car::order($orderBy, 'desc', $cars);
 
             @endphp
 
-            @foreach($cars->paginate(5) as $car)
+            @foreach($cars->get() as $car)
                 @include('themes.car-web.includes.car-list-card', array('car'=>$car, 'noborder'=>True))
             @endforeach
         </div>
