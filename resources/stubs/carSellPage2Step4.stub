@@ -113,7 +113,7 @@
     </div>
 </div>
 <script>
-    var bestZar = {
+var bestZar = {
     container: document.getElementById('best-zar'),
     renderer: 'svg',
     loop: false,
@@ -122,7 +122,7 @@
     },
     autoplay: false,
     path: '{{asset("car-web/animation/bestAD.json")}}'
-};
+},
 anim1 = bodymovin.loadAnimation(bestZar);
 
 var specialZar = {
@@ -134,7 +134,7 @@ var specialZar = {
     },
     autoplay: false,
     path: '{{asset("car-web/animation/specialAD.json")}}'
-};
+},
 anim2 = bodymovin.loadAnimation(specialZar);
 
 var sentAD = {
@@ -146,7 +146,7 @@ var sentAD = {
     },
     autoplay: false,
     path: '{{asset("car-web/animation/mail-send.json")}}'
-};
+},
 anim3 = bodymovin.loadAnimation(sentAD);
 
 $("input").click(function(){
