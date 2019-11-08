@@ -28,7 +28,7 @@
                 </p>
             </div>
             <div class="col-md-6 float-left">
-                <img src="{{asset('car-web/img/hero_bg.png')}}" class="img-fluid" alt="">
+                <div id="best-zar"></div>
             </div>
         </label>
 
@@ -60,7 +60,7 @@
                 </p>
             </div>
             <div class="col-md-6 float-left">
-                <img src="{{asset('car-web/img/hero_bg.png')}}" class="img-fluid" alt="">
+                <div id="special-zar"></div>
             </div>
 
         </label>
@@ -83,7 +83,7 @@
                 </p>
             </div>
             <div class="col-md-6 float-left">
-                <img src="{{asset('car-web/img/hero_bg.png')}}" class="img-fluid" alt="">
+                <img src="{{asset('car-web/img/normal-zar.png')}}" class="img-fluid" alt="">
             </div>
 
         </label>
@@ -98,22 +98,60 @@
 <div class="modal fade" id="carRegSuccess">
     <div class="modal-dialog  modal-dialog-centered">
         <div class="modal-content">
-
             <!-- Modal Header -->
             <div class="modal-header text-center">
-                <h4 class="modal-title">Sell car</h4>
-                <img src="{{asset('car-web/img/auction-tag.png')}}" alt="">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
 
             <!-- Modal body -->
-            <div class="modal-body mt-4 pr-lg-5 pl-lg-5 text-center">
-                Car successfully registered!
+            <div class="modal-body text-center">
+            <div class="maz-modal-title" style="font-size:1.5rem">Sell advertise!</div>
+            <img src="{{asset('car-web/img/special-zar.png')}}" class="img-fluid" alt="">
+                <h5 class="text-danger mb-5">Car successfully registered!</h5>
             </div>
         </div>
     </div>
 </div>
 <script>
+    var bestZar = {
+    container: document.getElementById('best-zar'),
+    renderer: 'svg',
+    loop: false,
+    rendererSettings: {
+        progressiveLoad: true
+    },
+    autoplay: false,
+    path: '{{asset("car-web/animation/bestAD.json")}}'
+};
+anim1 = bodymovin.loadAnimation(bestZar);
+
+var specialZar = {
+    container: document.getElementById('special-zar'),
+    renderer: 'svg',
+    loop: false,
+    rendererSettings: {
+        progressiveLoad: true
+    },
+    autoplay: false,
+    path: '{{asset("car-web/animation/specialAD.json")}}'
+};
+anim2 = bodymovin.loadAnimation(specialZar);
+
+$("input").click(function(){
+            
+            if($("input[name='publishType']")){
+                if($(this).val() === "best"){
+                    anim1.play();
+                    anim2.stop();
+                }else if($(this).val() === "premium"){
+                    anim1.stop();
+                    anim2.play();
+                }
+                console.log($(this).val())
+                
+            }
+        });
+
     function submitStep4() {
         $("#demo-spinner").css({'display': 'block'});
         var paramObjs = {};
