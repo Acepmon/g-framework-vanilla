@@ -87,6 +87,11 @@ class CarController extends Controller
         $content_id = $request->route('car');
 
         $media_list = $this->uploadFiles($request->medias);//$request->getContent());
+        if (count($media_list) > 0) {
+            $media_list = ['medias' => $media_list, 'thumbnail' => $media_list[0]];
+        } else {
+            $media_list = ['medias' => $media_list];
+        }
         $media_list = ['medias' => $media_list];
         ContentManager::attachMetas($content_id, $media_list);
 

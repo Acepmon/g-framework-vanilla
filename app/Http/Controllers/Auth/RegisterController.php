@@ -171,11 +171,18 @@ class RegisterController extends Controller
         } catch (\Exception $e) {
             return redirect()->route('register');
         }
+        
+        self::registerUserFromSocialite($user, $driver);
 
+        return redirect($this->redirectPath());
+    }
+    
+    public function registerUserFromSocialite(User $user, $provider) {
         $existingUser = User::where('email', $user->getEmail())->first();
 
         if ($existingUser) {
             auth()->login($existingUser, true);
+            return $existingUser;
         } else {
             // Sample User Registration
             $newUser = $this->create([
@@ -187,12 +194,12 @@ class RegisterController extends Controller
                 'avatar' => $user->getAvatar(),
                 'language' => 'mn',
                 'social_id' => $user->getId(),
-                'social_provider' => $driver,
+                'social_provider' => $provider,
                 'social_token' => $user->token
             ]);
             auth()->login($newUser, true);
+            return $newUser;
         }
-
-        return redirect($this->redirectPath());
+        return Null;
     }
 }
