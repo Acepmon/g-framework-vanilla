@@ -83,6 +83,7 @@ class CarContentsTableSeeder extends Seeder
 
             // Publish Types
             $publishTypes = ['free', 'premium', 'best_premium'];
+            $price = rand(1, 10000) . '000';
 
             $content->metas()->saveMany([
                 new ContentMeta(['key' => 'plateNumber', 'value' => rand(1000, 9999) . \Str::random(3)]),
@@ -128,7 +129,7 @@ class CarContentsTableSeeder extends Seeder
                 new ContentMeta(['key' => 'advantages', 'value' => 'fresh smell']),
                 new ContentMeta(['key' => 'advantages', 'value' => 'president rode it']),
                 new ContentMeta(['key' => 'isSold', 'value' => rand(0, 1)]),
-                new ContentMeta(['key' => 'priceAmount', 'value' => rand(1, 10000) . '000']),
+                new ContentMeta(['key' => 'priceAmount', 'value' => $price]),
                 new ContentMeta(['key' => 'priceUnit', 'value' => '₮']),
                 new ContentMeta(['key' => 'priceType', 'value' => 'loan']),
                 new ContentMeta(['key' => 'thumbnail', 'value' => $thumbnail]),
@@ -138,7 +139,7 @@ class CarContentsTableSeeder extends Seeder
                 new ContentMeta(['key' => 'isAuction', 'value' => rand(0, 1)]),
                 new ContentMeta(['key' => 'buyoutAmount', 'value' => '10000000']),
                 new ContentMeta(['key' => 'buyoutUnit', 'value' => '₮']),
-                new ContentMeta(['key' => 'startPriceAmount', 'value' => '8000000']),
+                new ContentMeta(['key' => 'startPriceAmount', 'value' => $price]),
                 new ContentMeta(['key' => 'startPriceUnit', 'value' => '₮']),
                 new ContentMeta(['key' => 'maxBidAmount', 'value' => '14000000']),
                 new ContentMeta(['key' => 'maxBidUnit', 'value' => '₮']),

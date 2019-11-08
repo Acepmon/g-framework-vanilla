@@ -83,6 +83,8 @@
                 paramObjs[kv.name] = kv.value;
             }
         });
+        paramObjs['priceAmount] = paramObjs['startPriceAmount'];
+        paramObjs['priceUnit] = paramObjs['startPriceUnit'];
         console.log(paramObjs);
         $.ajax({
             type: 'PUT',
