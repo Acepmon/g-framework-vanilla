@@ -57,7 +57,7 @@
                                     <div class="control-ad">
                                         @if (Auth::check())
                                             @if ($content->metaValue('publishType') == 'free' && Auth::user()->id == $content->author_id)
-                                                <a class="btn btn-warning btn-round shadow-soft-blue btn-icon-left px-3" href="{{ url('/my-page/premiums') }}">
+                                                <a class="disabled btn btn-warning btn-round shadow-soft-blue btn-icon-left px-3" href="{{ url('/my-page/premiums') }}">
                                                     @include('themes.car-web.includes.premium-svg')
                                                     Make premium
                                                 </a>
@@ -113,6 +113,23 @@
                     </div>
                     <div class="modal-footer pb-5">
                         <button type="button" class="btn btn-danger btn-round px-5 py-2 shadow-red" onclick="sendDoctorVerify()">Send</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="docVerSuccess">
+            <div class="modal-dialog  modal-dialog-centered">
+                <div class="modal-content">
+
+                    <!-- Modal Header -->
+                    <div class="modal-header text-center">
+                        <h4 class="modal-title">Doctor Verify</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+
+                    <!-- Modal body -->
+                    <div class="modal-body mt-4 pr-lg-5 pl-lg-5 text-center">
+                        Doctor Verify sent successfully!
                     </div>
                 </div>
             </div>
@@ -174,6 +191,7 @@
                     data: docData
                 }).done(function(data) {
                     $("#demo-spinner").css({'display': 'none'});
+                    $('#docVerSuccess').modal('show');
                     $("#modalVerifyCarClose").click();
                 }).fail(function () {
                     $("#demo-spinner").css({'display': 'none'});

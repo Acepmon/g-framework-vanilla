@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Resolvers\SocialUserResolver;
+use Coderello\SocialGrant\Resolvers\SocialUserResolverInterface;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Blade;
@@ -14,6 +16,15 @@ use App\Observers\UserMetaObserver;
 
 class AppServiceProvider extends ServiceProvider
 {
+    /**
+     * All of the container bindings that should be registered.
+     *
+     * @var array
+     */
+    public $bindings = [
+        SocialUserResolverInterface::class => SocialUserResolver::class,
+    ];
+
     /**
      * Register any application services.
      *

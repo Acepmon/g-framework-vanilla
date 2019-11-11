@@ -1,11 +1,11 @@
 @if($car)
-<div class="card {{ (isset($auction) && $auction)?'auction-car':'' }} {{ isset($noborder)?'border-0':'' }}">
+<div class="card {{ (isset($type) && $type == 'auction')?'auction-car':'' }} {{ isset($noborder)?'border-0':'' }}">
     <div class="card-body">
         <a class="card-img" href="{{ $car->slug }}" target="_blank">
             @if(isPremium($car))
             <div class="premium-tag shadow-soft-blue"><img src="{{ asset('car-web/img/icons/corona.svg') }}" alt=""></div>
             @endif
-            @if(isset($auction) && $auction && $car->metaValue('isAuction'))
+            @if(isset($type) && $type == 'auction' && $car->metaValue('isAuction'))
             <div class="maz-auction-time">
                 <div id="countdown" class="countdown" data-countdown="{{ $car->metaValue('endsAt') }}"></div>
                 <!-- may 5, 2020 15:37:25 -->

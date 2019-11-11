@@ -88,7 +88,7 @@ if ($itemCount < $page * $itemsPerPage) {
 <input type="hidden" name="advantage" id="advantage" value="{{ $request['advantages'] }}" />
 @if ($type == 'auction')
     @foreach($items->forPage($page, $itemsPerPage) as $car)
-        @include('themes.car-web.includes.car-list-card', array('car'=>$car, 'auction'=>True))
+        @include('themes.car-web.includes.car-list-card', array('car'=>$car, 'type'=>'auction'))
     @endforeach
 @else
     @foreach($items->forPage($page, $itemsPerPage) as $car)

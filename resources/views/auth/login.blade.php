@@ -126,14 +126,14 @@
 
                 <!-- Modal Header -->
                 <div class="modal-header text-center">
-                    <h4 class="modal-title">Forget password</h4>
-                    <img src="{{asset('car-web/img/auction-tag.png')}}" alt="">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
 
                 <!-- Modal body -->
                 <div class="modal-body mt-4 pr-lg-5 pl-lg-5 text-center">
-                   Mail has been sent!
+                <div class="maz-modal-title" style="font-size:1.5rem">Mail sent succesful</div>
+                <div id="mail-send" style="height: 300px; width: 100%;"></div>
+                   <h5 class="text-success mb-5">Mail has been sent!</h5>
                 </div>
             </div>
         </div>
@@ -144,14 +144,14 @@
 
                 <!-- Modal Header -->
                 <div class="modal-header text-center">
-                    <h4 class="modal-title">Forget password</h4>
-                    <img src="{{asset('car-web/img/auction-tag.png')}}" alt="">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
 
                 <!-- Modal body -->
-                <div class="modal-body mt-4 pr-lg-5 pl-lg-5 text-center">
-                    User not present!
+                <div class="modal-body text-center">
+                <div class="maz-modal-title" style="font-size:1.5rem">Mail sent Failed!</div>
+                <div id="mail-fail" style="height: 300px; width: 100%;"></div>
+                <h5 class="text-danger mb-5">User not present!</h5>
                 </div>
             </div>
         </div>
@@ -161,6 +161,30 @@
 
 @section('script')
     <script type="text/javascript">
+    var sendMail = {
+        container: document.getElementById('mail-send'),
+        renderer: 'svg',
+        loop: false,
+        rendererSettings: {
+            progressiveLoad: true
+        },
+        autoplay: false,
+        path: '{{asset("car-web/animation/mail-send.json")}}'
+    };
+    anim3 = bodymovin.loadAnimation(sendMail);
+
+    var sendFail = {
+        container: document.getElementById('mail-fail'),
+        renderer: 'svg',
+        loop: true,
+        rendererSettings: {
+            progressiveLoad: true
+        },
+        autoplay: false,
+        path: '{{asset("car-web/animation/mail-fail.json")}}'
+    };
+    anim4 = bodymovin.loadAnimation(sendFail);
+
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -186,12 +210,18 @@
                         success:function(data){
                             $('#myModal').modal('hide');
                             $('#mailSuccess').modal('show');
-
+                            anim3.play();
+                            anim3.addEventListener('complete', function() {
+                            setTimeout(function(){
+                                anim3.goToAndPlay(0);
+                            }, 2000);
+                            })
                         }
                     })
                 }
                 else {
                     $('#mailFail').modal('show');
+                    anim4.play();
                 }
             })
                 .fail(function(data){
@@ -202,5 +232,6 @@
                 //console.error(err);
             });
         });
+    
     </script>
 @endsection
