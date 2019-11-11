@@ -6,13 +6,13 @@ use App\Content;
 use App\ContentMeta;
 use App\User;
 use App\Entities\ContentManager;
+use App\Entities\MediaManager;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Str;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
 
 class CarController extends Controller
 {
@@ -86,7 +86,7 @@ class CarController extends Controller
     public function attachMedias(Request $request) {
         $content_id = $request->route('car');
 
-        $media_list = $this->uploadFiles($request->medias);//$request->getContent());
+        $media_list = MediaManager::uploadFiles($request->medias);//$request->getContent());
         if (count($media_list) > 0) {
             $media_list = ['medias' => $media_list, 'thumbnail' => $media_list[0]];
         } else {
@@ -101,39 +101,11 @@ class CarController extends Controller
     public function attachDoc(Request $request) {
         $content_id = $request->route('car');
 
-        $doc_list = $this->uploadFiles($request->doc);
+        $doc_list = MediaManager::uploadFiles($request->doc);
         $doc_list = ['doc' => $doc_list];
         ContentManager::attachMetas($content_id, $doc_list);
 
         return response()->json($doc_list);
-    }
-    
-    public function uploadFiles($files) {
-        $medias = [];
-        if (is_array($files)) {
-            foreach ($files as $file) {
-                if ($file) {
-                    array_push($medias, $this->storeFile($file));
-                }
-            }
-        } else if($files) {
-            array_push($medias, $this->storeFile($files));
-        }
-        return $medias;
-    }
-
-    public function storeFile($file) {
-        if (is_string($file)) {
-            $ext = getMimeType($file, 'str');
-            $ext = mime2ext($ext);
-            $filename =  Str::uuid() . '.' . $ext;
-            Storage::disk('ftp')->put('public/medias/' . $filename, $file);
-            $filename = 'public/medias/' . $filename;
-        } else {
-            $filename = $file->store('public/medias', 'ftp');
-        }
-        $filename = 'http://' . env('FTP_HOST') . ':3000/' . $filename;
-        return $filename;
     }
 
     /**
