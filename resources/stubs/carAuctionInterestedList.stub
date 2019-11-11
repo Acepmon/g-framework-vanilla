@@ -80,7 +80,7 @@
                         <img src="{{asset('car-web/img/icons/transmision.svg')}}" alt="">
                         <p>{{$car->metaValue("chassis")}}</p>
                       </span>
-                    <span class="info-icon color" data-color="black">
+                    <span class="info-icon color" data-color="{{ strtolower($car->metaValue('colorName')) }}">
                         <p>{{$car->metaValue("colorName")}}</p>
                       </span>
                     <div class="advantage-slider owl-carousel owl-theme">

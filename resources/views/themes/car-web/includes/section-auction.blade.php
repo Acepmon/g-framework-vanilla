@@ -42,7 +42,7 @@
                                         <span class="carIcon-gas-station"><p>{{(getMetasValue($auctionPrmCars->metas, 'fuelType'))}}</p></span>
                                         <span class="carIcon-gearshift"><p>{{(getMetasValue($auctionPrmCars->metas, 'transmission'))}}</p></span>
                                         <span class="carIcon-steering-wheel"><p>{{(getMetasValue($auctionPrmCars->metas, 'wheelPosition'))}}</p></span>
-                                        <span class="color" data-color="white"><p>{{(getMetasValue($auctionPrmCars->metas, 'colorName'))}}</p></span>
+                                        <span class="color" data-color="{{ strtolower($auctionPrmCars->metaValue('colorName')) }}"><p>{{(getMetasValue($auctionPrmCars->metas, 'colorName'))}}</p></span>
                                     </div>
                                     <div class="card-caption">
                                         <div id="countdown" class="countdown"  data-countdown="{{ $auctionPrmCars->metaValue('endsAt') }}"></div>
