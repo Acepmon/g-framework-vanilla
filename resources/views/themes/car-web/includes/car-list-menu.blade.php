@@ -48,9 +48,9 @@ $categoryName = [
         </div>
         </div>
         @elseif($category == 'car-year')
-        <div id="{{ $category }}" class="collapse {{ request('year', False)?'show':'' }}" aria-labelledby="{{ $category }}">
+        <div id="{{ $category }}" class="collapse {{ request('buildYear', False)?'show':'' }}" aria-labelledby="{{ $category }}">
         <div class="card-body bg-light grid-radio">
-            <select id="min-year" class="form-control" name="year" onchange="formSubmit('year','no-value')">
+            <select id="min-year" class="form-control" name="buildYear" onchange="formSubmit('buildYear','no-value')">
             <option value="">Select year</option>
             @for($i=date('Y'); $i>=1990; $i--)
             <option value="{{ $i }}" {{ $request['buildYear']==$i?'selected':'' }}>{{ $i }}</option>

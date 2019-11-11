@@ -194,6 +194,7 @@
         for (var i=0; i<fileList.length; i++) {
             formData.append("medias[]", fileList[i]);
         }
+        $("#demo-spinner").css({'display': 'block'});
         $.ajax({
             type: 'POST',
             url: '/ajax/contents/' + carId+ '/medias',
@@ -225,6 +226,7 @@
                     }).fail(fail);
                 }
                 else{
+                    $("#demo-spinner").css({'display': 'none'});
                     __callback(1);
                 }
             }).fail(fail);
