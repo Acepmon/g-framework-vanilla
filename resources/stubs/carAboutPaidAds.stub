@@ -30,6 +30,28 @@
             <h3>Төлбөртэй зар</h3>
             </div>
         </div>
+        <div class="row">
+            <div class="col-md-12 intro-advantages">
+            <div class="intro-advantage">
+                <h4>Бест зар
+
+                </h4>
+                <div class="intro-advantage-img"><img src="{{ asset('car-web/img/about-icons/best_premium-icon.svg') }}" alt=""></div>
+            </div>
+
+            <div class="intro-advantage">
+                <h4>Төлбөртэй зар
+                </h4>
+                <div class="intro-advantage-img"><img src="{{ asset('car-web/img/about-icons/premium-icon.svg') }}" alt=""></div>
+            </div>
+
+            <div class="intro-advantage">
+                <h4>Төлбөргүй зар
+                </h4>
+                <div class="intro-advantage-img"><img src="{{ asset('car-web/img/about-icons/free-icon.svg') }}" alt=""></div>
+            </div>
+            </div>
+        </div>
 
         </div>
     </section>

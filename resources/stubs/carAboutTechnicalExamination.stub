@@ -34,17 +34,17 @@
             <div class="col-md-12 intro-advantages">
                 <div class="intro-advantage">
                     <h4>Техникийн үзлэг оношлогоо</h4>
-                    <div class="intro-advantage-img"><img src="{{ asset('car-web/img/icons/engine.svg') }}" alt=""></div>
+                    <div class="intro-advantage-img"><img src="{{ asset('car-web/img/about-icons/aboutT-icon-1.svg') }}" alt=""></div>
                 </div>
 
                 <div class="intro-advantage">
                     <h4>Техникийн үзлэг оношлогоо</h4>
-                    <div class="intro-advantage-img"><img src="{{ asset('car-web/img/icons/fuel.svg') }}" alt=""></div>
+                    <div class="intro-advantage-img"><img src="{{ asset('car-web/img/about-icons/aboutT-icon-2.svg') }}" alt=""></div>
                 </div>
 
                 <div class="intro-advantage">
                     <h4>Техникийн үзлэг оношлогоо</h4>
-                    <div class="intro-advantage-img"><img src="{{ asset('car-web/img/icons/wheel.svg') }}" alt=""></div>
+                    <div class="intro-advantage-img"><img src="{{ asset('car-web/img/about-icons/aboutT-icon-3.svg') }}" alt=""></div>
                 </div>
             </div>
             </div>
@@ -106,23 +106,23 @@
         <div class="row">
             <div class="about-sequences">
             <div class="sequence-item">
-                <div class="sequence-img"><img src="{{ asset('car-web/img/sample/001-alarm clock.png') }}" alt=""></div>
+                <div class="sequence-img"><img src="{{ asset('car-web/img/about-icons/aboutT-icon-4.svg') }}" alt=""></div>
                 <div class="sequence-title">Техникийн үзлэгийн цаг захиалах</div>
             </div>
             <div class="sequence-item">
-                <div class="sequence-img"><img src="{{ asset('car-web/img/sample/002-audio book.png') }}" alt=""></div>
+                <div class="sequence-img"><img src="{{ asset('car-web/img/about-icons/aboutT-icon-5.svg') }}" alt=""></div>
                 <div class="sequence-title">Техникийн үзлэгийн цаг захиалах</div>
             </div>
             <div class="sequence-item">
-                <div class="sequence-img"><img src="{{ asset('car-web/img/sample/020-player.png') }}" alt=""></div>
+                <div class="sequence-img"><img src="{{ asset('car-web/img/about-icons/aboutT-icon-6.svg') }}" alt=""></div>
                 <div class="sequence-title">Техникийн үзлэгийн цаг захиалах</div>
             </div>
             <div class="sequence-item">
-                <div class="sequence-img"><img src="{{ asset('car-web/img/sample/022-customer service.png') }}" alt=""></div>
+                <div class="sequence-img"><img src="{{ asset('car-web/img/about-icons/aboutT-icon-7.svg') }}" alt=""></div>
                 <div class="sequence-title">Техникийн үзлэгийн цаг захиалах</div>
             </div>
             <div class="sequence-item">
-                <div class="sequence-img"><img src="{{ asset('car-web/img/sample/023-smartphone.png') }}" alt=""></div>
+                <div class="sequence-img"><img src="{{ asset('car-web/img/about-icons/aboutT-icon-8.svg') }}" alt=""></div>
                 <div class="sequence-title">Техникийн үзлэгийн цаг захиалах</div>
             </div>
             </div>

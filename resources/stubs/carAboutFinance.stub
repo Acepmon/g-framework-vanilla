@@ -36,21 +36,21 @@
                 <h4>Урьдчилгаа 20~30% ийг төлөөд машинтай болох боломж
 
                 </h4>
-                <div class="intro-advantage-img"><img src="{{ asset('car-web/img/icons/engine.svg') }}" alt=""></div>
+                <div class="intro-advantage-img"><img src="{{ asset('car-web/img/about-icons/aboutF-icon-1.svg') }}" alt=""></div>
             </div>
 
             <div class="intro-advantage">
                 <h4>Урт хугацаатай,
                 бага хүүтэй
                 </h4>
-                <div class="intro-advantage-img"><img src="{{ asset('car-web/img/icons/fuel.svg') }}" alt=""></div>
+                <div class="intro-advantage-img"><img src="{{ asset('car-web/img/about-icons/aboutF-icon-2.svg') }}" alt=""></div>
             </div>
 
             <div class="intro-advantage">
                 <h4>Автомашины лизинг/ барьцаат
                 зээл авах боломжтой
                 </h4>
-                <div class="intro-advantage-img"><img src="{{ asset('car-web/img/icons/wheel.svg') }}" alt=""></div>
+                <div class="intro-advantage-img"><img src="{{ asset('car-web/img/about-icons/aboutF-icon-3.svg') }}" alt=""></div>
             </div>
             </div>
         </div>
@@ -96,27 +96,27 @@
         <div class="row">
             <div class="about-sequences">
             <div class="sequence-item">
-                <div class="sequence-img"><img src="{{ asset('car-web/img/sample/001-alarm clock.png') }}" alt=""></div>
+                <div class="sequence-img"><img src="{{ asset('car-web/img/about-icons/aboutF-icon-4.svg') }}" alt=""></div>
                 <div class="sequence-title">Авах машинаа сонгох</div>
             </div>
             <div class="sequence-item">
-                <div class="sequence-img"><img src="{{ asset('car-web/img/sample/002-audio book.png') }}" alt=""></div>
+                <div class="sequence-img"><img src="{{ asset('car-web/img/about-icons/aboutF-icon-5.svg') }}" alt=""></div>
                 <div class="sequence-title">Зээл авах боломжтой эсэхийг шалгах </div>
             </div>
             <div class="sequence-item">
-                <div class="sequence-img"><img src="{{ asset('car-web/img/sample/020-player.png') }}" alt=""></div>
+                <div class="sequence-img"><img src="{{ asset('car-web/img/about-icons/aboutF-icon-6.svg') }}" alt=""></div>
                 <div class="sequence-title">Зээлийн судалгаа, зээлийн гэрээ хийх </div>
             </div>
             <div class="sequence-item">
-                <div class="sequence-img"><img src="{{ asset('car-web/img/sample/022-customer service.png') }}" alt=""></div>
+                <div class="sequence-img"><img src="{{ asset('car-web/img/about-icons/aboutF-icon-7.svg') }}" alt=""></div>
                 <div class="sequence-title">Тээврийн хэрэгслийн гэрчилгээний нэр солих </div>
             </div>
             <div class="sequence-item">
-                <div class="sequence-img"><img src="{{ asset('car-web/img/sample/023-smartphone.png') }}" alt=""></div>
+                <div class="sequence-img"><img src="{{ asset('car-web/img/about-icons/aboutF-icon-8.svg') }}" alt=""></div>
                 <div class="sequence-title">Зээл авах </div>
             </div>
             <div class="sequence-item">
-                <div class="sequence-img"><img src="{{ asset('car-web/img/sample/023-smartphone.png') }}" alt=""></div>
+                <div class="sequence-img"><img src="{{ asset('car-web/img/about-icons/aboutF-icon-9.svg') }}" alt=""></div>
                 <div class="sequence-title">Машинаа авах </div>
             </div>
             </div>

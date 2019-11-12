@@ -1084,6 +1084,10 @@ header.masthead .masthead-search .mh-search-input.expand .search-button svg .sea
   fill: #fff;
 }
 
+header.masthead .masthead-search .mh-search-input.expand .search-button svg .search-icon-4 {
+  fill: #85c9ef;
+}
+
 header.masthead .masthead-search .card-header {
   background: #fff;
   border-bottom: none;
@@ -1472,11 +1476,16 @@ select {
 
 .form-row .option-type {
   width: 100%;
-  background: #EAEEF1;
   color: #2B3651;
   padding: .5rem;
-  text-align: center;
+  text-align: left;
   margin-bottom: 1rem;
+  font-weight: 700;
+  padding-left: 1rem;
+}
+
+.form-row .option-type i {
+  margin-right: 1rem;
 }
 
 .btn-round {
@@ -1663,6 +1672,10 @@ select {
 
 .left-bar-title .mh-search-input.expand .search-button svg .search-icon-1 {
   fill: #fff;
+}
+
+.left-bar-title .mh-search-input.expand .search-button svg .search-icon-4 {
+  fill: #85c9ef;
 }
 
 .car-filter #manufacture .models {
