@@ -34,13 +34,13 @@
           <div class="card-header">
             <div class="step-process sp-3">
               <div class='progress_inner_step active'>
-                <a class="nav-link" for='step-1' data-toggle="tab" href="#step-1" id="tab-step-1" role="tab">Edit details</a>
+                <a class="nav-link" for='step-1' data-toggle="tab" id="tab-step-1" role="tab">Edit details</a>
               </div>
               <div class='progress_inner_step'>
-                <a class="nav-link" for='step-2' data-toggle="tab" href="#step-2" id="tab-step-2" role="tab">Upload media</a>
+                <a class="nav-link" for='step-2' data-toggle="tab" id="tab-step-2" role="tab">Upload media</a>
               </div>
               <div class='progress_inner_step'>
-                <a class="nav-link" for='step-3' data-toggle="tab" href="#step-3" id="tab-step-3" role="tab">Edit price</a>
+                <a class="nav-link" for='step-3' data-toggle="tab" id="tab-step-3" role="tab">Edit price</a>
               </div>
             </div>
           </div>
@@ -51,7 +51,7 @@
               <div id="step-2" class="tab-pane">
                 @include('pages.' . App\Content::where('slug', 'sell-car-page-2-step-2')->first()->currentView(), ['edit' => True])
               </div>
-              <div id="step-3" class="tab-pane" role="tabpanel" aria-labelledby="tab-step-3">
+              <div id="step-3" class="tab-pane">
                 @if($car->metaValue('isAuction'))
                 @include('pages.' . App\Content::where('slug', 'sell-car-auction')->first()->currentView(), ['edit' => True])
                 @else
@@ -90,8 +90,8 @@
   function nextPrev(i) {
     var step = $('#steps > .active').attr('id');
     step = parseInt(step.substring(step.length-1)) + i;
-    if (step > 0 && step <= 4) {
-      $("#tab-step-"+step).trigger('click');
+    if (step > 0 && step <= 3) {
+      switchStep(step-1);
     }
   }
 
@@ -106,36 +106,33 @@
               if (result == 1) {
                 window.location.href = "/posts/{{ $carId }}";
               } else {
-                $("#tab-step-3").click();
+                switchStep(3);
               }
             });
           } else {
-            $("#tab-step-2").click();
+            switchStep(2);
           }
         });
       } else {
-        $("#tab-step-1").click();
+        switchStep(1);
       }
     });
   }
 
-  $(".step-process a").each(function(index) {
-    $(this).on('click', function () {
-      console.log("ON CLICK!" + index);
-      for (var i = index; i>=1; i--) {
-        $('#tab-step-'+i).parent().removeClass('active');
-        $('#tab-step-'+i).parent().addClass('done');
-      }
-      for (var i = index+1; i<=4; i++) {
-        $('#tab-step-'+i).parent().removeClass('active');
-        $('#tab-step-'+i).parent().removeClass('done');
-      }
-      $(this).parent().addClass('active');
+  function switchStep(index) {
+    for (var i = index; i>=1; i--) {
+      $('#tab-step-'+i).parent().removeClass('active');
+      $('#tab-step-'+i).parent().addClass('done');
+    }
+    for (var i = index+1; i<=4; i++) {
+      $('#tab-step-'+i).parent().removeClass('active');
+      $('#tab-step-'+i).parent().removeClass('done');
+    }
+    $('#tab-step-'+(index+1)).parent().addClass('active');
       
-      $('#steps > .active').removeClass('active').removeClass('show');
-      $("#step-"+(index+1)).addClass('active').addClass('show');
-    });
-  });
+    $('#steps > .active').removeClass('active').removeClass('show');
+    $("#step-"+(index+1)).addClass('active').addClass('show');
+  };
 
   $(document).ready(function() {
     // document.getElementById('pro-image').addEventListener('change', readImage, false);
