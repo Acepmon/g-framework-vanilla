@@ -107,6 +107,29 @@
                 }
             }
         });
+        $('.wish-slide').owlCarousel({
+            loop: true,
+            margin: 20,
+            thumbs: false,
+            responsiveClass: true,
+            slideTransition: 'ease-in-out',
+            navText: ['<i class="fa fa-angle-left"></i>', '<i class="fa fa-angle-right"></i>'],
+            responsive: {
+                0: {
+                    items: 1,
+                    nav: true
+                },
+                600: {
+                    items: 3,
+                    nav: false
+                },
+                1000: {
+                    items: 3,
+                    nav: true,
+                    loop: false
+                }
+            }
+        });
 
         var cardMeta = $(".card-caption > .meta > .show-more");
         var cardInfo = $(".card-img > .info");
