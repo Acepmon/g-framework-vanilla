@@ -558,6 +558,10 @@ section .owl-theme .owl-dots .owl-dot.active span {
   margin-right: .5rem;
 }
 
+.wish-slide .owl-stage-outer {
+  padding-bottom: 20px;
+}
+
 @-webkit-keyframes floatRight {
   0% {
     transform: translateX(0px);
@@ -1080,6 +1084,10 @@ header.masthead .masthead-search .mh-search-input.expand .search-button svg .sea
   fill: #fff;
 }
 
+header.masthead .masthead-search .mh-search-input.expand .search-button svg .search-icon-4 {
+  fill: #85c9ef;
+}
+
 header.masthead .masthead-search .card-header {
   background: #fff;
   border-bottom: none;
@@ -1468,11 +1476,16 @@ select {
 
 .form-row .option-type {
   width: 100%;
-  background: #EAEEF1;
   color: #2B3651;
   padding: .5rem;
-  text-align: center;
+  text-align: left;
   margin-bottom: 1rem;
+  font-weight: 700;
+  padding-left: 1rem;
+}
+
+.form-row .option-type i {
+  margin-right: 1rem;
 }
 
 .btn-round {
@@ -1659,6 +1672,10 @@ select {
 
 .left-bar-title .mh-search-input.expand .search-button svg .search-icon-1 {
   fill: #fff;
+}
+
+.left-bar-title .mh-search-input.expand .search-button svg .search-icon-4 {
+  fill: #85c9ef;
 }
 
 .car-filter #manufacture .models {
@@ -4120,6 +4137,141 @@ section .owl-carousel .owl-nav button.owl-next, section .owl-carousel .owl-nav b
   font-weight: 400;
 }
 
+.people-wish-list .wish-card {
+  border: none;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+  box-shadow: 0 5px 20px -5px rgba(0, 0, 0, 0.1);
+}
+
+.people-wish-list .wish-card .card-body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  z-index: 1;
+  position: relative;
+}
+
+.people-wish-list .wish-card .card-body .title {
+  color: #2B3651;
+  text-align: center;
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  margin-top: 1.5rem;
+  margin-bottom: 0;
+  padding: 1rem;
+}
+
+.people-wish-list .wish-card .card-body .wish-detail {
+  font-size: 1rem;
+  margin-bottom: 0;
+  text-align: center;
+  width: 100%;
+}
+
+.people-wish-list .wish-card .card-body .wish-detail .price {
+  color: #3d4c72;
+  opacity: .6;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: .5rem;
+}
+
+.people-wish-list .wish-card .card-body .wish-detail i {
+  color: #E0E5EB;
+  margin-right: 1rem;
+}
+
+.people-wish-list .wish-card .card-body .wish-user {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 1rem;
+}
+
+.people-wish-list .wish-card .card-body .wish-user .user {
+  display: flex;
+  width: 100%;
+}
+
+.people-wish-list .wish-card .card-body .wish-user .user .profile-img {
+  overflow: hidden;
+  height: 35px;
+  width: 35px;
+  border-radius: 50%;
+  margin-right: 1rem;
+}
+
+.people-wish-list .wish-card .card-body .wish-user .user .profile-img img {
+  height: 100%;
+  max-width: 100%;
+}
+
+.people-wish-list .wish-card .card-body .wish-user .user .username {
+  line-height: 1.25rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #858994;
+  white-space: nowrap;
+  width: 70%;
+  overflow: hidden;
+}
+
+.people-wish-list .wish-card .card-body .wish-user .user .username .date {
+  color: #AAAEB9;
+  font-size: 0.75rem;
+  font-weight: 400;
+}
+
+.people-wish-list .wish-card .card-body .wish-user .phone {
+  width: 100%;
+  color: #858994;
+  font-weight: 700;
+  margin: .5rem;
+  text-align: right;
+}
+
+.people-wish-list .wish-card .bg-img {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 100%;
+  height: 100%;
+  transform: translate(-50%, -50%) scale(1.2);
+  z-index: 0;
+  transition: transform .7s ease-in-out;
+}
+
+.people-wish-list .wish-card .bg-img::before {
+  background: #fff;
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: .98;
+  z-index: 1;
+  transition: all .3s ease-in-out;
+}
+
+.people-wish-list .wish-card:hover .bg-img {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.people-wish-list .wish-card:hover .bg-img::before {
+  opacity: .8;
+}
+
+.people-wish-list > .row > * {
+  margin-bottom: 20px;
+}
+
 .title-mid-line {
   font-family: "Segoe UI", "Open Sans", Helvetica, sans-serif;
   height: 100%;
@@ -4301,6 +4453,12 @@ section .owl-carousel .owl-nav button.owl-next, section .owl-carousel .owl-nav b
   cursor: pointer;
 }
 
+.step-process .progress_inner_step .nav-link {
+  text-decoration: none;
+  color: inherit !important;
+  pointer-events: none;
+}
+
 .step-process .progress_inner_step label {
   font-family: "Segoe UI","Open Sans",Helvetica,sans-serif;
   display: inline-block;
@@ -4360,6 +4518,10 @@ section .owl-carousel .owl-nav button.owl-next, section .owl-carousel .owl-nav b
 .step-process .progress_inner_step.done {
   font-weight: 400;
   color: #07C78C;
+}
+
+.step-process .progress_inner_step.done .nav-link {
+  pointer-events: fill;
 }
 
 .step-process .progress_inner_step.done::after {

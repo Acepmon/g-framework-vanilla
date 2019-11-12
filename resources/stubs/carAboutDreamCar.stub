@@ -35,19 +35,19 @@
             <div class="intro-advantage">
                 <h4>Машин худалдан авахыг хүссэн хэрэглэгч сонирхосон машины мэдээллийг оруулна
                 </h4>
-                <div class="intro-advantage-img"><img src="{{ asset('car-web/img/icons/engine.svg') }}" alt=""></div>
+                <div class="intro-advantage-img"><img src="{{ asset('car-web/img/about-icons/aboutW-icon-1.svg') }}" alt=""></div>
             </div>
 
             <div class="intro-advantage">
                 <h4>Хэрэглэгч борлуулагчдаас өөрийн сонирхосон машины мэдээллийг авах боломжтой
                 </h4>
-                <div class="intro-advantage-img"><img src="{{ asset('car-web/img/icons/fuel.svg') }}" alt=""></div>
+                <div class="intro-advantage-img"><img src="{{ asset('car-web/img/about-icons/aboutW-icon-2.svg') }}" alt=""></div>
             </div>
 
             <div class="intro-advantage">
                 <h4>Борлуулагч хэрэглэгчтэй шууд харьцан машинаа сурталчилах боломжтой
                 </h4>
-                <div class="intro-advantage-img"><img src="{{ asset('car-web/img/icons/wheel.svg') }}" alt=""></div>
+                <div class="intro-advantage-img"><img src="{{ asset('car-web/img/about-icons/aboutW-icon-3.svg') }}" alt=""></div>
             </div>
             </div>
         </div>
