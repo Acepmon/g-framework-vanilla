@@ -78,7 +78,7 @@
             <img src="{{asset('car-web/img/icons/transmision.svg')}}" alt="">
             <p>{{$check->metaValue("chassis")}}</p>
             </span>
-                        <span class="info-icon color" data-color="black">
+                        <span class="info-icon color" data-color="{{ strtolower($check->metaValue('colorName')) }}">
             <p>{{$check->metaValue("colorName")}}</p>
             </span>
 

@@ -74,7 +74,7 @@
                 <img src="{{asset('car-web/img/icons/transmision.svg')}}" alt="">
                 <p>{{$sold->metaValue("chassis")}}</p>
                 </span>
-                        <span class="info-icon color" data-color="black">
+                        <span class="info-icon color" data-color="{{ strtolower($sold->metaValue('colorName')) }}">
                 <p>{{$sold->metaValue("colorName")}}</p>
                 </span>
                     <div class="sell-action">

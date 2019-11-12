@@ -126,7 +126,7 @@ $itsIntCar=false;
                                     @csrf
                                     <input type="text" name="title" hidden class="searchTitle">
                                     <div class="form-group">
-                                        <select id="vehicleManufacturer" class="form-control" name="manufacturer">
+                                        <select id="vehicleManufacturer" class="form-control" name="car-manufacturer">
                                             <option>Manufacturer</option>
                                             @getTaxonomys({"filter":[{"field":"taxonomy", "key":"car-manufacturer"}], "returnValue":"manufacturers"})
                                             @foreach($manufacturers as $data)
@@ -135,7 +135,7 @@ $itsIntCar=false;
                                         </select>
                                     </div>
                                     <div class="form-group">
-                                        <select id="vehicleManufacturerModels" class="form-control" name="model">
+                                        <select id="vehicleManufacturerModels" class="form-control" name="car-model">
                                             <option>Model</option>
                                             {{--//@getTaxonomys({"filter":[{"field":"taxonomy", "key":"model"}], "returnValue":"models"})--}}
                                         </select>
@@ -164,7 +164,7 @@ $itsIntCar=false;
                                     @csrf
                                     <input type="text" name="title" hidden class="searchTitle">
                                     <div class="form-group">
-                                        <select id="vehicleManufacturer1" class="form-control" name="manufacturer">
+                                        <select id="vehicleManufacturer1" class="form-control" name="car-manufacturer">
                                             <option>Manufacturer</option>
                                             @getTaxonomys({"filter":[{"field":"taxonomy", "key":"car-manufacturer"}], "returnValue":"manufacturers"})
                                             @foreach($manufacturers as $data)
@@ -173,7 +173,7 @@ $itsIntCar=false;
                                         </select>
                                     </div>
                                     <div class="form-group">
-                                        <select id="vehicleManufacturerModels1" class="form-control" name="model">
+                                        <select id="vehicleManufacturerModels1" class="form-control" name="car-model">
                                             <option>Model</option>
                                             {{--//@getTaxonomys({"filter":[{"field":"taxonomy", "key":"model"}], "returnValue":"models"})--}}
                                         </select>
@@ -202,7 +202,7 @@ $itsIntCar=false;
                                     @csrf
                                     <input name="title" type="text" hidden class="searchTitle">
                                     <div class="form-group">
-                                        <select id="vehicleManufacturer2" class="form-control" name="manufacturer">
+                                        <select id="vehicleManufacturer2" class="form-control" name="car-manufacturer">
                                             <option>Manufacturer</option>
                                             @getTaxonomys({"filter":[{"field":"taxonomy", "key":"car-manufacturer"}], "returnValue":"manufacturers"})
                                             @foreach($manufacturers as $data)
@@ -211,17 +211,17 @@ $itsIntCar=false;
                                         </select>
                                     </div>
                                     <div class="form-group">
-                                        <select id="vehicleManufacturerModels2" class="form-control" name="model">
+                                        <select id="vehicleManufacturerModels2" class="form-control" name="car-model">
                                             <option>Model</option>
                                             {{--//@getTaxonomys({"filter":[{"field":"taxonomy", "key":"model"}], "returnValue":"models"})--}}
                                         </select>
                                     </div>
                                     <div class="form-group">
-                                        <input class="form-control" name="Min-price" type="number"
+                                        <input class="form-control" name="min_price" type="number"
                                                placeholder="min-price" aria-label="Search">
                                     </div>
                                     <div class="form-group">
-                                        <input class="form-control" name="Max-price" type="number"
+                                        <input class="form-control" name="max_price" type="number"
                                                placeholder="max-price" aria-label="Search">
                                     </div>
                                     <button type="submit" class="btn btn-danger btn-lg btn-round shadow mt-4 pl-5 pr-5">Search</button>

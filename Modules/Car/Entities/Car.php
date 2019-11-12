@@ -116,7 +116,8 @@ class Car extends Content
         $request['manCount'] = request('car-mancount', Null);
         $request['wheelPosition'] = request('car-wheel-pos', Null);
         $request['countryName'] = request('provinces', Null);
-        $request['buildYear'] = request('year', Null);
+        $request['buildYear'] = request('buildYear', Null);
+        $request['importDate'] = request('importDate', Null);
         $request['mileageAmount'] = request('mileageAmount', Null);
         $request['doctorVerified'] = request('doctors_verified', Null);
         $request['publishType'] = request('publishType', Null);
