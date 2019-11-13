@@ -37,8 +37,8 @@
             <label for="Manufacturer">Manufacturer:</label>
             <select id="manufacturerSelect" name="markName" class="form-control" required>
                 <option value="">Manufacturer</option>
-                @foreach(\App\TermTaxonomy::where('taxonomy', 'car-manufacturer')->get() as $taxonomy)
-                <option {{ ($car->metaValue('markName') == $taxonomy->term->name)?'selected':'' }}>{{$taxonomy->term->name}}</option>
+                @foreach(array_unique(array_merge(['Toyota'], \App\TermTaxonomy::where('taxonomy', 'car-manufacturer')->with('term')->get()->pluck('term.name')->toArray())) as $taxonomy)
+                <option {{ ($car->metaValue('markName') == $taxonomy)?'selected':'' }}>{{$taxonomy}}</option>
                 @endforeach
             </select>
             <span id="manufacturerSelectAlert" class="invalid-feedback" role="alert" style="display: none">
@@ -48,7 +48,13 @@
         <div class="form-group col-md-6">
             <label for="Model">Model:</label>
             <select id="modelSelect" name="modelName" class="form-control" required>
-                <option value="{{ $taxonomy->term->name?$taxonomy->term->name:'' }}">{{ $car->metaValue('modelName')?$car->metaValue('modelName'):'Model' }}</option>
+                @if($car->metaValue('markName'))
+                @foreach(\App\TermTaxonomy::where('taxonomy', 'car-' . \Str::kebab($car->metaValue('markName')))->get() as $taxonomy)
+                <option {{ ($car->metaValue('modelName') == $taxonomy->term->name)?'selected':'' }}>{{$taxonomy->term->name}}</option>
+                @endforeach
+                @else
+                <option value="">Model</option>
+                @endif
             </select>
             <span id="modelSelectAlert" class="invalid-feedback" role="alert" style="display: none">
                 Please choose your model

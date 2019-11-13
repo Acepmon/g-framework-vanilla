@@ -41,16 +41,16 @@ try {
           <div class="card-header">
             <div class="step-process sp-4">
               <div class='progress_inner_step active'>
-                <a class="nav-link" for='step-1' data-toggle="tab" href="#step-1" id="tab-step-1" role="tab">Add details</a>
+                <a class="nav-link" for='step-1' data-toggle="tab" id="tab-step-1" role="tab">Add details</a>
               </div>
               <div class='progress_inner_step'>
-                <a class="nav-link" for='step-2' data-toggle="tab" href="#step-2" id="tab-step-2" role="tab">Upload media</a>
+                <a class="nav-link" for='step-2' data-toggle="tab" id="tab-step-2" role="tab">Upload media</a>
               </div>
               <div class='progress_inner_step'>
-                <a class="nav-link" for='step-3' data-toggle="tab" href="#step-3" id="tab-step-3" role="tab">Add price</a>
+                <a class="nav-link" for='step-3' data-toggle="tab" id="tab-step-3" role="tab">Add price</a>
               </div>
               <div class='progress_inner_step'>
-                <a class="nav-link" for='step-4' data-toggle="tab" href="#step-4" id="tab-step-4" role="tab">Publish type</a>
+                <a class="nav-link" for='step-4' data-toggle="tab" id="tab-step-4" role="tab">Publish type</a>
               </div>
             </div>
           </div>
@@ -103,13 +103,7 @@ try {
     var step = $('#steps > .active').attr('id');
     step = parseInt(step.substring(step.length-1)) + i;
     if (step > 0 && step <= 4) {
-      $("#tab-step-"+step).trigger('click');
-    }
-  }
-
-  $(".step-process a").each(function(index) {
-    $(this).on('click', function () {
-      console.log("ON CLICK!" + index);
+      var index = step-1;
       for (var i = index; i>=1; i--) {
         $('#tab-step-'+i).parent().removeClass('active');
         $('#tab-step-'+i).parent().addClass('done');
@@ -118,12 +112,13 @@ try {
         $('#tab-step-'+i).parent().removeClass('active');
         $('#tab-step-'+i).parent().removeClass('done');
       }
-      $(this).parent().addClass('active');
+      $('#tab-step-'+step).parent().addClass('active');
       
       $('#steps > .active').removeClass('active').removeClass('show');
-      $("#step-"+(index+1)).addClass('active').addClass('show');
-    });
-  });
+      $("#step-"+step).addClass('active').addClass('show');
+    }
+  }
+
 
   $(document).ready(function() {
     // document.getElementById('pro-image').addEventListener('change', readImage, false);
