@@ -8,7 +8,7 @@
             <div class="dealer-meta">
                 <div class="dealer-name">{{ $user->name }}</div>
                 <div class="dealer-status">{{ $user->groups->where('type', '!=', 'system')->implode('title', ',') }}</div>
-                <div class="dealer-contact"> <i class="icon-phone"></i> {{ $user->metaValue('phone') }}</div>
+                <div class="dealer-contact"> <i class="fab fa fa-phone-alt text-muted"></i> {{ $user->metaValue('phone') }}</div>
             </div>
         </div>
     </div>

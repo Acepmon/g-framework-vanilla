@@ -95,12 +95,12 @@ $banner = App\Banner::where('location_id', 5)->where('status', 'active')->inRand
                         @contentInline(type=wanna-buy, markName=request()->input('markName'), modelName=request()->input('modelName'), priceAmountStart>=intval(request()->input('priceAmount')), sortDir=desc, sort=updated_at, limit=16 as $cars | paginate)
                         @if($cars->total() != 0)
                         @foreach($cars as $car)
-                            <div class="col-lg-3 col-md-4">
+                            <div class="col-lg-4 col-md-4">
                                 @include('themes.car-web.includes.car-wishlist-card', array('car'=>$car))
                             </div>
                         @endforeach
                         @else
-                            <div class="col-lg-3 col-md-4 text-muted justify-content">
+                            <div class="col-lg-4 col-md-4 text-muted justify-content">
                                 No result
                             </div>
                         @endif

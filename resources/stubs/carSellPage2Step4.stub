@@ -96,7 +96,7 @@
     </div>
 </form>
 <div class="modal fade" id="carRegSuccess">
-    <div class="modal-dialog  modal-dialog-centered">
+    <div class="modal-dialog  modal-dialog">
         <div class="modal-content">
             <!-- Modal Header -->
             <div class="modal-header text-center">
@@ -105,9 +105,9 @@
 
             <!-- Modal body -->
             <div class="modal-body text-center">
-            <div class="maz-modal-title" style="font-size:1.5rem">Sell advertise!</div>
-            <div id="sent-ad"></div>
-                <h5 class="text-danger mb-5">Car successfully registered!</h5>
+            <div class="maz-modal-title mb-3" style="font-size:1.5rem">Sell advertise!</div>
+            <div id="sent-ad" style="height:300px"></div>
+                <h5 class="text-success my-3">Car successfully registered!</h5>
             </div>
         </div>
     </div>
