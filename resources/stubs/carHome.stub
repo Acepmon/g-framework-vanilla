@@ -156,7 +156,7 @@ $itsIntCar=false;
                                             @endfor
                                         </select>
                                     </div>
-                                    <button type="submit" class="btn btn-danger btn-lg btn-round shadow mt-4 pl-5 pr-5">Search</button>
+                                    <button type="submit" id="submitSearch" class="btn btn-danger btn-lg btn-round shadow mt-4 pl-5 pr-5">Search</button>
                                 </form>
                             </div>
                             <div class="tab-pane fade" id="auction" role="tabpanel" aria-labelledby="used-tab">
@@ -335,6 +335,14 @@ $itsIntCar=false;
 
 
         $(document).ready(function () {
+
+            $(window).keydown(function(event){
+                if(event.keyCode == 13) {
+                    searchTitle(event);
+                    $( "#submitSearch" ).trigger( "click" );
+                }
+            });
+
             $("#vehicleManufacturer").change(
                 function (e) {
                     var markName=$(this).val();
