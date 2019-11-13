@@ -58,7 +58,7 @@ $itsIntCar=false;
                             <div class="card-header px-5 pt-5 pb-3">
                                 <h1>Vehicle search</h1>
                                 <div class="mh-search-input">
-                                    <input class="search" onchange="searchTitle(event)" type="search" placeholder="Search by id or title" aria-label="Search">
+                                    <input class="search" id="searchTitle" onchange="searchTitle(event)" type="search" placeholder="Search by id or title" aria-label="Search">
                                     <button type="button" class="search-button">
                                         <svg id="search-icon" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30">
                                             <defs>
@@ -337,8 +337,11 @@ $itsIntCar=false;
         $(document).ready(function () {
 
             $(window).keydown(function(event){
-                if(event.keyCode == 13) {
+                console.log(event.target.id)
+                if(event.target.id=="searchTitle"){
                     searchTitle(event);
+                }
+                if(event.keyCode == 13) {
                     $( "#submitSearch" ).trigger( "click" );
                 }
             });
