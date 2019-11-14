@@ -9,7 +9,7 @@
 <script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/plugins/forms/tags/tokenfield.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/demo_pages/form_tags_input.js') }}"></script>
 <script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/demo_pages/form_checkboxes_radios.js') }}"></script>
-	<script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/demo_pages/form_select2.js') }}"></script>
+<script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/demo_pages/form_select2.js') }}"></script>
 @endsection
 @section('load-before')
 <script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/plugins/loaders/pace.min.js') }}"></script>
@@ -108,7 +108,7 @@
                             <div class="form-group row">
                                 <label for="manufacturer" class="col-form-label col-lg-2">Manufacturer</label>
                                 <div class="col-lg-10">
-                                    <select id="manufacturer" name="manufacturer" class="select text-capitalize">
+                                    <select id="manufacturer" name="markName" class="select text-capitalize">
                                         <option>Manufacturer</option>
                                         @foreach(App\TermTaxonomy::where('taxonomy', 'car-manufacturer')->get() as $value)
                                             <option value="{{ $value->term->name }}">{{ $value->term->name }}</option>
