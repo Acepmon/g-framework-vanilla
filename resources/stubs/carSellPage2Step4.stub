@@ -204,34 +204,30 @@ $("input").click(function(){
             }
             paramObjs.publishTotalPriceAmount=parseInt(paramObjs.publishAmount) * paramObjs.publishDuration;
         }
+        $.ajax({
+            type: 'PUT',
+            url: '/ajax/contents/' + carId + '/metas/sync',
+            data: paramObjs
+        }).done(function(data) {
+            $.ajax({
+                type: 'PUT',
+                url: '/ajax/contents/' + carId,
+                data: {"status":'{{ \App\Content::STATUS_PUBLISHED}}', "visibility":'{{ \App\Content::VISIBILITY_PUBLIC }}'}
+            }).done(function(data) {
+                $("#demo-spinner").css({'display': 'none'});
+                nextPrev(1);
+                console.log("DONE!");
+                console.log(data);
+                $('#carRegSuccess').modal('show');
+                setTimeout(function(){
+                    anim3.play();
+                }, 700);
 
+                setTimeout(function(){
+                    window.location.href = "/posts/"+carId;
+                }, 3000);
 
-        console.log(paramObjs);
-
-        {{--$.ajax({--}}
-            {{--type: 'PUT',--}}
-            {{--url: '/ajax/contents/' + carId + '/metas/sync',--}}
-            {{--data: paramObjs--}}
-        {{--}).done(function(data) {--}}
-            {{--$.ajax({--}}
-                {{--type: 'PUT',--}}
-                {{--url: '/ajax/contents/' + carId,--}}
-                {{--data: {"status":'{{ \App\Content::STATUS_PUBLISHED}}', "visibility":'{{ \App\Content::VISIBILITY_PUBLIC }}'}--}}
-            {{--}).done(function(data) {--}}
-                {{--$("#demo-spinner").css({'display': 'none'});--}}
-                {{--nextPrev(1);--}}
-                {{--console.log("DONE!");--}}
-                {{--console.log(data);--}}
-                {{--$('#carRegSuccess').modal('show');--}}
-                {{--setTimeout(function(){--}}
-                    {{--anim3.play();--}}
-                {{--}, 700);--}}
-                {{----}}
-                {{--setTimeout(function(){--}}
-                    {{--window.location.href = "/posts/"+carId;--}}
-                {{--}, 3000);--}}
-                {{----}}
-            {{--}).fail(fail);--}}
-        {{--}).fail(fail);--}}
+            }).fail(fail);
+        }).fail(fail);
     }
 </script>
