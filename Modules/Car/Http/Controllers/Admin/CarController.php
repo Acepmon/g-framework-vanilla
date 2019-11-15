@@ -233,8 +233,19 @@ class CarController extends Controller
             }
 
             $data = ContentManager::discernMetasFromRequest($request->input());
-            if (array_key_exists('premium-choice', $data)) {
-                
+            if (array_key_exists('publishType', $data)) {
+                $choices = explode('|', $data[$data['publishType'] . '_choice']);
+                $data['publishPriceAmount'] = $choices[0];
+                $data['publishPriceUnit'] = $choices[1];
+                $data['publishDuration'] = $choices[2];
+                unset($data['best_premium_choice']);
+                unset($data['premium_choice']);
+                unset($data['free_choice']);
+            }
+            if (array_key_exists('advantages', $data)) {
+                foreach (explode(", ", $request->advantages) as $advantage) {
+                    $content->attachMeta('advantages', $advantage);
+                }
             }
             ContentManager::syncMetas($content->id, $data);
 

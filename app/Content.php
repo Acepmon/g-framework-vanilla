@@ -93,7 +93,10 @@ class Content extends Model
         $media_path = array();
         foreach($medias as &$media) {
             $imagepath = $media->value;
-            array_push($media_path, Config::getStorage() . $imagepath);
+            if (!\Str::startsWith($imagepath, 'http')) {
+                $imagepath = Config::getStorage() . $imagepath;
+            }
+            array_push($media_path, $imagepath);
             // if (!Storage::disk('local')->exists($imagepath)) {
             //     $image = Storage::disk('ftp')->get($imagepath);
             //     Storage::disk('local')->put($imagepath, $image);

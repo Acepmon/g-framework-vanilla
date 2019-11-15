@@ -277,7 +277,7 @@
                                 <label for="price" class="col-form-label col-lg-2">Price</label>
                                 <div class="col-lg-10">
                                     <div class="input-group">
-                                        <input id="price" type="number" min="0" value="{{ $content->metaValue('price') }}" class="form-control" name="priceAmount" placeholder="Enter price..." invalid="true" class="touchspin-postfix">
+                                        <input id="price" type="number" min="0" value="{{ $content->metaValue('priceAmount') }}" class="form-control" name="priceAmount" placeholder="Enter price..." invalid="true" class="touchspin-postfix">
                                         <span class="input-group-append">
                                             <span class="input-group-text">₮</span>
                                         </span>
@@ -320,7 +320,11 @@
 
                             <div class="row">
                                 <div class="col-lg-2"></div>
-                                <div class="col-lg-10" id="thumbnail-container"></div>
+                                <div class="col-lg-10" id="thumbnail-container">
+                                    <div class="col-lg-6 col-md-6 col-sm-6 px-0">
+                                        <img src="{{ $content->metaValue('thumbnail') }}" class="img-thumbnail img-fluid full-width">
+                                    </div>
+                                </div>
                             </div>
 
                         </div>
@@ -405,7 +409,14 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-lg-10" id="image-container"></div>
+                        <div class="col-lg-1"></div>
+                        <div class="col-lg-11 d-flex" id="image-container">
+                            @foreach($content->medias() as $media)
+                            <div class="col-lg-2 col-md-4 col-sm-6 px-0 flex">
+                                <img src="{{ $media }}" class="img-thumbnail img-fluid full-width">
+                            </div>
+                            @endforeach
+                        </div>
                     </div>
 
                     <div class="row">
@@ -489,12 +500,13 @@
                     <div class="form-group row">
                         <div class="col-lg-6">
                             <div class="custom-control custom-radio">
-                                <input type="radio" id="best-premium" name="publishType" class="custom-control-input" value="best_premium" {{ ($content->metaValue('publishType') == 'best_premium')?'checked':'' }}>
-                                <label class="custom-control-label h4 d-flex justify-content-between" for="best-premium">Best Premium</label>
+                                <input type="radio" id="best_premium" name="publishType" class="custom-control-input" value="best_premium" {{ ($content->metaValue('publishType') == 'best_premium')?'checked':'' }}>
+                                <label class="custom-control-label h4 d-flex justify-content-between" for="best_premium">Best Premium</label>
                             </div>
-                            <select id="best-premium-choice" name="best-premium-choice" class="form-control select text-capitalize">
+                            <select id="best_premium_choice" name="best_premium_choice" class="form-control select text-capitalize">
                                 @foreach(\App\TermTaxonomy::where('taxonomy', 'best_premium')->get() as $taxonomy)
-                                    <option value="{{ $taxonomy->term->metaValue('amount') . '|' . $taxonomy->term->metaValue('unit') . '|' . $taxonomy->term->metaValue('duration') }}">{{ $taxonomy->term->name }}</option>
+                                    <option value="{{ $taxonomy->term->metaValue('amount') . '|' . $taxonomy->term->metaValue('unit') . '|' . $taxonomy->term->metaValue('duration') }}"
+                                        {{ ($content->metaValue('publishPriceAmount')==$taxonomy->term->metaValue('amount'))?'selected':'' }}>{{ $taxonomy->term->name }}</option>
                                 @endforeach
                             </select>
                             <p class="text-muted">5 дахин хурдан худалдана.</p>
@@ -505,9 +517,10 @@
                                 <input type="radio" id="premium" name="publishType" class="custom-control-input" value="premium" {{ ($content->metaValue('publishType') == 'premium')?'checked':'' }}>
                                 <label class="custom-control-label h4 d-flex justify-content-between" for="premium">Premium</label>
                             </div>
-                            <select id="premium-choice" name="premium-choice" class="form-control select text-capitalize">
+                            <select id="premium_choice" name="premium_choice" class="form-control select text-capitalize">
                                 @foreach(\App\TermTaxonomy::where('taxonomy', 'premium')->get() as $taxonomy)
-                                    <option value="{{ $taxonomy->term->metaValue('amount') . '|' . $taxonomy->term->metaValue('unit') . '|' . $taxonomy->term->metaValue('duration') }}">{{ $taxonomy->term->name }}</option>
+                                    <option value="{{ $taxonomy->term->metaValue('amount') . '|' . $taxonomy->term->metaValue('unit') . '|' . $taxonomy->term->metaValue('duration') }}"
+                                        {{ ($content->metaValue('publishPriceAmount')==$taxonomy->term->metaValue('amount'))?'selected':'' }}>{{ $taxonomy->term->name }}</option>
                                 @endforeach
                             </select>
                             <p class="text-muted">5 дахин хурдан худалдана.</p>
@@ -529,7 +542,7 @@
 
                     <div class="text-right">
                         <a href="javascript:history.back()" class="btn btn-light">Back</a>
-                        <button type="submit" class="btn btn-primary">Edit</button>
+                        <button type="submit" class="btn btn-primary">Save</button>
                     </div>
                 </form>
             </div>
