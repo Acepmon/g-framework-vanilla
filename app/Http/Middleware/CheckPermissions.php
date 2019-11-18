@@ -35,7 +35,7 @@ class CheckPermissions
         if ($id)
         {
             $id = array_pop($id);
-            if ($id) {
+            if ($id && gettype($id) == 'integer') {
                 $whitelist = config('car.whitelist.personal');
                 if($id == $user->id && in_array($permission_title, $whitelist)) {
                     return $next($request);

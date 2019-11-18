@@ -20,7 +20,7 @@
     </div>
     <div class="card page-top-navbar border-0 mt-3 bg-transparent">
         <div class="d-flex justify-content-start">
-            @contentInline(type=car, author_id=Auth::user()->id, isSold=0, publishType=free, sortDir=request()->input("sortDir", "desc"), sort=request()->input("sort", "updated_at") as $cars | paginate)
+            @contentInline(type=car, author_id=Auth::user()->id, isSold=0, publishType!=free, publishVerified!=1, sortDir=request()->input("sortDir", "desc"), sort=request()->input("sort", "updated_at") as $cars | paginate)
             <span class="total-cars ml-0" >{{count($cars)}} VEHICLES</span>
             <div class="sort-cars col-md-9">
                 <ul>
@@ -37,7 +37,7 @@
         </form>
     </div>
     <div class="car-list sell-car">
-        {{--@content(type=car, author_id=Auth::user()->id, isSold=0, publishType=free as $check | paginate)--}}
+        {{--@content(type=car, author_id=Auth::user()->id, isSold=0, publishType!=free, publishVerified!=1 as $check | paginate)--}}
         @foreach($cars as $check)
         <!-- card start -->
         <div class="card">

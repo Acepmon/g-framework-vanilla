@@ -92,7 +92,6 @@ class CarController extends Controller
         } else {
             $media_list = ['medias' => $media_list];
         }
-        $media_list = ['medias' => $media_list];
         ContentManager::attachMetas($content_id, $media_list);
 
         return response()->json($media_list);
@@ -102,7 +101,10 @@ class CarController extends Controller
         $content_id = $request->route('car');
 
         $doc_list = MediaManager::uploadFiles($request->doc);
-        $doc_list = ['doc' => $doc_list];
+        $doc_list = ['doctorVerificationFile' => $doc_list,
+            'doctorVerified' => False,
+            'doctorVerifiedBy' => '0',
+            'doctorVerificationRequest' => True];
         ContentManager::attachMetas($content_id, $doc_list);
 
         return response()->json($doc_list);

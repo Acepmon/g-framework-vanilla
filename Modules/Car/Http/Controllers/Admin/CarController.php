@@ -14,6 +14,7 @@ use App\Content;
 use App\ContentMeta;
 use App\User;
 use App\Config;
+use App\Entities\ContentManager;
 use App\Theme;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
@@ -64,7 +65,7 @@ class CarController extends Controller
             'status' => 'required|max:50',
             'visibility' => 'required|max:50',
             'author_id' => 'required|integer|exists:users,id',
-            'manufacturer' => 'required|max:255',
+            'markName' => 'required|max:255',
             'modelName' => 'required|max:255',
             'colorName' => 'max:255',
             'displacement' => 'max:255',
@@ -95,6 +96,10 @@ class CarController extends Controller
             $content->save();
             $content->slug = 'posts/' . $content->id;
             $content->save();
+
+            $data = ContentManager::discernMetasFromRequest($request->input());
+            dd($data);
+            // ContentManager::syncMetas($content->id, $data);
 
             $content->attachMeta('manufacturer', $request->manufacturer);
             $content->attachMeta('modelName', $request->modelName);
@@ -196,8 +201,7 @@ class CarController extends Controller
             'status' => 'required|max:50',
             'visibility' => 'required|max:50',
             'author_id' => 'required|integer|exists:users,id',
-            'carTitle' => 'required|max:255',
-            'manufacturer' => 'required|max:255',
+            'markName' => 'required|max:255',
             'modelName' => 'required|max:255',
             'colorName' => 'max:255',
             'displacement' => 'max:255',
@@ -210,10 +214,8 @@ class CarController extends Controller
             'fuel' => 'max:255',
             'wheelDrive' => 'max:255',
             'mileage' => 'max:255',
-            'price' => 'int',
             'priceType' => 'max:255',
-            'thumbnail' => 'required',
-            'sellerDescription' => 'max:255'
+            'sellerDescription' => 'max:62500'
         ]);
 
         try {
@@ -225,37 +227,30 @@ class CarController extends Controller
             $content->status = $request->status;
             $content->visibility = $request->visibility;
             $content->author_id = $request->author_id;
-
-            $content->updateMeta('carTitle', $request->carTitle);
-            $content->updateMeta('manufacturer', $request->manufacturer);
-            $content->updateMeta('modelName', $request->modelName);
-            $content->updateMeta('colorName', $request->colorName);
-            $content->updateMeta('displacement', $request->displacement);
-            $content->updateMeta('vin', $request->vin);
-            $content->updateMeta('buildYear', $request->buildYear);
-            $content->updateMeta('importDate', $request->importDate);
-            $content->updateMeta('transmission', $request->transmission);
-            $content->updateMeta('wheelPosition', $request->wheelPosition);
-            $content->updateMeta('manCount', $request->manCount);
-            $content->updateMeta('fuel', $request->fuel);
-            $content->updateMeta('wheelDrive', $request->wheelDrive);
-            $content->updateMeta('mileage', $request->mileage);
-            if ($request->advantages) {
-                $content->updateMeta('advantages', $request->advantages);
-            } else {
-                $content->updateMeta('advantages', array());
-            }
-            $content->updateMeta('sellerDescription', $request->sellerDescription);
-            $content->updateMeta('price', $request->price);
-            $content->updateMeta('priceType', $request->priceType);
             $media_list = $this->uploadFiles($request->medias, $request->imagesCrop);
             foreach ($media_list as $media) {
                 $content->attachMeta('medias', $media);
             }
-            $content->updateMeta('youtubeLink', $request->youtubeLink);
+
+            $data = ContentManager::discernMetasFromRequest($request->input());
+            if (array_key_exists('publishType', $data)) {
+                $choices = explode('|', $data[$data['publishType'] . '_choice']);
+                $data['publishPriceAmount'] = $choices[0];
+                $data['publishPriceUnit'] = $choices[1];
+                $data['publishDuration'] = $choices[2];
+                unset($data['best_premium_choice']);
+                unset($data['premium_choice']);
+                unset($data['free_choice']);
+            }
+            if (array_key_exists('advantages', $data)) {
+                foreach (explode(", ", $request->advantages) as $advantage) {
+                    $content->attachMeta('advantages', $advantage);
+                }
+            }
+            ContentManager::syncMetas($content->id, $data);
 
             DB::commit();
-            return redirect()->route('admin.modules.car.index', ['type' => $content->type]);
+            return redirect()->route('admin.modules.car.show', ['id' => $content->id]);
         } catch (\Exception $e) {
             DB::rollBack();
             return redirect()->route('admin.modules.car.edit', ['content' => $content, 'metas' => $content->metas])->with('error', $e->getMessage());

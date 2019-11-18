@@ -16,9 +16,12 @@
                     <option selected  value="0">Choose...</option>
                     @foreach($bestPremium as $data)
                         {{--<option>{{getMetasValue($data->term->name, 'amount')}}</option>--}}
-                        <option>{{$data->term->name}}</option>
+                        <option value="{{$data->term->meta->amount}}, {{$data->term->meta->unit}}, {{$data->term->meta->duration}}">{{$data->term->name}}</option>
                     @endforeach
                 </select>
+                {{--@php--}}
+                    {{--dd($bestPremium)--}}
+                {{--@endphp--}}
                 <p>
                     5 дахин хурдан худалдана.
                     </br>
@@ -48,7 +51,7 @@
                     <option selected  value="0">Choose...</option>
                     @foreach($premium as $data)
                         {{--<option>{{getMetasValue($data->term->name, 'amount')}}</option>--}}
-                        <option>{{$data->term->name}}</option>
+                        <option value="{{$data->term->meta->amount}}, {{$data->term->meta->unit}}, {{$data->term->meta->duration}}">{{$data->term->name}}</option>
                     @endforeach
                 </select>
                 <p>
@@ -96,7 +99,7 @@
     </div>
 </form>
 <div class="modal fade" id="carRegSuccess">
-    <div class="modal-dialog  modal-dialog">
+    <div class="modal-dialog  modal-dialog-centered">
         <div class="modal-content">
             <!-- Modal Header -->
             <div class="modal-header text-center">
@@ -105,9 +108,9 @@
 
             <!-- Modal body -->
             <div class="modal-body text-center">
-            <div class="maz-modal-title mb-3" style="font-size:1.5rem">Sell advertise!</div>
-            <div id="sent-ad" style="height:300px"></div>
-                <h5 class="text-success my-3">Car successfully registered!</h5>
+            <div class="maz-modal-title" style="font-size:1.5rem">Sell advertise!</div>
+            <div id="sent-ad"></div>
+                <h5 class="text-danger mb-5">Car successfully registered!</h5>
             </div>
         </div>
     </div>
@@ -150,7 +153,7 @@ var sentAD = {
 anim3 = bodymovin.loadAnimation(sentAD);
 
 $("input").click(function(){
-            
+
             if($("input[name='publishType']")){
                 if($(this).val() === "best"){
                     anim1.play();
@@ -160,7 +163,7 @@ $("input").click(function(){
                     anim2.play();
                 }
                 console.log($(this).val())
-                
+
             }
         });
 
@@ -180,14 +183,28 @@ $("input").click(function(){
         else{
             paramObjs.publishAmount=0;
         }
-        paramObjs.publishTotalPriceAmount=parseInt(paramObjs.publishAmount) * 7;
+
 
         delete paramObjs.publishPriceAmountBest;
         delete paramObjs.publishPriceAmountPremium;
-        var publishType
-        paramObjs
-        console.log(paramObjs);
-
+        //paramObjs.publishVerified=1;
+        if(paramObjs.publishAmount!==0){
+            var arr = paramObjs.publishAmount.split(",");
+            //arr.forEach(        )
+            arr.forEach(splitAmount);
+            function splitAmount(item, index){
+                if(index===0){
+                    paramObjs.publishAmount=item;
+                }
+                if(index===1){
+                    paramObjs.publishUnit=item;
+                }
+                if(index===2){
+                    paramObjs.publishDuration=item;
+                }
+            }
+            paramObjs.publishTotalPriceAmount=parseInt(paramObjs.publishAmount) * paramObjs.publishDuration;
+        }
         $.ajax({
             type: 'PUT',
             url: '/ajax/contents/' + carId + '/metas/sync',
@@ -206,11 +223,11 @@ $("input").click(function(){
                 setTimeout(function(){
                     anim3.play();
                 }, 700);
-                
+
                 setTimeout(function(){
                     window.location.href = "/posts/"+carId;
                 }, 3000);
-                
+
             }).fail(fail);
         }).fail(fail);
     }

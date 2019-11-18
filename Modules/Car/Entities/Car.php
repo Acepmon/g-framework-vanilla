@@ -70,7 +70,7 @@ class Car extends Content
         return $contents;
     }
 
-    public static function filterByPremium($limit = Null, $contents = Null) {
+    public static function filterByPremium($limit = Null, $contents = Null, $publishType = Null) {
         $now = now();
         $filtered = $contents;
         if ($filtered == Null) {
@@ -86,10 +86,14 @@ class Car extends Content
         // $best_premium = metaHas(clone $filtered, 'publishType', 'best_premium')->get();
         // $filtered = $best_premium->push($premium);
         // <<<<<<<<<<<< OR THIS
-        $filtered = $filtered->whereHas('metas', function ($query) {
+        $filtered = $filtered->whereHas('metas', function ($query) use($publishType) {
             $query->where('key', 'publishType');
             //$query->whereIn('value', 'best_premium')->orWhere('value', 'premium');
-            $query->whereIn('value', ['best_premium', 'premium']);
+            if ($publishType != Null) {
+                $query->where('value', $publishType);
+            } else {
+                $query->whereIn('value', ['best_premium', 'premium']);
+            }
             // $query->where('value', 'premium');
         });
 

@@ -222,11 +222,11 @@ class ContentManager extends Manager
 
     /**
      * Used to discern content metas from attributes of Content Model.
-     * @return ContentMeta array, consisting of key, value pairs
+     * @return array of ContentMeta, consisting of key, value pairs
      */
     public static function discernMetasFromRequest($input)
     {
-        $inputExcept = ['title', 'slug', 'content', 'type', 'status', 'visibility', 'limit', 'page', 'author_id', '_token', 'sort'];
+        $inputExcept = ['title', 'slug', 'content', 'type', 'status', 'visibility', 'limit', 'page', 'author_id', '_token', '_method', 'sort'];
         $metaInputs = array_filter($input, function ($key) use ($inputExcept) {
             return !in_array($key, $inputExcept);
         }, ARRAY_FILTER_USE_KEY);

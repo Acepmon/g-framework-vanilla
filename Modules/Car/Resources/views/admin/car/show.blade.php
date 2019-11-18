@@ -256,9 +256,9 @@
                                         </div>
                                         <div id="guts" class="collapse" aria-labelledby="guts-accordian" data-parent="#accordionExample">
                                             <div class="card-body bg-light">
-                                                @foreach(App\TermTaxonomy::where('taxonomy', 'Guts')->get() as $taxonomy)
+                                                @foreach(App\TermTaxonomy::where('taxonomy', 'car-guts')->get() as $taxonomy)
                                                 <div class="custom-control custom-checkbox">
-                                                    <input type="checkbox" name="options" class="custom-control-input" {{ $content->metaValue($taxonomy->term->name)?'checked':'' }}>
+                                                    <input type="checkbox" name="options" class="custom-control-input" {{ $content->metaValue($taxonomy->term->metaValue('metaKey'))?'checked':'' }}>
                                                     <label class="custom-control-label  d-flex justify-content-between">{{ $taxonomy->term->name }}</label>
                                                 </div>
                                                 @endforeach
@@ -273,9 +273,9 @@
                                         </div>
                                         <div id="safety" class="collapse" aria-labelledby="safety-accordian" data-parent="#accordionExample">
                                             <div class="card-body bg-light">
-                                                @foreach(App\TermTaxonomy::where('taxonomy', 'Safety')->get() as $taxonomy)
+                                                @foreach(App\TermTaxonomy::where('taxonomy', 'car-safety')->get() as $taxonomy)
                                                 <div class="custom-control custom-checkbox">
-                                                    <input type="checkbox" name="options" class="custom-control-input">
+                                                    <input type="checkbox" name="options" class="custom-control-input" {{ $content->metaValue($taxonomy->term->metaValue('metaKey'))?'checked':'' }}>
                                                     <label class="custom-control-label  d-flex justify-content-between">{{ $taxonomy->term->name }}</label>
                                                 </div>
                                                 @endforeach
@@ -290,9 +290,9 @@
                                         </div>
                                         <div id="exterior" class="collapse" aria-labelledby="exterior-accordian" data-parent="#accordionExample">
                                             <div class="card-body bg-light">
-                                                @foreach(App\TermTaxonomy::where('taxonomy', 'Exterior')->get() as $taxonomy)
+                                                @foreach(App\TermTaxonomy::where('taxonomy', 'car-exterior')->get() as $taxonomy)
                                                 <div class="custom-control custom-checkbox">
-                                                    <input type="checkbox" name="options" class="custom-control-input">
+                                                    <input type="checkbox" name="options" class="custom-control-input" {{ $content->metaValue($taxonomy->term->metaValue('metaKey'))?'checked':'' }}>
                                                     <label class="custom-control-label  d-flex justify-content-between">{{ $taxonomy->term->name }}</label>
                                                 </div>
                                                 @endforeach
@@ -307,26 +307,9 @@
                                         </div>
                                         <div id="convenience" class="collapse" aria-labelledby="convenience-accordian" data-parent="#accordionExample">
                                             <div class="card-body bg-light">
-                                                @foreach(App\TermTaxonomy::where('taxonomy', 'Convenience')->get() as $taxonomy)
+                                                @foreach(App\TermTaxonomy::where('taxonomy', 'car-convenience')->get() as $taxonomy)
                                                 <div class="custom-control custom-checkbox">
-                                                    <input type="checkbox" name="options" class="custom-control-input">
-                                                    <label class="custom-control-label  d-flex justify-content-between">{{ $taxonomy->term->name }}</label>
-                                                </div>
-                                                @endforeach
-                                            </div>
-                                        </div>
-                                        <div class="accordian-head" id="clean-accordian">
-                                            <h2 class="mb-0">
-                                                <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#clean" aria-expanded="false" aria-controls="clean">
-                                                    Clean <i class="fab fa fa-angle-down"></i>
-                                                </button>
-                                            </h2>
-                                        </div>
-                                        <div id="clean" class="collapse" aria-labelledby="clean-accordian" data-parent="#accordionExample">
-                                            <div class="card-body bg-light">
-                                                @foreach(App\TermTaxonomy::where('taxonomy', 'Clean')->get() as $taxonomy)
-                                                <div class="custom-control custom-checkbox">
-                                                    <input type="checkbox" name="options" class="custom-control-input">
+                                                    <input type="checkbox" name="options" class="custom-control-input" {{ $content->metaValue($taxonomy->term->metaValue('metaKey'))?'checked':'' }}>
                                                     <label class="custom-control-label  d-flex justify-content-between">{{ $taxonomy->term->name }}</label>
                                                 </div>
                                                 @endforeach

@@ -101,7 +101,7 @@
         @include('themes.car-web.includes.section-retail', ['content' => \App\Content::find($content->metaValue('retail'))])
 
         <!-- Hot deals -->
-        @include('themes.car-web.includes.section-slider', ['title' => 'Hot Deals', 'contents' => \App\Content::getByMetas('publishType', 'best_premium')->where('id', '!=', $content->id)->where('status', \App\Content::STATUS_PUBLISHED)->where('visibility', \App\Content::VISIBILITY_PUBLIC)->orderBy('id', 'desc')->get(), 'morelink'=> url('/buy?publishType=best_premium')])
+        @include('themes.car-web.includes.section-slider', ['title' => 'Hot Deals', 'contents' => \Modules\Car\Entities\Car::filterByPremium(null, null, ['best_premium'])->get(), 'morelink'=> url('/buy?publishType=best_premium')])
 
         <!-- Similar Price -->
         @php
