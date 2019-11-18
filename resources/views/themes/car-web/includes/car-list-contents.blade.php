@@ -7,9 +7,9 @@ $page = request('page', "1");
 $itemsPerPage = request('itemsPerPage', "15");
 
 $premium = \Modules\Car\Entities\Car::filterByPremium(Null, clone $allItems);
-$filterPremium = request('premium', False);
-if ($filterPremium) {
-  $allItems = clone $premium;
+$publishType = request('publishType', Null);
+if ($publishType) {
+  $allItems = \Modules\Car\Entities\Car::filterByPremium(Null, clone $allItems, $publishType);
 }
 
 // $allItems = \Modules\Car\Entities\Car::order($orderBy, $order, $allItems);
@@ -22,7 +22,7 @@ if($type == 'search'){
 // Items filtering
 $items = \Modules\Car\Entities\Car::filter(clone $allItems, $request);
 $items = \Modules\Car\Entities\Car::order($orderBy, $order, $items);
-if (!$filterPremium) {
+if (!$publishType) {
   $items = \Modules\Car\Entities\Car::filterByPremium(null, clone $items)->get()->merge($items->get());
 } else {
   $items = $items->get();
