@@ -92,7 +92,6 @@ class CarController extends Controller
         } else {
             $media_list = ['medias' => $media_list];
         }
-        $media_list = ['medias' => $media_list];
         ContentManager::attachMetas($content_id, $media_list);
 
         return response()->json($media_list);

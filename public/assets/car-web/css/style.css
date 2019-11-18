@@ -2347,6 +2347,10 @@ select {
   min-height: 100%;
 }
 
+.detail-page .vi-slider-item .owl-video-wrapper {
+  width: 100%;
+}
+
 @media (max-width: 767.98px) {
   .detail-page .vi-slider-item {
     height: 215px;
@@ -4615,7 +4619,8 @@ section .owl-carousel .owl-nav button.owl-next, section .owl-carousel .owl-nav b
 }
 
 .profile-upload img {
-  max-width: 100%;
+  min-width: 100%;
+  max-height: 100%;
   height: auto;
 }
 

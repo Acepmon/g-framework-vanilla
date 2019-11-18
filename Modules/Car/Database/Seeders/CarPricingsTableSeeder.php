@@ -41,25 +41,25 @@ class CarPricingsTableSeeder extends Seeder
         ]);
 
         TaxonomyManager::register('3 Day (40,000 ₮)', 'best_premium', null, [
-            'amount' => 12000,
+            'amount' => 40000,
             'unit' => '₮',
             'duration' => 3
         ]);
 
         TaxonomyManager::register('7 Day (80,000 ₮)', 'best_premium', null, [
-            'amount' => 25000,
+            'amount' => 80000,
             'unit' => '₮',
             'duration' => 7
         ]);
 
         TaxonomyManager::register('15 Day (160,000 ₮)', 'best_premium', null, [
-            'amount' => 50000,
+            'amount' => 160000,
             'unit' => '₮',
             'duration' => 15
         ]);
 
         TaxonomyManager::register('30 Day (280,000 ₮)', 'best_premium', null, [
-            'amount' => 90000,
+            'amount' => 280000,
             'unit' => '₮',
             'duration' => 30
         ]);
