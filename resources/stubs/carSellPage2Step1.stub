@@ -37,8 +37,8 @@
             <label for="Manufacturer">Manufacturer:</label>
             <select id="manufacturerSelect" name="markName" class="form-control" required>
                 <option value="">Manufacturer</option>
-                @foreach(array_unique(array_merge(['Toyota'], \App\TermTaxonomy::where('taxonomy', 'car-manufacturer')->with('term')->get()->pluck('term.name')->toArray())) as $taxonomy)
-                <option {{ ($car->metaValue('markName') == $taxonomy)?'selected':'' }}>{{$taxonomy}}</option>
+                @foreach(\App\TermTaxonomy::where('taxonomy', 'car-manufacturer')->get() as $taxonomy)
+                <option {{ ($car->metaValue('markName') == $taxonomy->term->name)?'selected':'' }}>{{$taxonomy->term->name}}</option>
                 @endforeach
             </select>
             <span id="manufacturerSelectAlert" class="invalid-feedback" role="alert" style="display: none">
@@ -48,13 +48,7 @@
         <div class="form-group col-md-6">
             <label for="Model">Model:</label>
             <select id="modelSelect" name="modelName" class="form-control" required>
-                @if($car->metaValue('markName'))
-                @foreach(\App\TermTaxonomy::where('taxonomy', 'car-' . \Str::kebab($car->metaValue('markName')))->get() as $taxonomy)
-                <option {{ ($car->metaValue('modelName') == $taxonomy->term->name)?'selected':'' }}>{{$taxonomy->term->name}}</option>
-                @endforeach
-                @else
-                <option value="">Model</option>
-                @endif
+                <option value="{{ $taxonomy->term->name?$taxonomy->term->name:'' }}">{{ $car->metaValue('modelName')?$car->metaValue('modelName'):'Model' }}</option>
             </select>
             <span id="modelSelectAlert" class="invalid-feedback" role="alert" style="display: none">
                 Please choose your model
@@ -115,16 +109,8 @@
     </div>
 
     <div class="form-title"><span>More information </span></div>
+
     <div class="form-row">
-        <div class="form-group col-md-6">
-            <label for="area">Area:</label>
-            <select id="area" name="area" class="form-control">
-                <option value="" selected>Choose...</option>
-                @foreach(App\TermTaxonomy::where('taxonomy', 'provinces')->get() as $taxonomy)
-                <option value="{{ $taxonomy->term->name }}" {{ ($car->metaValue('area') == $taxonomy->term->name)?'selected':'' }}>{{ $taxonomy->term->name }}</option>
-                @endforeach
-            </select>
-        </div>
         <div class="form-group col-md-6">
             <label for="transmission">Transmission:</label>
             <select id="transmission" name="transmission" class="form-control">
@@ -134,23 +120,32 @@
                 @endforeach
             </select>
         </div>
-    </div>
-    <div class="form-row">
         <div class="form-group col-md-6">
             <label for="wheelPosition">Steering wheel:</label>
             <select id="wheelPosition" name="wheelPosition" class="form-control">
                 <option value="" selected>Choose...</option>
                 @foreach(App\TermTaxonomy::where('taxonomy', 'car-wheel-pos')->get() as $taxonomy)
-                <option value="{{ $taxonomy->term->name }}" {{ ($car->metaValue('wheelPosition') == $taxonomy->term->name)?'selected':'' }}>{{ $taxonomy->term->name }}</option>
+                    <option value="{{ $taxonomy->term->name }}" {{ ($car->metaValue('wheelPosition') == $taxonomy->term->name)?'selected':'' }}>{{ $taxonomy->term->name }}</option>
                 @endforeach
             </select>
         </div>
+    </div>
+    <div class="form-row">
         <div class="form-group col-md-6">
             <label for="manCount">Seating:</label>
             <select id="manCount" name="manCount" class="form-control">
                 <option value="" selected>Choose...</option>
                 @foreach(App\TermTaxonomy::where('taxonomy', 'car-mancount')->get() as $taxonomy)
                 <option value="{{ $taxonomy->term->name }}" {{ ($car->metaValue('manCount') == $taxonomy->term->name)?'selected':'' }}>{{ $taxonomy->term->name }}</option>
+                @endforeach
+            </select>
+        </div>
+        <div class="form-group col-md-6">
+            <label for="manCount">Door:</label>
+            <select id="manCount" name="doorCount" class="form-control">
+                <option value="" selected>Choose...</option>
+                @foreach(App\TermTaxonomy::where('taxonomy', 'car-doorcount')->get() as $taxonomy)
+                    <option value="{{ $taxonomy->term->name }}" {{ ($car->metaValue('doorCount') == $taxonomy->term->name)?'selected':'' }}>{{ $taxonomy->term->name }}</option>
                 @endforeach
             </select>
         </div>
@@ -192,6 +187,17 @@
                 <option value="" selected>Choose...</option>
                 @foreach(App\TermTaxonomy::where('taxonomy', 'car-colors')->get() as $taxonomy)
                 <option value="{{ $taxonomy->term->name }}" {{ ($car->metaValue('colorNameInterior') == $taxonomy->term->name)?'selected':'' }}>{{ $taxonomy->term->name }}</option>
+                @endforeach
+            </select>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-12">
+            <label for="area">Area:</label>
+            <select id="area" name="area" class="form-control">
+                <option value="" selected>Choose...</option>
+                @foreach(App\TermTaxonomy::where('taxonomy', 'provinces')->get() as $taxonomy)
+                    <option value="{{ $taxonomy->term->name }}" {{ ($car->metaValue('area') == $taxonomy->term->name)?'selected':'' }}>{{ $taxonomy->term->name }}</option>
                 @endforeach
             </select>
         </div>
@@ -305,7 +311,7 @@
         ],
         @endforeach
     };
-    
+
     $(document).ready(function() {
         $('input[type="checkbox"]').on('change', function() {
             if (!$(this).is(':checked')) {
@@ -332,7 +338,7 @@
                 $('#' + id + 'Alert').css('display', 'none');
             }
         });
-        
+
         $("#doctorVerifySwitch").on('click', function() {
             if (this.checked) {
                 $("#docFile").removeAttr('disabled');

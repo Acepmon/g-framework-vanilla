@@ -52,8 +52,8 @@
 
                             @if ($content->metaValue('colorNameExterior'))
                                 <li>
-                                    <span class="info-icon color" data-color="{{ strtolower($content->metaValue('colorNameExterior')) }}">
-                                        <p>{{ ucfirst($content->metaValue('colorNameExterior')) }} (Exterior)</p>
+                                    <span class="info-icon color" data-color="{{ strtolower($content->metaValue('colorName')) }}">
+                                        <p>{{ ucfirst($content->metaValue('colorName')) }} (Exterior)</p>
                                     </span>
                                 </li>
                             @endif
@@ -68,7 +68,7 @@
                                 <li>
                                     <span class="info-icon">
                                         <img src="{{ asset('car-web/img/icons/engine.svg') }}" alt="">
-                                        <p>{{ $content->metaValue('engine') }}</p>
+                                        <p>{{ $content->metaValue('capacityAmount') }}{{ $content->metaValue('capacityUnit') }}</p>
                                     </span>
                                 </li>
                             @endif
