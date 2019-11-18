@@ -1,5 +1,5 @@
 <header class="header-menu">
-    <a class="maz-mobile-brand" href="/">MAZ.MN</a>
+<a class="maz-mobile-brand" href="/"><img src="{{asset('car-web/img/logo.svg')}}" alt=""></a>
     <div class="maz-burger-menu">
         <span></span>
         <span></span>
@@ -8,7 +8,7 @@
     <nav class="maz-navbar position-absolute" id="maz-nav">
         <div class="container">
             <div class="maz-menu">
-                <a class="maz-brand" href="/">MAZ.MN</a>
+            <a class="maz-brand" href="/"><img src="{{asset('car-web/img/logo.svg')}}" alt=""></a>
                 <ul class="maz-menu-list">
                     @foreach ($mainMenus as $menu)
                         <li class="maz-menu-item {{ Request::is(\Str::startsWith($menu->link, '/') ? substr($menu->link, 1) : $menu->link) ? 'active' : '' }}">

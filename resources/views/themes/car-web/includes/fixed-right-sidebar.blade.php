@@ -3,13 +3,13 @@
         <div class="card">
             <div class="wish-list text-center">
                 @auth
-                    <a data-toggle="modal" href="#modalAddWishlist">
+                    <!-- <a data-toggle="modal" href="#modalAddWishlist"> --><a href="/wishlist">
                         <span class="badge badge-danger rounded float-right">new</span>
                         <div id="wish-animation"> </div>
                         <h5>People's <br>wish list</h5>
                     </a>
                 @else
-                    <a href="{{ route('login') }}">
+                    <!-- <a href="{{ route('login') }}"> --><a href="/wishlist">
                         <span class="badge badge-danger rounded float-right">new</span>
                         <div id="wish-animation"> </div>
                         <h5>People's <br>wish list</h5>
