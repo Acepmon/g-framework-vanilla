@@ -20,14 +20,14 @@ class CarWishlistController extends Controller
         $contents = Content::where('type', 'wanna-buy');
         $manufacturers = TaxonomyManager::collection('car-manufacturer');
 
-        if ($request->has('markName') && $request->input('markName')) {
+        if ($request->has('markName') && $request->input('markName') != '') {
             $contents = $contents->whereHas('metas', function ($query) use ($request) {
                 $query->where('key', 'markName');
                 $query->where('value', $request->input('markName'));
             });
         }
 
-        if ($request->has('modelName') && $request->input('modelName')) {
+        if ($request->has('modelName') && $request->input('modelName') != '') {
             $contents = $contents->whereHas('metas', function ($query) use ($request) {
                 $query->where('key', 'modelName');
                 $query->where('value', $request->input('modelName'));

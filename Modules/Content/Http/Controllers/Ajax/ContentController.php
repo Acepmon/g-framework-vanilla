@@ -215,8 +215,11 @@ class ContentController extends Controller
         $content_id = $request->route('contentId');
 
         $doc_list = MediaManager::uploadFiles($request->doc);
-        $doc_list = ['doc' => $doc_list];
-        ContentManager::attachMetas($content_id, $doc_list);
+        $doc_list = ['doctorVerificationFile' => $doc_list,
+            'doctorVerified' => False,
+            'doctorVerifiedBy' => '0',
+            'doctorVerificationRequest' => True];
+        ContentManager::syncMetas($content_id, $doc_list);
 
         return response()->json($doc_list);
     }
