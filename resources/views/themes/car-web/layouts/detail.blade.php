@@ -119,10 +119,10 @@
 
         @stack('modals')
 
-        <!-- DEMO SPINNER TODO: CHANGE -->
-        <div class="spinner-border" id="demo-spinner" role="status" style="position: fixed; z-index: 1000; top: 50%; left: 50%; display: none">
+        @include('themes.car-web.includes.loader')
+        <!-- <div class="spinner-border" id="demo-spinner" role="status" style="position: fixed; z-index: 1000; top: 50%; left: 50%; display: none">
         <span class="sr-only">Loading...</span>
-        </div>
+        </div> -->
 
         <!-- Bootstrap core JavaScript -->
         <script src="{{ asset('car-web/vendor/jquery/jquery.min.js') }}"></script>
