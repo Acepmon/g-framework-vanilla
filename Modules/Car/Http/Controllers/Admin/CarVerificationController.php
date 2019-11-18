@@ -2,9 +2,11 @@
 
 namespace Modules\Car\Http\Controllers\Admin;
 
+use App\Entities\ContentManager;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\DB;
 
 use App\Content;
 
@@ -21,12 +23,12 @@ class CarVerificationController extends Controller
             $query->where('value', true);
         })->orderBy('visibility', 'desc')->get();
 
-        $pending = Content::where('type', 'car')->where('status', Content::STATUS_DRAFT)->whereHas('metas', function ($query) {
+        $pending = Content::where('type', 'car')->where('status', Content::STATUS_PENDING)->whereHas('metas', function ($query) {
             $query->where('key', 'doctorVerificationRequest');
             $query->where('value', true);
         })->orderBy('visibility', 'desc')->get();
 
-        $draft = Content::where('type', 'car')->where('status', Content::STATUS_PUBLISHED)->whereHas('metas', function ($query) {
+        $draft = Content::where('type', 'car')->where('status', Content::STATUS_DRAFT)->whereHas('metas', function ($query) {
             $query->where('key', 'doctorVerificationRequest');
             $query->where('value', true);
         })->orderBy('visibility', 'desc')->get();
@@ -88,6 +90,19 @@ class CarVerificationController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $content = Content::findOrFail($id);
+
+        try {
+            DB::beginTransaction();
+            $data = ContentManager::discernMetasFromRequest($request->input());
+            ContentManager::syncMetas($content->id, $data);
+
+            DB::commit();
+            return redirect()->route('admin.modules.car.verifications.index');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->route('admin.modules.car.verifications.index');
+        }
     }
 
     /**

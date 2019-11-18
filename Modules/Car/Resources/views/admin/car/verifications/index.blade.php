@@ -26,12 +26,15 @@
                     <th>Slug</th>
                     <th>Visibility</th>
                     <th>Author</th>
+                    <th>Doctor Verifiied</th>
+                    <th>Doctor Verifiied By</th>
+                    <th>Doctor Verification File</th>
                     <th></th>
                 </tr>
             </thead>
             @foreach ($contents as $group => $groupContents)
                 <tr>
-                    <th colspan="6" class="table-active">
+                    <th colspan="9" class="table-active">
                         <a data-toggle="collapse" class="text-default text-capitalize" href="#accordion-control-{{ $group }}">{{ $group }} ({{$groupContents->count()}})</a>
                     </th>
                 </tr>
@@ -49,16 +52,17 @@
                             <td>
                                 @include('themes.limitless.includes.user-media', ['user' => $content->author])
                             </td>
+                            <td>{{ ($content->metaValue('doctorVerified') == 1)?'Yes':'No' }}</td>
+                            <td>
+                                @include('themes.limitless.includes.user-media', ['user' => \App\User::find($content->metaValue('doctorVerifiedBy')) ])
+                            </td>
+                            <td>
+                                @if($content->metaValue('doctorVerificationFile'))
+                                <a href="{{ url($content->metaValue('doctorVerificationFile')) }}" target="_blank"><span class="icon-link"></span></a>
+                                @endif
+                            </td>
                             <td class="text-center">
-                                <a href="#" data-toggle="dropdown">
-                                    <i class="icon-menu9 text-secondary"></i>
-                                </a>
-
-                                <div class="dropdown-menu dropdown-menu-right">
-                                    <a class="dropdown-item" href="{{ route('admin.modules.car.show', ['id' => $content->id]) }}">View</a>
-                                    <a class="dropdown-item" href="{{ route('admin.modules.car.edit', ['id' => $content->id]) }}">Edit</a>
-                                    <a class="dropdown-item" href="#modal_theme_danger" data-toggle="modal" onclick="delete_content({{ $content->id }})">Delete</a>
-                                </div>
+                                <a class="btn btn-success color-white" href="#modal_verify" data-toggle="modal" onclick="verify_content({{ $content->id }})">Verify</a>
                             </td>
                         </tr>
                     @endforeach
@@ -69,25 +73,29 @@
 </div>
 
 <!-- Danger modal -->
-<div id="modal_theme_danger" class="modal fade">
+<div id="modal_verify" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header bg-danger">
+            <div class="modal-header bg-success">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h6 class="modal-title">Delete?</h6>
+                <h6 class="modal-title">Verify?</h6>
             </div>
 
             <div class="modal-body">
-                <p>Are you sure you want to delete this content?</p>
+                <p>Are you sure you want to verify this content?</p>
             </div>
 
             <div class="modal-footer">
-                <form method="POST" id="delete_form">
-                    {{ method_field('DELETE') }}
+                <form method="POST" id="verify_form">
+                    {{ method_field('PUT') }}
                     {{ csrf_field() }}
 
+                    <input type="hidden" name="doctorVerified" value="1" />
+                    <input type="hidden" name="doctorVerifiedBy" value="{{ Auth::user()->id }}" />
+                    <input type="hidden" name="doctorVerificationRequest" value="0" />
+
                     <button type="button" class="btn btn-link" data-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-danger">Delete</button>
+                    <button type="submit" class="btn btn-success">Verify</button>
                 </form>
             </div>
         </div>
@@ -98,8 +106,10 @@
 
 @section('script')
 <script>
-    window.delete_content = function(id) {
-        $("#delete_form").attr('action', '/admin/cars/'+id+'?type={{ Request::get('type') }}');
+    console.log(" {{ route('admin.modules.car.update', ['id' => 1]) }} ");
+
+    window.verify_content = function(id) {
+        $("#verify_form").attr('action', '/admin/modules/car/verifications/'+id);
     }
 
     setTimeout(function(){ document.getElementById("timer").remove() }, 10000);
