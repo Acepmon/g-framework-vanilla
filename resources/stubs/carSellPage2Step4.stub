@@ -187,6 +187,7 @@ $("input").click(function(){
 
         delete paramObjs.publishPriceAmountBest;
         delete paramObjs.publishPriceAmountPremium;
+        paramObjs.publishVerified=0;
         if(paramObjs.publishAmount!==0){
             var arr = paramObjs.publishAmount.split(",");
             //arr.forEach(        )
