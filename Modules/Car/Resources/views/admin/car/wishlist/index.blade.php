@@ -24,6 +24,7 @@
                     <div class="form-group">
                         <label for="markName">Manufacturer</label>
                         <select name="markName" id="markName" class="form-control">
+                            <option value=""></option>
                             @foreach ($manufacturers as $manufacturer)
                                 <option value="{{ $manufacturer->term->name }}" {{ $manufacturer->term->name == request()->input('markName') ? 'selected' : '' }}>{{ $manufacturer->term->name }}</option>
                             @endforeach
