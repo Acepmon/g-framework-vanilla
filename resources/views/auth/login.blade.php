@@ -48,9 +48,9 @@
                                     <form method="POST" action="{{ route('login') }}">
                                         @csrf
                                         <div class="form-group mb-3 text-left form-group-feedback form-group-feedback-left">
-                                            <span class="font-weight-bold">Username</span>
+                                            <span class="font-weight-bold">И-мэйл</span>
 
-                                            <input class="form-control mt-2 @error('username') is-invalid @enderror" id="username" type="text" placeholder="Username" name="username" value="{{ old('username', env('APP_ENV') == 'development' ? 'admin' : '') }}" required autocomplete="username" autofocus>
+                                            <input class="form-control mt-2 @error('username') is-invalid @enderror" id="username" type="text" placeholder="И-мэйл" name="username" value="{{ old('username', env('APP_ENV') == 'development' ? 'admin' : '') }}" required autocomplete="username" autofocus>
                                             @error('username')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -58,19 +58,19 @@
                                             @enderror
                                         </div>
                                         <div class="form-group text-left">
-                                            <span class="font-weight-bold">Password</span>
-                                            <input id="password" type="password" class="form-control mt-2 @error('password') is-invalid @enderror" placeholder="Password" name="password" value="{{ env('APP_ENV') == 'development' ? 'admin' : '' }}" required autocomplete="current-password">
+                                            <span class="font-weight-bold">Нууц үг</span>
+                                            <input id="password" type="password" class="form-control mt-2 @error('password') is-invalid @enderror" placeholder="Нууц үг" name="password" value="{{ env('APP_ENV') == 'development' ? 'admin' : '' }}" required autocomplete="current-password">
                                             @error('password')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                             @enderror
                                         </div>
-                                        <button type="submit" class="btn col-12 btn-danger btn-lg btn-round shadow mt-4 mb-3">Login</button>
+                                        <button type="submit" class="btn col-12 btn-danger btn-lg btn-round shadow mt-4 mb-3">Нэвтрэх</button>
                                     </form>
-                                    <a href="#" data-toggle="modal" data-target="#myModal">Forget password</a>
+                                    <a href="#" data-toggle="modal" data-target="#myModal">Нууц үг сэргээх</a>
                                     <div class="col-12 mt-5">
-                                        <button onclick="window.location.href='/register'" type="button" class="btn btn-light btn-round px-5 py-2 col-9">Sign up</button>
+                                        <button onclick="window.location.href='/register'" type="button" class="btn btn-light btn-round px-5 py-2 col-9">Бүртгүүлэх</button>
                                     </div>
                                 </div>
                             </div>
@@ -87,7 +87,7 @@
 
                 <!-- Modal Header -->
                 <div class="modal-header text-center">
-                    <h4 class="modal-title">Forget password</h4>
+                    <h4 class="modal-title">Нууц үг сэргээх</h4>
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
 
