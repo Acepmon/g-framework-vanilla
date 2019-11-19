@@ -24,8 +24,8 @@
             <span class="total-cars ml-0" >{{ count($solds) }} МАШИН</span>
             <div class="sort-cars col-md-9">
                 <ul>
-                    <li class="{{ request('sort')=='updated_at' ?'active':'' }}"><a href="#" onclick="formSubmit('sortBy', 'updated_at', 'sortDir', 'desc')">Recent cars</a></li>
-                    <li class="{{ request('sort')=='priceAmount' ?'active':'' }}"><a href="#" onclick="formSubmit('sortBy', 'priceAmount', 'sortDir', 'asc')">Low price</a></li>
+                    <li class="{{ request('sort')=='updated_at' ?'active':'' }}"><a href="#" onclick="formSubmit('sortBy', 'updated_at', 'sortDir', 'desc')">Сүүлд нийтлэгдсэн</a></li>
+                    <li class="{{ request('sort')=='priceAmount' ?'active':'' }}"><a href="#" onclick="formSubmit('sortBy', 'priceAmount', 'sortDir', 'asc')">Хямд үнэ</a></li>
                 </ul>
             </div>
         </div>
