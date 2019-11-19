@@ -89,8 +89,8 @@
             <div class="row">
                 <div class="card shadow-soft-blue page-top-navbar mb-5">
                     <div class="d-flex justify-content-around">
-                        <a href="/finance">Finance information</a>
-                        <a href="#" class="active">Search your vehicle for monthly installments</a>
+                        <a href="/finance">Санхүү мэдээлэл</a>
+                        <a href="#" class="active">Үнийн тооцоолол</a>
                     </div>
                 </div>
             </div>
@@ -101,11 +101,11 @@
 
                             <div class="row">
                                 <div class="form-group col-md-6 float-left">
-                                    <label for="monthlyPrice">Monthly price</label>
+                                    <label for="monthlyPrice">Сард төлөх боломжтой дүн</label>
                                     <input type="number" name="monthlyPrice" class="form-control" id="monthlyPrice" value="{{ request('monthlyPrice')}}" placeholder="">
                                 </div>
                                 <div class="form-group col-md-6 float-left">
-                                    <label for="firstPay">First pay</label>
+                                    <label for="firstPay">Урьдчилгаа төлбөр</label>
                                     <select class="form-control" name="firstPay" value="{{ request('firstPay')}}" id="firstPay">
                                         <option value="80" {{ request('firstPay') == 80 ? 'selected' : '' }}>80%</option>
                                         <option value="70" {{ request('firstPay') == 70 ? 'selected' : '' }}>70%</option>
@@ -117,27 +117,27 @@
                                     </select>
                                 </div>
                             </div>
-                            <p>Installment period</p>
+                            <p>Зээлийн хугацаа</p>
                             <div class="select-month">
                                 <div class="custom-control custom-radio custom-control-inline">
                                     <input type="radio" id="6month" name="financeMonth" value="6" class="custom-control-input insMonth" checked>
-                                    <label class="custom-control-label insMonth" for="6month">6 month</label>
+                                    <label class="custom-control-label insMonth" for="6month">6 сар</label>
                                 </div>
                                 <div class="custom-control custom-radio custom-control-inline">
                                     <input type="radio" id="12month" name="financeMonth" value="12" {{ request('financeMonth') == 12 ? 'checked' : '' }} class="custom-control-input insMonth">
-                                    <label class="custom-control-label insMonth"  for="12month">12 month</label>
+                                    <label class="custom-control-label insMonth"  for="12month">12 сар</label>
                                 </div>
                                 <div class="custom-control custom-radio custom-control-inline">
                                     <input type="radio" id="18month" name="financeMonth" value="18" {{ request('financeMonth') == 18 ? 'checked' : '' }} class="custom-control-input insMonth">
-                                    <label class="custom-control-label insMonth" for="18month">18 month</label>
+                                    <label class="custom-control-label insMonth" for="18month">18 сар</label>
                                 </div>
                                 <div class="custom-control custom-radio custom-control-inline">
                                     <input type="radio" id="24month" name="financeMonth" value="24" {{ request('financeMonth') == 24 ? 'checked' : '' }} class="custom-control-input insMonth">
-                                    <label class="custom-control-label insMonth"  for="24month">24 month</label>
+                                    <label class="custom-control-label insMonth"  for="24month">24 сар</label>
                                 </div>
                                 <div class="custom-control custom-radio custom-control-inline">
                                     <input type="radio" id="30month" name="financeMonth" value="30" {{ request('financeMonth') == 30 ? 'checked' : '' }} class="custom-control-input insMonth">
-                                    <label class="custom-control-label" for="30month">30 month</label>
+                                    <label class="custom-control-label" for="30month">30 сар</label>
                                 </div>
                             </div>
                         </div>
@@ -146,14 +146,14 @@
                 <div class="col-lg-4 col-md-5">
                     <div class="card monthly-payment" style="border: 1px solid #858994">
                         <div class="card-body">
-                            <p class="text-muted">First pay</p>
+                            <p class="text-muted">Урьдчилгаа төлбөр</p>
 
                             @if(request('priceAmount')>0)
                                 <h4 class="font-weight-bolder" id="firstPayValue">{{request('priceAmount')*request('firstPay')/100}} ₮ ({{request('firstPay')}}%) </h4>
                             @else
                                 <h4 class="font-weight-bolder" id="firstPayValue">0 ₮ </h4>
                             @endif
-                            <p class="mt-3 text-muted">Total price of vehicle</p>
+                            <p class="mt-3 text-muted">Авто машины нийт үнэ</p>
                             @if(request('priceAmount')>0)
                                 <h2 class="font-weight-bolder" id="totalPrice">{{request('priceAmount')}} ₮</h2>
                                 @else
@@ -180,11 +180,11 @@
                 <div class="card page-top-navbar border-0">
                     <div class="d-flex justify-content-start">
                         @contentInline(type=car, priceAmount < intval(request()->input("priceAmount")), sortDir=request()->input("sortDir", "desc"), sort=request()->input("sort", "updated_at") as $cars | paginate)
-                        <span class="total-cars ml-0" >{{count($cars)}} VEHICLES</span>
+                        <span class="total-cars ml-0" >{{count($cars)}} МАШИН</span>
                         <div class="sort-cars col-md-9">
                             <ul>
-                                <li class="{{ request('sort')=='updated_at' ?'active':'' }}"><a href="#" onclick="formSubmit('sortBy', 'updated_at', 'sortDir', 'desc')">Recent cars</a></li>
-                                <li class="{{ request('sort')=='priceAmount' ?'active':'' }}"><a href="#" onclick="formSubmit('sortBy', 'priceAmount', 'sortDir', 'asc')">Low price</a></li>
+                                <li class="{{ request('sort')=='updated_at' ?'active':'' }}"><a href="#" onclick="formSubmit('sortBy', 'updated_at', 'sortDir', 'desc')">Сүүлд нийтлэгдсэн</a></li>
+                                <li class="{{ request('sort')=='priceAmount' ?'active':'' }}"><a href="#" onclick="formSubmit('sortBy', 'priceAmount', 'sortDir', 'asc')">Хямд үнэ</a></li>
                             </ul>
                         </div>
                     </div>

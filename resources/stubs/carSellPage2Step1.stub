@@ -16,7 +16,7 @@
         <div class="form-group col-md-6">
             <label for="Manufacturer">Үйлдвэрлэгч:</label>
             <select id="manufacturerSelect" name="markName" class="form-control" required>
-                <option value="">Manufacturer</option>
+                <option value="">Үйлдвэрлэгч</option>
                 @foreach(\App\TermTaxonomy::where('taxonomy', 'car-manufacturer')->get() as $taxonomy)
                 <option {{ ($car->metaValue('markName') == $taxonomy->term->name)?'selected':'' }}>{{$taxonomy->term->name}}</option>
                 @endforeach

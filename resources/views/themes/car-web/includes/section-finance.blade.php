@@ -24,12 +24,12 @@
                                         </div>
                                     @endforeach
                                 </div>
-                                <p>Installment period</p>
+                                <p>Зээлийн хугацаа</p>
                                 <div class="select-month">
                                     @foreach (\App\Entities\TaxonomyManager::collection('car-loan-terms') as $index => $loanTerm)
                                         <div class="custom-control custom-radio custom-control-inline">
                                             <input type="radio" id="{{ $loanTerm->term->name }}month" name="loanTerm" value="{{ $loanTerm->term->name }}" data-interest="{{ $loanTerm->term->metaValue('interest') }}" class="loanTerm custom-control-input" {{ $index == 0 ? 'checked' : ''}}>
-                                            <label class="custom-control-label" for="{{ $loanTerm->term->name }}month">{{ $loanTerm->term->name }} month</label>
+                                            <label class="custom-control-label" for="{{ $loanTerm->term->name }}month">{{ $loanTerm->term->name }} сар</label>
                                         </div>
                                     @endforeach
                                 </div>
@@ -42,7 +42,7 @@
                         <div class="card-body d-flex flex-column justify-content-between">
                             <div class="payment-information">
                                 <div class="info">
-                                    <p>First pay</p>
+                                    <p>Урьдчилгаа төлбөр</p>
                                     <p class="font-weight-bold"><span id="advancePaymentAmount">1,400,000</span> ₮</p>
                                 </div>
                                 <div class="info">
