@@ -11,17 +11,17 @@ if ($startsAt) {
 @endphp
 
 <form id="form-3" class="maz-form">
-  <div class="form-title"><span>Duration </span></div>
+  <div class="form-title"><span>Хугацаа </span></div>
   <div class="form-row">
     <div class="form-group col-md-4">
-      <label for="durationDay">Duration Day:</label>
+      <label for="durationDay">Нийтлэгдэх Хугацаа:</label>
       <select id="durationDay" name="publishDuration" class="form-control" required>
         <option value="">Choose...</option>
-        @for($i=1; $i<=7; $i++) <option value="{{$i}}" {{ ($car->metaValue('publishDuration') == $i)?'selected':'' }}>{{$i}} Days</option>
+        @for($i=1; $i<=7; $i++) <option value="{{$i}}" {{ ($car->metaValue('publishDuration') == $i)?'selected':'' }}>{{$i}} Өдөр</option>
           @endfor
       </select>
       <span id="durationDayAlert" class="invalid-feedback" role="alert" style="display: none">
-        Please choose your duration day
+        Хугацаагаа сонгоно уу
       </span>
     </div>
   </div>
@@ -42,18 +42,18 @@ if ($startsAt) {
   <fieldset id="schedule" class="form-row form-group mt-2" disabled>
     <div class="row pl-2 pr-2">
       <div class="form-group col-md-6" style="position:relative">
-        <label class="text-muted" for="scheduleDate">Date:</label>
+        <label class="text-muted" for="scheduleDate">Он сар өдөр:</label>
         <input id="scheduleDate" name="scheduleDate" class="form-control" />
       </div>
       <div class="form-group col-md-3">
-        <label class="text-muted" for="scheduleTime">Time:</label>
+        <label class="text-muted" for="scheduleTime">Цаг:</label>
         <select id="scheduleTime" name="scheduleTime" class="form-control">
           @for($i=0; $i<=23; $i++) <option {{ ($hour == $i)?'selected':'' }}>{{$i}}</option>
             @endfor
         </select>
       </div>
       <div class="form-group col-md-3">
-        <label class="text-muted" name="scheduleMinute" for="scheduleMinute">Minute:</label>
+        <label class="text-muted" name="scheduleMinute" for="scheduleMinute">Минут:</label>
         <select id="scheduleMinute" class="form-control">
           @for($i=0; $i<=59; $i++) <option {{ ($minute == $i)?'selected':'' }}>{{$i}}</option>
             @endfor
@@ -62,11 +62,11 @@ if ($startsAt) {
     </div>
   </fieldset>
 
-  <div class="form-title"><span>Price </span></div>
+  <div class="form-title"><span>Үнэ </span></div>
 
   <div class="form-row">
     <div class="form-group col-md-4">
-      <label for="area">Starting price:</label>
+      <label for="area">Эхлэх үнэ:</label>
       <div class="input-group">
         <input type="number" min="0" id="startPrice" name="startPriceAmount" class="form-control" placeholder="0.00" required value="{{ $car->metaValue('startPriceAmount')?doubleval($car->metaValue('startPriceAmount')) / 1000000:'' }}">
         <input type="hidden" name="startPriceUnit" value="{{ $car->metaValue('startPriceUnit')?$car->metaValue('startPriceUnit'):'₮' }}">
@@ -74,7 +74,7 @@ if ($startsAt) {
           <div class="input-group-text-right">Сая ₮</div>
         </div>
         <span id="startPriceAlert" class="invalid-feedback" role="alert" style="display: none">
-            Start Price cannot be empty or greater than buyout
+            Эхлэх үнэ хоосон эсвэл Buy Out-аас их байж болохгүй
         </span>
       </div>
     </div>
@@ -112,12 +112,12 @@ if ($startsAt) {
 
   @if(isset($edit) && $edit)
   <div style="float:left;">
-      <button class="btn btn-success btn-round shadow-green px-5 py-2" type="button" id="saveBtn" onclick="save()">Save</button>
+      <button class="btn btn-success btn-round shadow-green px-5 py-2" type="button" id="saveBtn" onclick="save()">Хадгалах</button>
   </div>
   @endif
   <div style="float:right;">
-    <button class="btn btn-light btn-round px-5 py-2 mr-3" type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
-    <button class="btn btn-danger btn-round shadow-red px-5 py-2" type="button" id="nextBtn" onclick="{{ (isset($edit) && $edit)?'nextPrev(1)':'step3Submit(()=>{})' }}">Next</button>
+    <button class="btn btn-light btn-round px-5 py-2 mr-3" type="button" id="prevBtn" onclick="nextPrev(-1)">Өмнөх</button>
+    <button class="btn btn-danger btn-round shadow-red px-5 py-2" type="button" id="nextBtn" onclick="{{ (isset($edit) && $edit)?'nextPrev(1)':'step3Submit(()=>{})' }}">Дараах</button>
   </div>
 </form>
 
