@@ -5,7 +5,7 @@
             <div class="col-md-6 float-left">
                 <div class="d-flex">
                     <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" id="bestPremium" name="publishType" value="best" class="custom-control-input">
+                        <input type="radio" id="bestPremium" name="publishType" value="best_premium" class="custom-control-input">
                         <label class="custom-control-label" for="bestPremium"></label>
                     </div>
                     <h6 class="font-weight-bold mb-0">Best Premium</h6>
@@ -155,7 +155,7 @@ anim3 = bodymovin.loadAnimation(sentAD);
 $("input").click(function(){
 
             if($("input[name='publishType']")){
-                if($(this).val() === "best"){
+                if($(this).val() === "best_premium"){
                     anim1.play();
                     anim2.stop();
                 }else if($(this).val() === "premium"){
@@ -174,7 +174,7 @@ $("input").click(function(){
             paramObjs[kv.name] = kv.value;
         });
         console.log(paramObjs.publishAmount)
-        if(paramObjs.publishType==="best"){
+        if(paramObjs.publishType==="best_premium"){
             paramObjs.publishAmount=paramObjs.publishPriceAmountBest;
         }
         else if(paramObjs.publishType==="premium"){

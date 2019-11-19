@@ -27,11 +27,12 @@
                     <th>Visibility</th>
                     <th>Author</th>
                     <th></th>
+                    <th></th>
                 </tr>
             </thead>
             @foreach ($contents as $group => $groupContents)
                 <tr>
-                    <th colspan="6" class="table-active">
+                    <th colspan="7" class="table-active">
                         <a data-toggle="collapse" class="text-default text-capitalize" href="#accordion-control-{{ $group }}">{{ $group }} ({{$groupContents->count()}})</a>
                     </th>
                 </tr>
@@ -48,6 +49,11 @@
                             </td>
                             <td>
                                 @include('themes.limitless.includes.user-media', ['user' => $content->author])
+                            </td>
+                            <td class="text-center">
+                                @if ($content->metaValue('publishVerified') != "1")
+                                <a class="btn btn-success color-white" href="#modal_verify" data-toggle="modal" onclick="verify_content({{ $content->id }})">Confirm</a>
+                                @endif
                             </td>
                             <td class="text-center">
                                 <a href="#" data-toggle="dropdown">
@@ -73,8 +79,10 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header bg-danger">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h6 class="modal-title">Delete?</h6>
+                <h5 class="modal-title">Delete?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
             </div>
 
             <div class="modal-body">
@@ -93,6 +101,35 @@
         </div>
     </div>
 </div>
+<div id="modal_verify" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-success">
+                <h5 class="modal-title">Confirm</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <p>Are you sure you want to confirm this best premium request?</p>
+            </div>
+
+            <div class="modal-footer">
+                <form method="POST" id="verify_form">
+                    {{ method_field('PUT') }}
+                    {{ csrf_field() }}
+
+                    <input type="hidden" name="publishVerified" value="1" />
+                    <input type="hidden" name="publishVerifiedBy" value="{{ Auth::user()->id }}" />
+
+                    <button type="button" class="btn btn-link" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-success">Confirm</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 <!-- /default modal -->
 @endsection
 
@@ -100,6 +137,9 @@
 <script>
     window.delete_content = function(id) {
         $("#delete_form").attr('action', '/admin/cars/'+id+'?type={{ Request::get('type') }}');
+    }
+    window.verify_content = function(id) {
+        $("#verify_form").attr('action', '/admin/modules/car/best_premium/'+id);
     }
 
     setTimeout(function(){ document.getElementById("timer").remove() }, 10000);
