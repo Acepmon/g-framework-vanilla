@@ -3,33 +3,13 @@
     <div class="form-group">
         <label for="carType">Машины төрөл:</label>
         <div class="grid-radio">
+            @foreach(\App\TermTaxonomy::where('taxonomy', 'car-type')->get() as $key => $taxonomy)
             <div class="cd-radio">
-                <input type="radio" id="sedan" name="carType" value="Sedan" class="custom-control-input" checked>
-                <label class="custom-control-label " for="sedan"> <img src="{{ asset('car-web/img/icons/sedan.svg') }}" alt=""><span>Sedan</span>
+                <input type="radio" id="{{ $taxonomy->term->name }}" name="carType" value="Sedan" class="custom-control-input" {{ ($key == 0)?'checked':'' }}>
+                <label class="custom-control-label " for="{{ $taxonomy->term->name }}"> <img src="{{ asset('car-web/img/icons/' . strtolower($taxonomy->term->name) . '.svg') }}" alt=""><span>{{ $taxonomy->term->metaValue('value') }}</span>
                 </label>
             </div>
-            <div class="cd-radio">
-                <input type="radio" id="suv" name="carType" value="SUV" class="custom-control-input">
-                <label class="custom-control-label" for="suv"> <img src="{{ asset('car-web/img/icons/suv.svg') }}" alt=""><span>SUV</span> </label>
-            </div>
-            <div class="cd-radio">
-                <input type="radio" id="sport" name="carType" value="Sport" class="custom-control-input">
-                <label class="custom-control-label " for="sport"> <img src="{{ asset('car-web/img/icons/sport.svg') }}" alt=""><span>Sport</span>
-                </label>
-            </div>
-            <div class="cd-radio">
-                <input type="radio" id="trucks" name="carType" value="Trucks" class="custom-control-input">
-                <label class="custom-control-label " for="trucks"> <img src="{{ asset('car-web/img/icons/truck.svg') }}" alt=""><span>Truck</span>
-                </label>
-            </div>
-            <div class="cd-radio">
-                <input type="radio" id="vans" name="carType" value="Vans" class="custom-control-input">
-                <label class="custom-control-label " for="vans"> <img src="{{ asset('car-web/img/icons/van.svg') }}" alt=""><span>Van</span> </label>
-            </div>
-            <div class="cd-radio">
-                <input type="radio" id="bus" name="carType" value="Bus" class="custom-control-input">
-                <label class="custom-control-label " for="bus"> <img src="{{ asset('car-web/img/icons/bus.svg') }}" alt=""><span>Bus</span></label>
-            </div>
+            @endforeach
         </div>
     </div>
     <div class="form-row">

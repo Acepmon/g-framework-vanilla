@@ -26,7 +26,7 @@ $categoryName = [
             <input type="radio" id="{{ $taxonomy->term->name }}" name="{{ $category }}" class="custom-control-input" value="{{ $taxonomy->term->name }}" {{ ($taxonomy->term->name == $request['carType'])?'checked':''}}>
             <label class="custom-control-label " for="{{ $taxonomy->term->name }}">
                 <img src="{{ asset('car-web/img/icons/'.strtolower($taxonomy->term->name).'.svg') }}">
-                <span>{{ $taxonomy->term->name }}</span>
+                <span>{{ $taxonomy->term->metaValue('value') }}</span>
             </label>
             </div>
             @endforeach
@@ -98,6 +98,19 @@ $categoryName = [
                 </select>
             </div>
             </div>
+        </div>
+        </div>
+        @elseif($category == 'car-colors')
+        <div id="{{ $category }}" class="collapse {{ request($category, False)?'show':'' }}" aria-labelledby="{{ $category }}">
+        <div class="card-body bg-light">
+            @foreach(App\TermTaxonomy::where('taxonomy', $category)->get() as $taxonomy)
+            <div class="custom-control custom-radio">
+            <!-- <a href="/car-list?{{ $category . '=' . $taxonomy->term->name }}" class="text-body text-decoration-none"> -->
+            <input type="radio" id="{{$taxonomy->term->name}}" name="{{ $category }}" class="custom-control-input" value="{{ $taxonomy->term->name }}" {{ ($taxonomy->term->name == request($category, Null))?'checked':'' }}>
+            <label class="custom-control-label  d-flex justify-content-between" for="{{$taxonomy->term->name}}">{{ ucfirst($taxonomy->term->metaValue('value')) }}
+            </label>
+            </div>
+            @endforeach
         </div>
         </div>
         @elseif($category == 'car-options')

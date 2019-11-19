@@ -48,9 +48,9 @@
                                     <form method="POST" action="{{ route('login') }}">
                                         @csrf
                                         <div class="form-group mb-3 text-left form-group-feedback form-group-feedback-left">
-                                            <span class="font-weight-bold">Нэвтрэх нэр</span>
+                                            <span class="font-weight-bold">И-мэйл</span>
 
-                                            <input class="form-control mt-2 @error('username') is-invalid @enderror" id="username" type="text" placeholder="Username" name="username" value="{{ old('username', env('APP_ENV') == 'development' ? 'admin' : '') }}" required autocomplete="username" autofocus>
+                                            <input class="form-control mt-2 @error('username') is-invalid @enderror" id="username" type="text" placeholder="И-мэйл" name="username" value="{{ old('username', env('APP_ENV') == 'development' ? 'admin' : '') }}" required autocomplete="username" autofocus>
                                             @error('username')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -59,7 +59,7 @@
                                         </div>
                                         <div class="form-group text-left">
                                             <span class="font-weight-bold">Нууц үг</span>
-                                            <input id="password" type="password" class="form-control mt-2 @error('password') is-invalid @enderror" placeholder="Password" name="password" value="{{ env('APP_ENV') == 'development' ? 'admin' : '' }}" required autocomplete="current-password">
+                                            <input id="password" type="password" class="form-control mt-2 @error('password') is-invalid @enderror" placeholder="Нууц үг" name="password" value="{{ env('APP_ENV') == 'development' ? 'admin' : '' }}" required autocomplete="current-password">
                                             @error('password')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
