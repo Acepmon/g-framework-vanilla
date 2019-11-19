@@ -18,7 +18,7 @@ class CarAdvantagesTableSeeder extends Seeder
     {
         Model::unguard();
 
-        $advantages = ['Эмэгтэй жолооч', 'Тамхи татаагүй', 'Ганц хүний гараар'];
+        $advantages = ['Эмэгтэй жолооч унасан', 'Тамхи татаагүй', 'Нэг хүн унасан'];
 
         foreach ($advantages as $key => $advantage) {
             TaxonomyManager::register($advantage, 'car-advantages');

@@ -35,29 +35,29 @@ class CarMenusTableSeeder extends Seeder
             ['Wishlist', '/admin/modules/car/wishlist', 'icon-star-empty3', 'Car'],
         ];
         $carMainMenus = ['Car Main', '', '', 'Car', [
-            ['Нүүр', '/', '', 'Car'],
-            ['Авна', '/buy', '', 'Car'],
-            ['Зарна', '/sell', '', 'Car'],
-            ['Санхүүжилт', '/finance', '', 'Car'],
-            ['Аугцион', '/auction', '', 'Car'],
-            ['Авъя', '/wishlist', '', 'Car']
+            ['Home', '/', '', 'Car'],
+            ['Buy', '/buy', '', 'Car'],
+            ['Sell', '/sell', '', 'Car'],
+            ['Finance', '/finance', '', 'Car'],
+            ['Auction', '/auction', '', 'Car'],
+            ['Wish List', '/wishlist', '', 'Car']
         ]];
         $carTopbarMenus = ['Car Topbar', '', '', 'Car', [
-            ['Бидний Тухай', '/about-introduction', '', 'Car'],
-            ['+Хүсэлт оруулах', '/wishlist', '', 'Car']
+            ['About Us', '/about-introduction', '', 'Car'],
+            ['Write wanna buy', '/wishlist', '', 'Car']
         ]];
         $carFooterMenus = ['Car Footer', '', '', 'Car', [
-            ['Бидний Тухай', '/about-introduction', '', 'Car'],
-            ['+Хүсэлт оруулах', '/wishlist', '', 'Car']
+            ['About Us', '/about-introduction', '', 'Car'],
+            ['Write wanna buy', '/wishlist', '', 'Car']
         ]];
         $carProfileDropdownMenus = ['Car Profile Dropdown', '', '', 'Car', [
-            ['Хүслийн жагсаалт', '/interested-car', '', 'Car'],
-            ['Машин авъя хүсэлтүүд', '/interested-car-registration-alert', '', 'Car'],
-            ['Зарах хүсэлтүүд', '/sell-page-on-sell', '', 'Car'],
-            ['Төлбөрийн хүсэлтүүд', '/purchase-page-published', '', 'Car'],
+            ['Interested car list', '/interested-car', '', 'Car'],
+            ['Registration car alert', '/interested-car-registration-alert', '', 'Car'],
+            ['Sell request', '/sell-page-on-sell', '', 'Car'],
+            ['Purchase request', '/purchase-page-published', '', 'Car'],
             ['Mileage', '/coming-soon', '', 'Car'],
             ['Coupon', '/coming-soon', '', 'Car'],
-            ['Хэрэглэгчийн мэдээлэл', '/home', '', 'Car'],
+            ['My profile', '/home', '', 'Car'],
         ]];
 
         $this->iterate($adminMenus, 2, 1);

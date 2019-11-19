@@ -16,17 +16,17 @@ class CarOptionsSafetyTableSeeder extends Seeder
      */
     public function run()
     {
-        $safeties = ['Electric parking brake' => ['metaKey' => 'optionSafetyElectricParkingBrake'], 
-            'ABS' => ['metaKey' => 'optionSafetyABS'], 
-            'Мэдрэгч : Урд' => ['metaKey' => 'optionSafetyParkingSenseFront'], 
-            'Мэдрэгч : Хойд' => ['metaKey' => 'optionSafetyParkingSenseRear'], 
+        $safeties = ['Цахилгаан зогсоолын тоормос' => ['metaKey' => 'optionSafetyElectricParkingBrake'], 
+            'Эй Би Эс (ABS)' => ['metaKey' => 'optionSafetyABS'], 
+            'Ухаалаг зогсоол : Урд' => ['metaKey' => 'optionSafetyParkingSenseFront'], 
+            'Ухаалаг зогсоол : Хойд' => ['metaKey' => 'optionSafetyParkingSenseRear'], 
             'Камер : Хажуу' => ['metaKey' => 'optionSafetyCameraSide'], 
             'Камер : Хойд' => ['metaKey' => 'optionSafetyCameraRear'], 
             'Камер : Урд' => ['metaKey' => 'optionSafetyCameraFront'], 
-            'Аюулгүйн дэр: Хөшиг' => ['metaKey' => 'optionSafetyAirbagCurtains'], 
-            'Аюулгүйн дэр: Хажуугийн' => ['metaKey' => 'optionSafetyAirbagSide'], 
-            'Аюулгүйн дэр: Зорчигчдын суудал' => ['metaKey' => 'optionSafetyAirbagPassengerSeat'], 
-            'Airbag: Жолоочийн суудал' => ['metaKey' => 'optionSafetyAirbagDriverSeat']];
+            'Аюулгүйн дэр : Хөшиг' => ['metaKey' => 'optionSafetyAirbagCurtains'], 
+            'Аюулгүйн дэр : Хажуу' => ['metaKey' => 'optionSafetyAirbagSide'], 
+            'Зорчигчын суудал' => ['metaKey' => 'optionSafetyAirbagPassengerSeat'], 
+            'Аюулгүйн дэр : Жолоочын суудал' => ['metaKey' => 'optionSafetyAirbagDriverSeat']];
 
         $parent = TaxonomyManager::register('Safety', 'car-options');
 
