@@ -31,7 +31,7 @@ $banner = App\Banner::where('location_id', 5)->where('status', 'active')->inRand
         <div class="row">
           <div class="col-md-3">
               <div class="left-bar-title">
-                  Sort Vehicle <i class="fab fa fa-search"></i>
+                  Хайлт <i class="fab fa fa-search"></i>
               </div>
             @include('themes.car-web.includes.car-list-contents', ['allItems' => \Modules\Car\Entities\Car::all(), 'type' => 'search'])
           </div>
@@ -55,7 +55,11 @@ $banner = App\Banner::where('location_id', 5)->where('status', 'active')->inRand
 <!-- Banner end -->
 
 <!-- Hot deal Grid -->
-@include('themes.car-web.includes.section-slider', array('title'=>'Hot Deal', 'contents'=>\Modules\Car\Entities\Car::filterByPremium()->get(), 'morelink'=>url('/buy?publishType=best_premium')))
+@include('themes.car-web.includes.section-slider', array('title'=>'Шилдэг зарууд', 'contents'=>\App\Content::getByMetas('publishType', 'best_premium')->where('status', \App\Content::STATUS_PUBLISHED)->where('visibility', \App\Content::VISIBILITY_PUBLIC)
+  ->whereHas('metas', function($query) {
+    $query->where('key', 'publishVerified');
+    $query->where('value', '1');
+  })->get(), 'morelink'=>url('/buy?publishType=best_premium')))
 <!-- Hot deal End -->
 
 @endsection

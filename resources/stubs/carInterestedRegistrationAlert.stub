@@ -15,7 +15,7 @@ $orderBy = request('sortBy', 'priceAmount');
 @endphp
 <div class="row">
     
-    <h3 class="text-dark ml-2">Машин авъя хүсэлтүүд</h3>
+    <h3 class="text-dark ml-2">Миний оруулсан зар</h3>
 
     @contentInline(type=wanna-buy, author_id = Auth::user()->id as $wishlists | paginate)
     <div class="card page-top-navbar border-0 bg-transparent">

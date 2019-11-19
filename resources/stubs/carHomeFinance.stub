@@ -111,7 +111,7 @@
                             <img src="{{(getMetasValue($finCars->metas, 'thumbnail'))}}" class="img-fluid" alt="alt">
 
                             <div class="card-caption">
-                                <div class="meta">{{$itsIntCar}}{{(getMetasValue($finCars->metas, 'mileageAmaount'))}} {{(getMetasValue($finCars->metas, 'mileageUnit'))}}| {{(getMetasValue($finCars->metas, 'fuelType'))}} | {{(getMetasValue($finCars->metas, 'capacityAmount'))}} {{(getMetasValue($finCars->metas, 'capacityunit'))}}</div>
+                                <div class="meta">{{$itsIntCar}}{{(getMetasValue($finCars->metas, 'mileageAmount'))}} {{(getMetasValue($finCars->metas, 'mileageUnit'))}}| {{(getMetasValue($finCars->metas, 'fuelType'))}} | {{(getMetasValue($finCars->metas, 'capacityAmount'))}} {{(getMetasValue($finCars->metas, 'capacityunit'))}}</div>
                                 @if(Auth::user()!=null && $finCars->author_id==Auth::user()->id)
                                     <div class="favorite">
                                         <span class=""><i class="fas fa-car"></i></span>
