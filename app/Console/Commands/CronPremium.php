@@ -40,18 +40,18 @@ class CronPremium extends Command
      */
     public function handle()
     {
-        $comment= new Comment;
-        $comment-> content='1';
-        $comment-> type='1';
-        $comment-> author_id=1;
-        $comment-> author_ip='1';
-        $comment-> author_name='1';
-        $comment-> author_email='1';
-        $comment-> author_avatar='1';
-        $comment-> author_user_agent='1';
-        $comment-> commentable_type='1';
-        $comment-> commentable_id=1;
-        $comment->save();
+//        $comment= new Comment;
+//        $comment-> content='1';
+//        $comment-> type='1';
+//        $comment-> author_id=1;
+//        $comment-> author_ip='1';
+//        $comment-> author_name='1';
+//        $comment-> author_email='1';
+//        $comment-> author_avatar='1';
+//        $comment-> author_user_agent='1';
+//        $comment-> commentable_type='1';
+//        $comment-> commentable_id=1;
+//        $comment->save();
         $premiums=ContentMeta::where('key','=','publishVerifiedEnd')->where('value', '<', Carbon::now())
             ->get();
         if(count($premiums)>0){
@@ -59,6 +59,8 @@ class CronPremium extends Command
                 $update = ContentMeta::where('key','=','publishVerified')->where('content_id', '=', $data->content_id)->firstOrFail();
                 $update->value=0;
                 $update->save();
+                $delete = ContentMeta::find($data->id);
+                $delete->delete();
             }
         }
     }
