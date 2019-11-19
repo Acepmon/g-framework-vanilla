@@ -3,7 +3,7 @@ $categorySlug = [
 'car-type', 'car-manufacturer', 'car-year', 'car-distance-driven', 'car-price', 'car-colors', 'car-fuel', 'car-transmission', 'car-options', 'car-accident', 'car-mancount', 'car-wheel-pos', 'provinces'
 ];
 $categoryName = [
-'Car Type', 'Manufacturer/Model', 'Year', 'Distance Driven', 'Price / Installment', 'Color', 'Fuel', 'Transmission', 'Option', 'An accident', 'Passenger', 'Steering Wheel', 'Area'
+'Төрөл', 'Үйлдвэрлэгч/Модел', 'Жил', 'Явсан КМ', 'Үнэ', 'Өнгө', 'Шатахуун', 'Араа', 'Option', 'Осол', 'Зорчигч', 'Жолоо', 'Байршил'
 ];
 @endphp
 
