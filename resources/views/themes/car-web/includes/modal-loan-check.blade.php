@@ -11,7 +11,7 @@
             <form id="loan-check">
             @csrf
             <div class="modal-body px-5">
-                <div class="maz-modal-title">Check loan condition</div>
+                <div class="maz-modal-title">Зээл шалгах condition</div>
                 <div class="maz-modal-desc">Please fill this form than we will contact you as soon as possible</div>
                     <div class="form-group">
                         <label for="name" class="col-form-label">Your name:</label>
