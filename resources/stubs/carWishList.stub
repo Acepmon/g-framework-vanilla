@@ -40,7 +40,7 @@ $banner = App\Banner::where('location_id', 5)->where('status', 'active')->inRand
                     <div class="card masthead-search shadow-lg-3d">
                         <div class="">
                             <div class="card-header px-5 pt-5 pb-3">
-                                <h1>Машин авъя</label>
+                                <h1>Машин авъя</h1>
                             </div>
                         </div>
                         <div class="tab-content p-5" id="heroTabFilter">
@@ -67,7 +67,7 @@ $banner = App\Banner::where('location_id', 5)->where('status', 'active')->inRand
                                     </select>
                                 </div>
 
-                                <button type="submit" class="btn btn-danger btn-lg btn-round shadow mt-4 px-5">Filter</button>
+                                <button type="submit" class="btn btn-danger btn-lg btn-round shadow mt-4 px-5">Хайх</button>
                             </form>
                         </div>
                     </div>
