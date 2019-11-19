@@ -69,7 +69,7 @@
             <div class="section-title">
                 <h2>Зээлээр авах боломжтой машинууд</h2>
                 <span>
-            <a href="/buy">See all<i class="fab fa fa-angle-right"></i></a>
+            <a href="/buy">Бүгдийг харах<i class="fab fa fa-angle-right"></i></a>
           </span>
             </div>
         </div>
@@ -205,9 +205,9 @@
                     },
                     success: function (data) {
                         if (data.status == 'added') {
-                            elm.html('<span class="text-danger"><i class="fas fa-heart"></i> Added to interest list</span>');
+                            elm.html('<span class="text-danger"><i class="fas fa-heart"></i> Жаглаастанд нэмэгдсэн</span>');
                         } else if (data.status == 'removed') {
-                            elm.html('<span class=""><i class="far fa-heart"></i> Add to interest list</span>');
+                            elm.html('<span class=""><i class="far fa-heart"></i> Жаглаастанд нэмэх</span>');
                         }
                     },
                     error: function (error) {

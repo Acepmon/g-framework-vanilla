@@ -35,20 +35,20 @@ class CarMenusTableSeeder extends Seeder
             ['Wishlist', '/admin/modules/car/wishlist', 'icon-star-empty3', 'Car'],
         ];
         $carMainMenus = ['Car Main', '', '', 'Car', [
-            ['Нүүр', '/', '', 'Car'],
-            ['Авна', '/buy', '', 'Car'],
-            ['Зарна', '/sell', '', 'Car'],
-            ['Санхүүжилт', '/finance', '', 'Car'],
-            ['Аугцион', '/auction', '', 'Car'],
-            ['Авъя', '/wishlist', '', 'Car']
+            ['Home', '/', '', 'Car'],
+            ['Buy', '/buy', '', 'Car'],
+            ['Sell', '/sell', '', 'Car'],
+            ['Finance', '/finance', '', 'Car'],
+            ['Auction', '/auction', '', 'Car'],
+            ['Wish List', '/wishlist', '', 'Car']
         ]];
         $carTopbarMenus = ['Car Topbar', '', '', 'Car', [
             ['Бидний тухай', '/about-introduction', '', 'Car'],
             ['+Хүсэлт оруулах', '/wishlist', '', 'Car']
         ]];
         $carFooterMenus = ['Car Footer', '', '', 'Car', [
-            ['Бидний Тухай', '/about-introduction', '', 'Car'],
-            ['+Хүсэлт оруулах', '/wishlist', '', 'Car']
+            ['About Us', '/about-introduction', '', 'Car'],
+            ['Write wanna buy', '/wishlist', '', 'Car']
         ]];
         $carProfileDropdownMenus = ['Car Profile Dropdown', '', '', 'Car', [
             ['Сонирхож буй машинууд', '/interested-car', '', 'Car'],
@@ -57,7 +57,7 @@ class CarMenusTableSeeder extends Seeder
             ['Төлбөрийн хүсэлтүүд', '/purchase-page-published', '', 'Car'],
             ['Mileage', '/coming-soon', '', 'Car'],
             ['Coupon', '/coming-soon', '', 'Car'],
-            ['Хэрэглэгчийн мэдээлэл', '/home', '', 'Car'],
+            ['My profile', '/home', '', 'Car'],
         ]];
 
         $this->iterate($adminMenus, 2, 1);

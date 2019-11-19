@@ -21,11 +21,11 @@
     <div class="card page-top-navbar border-0 mt-3 bg-transparent">
         <div class="d-flex justify-content-start">
             @contentInline(contents.id in Auth::user()->metaArray('interestedCars'),isAuction=1, type=car, sortDir=request()->input("sortDir", "desc"), sort=request()->input("sort", "updated_at") as $cars | paginate)
-            <span class="total-cars ml-0" >{{count($cars)}} МАШИН</span>
+            <span class="total-cars ml-0" >НИЙТ {{count($cars)}}</span>
             <div class="sort-cars col-md-9">
                 <ul>
-                    <li class="{{ request('sort')=='updated_at' ?'active':'' }}"><a href="#" onclick="formSubmit('sortBy', 'updated_at', 'sortDir', 'desc')">Сүүлд нэмэгдсэнээр</a></li>
-                    <li class="{{ request('sort')=='priceAmount' ?'active':'' }}"><a href="#" onclick="formSubmit('sortBy', 'priceAmount', 'sortDir', 'asc')">Үнэ хямдаар</a></li>
+                    <li class="{{ request('sort')=='updated_at' ?'active':'' }}"><a href="#" onclick="formSubmit('sortBy', 'updated_at', 'sortDir', 'desc')">Сүүлд нийтлэгдсэн</a></li>
+                    <li class="{{ request('sort')=='priceAmount' ?'active':'' }}"><a href="#" onclick="formSubmit('sortBy', 'priceAmount', 'sortDir', 'asc')">Хямд үнэ</a></li>
                 </ul>
             </div>
         </div>
@@ -53,9 +53,9 @@
                     </a>
                     <div class="favorite addToInterest" data-target="{{ $car->id }}">
                         @if(Auth::user() && count(metaHas(Auth::user(), 'interestedCars', $car->id)->get()) > 0)
-                            <span class="text-danger"><i class="fas fa-heart"></i> Сонирхосон машины жагсаалтанд нэмэгдсэн</span>
+                            <span class="text-danger"><i class="fas fa-heart"></i> Жаглаастанд нэмэгдсэн</span>
                         @else
-                            <span class=""><i class="far fa-heart"></i> Сонирхосон машины жагсаалтанд нэмэх</span>
+                            <span class=""><i class="far fa-heart"></i> Жаглаастанд нэмэх</span>
                         @endif
                     </div>
                 </div>
@@ -169,9 +169,9 @@
                     },
                     success: function (data) {
                         if (data.status == 'added') {
-                            elm.html('<span class="text-danger"><i class="fas fa-heart"></i> Added to interest list</span>');
+                            elm.html('<span class="text-danger"><i class="fas fa-heart"></i> Жаглаастанд нэмэгдсэн</span>');
                         } else if (data.status == 'removed') {
-                            elm.html('<span class=""><i class="far fa-heart"></i> Add to interest list</span>');
+                            elm.html('<span class=""><i class="far fa-heart"></i> Жаглаастанд нэмэх</span>');
                         }
                     },
                     error: function (error) {

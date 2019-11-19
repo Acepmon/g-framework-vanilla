@@ -16,7 +16,7 @@ class CarManCountTableSeeder extends Seeder
      */
     public function run()
     {
-        $manCount = ['4 суудалтай', '5 суудалтай', '7 суудалтай', '9 суудалтай', '11 суудалтай', '13 суудалтай', '15 суудалтай', 'Шууд удирдлагын'];
+        $manCount = ['4 суудалтай', '6 суудалтай', '8 суудалтай', '10 суудалтай', '12 суудалтай', '14 суудалтай', '16 суудалтай', 'Утга оруулах'];
 
         $parent = TaxonomyManager::register('Man Count', 'car', null, ['metaKey' => 'manCount']);
 

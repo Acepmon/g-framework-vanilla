@@ -18,19 +18,19 @@ class CarOptionsConvenienceTableSeeder extends Seeder
     {
         $conveniences = [
             'Хар хайрцаг' => ['metaKey' => 'optionConvenienceBlackBox'], 
-            'Хөшиг : Хойно' => ['metaKey' => 'optionConvenienceBlinderRear'], 
-            'AV дэлгэц : Урд' => ['metaKey' => 'optionConvenienceAVMonitorRear'], 
-            'AV дэлгэц : Хойд' => ['metaKey' => 'optionConvenienceAVMonitorFront'], 
-            'Rain мэдрэгч' => ['metaKey' => 'optionConvenienceRainSenser'], 
-            'Автомат гэрэл' => ['metaKey' => 'optionConvenienceAutoLight'], 
-            'Bluetooth' => ['metaKey' => 'optionConvenienceBluetooth'], 
-            'AUX оролт' => ['metaKey' => 'optionConvenienceAUXTerminal'], 
-            'USB оролт' => ['metaKey' => 'optionConvenienceUSBTerminal'], 
-            'Газрын зураг' => ['metaKey' => 'optionConvenienceNavigation'], 
-            'CD тоглуулагч' => ['metaKey' => 'optionConvenienceCDPlayer'], 
-            'Автомат цонх' => ['metaKey' => 'optionConveniencePowerWindow'], 
-            'Автомат агааржуулагч' => ['metaKey' => 'optionConvenienceAutoAirCondition'], 
-            'Cruise control' => ['metaKey' => 'optionConvenienceCruiseControl'], 
+            'Мэдрэгч : Хойд' => ['metaKey' => 'optionConvenienceBlinderRear'], 
+            'AV хяналт : Хойд' => ['metaKey' => 'optionConvenienceAVMonitorRear'], 
+            'AV хяналт : Урд' => ['metaKey' => 'optionConvenienceAVMonitorFront'], 
+            'Бороо мэдрэгч' => ['metaKey' => 'optionConvenienceRainSenser'], 
+            'Авто гэрэл' => ['metaKey' => 'optionConvenienceAutoLight'], 
+            'Блютүүт' => ['metaKey' => 'optionConvenienceBluetooth'], 
+            'AUX терминал' => ['metaKey' => 'optionConvenienceAUXTerminal'], 
+            'USB терминал' => ['metaKey' => 'optionConvenienceUSBTerminal'], 
+            'Чиглүүлэгч' => ['metaKey' => 'optionConvenienceNavigation'], 
+            'Сиди тоглуулагч' => ['metaKey' => 'optionConvenienceCDPlayer'], 
+            'Цахилгаан цонх' => ['metaKey' => 'optionConveniencePowerWindow'], 
+            'Авто агааржуулагч' => ['metaKey' => 'optionConvenienceAutoAirCondition'], 
+            'Хурдны удирдлага' => ['metaKey' => 'optionConvenienceCruiseControl'], 
             'Ухаалаг түлхүүр' => ['metaKey' => 'optionConvenienceSmartKey']];
 
         $parent = TaxonomyManager::register('Convenience', 'car-options');

@@ -184,11 +184,13 @@
             loop: false,
             margin: 0,
             autoplay: false,
+            // loop: true,
             // autoplaySpeed: 2000,
             thumbs: false,
             autoWidth: true,
             dots: false,
             nav: true,
+            rewind:true
         });
 
         $('.vehicle-imgSlider').owlCarousel({
@@ -196,6 +198,7 @@
             autoplayHoverPause: true,
             dots: false,
             nav: true,
+            video:true,
             thumbs: true,
             thumbImage: true,
             thumbsPrerendered: true,

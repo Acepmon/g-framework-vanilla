@@ -23,8 +23,8 @@ $orderBy = request('sortBy', 'priceAmount');
             <span class="total-cars ml-0">Нийт {{ count($wishlists) }}</span>
             <div class="sort-cars col-md-9">
                 <ul class="col-md-12">
-                    <li class="{{ $orderBy=='updated_at' ?'active':'' }}"><a href="#" onclick="formSubmit('sortBy', 'updated_at')">Сүүлд нэмэгдсэнээр</a></li>
-                    <li class="{{ $orderBy=='priceAmount' ?'active':'' }}"><a href="#" onclick="formSubmit('sortBy', 'priceAmount')">Үнэ хямдаар</a></li>
+                    <li class="{{ $orderBy=='updated_at' ?'active':'' }}"><a href="#" onclick="formSubmit('sortBy', 'updated_at')">Сүүлд нийтлэгдсэн</a></li>
+                    <li class="{{ $orderBy=='priceAmount' ?'active':'' }}"><a href="#" onclick="formSubmit('sortBy', 'priceAmount')">Хямд үнэ</a></li>
                 </ul>
             </div>
         </div>

@@ -180,7 +180,7 @@
                 <div class="card page-top-navbar border-0">
                     <div class="d-flex justify-content-start">
                         @contentInline(type=car, priceAmount < intval(request()->input("priceAmount")), sortDir=request()->input("sortDir", "desc"), sort=request()->input("sort", "updated_at") as $cars | paginate)
-                        <span class="total-cars ml-0" >{{count($cars)}} МАШИН</span>
+                        <span class="total-cars ml-0" >НИЙТ {{count($cars)}}</span>
                         <div class="sort-cars col-md-9">
                             <ul>
                                 <li class="{{ request('sort')=='updated_at' ?'active':'' }}"><a href="#" onclick="formSubmit('sortBy', 'updated_at', 'sortDir', 'desc')">Сүүлд нийтлэгдсэн</a></li>
