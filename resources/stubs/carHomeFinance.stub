@@ -25,7 +25,7 @@
         <div class="card shadow-soft-blue page-top-navbar mb-5">
           <div class="d-flex justify-content-around">
             <a class="active" href="#">Санхүү мэдээлэл</a>
-            <a href="/monthly-installments?monthlyPrice=500000&firstPay=20&financeMonth=6&priceAmount=4590104&sort=updated_at">Үнийн тооцоолол</a>
+            <a href="/monthly-installments?monthlyPrice=500000&firstPay=20&financeMonth=6&priceAmount=4590104&sort=updated_at">Санхүүдээ таарсан машин олох</a>
           </div>
         </div>
       </div>

@@ -43,7 +43,7 @@ class CarMenusTableSeeder extends Seeder
             ['Авъя', '/wishlist', '', 'Car']
         ]];
         $carTopbarMenus = ['Car Topbar', '', '', 'Car', [
-            ['Бидний Тухай', '/about-introduction', '', 'Car'],
+            ['Бидний тухай', '/about-introduction', '', 'Car'],
             ['+Хүсэлт оруулах', '/wishlist', '', 'Car']
         ]];
         $carFooterMenus = ['Car Footer', '', '', 'Car', [
@@ -51,8 +51,8 @@ class CarMenusTableSeeder extends Seeder
             ['+Хүсэлт оруулах', '/wishlist', '', 'Car']
         ]];
         $carProfileDropdownMenus = ['Car Profile Dropdown', '', '', 'Car', [
-            ['Хүслийн жагсаалт', '/interested-car', '', 'Car'],
-            ['Машин авъя хүсэлтүүд', '/interested-car-registration-alert', '', 'Car'],
+            ['Сонирхож буй машинууд', '/interested-car', '', 'Car'],
+            ['Миний оруулсан зар', '/interested-car-registration-alert', '', 'Car'],
             ['Зарах хүсэлтүүд', '/sell-page-on-sell', '', 'Car'],
             ['Төлбөрийн хүсэлтүүд', '/purchase-page-published', '', 'Car'],
             ['Mileage', '/coming-soon', '', 'Car'],

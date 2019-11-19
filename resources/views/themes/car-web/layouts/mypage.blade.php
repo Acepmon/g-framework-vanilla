@@ -52,9 +52,11 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-4 col-lg-3">
-                        @include('themes.car-web.includes.profile')
-
+                        
                         <div class="card shadow-soft-blue my-page-left">
+                            <div class="card-body">
+                                @include('themes.car-web.includes.profile')
+                            </div>
                             <ul class="list-group list-group-flush">
                                 @if (Auth::user()->is_admin())
                                     <li class="list-group-item">

@@ -15,12 +15,12 @@ $orderBy = request('sortBy', 'priceAmount');
 @endphp
 <div class="row">
     
-    <h3 class="text-dark ml-2">Interested car registration alert</h3>
+    <h3 class="text-dark ml-2">Машин авъя хүсэлтүүд</h3>
 
     @contentInline(type=wanna-buy, author_id = Auth::user()->id as $wishlists | paginate)
     <div class="card page-top-navbar border-0 bg-transparent">
         <div class="d-flex justify-content-start ml-2">
-            <span class="total-cars ml-0">{{ count($wishlists) }} WISHLISTS</span>
+            <span class="total-cars ml-0">Нийт {{ count($wishlists) }}</span>
             <div class="sort-cars col-md-9">
                 <ul class="col-md-12">
                     <li class="{{ $orderBy=='updated_at' ?'active':'' }}"><a href="#" onclick="formSubmit('sortBy', 'updated_at')">Сүүлд нэмэгдсэнээр</a></li>
