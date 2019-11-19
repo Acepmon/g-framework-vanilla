@@ -24,8 +24,8 @@
       <div class="row">
         <div class="card shadow-soft-blue page-top-navbar mb-5">
           <div class="d-flex justify-content-around">
-            <a class="active" href="#">Finance information</a>
-            <a href="/monthly-installments?monthlyPrice=500000&firstPay=20&financeMonth=6&priceAmount=4590104&sort=updated_at">Search your vehicle for monthly installments</a>
+            <a class="active" href="#">Санхүү мэдээлэл</a>
+            <a href="/monthly-installments?monthlyPrice=500000&firstPay=20&financeMonth=6&priceAmount=4590104&sort=updated_at">Үнийн тооцоолол</a>
           </div>
         </div>
       </div>
@@ -53,8 +53,8 @@
         <div class="col-md-12">
           <div class="row justify-content-md-center">
             <div class="col-md-6 text-center">
-              <a class="btn btn-danger btn-round my-4 shadow-red btn-lg px-5" href="/monthly-installments?monthlyPrice=500000&firstPay=20&financeMonth=6&priceAmount=4590104&sort=updated_at">Loan calculator</a>
-              <a class="btn btn-light btn-round my-4 shadow-soft-blue btn-lg px-5" href="#" data-toggle="modal" data-target="#modalLoanCalculator">Check loan</a>
+              <a class="btn btn-danger btn-round my-4 shadow-red btn-lg px-5" href="/monthly-installments?monthlyPrice=500000&firstPay=20&financeMonth=6&priceAmount=4590104&sort=updated_at">Зээлийн тооцоолуур</a>
+              <a class="btn btn-light btn-round my-4 shadow-soft-blue btn-lg px-5" href="#" data-toggle="modal" data-target="#modalLoanCalculator">Зээл шалгах</a>
             </div>
           </div>
         </div>
@@ -67,7 +67,7 @@
     <div class="container">
         <div class="row">
             <div class="section-title">
-                <h2>Loan cars</h2>
+                <h2>Зээлээр авах боломжтой машинууд</h2>
                 <span>
             <a href="/buy">See all<i class="fab fa fa-angle-right"></i></a>
           </span>

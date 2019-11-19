@@ -360,7 +360,7 @@ $itsIntCar=false;
                             .find('option')
                             .remove()
                             .end()
-                            .append('<option>Model</option>')
+                            .append('<option>Модел</option>')
                             .val('')
                         ;
                         console.log(modelList.data);
@@ -390,7 +390,7 @@ $itsIntCar=false;
                             .find('option')
                             .remove()
                             .end()
-                            .append('<option>Model</option>')
+                            .append('<option>Модел</option>')
                             .val('')
                         ;
                         console.log(modelList.data);
@@ -420,7 +420,7 @@ $itsIntCar=false;
                             .find('option')
                             .remove()
                             .end()
-                            .append('<option>Model</option>')
+                            .append('<option>Модел</option>')
                             .val('')
                         ;
                         console.log(modelList.data);
