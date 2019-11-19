@@ -56,7 +56,7 @@ $itsIntCar=false;
                     <div class="card masthead-search shadow-lg-3d">
                         <div class="">
                             <div class="card-header px-5 pt-5 pb-3">
-                                <h1>Vehicle search</h1>
+                                <h1>Хайлт хийх</h1>
                                 <div class="mh-search-input">
                                     <input class="search" id="searchTitle" onchange="searchTitle(event)" type="search" placeholder="Search by id or title" aria-label="Search">
                                     <button type="button" class="search-button">
@@ -106,17 +106,17 @@ $itsIntCar=false;
                             <li class="nav-item">
                                 <a class="nav-link active" id="home-tab" data-toggle="tab" href="#allVehicles"
                                    role="tab"
-                                   aria-controls="imported" aria-selected="true">All vehicles</a>
+                                   aria-controls="imported" aria-selected="true">Бүх машинаас</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" id="profile-tab" data-toggle="tab" href="#auction" role="tab"
                                    aria-controls="used"
-                                   aria-selected="false">Auction</a>
+                                   aria-selected="false">Аукцион</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" id="contact-tab" data-toggle="tab" href="#budget" role="tab"
                                    aria-controls="budget"
-                                   aria-selected="false">Budget</a>
+                                   aria-selected="false">Төсөвт багтаах</a>
                             </li>
                         </ul>
                         <div class="tab-content p-5" id="heroTabFilter">
@@ -127,7 +127,7 @@ $itsIntCar=false;
                                     <input type="text" name="search" hidden class="searchTitle">
                                     <div class="form-group">
                                         <select id="vehicleManufacturer" class="form-control" name="car-manufacturer">
-                                            <option value="">Manufacturer</option>
+                                            <option value="">Үйлдвэрлэгч</option>
                                             @getTaxonomys({"filter":[{"field":"taxonomy", "key":"car-manufacturer"}], "returnValue":"manufacturers"})
                                             @foreach($manufacturers as $data)
                                                 <option value="{{$data->term->name}}">{{$data->term->name}}</option>
@@ -136,13 +136,13 @@ $itsIntCar=false;
                                     </div>
                                     <div class="form-group">
                                         <select id="vehicleManufacturerModels" class="form-control" name="car-model">
-                                            <option value="" >Model</option>
+                                            <option value="" >Модел</option>
                                             {{--//@getTaxonomys({"filter":[{"field":"taxonomy", "key":"model"}], "returnValue":"models"})--}}
                                         </select>
                                     </div>
                                     <div class="form-group">
                                         <select class="form-control" name="buildYear">
-                                            <option value="">Build year</option>
+                                            <option value="">Үйлдвэрлэсэн жил</option>
                                             @for ($i = \Carbon\Carbon::now()->year; $i >= \Carbon\Carbon::now()->year - 50; $i--)
                                                 <option value="{{$i}}">{{$i}}</option>
                                             @endfor
@@ -150,13 +150,13 @@ $itsIntCar=false;
                                     </div>
                                     <div class="form-group">
                                         <select class="form-control" name="importDate">
-                                            <option value="">Import year</option>
+                                            <option value="">Орж ирсэн жил</option>
                                             @for ($i = \Carbon\Carbon::now()->year; $i >= \Carbon\Carbon::now()->year - 50; $i--)
                                                 <option value="{{$i}}">{{$i}}</option>
                                             @endfor
                                         </select>
                                     </div>
-                                    <button type="submit" id="submitSearch" class="btn btn-danger btn-lg btn-round shadow mt-4 pl-5 pr-5">Search</button>
+                                    <button type="submit" id="submitSearch" class="btn btn-danger btn-lg btn-round shadow mt-4 pl-5 pr-5">Хайх</button>
                                 </form>
                             </div>
                             <div class="tab-pane fade" id="auction" role="tabpanel" aria-labelledby="used-tab">
@@ -165,7 +165,7 @@ $itsIntCar=false;
                                     <input type="text" name="title" hidden class="searchTitle">
                                     <div class="form-group">
                                         <select id="vehicleManufacturer1" class="form-control" name="car-manufacturer">
-                                            <option value="" >Manufacturer</option>
+                                            <option value="" >Үйлдвэрлэгч</option>
                                             @getTaxonomys({"filter":[{"field":"taxonomy", "key":"car-manufacturer"}], "returnValue":"manufacturers"})
                                             @foreach($manufacturers as $data)
                                                 <option value="{{$data->term->name}}">{{$data->term->name}}</option>
@@ -174,13 +174,13 @@ $itsIntCar=false;
                                     </div>
                                     <div class="form-group">
                                         <select id="vehicleManufacturerModels1" class="form-control" name="car-model">
-                                            <option value="" >Model</option>
+                                            <option value="" >Модел</option>
                                             {{--//@getTaxonomys({"filter":[{"field":"taxonomy", "key":"model"}], "returnValue":"models"})--}}
                                         </select>
                                     </div>
                                     <div class="form-group">
                                         <select class="form-control" name="buildYear">
-                                            <option value="">Build year</option>
+                                            <option value="">Үйлдвэрлэсэн жил</option>
                                             @for ($i = \Carbon\Carbon::now()->year; $i >= \Carbon\Carbon::now()->year - 50; $i--)
                                                 <option value="{{$i}}">{{$i}}</option>
                                             @endfor
@@ -188,13 +188,13 @@ $itsIntCar=false;
                                     </div>
                                     <div class="form-group">
                                         <select class="form-control" name="importDate">
-                                            <option value="">Import year</option>
+                                            <option value="">Орж ирсэн жил</option>
                                             @for ($i = \Carbon\Carbon::now()->year; $i >= \Carbon\Carbon::now()->year - 50; $i--)
                                                 <option value="{{$i}}">{{$i}}</option>
                                             @endfor
                                         </select>
                                     </div>
-                                    <button type="submit" class="btn btn-danger btn-lg btn-round shadow mt-4 pl-5 pr-5">Search</button>
+                                    <button type="submit" class="btn btn-danger btn-lg btn-round shadow mt-4 pl-5 pr-5">Хайх</button>
                                 </form>
                             </div>
                             <div class="tab-pane fade" id="budget" role="tabpanel" aria-labelledby="auction-tab">
@@ -203,7 +203,7 @@ $itsIntCar=false;
                                     <input name="title" type="text" hidden class="searchTitle">
                                     <div class="form-group">
                                         <select id="vehicleManufacturer2" class="form-control" name="car-manufacturer">
-                                            <option value="" >Manufacturer</option>
+                                            <option value="" >Үйлдвэрлэгч</option>
                                             @getTaxonomys({"filter":[{"field":"taxonomy", "key":"car-manufacturer"}], "returnValue":"manufacturers"})
                                             @foreach($manufacturers as $data)
                                                 <option value="{{$data->term->name}}">{{$data->term->name}}</option>
@@ -212,17 +212,17 @@ $itsIntCar=false;
                                     </div>
                                     <div class="form-group">
                                         <select id="vehicleManufacturerModels2" class="form-control" name="car-model">
-                                            <option value="" >Model</option>
+                                            <option value="" >Модел</option>
                                             {{--//@getTaxonomys({"filter":[{"field":"taxonomy", "key":"model"}], "returnValue":"models"})--}}
                                         </select>
                                     </div>
                                     <div class="form-group">
-                                        <input class="form-control" name="min_price" type="number" placeholder="min-price" aria-label="Search">
+                                        <input class="form-control" name="min_price" type="number" placeholder="Доод үнэ" aria-label="Search">
                                     </div>
                                     <div class="form-group">
-                                        <input class="form-control" name="max_price" type="number" placeholder="max-price" aria-label="Search">
+                                        <input class="form-control" name="max_price" type="number" placeholder="Дээр үнэ" aria-label="Search">
                                     </div>
-                                    <button type="submit" class="btn btn-danger btn-lg btn-round shadow mt-4 pl-5 pr-5">Search</button>
+                                    <button type="submit" class="btn btn-danger btn-lg btn-round shadow mt-4 pl-5 pr-5">Хайх</button>
                                 </form>
                             </div>
                         </div>
@@ -234,7 +234,7 @@ $itsIntCar=false;
                 </div>
                 <a href="#hot-deal" class="js-scroll-trigger discover">
                     <span></span>
-                    <p>Discover more</p>
+                    <p>Машинууд</p>
                 </a>
             </div>
         </div>
@@ -360,7 +360,7 @@ $itsIntCar=false;
                             .find('option')
                             .remove()
                             .end()
-                            .append('<option>Model</option>')
+                            .append('<option>Модел</option>')
                             .val('')
                         ;
                         console.log(modelList.data);
@@ -390,7 +390,7 @@ $itsIntCar=false;
                             .find('option')
                             .remove()
                             .end()
-                            .append('<option>Model</option>')
+                            .append('<option>Модел</option>')
                             .val('')
                         ;
                         console.log(modelList.data);
@@ -420,7 +420,7 @@ $itsIntCar=false;
                             .find('option')
                             .remove()
                             .end()
-                            .append('<option>Model</option>')
+                            .append('<option>Модел</option>')
                             .val('')
                         ;
                         console.log(modelList.data);
@@ -494,11 +494,11 @@ $itsIntCar=false;
             //     url: '/ajax/user/interested_cars/200',
             //     dataType: 'json',
             //     success: function (data) {
-            //         $("#saveToInterested").html('<span class="text-danger"><i class="fas fa-heart"></i> Added to interest list</span>');
+            //         $("#saveToInterested").html('<span class="text-danger"><i class="fas fa-heart"></i> Жаглаастанд нэмэгдсэн</span>');
             //         $("#saveToInterested").prop('disabled', false);
             //     },
             //     error: function (data) {
-            //         $("#saveToInterested").html('<span class=""><i class="far fa-heart"></i> Add to interest list</span>')
+            //         $("#saveToInterested").html('<span class=""><i class="far fa-heart"></i> Жаглаастанд нэмэх</span>')
             //         $("#saveToInterested").prop('disabled', false);
             //     }
             // });
@@ -545,9 +545,9 @@ $itsIntCar=false;
                     },
                     success: function (data) {
                         if (data.status == 'added') {
-                            elm.html('<span class="text-danger"><i class="fas fa-heart"></i> Added to interest list</span>');
+                            elm.html('<span class="text-danger"><i class="fas fa-heart"></i> Жаглаастанд нэмэгдсэн</span>');
                         } else if (data.status == 'removed') {
-                            elm.html('<span class=""><i class="far fa-heart"></i> Add to interest list</span>');
+                            elm.html('<span class=""><i class="far fa-heart"></i> Жаглаастанд нэмэх</span>');
                         }
                     },
                     error: function (error) {

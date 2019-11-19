@@ -18,7 +18,7 @@ class CarConditionsTableSeeder extends Seeder
     {
         Model::unguard();
 
-        $conditions = ['Used', 'New', 'Import'];
+        $conditions = ['Хуучин', 'Шинэ', 'Орж ирсэн'];
 
         $parent = TaxonomyManager::register('Car Conditions', 'car', null, ['metaKey' => 'carCondition']);
 

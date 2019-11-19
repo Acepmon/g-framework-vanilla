@@ -16,7 +16,7 @@ class CarTransmissionTableSeeder extends Seeder
      */
     public function run()
     {
-        $transmission = ['Auto', 'Semi Auto', 'Manual', 'CVT'];
+        $transmission = ['Автомат', 'Хагас автомат', 'Механик', 'CVT'];
 
         $parent = TaxonomyManager::register('Car transmission', 'car', null, ['metaKey' => 'transmission']);
 

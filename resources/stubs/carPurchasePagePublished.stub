@@ -13,19 +13,19 @@
     <div class="card shadow-soft-blue page-top-navbar">
         <div class="mypage-nav">
             <ul>
-                <li class="list-item active"><a href="#">Published purchase</a></li>
-                <li class="list-item "> <a href="/purchase-page-checking">Purchase request checking</a></li>
+                <li class="list-item active"><a href="#">Идвэхтэй purchase</a></li>
+                <li class="list-item "> <a href="/purchase-page-checking">Purchase шалгагдаж байгаа хүсэлт </a></li>
             </ul>
         </div>
     </div>
     <div class="card page-top-navbar border-0 mt-3 bg-transparent">
         <div class="d-flex justify-content-start">
             @contentInline(type=car, author_id=Auth::user()->id, publishType!=free, publishVerified=1, isSold=0, sortDir=request()->input("sortDir", "desc"), sort=request()->input("sort", "updated_at") as $cars | paginate)
-            <span class="total-cars ml-0" >{{count($cars)}} VEHICLES</span>
+            <span class="total-cars ml-0" >НИЙТ{{count($cars)}}</span>
             <div class="sort-cars col-md-9">
                 <ul>
-                    <li class="{{ request('sort')=='updated_at' ?'active':'' }}"><a href="#" onclick="formSubmit('sortBy', 'updated_at', 'sortDir', 'desc')">Recent cars</a></li>
-                    <li class="{{ request('sort')=='priceAmount' ?'active':'' }}"><a href="#" onclick="formSubmit('sortBy', 'priceAmount', 'sortDir', 'asc')">Low price</a></li>
+                    <li class="{{ request('sort')=='updated_at' ?'active':'' }}"><a href="#" onclick="formSubmit('sortBy', 'updated_at', 'sortDir', 'desc')">Сүүлд нэмэгдсэнэр</a></li>
+                    <li class="{{ request('sort')=='priceAmount' ?'active':'' }}"><a href="#" onclick="formSubmit('sortBy', 'priceAmount', 'sortDir', 'asc')">Хямд үнэ</a></li>
                 </ul>
             </div>
         </div>
@@ -66,25 +66,25 @@
                     <div class="info" style="display: inline-block; color:black">
                         <div class="row">
                             <div class="col-md-6">
-                                <p >Started: 2019-10-02</p>
+                                <p >Эхэлсэн: {{substr($published->metaValue("publishVerifiedAt"), 0, 10)}}</p>
                             </div>
                             <div class="col-md-6">
-                                <p>Views: 1200</p>
+                                <p>Үзсэн: {{$published->metaValue("viewed")}}</p>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6">
-                                <p>End: 2019-10-09</p>
+                                <p>Дуусах: {{substr($published->metaValue("publishVerifiedEnd"), 0, 10)}}</p>
                             </div>
                             <div class="col-md-6">
-                                <p>Watch phone: 900</p>
+                                <p>Сонирхсон: {{$published->metaValue("interested")}}</p>
                             </div>
                         </div>
                         <div class="sell-action">
-                            <div onclick="window.open('/edit?id={{$published->id}}');">Edit</div>
-                            <div data-toggle="modal" data-target="#deteleCont" onclick="contsId({{$published->id}})">Delete</div>
-                            <div data-toggle="modal" data-target="#markCont" onclick="contsId({{$published->id}})">Mark as sold</div>
-                            <div data-toggle="modal" data-target="#publishCont" onclick="contsId({{$published->id}})">Unpublish</div>
+                            <div onclick="window.open('/edit?id={{$published->id}}');">Засах</div>
+                            <div data-toggle="modal" data-target="#deteleCont" onclick="contsId({{$published->id}})">Устгах</div>
+                            <div data-toggle="modal" data-target="#markCont" onclick="contsId({{$published->id}})">Зарагдсан</div>
+                            <div data-toggle="modal" data-target="#publishCont" onclick="contsId({{$published->id}})">Идэвхгүй</div>
                         </div>
                     </div>
                 </div>
@@ -102,17 +102,17 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Delete content</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Зарыг устгах</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    Delete this content!!!
+                    Энэ зарыг устгах уу!!!
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="deleteData()">Save changes</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Хаах</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="deleteData()">Устгах</button>
                 </div>
             </div>
         </div>
@@ -122,17 +122,17 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Delete content</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Зарагдсан төлөв</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    Sold this content!!!
+                    Зарагдсан төлөвт шилжүүлэх!!!
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="markChange()">Save changes</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Хаах</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="markChange()">Шилжүүлэх</button>
                 </div>
             </div>
         </div>
@@ -142,17 +142,17 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Delete content</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Идэвхгүй төлөв</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    Unpublish this content!!!
+                    Идэвхгүй төлөвт шилжүүлэх үү!!!
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="statusChange()">Save changes</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Хаах</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="statusChange()">Шилжүүлэх</button>
                 </div>
             </div>
         </div>

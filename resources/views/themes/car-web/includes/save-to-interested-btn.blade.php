@@ -11,11 +11,11 @@
                 url: '/ajax/user/interested_cars/{{ $content->id }}',
                 dataType: 'json',
                 success: function (data) {
-                    $("#saveToInterested").html('<span class="text-danger"><i class="fas fa-heart"></i> Added to interest list</span>');
+                    $("#saveToInterested").html('<span class="text-danger"><i class="fas fa-heart"></i> Жаглаастанд нэмэгдсэн</span>');
                     $("#saveToInterested").prop('disabled', false);
                 },
                 error: function (data) {
-                    $("#saveToInterested").html('<span class=""><i class="far fa-heart"></i> Add to interest list</span>')
+                    $("#saveToInterested").html('<span class=""><i class="far fa-heart"></i> Жаглаастанд нэмэх</span>')
                     $("#saveToInterested").prop('disabled', false);
                 }
             });
@@ -33,11 +33,11 @@
                     },
                     success: function (data) {
                         if (data.status == 'added') {
-                            $("#saveToInterested").html('<span class="text-danger"><i class="fas fa-heart"></i> Added to interest list</span>');
+                            $("#saveToInterested").html('<span class="text-danger"><i class="fas fa-heart"></i> Жаглаастанд нэмэгдсэн</span>');
                             $("#saveToInterested").prop('disabled', false);
                             $("#interestedStat").text(parseInt($("#interestedStat").text()) + 1);
                         } else if (data.status == 'removed') {
-                            $("#saveToInterested").html('<span class=""><i class="far fa-heart"></i> Add to interest list</span>')
+                            $("#saveToInterested").html('<span class=""><i class="far fa-heart"></i> Жаглаастанд нэмэх</span>')
                             $("#saveToInterested").prop('disabled', false);
                             $("#interestedStat").text(parseInt($("#interestedStat").text()) - 1);
                         }

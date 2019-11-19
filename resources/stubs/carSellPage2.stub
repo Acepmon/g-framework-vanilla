@@ -41,16 +41,16 @@ try {
           <div class="card-header">
             <div class="step-process sp-4">
               <div class='progress_inner_step active'>
-                <a class="nav-link" for='step-1' data-toggle="tab" id="tab-step-1" role="tab">Add details</a>
+                <a class="nav-link" for='step-1' data-toggle="tab" id="tab-step-1" role="tab">Ерөнхий мэдээлэл</a>
               </div>
               <div class='progress_inner_step'>
-                <a class="nav-link" for='step-2' data-toggle="tab" id="tab-step-2" role="tab">Upload media</a>
+                <a class="nav-link" for='step-2' data-toggle="tab" id="tab-step-2" role="tab">Зураг болон Видео</a>
               </div>
               <div class='progress_inner_step'>
-                <a class="nav-link" for='step-3' data-toggle="tab" id="tab-step-3" role="tab">Add price</a>
+                <a class="nav-link" for='step-3' data-toggle="tab" id="tab-step-3" role="tab">Үнэ</a>
               </div>
               <div class='progress_inner_step'>
-                <a class="nav-link" for='step-4' data-toggle="tab" id="tab-step-4" role="tab">Publish type</a>
+                <a class="nav-link" for='step-4' data-toggle="tab" id="tab-step-4" role="tab">Зарын төрөл</a>
               </div>
             </div>
           </div>

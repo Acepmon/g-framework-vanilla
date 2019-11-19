@@ -127,7 +127,7 @@
                                         <option {{ ($content->metaValue('modelName') == $taxonomy->term->name)?'selected':'' }}>{{$taxonomy->term->name}}</option>
                                         @endforeach
                                         @else
-                                        <option value="">Model</option>
+                                        <option value="">Модел</option>
                                         @endif
                                     </select>
                                 </div>

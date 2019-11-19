@@ -22,16 +22,16 @@
                 </a>
                 @if(Auth::user() && $car->author_id == Auth::user()->id)
                     <div class="favorite">
-                        <span class=""><i class="fas fa-car"></i> This is your car</span>
+                        <span class=""><i class="fas fa-car"></i> Энэ таны машин</span>
                     </div>
                 @else
                     @if(Auth::user() && count(metaHas(Auth::user(), 'interestedCars', $car->id)->get()) > 0)
                     <div class="favorite" onclick="addToInterest(event, {{$car->id}})">
-                        <span class="text-danger"><i class="fas fa-heart"></i> Added to interest list</span>
+                        <span class="text-danger"><i class="fas fa-heart"></i> Жагсаалтанд нэмэгдсэн</span>
                     </div>
                     @else
                     <div class="favorite" onclick="addToInterest(event, {{$car->id}})">
-                        <span class=""><i class="far fa-heart"></i> Add to interest list</span>
+                        <span class=""><i class="far fa-heart"></i> Жагсаалтанд нэмэх</span>
                     </div>
                     @endif
                 @endif
@@ -58,7 +58,7 @@
                     <p>{{ $car->metaValue('axleCount') }} WD</p>
                 </span>
                 <span class="info-icon color" data-color="{{ strtolower($car->metaValue('colorName')) }}">
-                    <p>{{ ucfirst($car->metaValue('colorName')) }}</p>
+                    <p>{{ ucfirst(\App\Term::where('name', $car->metaValue('colorName'))->first()->metaValue('value')) }}</p>
                 </span>
 
                 <div class="advantage-slider owl-carousel owl-theme">

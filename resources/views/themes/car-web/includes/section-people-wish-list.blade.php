@@ -2,9 +2,9 @@
     <div class="container">
         <div class="row">
             <div class="section-title">
-                <h2>People's wish list</h2>
+                <h2>Авъя гэнээ</h2>
                 <span>
-            <a href="/wishlist">See all ( @contentsTotal({"filter":[{"field":"type", "key":"wanna-buy"}, {"field":"status", "key":"published"}, {"field":"visibility", "key":"public"}]}) ) <i class="fab fa fa-angle-right"></i></a>
+            <a href="/wishlist">Бүгдийг харах ( @contentsTotal({"filter":[{"field":"type", "key":"wanna-buy"}, {"field":"status", "key":"published"}, {"field":"visibility", "key":"public"}]}) ) <i class="fab fa fa-angle-right"></i></a>
 
           </span>
             </div>
@@ -39,7 +39,7 @@
                          <div class="wish-card cd-box">
                         <div class="card-body">
                             <h2 class="title">
-                            {{$wannaBuyData->title}} авна</h2>
+                            {{$wannaBuyData->title}} авъя</h2>
                             <div class="wish-detail">
                             <div class="price">{{numerizePrice((getMetasValue($wannaBuyData->metas,'priceAmountStart')))}} ~ {{numerizePrice((getMetasValue($wannaBuyData->metas,'priceAmountEnd')))}}</div>
                             </div>

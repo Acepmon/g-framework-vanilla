@@ -3,9 +3,9 @@
 
         <div class="row">
             <div class="section-title">
-                <h2>Normal cars</h2>
+                <h2>Бусад машинууд</h2>
                 <span>
-            <a href="/buy">See all ( @contentsTotal({"filter":[{"field":"type", "key":"car"}, {"field":"status", "key":"published"}, {"field":"visibility", "key":"public"}]}) ) <i class="fab fa fa-angle-right"></i></a>
+            <a href="/buy">Бүгдийг харах ( @contentsTotal({"filter":[{"field":"type", "key":"car"}, {"field":"status", "key":"published"}, {"field":"visibility", "key":"public"}]}) ) <i class="fab fa fa-angle-right"></i></a>
           </span>
             </div>
             <div class="car-list">
@@ -64,7 +64,7 @@
 
                 </div>
                 <div class="row">
-                    <a class="btn btn-danger btn-round shadow-red mx-auto my-3 px-5" href="/buy">See all vehicles</a>
+                    <a class="btn btn-danger btn-round shadow-red mx-auto my-3 px-5" href="/buy">Бүх машинууд</a>
                 </div>
             </div>
         </div>

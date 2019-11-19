@@ -20,12 +20,8 @@ class ContentMetaObserver
         //     TaxonomyManager::incrementCount($contentMeta->key, $contentMeta->value);
         // }
 
-        if ($contentMeta->key == 'startsAt') {
-            $duration = $contentMeta->content->metaValue('publishDuration');
-            if ($duration) {
-                $contentMeta->content->updateMeta('endsAt', $this->validate('endsAt', $contentMeta->value . ' +' . $duration . ' days'));
-            }
-        }
+        $this->calculateDays($contentMeta, 'startsAt', 'endsAt', 'publishDuration');
+        $this->calculateDays($contentMeta, 'publishVerifiedAt', 'publishVerifiedEnd', 'publishDuration');
     }
 
     public function updating(ContentMeta $contentMeta)
@@ -37,12 +33,8 @@ class ContentMetaObserver
         //     TaxonomyManager::incrementCount($contentMeta->key, $contentMeta->value);
         // }
 
-        if ($contentMeta->key == 'startsAt') {
-            $duration = $contentMeta->content->metaValue('publishDuration');
-            if ($duration) {
-                $contentMeta->content->updateMeta('endsAt', $this->validate('endsAt', $contentMeta->value . ' +' . $duration . ' days'));
-            }
-        }
+        $this->calculateDays($contentMeta, 'startsAt', 'endsAt', 'publishDuration');
+        $this->calculateDays($contentMeta, 'publishVerifiedAt', 'publishVerifiedEnd', 'publishDuration');
     }
 
     public function deleting(ContentMeta $contentMeta)
@@ -51,6 +43,15 @@ class ContentMetaObserver
         // if ($content->status == Content::STATUS_PUBLISHED && $content->visibility == Content::VISIBILITY_PUBLIC) {
         //     TaxonomyManager::decrementCount($contentMeta->key, $contentMeta->value);
         // }
+    }
+
+    public function calculateDays($contentMeta, $startsAt, $endsAt, $duration) {
+        if ($contentMeta->key == $startsAt) {
+            $duration = $contentMeta->content->metaValue($duration);
+            if ($duration) {
+                $contentMeta->content->updateMeta($endsAt, $this->validate('endsAt', $contentMeta->value . ' +' . $duration . ' days'));
+            }
+        }
     }
 
     public function validate($key, $value) {

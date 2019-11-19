@@ -5,7 +5,7 @@
             <div class="section-title">
                 <h2>{{ $title }}</h2>
                 <span>
-                    <a href="{{ $morelink }}">See all ({{ count($contents) }}) <i class="fab fa fa-angle-right"></i></a>
+                    <a href="{{ $morelink }}">Бүгдийг харах ({{ count($contents) }}) <i class="fab fa fa-angle-right"></i></a>
                 </span>
             </div>
             <div class="card-slide owl-carousel owl-theme">

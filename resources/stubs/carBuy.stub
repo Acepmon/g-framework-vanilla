@@ -25,7 +25,7 @@ Car dealer
       <div class="col-lg-3 col-md-4">
         <input type="hidden" name="search" id="search">
         <form action="{{ url('search') }}" id="searchForm">
-          <div class="left-bar-title"><h3>Vehicle search</h3>
+          <div class="left-bar-title"><h3>Хайлт хийх</h3>
             <div class="mh-search-input">
               <input class="search" type="search" placeholder="Search" aria-label="Search" name="search" id="searchInput">
               <button type="button" class="search-button" id="searchBtn">
@@ -94,7 +94,7 @@ Car dealer
 <!-- Banner end -->
 
 <!-- Hot deal Grid -->
-@include('themes.car-web.includes.section-slider', array('title'=>'Hot Deal', 'contents'=>\App\Content::getByMetas('publishType', 'best_premium')->where('status', \App\Content::STATUS_PUBLISHED)->where('visibility', \App\Content::VISIBILITY_PUBLIC)->get(), 'morelink'=>url('/buy?publishType=best_premium')))
+@include('themes.car-web.includes.section-slider', array('title'=>'Шилдэг зарууд', 'contents'=>\App\Content::getByMetas('publishType', 'best_premium')->where('status', \App\Content::STATUS_PUBLISHED)->where('visibility', \App\Content::VISIBILITY_PUBLIC)->get(), 'morelink'=>url('/buy?publishType=best_premium')))
 <!-- Hot deal End -->
 @endsection
 
