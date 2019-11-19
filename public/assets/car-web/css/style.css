@@ -4665,7 +4665,7 @@ section .owl-carousel .owl-nav button.owl-next, section .owl-carousel .owl-nav b
 }
 
 .my-profile .pro-img {
-  height: 90px;
+  height: auto;
   width: 90px;
   border: 4px solid #fff;
   border-radius: 100%;
@@ -4681,6 +4681,9 @@ section .owl-carousel .owl-nav button.owl-next, section .owl-carousel .owl-nav b
   font-weight: 600;
   font-size: 1.2rem;
   color: #2B3651;
+  max-width: 120px;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 .my-profile .pro-detail .edit a {
