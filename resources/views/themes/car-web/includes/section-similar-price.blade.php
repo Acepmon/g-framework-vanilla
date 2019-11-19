@@ -5,7 +5,7 @@
             <div class="section-title">
                 <h2>Similar price</h2>
                 <span>
-                    <a href="/buy">See all ({{ count($contents) }})</a>
+                    <a href="/buy">Бүгдийг харах ({{ count($contents) }})</a>
                     <div class="more-arrow"></div>
                 </span>
             </div>

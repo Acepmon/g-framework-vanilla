@@ -21,7 +21,7 @@
     <div class="card page-top-navbar border-0 mt-3 bg-transparent">
         <div class="d-flex justify-content-start">
             @contentInline(type=car, author_id=Auth::user()->id, isSold=1, sortDir=request()->input("sortDir", "desc"), sort=request()->input("sort", "updated_at") as $solds | paginate)
-            <span class="total-cars ml-0" >{{ count($solds) }} МАШИН</span>
+            <span class="total-cars ml-0" >НИЙТ {{ count($solds) }}</span>
             <div class="sort-cars col-md-9">
                 <ul>
                     <li class="{{ request('sort')=='updated_at' ?'active':'' }}"><a href="#" onclick="formSubmit('sortBy', 'updated_at', 'sortDir', 'desc')">Сүүлд нийтлэгдсэн</a></li>
@@ -78,7 +78,7 @@
                 <p>{{$sold->metaValue("colorName")}}</p>
                 </span>
                     <div class="sell-action">
-                        <div onclick="window.open('/edit?id={{$sold->id}}');">Засварлах</div>
+                        <div onclick="window.open('/edit?id={{$sold->id}}');">Засах</div>
                         <div data-toggle="modal" data-target="#deteleCont" onclick="contsId({{$sold->id}})">Устгах</div>
                         <div data-toggle="modal" data-target="#markCont" onclick="contsId({{$sold->id}})">Зарах төлөв</div>
                     </div>
