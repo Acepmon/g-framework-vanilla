@@ -16,12 +16,19 @@ class CarTypeTableSeeder extends Seeder
      */
     public function run()
     {
-        $carTypes = ['Суудлын тэрэг', 'Жийп (SUV)', 'Спорт', 'Ачааны машин', 'Бага оврын тээвэрлэгч (Vans)', 'Автобус'];
+        $carTypes = [
+            'Sedan' => ['value' => 'Суудлын'], 
+            'SUV' => ['value' => 'Том тэрэг'], 
+            'Sport' => ['value' => 'Спорт'], 
+            'Truck' => ['value' => 'Хүнд ММ'], 
+            'Van' => ['value' => 'Ачааны'], 
+            'Bus' => ['value' => 'Автобус']
+        ];
 
         $parent = TaxonomyManager::register('Car Type', 'car', null, ['metaKey' => 'carType']);
 
-        foreach ($carTypes as $key => $type) {
-            TaxonomyManager::register($type, 'car-type', $parent->term->id);
+        foreach ($carTypes as $type => $metas) {
+            TaxonomyManager::register($type, 'car-type', $parent->term->id, $metas);
         }
 
         TaxonomyManager::updateTaxonomyChildrenSlugs($parent->id);

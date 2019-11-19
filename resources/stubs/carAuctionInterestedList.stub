@@ -13,8 +13,8 @@
     <div class="card shadow-soft-blue page-top-navbar">
         <div class="mypage-nav">
         <ul>
-            <li class="list-item "><a href="/interested-car?sort=updated_at">Interested cars</a></li>
-            <li class="list-item active"> <a href="#">Interested Auctions</a></li>
+            <li class="list-item "><a href="/interested-car?sort=updated_at">Таалагдсан машинууд</a></li>
+            <li class="list-item active"> <a href="#">Таалагдсан машинууд /дуудлага худалдаа/</a></li>
         </ul>
         </div>
     </div>
@@ -24,8 +24,8 @@
             <span class="total-cars ml-0" >{{count($cars)}} VEHICLES</span>
             <div class="sort-cars col-md-9">
                 <ul>
-                    <li class="{{ request('sort')=='updated_at' ?'active':'' }}"><a href="#" onclick="formSubmit('sortBy', 'updated_at', 'sortDir', 'desc')">Recent cars</a></li>
-                    <li class="{{ request('sort')=='priceAmount' ?'active':'' }}"><a href="#" onclick="formSubmit('sortBy', 'priceAmount', 'sortDir', 'asc')">Low price</a></li>
+                    <li class="{{ request('sort')=='updated_at' ?'active':'' }}"><a href="#" onclick="formSubmit('sortBy', 'updated_at', 'sortDir', 'desc')">Сүүлд нэмэгдсэнээр</a></li>
+                    <li class="{{ request('sort')=='priceAmount' ?'active':'' }}"><a href="#" onclick="formSubmit('sortBy', 'priceAmount', 'sortDir', 'asc')">Үнэ хямдаар</a></li>
                 </ul>
             </div>
         </div>
@@ -53,9 +53,9 @@
                     </a>
                     <div class="favorite addToInterest" data-target="{{ $car->id }}">
                         @if(Auth::user() && count(metaHas(Auth::user(), 'interestedCars', $car->id)->get()) > 0)
-                            <span class="text-danger"><i class="fas fa-heart"></i> Added to interest list</span>
+                            <span class="text-danger"><i class="fas fa-heart"></i> Сонирхосон машины жагсаалтанд нэмэгдсэн</span>
                         @else
-                            <span class=""><i class="far fa-heart"></i> Add to interest list</span>
+                            <span class=""><i class="far fa-heart"></i> Сонирхосон машины жагсаалтанд нэмэх</span>
                         @endif
                     </div>
                 </div>

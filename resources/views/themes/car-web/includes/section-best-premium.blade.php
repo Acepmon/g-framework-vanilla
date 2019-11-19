@@ -2,9 +2,9 @@
     <div class="container">
         <div class="row">
             <div class="section-title">
-                <h2>Our best</h2>
+                <h2>Шилдэг зарууд</h2>
                 <span>
-            <a href="/buy?best_premium=true">See all<i class="fab fa fa-angle-right"></i></a>
+            <a href="/buy?best_premium=true">Бүгдийг харах<i class="fab fa fa-angle-right"></i></a>
           </span>
             </div>
         </div>

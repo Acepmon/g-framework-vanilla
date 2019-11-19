@@ -39,7 +39,7 @@
                                 </div>
                             </div>
                         @else
-                            <a class="btn btn-danger btn-round my-2 my-sm-0 px-5" href="{{ url('/login') }}">Login</a>
+                            <a class="btn btn-danger btn-round my-2 my-sm-0 px-5" href="{{ url('/login') }}">Нэвтрэх</a>
                         @endauth
                     </li>
                 </ul>
@@ -62,12 +62,12 @@
                     @endforeach
 
                     @auth
-                        <li class="maz-menu-item"><a  class="btn btn-warning btn-sm btn-round px-3" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a></li>
+                        <li class="maz-menu-item"><a  class="btn btn-warning btn-sm btn-round px-3" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Гарах</a></li>
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                             @csrf
                         </form>
                     @else
-                        <li class="maz-menu-item"><a  class="btn btn-warning btn-sm btn-round px-3" href="{{ url('/register') }}">Sign Up</a></li>
+                        <li class="maz-menu-item"><a  class="btn btn-warning btn-sm btn-round px-3" href="{{ url('/register') }}">Бүртгүүлэх</a></li>
                     @endauth
                 </ul>
             </div>

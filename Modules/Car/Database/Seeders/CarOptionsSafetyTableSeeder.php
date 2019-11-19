@@ -17,7 +17,7 @@ class CarOptionsSafetyTableSeeder extends Seeder
     public function run()
     {
         $safeties = ['Цахилгаан зогсоолын тоормос' => ['metaKey' => 'optionSafetyElectricParkingBrake'], 
-            'ABS' => ['metaKey' => 'optionSafetyABS'], 
+            'Эй Би Эс (ABS)' => ['metaKey' => 'optionSafetyABS'], 
             'Ухаалаг зогсоол : Урд' => ['metaKey' => 'optionSafetyParkingSenseFront'], 
             'Ухаалаг зогсоол : Хойд' => ['metaKey' => 'optionSafetyParkingSenseRear'], 
             'Камер : Хажуу' => ['metaKey' => 'optionSafetyCameraSide'], 

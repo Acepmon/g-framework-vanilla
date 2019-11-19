@@ -1,8 +1,8 @@
 <form id="step-3-price" class="maz-form">
-    <div class="form-title"><span>Sell price </span></div>
+    <div class="form-title"><span>Зарах үнэ </span></div>
     <div class="form-row">
         <div class="form-group col-md-7">
-            <label for="durationDay">Price</label>
+            <label for="durationDay">Үнэ</label>
             <br>
             <h5>
                 <p class="text-secondary"><small>This is popular price of your car. You can tap to change price</small></p>
@@ -15,7 +15,7 @@
                 <div class="input-group-text-right">Сая ₮</div>
             </div>
             <span id="reserve-priceAlert" class="invalid-feedback" role="alert" style="display: none">
-                Please choose your price
+                Үнээ сонгоно уу
             </span>
         </div>
     </div>
@@ -42,12 +42,12 @@
 
     @if(isset($edit) && $edit)
     <div style="float:left;" class="mt-5">
-        <button class="btn btn-success btn-round shadow-green px-5 py-2" type="button" id="saveBtn" onclick="save()">Save</button>
+        <button class="btn btn-success btn-round shadow-green px-5 py-2" type="button" id="saveBtn" onclick="save()">Хадгалах</button>
     </div>
     @endif
     <div style="float:right;" class="mt-5">
-        <button class="btn btn-light btn-round px-5 py-2 mr-3" type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
-        <button class="btn btn-danger btn-round shadow-red px-5 py-2" type="button" id="nextBtn" onclick="{{ (isset($edit) && $edit)?'nextPrev(1)':'step3Submit(()=>{})' }}">Next</button>
+        <button class="btn btn-light btn-round px-5 py-2 mr-3" type="button" id="prevBtn" onclick="nextPrev(-1)">Өмнөх</button>
+        <button class="btn btn-danger btn-round shadow-red px-5 py-2" type="button" id="nextBtn" onclick="{{ (isset($edit) && $edit)?'nextPrev(1)':'step3Submit(()=>{})' }}">Дараах</button>
     </div>
 </form>
 <script>

@@ -2,9 +2,11 @@
 
 namespace Modules\Car\Http\Controllers\Admin;
 
+use App\Entities\ContentManager;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\DB;
 
 use App\Content;
 
@@ -16,31 +18,29 @@ class CarBestPremiumController extends Controller
      */
     public function index()
     {
-        $published = Content::where('type', 'car')->where('status', Content::STATUS_PUBLISHED)->whereHas('metas', function ($query) {
+        $common = Content::where('type', 'car')->whereHas('metas', function($query) {
             $query->where('key', 'publishType');
             $query->where('value', 'best_premium');
-        })->whereHas('metas', function ($query) {
+        })->whereDoesntHave('metas', function ($query) {
             $query->where('key', 'isAuction');
-            $query->where('value', '0');
-        })->orderBy('visibility', 'desc')->get();
+            $query->where('value', '1');
+        });
+        
+        $request = clone $common;
+        $published = clone $common;
+        $pending = clone $common;
+        $draft = clone $common;
 
-        $pending = Content::where('type', 'car')->where('status', Content::STATUS_DRAFT)->whereHas('metas', function ($query) {
-            $query->where('key', 'publishType');
-            $query->where('value', 'best_premium');
-        })->whereHas('metas', function ($query) {
-            $query->where('key', 'isAuction');
-            $query->where('value', '0');
-        })->orderBy('visibility', 'desc')->get();
-
-        $draft = Content::where('type', 'car')->where('status', Content::STATUS_PUBLISHED)->whereHas('metas', function ($query) {
-            $query->where('key', 'publishType');
-            $query->where('value', 'best_premium');
-        })->whereHas('metas', function ($query) {
-            $query->where('key', 'isAuction');
-            $query->where('value', '0');
-        })->orderBy('visibility', 'desc')->get();
+        $request = $request->where('status', Content::STATUS_PUBLISHED)->where('visibility', Content::VISIBILITY_PUBLIC)->whereDoesntHave('metas', function($query) {
+            $query->where('key', 'publishVerified');
+            $query->where('value', '1');
+        })->get();
+        $published = $published->where('status', Content::STATUS_PUBLISHED)->orderBy('visibility', 'desc')->get();
+        $pending = $pending->where('status', Content::STATUS_PENDING)->orderBy('visibility', 'desc')->get();
+        $draft = $draft->where('status', Content::STATUS_DRAFT)->orderBy('visibility', 'desc')->get();
 
         $contents = [
+            'Requests' => $request,
             Content::STATUS_PUBLISHED => $published,
             Content::STATUS_PENDING => $pending,
             Content::STATUS_DRAFT => $draft,
@@ -97,6 +97,22 @@ class CarBestPremiumController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $content = Content::findOrFail($id);
+
+        try {
+            DB::beginTransaction();
+            $data = ContentManager::discernMetasFromRequest($request->input());
+            if ($data['publishVerified']) {
+                $data['publishVerifiedAt'] = now();
+            }
+            ContentManager::syncMetas($content->id, $data);
+
+            DB::commit();
+            return redirect()->route('admin.modules.car.best_premium.index');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->route('admin.modules.car.best_premium.index');
+        }
     }
 
     /**

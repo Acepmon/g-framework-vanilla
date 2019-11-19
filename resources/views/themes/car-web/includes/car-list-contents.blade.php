@@ -69,16 +69,16 @@ if ($itemCount < $page * $itemsPerPage) {
         </div>
     @endif
     <div class="d-flex justify-content-start">
-        <span class="total-cars">{{ count($items) }} VEHICLES</span>
+        <span class="total-cars">Нийт {{ count($items) }}</span>
         <input type="hidden" name="orderBy" id="orderBy" value="{{ $orderBy }}" />
         <input type="hidden" name="publishType" id="publishType" value="{{ $request['publishType'] }}" />
 
     <div class="sort-cars">
     <ul>
-        <li class="{{ ($orderBy=='updated_at')?'active':'' }}"><a href="#" onclick="formSubmit('orderBy', 'updated_at')">Recent cars</a></li>
-        <li class="{{ ($orderBy=='buildYear')?'active':'' }}"><a href="#" onclick="formSubmit('orderBy', 'buildYear')">Product year</a></li>
-        <li class="{{ ($orderBy=='importDate')?'active':'' }}"><a href="#" onclick="formSubmit('orderBy', 'importDate')">Income year</a></li>
-        <li class="{{ ($orderBy=='priceAmount')?'active':'' }}"><a href="#" onclick="formSubmit('orderBy', 'priceAmount')">Low price</a></li>
+        <li class="{{ ($orderBy=='updated_at')?'active':'' }}"><a href="#" onclick="formSubmit('orderBy', 'updated_at')">Сүүлд нийтлэгдсэн</a></li>
+        <li class="{{ ($orderBy=='buildYear')?'active':'' }}"><a href="#" onclick="formSubmit('orderBy', 'buildYear')">Үйлдвэрлэгдсэн он</a></li>
+        <li class="{{ ($orderBy=='importDate')?'active':'' }}"><a href="#" onclick="formSubmit('orderBy', 'importDate')">Орж ирсэн он</a></li>
+        <li class="{{ ($orderBy=='priceAmount')?'active':'' }}"><a href="#" onclick="formSubmit('orderBy', 'priceAmount')">Хямд үнэ</a></li>
     </ul>
     </div>
 </div>
@@ -98,7 +98,7 @@ if ($itemCount < $page * $itemsPerPage) {
 </div>
 @else
 <div class="text-center text-muted col-lg-12 mt-3">
-<p>No results found</p>
+<p>Үр дүн олдсонгүй</p>
 </div>
 @endif
 
@@ -141,9 +141,9 @@ function addToInterest(event, value) {
       },
       success: function (data) {
         if (data.status == 'added') {
-          target.innerHTML = '<span class="text-danger"><i class="fas fa-heart"></i> Added to interest list</span>';
+          target.innerHTML = '<span class="text-danger"><i class="fas fa-heart"></i> Жагсаалтанд нэмэгдсэн</span>';
         } else if (data.status == 'removed') {
-          target.innerHTML = '<span class=""><i class="far fa-heart"></i> Add to interest list</span>';
+          target.innerHTML = '<span class=""><i class="far fa-heart"></i> Жагсаалтанд нэмэх</span>';
         }
       },
       error: function (error) {

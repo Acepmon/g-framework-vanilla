@@ -209,10 +209,17 @@ class GframeworkServiceProvider extends ServiceProvider
                     $contents = $contents . $pointer . $this->where($filter['field'], $filter['operator'], $filter['value']);
                 }
             } else {
-                $contents = $contents . $pointer . $this->whereHas('metas', [
+                if ($filter['operator'] == 'not') {
+                    $contents = $contents . $pointer . $this->whereDoesntHave('metas', [
+                        'key' => $filter['field'],
+                        'value' => ['=' => $filter['value']]
+                    ]);
+                } else {
+                    $contents = $contents . $pointer . $this->whereHas('metas', [
                         'key' => $filter['field'],
                         'value' => [$filter['operator'] => $filter['value']]
                     ]);
+                }
             }
         }
         
@@ -311,7 +318,7 @@ class GframeworkServiceProvider extends ServiceProvider
     }
 
     private function parseFilter($filter) {
-        $operators = ['>=', '<=', '!=', '=', ' in ', '>', '<'];
+        $operators = ['>=', '<=', '!=', '=', ' in ', ' not ', '>', '<'];
         $ignore = '->';
 
         $ignoredFilter = str_replace($ignore, "##", $filter);
@@ -356,8 +363,8 @@ class GframeworkServiceProvider extends ServiceProvider
         return "'" . $value . "'";
     }
 
-    private function whereHas($table, $queries = array()) {
-        $part1 = "whereHas('" . $table . "', function ($"."query) {";
+    private function whereHas($table, $queries = array(), $where = 'Has') {
+        $part1 = "where" . $where . "('" . $table . "', function ($"."query) {";
         $part2 = "";
         $part3 = "";
 
@@ -386,6 +393,10 @@ class GframeworkServiceProvider extends ServiceProvider
         }
         $part3 = $part3 . "})";
         return $part1 . $part2 . $part3;
+    }
+
+    private function whereDoesntHave($table, $queries = array()) {
+        return $this->whereHas($table, $queries, 'DoesntHave');
     }
 
     private function whereRawHas($table, $queries = array()) {

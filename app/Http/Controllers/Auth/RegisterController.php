@@ -177,7 +177,7 @@ class RegisterController extends Controller
         return redirect($this->redirectPath());
     }
     
-    public function registerUserFromSocialite(User $user, $provider) {
+    public function registerUserFromSocialite($user, $provider) {
         $existingUser = User::where('email', $user->getEmail())->first();
 
         if ($existingUser) {

@@ -13,19 +13,19 @@
     <div class="card shadow-soft-blue page-top-navbar">
         <div class="mypage-nav">
             <ul>
-            <li class="list-item "><a href="/sell-page-on-sell">On sell</a></li>
-            <li class="list-item active"> <a href="#">Sold</a></li>
+            <li class="list-item "><a href="/sell-page-on-sell">Идвэхтэй</a></li>
+            <li class="list-item active"> <a href="#">Зарагдсан</a></li>
             </ul>
         </div>
     </div>
     <div class="card page-top-navbar border-0 mt-3 bg-transparent">
         <div class="d-flex justify-content-start">
             @contentInline(type=car, author_id=Auth::user()->id, isSold=1, sortDir=request()->input("sortDir", "desc"), sort=request()->input("sort", "updated_at") as $solds | paginate)
-            <span class="total-cars ml-0" >{{ count($solds) }} VEHICLES</span>
+            <span class="total-cars ml-0" >{{ count($solds) }} МАШИН</span>
             <div class="sort-cars col-md-9">
                 <ul>
-                    <li class="{{ request('sort')=='updated_at' ?'active':'' }}"><a href="#" onclick="formSubmit('sortBy', 'updated_at', 'sortDir', 'desc')">Recent cars</a></li>
-                    <li class="{{ request('sort')=='priceAmount' ?'active':'' }}"><a href="#" onclick="formSubmit('sortBy', 'priceAmount', 'sortDir', 'asc')">Low price</a></li>
+                    <li class="{{ request('sort')=='updated_at' ?'active':'' }}"><a href="#" onclick="formSubmit('sortBy', 'updated_at', 'sortDir', 'desc')">Сүүлд нийтлэгдсэн</a></li>
+                    <li class="{{ request('sort')=='priceAmount' ?'active':'' }}"><a href="#" onclick="formSubmit('sortBy', 'priceAmount', 'sortDir', 'asc')">Хямд үнэ</a></li>
                 </ul>
             </div>
         </div>
@@ -78,9 +78,9 @@
                 <p>{{$sold->metaValue("colorName")}}</p>
                 </span>
                     <div class="sell-action">
-                        <div onclick="window.open('/edit?id={{$sold->id}}');">Edit</div>
-                        <div data-toggle="modal" data-target="#deteleCont" onclick="contsId({{$sold->id}})">Delete</div>
-                        <div data-toggle="modal" data-target="#markCont" onclick="contsId({{$sold->id}})">Back to sell</div>
+                        <div onclick="window.open('/edit?id={{$sold->id}}');">Засварлах</div>
+                        <div data-toggle="modal" data-target="#deteleCont" onclick="contsId({{$sold->id}})">Устгах</div>
+                        <div data-toggle="modal" data-target="#markCont" onclick="contsId({{$sold->id}})">Зарах төлөв</div>
                     </div>
 
                     </div>
@@ -97,17 +97,17 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Delete content</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Зарыг устгах</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    Delete this content!!!
+                    Энэ зарыг устгах уу!!!
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="deleteData()">Save changes</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Хаах</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="deleteData()">Устгах</button>
                 </div>
             </div>
         </div>
@@ -117,17 +117,17 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Delete content</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Зарах төлөвт шилжүүлэх</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    Sold this content!!!
+                    Энэ машиныг зарах төлөвт шилжүүлэх үү!!!
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="markChange()">Save changes</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Хаах</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="markChange()">Шилжүүлэх</button>
                 </div>
             </div>
         </div>
