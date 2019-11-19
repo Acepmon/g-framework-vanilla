@@ -93,8 +93,8 @@
 
     <!-- NEXT PREV BUTTON START -->
     <div style="float:right;" class="mt-5">
-        <button class="btn btn-light btn-round px-5 py-2 mr-3" type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
-        <button class="btn btn-danger btn-round shadow-red px-5 py-2" type="button" id="nextBtn" onclick="submitStep4()">Finish</button>
+        <button class="btn btn-light btn-round px-5 py-2 mr-3" type="button" id="prevBtn" onclick="nextPrev(-1)">Өмнөх</button>
+        <button class="btn btn-danger btn-round shadow-red px-5 py-2" type="button" id="nextBtn" onclick="submitStep4()">Нийтлэх</button>
     </div>
     </div>
 </form>
@@ -203,7 +203,7 @@ $("input").click(function(){
                     paramObjs.publishDuration=item;
                 }
             }
-            paramObjs.publishTotalPriceAmount=parseInt(paramObjs.publishAmount);
+            paramObjs.publishTotalPriceAmount=parseInt(paramObjs.publishAmount) * paramObjs.publishDuration;
         }
         $.ajax({
             type: 'PUT',

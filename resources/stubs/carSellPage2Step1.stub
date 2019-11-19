@@ -1,7 +1,7 @@
 <form id="form-1" class="maz-form">
-    <div class="form-title"><span>General information </span></div>
+    <div class="form-title"><span>Ерөнхий Мэдээлэл </span></div>
     <div class="form-group">
-        <label for="carType">Select Car type:</label>
+        <label for="carType">Машины төрөл:</label>
         <div class="grid-radio">
             <div class="cd-radio">
                 <input type="radio" id="sedan" name="carType" value="Sedan" class="custom-control-input" checked>
@@ -34,7 +34,7 @@
     </div>
     <div class="form-row">
         <div class="form-group col-md-6">
-            <label for="Manufacturer">Manufacturer:</label>
+            <label for="Manufacturer">Үйлдвэрлэгч:</label>
             <select id="manufacturerSelect" name="markName" class="form-control" required>
                 <option value="">Manufacturer</option>
                 @foreach(\App\TermTaxonomy::where('taxonomy', 'car-manufacturer')->get() as $taxonomy)
@@ -42,22 +42,22 @@
                 @endforeach
             </select>
             <span id="manufacturerSelectAlert" class="invalid-feedback" role="alert" style="display: none">
-                Please choose your manufacturer
+                Үйлдвэрлэгчээ сонгоно уу
             </span>
         </div>
         <div class="form-group col-md-6">
-            <label for="Model">Model:</label>
+            <label for="Model">Загвар:</label>
             <select id="modelSelect" name="modelName" class="form-control" required>
                 <option value="{{ $taxonomy->term->name?$taxonomy->term->name:'' }}">{{ $car->metaValue('modelName')?$car->metaValue('modelName'):'Model' }}</option>
             </select>
             <span id="modelSelectAlert" class="invalid-feedback" role="alert" style="display: none">
-                Please choose your model
+                Загвараа сонгоно уу
             </span>
         </div>
     </div>
     <div class="form-row">
         <div class="form-group col-md-6">
-            <label for="carcondition">Car condition:</label>
+            <label for="carcondition">Машины нөхцөл:</label>
             <select id="carcondition" name="carCondition" class="form-control">
                 <option value="" selected>Choose...</option>
                 @foreach(App\TermTaxonomy::where('taxonomy', 'car-conditions')->get() as $taxonomy)
@@ -66,7 +66,7 @@
             </select>
         </div>
         <div class="form-group col-md-6">
-            <label for="Color">Exterior Color:</label>
+            <label for="Color">Өнгө:</label>
             <select id="Color" name="colorName" class="form-control">
                 <option value="" selected>Choose...</option>
                 @foreach(App\TermTaxonomy::where('taxonomy', 'car-colors')->get() as $taxonomy)
@@ -77,7 +77,7 @@
     </div>
     <div class="form-row">
         <div class="form-group col-md-6">
-            <label for="yearProduct">Year of Product:</label>
+            <label for="yearProduct">Үйлдвэрлэгдсэн он:</label>
             <select id="yearProduct" name="buildYear" class="form-control">
                 <option value="" selected>Choose...</option>
                 @for($i=date('Y'); $i>=1990; $i--)
@@ -86,7 +86,7 @@
             </select>
         </div>
         <div class="form-group col-md-6">
-            <label for="yearEntry">Year of Entry:</label>
+            <label for="yearEntry">Орж ирсэн он:</label>
             <select id="yearEntry" name="importDate" class="form-control">
                 <option value="" selected>Choose...</option>
                 @for($i=date('Y'); $i>=1990; $i--)
@@ -97,7 +97,7 @@
     </div>
     <div class="form-row">
         <div class="form-group col-md-6">
-            <label for="capacityAmount">Displacement:</label>
+            <label for="capacityAmount">Моторын хэмжээ:</label>
             <div class="input-group">
                 <input type="number" min="0" class="form-control" id="capacityAmount" name="capacityAmount" placeholder="Displacement" value="{{ $car->metaValue('capacityAmount') }}">
                 <input type="hidden" class="form-control" id="capacityUnit" name="capacityUnit" value="cc">
@@ -108,11 +108,11 @@
         </div>
     </div>
 
-    <div class="form-title"><span>More information </span></div>
+    <div class="form-title"><span>Дэлгэрэнгүй мэдээлэл </span></div>
 
     <div class="form-row">
         <div class="form-group col-md-6">
-            <label for="transmission">Transmission:</label>
+            <label for="transmission">Араа:</label>
             <select id="transmission" name="transmission" class="form-control">
                 <option value="" selected>Choose...</option>
                 @foreach(App\TermTaxonomy::where('taxonomy', 'car-transmission')->get() as $taxonomy)
@@ -121,7 +121,7 @@
             </select>
         </div>
         <div class="form-group col-md-6">
-            <label for="wheelPosition">Steering wheel:</label>
+            <label for="wheelPosition">Жолооны хүрд:</label>
             <select id="wheelPosition" name="wheelPosition" class="form-control">
                 <option value="" selected>Choose...</option>
                 @foreach(App\TermTaxonomy::where('taxonomy', 'car-wheel-pos')->get() as $taxonomy)
@@ -132,7 +132,7 @@
     </div>
     <div class="form-row">
         <div class="form-group col-md-6">
-            <label for="manCount">Seating:</label>
+            <label for="manCount">Суудал:</label>
             <select id="manCount" name="manCount" class="form-control">
                 <option value="" selected>Choose...</option>
                 @foreach(App\TermTaxonomy::where('taxonomy', 'car-mancount')->get() as $taxonomy)
@@ -141,7 +141,7 @@
             </select>
         </div>
         <div class="form-group col-md-6">
-            <label for="manCount">Door:</label>
+            <label for="manCount">Хаалга:</label>
             <select id="manCount" name="doorCount" class="form-control">
                 <option value="" selected>Choose...</option>
                 @foreach(App\TermTaxonomy::where('taxonomy', 'door-count')->get() as $taxonomy)
@@ -152,7 +152,7 @@
     </div>
     <div class="form-row">
         <div class="form-group col-md-6">
-            <label for="fuelType">Type of fuel:</label>
+            <label for="fuelType">Шатахууны төрөл:</label>
             <select id="fuelType" name="fuelType" class="form-control">
                 <option value="" selected>Choose...</option>
                 @foreach(App\TermTaxonomy::where('taxonomy', 'car-fuel')->get() as $taxonomy)
@@ -161,7 +161,7 @@
             </select>
         </div>
         <div class="form-group col-md-6">
-            <label for="wheelDrive">Wheel drive:</label>
+            <label for="wheelDrive">Хөтлөгч:</label>
             <select id="wheelDrive" name="wheelDrive" class="form-control">
                 <option value="" selected>Choose...</option>
                 @foreach(App\TermTaxonomy::where('taxonomy', 'car-wheel')->get() as $taxonomy)
@@ -172,7 +172,7 @@
     </div>
     <div class="form-row">
         <div class="form-group col-md-6">
-            <label for="millage">Millage:</label>
+            <label for="millage">Явсан КМ:</label>
             <div class="input-group">
                 <input type="number" min="0" class="form-control" id="millage" name="mileageAmount" placeholder="Millage" value="{{ $car->metaValue('mileageAmount') }}">
                 <input type="hidden" name="mileageUnit" value="km">
@@ -182,7 +182,7 @@
             </div>
         </div>
         <div class="form-group col-md-6">
-            <label for="salonColor">Interior color:</label>
+            <label for="salonColor">Салоны өнгө:</label>
             <select id="salonColor" name="colorNameInterior" class="form-control">
                 <option value="" selected>Choose...</option>
                 @foreach(App\TermTaxonomy::where('taxonomy', 'car-colors')->get() as $taxonomy)
@@ -193,7 +193,7 @@
     </div>
     <div class="form-row">
         <div class="form-group col-md-12">
-            <label for="area">Area:</label>
+            <label for="area">Байршил:</label>
             <select id="area" name="area" class="form-control">
                 <option value="" selected>Choose...</option>
                 @foreach(App\TermTaxonomy::where('taxonomy', 'provinces')->get() as $taxonomy)
@@ -204,8 +204,8 @@
     </div>
     <div class="form-row">
         <div class="form-group col-md-12">
-            <label for="advantage">Advantages:
-                <small id="passwordHelpInline" class="text-muted">You can select multiple items </small>
+            <label for="advantage">Давуу тал:
+                <small id="passwordHelpInline" class="text-muted">Олныг сонгох боломжтой </small>
             </label>
             <select id="advantage" name="advantages" class="form-control selectpicker" multiple data-live-search="true">
                 @foreach(\App\TermTaxonomy::where('taxonomy', 'car-advantages')->get() as $taxonomy)
@@ -216,17 +216,17 @@
     </div>
     <div class="form-row">
         <div class="form-group col-md-12">
-            <label for="description">Seller description</label>
+            <label for="description">Нэмэлт мэдээлэл</label>
             <textarea class="form-control" id="description" name="sellerDescription" rows="5">{{$car->metaValue('sellerDescription')}}</textarea>
         </div>
     </div>
 
-    <div class="form-title"><span>Verify your car </span></div>
+    <div class="form-title"><span>Баталгаажуулах </span></div>
     <div class="form-row">
         <div class="col-md-3">
             <div class="custom-control custom-switch">
                 <input type="checkbox" class="custom-control-input" id="doctorVerifySwitch">
-                <label class="custom-control-label" for="doctorVerifySwitch">Doctor verify</label>
+                <label class="custom-control-label" for="doctorVerifySwitch">Doctor баталгаажуулалт</label>
             </div>
         </div>
         <div class="col-md-9">
@@ -237,12 +237,12 @@
         </div>
     </div>
 
-    <div class="form-title"><span>Select car option </span></div>
+    <div class="form-title"><span>Машины опшинуудыг сонгох </span></div>
 
     <div class="form-row">
         <div class="col-md-6">
             <div class="option-type">
-                Exterior
+                Гаднах байдал
             </div>
             @foreach(\App\TermTaxonomy::where('taxonomy', 'car-exterior')->get() as $i=>$taxonomy)
             <div class="custom-control custom-checkbox-cd">
@@ -253,7 +253,7 @@
         </div>
         <div class="col-md-6">
             <div class="option-type">
-                Guts
+            Доторх байдал
             </div>
             @foreach(\App\TermTaxonomy::where('taxonomy', 'car-guts')->get() as $i=>$taxonomy)
             <div class="custom-control custom-checkbox-cd">
@@ -266,7 +266,7 @@
     <div class="form-row">
         <div class="col-md-6">
             <div class="option-type">
-                Safety
+                Аюулгүй байдал
             </div>
             @foreach(\App\TermTaxonomy::where('taxonomy', 'car-safety')->get() as $i=>$taxonomy)
             <div class="custom-control custom-checkbox-cd">
@@ -277,7 +277,7 @@
         </div>
         <div class="col-md-6">
             <div class="option-type">
-                Convenience
+                Тав тух
             </div>
             @foreach(\App\TermTaxonomy::where('taxonomy', 'car-convenience')->get() as $i=>$taxonomy)
             <div class="custom-control custom-checkbox-cd">
@@ -290,11 +290,11 @@
 
     @if(isset($edit) && $edit)
     <div style="float:left;">
-        <button class="btn btn-success btn-round shadow-green px-5 py-2" type="button" id="saveBtn" onclick="save()">Save</button>
+        <button class="btn btn-success btn-round shadow-green px-5 py-2" type="button" id="saveBtn" onclick="save()">Хадгалах</button>
     </div>
     @endif
     <div style="float:right;">
-        <button class="btn btn-danger btn-round shadow-red px-5 py-2" type="button" id="nextBtn" onclick="{{ (isset($edit) && $edit)?'nextPrev(1)':'step1Submit(()=>{})' }}">Next</button>
+        <button class="btn btn-danger btn-round shadow-red px-5 py-2" type="button" id="nextBtn" onclick="{{ (isset($edit) && $edit)?'nextPrev(1)':'step1Submit(()=>{})' }}">Дараах</button>
     </div>
 </form>
 

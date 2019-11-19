@@ -4,7 +4,7 @@
     <div class="col-md-12">
         <div class="input-group mb-3">
             <div class="input-group-prepend">
-                <span class="input-group-text">Thumbnail</span>
+                <span class="input-group-text">Нүүр зураг</span>
             </div>
             <div class="custom-file">
                 <input type="file" name="thumbnail" class="custom-file-input" id="thumbnail">
@@ -21,7 +21,7 @@
 
         <div class="input-group mb-3">
             <div class="input-group-prepend">
-                <span class="input-group-text">Media</span>
+                <span class="input-group-text">Зурагнууд</span>
             </div>
             <div class="custom-file">
                 <input type="file" name="medias[]" multiple class="custom-file-input" id="media" accept="image/x-png,image/gif,image/jpeg">
@@ -44,7 +44,7 @@
         </div>
         <div class="col-md-12">
             <div class="form-group">
-                <label for="link">Youtube link</label>
+                <label for="link">Youtube линк</label>
                 <input type="text" name="link" class="form-control" value="{{$car->metaValue("link")}}" id="link" onchange="embedLink(this)">
                 <div class="col-md-12 text-center mt-3">
                     <div id="video-container"></div>
@@ -55,12 +55,12 @@
 
     @if(isset($edit) && $edit)
     <div style="float:left;">
-        <button class="btn btn-success btn-round shadow-green px-5 py-2" type="button" id="saveBtn" onclick="save()">Save</button>
+        <button class="btn btn-success btn-round shadow-green px-5 py-2" type="button" id="saveBtn" onclick="save()">Хадгалах</button>
     </div>
     @endif
     <div style="float:right;">
-        <button class="btn btn-light btn-round px-5 py-2 mr-3" type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
-        <button class="btn btn-danger btn-round shadow-red px-5 py-2" type="button" id="nextBtn" onclick="{{ (isset($edit) && $edit)?'nextPrev(1)':'step2Submit(()=>{})' }}">Next</button>
+        <button class="btn btn-light btn-round px-5 py-2 mr-3" type="button" id="prevBtn" onclick="nextPrev(-1)">Өмнөх</button>
+        <button class="btn btn-danger btn-round shadow-red px-5 py-2" type="button" id="nextBtn" onclick="{{ (isset($edit) && $edit)?'nextPrev(1)':'step2Submit(()=>{})' }}">Дараах</button>
     </div>
 </form>
 

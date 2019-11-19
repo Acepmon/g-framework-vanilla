@@ -51,13 +51,13 @@ class CarMenusTableSeeder extends Seeder
             ['+Хүсэлт оруулах', '/wishlist', '', 'Car']
         ]];
         $carProfileDropdownMenus = ['Car Profile Dropdown', '', '', 'Car', [
-            ['Interested car list', '/interested-car', '', 'Car'],
-            ['Registration car alert', '/interested-car-registration-alert', '', 'Car'],
-            ['Sell request', '/sell-page-on-sell', '', 'Car'],
-            ['Purchase request', '/purchase-page-published', '', 'Car'],
+            ['Хүслийн жагсаалт', '/interested-car', '', 'Car'],
+            ['Машин авъя хүсэлтүүд', '/interested-car-registration-alert', '', 'Car'],
+            ['Зарах хүсэлтүүд', '/sell-page-on-sell', '', 'Car'],
+            ['Төлбөрийн хүсэлтүүд', '/purchase-page-published', '', 'Car'],
             ['Mileage', '/coming-soon', '', 'Car'],
             ['Coupon', '/coming-soon', '', 'Car'],
-            ['My profile', '/home', '', 'Car'],
+            ['Хэрэглэгчийн мэдээлэл', '/home', '', 'Car'],
         ]];
 
         $this->iterate($adminMenus, 2, 1);

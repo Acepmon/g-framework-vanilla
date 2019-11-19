@@ -23,7 +23,7 @@
 <div class="row">
     <div class="card shadow-soft-blue user-information">
         <div class="card-body">
-            <h2>User information</h2>
+            <h2>Хэрэглэгчийн мэдээлэл</h2>
             <form id="editProfileForm" action="{{ route('ajax.users.update', ['user' => Auth::user()->id ]) }}" method="post" enctype="multipart/form-data">
                 <div class="row my-4">
                     <div class="col-md-2">
@@ -33,7 +33,7 @@
                             </label>
                             <img src="{{ Auth::user()->avatar_url() }}" alt="" id="avatar">
                         </div>
-                        <button type="button" id="editProfileBtn" class="btn btn-sm btn-light my-3">Edit profile</button>
+                        <button type="button" id="editProfileBtn" class="btn btn-sm btn-light my-3">Мэдээлэл шинэчлэх</button>
                     </div>
                     @if(Session::has('error'))
                     {{ Session::get('error') }}
@@ -44,7 +44,7 @@
 
                             <div class="pro-info">
                                 <div class="form-group">
-                                    <label for="millage">Full name:</label>
+                                    <label for="millage">Бүтэн нэр:</label>
                                     <input type="text" class="form-control" id="name" name="name" value="{{ old('name')?old('name'):Auth::user()->name }}" readonly>
                                     @error('name')
                                     <span class="validation-error-label text-danger" role="alert">
@@ -62,7 +62,7 @@
                                     @enderror
                                 </div>
                                 <div class="form-group">
-                                    <label for="millage">Phone:</label>
+                                    <label for="millage">Утас:</label>
                                     <div class="d-flex">
                                         <input type="text" class="form-control" id="phone" name="phone" value="{{ Auth::user()->metaValue('phone') }}" readonly>
                                     </div>
@@ -73,12 +73,12 @@
                                     @enderror
                                 </div>
                                 <div id="saveProfileForm" style="display: none;">
-                                    <button type="button" class="btn btn-default px-4" id="cancelProfileBtn">Cancel</button>
-                                    <button type="submit" class="btn btn-primary px-4">Save</button>
+                                    <button type="button" class="btn btn-default px-4" id="cancelProfileBtn">Цуцлах</button>
+                                    <button type="submit" class="btn btn-primary px-4">Хадгалах</button>
                                 </div>
                             </div>
                         <div id="passwordForm">
-                            <button class="btn btn-primary px-4" type="button" id="changePasswordBtn" data-toggle="modal" data-target="#passwordModal">Change password</button>
+                            <button class="btn btn-primary px-4" type="button" id="changePasswordBtn" data-toggle="modal" data-target="#passwordModal">Нууц үг солих</button>
                         </div>
                     </div>
                 </div>
@@ -95,7 +95,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="passwordModalLabel">Change Password</h5>
+                <h5 class="modal-title" id="passwordModalLabel">Нууц үг солих</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -107,7 +107,7 @@
 
                     <div class="pro-info">
                         <div class="form-group">
-                            <label for="millage">Old Password:</label>
+                            <label for="millage">Хууцин нууц үг:</label>
                             <input type="password" class="form-control" id="old_password" name="old_password">
                             @error('old_password')
                             <span class="validation-error-label text-danger" role="alert">
@@ -116,7 +116,7 @@
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="millage">New Password:</label>
+                            <label for="millage">Шинэ нууц үг:</label>
                             <input type="password" class="form-control" id="password" name="password">
                             @error('password')
                             <span class="validation-error-label text-danger" role="alert">
@@ -125,7 +125,7 @@
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="millage">Retype new password:</label>
+                            <label for="millage">Шинэ нууц үг давтан хий:</label>
                             <input type="password" class="form-control" id="password_confirmation" name="password_confirmation">
                             @error('password_confirmation')
                             <span class="validation-error-label text-danger" role="alert">
@@ -136,8 +136,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Save Password</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Хаах</button>
+                    <button type="submit" class="btn btn-primary">Нууц үг хадгалах</button>
                 </div>
             </form>
         </div>
