@@ -16,11 +16,11 @@ class CarOptionsExteriorTableSeeder extends Seeder
      */
     public function run()
     {
-        $exteriors = ['Rear wiper' => ['metaKey' => 'optionExteriorRearWiper'], 
-            'Electric folding side mirror' => ['metaKey' => 'optionExteriorElectricSideMirror'], 
-            '4 season tire' => ['metaKey' => 'optionExterior4SeasonTire'], 
-            'Aluminum wheel' => ['metaKey' => 'optionExteriorAluminumWheel'], 
-            'Sunroof' => ['metaKey' => 'optionExteriorSunroof']];
+        $exteriors = ['Хажуу шил арчигч' => ['metaKey' => 'optionExteriorRearWiper'], 
+            'Цахилгаан хажуу толь' => ['metaKey' => 'optionExteriorElectricSideMirror'], 
+            '4 улирлын дугуй' => ['metaKey' => 'optionExterior4SeasonTire'], 
+            'Хөнгөн цагаан дугуй' => ['metaKey' => 'optionExteriorAluminumWheel'], 
+            'Дээврийн цонх' => ['metaKey' => 'optionExteriorSunroof']];
 
         $parent = TaxonomyManager::register('Exterior', 'car-options');
 

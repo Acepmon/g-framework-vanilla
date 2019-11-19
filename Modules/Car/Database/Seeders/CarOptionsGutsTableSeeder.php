@@ -16,15 +16,15 @@ class CarOptionsGutsTableSeeder extends Seeder
      */
     public function run()
     {
-        $guts = ['Power Door lock' => ['metaKey' => 'optionGutsPowerDoorLock'], 
-            'Memory seat : driver’s seat' => ['metaKey' => 'optionGutsMemorySeatDriverSeat'], 
-            'Heated Seat: Rear Seat' => ['metaKey' => 'optionGutsHeatedSeatRearSeat'], 
-            'Heated Seat: Driver’s Seat' => ['metaKey' => 'optionGutsHeatedSeatDriverSeat'], 
-            'Electric seat : Passenger seat' => ['metaKey' => 'optionGutsElectricSeatPassengerSeat'], 
-            'Electric seat : driver’s seat' => ['metaKey' => 'optionGutsElectricSeatDriverSeat'], 
-            'Leather seat' => ['metaKey' => 'optionGutsLeatherSeat'], 
-            'Power steering' => ['metaKey' => 'optionGutsPowerSteering'], 
-            'Steering wheel remote control' => ['metaKey' => 'optionGutsSteerRemoteControl']];
+        $guts = ['Цхаилгаан цоож' => ['metaKey' => 'optionGutsPowerDoorLock'], 
+            'Авто суудал : Жолоочын суудал' => ['metaKey' => 'optionGutsMemorySeatDriverSeat'], 
+            'Суудал халаагч: Хойд суудал' => ['metaKey' => 'optionGutsHeatedSeatRearSeat'], 
+            'Суудал халаагч: Жолоочын суудал' => ['metaKey' => 'optionGutsHeatedSeatDriverSeat'], 
+            'Цахилгаан суудал : Зорчигчын суудал' => ['metaKey' => 'optionGutsElectricSeatPassengerSeat'], 
+            'Цахилгаан суудал : Жолоочын суудал' => ['metaKey' => 'optionGutsElectricSeatDriverSeat'], 
+            'Арьсан суудал' => ['metaKey' => 'optionGutsLeatherSeat'], 
+            'Хүрдний удирдлага' => ['metaKey' => 'optionGutsPowerSteering'], 
+            'Алсын зайны хүрдний удирдлага' => ['metaKey' => 'optionGutsSteerRemoteControl']];
 
         $parent = TaxonomyManager::register('Guts', 'car-options');
 

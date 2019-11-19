@@ -16,7 +16,7 @@ class CarColorTableSeeder extends Seeder
      */
     public function run()
     {
-        $colour = ['black', 'white-ivory', 'white-pearl', 'silver', 'asphalt-gray', 'red', 'blue', 'blue-dark', 'sea', 'brown', 'bronze', 'green', 'green-light', 'gold', 'copper', 'beige'];
+        $colour = ['Хар', 'Ясан цагаан', 'Сувдан цагаан', 'Мөнгөлөг', 'asphalt-gray', 'Улаан', 'Цэнхэр', 'Хар хөх', 'Бүдэг цэнхэр', 'Бор', 'Хүрэл бор', 'Ногоон', 'Цайвар ногоон', 'Алтлаг', 'Зэсэн хүрэн', 'Элсэн шар'];
 
         $parent = TaxonomyManager::register('Color', 'car', null, ['metaKey' => 'colorName']);
 
