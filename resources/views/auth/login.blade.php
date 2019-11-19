@@ -37,7 +37,7 @@
                         <div class="card masthead-search shadow-lg-3d  pl-5 pr-5">
                             <div class="">
                                 <div class="card-header px-5 pt-5 pb-3 mb-3">
-                                    <h1>Car dealer login</h1>
+                                    <h1>Нэврэх</h1>
                                 </div>
                                 <div class="col-12 p-5">
                                     @if (session('status'))
@@ -68,9 +68,9 @@
                                         </div>
                                         <button type="submit" class="btn col-12 btn-danger btn-lg btn-round shadow mt-4 mb-3">Нэвтрэх</button>
                                     </form>
-                                    <a href="#" data-toggle="modal" data-target="#myModal">Нууц үг сэргээх</a>
+                                    <a href="#" data-toggle="modal" data-target="#myModal">Нууц үгээ мартсан</a>
                                     <div class="col-12 mt-5">
-                                        <button onclick="window.location.href='/register'" type="button" class="btn btn-light btn-round px-5 py-2 col-9">Бүртгүүлэх</button>
+                                        <button onclick="window.location.href='/register'" type="button" class="btn btn-light btn-round px-5 py-2 col-9">Шинэ хэрэглэгч</button>
                                     </div>
                                 </div>
                             </div>
@@ -96,7 +96,7 @@
                     <form method="POST">
                         @csrf
                         <div class="form-group mb-3 text-left form-group-feedback form-group-feedback-left">
-                            <span class="font-weight-bold">Email address</span>
+                            <span class="font-weight-bold">Цахим шуудан</span>
 
                             <input class="form-control mt-2 @error('email') is-invalid @enderror" id="email" type="text" placeholder="Email" name="email" value="{{ old('username', env('APP_ENV') == 'development' ? 'admin' : '') }}" required autocomplete="email" autofocus>
                             @error('email')
@@ -105,15 +105,15 @@
                                             </span>
                             @enderror
                         </div>
-                        <button type="submit" class="btn btn-submit col-12 btn-danger btn-lg btn-round shadow mt-4 mb-4">Recover password</button>
-                        <a href="#" class="text-dark" data-dismiss="modal">Login</a>
+                        <button type="submit" class="btn btn-submit col-12 btn-danger btn-lg btn-round shadow mt-4 mb-4">Нууц үг сэргээх</button>
+                        <a href="#" class="text-dark" data-dismiss="modal">Нэвтрэх</a>
                     </form>
                 </div>
 
                 <!-- Modal footer -->
                 <div class="modal-footer">
                     {{--<a type="button" href="/register" class="btn btn-round btn-default bg-secondary mt-5 col-md-6 mb-5">sign up</a>--}}
-                    <button onclick="window.location.href='/register'" type="button" class="btn btn-light btn-round px-5 py-2 col-9 mb-5">Sign up</button>
+                    <button onclick="window.location.href='/register'" type="button" class="btn btn-light btn-round px-5 py-2 col-9 mb-5">Шинэ хэрэглэгч</button>
                 </div>
 
             </div>
@@ -131,9 +131,9 @@
 
                 <!-- Modal body -->
                 <div class="modal-body mt-4 pr-lg-5 pl-lg-5 text-center">
-                <div class="maz-modal-title" style="font-size:1.5rem">Mail sent succesful</div>
+                <div class="maz-modal-title" style="font-size:1.5rem">Амжилттай</div>
                 <div id="mail-send" style="height: 300px; width: 100%;"></div>
-                   <h5 class="text-success mb-5">Mail has been sent!</h5>
+                   <h5 class="text-success mb-5">Цахим шуудангаа шалгана уу!</h5>
                 </div>
             </div>
         </div>
@@ -149,9 +149,9 @@
 
                 <!-- Modal body -->
                 <div class="modal-body text-center">
-                <div class="maz-modal-title" style="font-size:1.5rem">Mail sent Failed!</div>
+                <div class="maz-modal-title" style="font-size:1.5rem">Алдаа!</div>
                 <div id="mail-fail" style="height: 300px; width: 100%;"></div>
-                <h5 class="text-danger mb-5">User not present!</h5>
+                <h5 class="text-danger mb-5">Хэрэглэгч бүртгэлгүй байна!</h5>
                 </div>
             </div>
         </div>
