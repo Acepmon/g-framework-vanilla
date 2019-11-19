@@ -203,7 +203,7 @@ $("input").click(function(){
                     paramObjs.publishDuration=item;
                 }
             }
-            paramObjs.publishTotalPriceAmount=parseInt(paramObjs.publishAmount) * paramObjs.publishDuration;
+            paramObjs.publishTotalPriceAmount=parseInt(paramObjs.publishAmount);
         }
         $.ajax({
             type: 'PUT',
