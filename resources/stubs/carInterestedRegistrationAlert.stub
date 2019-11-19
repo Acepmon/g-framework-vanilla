@@ -23,13 +23,13 @@ $orderBy = request('sortBy', 'priceAmount');
             <span class="total-cars ml-0">{{ count($wishlists) }} WISHLISTS</span>
             <div class="sort-cars col-md-9">
                 <ul class="col-md-12">
-                    <li class="{{ $orderBy=='updated_at' ?'active':'' }}"><a href="#" onclick="formSubmit('sortBy', 'updated_at')">Recent cars</a></li>
-                    <li class="{{ $orderBy=='priceAmount' ?'active':'' }}"><a href="#" onclick="formSubmit('sortBy', 'priceAmount')">Low price</a></li>
+                    <li class="{{ $orderBy=='updated_at' ?'active':'' }}"><a href="#" onclick="formSubmit('sortBy', 'updated_at')">Сүүлд нэмэгдсэнээр</a></li>
+                    <li class="{{ $orderBy=='priceAmount' ?'active':'' }}"><a href="#" onclick="formSubmit('sortBy', 'priceAmount')">Үнэ хямдаар</a></li>
                 </ul>
             </div>
         </div>
     </div>
-    
+
     @foreach($wishlists as $wishlist)
         <div class="car-list sell-car card mb-5">
             <div class="card-top wish-list-result-header">
@@ -53,7 +53,7 @@ $orderBy = request('sortBy', 'priceAmount');
             @endforeach
             @else
             <div class="text-center text-muted col-lg-12 mt-3">
-            <p>No results found</p>
+            <p>Үнийн дүнд тохирох машин олдсонгүй</p>
             </div>
             @endif
         </div>
@@ -87,7 +87,7 @@ $orderBy = request('sortBy', 'priceAmount');
         var target = event.target.closest('div');
         // target.innerHTML = 'Loading';
         $.ajax({
-            url: '/ajax/user/interested_cars', 
+            url: '/ajax/user/interested_cars',
             dataType: 'json',
             method: 'PUT',
             data: {
@@ -95,9 +95,9 @@ $orderBy = request('sortBy', 'priceAmount');
             },
             success: function (data) {
                 if (data.status == 'added') {
-                target.innerHTML = '<span class="text-danger"><i class="fas fa-heart"></i> Added to interest list</span>';
+                target.innerHTML = '<span class="text-danger"><i class="fas fa-heart"></i> Жагсаалтанд нэмэх</span>';
                 } else if (data.status == 'removed') {
-                target.innerHTML = '<span class=""><i class="far fa-heart"></i> Add to interest list</span>';
+                target.innerHTML = '<span class=""><i class="far fa-heart"></i> Жагсаалтанд нэмэгдсэн</span>';
                 }
             },
             error: function (error) {
