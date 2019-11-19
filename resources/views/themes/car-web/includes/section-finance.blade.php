@@ -4,7 +4,7 @@
             <div class="row">
                 <div class="col-md-12 text-center ">
                     <div class="finance-title">
-                        <h1>This car I want to buy, how much is the month?</h1>
+                        <h1>Энэ машиныг авмаар байна, сард хэдийг төлөх вэ?</h1>
                         <p>Save your money and make an installment.</p>
                     </div>
                 </div>
@@ -51,7 +51,7 @@
                                 </div>
                             </div>
                             <a class="btn btn-light btn-round btn-block my-3 shadow-soft-blue p-2" href="#" data-toggle="modal"
-                            data-target="#modalLoanCalculator" data-whatever="@getbootstrap">loan calculator</a>
+                            data-target="#modalLoanCalculator" data-whatever="@getbootstrap">Зээлийн тооцоолуур</a>
                         </div>
                     </div>
                 </div>

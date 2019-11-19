@@ -5,14 +5,14 @@
                 <div class="col-md-12">
                     <div class="detail-section-title">
                         <p>
-                            Basic information
+                            Ерөнхий мэдээлэл
                         </p>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-6">
-                    <div class="title">Overall</div>
+                    <div class="title">Ерөнхий</div>
                     <div class="info-list">
                         <ul>
                             @if ($content->metaValue('carType'))
@@ -61,7 +61,7 @@
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <div class="title">Power</div>
+                    <div class="title">Үзүүлэлт</div>
                     <div class="info-list">
                         <ul>
                             @if ($content->metaValue('engine'))

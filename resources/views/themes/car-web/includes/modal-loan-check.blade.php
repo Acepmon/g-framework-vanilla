@@ -11,10 +11,10 @@
             <form id="loan-check">
             @csrf
             <div class="modal-body px-5">
-                <div class="maz-modal-title">Check loan condition</div>
-                <div class="maz-modal-desc">Please fill this form than we will contact you as soon as possible</div>
+                <div class="maz-modal-title">Зээлийн нөхцөл шалгах</div>
+                <div class="maz-modal-desc">Энэ формыг бөглөнө үү. Бид тантай дараа холбоо барих болно.</div>
                     <div class="form-group">
-                        <label for="name" class="col-form-label">Your name:</label>
+                        <label for="name" class="col-form-label">Таны нэр:</label>
                         <input type="text" class="form-control" id="name" name="name" required>
                     </div>
                     <input type="hidden" name="title" value="Loan Check">
@@ -26,7 +26,7 @@
                     <input type="hidden" name="author_id" value="{{ \Auth::user()->id }}">
                     @endauth
 
-                    <label for="reg-num" class="col-form-label">Registration number:</label>
+                    <label for="reg-num" class="col-form-label">Регистерийн дугаар:</label>
                     <div class="form-row">
                         <div class="form-group col-md-2">
                             <select id="reg-letter-1" class="form-control">
@@ -103,12 +103,12 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="phone" class="col-form-label">Phone number:</label>
+                        <label for="phone" class="col-form-label">Утасны дугаар:</label>
                         <input type="text" class="form-control" id="phone" name="phone" required>
                     </div>
                 </div>
                 <div class="modal-footer pb-5">
-                    <button type="submit" id="btnSendLoanCheck" class="btn btn-danger btn-round px-5 py-2 shadow-red">Send</button>
+                    <button type="submit" id="btnSendLoanCheck" class="btn btn-danger btn-round px-5 py-2 shadow-red">Илгээх</button>
                 </div>
             </form>
         </div>

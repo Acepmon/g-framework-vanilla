@@ -1,6 +1,6 @@
 @if ($content && $content->author_id != Auth::id())
     <button type="button" id="saveToInterested" data-target="{{ $content->id }}" class="btn btn-light btn-round btn-block my-4 shadow-soft-blue p-3 btn-icon-left" disabled>
-        Loading...
+        Ачаалж байна...
     </button>
 @endif
 
@@ -11,11 +11,11 @@
                 url: '/ajax/user/interested_cars/{{ $content->id }}',
                 dataType: 'json',
                 success: function (data) {
-                    $("#saveToInterested").html('<span class="text-danger"><i class="fas fa-heart"></i> Added to interest list</span>');
+                    $("#saveToInterested").html('<span class="text-danger"><i class="fas fa-heart"></i> Жагсаалтанд нэмсэн</span>');
                     $("#saveToInterested").prop('disabled', false);
                 },
                 error: function (data) {
-                    $("#saveToInterested").html('<span class=""><i class="far fa-heart"></i> Add to interest list</span>')
+                    $("#saveToInterested").html('<span class=""><i class="far fa-heart"></i> Жагсаалтанд нэмэх</span>')
                     $("#saveToInterested").prop('disabled', false);
                 }
             });
@@ -33,11 +33,11 @@
                     },
                     success: function (data) {
                         if (data.status == 'added') {
-                            $("#saveToInterested").html('<span class="text-danger"><i class="fas fa-heart"></i> Added to interest list</span>');
+                            $("#saveToInterested").html('<span class="text-danger"><i class="fas fa-heart"></i> Жагсаалтанд нэмсэн</span>');
                             $("#saveToInterested").prop('disabled', false);
                             $("#interestedStat").text(parseInt($("#interestedStat").text()) + 1);
                         } else if (data.status == 'removed') {
-                            $("#saveToInterested").html('<span class=""><i class="far fa-heart"></i> Add to interest list</span>')
+                            $("#saveToInterested").html('<span class=""><i class="far fa-heart"></i> Жагсаалтанд нэмэх</span>')
                             $("#saveToInterested").prop('disabled', false);
                             $("#interestedStat").text(parseInt($("#interestedStat").text()) - 1);
                         }
