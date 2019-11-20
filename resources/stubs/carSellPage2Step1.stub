@@ -393,7 +393,7 @@
                         url: '/ajax/contents/' + carId + '/doc',
                         enctype: 'multipart/form-data',
                         processData: false,
-                        contentType: false,
+                        contentType: false,ы
                         cache: false,
                         data: docData
                     }).done(function(data) {
