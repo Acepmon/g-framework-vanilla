@@ -8,7 +8,7 @@
             </div>
             <div class="custom-file">
                 <input type="file" name="thumbnail" class="custom-file-input" id="thumbnail">
-                <label class="custom-file-label" for="thumbnail">Choose file</label>
+                <label class="custom-file-label" for="thumbnail">Файл сонгох</label>
             </div>
         </div>
         <div class="col-md-12">
@@ -25,7 +25,7 @@
             </div>
             <div class="custom-file">
                 <input type="file" name="medias[]" multiple class="custom-file-input" id="media" accept="image/x-png,image/gif,image/jpeg">
-                <label class="custom-file-label" for="media">Choose file</label>
+                <label class="custom-file-label" for="media">Файл сонгох</label>
             </div>
         </div>
         <div class="col-md-12">

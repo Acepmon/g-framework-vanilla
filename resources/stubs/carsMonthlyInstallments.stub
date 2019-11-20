@@ -20,7 +20,9 @@
             $(".insMonth").on('click', function (event) {
                 event.stopPropagation();
                 event.stopImmediatePropagation();
-                var mPay = $('#monthlyPrice').val();
+                //var mPay = parseInt(str.replace(,/g, ""));
+                var mPay = parseInt(parseFloat($('#monthlyPrice').val().replace(/[^0-9 | ^.]/g, '')));
+                console.log(mPay)
                 var fPay = $('#firstPay').val();
                 var months = $(this).val();
                 var invest = 0.03;
@@ -102,7 +104,8 @@
                             <div class="row">
                                 <div class="form-group col-md-6 float-left">
                                     <label for="monthlyPrice">Сар бүр төлөх дүн</label>
-                                    <input type="number" name="monthlyPrice" class="form-control" id="monthlyPrice" value="{{ request('monthlyPrice')}}" placeholder="">
+                                    {{--<input type="number" name="monthlyPrice" class="form-control" id="monthlyPrice" value="{{ request('monthlyPrice')}}" placeholder="">--}}
+                                    <input type="text" name="monthlyPrice" class="form-control text-left" id="monthlyPrice" value="{{ request('monthlyPrice')}}" data-inputmask="'alias': 'numeric', 'groupSeparator': ',', 'autoGroup': true, 'digits': 0, 'digitsOptional': false, 'prefix': '₮ ', 'placeholder': '0'">
                                 </div>
                                 <div class="form-group col-md-6 float-left">
                                     <label for="firstPay">Боломжит урьдчилгаа</label>
@@ -283,6 +286,9 @@
 
 @section('script')
     <script type="text/javascript">
+
+    $(":input").inputmask();
+
     function formSubmit(id, value, sortDir, sortDirValue) {
         console.log(id, value, sortDir, sortDirValue)
     if (value != 'no-value') {

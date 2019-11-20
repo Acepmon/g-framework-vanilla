@@ -106,7 +106,7 @@
                                 </div> -->
                                 <div class="custom-file">
                                     <input name="doc" type="file" class="custom-file-input" id="docFile">
-                                    <label class="custom-file-label" for="docFile">Choose file</label>
+                                    <label class="custom-file-label" for="docFile">Файл сонгох</label>
                                 </div>
                             </div>
                         </form>
