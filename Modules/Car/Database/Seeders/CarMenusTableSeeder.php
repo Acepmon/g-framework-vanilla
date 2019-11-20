@@ -55,9 +55,9 @@ class CarMenusTableSeeder extends Seeder
             ['Миний оруулсан зар', '/interested-car-registration-alert', '', 'Car'],
             ['Зарах хүсэлтүүд', '/sell-page-on-sell', '', 'Car'],
             ['Төлбөрийн хүсэлтүүд', '/purchase-page-published', '', 'Car'],
-            ['Mileage', '/coming-soon', '', 'Car'],
-            ['Coupon', '/coming-soon', '', 'Car'],
-            ['My profile', '/home', '', 'Car'],
+            ['Гүйлт', '/coming-soon', '', 'Car'],
+            ['Купон', '/coming-soon', '', 'Car'],
+            ['Миний хуудас', '/home', '', 'Car'],
         ]];
 
         $this->iterate($adminMenus, 2, 1);

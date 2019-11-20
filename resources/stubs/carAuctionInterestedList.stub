@@ -13,8 +13,8 @@
     <div class="card shadow-soft-blue page-top-navbar">
         <div class="mypage-nav">
         <ul>
-            <li class="list-item "><a href="/interested-car?sort=updated_at">Таалагдсан машинууд</a></li>
-            <li class="list-item active"> <a href="#">Таалагдсан машинууд /дуудлага худалдаа/</a></li>
+            <li class="list-item "><a href="/interested-car?sort=updated_at">Сонирхосон машинууд</a></li>
+            <li class="list-item active"> <a href="#">Сонирхосон машинууд /дуудлага худалдаа/</a></li>
         </ul>
         </div>
     </div>

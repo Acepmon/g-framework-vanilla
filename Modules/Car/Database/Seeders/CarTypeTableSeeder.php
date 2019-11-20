@@ -20,7 +20,7 @@ class CarTypeTableSeeder extends Seeder
             'Sedan' => ['value' => 'Суудлын'], 
             'SUV' => ['value' => 'Том тэрэг'], 
             'Sport' => ['value' => 'Спорт'], 
-            'Truck' => ['value' => 'Ачааны машин'], 
+            'Truck' => ['value' => 'Хүнд ММ'], 
             'Van' => ['value' => 'Ванн'], 
             'Bus' => ['value' => 'Автобус']
         ];
