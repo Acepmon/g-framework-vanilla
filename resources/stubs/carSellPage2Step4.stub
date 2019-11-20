@@ -13,7 +13,7 @@
 
                 <select class="custom-select my-1 mr-sm-2" name="publishPriceAmountBest">
                     @getTaxonomys({"filter":[{"field":"taxonomy", "key":"best_premium"}], "returnValue":"bestPremium"})
-                    <option selected  value="0">Choose...</option>
+                    <option selected  value="0">Сонгох...</option>
                     @foreach($bestPremium as $data)
                         {{--<option>{{getMetasValue($data->term->name, 'amount')}}</option>--}}
                         <option value="{{$data->term->meta->amount}}, {{$data->term->meta->unit}}, {{$data->term->meta->duration}}">{{$data->term->name}}</option>
@@ -48,7 +48,7 @@
 
                 <select class="custom-select my-1 mr-sm-2" name="publishPriceAmountPremium">
                     @getTaxonomys({"filter":[{"field":"taxonomy", "key":"premium"}], "returnValue":"premium"})
-                    <option selected  value="0">Choose...</option>
+                    <option selected  value="0">Сонгох...</option>
                     @foreach($premium as $data)
                         {{--<option>{{getMetasValue($data->term->name, 'amount')}}</option>--}}
                         <option value="{{$data->term->meta->amount}}, {{$data->term->meta->unit}}, {{$data->term->meta->duration}}">{{$data->term->name}}</option>

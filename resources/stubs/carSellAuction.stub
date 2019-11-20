@@ -16,7 +16,7 @@ if ($startsAt) {
     <div class="form-group col-md-4">
       <label for="durationDay">Нийтлэгдэх Хугацаа:</label>
       <select id="durationDay" name="publishDuration" class="form-control" required>
-        <option value="">Choose...</option>
+        <option value="">Сонгох...</option>
         @for($i=1; $i<=7; $i++) <option value="{{$i}}" {{ ($car->metaValue('publishDuration') == $i)?'selected':'' }}>{{$i}} Өдөр</option>
           @endfor
       </select>
