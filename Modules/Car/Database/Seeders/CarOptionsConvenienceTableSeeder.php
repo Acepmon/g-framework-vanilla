@@ -28,7 +28,7 @@ class CarOptionsConvenienceTableSeeder extends Seeder
             'USB терминал' => ['metaKey' => 'optionConvenienceUSBTerminal'], 
             'Чиглүүлэгч' => ['metaKey' => 'optionConvenienceNavigation'], 
             'Сиди тоглуулагч' => ['metaKey' => 'optionConvenienceCDPlayer'], 
-            'Цахилгаан цонх' => ['metaKey' => 'optionConveniencePowerWindow'], 
+            'Автомат цонх' => ['metaKey' => 'optionConveniencePowerWindow'], 
             'Авто агааржуулагч' => ['metaKey' => 'optionConvenienceAutoAirCondition'], 
             'Хурдны удирдлага' => ['metaKey' => 'optionConvenienceCruiseControl'], 
             'Ухаалаг түлхүүр' => ['metaKey' => 'optionConvenienceSmartKey']];

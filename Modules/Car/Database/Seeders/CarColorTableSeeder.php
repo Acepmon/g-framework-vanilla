@@ -23,7 +23,7 @@ class CarColorTableSeeder extends Seeder
             'silver' => ['value' => 'Мөнгөлөг'], 
             'asphalt-gray' => ['value' => 'Асфалтан саарал'], 
             'red' => ['value' => 'Улаан'], 
-            'blue' => ['value' => 'Хөх'], 
+            'blue' => ['value' => 'Цэнхэр'], 
             'blue-dark' => ['value' => 'Хар хөх'], 
             'sea' => ['value' => 'Номин ногоон'], 
             'brown' => ['value' => 'Бор'], 

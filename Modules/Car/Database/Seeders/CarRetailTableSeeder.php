@@ -26,7 +26,7 @@ class CarRetailTableSeeder extends Seeder
                 new ContentMeta(['key' => 'openHours', 'value' => 'Даваа - Бямөа 9:00 - 18:00 цайны цаг 12:00 - 13:00']),
                 new ContentMeta(['key' => 'website', 'value' => 'www.yourdomain.com']),
                 new ContentMeta(['key' => 'phone', 'value' => '+976 ' . rand(10000000, 99999999)]),
-                new ContentMeta(['key' => 'vehicles', 'value' => '132']),
+                new ContentMeta(['key' => 'vehicles', 'value' => '123']),
                 new ContentMeta(['key' => 'image', 'value' => url(asset('car-web/img/retail.png'))])
             ]);
 

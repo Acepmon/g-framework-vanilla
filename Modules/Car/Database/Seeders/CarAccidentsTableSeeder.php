@@ -16,7 +16,7 @@ class CarAccidentsTableSeeder extends Seeder
      */
     public function run()
     {
-        $accidents = ['Unassuming', 'Simple exchange', 'Simple accident'];
+        $accidents = ['Хүнд', 'Хөнгөн'];
 
         $parent = TaxonomyManager::register('Accident', 'car', null, ['metaKey' => 'accidents']);
 

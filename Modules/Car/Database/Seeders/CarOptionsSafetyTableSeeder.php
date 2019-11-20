@@ -23,7 +23,7 @@ class CarOptionsSafetyTableSeeder extends Seeder
             'Камер : Хажуу' => ['metaKey' => 'optionSafetyCameraSide'], 
             'Камер : Хойд' => ['metaKey' => 'optionSafetyCameraRear'], 
             'Камер : Урд' => ['metaKey' => 'optionSafetyCameraFront'], 
-            'Аюулгүйн дэр : Хөшиг' => ['metaKey' => 'optionSafetyAirbagCurtains'], 
+            'Аюулгүйн дэр : Хөшигөн' => ['metaKey' => 'optionSafetyAirbagCurtains'], 
             'Аюулгүйн дэр : Хажуу' => ['metaKey' => 'optionSafetyAirbagSide'], 
             'Зорчигчын суудал' => ['metaKey' => 'optionSafetyAirbagPassengerSeat'], 
             'Аюулгүйн дэр : Жолоочын суудал' => ['metaKey' => 'optionSafetyAirbagDriverSeat']];

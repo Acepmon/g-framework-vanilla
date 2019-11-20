@@ -18,7 +18,7 @@ class CarDoorCountTableSeeder extends Seeder
     {
         Model::unguard();
 
-        $doorCount = ['2', '3', '4', '5'];
+        $doorCount = ['2', '3', '4', '5', '6', '7', '8'];
 
         foreach ($doorCount as $key => $count) {
             TaxonomyManager::register($count, 'door-count');

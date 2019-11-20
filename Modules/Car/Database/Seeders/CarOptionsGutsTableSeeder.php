@@ -16,12 +16,12 @@ class CarOptionsGutsTableSeeder extends Seeder
      */
     public function run()
     {
-        $guts = ['Хаалга Автомагч түгжигч' => ['metaKey' => 'optionGutsPowerDoorLock'], 
+        $guts = ['Автомат хаалганы цоож' => ['metaKey' => 'optionGutsPowerDoorLock'], 
             'Суудал сануулагч' => ['metaKey' => 'optionGutsMemorySeatDriverSeat'], 
-            'Зорчигчдын суудал халах' => ['metaKey' => 'optionGutsHeatedSeatRearSeat'], 
-            'Жолоочийн суудал халах' => ['metaKey' => 'optionGutsHeatedSeatDriverSeat'], 
-            'Зорчигчдын суудал хөрөх' => ['metaKey' => 'optionGutsElectricSeatPassengerSeat'], 
-            'Жолоочийн суудал хөрөх' => ['metaKey' => 'optionGutsElectricSeatDriverSeat'], 
+            'Зорчигчдын халдаг суудал ' => ['metaKey' => 'optionGutsHeatedSeatRearSeat'], 
+            'Жолоочийн халдаг суудал' => ['metaKey' => 'optionGutsHeatedSeatDriverSeat'], 
+            'Зорчигчдын цахилгаан суудал' => ['metaKey' => 'optionGutsElectricSeatPassengerSeat'], 
+            'Жолоочийн цахилгаан суудал' => ['metaKey' => 'optionGutsElectricSeatDriverSeat'], 
             'Савхин суудал' => ['metaKey' => 'optionGutsLeatherSeat'], 
             'Залуурын удирдлага' => ['metaKey' => 'optionGutsPowerSteering'], 
             'Автомат жолоодлого' => ['metaKey' => 'optionGutsSteerRemoteControl']];
