@@ -5,8 +5,8 @@
                 @if ($content->metaValue('doctorVerified') && !$content->metaValue('doctorVerificationRequest'))
                     <div class="dealer-more">
                         <div class="value"><img src="{{ asset('car-web/img/icons/verify.svg') }}" alt=""></div>
-                        <div class="title">Verify by
-                            <span>DOCTOR</span></div>
+                        <div class="title">DOCTOR-оор
+                            <span>батлагдсан</span></div>
                     </div>
                 @else
                     <div class="dealer-more">

@@ -42,10 +42,10 @@ class CarColorTableSeeder extends Seeder
 
         # Interior Color
         $interior_colour = [
-            'black' => ['value' => 'хар'],
-            'grey' => ['value' => 'саарал'],
-            'white' => ['value' => 'цагаан'],
-            'beige' => ['value' => 'шаргал цагаан']
+            'black' => ['value' => 'Хар'],
+            'grey' => ['value' => 'Саарал'],
+            'white' => ['value' => 'Цагаан'],
+            'beige' => ['value' => 'Шаргал цагаан']
         ];
 
         $parent = TaxonomyManager::register('Interior color', 'car', null, ['metaKey' => 'colorNameInterior']);

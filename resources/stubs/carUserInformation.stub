@@ -33,7 +33,7 @@
                             </label>
                             <img src="{{ Auth::user()->avatar_url() }}" alt="" id="avatar">
                         </div>
-                        <button type="button" id="editProfileBtn" class="btn btn-sm btn-light my-3">Мэдээлэл шинэчлэх</button>
+                        <button type="button" id="editProfileBtn" class="btn btn-sm btn-light my-3">Засах</button>
                     </div>
                     @if(Session::has('error'))
                     {{ Session::get('error') }}

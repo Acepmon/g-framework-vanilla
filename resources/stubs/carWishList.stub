@@ -55,7 +55,7 @@ $banner = App\Banner::where('location_id', 5)->where('status', 'active')->inRand
                                 </div>
                                 <div class="form-group">
                                     <select id="vehicleManufacturerModels" class="form-control" name="modelName">
-                                        <option value="">Модел</option>
+                                        <option value="">Загвар</option>
                                     </select>
                                 </div>
                                 <div class="form-group">

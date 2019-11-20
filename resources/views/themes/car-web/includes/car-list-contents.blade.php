@@ -57,7 +57,7 @@ if ($itemCount < $page * $itemsPerPage) {
     @if($type == 'search')
         <div class="card-body">
             <span class="d-flex justify-content-start font-weight-bold mb-2">
-                Search result
+                Хайлтын үр дүн
             </span>
             <div class="input-group">
                 <span class="input-group-prepend">

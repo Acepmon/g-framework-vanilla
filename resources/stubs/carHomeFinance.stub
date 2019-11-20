@@ -25,7 +25,7 @@
         <div class="card shadow-soft-blue page-top-navbar mb-5">
           <div class="d-flex justify-content-around">
             <a class="active" href="#">Санхүү мэдээлэл</a>
-            <a href="/monthly-installments?monthlyPrice=500000&firstPay=20&financeMonth=6&priceAmount=4590104&sort=updated_at">Үнийн тооцоолол</a>
+            <a href="/monthly-installments?monthlyPrice=500000&firstPay=20&financeMonth=6&priceAmount=4590104&sort=updated_at">Санхүүдээ таарсан машин олох</a>
           </div>
         </div>
       </div>
@@ -69,7 +69,7 @@
             <div class="section-title">
                 <h2>Зээлээр авах боломжтой машинууд</h2>
                 <span>
-            <a href="/buy">See all<i class="fab fa fa-angle-right"></i></a>
+            <a href="/buy">Бүгдийг харах<i class="fab fa fa-angle-right"></i></a>
           </span>
             </div>
         </div>
@@ -111,7 +111,7 @@
                             <img src="{{(getMetasValue($finCars->metas, 'thumbnail'))}}" class="img-fluid" alt="alt">
 
                             <div class="card-caption">
-                                <div class="meta">{{$itsIntCar}}{{(getMetasValue($finCars->metas, 'mileageAmaount'))}} {{(getMetasValue($finCars->metas, 'mileageUnit'))}}| {{(getMetasValue($finCars->metas, 'fuelType'))}} | {{(getMetasValue($finCars->metas, 'capacityAmount'))}} {{(getMetasValue($finCars->metas, 'capacityunit'))}}</div>
+                                <div class="meta">{{$itsIntCar}}{{(getMetasValue($finCars->metas, 'mileageAmount'))}} {{(getMetasValue($finCars->metas, 'mileageUnit'))}}| {{(getMetasValue($finCars->metas, 'fuelType'))}} | {{(getMetasValue($finCars->metas, 'capacityAmount'))}} {{(getMetasValue($finCars->metas, 'capacityunit'))}}</div>
                                 @if(Auth::user()!=null && $finCars->author_id==Auth::user()->id)
                                     <div class="favorite">
                                         <span class=""><i class="fas fa-car"></i></span>
@@ -205,9 +205,9 @@
                     },
                     success: function (data) {
                         if (data.status == 'added') {
-                            elm.html('<span class="text-danger"><i class="fas fa-heart"></i> Added to interest list</span>');
+                            elm.html('<span class="text-danger"><i class="fas fa-heart"></i> Жаглаастанд нэмэгдсэн</span>');
                         } else if (data.status == 'removed') {
-                            elm.html('<span class=""><i class="far fa-heart"></i> Add to interest list</span>');
+                            elm.html('<span class=""><i class="far fa-heart"></i> Жаглаастанд нэмэх</span>');
                         }
                     },
                     error: function (error) {

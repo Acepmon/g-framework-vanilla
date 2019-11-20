@@ -101,14 +101,14 @@
         @include('themes.car-web.includes.section-retail', ['content' => \App\Content::find($content->metaValue('retail'))])
 
         <!-- Hot deals -->
-        @include('themes.car-web.includes.section-slider', ['title' => 'Hot Deals', 'contents' => \Modules\Car\Entities\Car::filterByPremium(null, null, ['best_premium'])->get(), 'morelink'=> url('/buy?publishType=best_premium')])
+        @include('themes.car-web.includes.section-slider', ['title' => 'Шилдэг зарууд', 'contents' => \Modules\Car\Entities\Car::filterByPremium(null, null, ['best_premium'])->get(), 'morelink'=> url('/buy?publishType=best_premium')])
 
         <!-- Similar Price -->
         @php
         $priceAmount = (intval($content->metaValue('priceAmount') / 100000)) * 100000;
         @endphp
         @include('themes.car-web.includes.section-slider', [
-            'title' => 'Similar Price',
+            'title' => 'Ойролцоо үнэтэй',
             'contents' => \App\Content::inRangeMetas('priceAmount', ($priceAmount - 1000000) < 0 ? '0' : ($priceAmount - 1000000), 
                 $priceAmount + 1000000)->where('id', '!=', $content->id)->where('status', \App\Content::STATUS_PUBLISHED)->where('visibility', 'public')->orderBy('id', 'desc')->get(),
             'morelink'=> url('/search?min_price='.(($priceAmount - 1000000) < 0 ? 0 : ($priceAmount - 1000000)).'&max_price='.($priceAmount + 1000000))

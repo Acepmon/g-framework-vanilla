@@ -21,11 +21,11 @@
     <div class="card page-top-navbar border-0 mt-3 bg-transparent">
         <div class="d-flex justify-content-start">
             @contentInline(type=car, author_id=Auth::user()->id, isSold=0, sortDir=request()->input("sortDir", "desc"), sort=request()->input("sort", "updated_at") as $onSales | paginate)
-            <span class="total-cars ml-0" >{{ count($onSales) }} МАШИН</span>
+            <span class="total-cars ml-0" >НИЙТ {{ count($onSales) }}</span>
             <div class="sort-cars col-md-9">
                 <ul>
-                    <li class="{{ request('sort')=='updated_at' ?'active':'' }}"><a href="#" onclick="formSubmit('sortBy', 'updated_at', 'sortDir', 'desc')">Сүүлд нэмэгдсэнээр</a></li>
-                    <li class="{{ request('sort')=='priceAmount' ?'active':'' }}"><a href="#" onclick="formSubmit('sortBy', 'priceAmount', 'sortDir', 'asc')">Үнэ хямдаар</a></li>
+                    <li class="{{ request('sort')=='updated_at' ?'active':'' }}"><a href="#" onclick="formSubmit('sortBy', 'updated_at', 'sortDir', 'desc')">Сүүлд нийтлэгдсэн</a></li>
+                    <li class="{{ request('sort')=='priceAmount' ?'active':'' }}"><a href="#" onclick="formSubmit('sortBy', 'priceAmount', 'sortDir', 'asc')">Хямд үнэ</a></li>
                 </ul>
             </div>
         </div>
@@ -84,7 +84,7 @@
                         <p>{{$onSale->metaValue("colorName")}}</p>
                       </span>
                         <div class="sell-action">
-                            <div onclick="window.open('/edit?id={{$onSale->id}}');">Засварлах</div>
+                            <div onclick="window.open('/edit?id={{$onSale->id}}');">Засах</div>
                             <div data-toggle="modal" data-target="#deteleCont" onclick="contsId({{$onSale->id}})">Устгах</div>
                             <div data-toggle="modal" data-target="#markCont" onclick="contsId({{$onSale->id}})">Зарагдсан</div>
                             <div data-toggle="modal" data-target="#publishCont" onclick="contsId({{$onSale->id}})">Идэвхгүй</div>

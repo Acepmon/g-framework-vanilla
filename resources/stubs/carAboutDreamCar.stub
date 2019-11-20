@@ -80,7 +80,7 @@
     </div>
   </section>
 
-    @include('themes.car-web.includes.section-wishlist', ['title' => "People's wish list", 'contents' => \App\Content::where('type', 'wanna-buy')->get(), 'morelink' => url('/wishlist')])
+    @include('themes.car-web.includes.section-wishlist', ['title' => "Хүслийн жагсаалт", 'contents' => \App\Content::where('type', 'wanna-buy')->get(), 'morelink' => url('/wishlist')])
 
     <section class="pageType-footer">
         <div class="container">

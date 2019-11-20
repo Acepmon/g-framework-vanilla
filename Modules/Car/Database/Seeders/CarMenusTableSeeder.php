@@ -35,26 +35,26 @@ class CarMenusTableSeeder extends Seeder
             ['Wishlist', '/admin/modules/car/wishlist', 'icon-star-empty3', 'Car'],
         ];
         $carMainMenus = ['Car Main', '', '', 'Car', [
-            ['Home', '/', '', 'Car'],
-            ['Buy', '/buy', '', 'Car'],
-            ['Sell', '/sell', '', 'Car'],
-            ['Finance', '/finance', '', 'Car'],
-            ['Auction', '/auction', '', 'Car'],
-            ['Wish List', '/wishlist', '', 'Car']
+            ['Нүүр', '/', '', 'Car'],
+            ['Авна', '/buy', '', 'Car'],
+            ['Зарна', '/sell', '', 'Car'],
+            ['Санхүүжилт', '/finance', '', 'Car'],
+            ['Аугцион', '/auction', '', 'Car'],
+            ['Авъя', '/wishlist', '', 'Car']
         ]];
         $carTopbarMenus = ['Car Topbar', '', '', 'Car', [
-            ['About Us', '/about-introduction', '', 'Car'],
-            ['Write wanna buy', '/wishlist', '', 'Car']
+            ['Бидний тухай', '/about-introduction', '', 'Car'],
+            ['+Хүсэлт оруулах', '/wishlist', '', 'Car']
         ]];
         $carFooterMenus = ['Car Footer', '', '', 'Car', [
-            ['About Us', '/about-introduction', '', 'Car'],
-            ['Write wanna buy', '/wishlist', '', 'Car']
+            ['Бидний тухай', '/about-introduction', '', 'Car'],
+            ['Хүслийн жагсаалт', '/wishlist', '', 'Car']
         ]];
         $carProfileDropdownMenus = ['Car Profile Dropdown', '', '', 'Car', [
-            ['Interested car list', '/interested-car', '', 'Car'],
-            ['Registration car alert', '/interested-car-registration-alert', '', 'Car'],
-            ['Sell request', '/sell-page-on-sell', '', 'Car'],
-            ['Purchase request', '/purchase-page-published', '', 'Car'],
+            ['Сонирхож буй машинууд', '/interested-car', '', 'Car'],
+            ['Миний оруулсан зар', '/interested-car-registration-alert', '', 'Car'],
+            ['Зарах хүсэлтүүд', '/sell-page-on-sell', '', 'Car'],
+            ['Төлбөрийн хүсэлтүүд', '/purchase-page-published', '', 'Car'],
             ['Mileage', '/coming-soon', '', 'Car'],
             ['Coupon', '/coming-soon', '', 'Car'],
             ['My profile', '/home', '', 'Car'],

@@ -5,7 +5,7 @@
                 <div class="col-md-12">
                     <div class="detail-section-title">
                         <p>
-                            Dealer Description
+                            Dealer мэдээлэл
                         </p>
                     </div>
 

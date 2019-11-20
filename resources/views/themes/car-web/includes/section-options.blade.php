@@ -5,14 +5,14 @@
                 <div class="col-md-12">
                     <div class="detail-section-title">
                         <p>
-                            Option information
+                            Опшин хэсэг
                         </p>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-3">
-                    <div class="title">Exterior</div>
+                    <div class="title">Гаднах байдал</div>
                     <div class="info-list">
                         <ul>
                             @foreach(\App\TermTaxonomy::where('taxonomy', 'car-exterior')->get() as $taxonomy)
@@ -24,7 +24,7 @@
                     </div>
                 </div>
                 <div class="col-md-3">
-                    <div class="title">Guts</div>
+                    <div class="title">Дотор байдал</div>
                     <div class="info-list">
                         <ul>
                             @foreach(\App\TermTaxonomy::where('taxonomy', 'car-guts')->get() as $taxonomy)
@@ -36,7 +36,7 @@
                     </div>
                 </div>
                 <div class="col-md-3">
-                    <div class="title">Safety</div>
+                    <div class="title">Аюулгүй байдал</div>
                     <div class="info-list">
                         <ul>
                             @foreach(\App\TermTaxonomy::where('taxonomy', 'car-safety')->get() as $taxonomy)
@@ -48,7 +48,7 @@
                     </div>
                 </div>
                 <div class="col-md-3">
-                    <div class="title">Convenience</div>
+                    <div class="title">Тав тух</div>
                     <div class="info-list">
                         <ul>
                             @foreach(\App\TermTaxonomy::where('taxonomy', 'car-convenience')->get() as $taxonomy)

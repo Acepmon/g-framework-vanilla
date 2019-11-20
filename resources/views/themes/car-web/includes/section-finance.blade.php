@@ -4,7 +4,7 @@
             <div class="row">
                 <div class="col-md-12 text-center ">
                     <div class="finance-title">
-                        <h1>This car I want to buy, how much is the month?</h1>
+                        <h1>Энэ машиныг авмаар байна, сард хэдийг төлөх вэ?</h1>
                         <p>Save your money and make an installment.</p>
                     </div>
                 </div>

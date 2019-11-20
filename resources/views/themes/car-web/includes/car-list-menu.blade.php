@@ -190,7 +190,7 @@ $("input.car-manufacturer").on("click", function () {
             var modelList=data;
             console.log(modelList);
             var html = '<div class="models" name="'+val+'"> \
-            <div class="models-back" style="cursor:pointer"><i class="fab fa fa-angle-left"></i> back</div> ';
+            <div class="models-back" style="cursor:pointer"><i class="fab fa fa-angle-left"></i> буцах</div> ';
 
             for (var i = 0; i < modelList.data.length; i++) {
                 let termname = modelList.data[i].term.name;

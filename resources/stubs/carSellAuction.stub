@@ -29,13 +29,13 @@ if ($startsAt) {
     <div class="col-md-6">
       <div class="custom-control custom-radio">
         <input type="radio" name="auctionStart" class="custom-control-input" id="radioCheck-Auction-Start" value="start" checked>
-        <label class="custom-control-label" for="radioCheck-Auction-Start">Start my listings when I submit them</label>
+        <label class="custom-control-label" for="radioCheck-Auction-Start">Формыг бөглөсний дараа шууд эхлүүлэх</label>
       </div>
     </div>
     <div class="col-md-6">
       <div class="custom-control custom-radio">
         <input type="radio" name="auctionStart" class="custom-control-input" id="radioCheck-Auction-Schedule" value="schedule">
-        <label class="custom-control-label" for="radioCheck-Auction-Schedule">Schedule to start on</label>
+        <label class="custom-control-label" for="radioCheck-Auction-Schedule">Хэзээ эхлэхийг тохируулах</label>
       </div>
     </div>
   </div>
@@ -79,7 +79,7 @@ if ($startsAt) {
       </div>
     </div>
     <div class="form-group col-md-4">
-      <label for="transmission">Buy Out:</label>
+      <label for="transmission">Шууд авах үнэ:</label>
       <div class="input-group">
         <input type="number" min="0" id="buyout" name="buyoutAmount" class="form-control" placeholder="0.00" required value="{{ $car->metaValue('buyoutAmount')?doubleval($car->metaValue('buyoutAmount')) / 1000000:'' }}">
         <input type="hidden" name="buyoutUnit" value="{{ $car->metaValue('buyoutUnit')?$car->metaValue('buyoutUnit'):'₮' }}">
@@ -92,9 +92,9 @@ if ($startsAt) {
       </div>
     </div>
     <div class="form-group col-md-4">
-      <label for="steeringWheel">Reserve price</label> <span class="text-muted">(fees apply)</span>
+      <label for="steeringWheel">Худалдах доод үнэ</label> <span class="text-muted">(шимтгэлтэй)</span>
       <span style="float: right">
-        <i class="fas fa-question" data-toggle="tooltip" data-placement="top" title="Fees apply tooltip text goes here!"></i>
+        <i class="fas fa-question" data-toggle="tooltip" data-placement="top" title="Шимтгэл тооцогдоно!"></i>
       </span>
       <div class="input-group">
         <input type="number" min="0" id="reservePrice" name="reservePriceAmount" class="form-control" placeholder="0.00" required value="{{ $car->metaValue('buyoutAmount')?doubleval($car->metaValue('reservePriceAmount')) / 1000000:'' }}">

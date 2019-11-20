@@ -30,14 +30,14 @@
 
                         @if ($content->metaValue('address'))
                             <div class="retail-row">
-                                <div class="row-title">Retail address</div>
+                                <div class="row-title">Хаяг</div>
                                 <div class="row-info">{{ $content->metaValue('address') }}</div>
                             </div>
                         @endif
 
                         @if ($content->metaValue('openHours'))
                             <div class="retail-row">
-                                <div class="row-title">Open hours</div>
+                                <div class="row-title">Нээлттэй цаг</div>
                                 <div class="row-info">{{ $content->metaValue('openHours') }}</div>
                             </div>
                         @endif
@@ -51,7 +51,7 @@
 
                         @if ($content->metaValue('website'))
                             <div class  ="retail-row">
-                                <div class="row-title">Phone</div>
+                                <div class="row-title">Утас</div>
                                 <div class="row-info">{{ format_phone($content->metaValue('phone')) }}</div>
                             </div>
                         @endif

@@ -14,7 +14,7 @@
                         <div class="maz-modal-desc">Та авахыг хүсэж буй машиныхаа зарыг оруулсанаар машин худалдаалагч нар танруу таны хайж буй машиныг тань санал болгох болно. Хүсэж буй машинаа олоход тань амжилт хүсье</div>
                         <div class="form-row mt-5">
                             <div class="form-group col-md-6">
-                                <label for="Manufacturer">Manufacturer:</label>
+                                <label for="Manufacturer">Үйлдвэрлэгч:</label>
                                 <select id="addWishMark" name="markName" class="form-control" required>
                                     @foreach(App\TermTaxonomy::where('taxonomy', 'car-manufacturer')->get() as $taxonomy)
                                         <option value="{{$taxonomy->term->name}}">{{$taxonomy->term->name}}</option>
@@ -22,11 +22,11 @@
                                 </select>
                             </div>
                             <div class="form-group col-md-6">
-                                <label for="Model">Model:</label>
+                                <label for="Model">Загвар:</label>
                                 <select id="addWishModel" name="modelName" class="form-control" required></select>
                             </div>
                             <div class="form-group col-md-6">
-                                <label for="priceAmountStart">Start Price</label>
+                                <label for="priceAmountStart">Эхлэх үнэ</label>
                                 <div class="input-group">
                                     <input type="text" name="priceAmountStart" class="form-control" required>
                                     <div class="input-group-append">
@@ -35,7 +35,7 @@
                                 </div>
                             </div>
                             <div class="form-group col-md-6">
-                                <label for="priceAmountEnd">End Price</label>
+                                <label for="priceAmountEnd">Дуусах үн</label>
                                 <div class="input-group">
                                     <input type="text" name="priceAmountEnd" class="form-control" required>
                                     <div class="input-group-append">
@@ -47,7 +47,7 @@
                         </div>
                     </div>
                     <div class="modal-footer pb-5">
-                        <button type="submit" id="btnSendWish" class="btn btn-danger btn-round px-5 py-2 shadow-red">Send</button>
+                        <button type="submit" id="btnSendWish" class="btn btn-danger btn-round px-5 py-2 shadow-red">Илгээх</button>
                     </div>
                 </form>
             </div>

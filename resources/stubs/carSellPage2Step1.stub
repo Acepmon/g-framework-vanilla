@@ -50,7 +50,7 @@
             <select id="Color" name="colorName" class="form-control">
                 <option value="" selected>Choose...</option>
                 @foreach(App\TermTaxonomy::where('taxonomy', 'car-colors')->get() as $taxonomy)
-                <option value="{{ $taxonomy->term->name }}" {{ ($car->metaValue('colorName') == $taxonomy->term->name)?'selected':'' }}>{{$taxonomy->term->name}}</option>
+                <option value="{{ $taxonomy->term->name }}" {{ ($car->metaValue('colorName') == $taxonomy->term->name)?'selected':'' }}>{{$taxonomy->term->metaValue('value')}}</option>
                 @endforeach
             </select>
         </div>
@@ -165,8 +165,8 @@
             <label for="salonColor">Салоны өнгө:</label>
             <select id="salonColor" name="colorNameInterior" class="form-control">
                 <option value="" selected>Choose...</option>
-                @foreach(App\TermTaxonomy::where('taxonomy', 'car-colors')->get() as $taxonomy)
-                <option value="{{ $taxonomy->term->name }}" {{ ($car->metaValue('colorNameInterior') == $taxonomy->term->name)?'selected':'' }}>{{ $taxonomy->term->name }}</option>
+                @foreach(App\TermTaxonomy::where('taxonomy', 'car-interior-colors')->get() as $taxonomy)
+                <option value="{{ $taxonomy->term->name }}" {{ ($car->metaValue('colorNameInterior') == $taxonomy->term->name)?'selected':'' }}>{{ $taxonomy->term->metaValue('value') }}</option>
                 @endforeach
             </select>
         </div>

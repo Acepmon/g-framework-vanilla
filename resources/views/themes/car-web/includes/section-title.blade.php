@@ -31,15 +31,15 @@
 
                                     <div class="d-flex align-items-center">
                                         @if ($content->metaValue('isAuction') && $content->metaValue('startPriceAmount'))
-                                            <div class="vehicle-price"> <i class="icon-tag"></i> Price: <span>{{ numerizePrice($content->metaValue('startPriceAmount')) }} {{ $content->metaValue('startPriceUnit') }}</span> </div>
+                                            <div class="vehicle-price"> <i class="icon-tag"></i> Үнэ: <span>{{ numerizePrice($content->metaValue('startPriceAmount')) }} {{ $content->metaValue('startPriceUnit') }}</span> </div>
                                         @elseif ($content->metaValue('priceAmount'))
-                                            <div class="vehicle-price"> <i class="icon-tag"></i> Price: <span>{{ numerizePrice($content->metaValue('priceAmount')) }} {{ $content->metaValue('priceUnit') }}</span> </div>
+                                            <div class="vehicle-price"> <i class="icon-tag"></i> Үнэ: <span>{{ numerizePrice($content->metaValue('priceAmount')) }} {{ $content->metaValue('priceUnit') }}</span> </div>
                                         @endif
 
                                         @if ($content->metaValue('isAuction'))
                                             <div class="vehicle-price ml-3">
                                                 <img src="{{ asset('car-web/img/auction.svg') }}" alt="">
-                                                End Time: <span class="countdown" style="font-size: 1.2rem" data-countdown="{{ \Carbon\Carbon::parse($content->metaValue('endsAt'))->timezone(config('app.timezone')) }}"></span>
+                                                Дуусах хугацаа: <span class="countdown" style="font-size: 1.2rem" data-countdown="{{ \Carbon\Carbon::parse($content->metaValue('endsAt'))->timezone(config('app.timezone')) }}"></span>
                                             </div>
                                         @endif
 
@@ -59,16 +59,16 @@
                                             @if ($content->metaValue('publishType') == 'free' && Auth::user()->id == $content->author_id)
                                                 <a class="disabled btn btn-warning btn-round shadow-soft-blue btn-icon-left px-3" href="{{ url('/my-page/premiums') }}">
                                                     @include('themes.car-web.includes.premium-svg')
-                                                    Make premium
+                                                    Рremium болгох
                                                 </a>
                                             @endif
 
                                             @if (!$content->metaValue('doctorVerified') && Auth::user()->id == $content->author_id)
-                                                <a class="btn btn-round shadow-soft-blue ml-3" href="#modalVerifyCar" id="modalVerifyCarLabel" data-toggle="modal">Verify car</a>
+                                                <a class="btn btn-round shadow-soft-blue ml-3" href="#modalVerifyCar" id="modalVerifyCarLabel" data-toggle="modal">Баталгаажуулах</a>
                                             @endif
 
                                             @if (Auth::user()->id == $content->author_id)
-                                                <a class="btn btn-round shadow-soft-blue ml-3" href="{{ url('edit?id='.$content->id) }}">Edit</a>
+                                                <a class="btn btn-round shadow-soft-blue ml-3" href="{{ url('edit?id='.$content->id) }}">Засах</a>
                                             @endif
                                         @endif
                                     </div>
@@ -97,7 +97,7 @@
                             <input type="doctorVerificationRequest" value="true" hidden>
                             <div class="form-group mt-4">
                                 <label for="doctorVerificationFile" class="col-form-label">Doctor Verify
-                                    <span data-toggle="tooltip" data-placement="top" title="I don't know what to say here!" class="ml-2 icon-question"></span>
+                                    <span data-toggle="tooltip" data-placement="top" title="Баталгаажуулах файлаа илгээнэ үү" class="ml-2 icon-question"></span>
                                 </label>
 
                                 <!-- <div class="dropzone">
@@ -123,13 +123,13 @@
 
                     <!-- Modal Header -->
                     <div class="modal-header text-center">
-                        <h4 class="modal-title">Doctor Verify</h4>
+                        <h4 class="modal-title">Doctor баталгаажуулалт</h4>
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
 
                     <!-- Modal body -->
                     <div class="modal-body mt-4 pr-lg-5 pl-lg-5 text-center">
-                        Doctor Verify sent successfully!
+                        Doctor баталгаажуулалт илгээгдлээ! Админ таны хүсэлтийг харж баталгаажуулах болно.
                     </div>
                 </div>
             </div>
