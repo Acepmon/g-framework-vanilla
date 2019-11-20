@@ -28,7 +28,7 @@
         <div class="form-group col-md-6">
             <label for="Model">Загвар:</label>
             <select id="modelSelect" name="modelName" class="form-control" required>
-                <option value="{{ $taxonomy->term->name?$taxonomy->term->name:'' }}">{{ $car->metaValue('modelName')?$car->metaValue('modelName'):'Model' }}</option>
+                <option value="{{ $taxonomy->term->name?$taxonomy->term->name:'' }}">{{ $car->metaValue('modelName')?$car->metaValue('modelName'):'Загвар' }}</option>
             </select>
             <span id="modelSelectAlert" class="invalid-feedback" role="alert" style="display: none">
                 Загвараа сонгоно уу
