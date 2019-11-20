@@ -31,7 +31,7 @@
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="headerProfileDropdown">
                                     @if (Auth::user()->is_admin())
-                                        <a href="{{ route('admin.dashboard') }}" class="dropdown-item">Admin Panel</a>
+                                        <a href="{{ route('admin.dashboard') }}" class="dropdown-item">Удирдлагын самбар</a>
                                     @endif
                                     @foreach ($dropdownMenus as $menu)
                                         <a class="dropdown-item" href="{{ url($menu->link) }}">{{ $menu->title }}</a>
