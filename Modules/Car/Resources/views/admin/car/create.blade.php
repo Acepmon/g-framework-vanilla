@@ -69,7 +69,7 @@
                     <div class="form-group row">
                         <label for="title" class="col-form-label col-lg-2">Title <span class="text-danger">*</span></label>
                         <div class="col-lg-10">
-                            <input id="title" type="text" class="form-control" name="title" placeholder="Enter car title..." required="required" aria-required="true" invalid="true">
+                            <input id="title" type="text" class="form-control" name="title" placeholder="Гарчиг..." required="required" aria-required="true" invalid="true">
                         </div>
                     </div>
                     <input id="slug" type="hidden" class="form-control" name="slug" placeholder="Enter content slug..." required="required" aria-required="true" invalid="true" value="{{ \Str::uuid() }}">
@@ -109,7 +109,7 @@
                                 <label for="manufacturer" class="col-form-label col-lg-2">Manufacturer</label>
                                 <div class="col-lg-10">
                                     <select id="manufacturer" name="markName" class="select text-capitalize">
-                                        <option>Manufacturer</option>
+                                        <option value="">Үйлдвэрлэгч</option>
                                         @foreach(App\TermTaxonomy::where('taxonomy', 'car-manufacturer')->get() as $value)
                                             <option value="{{ $value->term->name }}">{{ $value->term->name }}</option>
                                         @endforeach
@@ -129,7 +129,7 @@
                                 <label for="capacityAmount" class="col-form-label col-lg-2">Displacement</label>
                                 <div class="col-lg-10">
                                     <div class="input-group">
-                                        <input id="capacityAmount" type="number" class="form-control" name="capacityAmount" placeholder="Enter displacement volume..." invalid="true">
+                                        <input id="capacityAmount" type="number" class="form-control" name="capacityAmount" placeholder="Багтаамж..." invalid="true">
                                         <input type="hidden" class="form-control" name="capacityUnit" value="cc">
                                         <span class="input-group-append">
                                             <span class="input-group-text">cc</span>
@@ -141,14 +141,14 @@
                             <div class="form-group row">
                                 <label for="buildYear" class="col-form-label col-lg-2">Build Year</label>
                                 <div class="col-lg-10">
-                                    <input id="buildYear" type="number" min="1769" max="2019" value="2019" class="form-control" name="buildYear" placeholder="Enter year of product..." invalid="true">
+                                    <input id="buildYear" type="number" min="1769" max="2019" value="2019" class="form-control" name="buildYear" placeholder="Үйлдвэрлэгдсэн он..." invalid="true">
                                 </div>
                             </div>
 
                             <div class="form-group row">
                                 <label for="importDate" class="col-form-label col-lg-2">Import Date</label>
                                 <div class="col-lg-10">
-                                    <input id="importDate" type="number" min="1769" max="2019" value="2019" class="form-control" name="importDate" placeholder="Enter year of entry..." invalid="true">
+                                    <input id="importDate" type="number" min="1769" max="2019" value="2019" class="form-control" name="importDate" placeholder="Орж ирсэн он..." invalid="true">
                                 </div>
                             </div>
 
@@ -157,7 +157,7 @@
                                 <div class="col-lg-10">
                                     <select id="colorName" name="colorName" class="select text-capitalize">
                                         @foreach(App\TermTaxonomy::where('taxonomy', 'car-colors')->get() as $value)
-                                            <option value="{{ $value->term->name }}">{{ $value->term->name }}</option>
+                                            <option value="{{ $value->term->name }}">{{ $value->term->metaValue('value') }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -166,7 +166,7 @@
                             <div class="form-group row">
                                 <label for="vin" class="col-form-label col-lg-2">VIN</label>
                                 <div class="col-lg-10">
-                                    <input id="vin" type="text" class="form-control" name="vin" placeholder="Enter car vin..." invalid="true">
+                                    <input id="vin" type="text" class="form-control" name="vin" placeholder="Машины дугаар..." invalid="true">
                                 </div>
                             </div>
                         </div>
@@ -178,7 +178,7 @@
                                 <label for="mileage" class="col-form-label col-lg-2">Mileage</label>
                                 <div class="col-lg-10">
                                     <div class="input-group">
-                                        <input id="mileage" type="number" class="form-control" name="mileage" placeholder="Enter mileage..." invalid="true" class="touchspin-postfix">
+                                        <input id="mileage" type="number" class="form-control" name="mileage" placeholder="Явсан км..." invalid="true" class="touchspin-postfix">
                                         <span class="input-group-append">
                                             <span class="input-group-text">km</span>
                                         </span>
@@ -244,14 +244,14 @@
                             <div class="form-group row">
                                 <label for="advantages" class="col-form-label col-lg-2">Advantages</label>
                                 <div class="col-lg-10">
-                                    <input type="text" name="advantages" id="advantages" class="form-control tokenfield" value="" placeholder="Press Enter">
+                                    <input type="text" name="advantages" id="advantages" class="form-control tokenfield" value="" placeholder="">
                                 </div>
                             </div>
 
                             <div class="form-group row">
                                 <label for="sellerDescription" class="col-form-label col-lg-2">Seller description</label>
                                 <div class="col-lg-10">
-                                    <textarea id="sellerDescription" type="text" class="form-control" name="sellerDescription" placeholder="Enter seller description..."></textarea>
+                                    <textarea id="sellerDescription" type="text" class="form-control" name="sellerDescription" placeholder="Нэмэлт мэдээлэл..."></textarea>
                                 </div>
                             </div>
                         </div>
@@ -265,7 +265,7 @@
                                 <label for="price" class="col-form-label col-lg-2">Price</label>
                                 <div class="col-lg-10">
                                     <div class="input-group">
-                                        <input id="price" type="number" min="0" value="0" class="form-control" name="price" placeholder="Enter price..." invalid="true" class="touchspin-postfix">
+                                        <input id="price" type="number" min="0" value="0" class="form-control" name="price" placeholder="Үнэ..." invalid="true" class="touchspin-postfix">
                                         <span class="input-group-append">
                                             <span class="input-group-text">₮</span>
                                         </span>
@@ -319,7 +319,7 @@
                                 <label for="buyout" class="col-form-label col-lg-2">Buyout</label>
                                 <div class="col-lg-10">
                                     <div class="input-group">
-                                        <input id="buyout" type="number" min="0" class="form-control" name="buyout" placeholder="Enter buyout..." invalid="true" class="touchspin-postfix">
+                                        <input id="buyout" type="number" min="0" class="form-control" name="buyout" placeholder="Шууд авах үнэ..." invalid="true" class="touchspin-postfix">
                                         <span class="input-group-append">
                                             <span class="input-group-text">₮</span>
                                         </span>
@@ -331,7 +331,7 @@
                                 <label for="startPrice" class="col-form-label col-lg-2">Bid Starting Price</label>
                                 <div class="col-lg-10">
                                     <div class="input-group">
-                                        <input id="startPrice" type="number" min="0" class="form-control" name="startPrice" placeholder="Enter start price..." invalid="true" class="touchspin-postfix">
+                                        <input id="startPrice" type="number" min="0" class="form-control" name="startPrice" placeholder="Эхлэх үнэ..." invalid="true" class="touchspin-postfix">
                                         <span class="input-group-append">
                                             <span class="input-group-text">₮</span>
                                         </span>
@@ -340,10 +340,10 @@
                             </div>
 
                             <div class="form-group row">
-                                <label for="maxBid" class="col-form-label col-lg-2">Max Bid</label>
+                                <label for="maxBid" class="col-form-label col-lg-2">Reserve Price</label>
                                 <div class="col-lg-10">
                                     <div class="input-group">
-                                        <input id="maxBid" type="number" min="0" class="form-control" name="maxBid" placeholder="Enter max bid..." invalid="true" class="touchspin-postfix">
+                                        <input id="maxBid" type="number" min="0" class="form-control" name="reservePrice" placeholder="Зарагдах доод үнэ..." invalid="true" class="touchspin-postfix">
                                         <span class="input-group-append">
                                             <span class="input-group-text">₮</span>
                                         </span>
@@ -358,7 +358,7 @@
                                         <span class="input-group-prepend">
                                             <button class="btn btn-light btn-icon" type="button" id="startsAtBut"><i class="icon-calendar3"></i></button>
                                         </span>
-                                        <input type="text" class="form-control" id="startsAt" name="startsAt" placeholder="Start date">
+                                        <input type="text" class="form-control" id="startsAt" name="startsAt" placeholder="Эхлэх хугацаа">
                                     </div>
                                 </div>
                             </div>
@@ -370,7 +370,7 @@
                                         <span class="input-group-prepend">
                                             <button class="btn btn-light btn-icon" type="button" id="endsAtBut"><i class="icon-calendar3"></i></button>
                                         </span>
-                                        <input type="text" class="form-control" id="endsAt" name="endsAt" placeholder="End date">
+                                        <input type="text" class="form-control" id="endsAt" name="endsAt" placeholder="Дуусах хугацаа">
                                     </div>
                                 </div>
                             </div>

@@ -76,6 +76,7 @@
 <script type="text/javascript">
     var rmvImgs=[];
     var fileList = [];
+    var mb = 1000000;
 
     function removeImg(target, url) {
         rmvImgs.push(url);
@@ -151,7 +152,6 @@
         var imgPath = $(this)[0].value;
         var extn = imgPath.substring(imgPath.lastIndexOf('.') + 1).toLowerCase();
         var image_holder = $("#preview-image");
-        var mb = 1000000;
         //image_holder.empty();
 
         if (extn == "gif" || extn == "png" || extn == "jpg" || extn == "jpeg") {
@@ -160,7 +160,7 @@
                 for (var i = 0; i < countFiles; i++) {
                     var file = files[i];
                     console.log(file);
-                    if (file.size <= {{ env('MAX_IMAGE_SIZE') }} * mb) {
+                    if (file.size <= 4 * mb) {
                         fileList.push(file);
 
                         var reader = new FileReader();
@@ -178,7 +178,7 @@
                         image_holder.show();
                         reader.readAsDataURL(file);
                     } else {
-                        alert('File: ' + file.name + ' exceeds {{ env('MAX_IMAGE_SIZE') }}MB limit!');
+                        alert('' + file.name + ' нэртэй файл 4MB хязгаарыг давсан тул оруулж чадсангүй!');
                     }
                 }
 
@@ -201,8 +201,8 @@
             totalSize += fileList[i].size;
         }
 
-        if (totalSize > {{ env('MAX_UPLOAD_SIZE') }} * mb) {
-            alert('Uploaded files exceed {{ env('MAX_UPLOAD_SIZE') }}MB limit!');
+        if (totalSize > 80 * mb) {
+            alert('Нийт оруулсан зурагны хэмжээ 80MB-аас хэтэрч байна! Зарим зурагнуудаа хасаад дахин оролдоно уу.');
             __callback(0);
         } else {
             $("#demo-spinner").css({'display': 'block'});
