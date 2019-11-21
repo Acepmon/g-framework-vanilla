@@ -13,8 +13,8 @@
     <div class="card shadow-soft-blue page-top-navbar">
         <div class="mypage-nav">
             <ul>
-                <li class="list-item "><a href="/purchase-page-published">Published purchase</a></li>
-                <li class="list-item active"> <a href="#">Purchase request checking</a></li>
+                <li class="list-item "><a href="/purchase-page-published">Нийтлэгдсэн</a></li>
+                <li class="list-item active"> <a href="#">Шалгагдаж байгаа</a></li>
             </ul>
         </div>
     </div>

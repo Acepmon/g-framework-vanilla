@@ -13,8 +13,8 @@
     <div class="card shadow-soft-blue page-top-navbar">
         <div class="mypage-nav">
             <ul>
-                <li class="list-item active"><a href="#">Идвэхтэй purchase</a></li>
-                <li class="list-item "> <a href="/purchase-page-checking">Purchase шалгагдаж байгаа хүсэлт </a></li>
+                <li class="list-item active"><a href="#">Нийтлэгдсэн</a></li>
+                <li class="list-item "> <a href="/purchase-page-checking">Шалгагдаж байгаа</a></li>
             </ul>
         </div>
     </div>

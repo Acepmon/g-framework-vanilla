@@ -5,7 +5,7 @@
             <label for="durationDay">Үнэ</label>
             <br>
             <h5>
-                <p class="text-secondary"><small>This is popular price of your car. You can tap to change price</small></p>
+                <p class="text-secondary"><small>Одоо байгаа зах зээлийн үнэ. Дараад өөрчилөх боломжтой</small></p>
             </h5>
         </div>
         <div class="input-group col-md-7">
@@ -22,20 +22,20 @@
     <div class="form-row mt-4">
         <div class="col-md-2">
             <div class="custom-control custom-radio">
-                <input type="radio" name="priceType" class="custom-control-input" id="sell-negotiate" value="negotiate" {{ ($car->metaValue('priceType') == Null || $car->metaValue('priceType') == 'negotiate')?'checked':'' }}>
-                <label class="custom-control-label" for="sell-negotiate">Negotiate</label>
+                <input type="radio" name="priceType" class="custom-control-input" id="sell-negotiate" value="Тохиролцох" {{ ($car->metaValue('priceType') == Null || $car->metaValue('Тохиролцох') == 'Тохиролцох')?'checked':'' }}>
+                <label class="custom-control-label" for="sell-negotiate">Тохиролцох</label>
             </div>
         </div>
         <div class="col-md-2">
             <div class="custom-control custom-radio">
-                <input type="radio" name="priceType" class="custom-control-input" id="sell-change" value="change" {{ ($car->metaValue('priceType') == 'change')?'checked':'' }}>
-                <label class="custom-control-label" for="sell-change">Change</label>
+                <input type="radio" name="priceType" class="custom-control-input" id="sell-change" value="Солилцох" {{ ($car->metaValue('priceType') == 'Солилцох')?'checked':'' }}>
+                <label class="custom-control-label" for="sell-change">Солилцох</label>
             </div>
         </div>
         <div class="col-md-2">
             <div class="custom-control custom-radio">
-                <input type="radio" name="priceType" class="custom-control-input" id="sell-loan" value="loan" {{ ($car->metaValue('priceType') == 'loan')?'checked':'' }}>
-                <label class="custom-control-label" for="sell-loan">Loan</label>
+                <input type="radio" name="priceType" class="custom-control-input" id="sell-loan" value="Зээлээр" {{ ($car->metaValue('priceType') == 'Зээлээр')?'checked':'' }}>
+                <label class="custom-control-label" for="sell-loan">Зээлээр</label>
             </div>
         </div>
     </div>

@@ -70,7 +70,7 @@
                     <div class="form-group row">
                         <label for="title" class="col-form-label col-lg-2">Title <span class="text-danger">*</span></label>
                         <div class="col-lg-10">
-                            <input id="title" type="text" class="form-control" name="title" placeholder="Enter car title..." required="required" aria-required="true" invalid="true" value="{{ $content->title }}">
+                            <input id="title" type="text" class="form-control" name="title" placeholder="Гарчиг..." required="required" aria-required="true" invalid="true" value="{{ $content->title }}">
                         </div>
                     </div>
                     <input id="slug" type="hidden" class="form-control" name="slug" placeholder="Enter content slug..." required="required" aria-required="true" invalid="true" value="{{ $content->slug }}">
@@ -110,7 +110,7 @@
                                 <label for="manufacturer" class="col-form-label col-lg-2">Manufacturer</label>
                                 <div class="col-lg-10">
                                     <select id="manufacturer" name="markName" class="select text-capitalize">
-                                        <option>Manufacturer</option>
+                                        <option>Үйлдвэрлэгч</option>
                                         @foreach(App\TermTaxonomy::where('taxonomy', 'car-manufacturer')->get() as $value)
                                             <option value="{{ $value->term->name }}" {{ ($value->term->name === $content->metaValue('markName'))?'selected':'' }}>{{ $value->term->name }}</option>
                                         @endforeach
@@ -137,7 +137,7 @@
                                 <label for="capacityAmount" class="col-form-label col-lg-2">Displacement</label>
                                 <div class="col-lg-10">
                                     <div class="input-group">
-                                        <input id="capacityAmount" type="number" class="form-control" name="capacityAmount" placeholder="Enter displacement volume..." invalid="true" value="{{ $content->metaValue('capacityAmount') }}">
+                                        <input id="capacityAmount" type="number" class="form-control" name="capacityAmount" placeholder="Багтаамж..." invalid="true" value="{{ $content->metaValue('capacityAmount') }}">
                                         <input type="hidden" class="form-control" name="capacityUnit" value="cc">
                                         <span class="input-group-append">
                                             <span class="input-group-text">cc</span>
@@ -149,14 +149,14 @@
                             <div class="form-group row">
                                 <label for="buildYear" class="col-form-label col-lg-2">Build Year</label>
                                 <div class="col-lg-10">
-                                    <input id="buildYear" type="number" min="1769" max="2019" value="2019" class="form-control" name="buildYear" placeholder="Enter year of product..." invalid="true" value="{{ $content->metaValue('buildYear') }}">
+                                    <input id="buildYear" type="number" min="1769" max="2019" value="2019" class="form-control" name="buildYear" placeholder="Үйлдвэрлэгдсэн он..." invalid="true" value="{{ $content->metaValue('buildYear') }}">
                                 </div>
                             </div>
 
                             <div class="form-group row">
                                 <label for="importDate" class="col-form-label col-lg-2">Import Date</label>
                                 <div class="col-lg-10">
-                                    <input id="importDate" type="number" min="1769" max="2019" value="2019" class="form-control" name="importDate" placeholder="Enter year of entry..." invalid="true" value="{{ $content->metaValue('importDate') }}">
+                                    <input id="importDate" type="number" min="1769" max="2019" value="2019" class="form-control" name="importDate" placeholder="Орж ирсэн он..." invalid="true" value="{{ $content->metaValue('importDate') }}">
                                 </div>
                             </div>
 
@@ -174,7 +174,7 @@
                             <div class="form-group row">
                                 <label for="vin" class="col-form-label col-lg-2">VIN</label>
                                 <div class="col-lg-10">
-                                    <input id="vin" type="text" class="form-control" name="vin" placeholder="Enter car vin..." invalid="true" value="{{ $content->metaValue('vin') }}">
+                                    <input id="vin" type="text" class="form-control" name="vin" placeholder="Машины дугаар..." invalid="true" value="{{ $content->metaValue('vin') }}">
                                 </div>
                             </div>
                         </div>
@@ -186,7 +186,7 @@
                                 <label for="mileage" class="col-form-label col-lg-2">Mileage</label>
                                 <div class="col-lg-10">
                                     <div class="input-group">
-                                        <input id="mileage" type="number" class="form-control" name="mileage" placeholder="Enter mileage..." invalid="true" class="touchspin-postfix" value="{{ $content->metaValue('mileageAmount') }}">
+                                        <input id="mileage" type="number" class="form-control" name="mileage" placeholder="Явсан км..." invalid="true" class="touchspin-postfix" value="{{ $content->metaValue('mileageAmount') }}">
                                         <span class="input-group-append">
                                             <span class="input-group-text">km</span>
                                         </span>
@@ -256,14 +256,14 @@
                                     @foreach($content->metas->where('key', 'advantages') as $advantages)
                                         {{ $advantages->value . ',' }}
                                     @endforeach
-                                    " placeholder="Press Enter">
+                                    " placeholder="">
                                 </div>
                             </div>
 
                             <div class="form-group row">
                                 <label for="sellerDescription" class="col-form-label col-lg-2">Seller description</label>
                                 <div class="col-lg-10">
-                                    <textarea id="sellerDescription" type="text" class="form-control" name="sellerDescription" placeholder="Enter seller description...">{{$content->metaValue('sellerDescription')}}</textarea>
+                                    <textarea id="sellerDescription" type="text" class="form-control" name="sellerDescription" placeholder="Нэмэлт мэдээлэл...">{{$content->metaValue('sellerDescription')}}</textarea>
                                 </div>
                             </div>
                         </div>
@@ -277,7 +277,7 @@
                                 <label for="price" class="col-form-label col-lg-2">Price</label>
                                 <div class="col-lg-10">
                                     <div class="input-group">
-                                        <input id="price" type="number" min="0" value="{{ $content->metaValue('priceAmount') }}" class="form-control" name="priceAmount" placeholder="Enter price..." invalid="true" class="touchspin-postfix">
+                                        <input id="price" type="number" min="0" value="{{ $content->metaValue('priceAmount') }}" class="form-control" name="priceAmount" placeholder="Үнэ..." invalid="true" class="touchspin-postfix">
                                         <span class="input-group-append">
                                             <span class="input-group-text">₮</span>
                                         </span>
@@ -335,7 +335,7 @@
                                 <label for="buyout" class="col-form-label col-lg-2">Buyout</label>
                                 <div class="col-lg-10">
                                     <div class="input-group">
-                                        <input id="buyout" type="number" min="0" class="form-control" name="buyout" placeholder="Enter buyout..." invalid="true" class="touchspin-postfix" value="{{ $content->metaValue('buyoutAmount') }}">
+                                        <input id="buyout" type="number" min="0" class="form-control" name="buyout" placeholder="Шууд авах үнэ..." invalid="true" class="touchspin-postfix" value="{{ $content->metaValue('buyoutAmount') }}">
                                         <span class="input-group-append">
                                             <span class="input-group-text">₮</span>
                                         </span>
@@ -347,7 +347,7 @@
                                 <label for="startPrice" class="col-form-label col-lg-2">Bid Starting Price</label>
                                 <div class="col-lg-10">
                                     <div class="input-group">
-                                        <input id="startPrice" type="number" min="0" class="form-control" name="startPrice" placeholder="Enter start price..." invalid="true" class="touchspin-postfix" value="{{ $content->metaValue('startPriceAmount') }}">
+                                        <input id="startPrice" type="number" min="0" class="form-control" name="startPrice" placeholder="Эхлэх үнэ..." invalid="true" class="touchspin-postfix" value="{{ $content->metaValue('startPriceAmount') }}">
                                         <span class="input-group-append">
                                             <span class="input-group-text">₮</span>
                                         </span>
@@ -356,10 +356,10 @@
                             </div>
 
                             <div class="form-group row">
-                                <label for="maxBid" class="col-form-label col-lg-2">Max Bid</label>
+                                <label for="maxBid" class="col-form-label col-lg-2">Reserve Price</label>
                                 <div class="col-lg-10">
                                     <div class="input-group">
-                                        <input id="maxBid" type="number" min="0" class="form-control" name="maxBid" placeholder="Enter max bid..." invalid="true" class="touchspin-postfix" value="{{ $content->metaValue('maxBidAmount') }}">
+                                        <input id="maxBid" type="number" min="0" class="form-control" name="reservePrice" placeholder="Зарагдах доод үнэ..." invalid="true" class="touchspin-postfix" value="{{ $content->metaValue('maxBidAmount') }}">
                                         <span class="input-group-append">
                                             <span class="input-group-text">₮</span>
                                         </span>
@@ -374,7 +374,7 @@
                                         <span class="input-group-prepend">
                                             <button class="btn btn-light btn-icon" type="button" id="startsAtBut"><i class="icon-calendar3"></i></button>
                                         </span>
-                                        <input type="text" class="form-control" id="startsAt" name="startsAt" placeholder="Start date" value="{{ $content->metaValue('startsAt') }}">
+                                        <input type="text" class="form-control" id="startsAt" name="startsAt" placeholder="Эхлэх хугацаа" value="{{ $content->metaValue('startsAt') }}">
                                     </div>
                                 </div>
                             </div>
@@ -386,7 +386,7 @@
                                         <span class="input-group-prepend">
                                             <button class="btn btn-light btn-icon" type="button" id="endsAtBut"><i class="icon-calendar3"></i></button>
                                         </span>
-                                        <input type="text" class="form-control" id="endsAt" name="endsAt" placeholder="End date" value="{{ $content->metaValue('endsAt') }}">
+                                        <input type="text" class="form-control" id="endsAt" name="endsAt" placeholder="Дуусах хугацаа" value="{{ $content->metaValue('endsAt') }}">
                                     </div>
                                 </div>
                             </div>
