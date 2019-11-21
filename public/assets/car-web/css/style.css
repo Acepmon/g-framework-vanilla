@@ -1989,7 +1989,7 @@ select {
 
 .car-list .card .card-body .info .info-icon {
   display: inline-flex;
-  margin-right: 20px;
+  margin-right: 0;
   margin-bottom: 1.5rem;
   font-size: 1.25rem;
   color: #2B3651;
@@ -2010,6 +2010,7 @@ select {
   text-align: left;
   margin-left: 10px;
   margin-bottom: 0;
+  line-height: .8rem;
 }
 
 .car-list .card .card-body .info .advantage-slider {
@@ -2861,6 +2862,16 @@ body.menu-absolute .header-menu {
   height: auto;
 }
 
+body.menu-absolute .header-menu .menu-brand-bg {
+  background: url(../img/brand.png);
+  width: 483px;
+  height: 323px;
+  position: absolute;
+  left: -9%;
+  top: -10%;
+  z-index: 1;
+}
+
 .header-menu {
   position: relative;
   height: 10.25rem;
@@ -3008,6 +3019,16 @@ body.menu-absolute .header-menu {
   opacity: .5;
 }
 
+.menu-brand-bg {
+  background: url(../img/brand.png);
+  width: 483px;
+  height: 323px;
+  position: absolute;
+  left: -9%;
+  top: -60%;
+  z-index: 1;
+}
+
 .maz-burger-menu {
   width: 24px;
   height: 21px;
@@ -3117,7 +3138,7 @@ body.menu-absolute .header-menu {
 }
 
 .maz-navbar .maz-brand img {
-  width: 220px;
+  width: 235px;
 }
 
 .maz-navbar .maz-menu {
