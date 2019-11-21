@@ -28,7 +28,7 @@
                                 <li>
                                     <span class="info-icon">
                                         <img src="{{ asset('car-web/img/icons/passenger.svg') }}" alt="">
-                                        <p>{{ $content->metaValue('manCount') }} (passenger)</p>
+                                        <p>{{ $content->metaValue('manCount') }}</p>
                                     </span>
                                 </li>
                             @endif
@@ -37,7 +37,7 @@
                                 <li>
                                     <span class="info-icon">
                                         <img src="{{ asset('car-web/img/icons/door.svg') }}" alt="">
-                                        <p>{{ $content->metaValue('doorCount') }} (Door)</p>
+                                        <p>{{ $content->metaValue('doorCount') }} (Хаалга)</p>
                                     </span>
                                 </li>
                             @endif
@@ -45,7 +45,7 @@
                             @if ($content->metaValue('colorNameInterior'))
                                 <li>
                                     <span class="info-icon color" data-color="{{ strtolower($content->metaValue('colorNameInterior')) }}">
-                                        <p>{{ ucfirst(\App\Term::where('name', $content->metaValue('colorNameInterior'))->first()->metaValue('value')) }} (Interior)</p>
+                                        <p>{{ ucfirst(\App\Term::where('name', $content->metaValue('colorNameInterior'))->first()->metaValue('value')) }} (Гадна)</p>
                                     </span>
                                 </li>
                             @endif
@@ -53,7 +53,7 @@
                             @if ($content->metaValue('colorNameExterior'))
                                 <li>
                                     <span class="info-icon color" data-color="{{ strtolower($content->metaValue('colorName')) }}">
-                                        <p>{{ ucfirst(\App\Term::where('name', $content->metaValue('colorName'))->first()->metaValue('value')) }} (Exterior)</p>
+                                        <p>{{ ucfirst(\App\Term::where('name', $content->metaValue('colorName'))->first()->metaValue('value')) }} (Салон)</p>
                                     </span>
                                 </li>
                             @endif
@@ -77,7 +77,7 @@
                                 <li>
                                     <span class="info-icon">
                                         <img src="{{ asset('car-web/img/icons/wheel.svg') }}" alt="">
-                                        <p>{{ $content->metaValue('wheelPosition') }} wheel</p>
+                                        <p>{{ $content->metaValue('wheelPosition') }} хүрд</p>
                                     </span>
                                 </li>
                             @endif

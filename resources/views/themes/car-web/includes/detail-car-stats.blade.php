@@ -11,7 +11,7 @@
                 @else
                     <div class="dealer-more">
                         <div class="value"><img src="{{ asset('car-web/img/icons/verify.svg') }}" alt=""></div>
-                        <div class="title">Not Verified</div>
+                        <div class="title">Баталгаажаагүй</div>
                     </div>
                 @endif
 

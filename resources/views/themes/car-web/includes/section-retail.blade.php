@@ -5,7 +5,7 @@
                 <div class="col-md-12">
                     <div class="detail-section-title">
                         <p>
-                            Retail store
+                            Ретайл дэлгүүр
                         </p>
                     </div>
                 </div>
