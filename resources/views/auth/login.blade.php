@@ -80,6 +80,7 @@
             </div>
     </header>
 
+    @include('themes.car-web.includes.loader')
     <!-- The Modal -->
     <div class="modal fade" id="myModal">
         <div class="modal-dialog  modal-dialog-centered">
@@ -156,7 +157,6 @@
             </div>
         </div>
     </div>
-
 @endsection
 
 @section('script')
@@ -193,6 +193,7 @@
         $(".btn-submit").click(function(e){
             e.preventDefault();
 
+            $("#demo-spinner").css({'display': 'block'});
             var email = $("input[name=email]").val();
 
             $.ajax({
@@ -210,6 +211,7 @@
                         success:function(data){
                             $('#myModal').modal('hide');
                             $('#mailSuccess').modal('show');
+                            $("#demo-spinner").css({'display': 'none'});
                             anim3.play();
                             anim3.addEventListener('complete', function() {
                             setTimeout(function(){
@@ -220,14 +222,15 @@
                     })
                 }
                 else {
+                    $("#demo-spinner").css({'display': 'none'});
                     $('#mailFail').modal('show');
                     anim4.play();
                 }
             })
                 .fail(function(data){
-                //$("#demo-spinner").css({'display': 'none'});
+                $("#demo-spinner").css({'display': 'none'});
                 console.error("FAIL!");
-                //$('#myModal').modal('hide');
+                $('#myModal').modal('hide');
                 $('#mailFail').modal('show');
                 //console.error(err);
             });
