@@ -4,13 +4,13 @@
             <div class="wish-list text-center">
                 @auth
                     <!-- <a data-toggle="modal" href="#modalAddWishlist"> --><a href="/wishlist">
-                        <span class="badge badge-danger rounded float-right">new</span>
+                        <span class="badge badge-danger rounded float-right">шинэ</span>
                         <div id="wish-animation"> </div>
                         <h5>Хүслийн <br>жагсаалт</h5>
                     </a>
                 @else
                     <!-- <a href="{{ route('login') }}"> --><a href="/wishlist">
-                        <span class="badge badge-danger rounded float-right">new</span>
+                        <span class="badge badge-danger rounded float-right">шинэ</span>
                         <div id="wish-animation"> </div>
                         <h5>Хүслийн <br>жагсаалт</h5>
                     </a>

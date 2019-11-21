@@ -475,7 +475,7 @@ $itsIntCar=false;
                 // If the count down is finished, write some text
                 if (distance < 0) {
                     clearInterval(x);
-                    mazCountdown.html("EXPIRED");
+                    mazCountdown.html("ДУУССАН");
                 }
             }, 1000);
         })

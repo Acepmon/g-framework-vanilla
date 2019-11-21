@@ -30,7 +30,7 @@ class CarUsersTableSeeder extends Seeder
 
             $user->metas()->saveMany([
                 new UserMeta(['key' => 'type', 'value' => $randomGroup->title]),
-                new UserMeta(['key' => 'phone', 'value' => '+976 88206116']),
+                new UserMeta(['key' => 'phone', 'value' => '88206116']),
             ]);
         });
     }
