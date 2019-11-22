@@ -37,30 +37,41 @@
                 @endif
             </div>
             <div class="info">
+                @if($car->metaValue('capacityAmount')!=null)
                 <span class="info-icon">
                     <img src="{{ asset('car-web/img/icons/engine.svg') }}" alt="">
                     <p>{{ ucfirst($car->metaValue('capacityAmount')) . ' ' . strtoupper($car->metaValue('capacityUnit')) }}</p>
                 </span>
+                @endif
+                @if($car->metaValue('wheelPosition')!=null)
                 <span class="info-icon">
                     <img src="{{ asset('car-web/img/icons/wheel.svg') }}" alt="">
                     <p>{{ ucfirst($car->metaValue('wheelPosition')) }}</p>
                 </span>
+                @endif
+                @if($car->metaValue('transmission')!=null)
                 <span class="info-icon">
                     <img src="{{ asset('car-web/img/icons/gearShift.svg') }}" alt="">
                     <p>{{ ucfirst($car->metaValue('transmission')) }}</p>
                 </span>
+                @endif
+                @if($car->metaValue('fuelType')!=null)
                 <span class="info-icon">
                     <img src="{{ asset('car-web/img/icons/fuel.svg') }}" alt="">
                     <p>{{ ucfirst($car->metaValue('fuelType')) }} </p>
                 </span>
+                @endif
+                @if($car->metaValue('axleCount')!=null)
                 <span class="info-icon">
                     <img src="{{ asset('car-web/img/icons/transmision.svg') }}" alt="">
                     <p>{{ $car->metaValue('axleCount') }} WD</p>
                 </span>
+                @endif
+                @if($car->metaValue('colorName')!=null)
                 <span class="info-icon color" data-color="{{ strtolower($car->metaValue('colorName')) }}">
                     <p>{{ ucfirst(\App\Term::where('name', $car->metaValue('colorName'))->first()->metaValue('value')) }}</p>
                 </span>
-
+                @endif
                 <div class="advantage-slider owl-carousel owl-theme">
                     @foreach($car->metas->where('key', 'advantages') as $advantage)
                     <a class="advantage-item" onclick="formSubmit('advantage', '{{$advantage->value}}')">{{ $advantage->value }}</a>
