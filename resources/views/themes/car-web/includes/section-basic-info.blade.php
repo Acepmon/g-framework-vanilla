@@ -50,7 +50,7 @@
                                 </li>
                             @endif
 
-                            @if ($content->metaValue('colorNameExterior'))
+                            @if ($content->metaValue('colorName'))
                                 <li>
                                     <span class="info-icon color" data-color="{{ strtolower($content->metaValue('colorName')) }}">
                                         <p>{{ ucfirst(\App\Term::where('name', $content->metaValue('colorName'))->first()->metaValue('value')) }} (Салон)</p>
@@ -64,7 +64,7 @@
                     <div class="title">Үзүүлэлт</div>
                     <div class="info-list">
                         <ul>
-                            @if ($content->metaValue('engine'))
+                            @if ($content->metaValue('capacityAmount'))
                                 <li>
                                     <span class="info-icon">
                                         <img src="{{ asset('car-web/img/icons/engine.svg') }}" alt="">
