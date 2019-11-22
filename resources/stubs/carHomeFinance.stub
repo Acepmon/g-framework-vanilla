@@ -35,7 +35,7 @@
         <div class="col-md-7">
           <div class="hero-slider owl-carousel owl-theme">
             <div class="slider-item">
-              <img src="{{ asset('car-web/img/Slide-1.png') }}" alt="">
+              <img src="{{ asset('car-web/img/finance-banner.png') }}" alt="">
             </div>
 
           </div>
