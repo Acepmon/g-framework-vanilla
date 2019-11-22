@@ -10,7 +10,7 @@
                 <input type="file" name="thumbnail" class="custom-file-input" id="thumbnail">
                 <label class="custom-file-label" for="thumbnail">Файл сонгох</label>
             </div>
-        </div>
+        </div>e
         <div class="col-md-12">
             <div id="preview-thumb" class="mb-3">
                 @if($car->metaValue("thumbnail")!=null)
