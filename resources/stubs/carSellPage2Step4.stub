@@ -109,7 +109,7 @@
             <!-- Modal body -->
             <div class="modal-body text-center">
             <div class="maz-modal-title" style="font-size:1.5rem">Sell advertise!</div>
-            <div id="sent-ad"></div>
+            <div id="sent-ad" style="width: 300px; display:inline-block"></div>
                 <h5 class="text-danger mb-5">Car successfully registered!</h5>
             </div>
         </div>
