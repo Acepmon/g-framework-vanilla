@@ -11,7 +11,7 @@
             <div class="card-list auction mx-n2">
                 <div class="row">
 
-                    @content(type=car, publishType=best_premium, publishVerified=1 isAuction=1,  limit=12 as $auctionPrmCars | paginate)
+                    @content(type=car, publishType=best_premium, publishVerified=1, isAuction=1,  limit=12 as $auctionPrmCars | paginate)
                     @if(count($interestedCars) > 0)
                         @foreach($interestedCars as $intCars)
                             @if($intCars==$auctionPrmCars->id)
