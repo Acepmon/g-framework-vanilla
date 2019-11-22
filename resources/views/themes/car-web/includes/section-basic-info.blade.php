@@ -100,11 +100,11 @@
                                 </li>
                             @endif
 
-                            @if ($content->metaValue('chassis'))
+                            @if ($content->metaValue('wheelDrive'))
                                 <li>
                                     <span class="info-icon">
                                         <img src="{{ asset('car-web/img/icons/transmission.svg') }}" alt="">
-                                        <p>{{ $content->metaValue('chassis') }}</p>
+                                        <p>{{ $content->metaValue('wheelDrive') }}</p>
                                     </span>
                                 </li>
                             @endif
