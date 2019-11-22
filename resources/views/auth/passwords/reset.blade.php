@@ -45,11 +45,11 @@
 
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
                             </div>
-                            <button type="submit" class="btn col-12 btn-primary btn-lg btn-round shadow mt-4">Save</button>
+                            <button type="submit" class="btn col-12 btn-primary btn-lg btn-round shadow mt-4">Хадгалах</button>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
-</div>
+    </div>
 @endsection

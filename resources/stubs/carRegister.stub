@@ -16,13 +16,13 @@
                     <div class="card-header">
                         <div class="step-process sp-3">
                             <div class='progress_inner_step active'>
-                                <a class="nav-link" for='step-1' data-toggle="tab" href="#step-1" id="tab-step-1" role="tab" style="pointer-events: none;">Agreement</a>
+                                <a class="nav-link" for='step-1' data-toggle="tab" href="#step-1" id="tab-step-1" role="tab" style="pointer-events: none;">Үйлчилгээний нөхцөл</a>
                             </div>
                             <div class='progress_inner_step'>
-                                <a class="nav-link" for='step-2' data-toggle="tab" href="#step-2" id="tab-step-2" role="tab" style="pointer-events: none;">Username & Password</a>
+                                <a class="nav-link" for='step-2' data-toggle="tab" href="#step-2" id="tab-step-2" role="tab" style="pointer-events: none;">Нэвтрэх нэр & Нууц үг</a>
                             </div>
                             <div class='progress_inner_step'>
-                                <a class="nav-link" for='step-3' data-toggle="tab" href="#step-3" id="tab-step-3" role="tab" style="pointer-events: none;">More Information</a>
+                                <a class="nav-link" for='step-3' data-toggle="tab" href="#step-3" id="tab-step-3" role="tab" style="pointer-events: none;">Нэмэлт мэдээлэл</a>
                             </div>
                         </div>
                     </div>
@@ -32,11 +32,11 @@
                         <div class="card-body pb-5 tab-content" id="steps">
                             <div id="step-1" class="tab-pane active show">
 
-                                <div class="form-title"><span>Terms of Condition</span></div>
+                                <div class="form-title"><span>Үйлчилгээний нөхцөл</span></div>
 
                                 <div class="custom-control custom-checkbox my-1 mr-sm-2">
                                     <input type="checkbox" name="termsOfCondition" id="termsOfCondition" class="custom-control-input" required>
-                                    <label class="custom-control-label" for="termsOfCondition">Terms of condition</label>
+                                    <label class="custom-control-label" for="termsOfCondition">Үйлчилгээний нөхцөл</label>
                                 </div>
 
                                 <div class="terms-text">
@@ -47,7 +47,7 @@
 
                                 <div class="custom-control custom-checkbox my-1 mr-sm-2">
                                     <input type="checkbox" name="onlineUseTerm" id="onlineUseTerm" class="custom-control-input" required>
-                                    <label class="custom-control-label" for="onlineUseTerm">Online use terms</label>
+                                    <label class="custom-control-label" for="onlineUseTerm">Онлайнаар ашиглах нөхцөл</label>
                                 </div>
 
                                 <div class="terms-text">
@@ -58,7 +58,7 @@
 
                                 <!-- NEXT PREV BUTTON START -->
                                 <div style="float:right;">
-                                    <button id="step1Next" class="btn btn-danger btn-round shadow-red px-5 py-2" type="button" disabled>Next</button>
+                                    <button id="step1Next" class="btn btn-danger btn-round shadow-red px-5 py-2" type="button" disabled>Дараах</button>
                                 </div>
                             </div>
                             <div id="step-2" class="tab-pane">
@@ -67,7 +67,7 @@
                                 <div class="row">
                                     <div class="col-md-7">
                                         <div class="form-group">
-                                            <label for="email">Email:</label>
+                                            <label for="email">И-мэйл:</label>
                                             <input type="text" name="email" id="email" maxlength="191" required class="form-control @error('email') is-invalid @enderror" placeholder="example@mail.com" value="{{ old('email') }}">
                                             @error('email')
                                                 <span class="invalid-feedback" role="alert">
@@ -76,7 +76,7 @@
                                             @enderror
                                         </div>
                                         <div class="form-group">
-                                            <label for="name">Name:</label>
+                                            <label for="name">Нэр:</label>
                                             <input type="text" name="name" id="name" maxlength="191" required class="form-control @error('name') is-invalid @enderror" placeholder="Dorj Pagam" value="{{ old('name') }}">
                                             @error('name')
                                                 <span class="invalid-feedback" role="alert">
@@ -85,7 +85,7 @@
                                             @enderror
                                         </div>
                                         <div class="form-group">
-                                            <label for="password">Password:</label>
+                                            <label for="password">Нууц үг:</label>
                                             <input type="password" name="password" id="password" required class="form-control @error('password') is-invalid @enderror" placeholder="Type your password">
                                             @error('password')
                                                 <span class="invalid-feedback" role="alert">
@@ -94,7 +94,7 @@
                                             @enderror
                                         </div>
                                         <div class="form-group">
-                                            <label for="password_confirmation">Confirm password:</label>
+                                            <label for="password_confirmation">Нууц үг давт:</label>
                                             <input type="password" name="password_confirmation" id="password_confirmation" required class="form-control" placeholder="Confirm your password">
                                         </div>
                                     </div>
@@ -102,7 +102,7 @@
                                     <div class="col-md-5">
                                         <div class="social-login">
                                             <div class="social-login-title">
-                                                Login with Social network
+                                                Сошиал хаягаараа нэвтрэх
                                             </div>
                                             <a href="{{ route('login.provider', 'facebook') }}" class="btn btn-facebook btn-round btn-block my-2 py-3 shadow-soft-blue btn-icon-left"><i class="fab fa-facebook-f"></i> Facebook</a>
                                             <a href="{{ route('login.provider', 'google') }}" class="btn btn-light btn-round btn-block my-2 py-3 shadow-soft-blue btn-icon-left"><i class="fab fa-google"></i> Gmail</a>
@@ -112,8 +112,8 @@
 
                                 <!-- NEXT PREV BUTTON START -->
                                 <div style="float:right;">
-                                    <button class="btn btn-light btn-round px-5 py-2 mr-3" type="button" id="step2Prev">Previous</button>
-                                    <button class="btn btn-danger btn-round shadow-red px-5 py-2" type="button" id="step2Next">Next</button>
+                                    <button class="btn btn-light btn-round px-5 py-2 mr-3" type="button" id="step2Prev">Өмнөх</button>
+                                    <button class="btn btn-danger btn-round shadow-red px-5 py-2" type="button" id="step2Next">Дараах</button>
                                 </div>
                             </div>
                             <div id="step-3" class="tab-pane">
@@ -125,26 +125,21 @@
                                                     <img class="profile-pic" src="">
                                                 </div>
                                                 <div class="upload-image">
-                                                    <div class="btn btn-sm btn-primary upload-button">Upload profile</div>
+                                                    <div class="btn btn-sm btn-primary upload-button">Зураг</div>
                                                     <input class="btn btn-primary file-upload" type="file" name="avatar" id="avatar" accept="image/*"/>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label for="address">Address</label>
+                                            <label for="address">Хаяг</label>
                                             <div class="input-group">
                                                 <input type="text" class="form-control" name="address" id="meta_address" placeholder="Машины зогсоолын хаяг">
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label for="phone">Phone number</label>
+                                            <label for="phone">Утасны дугаар</label>
                                             <div class="input-group">
                                                 <input type="text" name="phone" id="phone" hidden>
-                                                <select id="callcode" class="form-control">
-                                                    @taxonomy(taxonomy=callcodes as $code)
-                                                        <option value="{{ $code->term->name }}" {{ $code->term->name == '+976' ? 'selected' : '' }}>{{ $code->term->name }}</option>
-                                                    @endtaxonomy
-                                                </select>
                                                 <input type="number" class="form-control" id="phoneNumber" placeholder="Утасны дугаар" style="width: 200px;">
                                             </div>
                                         </div>
@@ -153,8 +148,8 @@
 
                                 <!-- NEXT PREV BUTTON START -->
                                 <div style="float:right;">
-                                    <button class="btn btn-light btn-round px-5 py-2 mr-3" type="button" id="step3Prev">Previous</a>
-                                    <button class="btn btn-danger btn-round shadow-red px-5 py-2" type="submit">Finish</button>
+                                    <button class="btn btn-light btn-round px-5 py-2 mr-3" type="button" id="step3Prev">Өмнөх</a>
+                                    <button class="btn btn-danger btn-round shadow-red px-5 py-2" type="submit">Бүртгүүлэх</button>
                                 </div>
                             </div>
                         </div>
@@ -279,34 +274,34 @@
             if (validateEmail(emailField.val())) {
                 $.getJSON('/ajax/user_exists?email=' + emailField.val(), function (data) {
                     if (!data.status) {
-                        showValidation(1, 'Email is available!', emailField);
+                        showValidation(1, 'И-мэйл боломжтой!', emailField);
                     } else {
-                        showValidation(-1, 'Email not available!', emailField);
+                        showValidation(-1, 'Энэ и-мэйлээр өмнөн нь бүртгүүлж байсан байна!', emailField);
                     }
                 });
             } else {
-                showValidation(-1, 'Enter valid email address!', emailField);
+                showValidation(-1, 'Зөв и-мэйл хаяг оруулна уу!', emailField);
             }
 
             if (nameField.val().length == 0) {
-                showValidation(-1, 'Enter valid name!', nameField);
+                showValidation(-1, 'Нэрээ оруулна уу!', nameField);
             } else {
                 showValidation(1, null, nameField);
             }
 
             if (passwordField.val().length == 0) {
-                showValidation(-1, 'Enter valid password!', passwordField);
+                showValidation(-1, 'Нууц үгээ оруулна уу!', passwordField);
             } else {
                 if (passwordField.val() === passwordConfirmationField.val()) {
                     if (passwordField.val().length < 8) {
-                        showValidation(-1, 'Password must be atleast 8 characters', passwordField);
+                        showValidation(-1, 'Нууц үг дор хаяж 8 тэмдэгтээс бүрдсэн байх ёстой', passwordField);
                         showValidation(-1, null, passwordConfirmationField);
                     } else {
                         showValidation(1, null, passwordField);
                         showValidation(1, null, passwordConfirmationField);
                     }
                 } else {
-                    showValidation(-1, 'Passwords do not match', passwordField);
+                    showValidation(-1, 'Нууц үг таарахгүй байна', passwordField);
                     showValidation(-1, null, passwordConfirmationField);
                 }
             }
@@ -321,6 +316,18 @@
         $('#email').change(onEmailChange).keyup(onEmailChange);
         $("#step2Next").click(validate);
 
+        $("#step-2").find("input").each(function() {
+            $(this).keydown(function(event) {
+                    console.log("CLICKED ENTER");
+                if(event.keyCode == 13) {
+                    console.log("CLICKED ENTER");
+                    event.stopPropagation();
+                    event.preventDefault();
+                    $("#step2Next").click();
+                    return false;
+                }
+            });
+        });
     });
 </script>
 
@@ -347,17 +354,13 @@
     });
 
     $(document).ready(function () {
-        var callCode = $("#callcode");
         var phoneNumber = $("#phoneNumber");
         var phone = $("#phone");
 
         var onPhoneChange = function () {
-            if (phoneNumber.val().length != 0) {
-                phone.val(callCode.val() + " " + phoneNumber.val());
-            }
+            phone.val(phoneNumber.val());
         }
 
-        callCode.change(onPhoneChange);
         phoneNumber.change(onPhoneChange);
 
         onPhoneChange();

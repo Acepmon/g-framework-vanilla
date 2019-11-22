@@ -19,7 +19,7 @@
                 <div class="text-center mb-3">
                     <i class="icon-spinner11 icon-2x text-warning border-warning border-3 rounded-round p-3 mb-3 mt-1"></i>
                     <h5 class="mb-0">{{ __('Reset Password') }}</h5>
-                    <span class="d-block text-muted">We'll send you instructions in email</span>
+                    <span class="d-block text-muted">Тан руу мэйл руу нууц үг сэргээх линк явуулсан байгаа. Мэйлээ шалгана уу</span>
                 </div>
 
                 @if (session('status'))
