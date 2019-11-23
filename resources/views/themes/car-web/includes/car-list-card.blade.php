@@ -58,7 +58,9 @@
                     <p>{{ $car->metaValue('axleCount') }} WD</p>
                 </span>
                 <span class="info-icon color" data-color="{{ strtolower($car->metaValue('colorName')) }}">
+                    @if(\App\Term::where('name', $car->metaValue('colorName'))->first())
                     <p>{{ ucfirst(\App\Term::where('name', $car->metaValue('colorName'))->first()->metaValue('value')) }}</p>
+                    @endif
                 </span>
 
                 <div class="advantage-slider owl-carousel owl-theme">

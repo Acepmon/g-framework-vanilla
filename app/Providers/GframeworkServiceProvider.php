@@ -415,11 +415,11 @@ class GframeworkServiceProvider extends ServiceProvider
         return $part1 . $part2 . $part3;
     }
 
-    private function sort($sort = 'updated_at', $sortDir = 'desc') {
+    private function sort($sort = 'publishedAt', $sortDir = 'desc') {
         $return = "";
         $sort = $this->whereValueStr($sort);
         $sortDir = $this->whereValueStr($sortDir);
-        $return = $return . "; if(" . $sort . " != 'updated_at') {\$tmp = \$tmp->";
+        $return = $return . "; if(" . $sort . " != 'publishedAt') {\$tmp = \$tmp->";
         $return = $return . "leftJoin('content_metas', function(\$join) {" .
         "\$join->on('contents.id', '=', 'content_metas.content_id');" .
         "\$join->where('content_metas.key', '=', " . $sort . ");" .

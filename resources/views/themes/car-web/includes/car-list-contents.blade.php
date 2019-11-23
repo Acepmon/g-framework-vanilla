@@ -1,7 +1,7 @@
 @php
 
 // Get All items
-$orderBy = request('orderBy', "updated_at");
+$orderBy = request('orderBy', "publishedAt");
 $order = request('order', "desc");
 $page = request('page', "1");
 $itemsPerPage = request('itemsPerPage', "15");
@@ -75,7 +75,7 @@ if ($itemCount < $page * $itemsPerPage) {
 
     <div class="sort-cars">
     <ul>
-        <li class="{{ ($orderBy=='updated_at')?'active':'' }}"><a href="#" onclick="formSubmit('orderBy', 'updated_at')">Сүүлд нийтлэгдсэн</a></li>
+        <li class="{{ ($orderBy=='publishedAt')?'active':'' }}"><a href="#" onclick="formSubmit('orderBy', 'publishedAt')">Сүүлд нийтлэгдсэн</a></li>
         <li class="{{ ($orderBy=='buildYear')?'active':'' }}"><a href="#" onclick="formSubmit('orderBy', 'buildYear')">Үйлдвэрлэгдсэн он</a></li>
         <li class="{{ ($orderBy=='importDate')?'active':'' }}"><a href="#" onclick="formSubmit('orderBy', 'importDate')">Орж ирсэн он</a></li>
         <li class="{{ ($orderBy=='priceAmount')?'active':'' }}"><a href="#" onclick="formSubmit('orderBy', 'priceAmount')">Хямд үнэ</a></li>

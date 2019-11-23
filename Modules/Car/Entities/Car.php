@@ -38,7 +38,7 @@ class Car extends Content
 
     public static function filter($contents, $filter = Null, $exclude = Null) {
         if ($contents == Null) {
-            $contents = self::all()->orderBy('updated_at', 'desc');
+            $contents = self::all()->orderBy('created_at', 'desc');
         }
 
         foreach ($filter as $key => $value) {
@@ -74,7 +74,7 @@ class Car extends Content
         $now = now();
         $filtered = $contents;
         if ($filtered == Null) {
-            $filtered = self::all()->orderBy('updated_at', 'desc');
+            $filtered = self::all()->orderBy('created_at', 'desc');
         }
         $filtered = metaHas($filtered, 'publishVerified', True);
         $filtered = $filtered->whereHas('metas', function ($query) use ($now) {

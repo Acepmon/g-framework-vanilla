@@ -223,6 +223,7 @@ class CarContentsTableSeeder extends Seeder
 
                 // Publishing
                 new ContentMeta(['key' => 'publishType', 'value' => $publishTypes[array_rand($publishTypes)]]),
+                new ContentMeta(['key' => 'publishedAt', 'value' => now()]),
                 new ContentMeta(['key' => 'publishPriceAmount', 'value' => rand(10000, 50000)]),
                 new ContentMeta(['key' => 'publishPriceUnit', 'value' => '₮']),
                 new ContentMeta(['key' => 'publishDuration', 'value' => rand(1, 31)]),

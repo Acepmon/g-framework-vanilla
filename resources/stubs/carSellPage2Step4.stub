@@ -183,7 +183,7 @@ $("input").click(function(){
         else{
             paramObjs.publishAmount=0;
         }
-
+        paramObjs['publishedAt'] = new Date();
 
         delete paramObjs.publishPriceAmountBest;
         delete paramObjs.publishPriceAmountPremium;

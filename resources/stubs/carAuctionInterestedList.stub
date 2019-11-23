@@ -13,18 +13,18 @@
     <div class="card shadow-soft-blue page-top-navbar">
         <div class="mypage-nav">
         <ul>
-            <li class="list-item "><a href="/interested-car?sort=updated_at">Сонирхосон машинууд</a></li>
+            <li class="list-item "><a href="/interested-car?sort=publishedAt">Сонирхосон машинууд</a></li>
             <li class="list-item active"> <a href="#">Сонирхосон машинууд /дуудлага худалдаа/</a></li>
         </ul>
         </div>
     </div>
     <div class="card page-top-navbar border-0 mt-3 bg-transparent">
         <div class="d-flex justify-content-start">
-            @contentInline(contents.id in Auth::user()->metaArray('interestedCars'),isAuction=1, type=car, sortDir=request()->input("sortDir", "desc"), sort=request()->input("sort", "updated_at") as $cars | paginate)
+            @contentInline(contents.id in Auth::user()->metaArray('interestedCars'),isAuction=1, type=car, sortDir=request()->input("sortDir", "desc"), sort=request()->input("sort", "publishedAt") as $cars | paginate)
             <span class="total-cars ml-0" >НИЙТ {{count($cars)}}</span>
             <div class="sort-cars col-md-9">
                 <ul>
-                    <li class="{{ request('sort')=='updated_at' ?'active':'' }}"><a href="#" onclick="formSubmit('sortBy', 'updated_at', 'sortDir', 'desc')">Сүүлд нийтлэгдсэн</a></li>
+                    <li class="{{ request('sort')=='publishedAt' ?'active':'' }}"><a href="#" onclick="formSubmit('sortBy', 'publishedAt', 'sortDir', 'desc')">Сүүлд нийтлэгдсэн</a></li>
                     <li class="{{ request('sort')=='priceAmount' ?'active':'' }}"><a href="#" onclick="formSubmit('sortBy', 'priceAmount', 'sortDir', 'asc')">Хямд үнэ</a></li>
                 </ul>
             </div>

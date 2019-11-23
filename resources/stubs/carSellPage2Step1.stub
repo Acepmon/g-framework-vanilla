@@ -28,7 +28,7 @@
         <div class="form-group col-md-6">
             <label for="Model">Загвар:</label>
             <select id="modelSelect" name="modelName" class="form-control" required>
-                <option value="{{ $taxonomy->term->name?$taxonomy->term->name:'' }}">{{ $car->metaValue('modelName')?$car->metaValue('modelName'):'Загвар' }}</option>
+                <option value="">Загвар</option>
             </select>
             <span id="modelSelectAlert" class="invalid-feedback" role="alert" style="display: none">
                 Загвараа сонгоно уу
@@ -291,6 +291,7 @@
         ],
         @endforeach
     };
+    var modelName = "{{ $car->metaValue('modelName') }}";
 
     $(document).ready(function() {
         $('input[type="checkbox"]').on('change', function() {
@@ -304,7 +305,11 @@
             var val = $(this).val();
             $('#modelSelect').html('');
             for (var element in modelData[val]) {
-                $("#modelSelect").append('<option>' + modelData[val][element] + '</option>');
+                if (modelData[val][element] == modelName) {
+                    $("#modelSelect").append('<option selected>' + modelData[val][element] + '</option>');
+                } else {
+                    $("#modelSelect").append('<option>' + modelData[val][element] + '</option>');
+                }
             }
             $('#modelSelect').removeClass('is-invalid');
             $('#modelSelectAlert').css('display', 'none');
@@ -326,6 +331,10 @@
                 $("#docFile").attr('disabled', 'disabled');
             }
         });
+
+        @if($car->metaValue('markName'))
+        $("#manufacturerSelect").change();
+        @endif
     });
 
     function step1Submit(__callback) {
