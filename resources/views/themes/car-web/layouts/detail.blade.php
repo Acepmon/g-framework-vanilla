@@ -86,16 +86,20 @@
         <!-- Basic information -->
         @include('themes.car-web.includes.section-basic-info', ['content' => $content])
 
-        @if (!$content->metaValue('isAuction'))
-            <!-- Finance section -->
-            @include('themes.car-web.includes.section-finance', ['content' => $content])
-        @endif
-
         <!-- Option information -->
         @include('themes.car-web.includes.section-options', ['content' => $content])
 
         <!-- Seller Description -->
         @include('themes.car-web.includes.section-seller-description', ['content' => $content])
+
+        @if (!$content->metaValue('isAuction'))
+            <!-- Finance section -->
+            @include('themes.car-web.includes.section-finance', ['content' => $content])
+        @endif
+
+
+
+
 
         <!-- Retail Store -->
         @include('themes.car-web.includes.section-retail', ['content' => \App\Content::find($content->metaValue('retail'))])

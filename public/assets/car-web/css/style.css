@@ -4686,7 +4686,7 @@ section .owl-carousel .owl-nav button.owl-next, section .owl-carousel .owl-nav b
 }
 
 .my-profile .pro-img {
-  height: auto;
+  height: 90px;
   width: 90px;
   border: 4px solid #fff;
   border-radius: 100%;

@@ -51,7 +51,7 @@
                                 @include('themes.limitless.includes.user-media', ['user' => $content->author])
                             </td>
                             <td class="text-center">
-                                @if ($content->metaValue('publishVerified') != "1")
+                                @if ($content->metaValue('publishVerified') != "1" || $content->metaValue('publishVerified')==null)
                                 <a class="btn btn-success color-white" href="#modal_verify" data-toggle="modal" onclick="verify_content({{ $content->id }})">Confirm</a>
                                 @endif
                             </td>
