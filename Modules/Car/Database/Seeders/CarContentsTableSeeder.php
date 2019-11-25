@@ -223,14 +223,14 @@ class CarContentsTableSeeder extends Seeder
 
                 // Publishing
                 new ContentMeta(['key' => 'publishType', 'value' => $publishTypes[array_rand($publishTypes)]]),
-                new ContentMeta(['key' => 'publishedAt', 'value' => now()]),
+                // new ContentMeta(['key' => 'publishedAt', 'value' => now()]),
                 new ContentMeta(['key' => 'publishPriceAmount', 'value' => rand(10000, 50000)]),
                 new ContentMeta(['key' => 'publishPriceUnit', 'value' => '₮']),
                 new ContentMeta(['key' => 'publishDuration', 'value' => rand(1, 31)]),
                 new ContentMeta(['key' => 'publishVerified', 'value' => rand(0, 1)]),
                 new ContentMeta(['key' => 'publishVerifiedBy', 'value' => 1]),
                 new ContentMeta(['key' => 'publishVerifiedAt', 'value' => now()]),
-                new ContentMeta(['key' => 'publishVerifiedEnd', 'value' => now()->addDays(rand(1, 31))]),
+                //new ContentMeta(['key' => 'publishVerifiedEnd', 'value' => now()->addDays(rand(1, 31))]),
             ]);
 
             $content->metas()->saveMany($medias);

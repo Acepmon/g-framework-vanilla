@@ -8,6 +8,8 @@ use App\Term;
 use App\TermTaxonomy;
 use App\Entities\TaxonomyManager;
 
+use Carbon\Carbon;
+
 class ContentMetaObserver
 {
     const DATE_METAS = ['startsAt', 'endsAt'];
@@ -19,6 +21,10 @@ class ContentMetaObserver
         // if ($content->status == Content::STATUS_PUBLISHED && $content->visibility == Content::VISIBILITY_PUBLIC) {
         //     TaxonomyManager::incrementCount($contentMeta->key, $contentMeta->value);
         // }
+
+        if ($contentMeta->key == 'publishType') {
+            $content->updateMeta('publishedAt', Carbon::now());
+        }
 
         $this->calculateDays($contentMeta, 'startsAt', 'endsAt', 'publishDuration');
         $this->calculateDays($contentMeta, 'publishVerifiedAt', 'publishVerifiedEnd', 'publishDuration');

@@ -17,22 +17,22 @@ class CarColorTableSeeder extends Seeder
     public function run()
     {
         $colour = [
-            'black' => ['value' => 'Хар'], 
-            'white-ivory' => ['value' => 'Ясан цагаан'], 
-            'white-pearl' => ['value' => 'Сувдан цагаан'], 
-            'silver' => ['value' => 'Мөнгөлөг'], 
-            'asphalt-gray' => ['value' => 'Асфалтан саарал'], 
-            'red' => ['value' => 'Улаан'], 
-            'blue' => ['value' => 'Цэнхэр'], 
-            'blue-dark' => ['value' => 'Хар хөх'], 
-            'sea' => ['value' => 'Номин ногоон'], 
-            'brown' => ['value' => 'Бор'], 
-            'bronze' => ['value' => 'Алтлаг бор'], 
-            'green' => ['value' => 'Ногоон'], 
-            'green-light' => ['value' => 'Цайвар ногоон'], 
-            'gold' => ['value' => 'Алтлаг'], 
-            'copper' => ['value' => 'Зэс'], 
-            'beige' => ['value' => 'Шаргал цагаан']
+            'Хар' => ['value' => 'black'], 
+            'Ясан цагаан' => ['value' => 'white-ivory'], 
+            'Сувдан цагаан' => ['value' => 'white-pearl'], 
+            'Мөнгөлөг' => ['value' => 'silver'], 
+            'Асфалтан саарал' => ['value' => 'asphalt-gray'], 
+            'Улаан' => ['value' => 'red'], 
+            'Цэнхэр' => ['value' => 'blue'], 
+            'Хар хөх' => ['value' => 'blue-dark'], 
+            'Номин ногоон' => ['value' => 'sea'], 
+            'Бор' => ['value' => 'brown'], 
+            'Алтлаг бор' => ['value' => 'bronze'], 
+            'Ногоон' => ['value' => 'green'], 
+            'Цайвар ногоон' => ['value' => 'green-light'], 
+            'Алтлаг' => ['value' => 'gold'], 
+            'Зэс' => ['value' => 'copper'], 
+            'Шаргал цагаан' => ['value' => 'beige']
         ];
         $parent = TaxonomyManager::register('Color', 'car', null, ['metaKey' => 'colorName']);
 
@@ -42,10 +42,10 @@ class CarColorTableSeeder extends Seeder
 
         # Interior Color
         $interior_colour = [
-            'black' => ['value' => 'Хар'],
-            'grey' => ['value' => 'Саарал'],
-            'white' => ['value' => 'Цагаан'],
-            'beige' => ['value' => 'Шаргал цагаан']
+            'Хар' => ['value' => 'black'],
+            'Саарал' => ['value' => 'grey'],
+            'Цагаан' => ['value' => 'white'],
+            'Шаргал цагаан' => ['value' => 'beige']
         ];
 
         $parent = TaxonomyManager::register('Interior color', 'car', null, ['metaKey' => 'colorNameInterior']);

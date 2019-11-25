@@ -196,16 +196,23 @@ class ContentManager extends Manager
 
         if (count($metaInputs) > 0) {
             foreach ($metaInputs as $key => $value) {
-                $contents = $contents->whereHas('metas', function ($query) use ($key, $value, $request) {
-                    $meta = self::requestOperator($key, $request, Null, $value);
-                    $query->where('key', $key);
-
-                    if (\Str::endsWith($key, 'Amount')) {
-                        $query->whereRaw('cast(value as unsigned) ' . $meta['operator'] . ' ' . $meta['value']);
-                    } else {
-                        $query->where('value', $meta['operator'], $meta['value']);
-                    }
-                });
+                if ($value == "0" || $value == 0) {
+                    $contents = $contents->whereDoesntHave('metas', function ($query) use ($key, $value, $request) {
+                        $query->where('key', $key);
+                        $query->where('value', "1");
+                    });
+                } else {
+                    $contents = $contents->whereHas('metas', function ($query) use ($key, $value, $request) {
+                        $meta = self::requestOperator($key, $request, Null, $value);
+                        $query->where('key', $key);
+    
+                        if (\Str::endsWith($key, 'Amount')) {
+                            $query->whereRaw('cast(value as unsigned) ' . $meta['operator'] . ' ' . $meta['value']);
+                        } else {
+                            $query->where('value', $meta['operator'], $meta['value']);
+                        }
+                    });
+                }
             }
         }
 

@@ -57,11 +57,11 @@
                     <img src="{{ asset('car-web/img/icons/transmision.svg') }}" alt="">
                     <p>{{ $car->metaValue('axleCount') }} WD</p>
                 </span>
-                <span class="info-icon color" data-color="{{ strtolower($car->metaValue('colorName')) }}">
-                    @if(\App\Term::where('name', $car->metaValue('colorName'))->first())
-                    <p>{{ ucfirst(\App\Term::where('name', $car->metaValue('colorName'))->first()->metaValue('value')) }}</p>
-                    @endif
+                @if(\App\Term::where('name', $car->metaValue('colorName'))->first())
+                <span class="info-icon color" data-color="{{ strtolower(\App\Term::where('name', $car->metaValue('colorName'))->first()->metaValue('value')) }}">
+                    <p>{{ ucfirst($car->metaValue('colorName')) }}</p>
                 </span>
+                @endif
 
                 <div class="advantage-slider owl-carousel owl-theme">
                     @foreach($car->metas->where('key', 'advantages') as $advantage)
