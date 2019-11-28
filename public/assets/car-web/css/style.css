@@ -4866,7 +4866,8 @@ section .owl-carousel .owl-nav button.owl-next, section .owl-carousel .owl-nav b
   font-family: "Segoe UI", "Open Sans", Helvetica, sans-serif;
   color: #2B3651;
   font-weight: 600;
-  margin-bottom: .5rem;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
 }
 
 .finance-section form .form-control {
