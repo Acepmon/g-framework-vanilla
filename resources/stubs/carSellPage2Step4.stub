@@ -148,7 +148,7 @@ var sentAD = {
         progressiveLoad: true
     },
     autoplay: false,
-    path: '{{asset("car-web/animation/mail-send.json")}}'
+    path: '{{asset("car-web/animation/maz-send.json")}}'
 },
 anim3 = bodymovin.loadAnimation(sentAD);
 
