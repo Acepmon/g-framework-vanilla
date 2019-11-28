@@ -4,8 +4,8 @@
             <div class="row">
                 <div class="col-md-12 text-center ">
                     <div class="finance-title">
-                        <h1>Энэ машиныг авмаар байна, сард хэдийг төлөх вэ?</h1>
-                        <p>Save your money and make an installment.</p>
+                        <h1>Зээлийн тооцоолуур</h1>
+                        <p>20-80% урьдчилгаа төлөөд хүү багатай зээлээр аваарай</p>
                     </div>
                 </div>
             </div>
@@ -15,7 +15,7 @@
                         <div class="card-body text-left">
                             <form>
                                 <input type="text" value="{{ $content->metaValue('priceAmount') }}" name="carPrice" id="carPrice" hidden>
-                                <p>Advance payment (first 20%)</p>
+                                <p>Урьдчилгаа төлбөр (эхний 20%)</p>
                                 <div class="select-first-price">
                                     @foreach (\App\Entities\TaxonomyManager::collection('car-advance-payments') as $index => $advancePayment)
                                         <div class="custom-control custom-radio custom-control-inline">
@@ -46,7 +46,7 @@
                                     <p class="font-weight-bold"><span id="advancePaymentAmount">1,400,000</span> ₮</p>
                                 </div>
                                 <div class="info">
-                                    <p>Monthly paymant</p>
+                                    <p>Сар бүр төлөх дүн</p>
                                     <p class="monthly"><span id="monthlyPaymentAmount">427,938</span> ₮</p>
                                 </div>
                             </div>
