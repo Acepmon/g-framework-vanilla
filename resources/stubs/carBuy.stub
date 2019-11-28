@@ -2,6 +2,10 @@
 
 @php
 $request = \Modules\Car\Entities\Car::manageRequest();
+$allItems = \Modules\Car\Entities\Car::all()->whereDoesntHave('metas', function ($query) {
+  $query->where('key', 'isAuction');
+  $query->where('value', '1');
+});
 $banner = \App\Banner::where('location_id', 5)->where('status', 'active')->inRandomOrder()->first();
 @endphp
 
@@ -72,7 +76,7 @@ Car dealer
           </div>
         </form>
         <form action="{{ url('/buy') }}" id="mainForm">
-        @include('themes.car-web.includes.car-list-contents', ['allItems' => \Modules\Car\Entities\Car::all(), 'type' => 'buy'])
+        @include('themes.car-web.includes.car-list-contents', ['allItems' => $allItems, 'type' => 'buy'])
         </form>
       </div>
     </div>

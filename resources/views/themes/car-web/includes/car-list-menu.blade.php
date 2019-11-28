@@ -1,9 +1,9 @@
 @php
 $categorySlug = [
-'car-type', 'car-manufacturer', 'car-year', 'car-distance-driven', 'car-price', 'car-colors', 'car-fuel', 'car-transmission', 'car-options', 'car-accident', 'car-mancount', 'car-wheel-pos', 'provinces'
+'car-type', 'car-manufacturer', 'car-year', 'car-distance-driven', 'car-price', 'car-colors', 'car-fuel', 'car-transmission', 'car-options', 'car-mancount', 'car-wheel-pos', 'provinces'
 ];
 $categoryName = [
-'Төрөл', 'Үйлдвэрлэгч/Модел', 'Жил', 'Явсан КМ', 'Үнэ', 'Өнгө', 'Шатахуун', 'Араа', 'Option', 'Осол', 'Зорчигч', 'Жолоо', 'Байршил'
+'Төрөл', 'Үйлдвэрлэгч/Модел', 'Жил', 'Явсан КМ', 'Үнэ', 'Өнгө', 'Шатахуун', 'Араа', 'Option', 'Зорчигч', 'Жолоо', 'Байршил'
 ];
 @endphp
 
@@ -102,16 +102,17 @@ $categoryName = [
         </div>
         @elseif($category == 'car-options')
         <div id="{{ $category }}" class="collapse {{ request($category, False)?'show':'' }}" aria-labelledby="{{ $category }}">
-        <div class="card-body bg-light">
+        <div class="card-body bg-light" style="overflow: auto; height: auto">
             @foreach(App\TermTaxonomy::where('taxonomy', $category)->get() as $taxonomy_parent)
             @foreach($taxonomy_parent->children as $taxonomy)
                 <div class="custom-control custom-radio">
-                <input type="radio" id="{{ $taxonomy->term->name }}" name="{{ $category }}" class="custom-control-input" value="{{ $taxonomy->term->name }}" {{ ($taxonomy->term->name == request($category, Null))?'checked':'' }}>
+                <input type="checkbox" id="{{ $taxonomy->term->name }}" name="{{ $category }}[]" class="custom-control-input" value="{{ $taxonomy->term->metaValue('metaKey') }}" {{ in_array($taxonomy->term->metaValue('metaKey'), request($category, []))?'checked':'' }}>
                 <label class="custom-control-label  d-flex justify-content-between" for="{{ $taxonomy->term->name }}">{{ $taxonomy->term->name }}
                 </label>
                 </div>
             @endforeach
             @endforeach
+            <button onclick="submitMenu()">Apply</button>
         </div>
         </div>
         @else
@@ -143,7 +144,7 @@ $categoryName = [
 @push('scripts')
 <script>
 $("input[type=radio][name!=\"car-manufacturer\"]").click(submitMenu);
-$("input[type=checkbox]").click(submitMenu);
+// $("input[type=checkbox]").click(submitMenu);
 $("input[type=radio][name!='car-manufacturer'], .page-link, .advantage-item, .sort-cars li").click(load);
 
 function load(event) {
@@ -170,10 +171,12 @@ $("input.car-manufacturer").on("click", function () {
         switchToModel(val);
     } else {
         waiting = 1;
+        load();
         $.ajax({
             type: 'Get',
             url: '/api/v1/taxonomies/car-' + toKebabCase(val),
         }).done(function(data) {
+            $("#demo-spinner").css({'display': 'none'});
             var modelList=data;
             console.log(modelList);
             var html = '<div class="models" name="'+val+'"> \
@@ -194,7 +197,7 @@ $("input.car-manufacturer").on("click", function () {
             $("input[type=radio][name=\"car-model\"]").click(load);
             waiting = 0;
         }).fail(function(err) {
-            // $("#demo-spinner").css({'display': 'none'});
+            $("#demo-spinner").css({'display': 'none'});
             console.error("FAIL!");
             console.error(err);
             waiting = 0;

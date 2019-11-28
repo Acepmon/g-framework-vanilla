@@ -8,7 +8,7 @@ use App\Content;
 class Car extends Content
 {
     protected $fillable = [];
-    protected const EXCEPT = ['minPrice', 'maxPrice', 'mileageAmount'];
+    protected const EXCEPT = ['minPrice', 'maxPrice', 'mileageAmount', 'options'];
 
     public static function all($columns = []) {
         return Content::where('type', Content::TYPE_CAR)->where('status', Content::STATUS_PUBLISHED)->where('visibility', Content::VISIBILITY_PUBLIC);
@@ -47,6 +47,11 @@ class Car extends Content
             }
         }
 
+        if (array_key_exists('options', $filter)) {
+            foreach($filter['options'] as $key => $value) {
+                $contents = metaHas($contents, $value, '1');
+            }
+        }
         $minPrice = Null;
         $maxPrice = Null;
         if (array_key_exists('minPrice', $filter)) {
@@ -116,6 +121,7 @@ class Car extends Content
         $request['colorName'] = request('car-colors', Null);
         $request['fuelType'] = request('car-fuel', Null);
         $request['transmission'] = request('car-transmission', Null);
+        $request['options'] = request('car-options', []);
         $request['advantages'] = request('car-advantage', Null);
         $request['manCount'] = request('car-mancount', Null);
         $request['wheelPosition'] = request('car-wheel-pos', Null);
@@ -123,7 +129,7 @@ class Car extends Content
         $request['buildYear'] = request('buildYear', Null);
         $request['importDate'] = request('importDate', Null);
         $request['mileageAmount'] = request('mileageAmount', Null);
-        $request['doctorVerified'] = request('doctors_verified', Null);
+        // $request['doctorVerified'] = request('doctors_verified', Null);
         $request['publishType'] = request('publishType', Null);
         $request['minPrice'] = request('min_price', Null);
         $request['maxPrice'] = request('max_price', Null);

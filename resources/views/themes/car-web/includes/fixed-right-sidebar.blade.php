@@ -38,6 +38,7 @@
             </a>
         </div>
 
+        {{--
         <div class="card sidebar-slider owl-carousel owl-theme">
             @foreach($premium as $car)
             <div class="slider-item">
@@ -48,6 +49,7 @@
             </div>
             @endforeach
         </div>
+        --}}
 
         @foreach($sideBanners as $bnr)
         <a href="{{ $bnr->link }}" target="_blank">

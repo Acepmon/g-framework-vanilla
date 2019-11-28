@@ -56,6 +56,15 @@ Route::middleware(['auth', 'admin'])->group(function () {
                 'update' => 'admin.modules.car.options.update',
                 'destroy' => 'admin.modules.car.options.destroy'
             ]);
+            Route::resource('car/loan-check', 'CarLoanCheckController')->names([
+                'index' => 'admin.modules.car.loancheck.index',
+                'create' => 'admin.modules.car.loancheck.create',
+                'store' => 'admin.modules.car.loancheck.store',
+                'show' => 'admin.modules.car.loancheck.show',
+                'edit' => 'admin.modules.car.loancheck.edit',
+                'update' => 'admin.modules.car.loancheck.update',
+                'destroy' => 'admin.modules.car.loancheck.destroy'
+            ]);
             Route::resource('car/verifications', 'CarVerificationController')->names([
                 'index' => 'admin.modules.car.verifications.index',
                 'create' => 'admin.modules.car.verifications.create',

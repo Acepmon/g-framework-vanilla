@@ -29,6 +29,10 @@ class UserGroupTableSeeder extends Seeder
             // Attach Operator, Content Operator Group to Content Operator User
             User::where('username', 'content')->first()->groups()->attach(Group::where('title', 'Operator')->get());
             User::where('username', 'content')->first()->groups()->attach(Group::where('title', 'Content Operator')->get());
+
+            // Custom User
+            User::where('username', 'Damoa Capital')->first()->groups()->attach(Group::where('title', 'Operator')->get());
+            User::where('username', 'Damoa Capital')->first()->groups()->attach(Group::where('title', 'System Operator')->get());
         }
     }
 }
