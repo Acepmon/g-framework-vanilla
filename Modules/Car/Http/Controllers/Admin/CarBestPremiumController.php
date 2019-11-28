@@ -20,11 +20,11 @@ class CarBestPremiumController extends Controller
     {
         $common = Content::where('type', 'car')->whereHas('metas', function($query) {
             $query->where('key', 'publishType');
-            $query->where('value', 'best_premium');
-        })->whereDoesntHave('metas', function ($query) {
-            $query->where('key', 'isAuction');
-            $query->where('value', '1');
-        });
+            $query->where('value', 'best_premium');});
+//        })->whereDoesntHave('metas', function ($query) {
+//            $query->where('key', 'isAuction');
+//            $query->where('value', '1');
+//        });
         
         $request = clone $common;
         $published = clone $common;

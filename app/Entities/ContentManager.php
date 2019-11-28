@@ -190,17 +190,29 @@ class ContentManager extends Manager
         if (isset($author_id)) {
             $contents = $contents->where('author_id', $author_id);
         } else if ($request->has('author_id')) {
-            $author_id = self::requestOperator('author_id', $request);
+            $author_id = self::requestOperator('author_id', $request, Null, Null);
             $contents = $contents->where($author_id['field'], $author_id['operator'], $author_id['value']);
         }
 
         if (count($metaInputs) > 0) {
             foreach ($metaInputs as $key => $value) {
-                $contents = $contents->whereHas('metas', function ($query) use ($key, $value, $request) {
-                    $meta = self::requestOperator($key, $request);
-                    $query->where('key', $key);
-                    $query->where('value', $meta['operator'], $meta['value']);
-                });
+                if ($value == "0" || $value == 0) {
+                    $contents = $contents->whereDoesntHave('metas', function ($query) use ($key, $value, $request) {
+                        $query->where('key', $key);
+                        $query->where('value', "1");
+                    });
+                } else {
+                    $contents = $contents->whereHas('metas', function ($query) use ($key, $value, $request) {
+                        $meta = self::requestOperator($key, $request, Null, $value);
+                        $query->where('key', $key);
+    
+                        if (\Str::endsWith($key, 'Amount')) {
+                            $query->whereRaw('cast(value as unsigned) ' . $meta['operator'] . ' ' . $meta['value']);
+                        } else {
+                            $query->where('value', $meta['operator'], $meta['value']);
+                        }
+                    });
+                }
             }
         }
 
@@ -284,7 +296,8 @@ class ContentManager extends Manager
             'gt' => self::operatorSymbol('gt'),
             'ge' => self::operatorSymbol('ge'),
             'lt' => self::operatorSymbol('lt'),
-            'le' => self::operatorSymbol('le')
+            'le' => self::operatorSymbol('le'),
+            'id' => self::operatorSymbol('id')
         ];
     }
 
@@ -301,6 +314,7 @@ class ContentManager extends Manager
             case 'ge': return '>=';
             case 'lt': return '<';
             case 'le': return '<=';
+            case 'id': return '=';
             default: return '==';
         }
     }
@@ -318,6 +332,7 @@ class ContentManager extends Manager
             case 'ge': return $value;
             case 'lt': return $value;
             case 'le': return $value;
+            case 'id': return TaxonomyManager::getValue($value);
             default: return $value;
         }
     }

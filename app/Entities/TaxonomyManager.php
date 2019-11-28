@@ -144,4 +144,18 @@ class TaxonomyManager extends Manager
         
     }
 
+    public static function getValue($id) {
+        if (!$id)
+            return $id;
+        $value = Term::where('id', $id)->first();
+        if ($value) {
+            if ($value->metaValue('value')) {
+                return $value->metaValue('value');
+            } else {
+                return $value->name;
+            }
+        }
+        return $id;
+    }
+
 }

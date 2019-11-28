@@ -5,8 +5,8 @@
         <div class="grid-radio">
             @foreach(\App\TermTaxonomy::where('taxonomy', 'car-type')->get() as $key => $taxonomy)
             <div class="cd-radio">
-                <input type="radio" id="{{ $taxonomy->term->name }}" name="carType" value="Sedan" class="custom-control-input" {{ ($key == 0)?'checked':'' }}>
-                <label class="custom-control-label " for="{{ $taxonomy->term->name }}"> <img src="{{ asset('car-web/img/icons/' . strtolower($taxonomy->term->name) . '.svg') }}" alt=""><span>{{ $taxonomy->term->metaValue('value') }}</span>
+                <input type="radio" id="{{ $taxonomy->term->metaValue('value') }}" name="carType" value="{{ $taxonomy->term->name }}" class="custom-control-input" {{ ($key == 0 || $car->metaValue('carType') == $taxonomy->term->name)?'checked':'' }}>
+                <label class="custom-control-label " for="{{ $taxonomy->term->metaValue('value') }}"> <img src="{{ asset('car-web/img/icons/' . strtolower($taxonomy->term->metaValue('value')) . '.svg') }}" alt=""><span>{{ $taxonomy->term->name }}</span>
                 </label>
             </div>
             @endforeach
@@ -28,7 +28,7 @@
         <div class="form-group col-md-6">
             <label for="Model">Загвар:</label>
             <select id="modelSelect" name="modelName" class="form-control" required>
-                <option value="{{ $taxonomy->term->name?$taxonomy->term->name:'' }}">{{ $car->metaValue('modelName')?$car->metaValue('modelName'):'Загвар' }}</option>
+                <option value="">Загвар</option>
             </select>
             <span id="modelSelectAlert" class="invalid-feedback" role="alert" style="display: none">
                 Загвараа сонгоно уу
@@ -50,7 +50,7 @@
             <select id="Color" name="colorName" class="form-control">
                 <option value="" selected>Сонгох...</option>
                 @foreach(App\TermTaxonomy::where('taxonomy', 'car-colors')->get() as $taxonomy)
-                <option value="{{ $taxonomy->term->name }}" {{ ($car->metaValue('colorName') == $taxonomy->term->name)?'selected':'' }}>{{$taxonomy->term->metaValue('value')}}</option>
+                <option value="{{ $taxonomy->term->name }}" {{ ($car->metaValue('colorName') == $taxonomy->term->name)?'selected':'' }}>{{$taxonomy->term->name}}</option>
                 @endforeach
             </select>
         </div>
@@ -166,7 +166,7 @@
             <select id="salonColor" name="colorNameInterior" class="form-control">
                 <option value="" selected>Сонгох...</option>
                 @foreach(App\TermTaxonomy::where('taxonomy', 'car-interior-colors')->get() as $taxonomy)
-                <option value="{{ $taxonomy->term->name }}" {{ ($car->metaValue('colorNameInterior') == $taxonomy->term->name)?'selected':'' }}>{{ $taxonomy->term->metaValue('value') }}</option>
+                <option value="{{ $taxonomy->term->name }}" {{ ($car->metaValue('colorNameInterior') == $taxonomy->term->name)?'selected':'' }}>{{ $taxonomy->term->name }}</option>
                 @endforeach
             </select>
         </div>
@@ -291,6 +291,7 @@
         ],
         @endforeach
     };
+    var modelName = "{{ $car->metaValue('modelName') }}";
 
     $(document).ready(function() {
         $('input[type="checkbox"]').on('change', function() {
@@ -304,7 +305,11 @@
             var val = $(this).val();
             $('#modelSelect').html('');
             for (var element in modelData[val]) {
-                $("#modelSelect").append('<option>' + modelData[val][element] + '</option>');
+                if (modelData[val][element] == modelName) {
+                    $("#modelSelect").append('<option selected>' + modelData[val][element] + '</option>');
+                } else {
+                    $("#modelSelect").append('<option>' + modelData[val][element] + '</option>');
+                }
             }
             $('#modelSelect').removeClass('is-invalid');
             $('#modelSelectAlert').css('display', 'none');
@@ -326,6 +331,10 @@
                 $("#docFile").attr('disabled', 'disabled');
             }
         });
+
+        @if($car->metaValue('markName'))
+        $("#manufacturerSelect").change();
+        @endif
     });
 
     function step1Submit(__callback) {

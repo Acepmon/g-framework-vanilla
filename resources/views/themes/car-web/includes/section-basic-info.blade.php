@@ -15,11 +15,11 @@
                     <div class="title">Ерөнхий</div>
                     <div class="info-list">
                         <ul>
-                            @if ($content->metaValue('carType'))
+                            @if ($content->metaValue('carType') && \App\Term::where('name', $content->metaValue('carType'))->first())
                                 <li>
                                     <span class="info-icon">
-                                        <img src="{{ asset('car-web/img/icons/sedan.svg') }}" alt="">
-                                        <p>{{ \App\Term::where('name', $content->metaValue('carType'))->first()->metaValue('value') }}</p>
+                                        <img src="{{ asset('car-web/img/icons/' . strtolower(\App\Term::where('name', $content->metaValue('carType'))->first()->metaValue('value')) . '.svg') }}" alt="">
+                                        <p>{{ $content->metaValue('carType') }}</p>
                                     </span>
                                 </li>
                             @endif

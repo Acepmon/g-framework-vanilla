@@ -182,7 +182,7 @@
             <div class="row">
                 <div class="card page-top-navbar border-0">
                     <div class="d-flex justify-content-start">
-                        @contentInline(type=car, priceAmount < intval(request()->input("priceAmount")), sortDir=request()->input("sortDir", "desc"), sort=request()->input("sort", "updated_at") as $cars | paginate)
+                        @contentInline(type=car, priceAmount < intval(request()->input("priceAmount")), sortDir=request()->input("sortDir", "desc"), sort=request()->input("sort", "publishedAt") as $cars | paginate)
                         <span class="total-cars ml-0" >НИЙТ {{count($cars)}}</span>
                         <div class="sort-cars col-md-9">
                             <ul>

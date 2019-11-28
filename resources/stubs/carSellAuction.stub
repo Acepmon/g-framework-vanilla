@@ -204,6 +204,12 @@ if ($startsAt) {
     } else {
       paramObjs['startsAt'] = new Date().toISOString();
     }
+    if (paramObjs.hasOwnProperty('startPriceAmount')) {
+      paramObjs['priceAmount'] = paramObjs['startPriceAmount'];
+      if (paramObjs.hasOwnProperty('startPriceUnit')) {
+        paramObjs['priceUnit'] = paramObjs['startPriceUnit'];
+      }
+    }
     console.log(carId);
     console.log(paramObjs);
 

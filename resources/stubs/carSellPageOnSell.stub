@@ -13,14 +13,14 @@
     <div class="card shadow-soft-blue page-top-navbar">
         <div class="mypage-nav">
             <ul>
-                <li class="list-item active"><a href="#">Идвэхтэй</a></li>
+                <li class="list-item active"><a href="#">Идэвхтэй</a></li>
                 <li class="list-item "> <a href="/sell-page-sold">Зарагдсан</a></li>
             </ul>
         </div>
     </div>
     <div class="card page-top-navbar border-0 mt-3 bg-transparent">
         <div class="d-flex justify-content-start">
-            @contentInline(type=car, author_id=Auth::user()->id, isSold=0, sortDir=request()->input("sortDir", "desc"), sort=request()->input("sort", "updated_at") as $onSales | paginate)
+            @contentInline(type=car, author_id=Auth::user()->id, isSold not 1, sortDir=request()->input("sortDir", "desc"), sort=request()->input("sort", "publishedAt") as $onSales | paginate)
             <span class="total-cars ml-0" >НИЙТ {{ count($onSales) }}</span>
             <div class="sort-cars col-md-9">
                 <ul>
