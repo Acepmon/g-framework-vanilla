@@ -76,7 +76,7 @@
 
         <div class="card-list mx-n3">
             <div class="row">
-                @content(type=car, author_id=1 isAuction=0 as $finCars | paginate)
+                @content(type=car, author_id=4, isAuction=0 as $finCars | paginate)
                 @if(count($interestedCars) > 0)
                     @foreach($interestedCars as $intCars)
                         @if($intCars==$finCars->id)

@@ -47,10 +47,10 @@ class UsersTableSeeder extends Seeder
 
                 // Damoa Capital
                 [
-                    'username' => 'Damoa Capital',
+                    'username' => 'damoa',
                     'email' => 'damoa@example.com',
                     'password' => Hash::make('123456789'),
-                    'name' => 'System Operator',
+                    'name' => 'Damoa Capital',
                 ]
             ];
 
