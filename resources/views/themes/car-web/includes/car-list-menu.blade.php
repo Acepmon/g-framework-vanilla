@@ -112,7 +112,9 @@ $categoryName = [
                 </div>
             @endforeach
             @endforeach
-            <button onclick="submitMenu()">Apply</button>
+        </div>
+        <div class="apply-filter bg-light text-center p-2 border-top">
+            <button class="btn btn-round btn-primary btn-sm px-3 mx-auto" onclick="submitMenu()">Apply</button>
         </div>
         </div>
         @else

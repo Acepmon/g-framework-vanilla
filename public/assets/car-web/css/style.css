@@ -1678,6 +1678,11 @@ select {
   fill: #85c9ef;
 }
 
+.car-filter .collapse .card-body {
+  max-height: 250px;
+  overflow-y: auto;
+}
+
 .car-filter #manufacture .models {
   display: none;
 }
