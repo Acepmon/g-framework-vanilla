@@ -1683,6 +1683,19 @@ select {
   overflow-y: auto;
 }
 
+.car-filter .collapse .card-body::-webkit-scrollbar-track {
+  background-color: #F8F9FB;
+}
+
+.car-filter .collapse .card-body::-webkit-scrollbar {
+  width: 6px;
+}
+
+.car-filter .collapse .card-body::-webkit-scrollbar-thumb {
+  border-radius: 1rem;
+  background-color: #858994;
+}
+
 .car-filter #manufacture .models {
   display: none;
 }
