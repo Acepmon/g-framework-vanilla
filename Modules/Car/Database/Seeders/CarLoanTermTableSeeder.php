@@ -19,11 +19,11 @@ class CarLoanTermTableSeeder extends Seeder
         Model::unguard();
 
         $loanTerms = [
-            '6' => ['interest' => 2.5],
-            '12' => ['interest' => 2.5],
-            '18' => ['interest' => 2.6],
-            '24' => ['interest' => 2.7],
-            '30' => ['interest' => 2.8]
+            '12' => ['interest' => 2.55],
+            '24' => ['interest' => 2.60],
+            '30' => ['interest' => 2.65],
+            '36' => ['interest' => 2.70],
+            '42' => ['interest' => 2.75]
         ];
 
         foreach ($loanTerms as $loanTerm => $metas) {

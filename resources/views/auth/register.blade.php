@@ -159,6 +159,7 @@
         </div>
     </div>
 </section>
+@include('themes.car-web.includes.loader')
 @endsection
 
 @section('script')
@@ -265,6 +266,7 @@
         }
         var validate = function (e) {
             e.preventDefault();
+            $("#demo-spinner").css({'display': 'block'});
 
             showValidation(0, null, emailField);
             showValidation(0, null, nameField);
@@ -311,6 +313,7 @@
                     $("#tab-step-3").trigger('click');
                 }
             }, 1000);
+            $("#demo-spinner").css({'display': 'none'});
         };
 
         $('#email').change(onEmailChange).keyup(onEmailChange);

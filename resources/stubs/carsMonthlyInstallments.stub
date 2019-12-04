@@ -25,19 +25,8 @@
                 console.log(mPay)
                 var fPay = $('#firstPay').val();
                 var months = $(this).val();
-                var invest = 0.03;
-                if (months <= 12) {
-                    invest = 0.025
-                }
-                else if (months > 12 && months <= 18) {
-                    invest = 0.026
-                }
-                else if (months > 12 && months <= 24) {
-                    invest = 0.027
-                }
-                else if (months > 24) {
-                    invest = 0.028
-                }
+                var invest = $(".loanTerm:checked").data('interest');
+                invest = invest / 100;
                 var loValue = mPay / (invest / (1 - Math.pow(1 + invest, -months)))
                 var totalPrice = Math.round(loValue + (loValue * fPay / (100 - fPay)));
                 var firstPayValue = Math.round(totalPrice * (fPay / 100));
@@ -122,26 +111,12 @@
                             </div>
                             <p>Зээлийн хугацаа</p>
                             <div class="select-month">
-                                <div class="custom-control custom-radio custom-control-inline">
-                                    <input type="radio" id="6month" name="financeMonth" value="6" class="custom-control-input insMonth" checked>
-                                    <label class="custom-control-label insMonth" for="6month">6 сар</label>
-                                </div>
-                                <div class="custom-control custom-radio custom-control-inline">
-                                    <input type="radio" id="12month" name="financeMonth" value="12" {{ request('financeMonth') == 12 ? 'checked' : '' }} class="custom-control-input insMonth">
-                                    <label class="custom-control-label insMonth"  for="12month">12 сар</label>
-                                </div>
-                                <div class="custom-control custom-radio custom-control-inline">
-                                    <input type="radio" id="18month" name="financeMonth" value="18" {{ request('financeMonth') == 18 ? 'checked' : '' }} class="custom-control-input insMonth">
-                                    <label class="custom-control-label insMonth" for="18month">18 сар</label>
-                                </div>
-                                <div class="custom-control custom-radio custom-control-inline">
-                                    <input type="radio" id="24month" name="financeMonth" value="24" {{ request('financeMonth') == 24 ? 'checked' : '' }} class="custom-control-input insMonth">
-                                    <label class="custom-control-label insMonth"  for="24month">24 сар</label>
-                                </div>
-                                <div class="custom-control custom-radio custom-control-inline">
-                                    <input type="radio" id="30month" name="financeMonth" value="30" {{ request('financeMonth') == 30 ? 'checked' : '' }} class="custom-control-input insMonth">
-                                    <label class="custom-control-label" for="30month">30 сар</label>
-                                </div>
+                                @foreach (\App\Entities\TaxonomyManager::collection('car-loan-terms') as $index => $loanTerm)
+                                    <div class="custom-control custom-radio custom-control-inline">
+                                        <input type="radio" id="{{ $loanTerm->term->name }}month" name="loanTerm" value="{{ $loanTerm->term->name }}" data-interest="{{ $loanTerm->term->metaValue('interest') }}" class="loanTerm custom-control-input insMonth" {{ ($index == request('financeMonth') || $index == 0) ? 'checked' : ''}}>
+                                        <label class="custom-control-label insMonth" for="{{ $loanTerm->term->name }}month">{{ $loanTerm->term->name }} сар</label>
+                                    </div>
+                                @endforeach
                             </div>
                         </div>
                     </div>
