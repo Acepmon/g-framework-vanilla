@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 
 use App\User;
+use App\Entities\MediaManager;
 
 class UserController extends Controller
 {
@@ -102,7 +103,9 @@ class UserController extends Controller
         }
 
         if ($request->hasFile('avatar')) {
-            $user->avatar = 'http://' . env('FTP_HOST') . ':3000/' .  $request->file('avatar')->store('public/avatars', 'ftp');
+            // $user->avatar = 'http://' . env('FTP_HOST') . ':3000/' .  $request->file('avatar')->store('public/avatars', 'ftp');
+            $avatar = $request->avatar;
+            $filename = MediaManager::storeFile($avatar, 'avatars');
             $user->save();
         }
 

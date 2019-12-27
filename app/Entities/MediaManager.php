@@ -71,7 +71,7 @@ class MediaManager extends Manager
             Storage::disk('ftp')->put($dir . '/' . $filename, $file);
             $filename = $dir . '/' . $filename;
         } else {
-            $filename = $file->store('public/' . $dir, 'ftp');
+            $filename = $file->store($dir, 'ftp');
         }
         $filename = '/storage/' . $filename;
         return $filename;

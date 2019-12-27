@@ -8,6 +8,7 @@ use Illuminate\Routing\Controller;
 
 use App\User;
 use App\Content;
+use App\Entities\MediaManager;
 
 class UserController extends Controller
 {
@@ -87,8 +88,9 @@ class UserController extends Controller
         $user = $request->user();
 
         $avatar = $request->avatar;
-        $filename = $avatar->store('public/medias', 'ftp');
-        $filename = 'http://' . env('FTP_HOST') . ':3000/' . $filename;
+        $filename = MediaManager::storeFile($avatar, 'avatars');
+        //$filename = $avatar->store('public/medias', 'ftp');
+        //$filename = 'http://' . env('FTP_HOST') . ':3000/' . $filename;
         $user->avatar = $filename;
         $user->save();
 
