@@ -72,11 +72,11 @@ class CarContentsTableSeeder extends Seeder
             // }
 
             // static images
-            $thumbnail = url(asset('car-web/img/Cars/' . rand(1, 12) . '.jpg'));
+            $thumbnail = asset('car-web/img/Cars/' . rand(1, 12) . '.jpg');
             $medias = [];
             $mediasLimit = rand(1, 20);
             for ($i = 0; $i < $mediasLimit; $i++) {
-                $media = url(asset('car-web/img/Cars/' . rand(1, 12) . '.jpg'));
+                $media = asset('car-web/img/Cars/' . rand(1, 12) . '.jpg');
                 $meta = new ContentMeta(['key' => 'medias', 'value' => $media]);
                 array_push($medias, $meta);
             }
@@ -171,7 +171,7 @@ class CarContentsTableSeeder extends Seeder
                 new ContentMeta(['key' => 'sellerDescription', 'value' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum ullam, explicabo iure delectus asperiores sed aliquam provident magnam similique accusantium magni! Neque dolorum similique aliquam id recusandae aliquid nihil sit, blanditiis corporis? Odit, repudiandae recusandae. Libero rem aliquid, distinctio vel ad ab nostrum nulla repellendus modi officia eligendi officiis ducimus labore? Ad, praesentium laborum fugiat vitae doloremque qui beatae consectetur.']),
 
                 // Diagnostic
-                new ContentMeta(['key' => 'diagnosticConditionImage', 'value' => url('assets/car-web/img/retail.png')]),
+                new ContentMeta(['key' => 'diagnosticConditionImage', 'value' => '/assets/car-web/img/retail.png']),
 
                 // Options - Exterior
                 new ContentMeta(['key' => 'optionExteriorSunroof', 'value' => rand(0, 1)]),

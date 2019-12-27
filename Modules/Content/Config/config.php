@@ -12,8 +12,8 @@ return [
         'viewPath' => 'pages'
     ],
     'storage' => [
-        'host' => 'http://66.181.167.116',
-        'port' => '3000'
+        'host' => env('STORAGE_HOST', 'http://66.181.167.116'),
+        'port' => env('STORAGE_PORT', '3000')
     ],
     'cars' => [
         'rootPath' => '' . DIRECTORY_SEPARATOR . 'resources' . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'pages',
