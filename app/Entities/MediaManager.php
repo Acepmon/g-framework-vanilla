@@ -68,12 +68,12 @@ class MediaManager extends Manager
             $ext = self::getMimeType($file, 'str');
             $ext = self::mime2ext($ext);
             $filename =  Str::uuid() . '.' . $ext;
-            Storage::disk('ftp')->put('public/' . $dir . '/' . $filename, $file);
-            $filename = 'public/' . $dir . '/' . $filename;
+            Storage::disk('ftp')->put($dir . '/' . $filename, $file);
+            $filename = $dir . '/' . $filename;
         } else {
             $filename = $file->store('public/' . $dir, 'ftp');
         }
-        $filename = 'http://' . env('FTP_HOST') . ':3000/' . $filename;
+        $filename = '/storage/' . $filename;
         return $filename;
     }
 
