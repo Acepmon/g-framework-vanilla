@@ -251,7 +251,8 @@ class User extends Authenticatable implements CanResetPassword
             //     $image = Storage::disk('ftp')->get($imagepath);
             //     Storage::disk('local')->put($imagepath, $image);
             // }
-            return Storage::disk('local')->url($this->avatar);
+			return $this->avatar;
+            //return Storage::disk('local')->url($this->avatar);
         }
 
         return asset(config('system.avatar.default'));

@@ -104,7 +104,7 @@ class UserController extends Controller
 
         if ($request->hasFile('avatar')) {
             // $user->avatar = 'http://' . env('FTP_HOST') . ':3000/' .  $request->file('avatar')->store('public/avatars', 'ftp');
-            $filename = MediaManager::storeFile($request->avatar, 'avatars');
+            $filename = MediaManager::storeFile($request->file('avatar'), 'avatars');
             $user->avatar = $filename;
             $user->save();
         }
