@@ -319,8 +319,6 @@ $itsIntCar=false;
 @endsection
 
 @section('script')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js "></script>
-    <script src="{{asset('car-web/js/script.min.js')}}  "></script>
     <script type="text/javascript">
 
         function searchTitle (event){
