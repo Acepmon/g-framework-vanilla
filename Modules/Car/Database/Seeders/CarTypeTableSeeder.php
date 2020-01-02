@@ -19,7 +19,7 @@ class CarTypeTableSeeder extends Seeder
         $carTypes = [
             'Суудлын' => ['value' => 'Sedan'], 
             'Том тэрэг' => ['value' => 'SUV'], 
-            'Спорт' => ['value' => 'Sport'], 
+            'Тусгай ММ' => ['value' => 'SpecialVehicle'], 
             'Хүнд ММ' => ['value' => 'Truck'], 
             'Ванн' => ['value' => 'Van'], 
             'Автобус' => ['value' => 'Bus']
