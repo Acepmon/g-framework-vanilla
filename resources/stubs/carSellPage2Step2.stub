@@ -2,7 +2,7 @@
 <form id="form-2" enctype="multipart/form-data">
     @csrf
     <div class="col-md-12">
-        <div class="input-group mb-3">
+        <!-- <div class="input-group mb-3">
             <div class="input-group-prepend">
                 <span class="input-group-text">Нүүр зураг</span>
             </div>
@@ -41,129 +41,42 @@
                     @endforeach
                 @endif
             </div>
-        </div>
+        </div> -->
 
         <div class="row">
-            <!-- 1 -->
-            <div class="col-sm-2 imgUp ml-4">
-                <div class="imagePreview"></div>
-                <label class="btn btn-primary">
-                    Сонгох<input type="file" class="uploadFile img"  value="Upload Photo" style="width: 0px;height: 0px;overflow: hidden;" accept="image/x-png,image/gif,image/jpeg">
-                </label>
-                <i class="fa fa-times del" onclick="removeImg(this)"></i>
-            </div>
-            <!-- 2 -->
-            <div class="col-sm-2 imgUp ml-4">
-                <div class="imagePreview"></div>
-                <label class="btn btn-primary">
-                    Сонгох<input type="file" class="uploadFile img" value="Upload Photo" style="width: 0px;height: 0px;overflow: hidden;" accept="image/x-png,image/gif,image/jpeg">
-                </label>
-                <i class="fa fa-times del"></i>
-            </div>
-            <!-- 3 -->
-            <div class="col-sm-2 imgUp ml-4">
-                <div class="imagePreview"></div>
-                <label class="btn btn-primary">
-                    Сонгох<input type="file" class="uploadFile img" value="Upload Photo" style="width: 0px;height: 0px;overflow: hidden;" accept="image/x-png,image/gif,image/jpeg">
-                </label>
-                <i class="fa fa-times del"></i>
-            </div>
-            <!-- 4 -->
-            <div class="col-sm-2 imgUp ml-4">
-                <div class="imagePreview"></div>
-                <label class="btn btn-primary">
-                    Сонгох<input type="file" class="uploadFile img" value="Upload Photo" style="width: 0px;height: 0px;overflow: hidden;" accept="image/x-png,image/gif,image/jpeg">
-                </label>
-                <i class="fa fa-times del"></i>
-            </div>
-            <!-- 5 -->
-            <div class="col-sm-2 imgUp ml-4">
-                <div class="imagePreview"></div>
-                <label class="btn btn-primary">
-                    Сонгох<input type="file" class="uploadFile img" value="Upload Photo" style="width: 0px;height: 0px;overflow: hidden;" accept="image/x-png,image/gif,image/jpeg">
-                </label>
-                <i class="fa fa-times del"></i>
-            </div>
-            <!-- 6 -->
-            <div class="col-sm-2 imgUp ml-4">
-                <div class="imagePreview"></div>
-                <label class="btn btn-primary">
-                    Сонгох<input type="file" class="uploadFile img" value="Upload Photo" style="width: 0px;height: 0px;overflow: hidden;" accept="image/x-png,image/gif,image/jpeg">
-                </label>
-                <i class="fa fa-times del"></i>
-            </div>
-            <!-- 7 -->
-            <div class="col-sm-2 imgUp ml-4">
-                <div class="imagePreview"></div>
-                <label class="btn btn-primary">
-                    Сонгох<input type="file" class="uploadFile img" value="Upload Photo" style="width: 0px;height: 0px;overflow: hidden;" accept="image/x-png,image/gif,image/jpeg">
-                </label>
-                <i class="fa fa-times del"></i>
-            </div>
-            <!-- 8 -->
-            <div class="col-sm-2 imgUp ml-4">
-                <div class="imagePreview"></div>
-                <label class="btn btn-primary">
-                    Сонгох<input type="file" class="uploadFile img" value="Upload Photo" style="width: 0px;height: 0px;overflow: hidden;" accept="image/x-png,image/gif,image/jpeg">
-                </label>
-                <i class="fa fa-times del"></i>
-            </div>
-            <!-- 9 -->
-            <div class="col-sm-2 imgUp ml-4">
-                <div class="imagePreview"></div>
-                <label class="btn btn-primary">
-                    Сонгох<input type="file" class="uploadFile img" value="Upload Photo" style="width: 0px;height: 0px;overflow: hidden;" accept="image/x-png,image/gif,image/jpeg">
-                </label>
-                <i class="fa fa-times del"></i>
-            </div>
-            <!-- 10 -->
-            <div class="col-sm-2 imgUp ml-4">
-                <div class="imagePreview"></div>
-                <label class="btn btn-primary">
-                    Сонгох<input type="file" class="uploadFile img" value="Upload Photo" style="width: 0px;height: 0px;overflow: hidden;" accept="image/x-png,image/gif,image/jpeg">
-                </label>
-                <i class="fa fa-times del"></i>
-            </div>
-            <!-- 11 -->
-            <div class="col-sm-2 imgUp ml-4">
-                <div class="imagePreview"></div>
-                <label class="btn btn-primary">
-                    Сонгох<input type="file" class="uploadFile img" value="Upload Photo" style="width: 0px;height: 0px;overflow: hidden;" accept="image/x-png,image/gif,image/jpeg">
-                </label>
-                <i class="fa fa-times del"></i>
-            </div>
-            <!-- 12 -->
-            <div class="col-sm-2 imgUp ml-4">
-                <div class="imagePreview"></div>
-                <label class="btn btn-primary">
-                    Сонгох<input type="file" class="uploadFile img" value="Upload Photo" style="width: 0px;height: 0px;overflow: hidden;" accept="image/x-png,image/gif,image/jpeg">
-                </label>
-                <i class="fa fa-times del"></i>
-            </div>
-            <!-- 13 -->
-            <div class="col-sm-2 imgUp ml-4">
-                <div class="imagePreview"></div>
-                <label class="btn btn-primary">
-                    Сонгох<input type="file" class="uploadFile img" value="Upload Photo" style="width: 0px;height: 0px;overflow: hidden;" accept="image/x-png,image/gif,image/jpeg">
-                </label>
-                <i class="fa fa-times del"></i>
-            </div>
-            <!-- 14 -->
-            <div class="col-sm-2 imgUp ml-4">
-                <div class="imagePreview"></div>
-                <label class="btn btn-primary">
-                    Сонгох<input type="file" class="uploadFile img" value="Upload Photo" style="width: 0px;height: 0px;overflow: hidden;" accept="image/x-png,image/gif,image/jpeg">
-                </label>
-                <i class="fa fa-times del"></i>
-            </div>
-            <!-- 15 -->
-            <div class="col-sm-2 imgUp ml-4">
-                <div class="imagePreview"></div>
-                <label class="btn btn-primary">
-                    Сонгох<input type="file" class="uploadFile img" value="Upload Photo" style="width: 0px;height: 0px;overflow: hidden;" accept="image/x-png,image/gif,image/jpeg">
-                </label>
-                <i class="fa fa-times del"></i>
-            </div>
+            @php
+            $imagesList =[
+                "thumbnail"=>"Зураг нүүр",
+                "image2"=>"Зураг-2",
+                "image3"=>"Зураг-3",
+                "image4"=>"Зураг-4",
+                "image5"=>"Зураг-5",
+                "image6"=>"Зураг-6",
+                "image7"=>"Зураг-7",
+                "image8"=>"Зураг-8",
+                "image9"=>"Зураг-9",
+                "image10"=>"Зураг-10",
+                "image11"=>"Зураг-11",
+                "image12"=>"Зураг-12",
+                "image13"=>"Зураг-13",
+                "image14"=>"Зураг-14",
+                "image15"=>"Зураг-15"
+            ]
+            @endphp
+            @foreach($imagesList as $index=>$images)
+                <div class="col-sm-2 imgUp ml-4">
+                    {{$images}}
+                    @if($car->metaValue($index)!=null)
+                        <div id="{{$index}}preview" class="imagePreview" style="background-image: url({{$car->metaValue($index)}})"></div>
+                        @else
+                        <div id="{{$index}}preview" class="imagePreview"></div>
+                    @endif
+                    <label class="btn btn-primary">
+                        Сонгох<input id="{{$index}}" name="{{$index}}" type="file" class="uploadFile img" style="width: 0px;height: 0px;overflow: hidden;" accept="image/x-png,image/gif,image/jpeg">
+                    </label>
+                    <i class="fa fa-times del mt-4" onclick="removeImg('{{$index}}')"></i>
+                </div>
+            @endforeach
         </div>
 
         <div class="col-md-12">
@@ -253,13 +166,20 @@
     // $(document).on("click", "i.del" , function() {
     //     $(this).parent().remove();
     // });
+
+    var fileList = [];
     $(function() {
+
         $(document).on("change",".uploadFile", function()
         {
             var uploadFile = $(this);
+            //console.log($(this))
             var files = !!this.files ? this.files : [];
+            //console.log(files)
             if (!files.length || !window.FileReader) return; // no file selected, or no FileReader support
-
+            //var files = $(this)[0].files;
+            fileList[this.name] = files[0];
+            //console.log(fileList);
             if (/^image/.test( files[0].type)){ // only image file
                 var reader = new FileReader(); // instance of the FileReader
                 reader.readAsDataURL(files[0]); // read the local file
@@ -270,6 +190,8 @@
                 }
             }
 
+
+
         });
     });
 
@@ -279,8 +201,9 @@
     var fileList = [];
     var mb = 1000000;
 
-    function removeImg(target) {
-        console.log($(target));
+    function removeImg(id) {
+        console.log(id);
+        $('#'+id+'preview').css("background-image", "url(http://cliquecities.com/assets/no-image-e3699ae23f866f6cbdf8ba2443ee5c4e.jpg)")
     }
     function removeImg1(target, url) {
         rmvImgs.push(url);
@@ -289,18 +212,18 @@
         $(target).parent().remove();
     }
 
-    function rmvImgForm(target, id) {
-        var deleteId = 0;
-        for(var i=0; i<fileList.length; i++) {
-            var name = fileList[i].lastModified + "" + fileList[i].name;
-            if (name == id) {
-                deleteId = i;
-                break;
-            }
-        }
-        fileList.pop(deleteId);
-        $(target).parent().remove();
-    }
+    // function rmvImgForm(target, id) {
+    //     var deleteId = 0;
+    //     for(var i=0; i<fileList.length; i++) {
+    //         var name = fileList[i].lastModified + "" + fileList[i].name;
+    //         if (name == id) {
+    //             deleteId = i;
+    //             break;
+    //         }
+    //     }
+    //     fileList.pop(deleteId);
+    //     $(target).parent().remove();
+    // }
 
     function embedLink(input) {
         var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
@@ -397,14 +320,17 @@
 
     function step2Submit(__callback) {
         event.preventDefault();
-        formData = new FormData($("#form-2")[0]);
-        formData.delete("medias[]");
+        formData = new FormData();
+        //formData.deleteAll();
         var totalSize = 0;
-        for (var i=0; i<fileList.length; i++) {
-            formData.append("medias[]", fileList[i]);
-            totalSize += fileList[i].size;
+        // for (var i=0; i<fileList.length; i++) {
+        //     formData.append(file, fileList[i]);
+        //     totalSize += fileList[i].size;
+        // }
+        for (let [key, value] of Object.entries(fileList)) {
+        //console.log('${key}: ${value}');
+            formData.append(key, value);
         }
-
         if (totalSize > 80 * mb) {
             alert('Нийт оруулсан зурагны хэмжээ 80MB-аас хэтэрч байна! Зарим зурагнуудаа хасаад дахин оролдоно уу.');
             __callback(0);
