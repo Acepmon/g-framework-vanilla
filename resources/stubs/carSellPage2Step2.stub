@@ -74,7 +74,7 @@
                     <label class="btn btn-primary">
                         Сонгох<input id="{{$index}}" name="{{$index}}" type="file" class="uploadFile img" style="width: 0px;height: 0px;overflow: hidden;" accept="image/x-png,image/gif,image/jpeg">
                     </label>
-                    <i class="fa fa-times del mt-4" onclick="removeImg('{{$index}}')"></i>
+                    <i class="fa fa-times del mt-4" onclick="removeImg('{{$index}}', $car->metaValue->($index))"></i>
                 </div>
             @endforeach
         </div>
@@ -204,6 +204,7 @@
     function removeImg(id) {
         console.log(id);
         $('#'+id+'preview').css("background-image", "url(http://cliquecities.com/assets/no-image-e3699ae23f866f6cbdf8ba2443ee5c4e.jpg)")
+        rmvImgs.push(url);
     }
     function removeImg1(target, url) {
         rmvImgs.push(url);
