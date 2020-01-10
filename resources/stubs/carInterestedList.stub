@@ -10,17 +10,10 @@
 
 @section('content')
 <div class="row">
-    <div class="card shadow-soft-blue page-top-navbar">
-        <div class="mypage-nav">
-        <ul>
-            <li class="list-item active"><a href="#">Сонирхосон машинууд</a></li>
-            <li class="list-item "> <a href="/interested-car-auction?sort=publishedAt">Сонирхосон машинууд /дуудлага худалдаа/</a></li>
-        </ul>
-        </div>
-    </div>
+
     <div class="card page-top-navbar border-0 mt-3 bg-transparent">
         <div class="d-flex justify-content-start">
-            @contentInline(contents.id in Auth::user()->metaArray('interestedCars'),isAuction=0, type=car, sortDir=request()->input("sortDir", "desc"), sort=request()->input("sort", "publishedAt") as $cars | paginate)
+            @contentInline(contents.id in Auth::user()->metaArray('interestedCars'),type=car, sortDir=request()->input("sortDir", "desc"), sort=request()->input("sort", "publishedAt") as $cars | paginate)
             <span class="total-cars ml-0" >НИЙТ {{count($cars)}}</span>
             <div class="sort-cars col-md-9">
                 <ul>
