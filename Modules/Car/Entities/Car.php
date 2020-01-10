@@ -126,10 +126,10 @@ class Car extends Content
         $request['manCount'] = request('car-mancount', Null);
         $request['wheelPosition'] = request('car-wheel-pos', Null);
         $request['countryName'] = request('provinces', Null);
+        $request['doctorVerified'] = request('car-doctor-verified', Null);
         $request['buildYear'] = request('buildYear', Null);
         $request['importDate'] = request('importDate', Null);
         $request['mileageAmount'] = request('mileageAmount', Null);
-        // $request['doctorVerified'] = request('doctors_verified', Null);
         $request['publishType'] = request('publishType', Null);
         $request['minPrice'] = request('min_price', Null);
         $request['maxPrice'] = request('max_price', Null);
