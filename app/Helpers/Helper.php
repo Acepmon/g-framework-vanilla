@@ -92,6 +92,12 @@ function isPremium($car) {
 }
 
 function metaHas($items, $key, $value, $operator = '=', $min = Null, $max = Null) {
+    if ($operator == 'doesntHave') {
+        return $items->whereDoesntHave('metas', function($query) use($key) {
+            $query->where('key', $key);
+            $query->where('value', '1');
+        });
+    }
     return $items->whereHas('metas', function ($query) use ($key, $value, $operator, $min, $max) {
         $query->where('key', $key);
         if ($operator == 'in') {

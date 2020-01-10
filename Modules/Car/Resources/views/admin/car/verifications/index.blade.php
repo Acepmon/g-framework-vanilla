@@ -108,13 +108,11 @@
 
 @section('script')
 <script>
-    console.log(" {{ route('admin.modules.car.update', ['id' => 1]) }} ");
-
     window.verify_content = function(id) {
         $("#verify_form").attr('action', '/admin/modules/car/verifications/'+id);
     }
 
-    setTimeout(function(){ document.getElementById("timer").remove() }, 10000);
+    //setTimeout(function(){ document.getElementById("timer").remove() }, 10000);
 </script>
 @endsection
 

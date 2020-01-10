@@ -43,7 +43,11 @@ class Car extends Content
 
         foreach ($filter as $key => $value) {
             if ($key != $exclude && $value != Null && !in_array($key, self::EXCEPT)) {
-                $contents = metaHas($contents, $key, $value);
+                if ($value == '0') {
+                    $contents = metaHas($contents, $key, $value, 'doesntHave');
+                } else {
+                    $contents = metaHas($contents, $key, $value);
+                }
             }
         }
 
