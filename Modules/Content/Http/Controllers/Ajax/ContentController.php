@@ -193,7 +193,7 @@ class ContentController extends Controller
         foreach ($inputs as $key=>$value) {
             $data = MediaManager::uploadFiles($value);
             array_push($result, [$key => $data]);
-            ContentManager::updateMetas($content_id, [$key => $data]);
+            ContentManager::syncMetas($content_id, [$key => $data]);
         }
 
         return response()->json($result);
