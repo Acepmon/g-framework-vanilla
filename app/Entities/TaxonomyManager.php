@@ -158,4 +158,15 @@ class TaxonomyManager extends Manager
         return $id;
     }
 
+
+    /*
+    * returns top 5 manufacturer with most content on top
+    */
+    public static function getManufacturers($limit = 5) {
+        $manufacturers = TermTaxonomy::where('taxonomy', 'car-manufacturer');
+        $most = clone $manufacturers;
+        $most = $most->orderBy('count', 'desc')->limit($limit);
+        $most = $most->get()->merge($manufacturers->get());
+        return $most;
+    }
 }
