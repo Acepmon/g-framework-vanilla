@@ -34,6 +34,9 @@
                             <!-- card start -->
                             <div class="card cd-box auction-car">
                                 <div class="premium-tag shadow-soft-blue"><img src="{{asset('car-web/img/icons/corona.svg')}}" alt=""></div>
+                                @if(getMetasValue($auctionPrmCars->metas, 'doctorVerified')==1)
+                                <div class="premium-tag shadow-soft-blue"><img src="{{asset('car-web/img/icons/corona.svg')}}" alt="">DV</div>
+                                @endif
                                 <div class="card-img">
                                     <img src="{{(getMetasValue($auctionPrmCars->metas, 'thumbnail'))}}" class="img-fluid" alt="alt">
                                     <div class="card-caption">
