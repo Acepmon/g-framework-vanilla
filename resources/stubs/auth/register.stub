@@ -80,7 +80,7 @@
                                             <label for="email">И-мэйл:</label>
                                             <input type="text" name="email" id="email" maxlength="191" required class="form-control @error('email') is-invalid @enderror" placeholder="example@mail.com" value="{{ old('email') }}">
                                             @error('email')
-                                                <span class="invalid-feedback" role="alert">
+                                            <span class="invalid-feedback" role="alert">
                                                     {{ $message }}
                                                 </span>
                                             @enderror
@@ -89,7 +89,7 @@
                                             <label for="name">Нэр:</label>
                                             <input type="text" name="name" id="name" maxlength="191" required class="form-control @error('name') is-invalid @enderror" placeholder="Dorj Pagam" value="{{ old('name') }}">
                                             @error('name')
-                                                <span class="invalid-feedback" role="alert">
+                                            <span class="invalid-feedback" role="alert">
                                                     {{ $message }}
                                                 </span>
                                             @enderror
@@ -105,7 +105,7 @@
                                             <label for="password">Нууц үг:</label>
                                             <input type="password" name="password" id="password" required class="form-control @error('password') is-invalid @enderror" placeholder="Type your password">
                                             @error('password')
-                                                <span class="invalid-feedback" role="alert">
+                                            <span class="invalid-feedback" role="alert">
                                                     {{ $message }}
                                                 </span>
                                             @enderror
@@ -353,7 +353,7 @@
 
         $("#step-2").find("input").each(function() {
             $(this).keydown(function(event) {
-                    console.log("CLICKED ENTER");
+                console.log("CLICKED ENTER");
                 if(event.keyCode == 13) {
                     console.log("CLICKED ENTER");
                     event.stopPropagation();

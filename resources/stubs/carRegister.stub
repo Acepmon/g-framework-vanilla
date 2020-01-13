@@ -21,7 +21,7 @@
                             <div class='progress_inner_step'>
                                 <a class="nav-link" for='step-2' data-toggle="tab" href="#step-2" id="tab-step-2" role="tab" style="pointer-events: none;">Нэвтрэх нэр & Нууц үг</a>
                             </div>
-                            <div class='progress_inner_step'>
+                            <div class='progress_inner_step' id="step-3id">
                                 <a class="nav-link" for='step-3' data-toggle="tab" href="#step-3" id="tab-step-3" role="tab" style="pointer-events: none;">Нэмэлт мэдээлэл</a>
                             </div>
                         </div>
@@ -67,10 +67,20 @@
                                 <div class="row">
                                     <div class="col-md-7">
                                         <div class="form-group">
+                                            <div class="custom-control custom-checkbox-cd col-5 display-inline-block mr-0 float-left">
+                                                <input type="radio" name="groupId" value="10" class="custom-control-input" id="userType1" checked onclick="userType(1)" >
+                                                <label class="custom-control-label" for="userType1">Хувь хүн</label>
+                                            </div>
+                                            <div class="custom-control custom-checkbox-cd col-5 display-inline-block mr-0 float-left">
+                                                <input type="radio" name="groupId" value="11" class="custom-control-input" onclick="userType(2)" id="userType2" >
+                                                <label class="custom-control-label" for="userType2">Дилер</label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
                                             <label for="email">И-мэйл:</label>
                                             <input type="text" name="email" id="email" maxlength="191" required class="form-control @error('email') is-invalid @enderror" placeholder="example@mail.com" value="{{ old('email') }}">
                                             @error('email')
-                                                <span class="invalid-feedback" role="alert">
+                                            <span class="invalid-feedback" role="alert">
                                                     {{ $message }}
                                                 </span>
                                             @enderror
@@ -79,16 +89,23 @@
                                             <label for="name">Нэр:</label>
                                             <input type="text" name="name" id="name" maxlength="191" required class="form-control @error('name') is-invalid @enderror" placeholder="Dorj Pagam" value="{{ old('name') }}">
                                             @error('name')
-                                                <span class="invalid-feedback" role="alert">
+                                            <span class="invalid-feedback" role="alert">
                                                     {{ $message }}
                                                 </span>
                                             @enderror
                                         </div>
                                         <div class="form-group">
+                                            <label for="phone">Утасны дугаар</label>
+                                            <div class="input-group">
+                                                <input type="text" name="cellPhone" id="cellPhone" hidden>
+                                                <input type="number" class="form-control" id="phoneNumber" placeholder="Утасны дугаар" style="width: 200px;">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
                                             <label for="password">Нууц үг:</label>
                                             <input type="password" name="password" id="password" required class="form-control @error('password') is-invalid @enderror" placeholder="Type your password">
                                             @error('password')
-                                                <span class="invalid-feedback" role="alert">
+                                            <span class="invalid-feedback" role="alert">
                                                     {{ $message }}
                                                 </span>
                                             @enderror
@@ -113,7 +130,8 @@
                                 <!-- NEXT PREV BUTTON START -->
                                 <div style="float:right;">
                                     <button class="btn btn-light btn-round px-5 py-2 mr-3" type="button" id="step2Prev">Өмнөх</button>
-                                    <button class="btn btn-danger btn-round shadow-red px-5 py-2" type="button" id="step2Next">Дараах</button>
+                                    <button class="btn btn-danger btn-round shadow-red px-5 py-2" type="button" hidden id="step2Next">Дараах</button>
+                                    <button id="userTypes2" class="btn btn-danger btn-round shadow-red px-5 py-2" type="submit">Бүртгүүлэх</button>
                                 </div>
                             </div>
                             <div id="step-3" class="tab-pane">
@@ -148,7 +166,7 @@
 
                                 <!-- NEXT PREV BUTTON START -->
                                 <div style="float:right;">
-                                    <button class="btn btn-light btn-round px-5 py-2 mr-3" type="button" id="step3Prev">Өмнөх</a>
+                                    <button class="btn btn-light btn-round px-5 py-2 mr-3" type="button" id="step3Prev">Өмнөх</button>
                                     <button class="btn btn-danger btn-round shadow-red px-5 py-2" type="submit">Бүртгүүлэх</button>
                                 </div>
                             </div>
@@ -193,6 +211,20 @@
             $("#tab-step-2").trigger('click');
         });
     });
+
+    function userType(type) {
+        console.log(type)
+        if(type===1){
+            $( "#step-3id" ).attr( "hidden","true" );
+            $( "#step2Next" ).attr( "hidden","true" );
+            $( "#userTypes2" ).removeAttr( "hidden" );
+        }
+        else if(type===2){
+            $( "#step-3id" ).removeAttr( "hidden" );
+            $( "#userTypes2" ).attr( "hidden","true" );
+            $( "#step2Next" ).removeAttr( "hidden" );
+        }
+    }
 </script>
 
 {{-- Step 1 Validation --}}
@@ -321,7 +353,7 @@
 
         $("#step-2").find("input").each(function() {
             $(this).keydown(function(event) {
-                    console.log("CLICKED ENTER");
+                console.log("CLICKED ENTER");
                 if(event.keyCode == 13) {
                     console.log("CLICKED ENTER");
                     event.stopPropagation();
