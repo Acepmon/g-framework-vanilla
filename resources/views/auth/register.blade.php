@@ -103,7 +103,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="password">Нууц үг:</label>
-                                            <input type="password" name="password" id="password" required class="form-control @error('password') is-invalid @enderror" placeholder="Type your password">
+                                            <input type="password" name="password" id="password" required class="form-control @error('password') is-invalid @enderror" placeholder="Нууц үг">
                                             @error('password')
                                             <span class="invalid-feedback" role="alert">
                                                     {{ $message }}
@@ -112,7 +112,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="password_confirmation">Нууц үг давт:</label>
-                                            <input type="password" name="password_confirmation" id="password_confirmation" required class="form-control" placeholder="Confirm your password">
+                                            <input type="password" name="password_confirmation" id="password_confirmation" required class="form-control" placeholder="Нууц үг давт">
                                         </div>
                                     </div>
 
@@ -158,7 +158,7 @@
                                             <label for="phone">Утасны дугаар</label>
                                             <div class="input-group">
                                                 <input type="text" name="phone" id="phone" hidden>
-                                                <input type="number" class="form-control" id="companyName" placeholder="Утасны дугаар" style="width: 200px;">
+                                                <input type="number" class="form-control" id="phoneNumber" placeholder="Утасны дугаар" style="width: 200px;">
                                             </div>
                                         </div>
                                     </div>
