@@ -8,7 +8,7 @@
           </span>
             </div>
         </div>
-            <div class="card-list mx-n2">
+            <div class="card-list auction mx-n2">
                 <div class="row">
 
                     @content(type=car, publishType=best_premium, publishVerified=1, isAuction=1,  limit=12 as $auctionPrmCars | paginate)
