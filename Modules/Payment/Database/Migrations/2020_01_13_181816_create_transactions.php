@@ -16,7 +16,7 @@ class CreateTransactions extends Migration
         Schema::create('payment_transactions', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
-            $table->string('payment_method', 30);
+            $table->unsignedBigInteger('payment_method');
             $table->string('transaction_type', 12);
             $table->integer('transaction_amount');
             $table->string('transaction_usage', 20);
@@ -25,7 +25,7 @@ class CreateTransactions extends Migration
             $table->string('status', 20);
 
             $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('payment_method')->references('code')->on('payment_methods');
+            $table->foreign('payment_method')->references('id')->on('payment_methods');
             $table->timestamps();
         });
     }
