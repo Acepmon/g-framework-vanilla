@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\User;
 use App\Group;
+use App\GroupMeta;
 use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -66,19 +67,21 @@ class UserController extends Controller
 
         if ($input['groupId']) {
             $group = Group::findOrFail($input['groupId']);
-            $user->groups()->attach($group);
-            /*
-            * Proof of concept
             // If make row per dealer 
             if ($group->title == 'Auto Dealer') {
-                Group::create([
+                $company = Group::create([
                     'parent_id' => $group->id,
-                    'title' => $input['companyName'],
-                    'description' => $input['address'],
+                    'title' => array_key_exists('companyName', $input) ? $input['companyName'] : 'Dealer',
+                    'description' => array_key_exists('description', $input) ? $input['description'] : '',
                     'type' => 'dealer'
                 ]);
+                GroupMeta::create(['group_id' => $company->id, 'key' => 'schedule', 'value' => array_key_exists('schedule', $input) ? $input['schedule'] : '']);
+                GroupMeta::create(['group_id' => $company->id, 'key' => 'address', 'value' => array_key_exists('address', $input) ? $input['address'] : '']);
+                $user->groups()->attach(config('system.register.defaultGroup'));
+                $user->groups()->attach($company);
+            } else {
+                $user->groups()->attach($group);
             }
-            */
         }
 
         return response()->json(['success' => $success], $this->successStatus);

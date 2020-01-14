@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class DropPaymentMethods extends Migration
+class UpdateTaxonomyLength extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,10 @@ class DropPaymentMethods extends Migration
      */
     public function up()
     {
-        Schema::dropIfExists('payment_methods');
+        //
+        Schema::table('term_taxonomy', function($table) {
+            $table->string('taxonomy', 50)->change();
+        });
     }
 
     /**
@@ -23,11 +26,9 @@ class DropPaymentMethods extends Migration
      */
     public function down()
     {
-        Schema::create('payment_methods', function (Blueprint $table) {
-            $table->string('code', 30)->primary();
-            $table->string('name', 191);
-            $table->json('data')->nullable();
-            $table->boolean('enabled')->default(false);
+        //
+        Schema::table('term_taxonomy', function($table) {
+            $table->string('taxonomy', 50)->change();
         });
     }
 }
