@@ -68,11 +68,11 @@
                                     <div class="col-md-7">
                                         <div class="form-group">
                                             <div class="custom-control custom-checkbox-cd col-5 display-inline-block mr-0 float-left">
-                                                <input type="radio" name="groupId" value="10" class="custom-control-input" id="userType1" checked onclick="userType(1)" >
+                                                <input type="radio" name="groupId" value="{{ \App\Group::where('title', 'Member')->first()->id }}" class="custom-control-input" id="userType1" checked onclick="userType(1)" >
                                                 <label class="custom-control-label" for="userType1">Хувь хүн</label>
                                             </div>
                                             <div class="custom-control custom-checkbox-cd col-5 display-inline-block mr-0 float-left">
-                                                <input type="radio" name="groupId" value="11" class="custom-control-input" onclick="userType(2)" id="userType2" >
+                                                <input type="radio" name="groupId" value="{{ \App\Group::where('title', 'Auto Dealer')->first()->id }}" class="custom-control-input" onclick="userType(2)" id="userType2" >
                                                 <label class="custom-control-label" for="userType2">Дилер</label>
                                             </div>
                                         </div>
@@ -103,7 +103,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="password">Нууц үг:</label>
-                                            <input type="password" name="password" id="password" required class="form-control @error('password') is-invalid @enderror" placeholder="Type your password">
+                                            <input type="password" name="password" id="password" required class="form-control @error('password') is-invalid @enderror" placeholder="Нууц үг">
                                             @error('password')
                                             <span class="invalid-feedback" role="alert">
                                                     {{ $message }}
@@ -112,7 +112,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="password_confirmation">Нууц үг давт:</label>
-                                            <input type="password" name="password_confirmation" id="password_confirmation" required class="form-control" placeholder="Confirm your password">
+                                            <input type="password" name="password_confirmation" id="password_confirmation" required class="form-control" placeholder="Нууц үг давт">
                                         </div>
                                     </div>
 

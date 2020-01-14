@@ -211,8 +211,8 @@
         </div>
         <div class="col-md-9">
             <div class="custom-file">
-                <input name="doc" type="file" class="custom-file-input" id="docFile" disabled>
-                <label class="custom-file-label" for="docFile">Файл сонгох</label>
+                <input name="doc" type="file" class="custom-file-input" id="docFile" disabled onChange="changeFileLabel(this, 'docFileLbl')">
+                <label class="custom-file-label" for="docFile" id="docFileLbl">Файл сонгох</label>
             </div>
         </div>
     </div>
@@ -281,6 +281,13 @@
 @push('scripts')
 <script src="{{ asset('car-web/vendor/bootstrap-select/js/bootstrap-select.min.js') }}"></script>
 <script>
+    function changeFileLabel(input, id) {
+        var filePath = $(input)[0].value;
+        filePath = filePath.split('\\');
+        filePath = filePath[filePath.length - 1];
+        $("#"+id).text(filePath);
+    }
+
     var modelData = {
         '': [''],
         @foreach(App\ TermTaxonomy::where('taxonomy', 'car-manufacturer')->get() as $taxonomy)
