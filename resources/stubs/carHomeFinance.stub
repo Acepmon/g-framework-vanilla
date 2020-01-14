@@ -225,7 +225,7 @@
                         <div class="col-lg-3 col-md-4">
                             <!-- card start -->
                             <a href="{{$carDataMonthly->slug}}" target="_blank" class="card cd-box">
-                                @if(getMetasValue($carDataMonthly->metas, 'publishType')=='best_premium' || getMetasValue($carDataMonthly->metas, 'publishType')=='premium')
+                                @if(isPremium($carDataMonthly))
                                 <div class="premium-tag shadow-soft-blue"><img src="{{asset('car-web/img/icons/corona.svg')}}" alt=""></div>
                                 @endif
                                 @if(getMetasValue($carDataMonthly->metas, 'doctorVerified')==1)
