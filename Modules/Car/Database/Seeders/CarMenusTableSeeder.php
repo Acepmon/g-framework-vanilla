@@ -39,13 +39,15 @@ class CarMenusTableSeeder extends Seeder
             ['Нүүр', '/', '', 'Car'],
             ['Авна', '/buy', '', 'Car'],
             ['Зарна', '/sell', '', 'Car'],
-            ['Лизинг', '/finance', '', 'Car'],
+            ['Лизинг', '/finance?monthlyPrice=500000&firstPay=20&financeMonth=6&priceAmount=4590104&sort=updated_at', '', 'Car'],
             ['Аугцион', '/auction', '', 'Car'],
             ['Авъя', '/wishlist', '', 'Car']
         ]];
         $carTopbarMenus = ['Car Topbar', '', '', 'Car', [
             ['Бидний тухай', '/about-introduction', '', 'Car'],
-            ['+Хүсэлт оруулах', '/wishlist', '', 'Car']
+            ['Үзлэгт орсон', '/search?doctorVerified=1', '', 'Car'],
+            ['+Хүсэлт оруулах', '/wishlist', '', 'Car'],
+            ['Төлбөртэй зарын заарав', '/', '', 'Car']
         ]];
         $carFooterMenus = ['Car Footer', '', '', 'Car', [
             ['Бидний тухай', '/about-introduction', '', 'Car'],
