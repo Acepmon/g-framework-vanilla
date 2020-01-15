@@ -21,7 +21,7 @@ class PaymentTransactionTableSeeder extends Seeder
         // Bank Transaction
         Transaction::create([
             'user_id' => 1, 
-            'payment_method' => 'transaction', 
+            'payment_method' => 1, 
             'transaction_type' => 'income', 
             'transaction_amount' => 1000000, 
             'transaction_usage' => 'best_premium', 
