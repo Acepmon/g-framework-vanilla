@@ -25,8 +25,16 @@ Route::middleware(['auth', 'admin'])->group(function () {
                     'update' => 'admin.modules.payment.payment_methods.update',
                     'destroy' => 'admin.modules.payment.payment_methods.destroy'
                 ]);
+                Route::resource('transactions', 'TransactionController')->names([
+                    'index' => 'admin.modules.payment.transactions.index',
+                    'create' => 'admin.modules.payment.transactions.create',
+                    'store' => 'admin.modules.payment.transactions.store',
+                    'show' => 'admin.modules.payment.transactions.show',
+                    'edit' => 'admin.modules.payment.transactions.edit',
+                    'update' => 'admin.modules.payment.transactions.update',
+                    'destroy' => 'admin.modules.payment.transactions.destroy'
+                ]);
             });
-
         });
     });
 });

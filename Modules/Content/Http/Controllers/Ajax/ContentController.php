@@ -204,10 +204,12 @@ class ContentController extends Controller
 
         $result = [];
         $inputs = $request->input("medias");
-        foreach ($inputs as $input) {
-            $meta = ContentMeta::findOrFail($input);
-            MediaManager::deleteFile($meta->value);
-            $meta->delete();
+        if ($inputs) {
+            foreach ($inputs as $input) {
+                $meta = ContentMeta::findOrFail($input);
+                MediaManager::deleteFile($meta->value);
+                $meta->delete();
+            }
         }
         return response()->json($result);
     }

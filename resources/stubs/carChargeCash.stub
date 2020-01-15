@@ -1,0 +1,23 @@
+@extends('themes.car-web.layouts.default')
+
+@section('title')
+Charge Cash
+@endsection
+
+@section('load')
+<link href="{{ asset('car-web/vendor/simple-line-icons/css/simple-line-icons.css') }}" rel="stylesheet" type="text/css">
+<link href="{{ asset('car-web/vendor/bootstrap-slider/css/bootstrap-slider.min.css') }}" rel="stylesheet">
+@endsection
+
+@section('content')
+
+<div class="bg-page-header"></div>
+Данс цэнэглэх
+<p>1. Та дараах дансны аль нэг рүү илгээнэ үү.</p>
+
+<p>2. Гүйлгээний утга дээр </p>
+
+@endsection
+
+@section('script')
+@endsection
