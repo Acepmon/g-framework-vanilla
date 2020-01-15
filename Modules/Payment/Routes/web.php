@@ -10,6 +10,18 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::middleware(['auth'])->group(function () {
+    Route::prefix('ajax')->group(function () {
+        Route::namespace('Ajax')->group(function () {
+
+            Route::resource('transactions', 'TransactionController')->names([
+                'store' => 'ajax.modules.payment.transactions.store',
+                'update' => 'ajax.modules.payment.transactions.update',
+                'destroy' => 'ajax.modules.payment.transactions.destroy'
+            ]);
+        });
+    });
+});
 
 Route::middleware(['auth', 'admin'])->group(function () {
     Route::prefix('admin/modules')->group(function () {

@@ -15,6 +15,7 @@ use App\Content;
 use App\ContentMeta;
 use App\Group;
 use App\User;
+use App\Term;
 use App\Entities\ContentManager;
 use App\Entities\MediaManager;
 
@@ -237,5 +238,43 @@ class ContentController extends Controller
     {
         $content_id = $request->route('contentId');
         Content::destroy($content_id);
+    }
+
+    public function publish(Request $request, $contentId) {
+        try {
+            DB::beginTransaction();
+
+            $content = Content::findOrFail($contentId);
+            $content->status = $request->input('status', Content::STATUS_PUBLISHED);
+            $content->visibility = $request->input('visibility', Content::VISIBILITY_PUBLIC);
+            
+            $author = null;
+            $publishType = $content->metaValue('publishType');
+            if ($publishType == 'best_premium' || $publishType == 'premium') {
+                $author = $content->author()->first();
+                $publishPricing = $request->input('publishPricing');
+                $pricingTerm = Term::findOrfail($publishPricing)->first();
+                $content->setMetaValue('publishAmount', $pricingTerm->metaValue('amount'));
+                $content->setMetaValue('publishUnit', $pricingTerm->metaValue('unit'));
+                $content->setMetaValue('publishDuration', $pricingTerm->metaValue('duration'));
+
+                $cash = $author->metaValue('cash') || 0;
+                $amount = $content->metaValue('publishAmount');
+                if ($cash - $amount <= 0) {
+                    DB::commit();
+                    return response()->json(['message' => 'Insufficient cash'])->setStatusCode(500);
+                }
+                $cash = $cash - $amount;
+                $author->setMetaValue('cash', $cash);
+            }
+
+            $content->save();
+
+            DB::commit();
+            return response()->json(['message' => "Successfully registered"]);
+        } catch (\Exception $ex) {
+            DB::rollback();
+            return response()->json(['message' => $ex->getMessage()])->setStatusCode(500);
+        }
     }
 }

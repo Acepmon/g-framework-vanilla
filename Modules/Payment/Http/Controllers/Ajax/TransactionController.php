@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Payment\Http\Controllers\Admin;
+namespace Modules\Payment\Http\Controllers\Ajax;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -36,7 +36,7 @@ class TransactionController extends Controller
     {
         Transaction::create($request->input());
 
-        return response();
+        return response()->json(['message'=> 'success'])->setStatusCode(200);
     }
 
     /**
