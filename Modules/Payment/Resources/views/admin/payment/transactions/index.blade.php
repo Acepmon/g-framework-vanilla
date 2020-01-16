@@ -21,6 +21,11 @@
             {{ session('status') }}
         </div>
     @endif
+    @if (isset($status))
+        <div id="timer" class="alert alert-success">
+            {{ $status }}
+        </div>
+    @endif
     <div class="table-responsive" id="accordion-control">
         <table class="table">
             <thead>
@@ -57,7 +62,8 @@
                             <td>{{$transaction->current_amount}}</td>
                             <td class="text-center">
                                 @if($transaction->status ==  \Modules\Payment\Entities\Transaction::STATUS_PENDING)
-                                <a class="btn btn-success color-white" href="#modal_accept" data-toggle="modal" onclick="accept_transaction({{ $transaction->id }})">Accept</a>
+                                <a class="btn btn-success color-white" href="{{ route('admin.modules.payment.transactions.edit', ['id' => $transaction->id]) }}">Accept</a>
+                                <!--<a class="btn btn-success color-white" href="#modal_accept" data-toggle="modal" onclick="accept_transaction({{ $transaction->id }})">Accept</a>-->
                                 @else
                                 @include('themes.limitless.includes.user-media', ['user' => $transaction->acceptedBy ])
                                 @endif

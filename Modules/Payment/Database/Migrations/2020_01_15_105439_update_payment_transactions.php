@@ -37,6 +37,7 @@ class UpdatePaymentTransactions extends Migration
         Schema::table('payment_transactions', function (Blueprint $table) {
             $table->dropForeign(['accepted_by']);
             $table->dropForeign(['content_id']);
+            $table->dropColumn(['accepted_by', 'content_id', 'phone']);
         });
     }
 }

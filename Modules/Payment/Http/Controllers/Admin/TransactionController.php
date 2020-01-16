@@ -2,6 +2,7 @@
 
 namespace Modules\Payment\Http\Controllers\Admin;
 
+use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
@@ -20,9 +21,11 @@ class TransactionController extends Controller
     {
         $pending = Transaction::where('status', Transaction::STATUS_PENDING)->get();
         $accepted = Transaction::where('status', Transaction::STATUS_ACCEPTED)->get();
+        $rejected = Transaction::where('status', Transaction::STATUS_REJECTED)->get();
         $transactions = [
             Transaction::STATUS_PENDING => $pending,
-            Transaction::STATUS_ACCEPTED => $accepted
+            Transaction::STATUS_ACCEPTED => $accepted,
+            Transaction::STATUS_REJECTED => $rejected
         ];
 
         return view('payment::admin.payment.transactions.index', ['transactions' => $transactions]);
@@ -36,7 +39,7 @@ class TransactionController extends Controller
     {
         Transaction::create($request->input());
 
-        return response();
+        return response()->json(['message'=> 'success'])->setStatusCode(200);
     }
 
     /**
@@ -47,6 +50,9 @@ class TransactionController extends Controller
     public function store(Request $request)
     {
         //
+        $transaction = Transaction::create($request->input());
+        
+        return response()->json(['message'=> 'success'])->setStatusCode(200);
     }
 
     /**
@@ -56,7 +62,7 @@ class TransactionController extends Controller
      */
     public function show($id)
     {
-        return view('payment::show');
+        return view('payment::admin.payment.transactions.show', ['transaction' => Transaction::findOrFail($id)]);
     }
 
     /**
@@ -66,7 +72,7 @@ class TransactionController extends Controller
      */
     public function edit($id)
     {
-        return view('payment::edit');
+        return view('payment::admin.payment.transactions.edit', ['transaction' => Transaction::findOrFail($id)]);
     }
 
     /**
@@ -82,15 +88,26 @@ class TransactionController extends Controller
 
         try {
             DB::beginTransaction();
-            $transaction->status = $request->input('status');
-            $transaction->accepted_by = $request->input('accepted_by');
+            $transaction->update($request->all());
+            $transaction->accepted_by = $request->input("accepted_by");
             $cash = $transaction->user->metaValue('cash');
             $cash = $cash + $transaction->transaction_amount;
             $transaction->user->setMetaValue('cash', $cash);
             $transaction->save();
-            DB::commit();
 
-            return redirect()->route('admin.modules.payment.transactions.index')->with('success', 'Accepted');
+            // If content is supplied, make that premium
+            if ($transaction->content()) {
+                $content = $transaction->content;
+                $result = $content->publishPremium();
+                if ($result) {
+                    $content->setMetaValue('publishVerified', True);
+                    $content->setMetaValue('publishVerifiedBy', Auth::user()->id);
+                    $content->setMetaValue('publishVerifiedAt', now());
+                }
+            }
+
+            DB::commit();
+            return redirect()->route('admin.modules.payment.transactions.index')->with('status', 'Transaction #' . $transaction->id . ' ' . $transaction->status);
         } catch (\Exception $e) {
             DB::rollBack();
             return redirect()->route('admin.modules.payment.transactions.index')->with('error', $e->getMessage());

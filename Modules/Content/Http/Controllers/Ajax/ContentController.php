@@ -253,13 +253,13 @@ class ContentController extends Controller
             if ($publishType == 'best_premium' || $publishType == 'premium') {
                 $author = $content->author()->first();
                 $publishPricing = $request->input('publishPricing');
-                $pricingTerm = Term::findOrfail($publishPricing)->first();
+                $pricingTerm = Term::findOrFail($publishPricing);
                 $content->setMetaValue('publishAmount', $pricingTerm->metaValue('amount'));
                 $content->setMetaValue('publishUnit', $pricingTerm->metaValue('unit'));
                 $content->setMetaValue('publishDuration', $pricingTerm->metaValue('duration'));
 
-                $cash = $author->metaValue('cash') || 0;
-                $amount = $content->metaValue('publishAmount');
+                $cash = $author->metaValue('cash');
+                $amount = $pricingTerm->metaValue('amount');
                 if ($cash - $amount <= 0) {
                     DB::commit();
                     return response()->json(['message' => 'Insufficient cash'])->setStatusCode(500);
