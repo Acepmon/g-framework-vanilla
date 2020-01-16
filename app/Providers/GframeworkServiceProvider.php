@@ -176,21 +176,9 @@ class GframeworkServiceProvider extends ServiceProvider
 //                $pagenum=$parsed->filters[0]['value'];
 //            }
 //            dd($pagenum);
-            $cash = PaymentTransaction::select('id', 'created_at', 'status', 'transaction_amount', 'current_amount', 'transaction_type', 'payment_method');
-            $pageNumber=intval(request()->input('page'));
-            //dd($pageNumber);
-            $cash = $cash->paginate(10, ['*'], 'page', $pageNumber);
-            $lastPage = $cash->lastPage();
-            //$cashData=json_encode($cash->items());
-            $cashData=$cash->toJson();
-            //dd($cashData);
-            $daaataaa='cash';
-            if (!starts_with($daaataaa, '$')) {
-                $daaataaa = '$' . $daaataaa;
-            }
-            //dd($daaataaa);
+            $cash = "\Modules\Payment\Entities\Transaction::where('user_id', " . $parsed->filters[1]['value'] . ")->paginate(10)";
 
-            return "<?php \$lastPage = '$lastPage'; \$tmp = json_decode('$cashData'); foreach(\$tmp->data as $daaataaa) { ?>";
+            return "<?php \$ma = $cash ?>";
         });
         Blade::directive('endmyMileage', function () {
             return "<?php } ?>";

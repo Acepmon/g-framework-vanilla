@@ -36,14 +36,15 @@ $itemsPerPage = request('itemsPerPage', "10");
                 </tr>
                 </thead>
                 <tbody>
-                @myMileage( limit=10 as $ma | paginate)
+                @myMileage( limit=10, user_id=\Auth::user()->id, page=request()->input('page') as $ma | paginate)
+                @foreach($ma as $cash)
                 <tr>
                     <td>{{$cash->created_at}}</td>
                     <td>{{$cash->transaction_amount}}</td>
                     <td>{{$cash->status}}</td>
                     <td>{{$cash->current_amount}}</td>
                 </tr>
-                @endmyMileage
+                @endforeach
                 </tbody>
             </table>
             <!-- Pagination -->
@@ -56,10 +57,10 @@ $itemsPerPage = request('itemsPerPage', "10");
                             <span aria-hidden="true">&laquo;</span>
                         </button>
                     </li>
-                    @for($i = 1; $i <= $lastPage; $i++)
+                    @for($i = 1; $i <= $ma->lastPage(); $i++)
                     <li class="page-item {{ ($i == $page)?'active':'' }}"><button class="page-link" onclick="formSubmit('page', {{$i}})">{{ $i }}</button></li>
                     @endfor
-                    <li class="page-item {{ ($page >= $lastPage)?'disabled':'' }}">
+                    <li class="page-item {{ ($page >= $ma->lastPage())?'disabled':'' }}">
                         <button class="page-link" onclick="formSubmit('page', {{$page+1}})" aria-label="Next">
                             <span aria-hidden="true">&raquo;</span>
                         </button>
