@@ -144,6 +144,23 @@ class GframeworkServiceProvider extends ServiceProvider
             return "<?php {$daaataaa} = json_decode('$carData'); ?>";
         });
 
+        Blade::directive('myMileage', function ($expression) {
+            $someObject = json_decode($expression);
+            $cash = Banner::select('id', 'banner', 'link', 'location_id', 'status')->whereRaw('1 = 1')->orderBy('id', 'asc');
+            $cash = $cash->where('status', '=', 'active');
+            $cash = $cash->whereDate('starts_at', '<', Carbon::now()->toDateTimeString());
+            $cash = $cash->whereDate('ends_at', '>', Carbon::now()->toDateTimeString());
+            foreach ($someObject as $some) {
+                $cash = $cash->where($some->field, '=', $some->key);
+            }
+            $cash = $cash->get();
+            $cashData=$cash->toJson();
+            $daaataaa='cash';
+            if (!starts_with($daaataaa, '$')) {
+                $daaataaa = '$' . $daaataaa;
+            }
+            return "<?php {$daaataaa} = json_decode('$cashData'); ?>";
+        });
 
         Blade::directive('banners', function ($expression) {
             $someObject = json_decode($expression);

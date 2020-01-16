@@ -24,6 +24,9 @@ class ContentMetaObserver
 
         if ($contentMeta->key == 'publishType') {
             $content->updateMeta('publishedAt', Carbon::now());
+            if ($contentMeta->value == 'best_premium' || $contentMeta->value == 'premium') {
+                
+            }
         }
 
         $this->calculateDays($contentMeta, 'startsAt', 'endsAt', 'publishDuration');

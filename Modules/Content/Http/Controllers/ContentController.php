@@ -2,9 +2,12 @@
 
 namespace Modules\Content\Http\Controllers;
 
+use Auth;
+use App\Content;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\DB;
 
 class ContentController extends Controller
 {

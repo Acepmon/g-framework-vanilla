@@ -6,6 +6,8 @@
 
 @section('load')
 
+
+
 @endsection
 
 @section('content')
@@ -27,6 +29,7 @@
                 </tr>
                 </thead>
                 <tbody>
+                @myMileage(limit=15 as $mileage | paginate)
                 <tr>
                     <td>1</td>
                     <td>1</td>
@@ -41,6 +44,26 @@
                 </tr>
                 </tbody>
             </table>
+            <!-- Pagination -->
+            <nav aria-label="Page navigation">
+                <input type="hidden" value="{{ $page }}" name="page" id="page" />
+                <ul class="pagination d-flex justify-content-end mt-2">
+                    <li class="page-item {{ ($page <= 1)?'disabled':'' }}">
+                        <button class="page-link" onclick="formSubmit('page', {{$page-1}})" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </button>
+                    </li>
+                    @for($i = 1; $i <= $cars->lastPage(); $i++)
+                    <li class="page-item {{ ($i == $page)?'active':'' }}"><button class="page-link" onclick="formSubmit('page', {{$i}})">{{ $i }}</button></li>
+                    @endfor
+                    <li class="page-item {{ ($page >= $cars->lastPage())?'disabled':'' }}">
+                        <button class="page-link" onclick="formSubmit('page', {{$page+1}})" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </button>
+                    </li>
+                </ul>
+            </nav>
+            <!-- Pagination end -->
         </div>
 
     </div>
