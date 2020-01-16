@@ -1,6 +1,6 @@
 @extends('themes.limitless.layouts.default')
 
-@section('title', 'Payment Method Details')
+@section('title', 'Transaction Details')
 
 @section('load-before')
 
@@ -11,96 +11,107 @@
 @endsection
 
 @section('pageheader')
-    @include('payment::admin.payment.payment_methods.includes.pageheader')
+    @include('payment::admin.payment.transactions.includes.pageheader')
 @endsection
 
 @section('content')
+<div class="container-fluid">
 <div class="row">
-    <div class="col-lg-6">
-        <div class="card">
-            <div class="card-header header-elements-inline">
-                <h6 class="card-title">
-                    <a href="{{ route('admin.modules.payment.payment_methods.index') }}" class="btn btn-icon">
-                        <span class="icon-arrow-left12"></span>
-                    </a>
-                    Payment Method Details
-                </h6>
+    <div class="col-lg-8">
 
-                <div class="header-elements">
-                    <a href="{{ route('admin.modules.payment.payment_methods.edit', $payment_method->code) }}" class="btn btn-light btn-sm">
-                        <span class="icon-pencil mr-2"></span>
-                        Edit
-                    </a>
-                </div>
-            </div>
-
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Enabled</th>
-                    </tr>
-                </thead>
-
-                <tbody>
-                    <tr>
-                        <td>
-                            @include('payment::admin.payment.payment_methods.includes.method-media', $payment_method)
-                        </td>
-                        <td>
-                            @if ($payment_method->enabled)
-                                <span class="icon-check text-success"></span> Enabled
-                            @else
-                                <span class="icon-cross text-muted"></span> Disabled
-                            @endif
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
-        @if ($payment_method->code == 'transaction')
             <div class="card">
                 <div class="card-header header-elements-inline">
                     <h6 class="card-title">
-                        <a href="{{ route('admin.modules.payment.payment_methods.index') }}" class="btn btn-icon">
-                            <span class="icon-arrow-left12"></span>
-                        </a>
-                        {{ $payment_method->name }} Datas
+                        Transaction <strong>#{{ $transaction->id }}</strong>
                     </h6>
 
                     <div class="header-elements">
-                        <a href="{{ route('admin.modules.payment.payment_methods.edit', $payment_method->code) }}" class="btn btn-light btn-sm">
-                            <span class="icon-pencil mr-2"></span>
-                            Edit
+                    @if($transaction->status == \Modules\Payment\Entities\Transaction::STATUS_PENDING)
+                        <a type="button" class="btn btn-success btn-sm" href="{{ route('admin.modules.payment.transactions.edit', ['id' => $transaction->id]) }}">
+                            <span class="icon-check mr-2"></span>
+                            Accept or Reject
                         </a>
+                        @elseif($transaction->status == \Modules\Payment\Entities\Transaction::STATUS_ACCEPTED)
+                        <button type="button" class="btn btn-success btn-sm">
+                            <span class="icon-check mr-2"></span>
+                            Accepted
+                        </button> 
+                        @elseif($transaction->status == \Modules\Payment\Entities\Transaction::STATUS_REJECTED)
+                        <button type="button" class="btn btn-danger btn-sm">
+                            <span class="icon-x mr-2"></span>
+                            Rejected
+                        </button> 
+                        @endif
                     </div>
                 </div>
 
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Bank Name</th>
-                            <th>Account No</th>
-                            <th>Account Name</th>
-                            <th>Account Currency</th>
-                        </tr>
-                    </thead>
+                <div class="card-body">
+                    @if (session('status'))
+                        <div class="alert alert-success">
+                            {{ session('status') }}
+                        </div>
+                    @endif
 
-                    <tbody>
-                        @foreach ($payment_method->data() as $data)
-                            <tr>
-                                <td>{{ $data->bankName }}</td>
-                                <td>{{ $data->accountNo }}</td>
-                                <td>{{ $data->accountName }}</td>
-                                <td>{{ $data->accountCurrency }}</td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+                    <div class="form-group row">
+                        <label class="col-form-label col-lg-2">User: </label>
+                        <div class="col-lg-10">
+                            @include('themes.limitless.includes.user-media', ['user' => $transaction->user ])
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-form-label col-lg-2">Transaction type: </label>
+                        <div class="col-lg-10">
+                            {{ $transaction->transaction_type }}
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-form-label col-lg-2">Payment method: </label>
+                        <div class="col-lg-10">
+                            {{ $transaction->get_payment_method->code }}
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-form-label col-lg-2">Transaction amount: </label>
+                        <div class="col-lg-10">
+                            {{ $transaction->transaction_amount }}
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-form-label col-lg-2">Transaction usage: </label>
+                        <div class="col-lg-10">
+                            {{ $transaction->transaction_usage }}
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-form-label col-lg-2">Transaction usage: Content: </label>
+                        <div class="col-lg-10">
+                            {{ $transaction->content?$transaction->content->slug:'None' }}
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-form-label col-lg-2">Bonus: </label>
+                        <div class="col-lg-10">
+                            {{ $transaction->bonus }}
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-form-label col-lg-2">Phone: </label>
+                        <div class="col-lg-10">
+                            {{ $transaction->phone }}
+                        </div>
+                    </div>
+                </div>
             </div>
-        @endif
+
     </div>
+</div>
 </div>
 @endsection
 

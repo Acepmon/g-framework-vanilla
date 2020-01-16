@@ -34,9 +34,6 @@ class TransactionController extends Controller
      */
     public function create(Request $request)
     {
-        Transaction::create($request->input());
-
-        return response()->json(['message'=> 'success'])->setStatusCode(200);
     }
 
     /**
@@ -47,6 +44,9 @@ class TransactionController extends Controller
     public function store(Request $request)
     {
         //
+        $transaction = Transaction::create($request->input());
+
+        return response()->json(['message'=> 'success'])->setStatusCode(200);
     }
 
     /**
