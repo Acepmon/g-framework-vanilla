@@ -150,11 +150,9 @@ class GframeworkServiceProvider extends ServiceProvider
 
         Blade::directive('contentInline', function ($expression) {
             // Parsing of passed expression
-            //dd($expression);
             $parsed = $this->parseExpression($expression);
 
             $variable = $parsed->variable;
-            dd($variable);
             $returnArg = "";
 
             $contents = $this->parseContent($parsed, $returnArg);
