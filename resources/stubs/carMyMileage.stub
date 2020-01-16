@@ -1,11 +1,18 @@
 @extends('themes.car-web.layouts.mypage')
 
+@php
+
+//Filter
+$page = request('page', "1");
+$itemsPerPage = request('itemsPerPage', "10");
+
+@endphp
+
 @section('title')
 
 @endsection
 
 @section('load')
-
 
 
 @endsection
@@ -29,23 +36,19 @@
                 </tr>
                 </thead>
                 <tbody>
-                @myMileage(limit=15 as $mileage | paginate)
+                @myMileage( limit=10 as $ma | paginate)
                 <tr>
-                    <td>1</td>
-                    <td>1</td>
-                    <td>1</td>
-                    <td>1</td>
+                    <td>{{$cash->created_at}}</td>
+                    <td>{{$cash->transaction_amount}}</td>
+                    <td>{{$cash->status}}</td>
+                    <td>{{$cash->current_amount}}</td>
                 </tr>
-                <tr>
-                    <td>1</td>
-                    <td>1</td>
-                    <td>1</td>
-                    <td>1</td>
-                </tr>
+                @endmyMileage
                 </tbody>
             </table>
             <!-- Pagination -->
             <nav aria-label="Page navigation">
+                <form action="my-mileage" id="mainForm">
                 <input type="hidden" value="{{ $page }}" name="page" id="page" />
                 <ul class="pagination d-flex justify-content-end mt-2">
                     <li class="page-item {{ ($page <= 1)?'disabled':'' }}">
@@ -53,15 +56,16 @@
                             <span aria-hidden="true">&laquo;</span>
                         </button>
                     </li>
-                    @for($i = 1; $i <= $cars->lastPage(); $i++)
+                    @for($i = 1; $i <= $lastPage; $i++)
                     <li class="page-item {{ ($i == $page)?'active':'' }}"><button class="page-link" onclick="formSubmit('page', {{$i}})">{{ $i }}</button></li>
                     @endfor
-                    <li class="page-item {{ ($page >= $cars->lastPage())?'disabled':'' }}">
+                    <li class="page-item {{ ($page >= $lastPage)?'disabled':'' }}">
                         <button class="page-link" onclick="formSubmit('page', {{$page+1}})" aria-label="Next">
                             <span aria-hidden="true">&raquo;</span>
                         </button>
                     </li>
                 </ul>
+                </form>
             </nav>
             <!-- Pagination end -->
         </div>
@@ -83,10 +87,10 @@
             if (value != 'no-value') {
                 document.getElementById(id).value = value;
             }
-            if (sortDir != 'no-value'){
-                document.getElementById(sortDir).value = sortDirValue;
-            }
-            $('#mainForm').submit();
+            // if (sortDir != 'no-value'){
+            //     document.getElementById(sortDir).value = sortDirValue;
+            // }
+             $('#mainForm').submit();
         }
 
         $(document).ready(function () {

@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Content;
 use App\Banner;
 use App\TermTaxonomy;
+use App\PaymentTransaction;
 use App\ContentMeta;
 use DB;
 use Modules\Content\Transformers\TaxonomyCollection;
@@ -68,6 +69,7 @@ class GframeworkServiceProvider extends ServiceProvider
 
         Blade::directive('contentInline', function ($expression) {
             // Parsing of passed expression
+
             $parsed = $this->parseExpression($expression);
             $variable = $parsed->variable;
             $returnArg = "";
@@ -144,22 +146,56 @@ class GframeworkServiceProvider extends ServiceProvider
             return "<?php {$daaataaa} = json_decode('$carData'); ?>";
         });
 
+
+
+        Blade::directive('contentInline', function ($expression) {
+            // Parsing of passed expression
+            //dd($expression);
+            $parsed = $this->parseExpression($expression);
+
+            $variable = $parsed->variable;
+            dd($variable);
+            $returnArg = "";
+
+            $contents = $this->parseContent($parsed, $returnArg);
+//            dd($contents);
+            return "<?php \$tmp = $contents; {$variable} = \$tmp ?>";
+        });
+
+
+
+
+
+
         Blade::directive('myMileage', function ($expression) {
-            $someObject = json_decode($expression);
-            $cash = Banner::select('id', 'banner', 'link', 'location_id', 'status')->whereRaw('1 = 1')->orderBy('id', 'asc');
-            $cash = $cash->where('status', '=', 'active');
-            $cash = $cash->whereDate('starts_at', '<', Carbon::now()->toDateTimeString());
-            $cash = $cash->whereDate('ends_at', '>', Carbon::now()->toDateTimeString());
-            foreach ($someObject as $some) {
-                $cash = $cash->where($some->field, '=', $some->key);
-            }
-            $cash = $cash->get();
+            $parsed = $this->parseExpression($expression);
+//            dd($expression);
+//            dd($parsed);
+//            if($parsed->filters[0]['value']=="request()->input('page')"){
+//                $pagenum=1;
+//            }
+//            else{
+//                $pagenum=$parsed->filters[0]['value'];
+//            }
+//            dd($pagenum);
+            $cash = PaymentTransaction::select('id', 'created_at', 'status', 'transaction_amount', 'current_amount', 'transaction_type', 'payment_method');
+            $pageNumber=intval(request()->input('page'));
+            //dd($pageNumber);
+            $cash = $cash->paginate(10, ['*'], 'page', $pageNumber);
+            $lastPage = $cash->lastPage();
+            //$cashData=json_encode($cash->items());
             $cashData=$cash->toJson();
+            //dd($cashData);
             $daaataaa='cash';
             if (!starts_with($daaataaa, '$')) {
                 $daaataaa = '$' . $daaataaa;
             }
-            return "<?php {$daaataaa} = json_decode('$cashData'); ?>";
+            //dd($daaataaa);
+
+            return "<?php \$lastPage = '$lastPage'; \$tmp = json_decode('$cashData'); foreach(\$tmp->data as $daaataaa) { ?>";
+        });
+        Blade::directive('endmyMileage', function () {
+            return "<?php } ?>";
         });
 
         Blade::directive('banners', function ($expression) {
