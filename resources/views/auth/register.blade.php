@@ -136,31 +136,66 @@
                             </div>
                             <div id="step-3" class="tab-pane">
                                 <div class="row justify-content-center">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
+                                    <div class="col-md-8">
+                                        <div class="form-group col-md-5 d-inline-block align-top">
                                             <div class="profile-upload">
                                                 <div class="circle">
                                                     <img class="profile-pic" src="">
                                                 </div>
                                                 <div class="upload-image">
-                                                    <div class="btn btn-sm btn-primary upload-button">Зураг</div>
+                                                    <div class="btn btn-sm btn-primary upload-button" id="image">Зураг</div>
                                                     <input class="btn btn-primary file-upload" type="file" name="avatar" id="avatar" accept="image/*"/>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="form-group">
-                                            <label for="address">Хаяг</label>
-                                            <div class="input-group">
-                                                <input type="text" class="form-control" name="address" id="meta_address" placeholder="Машины зогсоолын хаяг">
+                                        <div class="form-group col-md-5 d-inline-block align-top">
+                                            <div class="profile-upload">
+                                                <div class="circle">
+                                                    <img class="profile-pic-d" src="">
+                                                </div>
+                                                <div class="upload-image">
+                                                    <div class="btn btn-sm btn-primary upload-button" id="dealerImage">Дилер зураг</div>
+                                                    <input class="btn btn-primary file-upload" type="file" name="retailImage" id="dealerAvatar" accept="image/*"/>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label for="phone">Утасны дугаар</label>
+                                            <label for="companyName">Байгууллагын нэр</label>
                                             <div class="input-group">
-                                                <input type="text" name="phone" id="phone" hidden>
-                                                <input type="number" class="form-control" id="phoneNumber" placeholder="Утасны дугаар" style="width: 200px;">
+                                                <input type="text" class="form-control" name="companyName" id="companyName" placeholder="Байгууллагын нэр">
                                             </div>
                                         </div>
+                                        <div class="form-group">
+                                            <label for="address">Байгууллагын хаяг</label>
+                                            <div class="input-group">
+                                                <textarea type="text" class="form-control" name="address" id="address" placeholder="Байгууллагын хаяг"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="website">Веб хуудас</label>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" name="website" id="website" placeholder="Веб хуудас">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="schedule">Цагын хуваарь</label>
+                                            <div class="input-group">
+                                                <textarea type="text" class="form-control" name="schedule" id="schedule" placeholder="Цагын хуваарь"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="description">Танилцуулга</label>
+                                            <div class="input-group">
+                                                <textarea type="text" class="form-control" name="description" id="description" placeholder="Танилцуулга"></textarea>
+                                            </div>
+                                        </div>
+<!--                                        <div class="form-group">-->
+<!--                                            <label for="phone">Утасны дугаар</label>-->
+<!--                                            <div class="input-group">-->
+<!--                                                <input type="text" name="phone" id="phone" hidden>-->
+<!--                                                <input type="number" class="form-control" id="phoneNumber" placeholder="Утасны дугаар" style="width: 200px;">-->
+<!--                                            </div>-->
+<!--                                        </div>-->
                                     </div>
                                 </div>
 
@@ -368,37 +403,45 @@
 
 {{-- Step 3 Validation --}}
 <script>
-    var readURL = function(input) {
+    var readURL = function(input,no) {
         if (input.files && input.files[0]) {
             var reader = new FileReader();
 
             reader.onload = function (e) {
-                $('.profile-pic').attr('src', e.target.result);
+                if(no==1){$('.profile-pic').attr('src', e.target.result);}
+                else if(no==2){$('.profile-pic-d').attr('src', e.target.result);}
+
             }
 
             reader.readAsDataURL(input.files[0]);
         }
     }
 
-    $(".file-upload").on('change', function(){
-        readURL(this);
+    $("#avatar").on('change', function(){
+        readURL(this,1);
     });
 
-    $(".upload-button").on('click', function() {
-        $(".file-upload").click();
+    $("#dealerAvatar").on('change', function(){
+        readURL(this,2);
     });
 
-    $(document).ready(function () {
-        var phoneNumber = $("#phoneNumber");
-        var phone = $("#phone");
-
-        var onPhoneChange = function () {
-            phone.val(phoneNumber.val());
-        }
-
-        phoneNumber.change(onPhoneChange);
-
-        onPhoneChange();
+    $("#image").on('click', function() {
+        $("#avatar").click();
     });
+    $("#dealerImage").on('click', function() {
+        $("#dealerAvatar").click();
+    });
+    // $(document).ready(function () {
+    //     var phoneNumber = $("#phoneNumber");
+    //     var phone = $("#phone");
+    //
+    //     var onPhoneChange = function () {
+    //         phone.val(phoneNumber.val());
+    //     }
+    //
+    //     phoneNumber.change(onPhoneChange);
+    //
+    //     onPhoneChange();
+    // });
 </script>
 @endsection
