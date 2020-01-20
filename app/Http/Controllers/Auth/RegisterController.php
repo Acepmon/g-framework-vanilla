@@ -6,12 +6,12 @@ use Auth;
 use App\User;
 use App\UserMeta;
 use App\Group;
-use App\GroupMeta;
 use App\Config;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Modules\Content\Http\Controllers\GroupController;
 
 use Socialite;
 
@@ -110,18 +110,12 @@ class RegisterController extends Controller
         $except = self::EXCEPT;
         $groupId = array_key_exists('groupId', $data) ? $data['groupId'] : config('system.register.defaultGroup');
         if (!empty($groupId)) {
+            $except = array_merge($except, ['groupId']);
             $group = Group::findOrFail($data['groupId']);
             // If make row per dealer 
             if ($group->title == 'Auto Dealer') {
-                $company = Group::create([
-                    'parent_id' => $group->id,
-                    'title' => array_key_exists('companyName', $data) ? $data['companyName'] : 'Dealer',
-                    'description' => array_key_exists('description', $data) ? $data['description'] : '',
-                    'type' => 'dealer'
-                ]);
-                GroupMeta::create(['group_id' => $company->id, 'key' => 'schedule', 'value' => array_key_exists('schedule', $data) ? $data['schedule'] : '']);
-                GroupMeta::create(['group_id' => $company->id, 'key' => 'address', 'value' => array_key_exists('address', $data) ? $data['address'] : '']);
                 $except = array_merge($except, ['companyName', 'description', 'schedule', 'address']);
+                $company = GroupController::register($group, $data);
                 $user->groups()->attach(config('system.register.defaultGroup'));
                 $user->groups()->attach($company);
             } else {
