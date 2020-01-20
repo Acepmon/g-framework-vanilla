@@ -90,7 +90,7 @@
         @include('themes.car-web.includes.section-options', ['content' => $content])
 
         <!-- Seller Description -->
-        @include('themes.car-web.includes.section-seller-description', ['content' => $content])
+<!--        @include('themes.car-web.includes.section-seller-description', ['content' => $content])-->
 
         @if (!$content->metaValue('isAuction'))
             <!-- Finance section -->
@@ -102,7 +102,7 @@
 
 
         <!-- Retail Store -->
-        @include('themes.car-web.includes.section-retail', ['content' => \App\Content::find($content->metaValue('retail'))])
+        @include('themes.car-web.includes.section-retail', ['content' => $content])
 
         <!-- Hot deals -->
         @include('themes.car-web.includes.section-slider', ['title' => 'Шилдэг зарууд', 'contents' => \Modules\Car\Entities\Car::filterByPremium(null, null, ['best_premium'])->get(), 'morelink'=> url('/buy?publishType=best_premium')])

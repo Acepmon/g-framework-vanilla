@@ -167,15 +167,6 @@ class GframeworkServiceProvider extends ServiceProvider
 
         Blade::directive('myMileage', function ($expression) {
             $parsed = $this->parseExpression($expression);
-//            dd($expression);
-//            dd($parsed);
-//            if($parsed->filters[0]['value']=="request()->input('page')"){
-//                $pagenum=1;
-//            }
-//            else{
-//                $pagenum=$parsed->filters[0]['value'];
-//            }
-//            dd($pagenum);
             $cash = "\Modules\Payment\Entities\Transaction::where('user_id', " . $parsed->filters[1]['value'] . ")->paginate(10)";
 
             return "<?php \$ma = $cash ?>";
@@ -201,6 +192,8 @@ class GframeworkServiceProvider extends ServiceProvider
             }
             return "<?php {$daaataaa} = json_decode('$bannerData'); ?>";
         });
+
+
 
         Blade::directive('getTaxonomys', function ($expression) {
             $someObject = json_decode($expression);

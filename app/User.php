@@ -240,6 +240,17 @@ class User extends Authenticatable implements CanResetPassword
         return $this->is(4);
     }
 
+    public function get_dealer_group()
+    {
+        $groups = $this->groups;
+        foreach ($groups as $group) {
+            if ($group->parent_id == 8) {
+                return $group;
+            }
+        }
+        return null;
+    }
+
     public function avatar_url()
     {
         if (isset($this->avatar)) {
