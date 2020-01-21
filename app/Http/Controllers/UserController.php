@@ -9,6 +9,7 @@ use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 // use App\Http\Controllers\Controller;
+use Modules\Content\Http\Controllers\GroupController;
 use Validator;
 
 class UserController extends Controller
@@ -69,14 +70,7 @@ class UserController extends Controller
             $group = Group::findOrFail($input['groupId']);
             // If make row per dealer 
             if ($group->title == 'Auto Dealer') {
-                $company = Group::create([
-                    'parent_id' => $group->id,
-                    'title' => array_key_exists('companyName', $input) ? $input['companyName'] : 'Dealer',
-                    'description' => array_key_exists('description', $input) ? $input['description'] : '',
-                    'type' => 'dealer'
-                ]);
-                GroupMeta::create(['group_id' => $company->id, 'key' => 'schedule', 'value' => array_key_exists('schedule', $input) ? $input['schedule'] : '']);
-                GroupMeta::create(['group_id' => $company->id, 'key' => 'address', 'value' => array_key_exists('address', $input) ? $input['address'] : '']);
+                $company = GroupController::register($group, $request->input());
                 $user->groups()->attach(config('system.register.defaultGroup'));
                 $user->groups()->attach($company);
             } else {
