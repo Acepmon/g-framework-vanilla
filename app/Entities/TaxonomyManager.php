@@ -29,7 +29,7 @@ class TaxonomyManager extends Manager
             $bus = array_key_exists('bus', $other_columns)?$other_columns['bus']:False;
             $truck = array_key_exists('truck', $other_columns)?$other_columns['truck']:False;
             $special = array_key_exists('special', $other_columns)?$other_columns['special']:False;
-            $term = self::createTerm($term, $parent_id, null, $normal, $bus, $truck, $special);
+            $term = self::createTerm($term, $parent_id, $normal, $bus, $truck, $special);
             self::saveTermMetas($term->id, $args);
             $termTaxonomy = self::createTaxonomy($term->id, $taxonomy, $parent_id);
         }
@@ -49,6 +49,7 @@ class TaxonomyManager extends Manager
         $term->name = $name;
         $term->slug = \Str::slug($name);
         $term->group_id = $group_id;
+        $term->normal = $normal;
         $term->bus = $bus;
         $term->truck = $truck;
         $term->special = $special;
