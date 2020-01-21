@@ -29,6 +29,10 @@ class TaxonomyController extends Controller
      */
     public function show($taxonomy)
     {
+        if ($taxonomy == 'car-manufacturer') {
+            $type = request('type', 'normal');
+            return new TaxonomyCollection(TaxonomyManager::getManufacturers($type));
+        }
         return new TaxonomyCollection(TaxonomyManager::collection($taxonomy));
     }
 }
