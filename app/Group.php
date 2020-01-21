@@ -57,6 +57,18 @@ class Group extends Model
         }
     }
 
+    public function metaValue($key) {
+        try {
+            $meta = $this->metas->where('key', $key)->first();
+            if ($meta)
+                return $meta->value;
+        } catch (\Exception $ex) {
+            return Null;
+
+        }
+        return Null;
+    }
+
     public function metasTransform() {
         $arr = [];
         foreach ($this->metas->groupBy('key')->toArray() as $key => $metaValues) {
