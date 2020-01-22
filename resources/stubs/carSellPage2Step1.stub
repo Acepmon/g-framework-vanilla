@@ -5,7 +5,15 @@
         <div class="grid-radio">
             @foreach(\App\TermTaxonomy::where('taxonomy', 'car-type')->get() as $key => $taxonomy)
             <div class="cd-radio">
-                <input type="radio" id="{{ $taxonomy->term->metaValue('value') }}" name="carType" value="{{ $taxonomy->term->name }}" class="custom-control-input" {{ ($key == 0 || $car->metaValue('carType') == $taxonomy->term->name)?'checked':'' }}>
+                <input type="radio" onclick="subType(value)" id="{{ $taxonomy->term->metaValue('value') }}" name="carType" value="{{ $taxonomy->term->name }}" class="custom-control-input" {{ ($key == 0 || $car->metaValue('carType') == $taxonomy->term->name)?'checked':'' }}>
+                <label class="custom-control-label " for="{{ $taxonomy->term->metaValue('value') }}"> <img src="{{ asset('car-web/img/icons/' . strtolower($taxonomy->term->metaValue('value')) . '.svg') }}" alt=""><span>{{ $taxonomy->term->name }}</span>
+                </label>
+            </div>
+            @endforeach
+
+            @foreach(\App\TermTaxonomy::where('taxonomy', 'truck-size')->get() as $key => $taxonomy)
+            <div class="cd-radio">
+                <input type="radio" onclick="subType(value)" id="{{ $taxonomy->term->metaValue('value') }}" name="carType" value="{{ $taxonomy->term->name }}" class="custom-control-input" {{ ($key == 0 || $car->metaValue('carType') == $taxonomy->term->name)?'checked':'' }}>
                 <label class="custom-control-label " for="{{ $taxonomy->term->metaValue('value') }}"> <img src="{{ asset('car-web/img/icons/' . strtolower($taxonomy->term->metaValue('value')) . '.svg') }}" alt=""><span>{{ $taxonomy->term->name }}</span>
                 </label>
             </div>
@@ -288,6 +296,10 @@
         filePath = filePath.split('\\');
         filePath = filePath[filePath.length - 1];
         $("#"+id).text(filePath);
+    }
+
+    function subType(val) {
+        console.log( val)
     }
 
     var modelData = {
