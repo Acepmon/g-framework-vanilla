@@ -40,6 +40,11 @@ class GroupsTableSeeder extends Seeder
                     "title" => "Guest",
                     "description" => "Non member entity who has brief access to some services for a temporary time. Any user who is not registered is considered 'guest' by default.",
                     "type" => Group::TYPE_SYSTEM
+                ],
+                [
+                    "title" => "Damoa",
+                    "description" => "ДАМОА КАПИТАЛ нь 2012 онд үүсгэн байгуулагдсан цагаасаа өнөөг хүртэл Монголын санхүүгийн зах зээлд үйлчлүүлэгчдийн талархлыг хүлээн ажилласаар байна..",
+                    "type" => Group::TYPE_DEALER
                 ]
             ]);
 
@@ -56,6 +61,36 @@ class GroupsTableSeeder extends Seeder
                     "description" => "Pages, Post Manager and Menus, Localizations, Media Management",
                     "type" => Group::TYPE_DYNAMIC,
                     "parent_id" => 2
+                ],
+            ]);
+
+            // $id = Group::find('id')->where('title', 'Damoa');
+
+            DB::table('group_metas')->insert([
+                [
+                    "group_id" => 5,
+                    "key" => "address",
+                    "value" => "Хаяг  :УБ, Баянгол, Үндсэн хуулийн гудамж 24, 'Рокмон бюлдинг' 301 тоот"
+                ],
+                [
+                    "group_id" => 5,
+                    "key" => "schedule",
+                    "value" => "Даваа~Баасан  : 09:00 ~ 19:00      Бямба гариг : 10:00 ~17:00"
+                ],
+                [
+                    "group_id" => 5,
+                    "key" => "retailImage",
+                    "value" => "\public\assets\images\login-covers\\493628.jpg"
+                ],
+                [
+                    "group_id" => 5,
+                    "key" => "website",
+                    "value" => "https://www.damoacapital.com/"
+                ],
+                [
+                    "group_id" => 5,
+                    "key" => "retailPhone",
+                    "value" => "7011-3322, 7011-8282, 9433-4535,  9650-4535"
                 ],
             ]);
         }

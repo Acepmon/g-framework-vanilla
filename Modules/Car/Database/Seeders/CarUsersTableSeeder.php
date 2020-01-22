@@ -25,12 +25,14 @@ class CarUsersTableSeeder extends Seeder
             $randomGroup = $carGroups->random();
             $randomGroupId = $randomGroup->id;
 
-            $user->groups()->attach(3);
+            // $user->groups()->attach(3);
             $user->groups()->attach($randomGroupId);
 
             $user->metas()->saveMany([
                 new UserMeta(['key' => 'type', 'value' => $randomGroup->title]),
                 new UserMeta(['key' => 'phone', 'value' => '88206116']),
+                new UserMeta(['key' => 'type', 'value' => 'Damoa']),
+                new UserMeta(['key' => 'phone', 'value' => '99119922']),
             ]);
         });
     }
