@@ -31,6 +31,26 @@ $categoryName = [
             </div>
             @endforeach
         </div>
+        <div class="card-body bg-light grid-radio pt-0 pb-0">
+            <select id="truck-choice" class="form-control mb-3 type-choice" name="truck-size" onchange="formSubmit('importDate','no-value')" style="display: none">
+            <option value="">Хэмжээ сонгох</option>
+            @foreach(App\TermTaxonomy::where('taxonomy', 'truck-size')->get() as $taxonomy)
+            <option {{ $request['importDate']==$taxonomy->term->name?'selected':'' }}>{{ $taxonomy->term->name }}</option>
+            @endforeach
+            </select>
+            <select id="bus-choice" class="form-control mb-3 type-choice" name="bus-sizes" onchange="formSubmit('importDate','no-value')" style="display: none">
+            <option value="">Хэмжээ сонгох</option>
+            @foreach(App\TermTaxonomy::where('taxonomy', 'bus-sizes')->get() as $taxonomy)
+            <option {{ $request['importDate']==$taxonomy->term->name?'selected':'' }}>{{ $taxonomy->term->name }}</option>
+            @endforeach
+            </select>
+            <select id="special-choice" class="form-control mb-3 type-choice" name="special" onchange="formSubmit('importDate','no-value')" style="display: none">
+            <option value="">Төрбөл сонгох</option>
+            @foreach(App\TermTaxonomy::where('taxonomy', 'special')->get() as $taxonomy)
+            <option {{ $request['importDate']==$taxonomy->term->name?'selected':'' }}>{{ $taxonomy->term->name }}</option>
+            @endforeach
+            </select>
+        </div>
         </div>
         @elseif($category == 'car-manufacturer')
         <div id="{{ $category }}" class="collapse {{ request($category, False)?'show':'' }}" aria-labelledby="{{ $category }}">
@@ -62,12 +82,24 @@ $categoryName = [
         @elseif($category == 'car-year')
         <div id="{{ $category }}" class="collapse {{ request('buildYear', False)?'show':'' }}" aria-labelledby="{{ $category }}">
         <div class="card-body bg-light grid-radio">
-            <select id="min-year" class="form-control" name="buildYear" onchange="formSubmit('buildYear','no-value')">
-            <option value="">Жил сонгох</option>
-            @for($i=date('Y'); $i>=1990; $i--)
-            <option value="{{ $i }}" {{ $request['buildYear']==$i?'selected':'' }}>{{ $i }}</option>
-            @endfor
-            </select>
+            <div class="form-row">
+            <div class="col-md-6">
+                <select id="min-year" class="form-control" name="buildYear" onchange="formSubmit('buildYear','no-value')">
+                <option value="">Үйлдвэрлэсэн Он</option>
+                @for($i=date('Y'); $i>=1990; $i--)
+                <option value="{{ $i }}" {{ $request['buildYear']==$i?'selected':'' }}>{{ $i }}</option>
+                @endfor
+                </select>
+            </div>
+            <div class="col-md-6">
+                <select id="min-year" class="form-control" name="importDate" onchange="formSubmit('importDate','no-value')">
+                <option value="">Орж ирсэн он</option>
+                @for($i=date('Y'); $i>=($request['buildYear']?$request['buildYear']:1990); $i--)
+                <option value="{{ $i }}" {{ $request['importDate']==$i?'selected':'' }}>{{ $i }}</option>
+                @endfor
+                </select>
+            </div>
+            </div>
         </div>
         </div>
         @elseif($category == 'car-distance-driven')
@@ -185,6 +217,8 @@ $("input[name='car-type']").on("click", function() {
         } else {
             val = 'normal';
         }
+        $(".type-choice").hide(300);
+        $("#"+val+"-choice").show(300);
 
         waiting = 1;
             load();
