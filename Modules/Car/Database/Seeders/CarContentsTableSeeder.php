@@ -88,6 +88,22 @@ class CarContentsTableSeeder extends Seeder
             $publishTypes = ['free', 'premium', 'best_premium'];
             $price = rand(1, 10000) . '000';
 
+            $content->terms()->saveMany([
+                $markName,
+                $modelName,
+                $countryName,
+                $type,
+                $manCount,
+                $fuelType,
+                $colorName,
+                $transmission,
+                $wheelPosition,
+                $wheel,
+                $condition,
+                $colorExterior,
+                $colorInterior
+            ]);
+
             $content->metas()->saveMany([
                 new ContentMeta(['key' => 'plateNumber', 'value' => rand(1000, 9999) . \Str::random(3)]),
                 new ContentMeta(['key' => 'cabinNumber', 'value' => \Str::uuid()]),

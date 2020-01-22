@@ -117,16 +117,16 @@ class User extends Authenticatable implements CanResetPassword
         return $this->hasMany('App\UserMeta');
     }
 
-    public function metaValue($key) {
+    public function metaValue($key, $value = Null) {
         try {
             $meta = $this->metas->where('key', $key)->first();
             if ($meta)
                 return $meta->value;
         } catch (\Exception $ex) {
-            return Null;
+            return $value;
 
         }
-        return Null;
+        return $value;
     }
 
     public function metaArray($key) {

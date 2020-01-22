@@ -39,7 +39,7 @@ class TaxonomyManager extends Manager
 
     public static function collection($taxonomy)
     {
-        $taxonomies = TermTaxonomy::where('taxonomy', $taxonomy)->get();
+        $taxonomies = TermTaxonomy::where('taxonomy', $taxonomy)->where('count', '!=', 0)->get();
         return $taxonomies;
     }
 
