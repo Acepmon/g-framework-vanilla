@@ -173,7 +173,8 @@ class TaxonomyManager extends Manager
     public static function getManufacturers($type='normal', $limit = 5)
     {
         $terms_id = Term::where($type, True)->pluck('id');
-        $manufacturers = TermTaxonomy::where('taxonomy', 'car-manufacturer')->whereIn('term_id', $terms_id);
+        // $manufacturers = TermTaxonomy::where('taxonomy', 'car-manufacturer')->whereIn('term_id', $terms_id);
+        $manufacturers = TermTaxonomy::where([['taxonomy', 'car-manufacturer'], ['count', '!=', 0]])->whereIn('term_id', $terms_id);
         $most = clone $manufacturers;
         $most = $most->orderBy('count', 'desc')->limit($limit);
         $most = $most->get()->merge($manufacturers->get());

@@ -138,6 +138,10 @@ class Car extends Content
         $request['minPrice'] = request('min_price', Null);
         $request['maxPrice'] = request('max_price', Null);
 
+        $request['truckSize'] = request('truck-size', Null);
+        $request['busSize'] = request('bus-sizes', Null);
+        $request['special'] = request('special', Null);
+
         // $request = json_encode($request);
         return $request;
     }

@@ -32,22 +32,22 @@ $categoryName = [
             @endforeach
         </div>
         <div class="card-body bg-light grid-radio pt-0 pb-0">
-            <select id="truck-choice" class="form-control mb-3 type-choice" name="truck-size" onchange="formSubmit('importDate','no-value')" style="display: none">
+            <select id="truck-choice" class="form-control mb-3 type-choice" name="truck-size" onchange="formSubmit('truckSize','no-value')" @if(!$request['truckSize']) style="display: none" @endif>
             <option value="">Хэмжээ сонгох</option>
             @foreach(App\TermTaxonomy::where('taxonomy', 'truck-size')->get() as $taxonomy)
-            <option {{ $request['importDate']==$taxonomy->term->name?'selected':'' }}>{{ $taxonomy->term->name }}</option>
+            <option {{ ($request['truckSize']==$taxonomy->term->name)?'selected':'' }}>{{ $taxonomy->term->name }}</option>
             @endforeach
             </select>
-            <select id="bus-choice" class="form-control mb-3 type-choice" name="bus-sizes" onchange="formSubmit('importDate','no-value')" style="display: none">
+            <select id="bus-choice" class="form-control mb-3 type-choice" name="bus-sizes" onchange="formSubmit('busSize','no-value')" @if(!$request['busSize']) style="display: none" @endif>
             <option value="">Хэмжээ сонгох</option>
             @foreach(App\TermTaxonomy::where('taxonomy', 'bus-sizes')->get() as $taxonomy)
-            <option {{ $request['importDate']==$taxonomy->term->name?'selected':'' }}>{{ $taxonomy->term->name }}</option>
+            <option {{ ($request['busSize']==$taxonomy->term->name)?'selected':'' }}>{{ $taxonomy->term->name }}</option>
             @endforeach
             </select>
-            <select id="special-choice" class="form-control mb-3 type-choice" name="special" onchange="formSubmit('importDate','no-value')" style="display: none">
-            <option value="">Төрбөл сонгох</option>
+            <select id="special-choice" class="form-control mb-3 type-choice" name="special" onchange="formSubmit('special','no-value')" @if(!$request['special']) style="display: none" @endif>
+            <option value="">Төрөл сонгох</option>
             @foreach(App\TermTaxonomy::where('taxonomy', 'special')->get() as $taxonomy)
-            <option {{ $request['importDate']==$taxonomy->term->name?'selected':'' }}>{{ $taxonomy->term->name }}</option>
+            <option {{ ($request['special']==$taxonomy->term->name)?'selected':'' }}>{{ $taxonomy->term->name }}</option>
             @endforeach
             </select>
         </div>
@@ -153,6 +153,21 @@ $categoryName = [
             <button class="btn btn-round btn-primary btn-sm px-3 mx-auto" onclick="submitMenu()">Шүүх</button>
         </div>
         </div>
+        @elseif($category == 'car-doctor-verified')
+        <div id="{{ $category }}" class="collapse {{ request('mileageAmount', False)?'show':'' }}" aria-labelledby="{{ $category }}">
+        <div class="card-body bg-light grid-radio">
+            <div class="custom-control custom-radio">
+                <input type="radio" id="doctorVerified" name="car-doctor-verified" class="custom-control-input" value="1" {{ ($request['doctorVerified'] == 1)?'checked':'' }}>
+                <label class="custom-control-label  d-flex justify-content-between" for="doctorVerified">Баталгаажсан
+                </label>
+            </div>
+            <div class="custom-control custom-radio">
+                <input type="radio" id="doctorVerified" name="car-doctor-verified" class="custom-control-input" value="0" {{ ($request['doctorVerified'] == 0)?'checked':'' }}>
+                <label class="custom-control-label  d-flex justify-content-between" for="doctorVerified">Баталгаажаагүй
+                </label>
+            </div>
+        </div>
+        </div>
         @else
         <div id="{{ $category }}" class="collapse {{ request($category, False)?'show':'' }}" aria-labelledby="{{ $category }}">
         <div class="card-body bg-light">
@@ -229,7 +244,6 @@ $("input[name='car-type']").on("click", function() {
                 $("#demo-spinner").css({'display': 'none'});
                 $(".manufacturer").empty();
                 var modelList=data;
-                console.log(modelList);
 
                 var html = '';
                 for (var i = 0; i < modelList.data.length; i++) {
@@ -262,11 +276,9 @@ $("input.car-manufacturer").on("click", onManufacturerSelect);
 function onManufacturerSelect() {
     if (waiting == 0) {
         let val = $(this).val();
-        console.log(val);
         let subList = $(".car-filter .models[name=\"" + val + "\"");
 
         if (subList.length) {
-            console.log("got it");
             switchToModel(val);
         } else {
             waiting = 1;
