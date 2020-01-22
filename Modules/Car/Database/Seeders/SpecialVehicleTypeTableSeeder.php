@@ -22,7 +22,7 @@ class SpecialVehicleTypeTableSeeder extends Seeder
         $parent = TaxonomyManager::register('Special Vehicle Type', 'car', null, ['metaKey' => 'specialVehicle']);
 
         foreach ($specialVehicles as $key => $specialVehicle) {
-            TaxonomyManager::register($specialVehicle, 'truck-size', $parent->term->id);
+            TaxonomyManager::register($specialVehicle, 'special', $parent->term->id);
         }
 
         TaxonomyManager::updateTaxonomyChildrenSlugs($parent->id);
