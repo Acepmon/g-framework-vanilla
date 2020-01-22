@@ -31,12 +31,32 @@ $categoryName = [
             </div>
             @endforeach
         </div>
+        <div class="card-body bg-light grid-radio pt-0 pb-0">
+            <select id="truck-choice" class="form-control mb-3 type-choice" name="truck-size" onchange="formSubmit('importDate','no-value')" style="display: none">
+            <option value="">Хэмжээ сонгох</option>
+            @foreach(App\TermTaxonomy::where('taxonomy', 'truck-size')->get() as $taxonomy)
+            <option {{ $request['importDate']==$taxonomy->term->name?'selected':'' }}>{{ $taxonomy->term->name }}</option>
+            @endforeach
+            </select>
+            <select id="bus-choice" class="form-control mb-3 type-choice" name="bus-sizes" onchange="formSubmit('importDate','no-value')" style="display: none">
+            <option value="">Хэмжээ сонгох</option>
+            @foreach(App\TermTaxonomy::where('taxonomy', 'bus-sizes')->get() as $taxonomy)
+            <option {{ $request['importDate']==$taxonomy->term->name?'selected':'' }}>{{ $taxonomy->term->name }}</option>
+            @endforeach
+            </select>
+            <select id="special-choice" class="form-control mb-3 type-choice" name="special" onchange="formSubmit('importDate','no-value')" style="display: none">
+            <option value="">Төрбөл сонгох</option>
+            @foreach(App\TermTaxonomy::where('taxonomy', 'special')->get() as $taxonomy)
+            <option {{ $request['importDate']==$taxonomy->term->name?'selected':'' }}>{{ $taxonomy->term->name }}</option>
+            @endforeach
+            </select>
+        </div>
         </div>
         @elseif($category == 'car-manufacturer')
         <div id="{{ $category }}" class="collapse {{ request($category, False)?'show':'' }}" aria-labelledby="{{ $category }}">
         <div id="manufacturerBody" class="card-body bg-light">
             <div class="manufacturer">
-                @foreach(App\Entities\TaxonomyManager::getManufacturers() as $taxonomy)
+                @foreach(App\Entities\TaxonomyManager::getManufacturers('special') as $taxonomy)
                 <div class="custom-control custom-radio">
                     <!-- <a href="/car-list?{{ $category . '=' . $taxonomy->term->name }}" class="text-body text-decoration-none"> -->
                     <input type="radio" id="{{$taxonomy->term->name}}" name="{{ $category }}" class="custom-control-input car-manufacturer" value="{{ $taxonomy->term->name }}" {{ ($taxonomy->term->name == request($category, Null))?'checked':'' }}>
@@ -62,12 +82,24 @@ $categoryName = [
         @elseif($category == 'car-year')
         <div id="{{ $category }}" class="collapse {{ request('buildYear', False)?'show':'' }}" aria-labelledby="{{ $category }}">
         <div class="card-body bg-light grid-radio">
-            <select id="min-year" class="form-control" name="buildYear" onchange="formSubmit('buildYear','no-value')">
-            <option value="">Жил сонгох</option>
-            @for($i=date('Y'); $i>=1990; $i--)
-            <option value="{{ $i }}" {{ $request['buildYear']==$i?'selected':'' }}>{{ $i }}</option>
-            @endfor
-            </select>
+            <div class="form-row">
+            <div class="col-md-6">
+                <select id="min-year" class="form-control" name="buildYear" onchange="formSubmit('buildYear','no-value')">
+                <option value="">Үйлдвэрлэсэн Он</option>
+                @for($i=date('Y'); $i>=1990; $i--)
+                <option value="{{ $i }}" {{ $request['buildYear']==$i?'selected':'' }}>{{ $i }}</option>
+                @endfor
+                </select>
+            </div>
+            <div class="col-md-6">
+                <select id="min-year" class="form-control" name="importDate" onchange="formSubmit('importDate','no-value')">
+                <option value="">Орж ирсэн он</option>
+                @for($i=date('Y'); $i>=($request['buildYear']?$request['buildYear']:1990); $i--)
+                <option value="{{ $i }}" {{ $request['importDate']==$i?'selected':'' }}>{{ $i }}</option>
+                @endfor
+                </select>
+            </div>
+            </div>
         </div>
         </div>
         @elseif($category == 'car-distance-driven')
@@ -75,17 +107,9 @@ $categoryName = [
         <div class="card-body bg-light grid-radio">
             <select id="mileageAmount" class="form-control" name="mileageAmount" onchange="formSubmit('mileageAmount','no-value')">
             <option value="">Явсан КМ сонгох</option>
-            <option value="0-0" {{ $request['mileageAmount']=='0-0'?'selected':'' }}>0km</option>
-            <option value="1-100" {{ $request['mileageAmount']=='1-100'?'selected':'' }}>1-100km</option>
-            <option value="100-1000" {{ $request['mileageAmount']=='100-1000'?'selected':'' }}>100-1,000km</option>
-            <option value="1000-5000" {{ $request['mileageAmount']=='1000-5000'?'selected':'' }}>1,000-5,000km</option>
-            <option value="5000-10000" {{ $request['mileageAmount']=='5000-10000'?'selected':'' }}>5,000-10,000km</option>
-            <option value="10000-50000" {{ $request['mileageAmount']=='10000-50000'?'selected':'' }}>10,000-50,000km</option>
-            <option value="50000-100000" {{ $request['mileageAmount']=='50000-100000'?'selected':'' }}>50,000-100,000km</option>
-            <option value="100000-200000" {{ $request['mileageAmount']=='100000-200000'?'selected':'' }}>100,000-200,000km</option>
-            <option value="200000-300000" {{ $request['mileageAmount']=='200000-300000'?'selected':'' }}>200,000-300,000km</option>
-            <option value="300000-400000" {{ $request['mileageAmount']=='300000-400000'?'selected':'' }}>300,000-400,000km</option>
-            <option value="400000-500000" {{ $request['mileageAmount']=='400000-500000'?'selected':'' }}>400,000-500,000km</option>
+            @for($i=0; $i < 500000; $i+=10000)
+            <option value="{{$i}}-{{$i+10000}}" {{ $request['mileageAmount']==$i.'-'.($i+10000)?'selected':'' }}>{{number_format($i)}}-{{number_format($i+10000)}}km</option>
+            @endfor
             </select>
         </div>
         </div>
@@ -96,7 +120,7 @@ $categoryName = [
             <div class="col-md-6">
                 <select id="min_price" class="form-control" name="min_price" onchange="formSubmit('min_price','no-value')">
                 <option value="">доод</option>
-                @for($i=100000; $i<=50000000; $i+=100000)
+                @for($i=1000000; $i<=500000000; $i+=1000000)
                 <option value="{{ $i }}" {{ $request['minPrice']==$i?'selected':'' }}>{{ numerizePrice($i) }}</option>
                 @endfor
                 </select>
@@ -104,7 +128,7 @@ $categoryName = [
             <div class="col-md-6">
                 <select id="max_price" class="form-control" name="max_price" onchange="formSubmit('max_price','no-value')">
                 <option value="">дээд</option>
-                @for($i=$request['minPrice']?$request['minPrice']:100000; $i<=50000000; $i+=100000)
+                @for($i=$request['minPrice']?$request['minPrice']:1000000; $i<=500000000; $i+=1000000)
                 <option value="{{ $i }}" {{ $request['maxPrice']==$i?'selected':'' }}>{{ numerizePrice($i) }}</option>
                 @endfor
                 </select>
@@ -157,9 +181,9 @@ $categoryName = [
 
 @push('scripts')
 <script>
-$("input[type=radio][name!=\"car-manufacturer\"]").click(submitMenu);
+$("input[type=radio][name!='car-manufacturer'][name!='car-type']").click(submitMenu);
 // $("input[type=checkbox]").click(submitMenu);
-$("input[type=radio][name!='car-manufacturer'], .page-link, .advantage-item, .sort-cars li").click(load);
+$("input[type=radio][name!='car-manufacturer'][name!='car-type'], .page-link, .advantage-item, .sort-cars li").click(load);
 
 function load(event) {
     $("#demo-spinner").css('display', 'block');
@@ -179,10 +203,63 @@ $(document).ready(function() {
     @if(request('car-model', Null))
     $("#{{ request('car-manufacturer', 'no-id') }}").trigger('click');
     @endif
-    console.log("Yadf");
 });
 
-$("input.car-manufacturer").on("click", function () {
+$("input[name='car-type']").on("click", function() {
+    if (waiting == 0) {
+        let val = $(this).val();
+        if (val == "Автобус") {
+            val = "bus";
+        } else if (val == "Хүнд ММ") {
+            val = "truck";
+        } else if (val == "Тусгай ММ") {
+            val = "special";
+        } else {
+            val = 'normal';
+        }
+        $(".type-choice").hide(300);
+        $("#"+val+"-choice").show(300);
+
+        waiting = 1;
+            load();
+            $.ajax({
+                type: 'Get',
+                url: '/api/v1/taxonomies/car-manufacturer?type=' + val,
+            }).done(function(data) {
+                $("#demo-spinner").css({'display': 'none'});
+                $(".manufacturer").empty();
+                var modelList=data;
+                console.log(modelList);
+
+                var html = '';
+                for (var i = 0; i < modelList.data.length; i++) {
+                    let termname = modelList.data[i].term.name;
+                    let checked = (termname == '{{ $request['markName'] }}')?'checked':'';
+
+                    html = '<div class="custom-control custom-radio">' +
+                        '<input type="radio" id="'+termname+'" name="{{ $category }}" class="custom-control-input car-manufacturer" value="'+termname+'"' +checked+ '>'+
+                        '<label class="custom-control-label  d-flex justify-content-between" for="'+termname+'">'+termname+'</label>';
+                    $(".manufacturer").append(html);
+                }
+                switchToManufacturer();
+                //switchToModel(val);
+
+                $("input.car-manufacturer").on("click", onManufacturerSelect);
+                //$("input[type=radio][name=\"car-model\"]").click(submitMenu);
+                //$("input[type=radio][name=\"car-model\"]").click(load);
+                waiting = 0;
+            }).fail(function(err) {
+                $("#demo-spinner").css({'display': 'none'});
+                console.error("FAIL!");
+                console.error(err);
+                waiting = 0;
+            });
+    }
+});
+
+$("input.car-manufacturer").on("click", onManufacturerSelect);
+
+function onManufacturerSelect() {
     if (waiting == 0) {
         let val = $(this).val();
         console.log(val);
@@ -200,7 +277,6 @@ $("input.car-manufacturer").on("click", function () {
             }).done(function(data) {
                 $("#demo-spinner").css({'display': 'none'});
                 var modelList=data;
-                console.log(modelList);
                 var html = '<div class="models" name="'+val+'"> \
                 <div class="models-back" style="cursor:pointer"><i class="fab fa fa-angle-left"></i> буцах</div> ';
 
@@ -226,7 +302,12 @@ $("input.car-manufacturer").on("click", function () {
             });
         }
     }
-});
+}
+
+function switchToManufacturer() {
+    $('.car-filter .models').hide(300);
+    $('.car-filter .manufacturer').show(300);
+}
 
 function switchToModel(val) {
     $(".car-filter .models.active").hide();

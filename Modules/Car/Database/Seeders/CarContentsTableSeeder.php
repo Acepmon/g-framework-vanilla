@@ -26,7 +26,7 @@ class CarContentsTableSeeder extends Seeder
         $time = time();
         $rootPath = config('content.cars.rootPath');
 
-        factory(Content::class, 5)->create(['type' => Content::TYPE_CAR])->each(function ($content) use ($time, $rootPath) {
+        factory(Content::class, 50)->create(['type' => Content::TYPE_CAR])->each(function ($content) use ($time, $rootPath) {
 
             $content->slug = config('content.cars.containerPage') . '/' . $content->slug;
             $content->save();
@@ -42,7 +42,10 @@ class CarContentsTableSeeder extends Seeder
 
             $countryName = TaxonomyManager::collection('countries')->random()->term->name;
             $markName = TaxonomyManager::collection('car-manufacturer')->random()->term->name;
-            $modelName = TaxonomyManager::collection('car-' . \Str::kebab($markName))->random()->term->name;
+            $modelName = '';
+            if (count(TaxonomyManager::collection('car-' . \Str::kebab($markName))) != 0) {
+                $modelName = TaxonomyManager::collection('car-' . \Str::kebab($markName))->random()->term->name;
+            }
             $type = TaxonomyManager::collection('car-type')->random()->term->name;
             // $className = '';
             $manCount = TaxonomyManager::collection('car-mancount')->random()->term->name;
@@ -238,6 +241,8 @@ class CarContentsTableSeeder extends Seeder
             // Update title by merging markName and modelName
             $content->title = \Str::startsWith($content->metaValue('modelName'), $content->metaValue('markName')) ? $content->metaValue('modelName') : $content->metaValue('markName') . ' ' . $content->metaValue('modelName');
             $content->slug = 'posts/' . $content->id;
+            $content->status = 'published';
+            $content->visibility = 'public';
             $content->save();
 
             $value = new \stdClass;
