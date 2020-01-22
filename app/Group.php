@@ -9,11 +9,13 @@ class Group extends Model
     const TYPE_SYSTEM = 'system'; // System user groups are in the system by default. They cannot be deleted, it is unchanging.
     const TYPE_STATIC = 'static'; // Static user groups are those which are populated manually, that is by the users.
     const TYPE_DYNAMIC = 'dynamic'; // Dynamic user groups are populated and maintained through either a query or a directory server.
+    const TYPE_DEALER = 'dealer';
 
     const TYPE_ARRAY = [
         self::TYPE_SYSTEM,
         self::TYPE_STATIC,
-        self::TYPE_DYNAMIC
+        self::TYPE_DYNAMIC,
+        self::TYPE_DEALER
     ];
 
     protected $fillable = [
@@ -53,6 +55,7 @@ class Group extends Model
             case self::TYPE_SYSTEM: return 'primary';
             case self::TYPE_STATIC: return 'info';
             case self::TYPE_DYNAMIC: return 'warning';
+            case self::TYPE_DEALER: return 'warning';
             default: return 'default';
         }
     }
