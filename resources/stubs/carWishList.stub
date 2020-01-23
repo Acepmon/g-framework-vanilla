@@ -14,7 +14,7 @@ $banner = App\Banner::where('location_id', 5)->where('status', 'active')->inRand
 
 @endphp
 
-@section('title')
+@section('title', 'Авъя')
 
 @endsection
 

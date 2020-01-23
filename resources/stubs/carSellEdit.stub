@@ -5,7 +5,7 @@
 
 @extends('themes.car-web.layouts.default')
 
-@section('title')
+@section('title', 'Засах')
 
 @endsection
 

@@ -1,6 +1,6 @@
 @extends('themes.car-web.layouts.mypage')
 
-@section('title')
+@section('title', 'Миний хуудас')
 
 @endsection
 
@@ -98,7 +98,7 @@
                     </div>
                     <button type="button" id="editDealerBtn" class="btn btn-sm btn-light my-3">Засах</button>
                 </div>
-                <div class="pro-info">
+                <div class="pro-info col-md-8">
                     <div class="form-group">
                         <label for="companyName">Байгууллагын нэр:</label>
                         <input type="text" class="form-control" id="companyName" name="companyName" value="{{ old('companyName')?old('companyName'):Auth::user()->get_dealer_group()->title }}" readonly>

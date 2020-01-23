@@ -9,7 +9,7 @@ $allItems = \Modules\Car\Entities\Car::all()->whereDoesntHave('metas', function 
 $banner = \App\Banner::where('location_id', 5)->where('status', 'active')->inRandomOrder()->first();
 @endphp
 
-@section('title')
+@section('title', 'Авна')
 Car dealer
 @endsection
 

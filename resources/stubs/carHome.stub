@@ -20,7 +20,7 @@ $itsIntCar=false;
 @endif
 
 @endsection
-@section('title')
+@section('title', 'Нүүр')
 
 @endsection
 

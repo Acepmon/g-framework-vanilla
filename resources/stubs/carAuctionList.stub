@@ -8,8 +8,7 @@ $allItems = metaHas($allItems, 'endsAt', now(), '>=');
 $banner = \App\Banner::where('location_id', 5)->where('status', 'active')->inRandomOrder()->first();
 @endphp
 
-@section('title')
-Car dealer
+@section('title', 'Аукцион')
 @endsection
 
 @section('load')

@@ -14,7 +14,7 @@
         <div id="truckSizes" hidden="true" class="grid-radio mt-5">
             @foreach(\App\TermTaxonomy::where('taxonomy', 'truck-size')->get() as $key => $taxonomy)
             <div class="cd-radio">
-                <input type="radio" id="{{ $taxonomy->term->metaValue('value') }}" name="carSubType" value="{{ $taxonomy->term->name }}" class="custom-control-input" {{ ($key == 0 || $car->metaValue('carType') == $taxonomy->term->name)?'checked':'' }}>
+                <input type="radio" id="{{ $taxonomy->term->metaValue('value') }}" name="truckSize" value="{{ $taxonomy->term->name }}" class="custom-control-input" {{ ($key == 0 || $car->metaValue('truckSize') == $taxonomy->term->name)?'checked':'' }}>
                 <label class="custom-control-label " for="{{ $taxonomy->term->metaValue('value') }}"> <img src="{{ asset('car-web/img/icons/' . strtolower($taxonomy->term->metaValue('value')) . '.svg') }}" alt=""><span>{{ $taxonomy->term->name }}</span>
                 </label>
             </div>
@@ -23,7 +23,7 @@
         <div id="bus" hidden="true" class="grid-radio mt-5">
             @foreach(\App\TermTaxonomy::where('taxonomy', 'bus-sizes')->get() as $key => $taxonomy)
             <div class="cd-radio">
-                <input type="radio" id="{{ $taxonomy->term->metaValue('value') }}" name="carSubType" value="{{ $taxonomy->term->name }}" class="custom-control-input" {{ ($key == 0 || $car->metaValue('carType') == $taxonomy->term->name)?'checked':'' }}>
+                <input type="radio" id="{{ $taxonomy->term->metaValue('value') }}" name="busSize" value="{{ $taxonomy->term->name }}" class="custom-control-input" {{ ($key == 0 || $car->metaValue('busSize') == $taxonomy->term->name)?'checked':'' }}>
                 <label class="custom-control-label " for="{{ $taxonomy->term->metaValue('value') }}"> <img src="{{ asset('car-web/img/icons/' . strtolower($taxonomy->term->metaValue('value')) . '.svg') }}" alt=""><span>{{ $taxonomy->term->name }}</span>
                 </label>
             </div>
@@ -32,7 +32,7 @@
         <div id="special" hidden="true" class="grid-radio mt-5">
             @foreach(\App\TermTaxonomy::where('taxonomy', 'special')->get() as $key => $taxonomy)
             <div class="cd-radio">
-                <input type="radio" id="{{ $taxonomy->term->metaValue('value') }}" name="carSubType" value="{{ $taxonomy->term->name }}" class="custom-control-input" {{ ($key == 0 || $car->metaValue('carType') == $taxonomy->term->name)?'checked':'' }}>
+                <input type="radio" id="{{ $taxonomy->term->metaValue('value') }}" name="special" value="{{ $taxonomy->term->name }}" class="custom-control-input" {{ ($key == 0 || $car->metaValue('special') == $taxonomy->term->name)?'checked':'' }}>
                 <label class="custom-control-label " for="{{ $taxonomy->term->metaValue('value') }}"> <img src="{{ asset('car-web/img/icons/' . strtolower($taxonomy->term->metaValue('value')) . '.svg') }}" alt=""><span>{{ $taxonomy->term->name }}</span>
                 </label>
             </div>

@@ -75,7 +75,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Хаах</button>
-                    <button type="button" class="btn btn-primary" onclick="submitStep4()" data-dismiss="modal">Илгээх</button>
+                    <button type="button" class="btn btn-primary" onclick="makePremium()" data-dismiss="modal">Илгээх</button>
                 </div>
             </form>
         </div>
@@ -147,7 +147,6 @@ function transferId(id) {
 }
 
 function makePremium() {
-    $("#demo-spinner").css({'display': 'block'});
     var paramObjs = {};
     $.each($('#make-premium').serializeArray(), function(_, kv) {
         paramObjs[kv.name] = kv.value;
@@ -162,17 +161,13 @@ function makePremium() {
     else{
         publishPricing = 0;
     }
-    paramObjs['publishedAt'] = new Date();
-    delete paramObjs.publishPriceAmountBest;
-    delete paramObjs.publishPriceAmountPremium;
 
     if(makeCarId!==0){
         $.ajax({
             type: 'POST',
             url: '/ajax/contents/' + makeCarId + '/publish',
-            data: {"status":'{{ \App\Content::STATUS_PUBLISHED}}', "visibility":'{{ \App\Content::VISIBILITY_PUBLIC }}', "publishPricing": publishPricing}
+            data: {"status":'{{ \App\Content::STATUS_PUBLISHED}}', "visibility":'{{ \App\Content::VISIBILITY_PUBLIC }}', "publishPricing": publishPricing, "publishType": paramObjs.publishType}
         }).done(function(data) {
-            $("#demo-spinner").css({'display': 'none'});
             nextPrev(1);
             console.log("DONE!");
             console.log(data);
@@ -201,12 +196,11 @@ function makePremium() {
                     }, 700);
 
                     setTimeout(function(){
-                        window.location.href = "/charge-cash?id=" + carId;
+                        window.location.href = "/charge-cash?id=" + makeCarId;
                     }, 3000);
 
                 }
             }
-            fail(err);
         });
     }
 
