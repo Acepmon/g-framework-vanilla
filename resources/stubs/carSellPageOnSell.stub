@@ -6,9 +6,12 @@
 
 @section('load')
 
+
+
 @endsection
 
 @section('content')
+@include('themes.car-web.includes.loader')
 <div class="row">
     <div class="card shadow-soft-blue page-top-navbar">
         <div class="mypage-nav">
@@ -56,8 +59,7 @@
                         {{--<div href="#" class="card-title">{{$onSale->title}}</div>--}}
                         {{--<div class="meta">{{$onSale->metaValue("buildYear")}} / {{$onSale->metaValue("importDate")}} | {{$onSale->metaValue("mileageAmount")}}{{$onSale->metaValue("mileageUnit")}}</div>--}}
                         {{--<div class="price">{{numerizePrice($onSale->metaValue("priceAmount"))}} {{$onSale->metaValue("priceUnit")}}</div>--}}
-                        <button class="btn btn-warning btn-round shadow-soft-blue btn-icon-left px-3 btn-sm mr-5 mt-2"
-                                href="#"> Make premium ad</button>
+                        <button class="btn btn-warning btn-round shadow-soft-blue btn-icon-left px-3 btn-sm mr-5 mt-2" data-toggle="modal" onclick="transferId({{$onSale->id}})" data-target="#premiumAd" href="#"> Make premium ad</button>
                     </div>
                     <div class="info">
                       <span class="info-icon">
@@ -100,8 +102,29 @@
 @endsection
 @push('modals')
 
+@include('themes.car-web.includes.modal-make-premium')
+
+<div class="modal fade" id="carRegSuccess">
+    <div class="modal-dialog  modal-dialog-centered">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header text-center">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body text-center">
+                <div class="maz-modal-title" style="font-size:1.5rem">Sell advertise!</div>
+                <div id="sent-ad" style="width: 300px; display:inline-block"></div>
+                <h5 id="responseText" class="mb-5">Амжилттай бүртгэгдлээ!</h5>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <div class="modal fade" id="deteleCont" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog"  role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Зарыг устгах</h5>
@@ -170,7 +193,6 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
-
         function formSubmit(id, value, sortDir, sortDirValue) {
             console.log(id)
             if (value != 'no-value') {
@@ -204,6 +226,9 @@
         });
 
     }
+
+
+
     function statusChange() {
 
         console.log(contId)
