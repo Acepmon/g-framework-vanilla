@@ -56,11 +56,11 @@ $categoryName = [
         <div id="{{ $category }}" class="collapse {{ request($category, False)?'show':'' }}" aria-labelledby="{{ $category }}">
         <div id="manufacturerBody" class="card-body bg-light">
             <div class="manufacturer">
-                @foreach(App\Entities\TaxonomyManager::getManufacturers('special') as $taxonomy)
+                @foreach(App\Entities\TaxonomyManager::getManufacturers('normal') as $taxonomy)
                 <div class="custom-control custom-radio">
                     <!-- <a href="/car-list?{{ $category . '=' . $taxonomy->term->name }}" class="text-body text-decoration-none"> -->
-                    <input type="radio" id="{{$taxonomy->term->name}}" name="{{ $category }}" class="custom-control-input car-manufacturer" value="{{ $taxonomy->term->name }}" {{ ($taxonomy->term->name == request($category, Null))?'checked':'' }}>
-                    <label class="custom-control-label  d-flex justify-content-between" for="{{$taxonomy->term->name}}">{{ $taxonomy->term->name }}
+                    <input type="radio" id="{{$taxonomy->term->id}}" name="{{ $category }}" class="custom-control-input car-manufacturer" value="{{ $taxonomy->term->id }}" {{ ($taxonomy->term->id == request($category, Null))?'checked':'' }}>
+                    <label class="custom-control-label  d-flex justify-content-between" for="{{$taxonomy->term->id}}">{{ $taxonomy->term->name }}
                     </label>
                 </div>
                 @endforeach
@@ -68,9 +68,9 @@ $categoryName = [
             @if(request('car-model', Null))
             <div class="models" name="{{ request('car-manufacturer', 'no-id') }}" style="display: none">
                 <div class="models-back" style="cursor:pointer"><i class="fab fa fa-angle-left"></i> буцах</div> 
-                @foreach(App\TermTaxonomy::where('taxonomy', 'car-' . \Str::kebab(request('car-manufacturer', 'no-id')))->get() as $taxonomy)
+                @foreach(App\TermTaxonomy::where('parent_id', request('car-manufacturer', Null))->where('count', '!=', 0)->get() as $taxonomy)
                 <div class="custom-control custom-radio">
-                    <input type="radio" id="{{$taxonomy->term->name}}" name="car-model" class="custom-control-input" value="{{ $taxonomy->term->name }}" {{ ($taxonomy->term->name == request('car-model', Null))?'checked':'' }}>
+                    <input type="radio" id="{{$taxonomy->term->name}}" name="car-model" class="custom-control-input" value="{{ $taxonomy->term->id }}" {{ ($taxonomy->term->id == request('car-model', Null))?'checked':'' }}>
                     <label class="custom-control-label  d-flex justify-content-between" for="{{$taxonomy->term->name}}">{{ $taxonomy->term->name }}
                     </label>
                 </div>
@@ -174,7 +174,7 @@ $categoryName = [
             @foreach(App\TermTaxonomy::where('taxonomy', $category)->get() as $taxonomy)
             <div class="custom-control custom-radio">
             <!-- <a href="/car-list?{{ $category . '=' . $taxonomy->term->name }}" class="text-body text-decoration-none"> -->
-            <input type="radio" id="{{$taxonomy->term->name}}" name="{{ $category }}" class="custom-control-input" value="{{ $taxonomy->term->name }}" {{ ($taxonomy->term->name == request($category, Null))?'checked':'' }}>
+            <input type="radio" id="{{$taxonomy->term->name}}" name="{{ $category }}" class="custom-control-input" value="{{ $taxonomy->term->id }}" {{ ($taxonomy->term->id == request($category, Null))?'checked':'' }}>
             <label class="custom-control-label  d-flex justify-content-between" for="{{$taxonomy->term->name}}">{{ ucfirst($taxonomy->term->name) }}
             </label>
             </div>
@@ -236,38 +236,39 @@ $("input[name='car-type']").on("click", function() {
         $("#"+val+"-choice").show(300);
 
         waiting = 1;
-            load();
-            $.ajax({
-                type: 'Get',
-                url: '/api/v1/taxonomies/car-manufacturer?type=' + val,
-            }).done(function(data) {
-                $("#demo-spinner").css({'display': 'none'});
-                $(".manufacturer").empty();
-                var modelList=data;
+        load();
+        $.ajax({
+            type: 'Get',
+            url: '/api/v1/taxonomies/car-manufacturer?type=' + val,
+        }).done(function(data) {
+            $("#demo-spinner").css({'display': 'none'});
+            $(".manufacturer").empty();
+            var modelList=data;
 
-                var html = '';
-                for (var i = 0; i < modelList.data.length; i++) {
-                    let termname = modelList.data[i].term.name;
-                    let checked = (termname == '{{ $request['markName'] }}')?'checked':'';
+            var html = '';
+            for (var i = 0; i < modelList.data.length; i++) {
+                let termname = modelList.data[i].term.name;
+                let termid = modelList.data[i].term.id;
+                let checked = (termid == '{{ $request['markName'] }}')?'checked':'';
 
-                    html = '<div class="custom-control custom-radio">' +
-                        '<input type="radio" id="'+termname+'" name="{{ $category }}" class="custom-control-input car-manufacturer" value="'+termname+'"' +checked+ '>'+
-                        '<label class="custom-control-label  d-flex justify-content-between" for="'+termname+'">'+termname+'</label>';
-                    $(".manufacturer").append(html);
-                }
-                switchToManufacturer();
-                //switchToModel(val);
+                html = '<div class="custom-control custom-radio">' +
+                    '<input type="radio" id="'+termid+'" name="{{ $category }}" class="custom-control-input car-manufacturer" value="'+termid+'"' +checked+ '>'+
+                    '<label class="custom-control-label  d-flex justify-content-between" for="'+termid+'">'+termname+'</label>';
+                $(".manufacturer").append(html);
+            }
+            switchToManufacturer();
+            //switchToModel(val);
 
-                $("input.car-manufacturer").on("click", onManufacturerSelect);
-                //$("input[type=radio][name=\"car-model\"]").click(submitMenu);
-                //$("input[type=radio][name=\"car-model\"]").click(load);
-                waiting = 0;
-            }).fail(function(err) {
-                $("#demo-spinner").css({'display': 'none'});
-                console.error("FAIL!");
-                console.error(err);
-                waiting = 0;
-            });
+            $("input.car-manufacturer").on("click", onManufacturerSelect);
+            //$("input[type=radio][name=\"car-model\"]").click(submitMenu);
+            //$("input[type=radio][name=\"car-model\"]").click(load);
+            waiting = 0;
+        }).fail(function(err) {
+            $("#demo-spinner").css({'display': 'none'});
+            console.error("FAIL!");
+            console.error(err);
+            waiting = 0;
+        });
     }
 });
 
@@ -275,7 +276,9 @@ $("input.car-manufacturer").on("click", onManufacturerSelect);
 
 function onManufacturerSelect() {
     if (waiting == 0) {
-        let val = $(this).val();
+        // let val = $(this).val();
+        let val = $(this).attr("id");
+        console.log(val);
         let subList = $(".car-filter .models[name=\"" + val + "\"");
 
         if (subList.length) {
@@ -285,7 +288,7 @@ function onManufacturerSelect() {
             load();
             $.ajax({
                 type: 'Get',
-                url: '/api/v1/taxonomies/car-' + toKebabCase(val),
+                url: '/api/v1/taxonomies/car-' + toKebabCase(val) + '?count=1',
             }).done(function(data) {
                 $("#demo-spinner").css({'display': 'none'});
                 var modelList=data;
@@ -294,9 +297,10 @@ function onManufacturerSelect() {
 
                 for (var i = 0; i < modelList.data.length; i++) {
                     let termname = modelList.data[i].term.name;
-                    let checked = (termname == '{{ $request['modelName'] }}')?'checked':'';
+                    let termid = modelList.data[i].term.id;
+                    let checked = (termid == '{{ $request['modelName'] }}')?'checked':'';
                     html = html + '<div class="custom-control custom-radio"> '+ 
-                        '<input type="radio" id="' + termname + '" name="car-model" value="' + termname + '" class="custom-control-input" '+checked+'> '+
+                        '<input type="radio" id="' + termname + '" name="car-model" value="' + termid + '" class="custom-control-input" '+checked+'> '+
                         '<label class="custom-control-label d-flex justify-content-between" for="' + termname + '">' + termname + '</label></div>';
                 }
 

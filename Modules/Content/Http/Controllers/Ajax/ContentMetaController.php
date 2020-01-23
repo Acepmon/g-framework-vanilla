@@ -8,6 +8,8 @@ use Illuminate\Routing\Controller;
 
 use App\Content;
 use App\ContentMeta;
+use App\Term;
+use App\TermMeta;
 use App\Entities\ContentManager;
 
 class ContentMetaController extends Controller
@@ -55,6 +57,24 @@ class ContentMetaController extends Controller
         $content = Content::find($content_id);
 
         $data = ContentManager::discernMetasFromRequest($request->input());
+        foreach ($data as $key=>$value) {
+            $term_meta = TermMeta::where([['key', 'metaKey'], ['value', $key]])->first();
+            if ($term_meta) {
+                if ($value == 1 || $key == 'modelName') { // This condition is for those whose group_id are not their parents
+                    $content->terms()->save($term_meta->term);
+                } else {
+                    $group_id = $term_meta->term->id;
+                    $term = Term::where('name', $value)->where('group_id', $group_id)->first();
+                    if ($value == 1 || $term) {
+                        $content->terms()->save($term);
+                    }
+                }
+            }
+            // $term = Term::where('name', $value)->first();
+            // if ($term && $term->metaValue('metaKey') == $key) {
+            //     $content->terms()->save($term);
+            // }
+        }
         ContentManager::syncMetas($content_id, $data);
 
         return response()->json($data);

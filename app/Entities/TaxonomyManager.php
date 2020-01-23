@@ -37,9 +37,12 @@ class TaxonomyManager extends Manager
         return $termTaxonomy;
     }
 
-    public static function collection($taxonomy)
+    public static function collection($taxonomy, $count = False)
     {
-        $taxonomies = TermTaxonomy::where('taxonomy', $taxonomy)->where('count', '!=', 0)->get();
+        if ($count) {
+            return TermTaxonomy::where('taxonomy', $taxonomy)->where('count', '!=', 0)->get();
+        }
+        $taxonomies = TermTaxonomy::where('taxonomy', $taxonomy)->get();
         return $taxonomies;
     }
 

@@ -33,6 +33,11 @@ class TaxonomyController extends Controller
             $type = request('type', 'normal');
             return new TaxonomyCollection(TaxonomyManager::getManufacturers($type));
         }
-        return new TaxonomyCollection(TaxonomyManager::collection($taxonomy));
+        if (request()->input('count')) {
+            $taxonomies = TaxonomyManager::collection($taxonomy, True);
+        } else {
+            $taxonomies = TaxonomyManager::collection($taxonomy);
+        }
+        return new TaxonomyCollection($taxonomies);
     }
 }

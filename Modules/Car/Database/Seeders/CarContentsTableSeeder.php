@@ -40,24 +40,27 @@ class CarContentsTableSeeder extends Seeder
 
             // Random values
 
-            $countryName = TaxonomyManager::collection('countries')->random()->term->name;
-            $markName = TaxonomyManager::collection('car-manufacturer')->random()->term->name;
+            $countryName = TaxonomyManager::collection('countries')->random()->term;
+            $markName = TaxonomyManager::collection('car-manufacturer')->random()->term;
             $modelName = '';
-            if (count(TaxonomyManager::collection('car-' . \Str::kebab($markName))) != 0) {
-                $modelName = TaxonomyManager::collection('car-' . \Str::kebab($markName))->random()->term->name;
+            if (count(TaxonomyManager::collection('car-' . \Str::kebab($markName->name))) != 0) {
+                $modelName = TaxonomyManager::collection('car-' . \Str::kebab($markName->name))->random()->term;
+                $content->terms()->save($modelName);
+                $content->metas()->save(new ContentMeta(['key' => 'modelName', 'value' => $modelName->name]));
             }
-            $type = TaxonomyManager::collection('car-type')->random()->term->name;
+            $type = TaxonomyManager::collection('car-type')->random()->term;
             // $className = '';
-            $manCount = TaxonomyManager::collection('car-mancount')->random()->term->name;
-            $fuelType = TaxonomyManager::collection('car-fuel')->random()->term->name;
-            $colorName = TaxonomyManager::collection('car-colors')->random()->term->name;
-            $transmission = TaxonomyManager::collection('car-transmission')->random()->term->name;
-            $wheelPosition = TaxonomyManager::collection('car-wheel-pos')->random()->term->name;
-            $wheel = TaxonomyManager::collection('car-wheel')->random()->term->name;
-            $condition = TaxonomyManager::collection('car-conditions')->random()->term->name;
-            $colorInterior = TaxonomyManager::collection('car-colors')->random()->term->name;
-            $colorExterior = TaxonomyManager::collection('car-colors')->random()->term->name;
-            $retail = Content::where('type', 'retail')->get()->random()->id;
+            $manCount = TaxonomyManager::collection('car-mancount')->random()->term;
+            $fuelType = TaxonomyManager::collection('car-fuel')->random()->term;
+            $colorName = TaxonomyManager::collection('car-colors')->random()->term;
+            $transmission = TaxonomyManager::collection('car-transmission')->random()->term;
+            $wheelPosition = TaxonomyManager::collection('car-wheel-pos')->random()->term;
+            $wheel = TaxonomyManager::collection('car-wheel')->random()->term;
+            $condition = TaxonomyManager::collection('car-conditions')->random()->term;
+            $colorInterior = TaxonomyManager::collection('car-colors')->random()->term;
+            $colorExterior = TaxonomyManager::collection('car-colors')->random()->term;
+            $doorCount = TaxonomyManager::collection('door-count')->random()->term;
+            // $retail = Content::where('type', 'retail')->get()->random()->id;
 
             // via.placeholder.com images
             // $thumbWidth = 640;
@@ -90,7 +93,6 @@ class CarContentsTableSeeder extends Seeder
 
             $content->terms()->saveMany([
                 $markName,
-                $modelName,
                 $countryName,
                 $type,
                 $manCount,
@@ -101,24 +103,35 @@ class CarContentsTableSeeder extends Seeder
                 $wheel,
                 $condition,
                 $colorExterior,
-                $colorInterior
+                $colorInterior,
+                $doorCount
             ]);
+
+            // Car options
+            $option_cats = TaxonomyManager::collection('car-options');
+            foreach($option_cats as $option_cat) {
+                $options = $option_cat->children;
+                foreach($options as $option) {
+                    if (rand(0, 1)) {
+                        $content->terms()->save($option->term);
+                    }
+                }
+            }
 
             $content->metas()->saveMany([
                 new ContentMeta(['key' => 'plateNumber', 'value' => rand(1000, 9999) . \Str::random(3)]),
                 new ContentMeta(['key' => 'cabinNumber', 'value' => \Str::uuid()]),
-                new ContentMeta(['key' => 'countryName', 'value' => $countryName]),
-                new ContentMeta(['key' => 'markName', 'value' => $markName]),
-                new ContentMeta(['key' => 'modelName', 'value' => $modelName]),
-                new ContentMeta(['key' => 'carType', 'value' => $type]),
+                new ContentMeta(['key' => 'countryName', 'value' => $countryName->name]),
+                new ContentMeta(['key' => 'markName', 'value' => $markName->name]),
+                new ContentMeta(['key' => 'carType', 'value' => $type->name]),
                 new ContentMeta(['key' => 'className', 'value' => 'luxury']),
-                new ContentMeta(['key' => 'manCount', 'value' => $manCount]),
+                new ContentMeta(['key' => 'manCount', 'value' => $manCount->name]),
 
                 new ContentMeta(['key' => 'weightAmount', 'value' => rand(1, 2000)]),
                 new ContentMeta(['key' => 'weightUnit', 'value' => 'kg']),
                 new ContentMeta(['key' => 'massAmount', 'value' => rand(1, 2000)]),
                 new ContentMeta(['key' => 'massUnit', 'value' => 'kg']),
-                new ContentMeta(['key' => 'fuelType', 'value' => $fuelType]),
+                new ContentMeta(['key' => 'fuelType', 'value' => $fuelType->name]),
                 new ContentMeta(['key' => 'widthAmount', 'value' => rand(1, 200)]),
                 new ContentMeta(['key' => 'widthUnit', 'value' => 'cm']),
                 new ContentMeta(['key' => 'heightAmount', 'value' => rand(1, 150)]),
@@ -126,21 +139,21 @@ class CarContentsTableSeeder extends Seeder
                 new ContentMeta(['key' => 'capacityAmount', 'value' => rand(1, 5000)]),
                 new ContentMeta(['key' => 'capacityUnit', 'value' => 'cc']),
                 new ContentMeta(['key' => 'motorNumber', 'value' => \Str::uuid()]),
-                new ContentMeta(['key' => 'colorName', 'value' => $colorName]),
+                new ContentMeta(['key' => 'colorName', 'value' => $colorName->name]),
                 new ContentMeta(['key' => 'axleCount', 'value' => '2']),
                 new ContentMeta(['key' => 'certificateNumber', 'value' => \Str::uuid()]),
                 new ContentMeta(['key' => 'importDate', 'value' => rand(1990, 2020)]),
                 new ContentMeta(['key' => 'intent', 'value' => 'use']),
-                new ContentMeta(['key' => 'transmission', 'value' => $transmission]),
+                new ContentMeta(['key' => 'transmission', 'value' => $transmission->name]),
                 new ContentMeta(['key' => 'archiveDate', 'value' => rand(1990, 2020)]),
                 new ContentMeta(['key' => 'buildYear', 'value' => rand(1990, 2020)]),
                 new ContentMeta(['key' => 'archiveFirstNumber', 'value' => 'A598WDY987']),
-                new ContentMeta(['key' => 'wheelPosition', 'value' => $wheelPosition]),
+                new ContentMeta(['key' => 'wheelPosition', 'value' => $wheelPosition->name]),
                 new ContentMeta(['key' => 'lengthAmount', 'value' => '4']),
                 new ContentMeta(['key' => 'lengthUnit', 'value' => 'm']),
                 new ContentMeta(['key' => 'archiveNumber', 'value' => 'A598WDY987']),
-                new ContentMeta(['key' => 'carCondition', 'value' => $condition]),
-                new ContentMeta(['key' => 'wheelDrive', 'value' => $wheel]),
+                new ContentMeta(['key' => 'carCondition', 'value' => $condition->name]),
+                new ContentMeta(['key' => 'wheelDrive', 'value' => $wheel->name]),
                 new ContentMeta(['key' => 'mileageAmount', 'value' => rand(1, 5000)]),
                 new ContentMeta(['key' => 'mileageUnit', 'value' => 'km']),
                 new ContentMeta(['key' => 'advantages', 'value' => 'Тамхи татаагүй']),
@@ -173,8 +186,8 @@ class CarContentsTableSeeder extends Seeder
                 new ContentMeta(['key' => 'chassis', 'value' => '4 WD']),
                 new ContentMeta(['key' => 'speedLimitAmount', 'value' => '180']),
                 new ContentMeta(['key' => 'speedLimitUnit', 'value' => 'km/h']),
-                new ContentMeta(['key' => 'colorNameInterior', 'value' => $colorInterior]),
-                new ContentMeta(['key' => 'colorNameExterior', 'value' => $colorExterior]),
+                new ContentMeta(['key' => 'colorNameInterior', 'value' => $colorInterior->name]),
+                new ContentMeta(['key' => 'colorNameExterior', 'value' => $colorExterior->name]),
                 new ContentMeta(['key' => 'doorCount', 'value' => '4']),
 
                 // Doctor Service Verification
@@ -184,7 +197,6 @@ class CarContentsTableSeeder extends Seeder
                 new ContentMeta(['key' => 'doctorVerificationFile', 'value' => '']),
 
                 // Retail
-                new ContentMeta(['key' => 'retail', 'value' => $retail]),
 
                 // Seller
                 new ContentMeta(['key' => 'sellerDescription', 'value' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum ullam, explicabo iure delectus asperiores sed aliquam provident magnam similique accusantium magni! Neque dolorum similique aliquam id recusandae aliquid nihil sit, blanditiis corporis? Odit, repudiandae recusandae. Libero rem aliquid, distinctio vel ad ab nostrum nulla repellendus modi officia eligendi officiis ducimus labore? Ad, praesentium laborum fugiat vitae doloremque qui beatae consectetur.']),
