@@ -70,7 +70,7 @@ class GroupsTableSeeder extends Seeder
                 [
                     "group_id" => 5,
                     "key" => "address",
-                    "value" => "Хаяг  :УБ, Баянгол, Үндсэн хуулийн гудамж 24, 'Рокмон бюлдинг' 301 тоот"
+                    "value" => "УБ, Баянгол, Үндсэн хуулийн гудамж 24, 'Рокмон бюлдинг' 301 тоот"
                 ],
                 [
                     "group_id" => 5,
@@ -80,7 +80,7 @@ class GroupsTableSeeder extends Seeder
                 [
                     "group_id" => 5,
                     "key" => "retailImage",
-                    "value" => "\public\assets\images\login-covers\\493628.jpg"
+                    "value" => "\assets\images\login-covers\\493628.jpg"
                 ],
                 [
                     "group_id" => 5,
