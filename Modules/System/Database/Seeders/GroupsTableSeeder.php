@@ -44,7 +44,7 @@ class GroupsTableSeeder extends Seeder
                 [
                     "title" => "Damoa",
                     "description" => "ДАМОА КАПИТАЛ нь 2012 онд үүсгэн байгуулагдсан цагаасаа өнөөг хүртэл Монголын санхүүгийн зах зээлд үйлчлүүлэгчдийн талархлыг хүлээн ажилласаар байна..",
-                    "type" => Group::TYPE_DEALER
+                    "type" => Group::TYPE_DEALER,
                 ]
             ]);
 
