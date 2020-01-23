@@ -11,7 +11,7 @@
             </div>
             @endforeach
         </div>
-        <div id="truckSizes" class="grid-radio mt-5">
+        <div id="truckSizes" hidden="true" class="grid-radio mt-5">
             @foreach(\App\TermTaxonomy::where('taxonomy', 'truck-size')->get() as $key => $taxonomy)
             <div class="cd-radio">
                 <input type="radio" id="{{ $taxonomy->term->metaValue('value') }}" name="carSubType" value="{{ $taxonomy->term->name }}" class="custom-control-input" {{ ($key == 0 || $car->metaValue('carType') == $taxonomy->term->name)?'checked':'' }}>
@@ -20,7 +20,7 @@
             </div>
             @endforeach
         </div>
-        <div id="bus" class="grid-radio mt-5">
+        <div id="bus" hidden="true" class="grid-radio mt-5">
             @foreach(\App\TermTaxonomy::where('taxonomy', 'bus-sizes')->get() as $key => $taxonomy)
             <div class="cd-radio">
                 <input type="radio" id="{{ $taxonomy->term->metaValue('value') }}" name="carSubType" value="{{ $taxonomy->term->name }}" class="custom-control-input" {{ ($key == 0 || $car->metaValue('carType') == $taxonomy->term->name)?'checked':'' }}>
@@ -29,7 +29,7 @@
             </div>
             @endforeach
         </div>
-        <div id="special" class="grid-radio mt-5">
+        <div id="special" hidden="true" class="grid-radio mt-5">
             @foreach(\App\TermTaxonomy::where('taxonomy', 'special')->get() as $key => $taxonomy)
             <div class="cd-radio">
                 <input type="radio" id="{{ $taxonomy->term->metaValue('value') }}" name="carSubType" value="{{ $taxonomy->term->name }}" class="custom-control-input" {{ ($key == 0 || $car->metaValue('carType') == $taxonomy->term->name)?'checked':'' }}>
