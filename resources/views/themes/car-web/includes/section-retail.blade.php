@@ -55,16 +55,18 @@
                             </div>
                         @endif -->
 
-                        @if ($content->author->get_dealer_group()->metaValue('phone'))
+                        @if ($content->author->get_dealer_group()->metaValue('retailPhone'))
                             <div class  ="retail-row">
                                 <div class="row-title">Утас</div>
-                                <div class="row-info">{{ $content->author->get_dealer_group()->metaValue('phone') }}</div>
+                                <div class="row-info">{{ $content->author->get_dealer_group()->metaValue('retailPhone') }}</div>
                             </div>
                         @endif
                         @if ($content->author->get_dealer_group()->metaValue('website'))
                         <div class  ="retail-row">
                             <div class="row-title">Веб хуудас</div>
-                            <div class="row-info">{{ $content->author->get_dealer_group()->metaValue('website') }}</div>
+                            <div class="row-info">
+                                <a href="{{ $content->author->get_dealer_group()->metaValue('website') }}" target="_blank">{{ $content->author->get_dealer_group()->metaValue('website') }}</a>
+                            </div>
                         </div>
                         @endif
                     </div>

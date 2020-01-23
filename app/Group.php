@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\GroupMeta;
 use Illuminate\Database\Eloquent\Model;
 
 class Group extends Model
@@ -27,6 +28,27 @@ class Group extends Model
     public function metas()
     {
         return $this->hasMany('App\GroupMeta', 'group_id');
+    }
+
+    public function setMetaValue($key, $value) {
+        try {
+            $meta = $this->metas->where('key', $key)->first();
+            if (isset($meta)) {
+                $meta->value = $value;
+                $meta->save();
+                return $meta;
+            } else {
+                $newMeta = new GroupMeta();
+                $newMeta->user_id = $this->id;
+                $newMeta->key = $key;
+                $newMeta->value = $value;
+                $newMeta->save();
+                return $newMeta;
+            }
+        } catch (\Exception $ex) {
+            return Null;
+        }
+        return Null;
     }
 
     public function menus()
