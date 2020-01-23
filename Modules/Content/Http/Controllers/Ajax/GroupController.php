@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Content\Http\Controllers;
+namespace Modules\Content\Http\Controllers\Ajax;
 
 use App\Group;
 use App\GroupMeta;
@@ -68,6 +68,31 @@ class GroupController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $group = Group::findOrFail($id);
+        
+        if ($request->has('companyName')) {
+            $group->title = $request->input('companyName');
+            $group->save();
+        }
+        if ($request->has('description')) {
+            $group->description = $request->input('description');
+            $group->save();
+        }
+        if ($request->has('address')) {
+            $group->setMetaValue('address', $request->input('address'));
+        }
+        if ($request->has('schedule')) {
+            $group->setMetaValue('schedule', $request->input('schedule'));
+        }
+        if ($request->has('website')) {
+            $group->setMetaValue('website', $request->input('website'));
+        }
+        if ($request->hasFile('retailImage')) {
+            $filename = MediaManager::storeFile($request->file('retailImage'), 'avatars/retail');
+            $group->setMetaValue('retailImage', $filename);
+        }
+
+        return back()->with('group', $group);
     }
 
     /**

@@ -87,14 +87,14 @@
     @if(Auth::user()->get_dealer_group())
         <div class="card-body">
             <h2>Байгууллагын мэдээлэл</h2>
-            <form id="editDealerForm" action="{{ route('ajax.users.update', ['user' => Auth::user()->id ]) }}" method="post" enctype="multipart/form-data">
+            <form id="editDealerForm" action="{{ route('ajax.groups.update', ['user' => Auth::user()->get_dealer_group()->id ]) }}" method="post" enctype="multipart/form-data">
             <div class="row my-4">
                 <div class="col-md-2">
                     <div class="pro-img">
                         <label class="avatarChange" style="display: none">Change
                             <input type="file" name="retailImage" id="avatarChooserRetail" accept="image/*" onchange="readURL(this, 2)" style="display:none"/>
                         </label>
-                        <img src="{{ Auth::user()->avatar_url() }}" alt="" id="avatarRetail">
+                        <img src="{{ Auth::user()->get_dealer_group()->metaValue("retailImage") }}" alt="" id="avatarRetail">
                     </div>
                     <button type="button" id="editDealerBtn" class="btn btn-sm btn-light my-3">Засах</button>
                 </div>

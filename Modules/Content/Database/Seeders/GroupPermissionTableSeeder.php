@@ -53,6 +53,7 @@ class GroupPermissionTableSeeder extends Seeder
         PermissionManager::attachGroupPermissions(3, Permission::where('title', 'ajax_contents_read')->get());
         PermissionManager::attachGroupPermissions(3, Permission::where('title', 'ajax_contents_create')->get());
         PermissionManager::attachGroupPermissions(3, Permission::where('title', 'ajax_contents_update')->get());
+        PermissionManager::attachGroupPermissions(3, Permission::where('title', 'ajax_groups_update')->get());
 
         // Attach System Permissions to System Operator Group
         PermissionManager::attachGroupPermissions(5, Permission::where('title', 'LIKE', 'admin_configs%')->get());

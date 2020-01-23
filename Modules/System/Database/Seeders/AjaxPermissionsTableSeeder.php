@@ -18,6 +18,7 @@ class AjaxPermissionsTableSeeder extends Seeder
     {
         PermissionManager::newPermissionCrud('ajax_users');
         PermissionManager::newPermissionCrud('ajax_users_metas');
+        PermissionManager::newPermissionCrud('ajax_groups');
         PermissionManager::newPermissionCrud('ajax_contents');
         PermissionManager::newPermissionCrud('ajax_contents_metas');
     }
