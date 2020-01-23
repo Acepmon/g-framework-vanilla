@@ -244,7 +244,7 @@ class User extends Authenticatable implements CanResetPassword
     {
         $groups = $this->groups;
         foreach ($groups as $group) {
-            if ($group->parent_id == Group::where('title', 'Auto Dealer')->id) {
+            if ($group->parent_id == Group::where('title', 'Auto Dealer')->first()->id) {
                 return $group;
             }
         }
