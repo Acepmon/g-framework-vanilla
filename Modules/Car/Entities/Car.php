@@ -46,7 +46,10 @@ class Car extends Content
                 if ($value == '0') {
                     $contents = metaHas($contents, $key, $value, 'doesntHave');
                 } else {
-                    $contents = metaHas($contents, $key, $value);
+                    // $contents = metaHas($contents, $key, $value);
+                    $contents = $contents->whereHas('terms', function($q) use($value) {
+                        $q->where('term_taxonomy_id', $value);
+                    });
                 }
             }
         }
@@ -137,6 +140,10 @@ class Car extends Content
         $request['publishType'] = request('publishType', Null);
         $request['minPrice'] = request('min_price', Null);
         $request['maxPrice'] = request('max_price', Null);
+
+        $request['truckSize'] = request('truck-size', Null);
+        $request['busSize'] = request('bus-sizes', Null);
+        $request['special'] = request('special', Null);
 
         // $request = json_encode($request);
         return $request;

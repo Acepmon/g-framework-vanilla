@@ -5,7 +5,34 @@
         <div class="grid-radio">
             @foreach(\App\TermTaxonomy::where('taxonomy', 'car-type')->get() as $key => $taxonomy)
             <div class="cd-radio">
-                <input type="radio" id="{{ $taxonomy->term->metaValue('value') }}" name="carType" value="{{ $taxonomy->term->name }}" class="custom-control-input" {{ ($key == 0 || $car->metaValue('carType') == $taxonomy->term->name)?'checked':'' }}>
+                <input type="radio" onclick="subType(value)" id="{{ $taxonomy->term->metaValue('value') }}" name="carType" value="{{ $taxonomy->term->name }}" class="custom-control-input" {{ ($key == 0 || $car->metaValue('carType') == $taxonomy->term->name)?'checked':'' }}>
+                <label class="custom-control-label " for="{{ $taxonomy->term->metaValue('value') }}"> <img src="{{ asset('car-web/img/icons/' . strtolower($taxonomy->term->metaValue('value')) . '.svg') }}" alt=""><span>{{ $taxonomy->term->name }}</span>
+                </label>
+            </div>
+            @endforeach
+        </div>
+        <div id="truckSizes" hidden="true" class="grid-radio mt-5">
+            @foreach(\App\TermTaxonomy::where('taxonomy', 'truck-size')->get() as $key => $taxonomy)
+            <div class="cd-radio">
+                <input type="radio" id="{{ $taxonomy->term->metaValue('value') }}" name="carSubType" value="{{ $taxonomy->term->name }}" class="custom-control-input" {{ ($key == 0 || $car->metaValue('carType') == $taxonomy->term->name)?'checked':'' }}>
+                <label class="custom-control-label " for="{{ $taxonomy->term->metaValue('value') }}"> <img src="{{ asset('car-web/img/icons/' . strtolower($taxonomy->term->metaValue('value')) . '.svg') }}" alt=""><span>{{ $taxonomy->term->name }}</span>
+                </label>
+            </div>
+            @endforeach
+        </div>
+        <div id="bus" hidden="true" class="grid-radio mt-5">
+            @foreach(\App\TermTaxonomy::where('taxonomy', 'bus-sizes')->get() as $key => $taxonomy)
+            <div class="cd-radio">
+                <input type="radio" id="{{ $taxonomy->term->metaValue('value') }}" name="carSubType" value="{{ $taxonomy->term->name }}" class="custom-control-input" {{ ($key == 0 || $car->metaValue('carType') == $taxonomy->term->name)?'checked':'' }}>
+                <label class="custom-control-label " for="{{ $taxonomy->term->metaValue('value') }}"> <img src="{{ asset('car-web/img/icons/' . strtolower($taxonomy->term->metaValue('value')) . '.svg') }}" alt=""><span>{{ $taxonomy->term->name }}</span>
+                </label>
+            </div>
+            @endforeach
+        </div>
+        <div id="special" hidden="true" class="grid-radio mt-5">
+            @foreach(\App\TermTaxonomy::where('taxonomy', 'special')->get() as $key => $taxonomy)
+            <div class="cd-radio">
+                <input type="radio" id="{{ $taxonomy->term->metaValue('value') }}" name="carSubType" value="{{ $taxonomy->term->name }}" class="custom-control-input" {{ ($key == 0 || $car->metaValue('carType') == $taxonomy->term->name)?'checked':'' }}>
                 <label class="custom-control-label " for="{{ $taxonomy->term->metaValue('value') }}"> <img src="{{ asset('car-web/img/icons/' . strtolower($taxonomy->term->metaValue('value')) . '.svg') }}" alt=""><span>{{ $taxonomy->term->name }}</span>
                 </label>
             </div>
@@ -288,6 +315,30 @@
         filePath = filePath.split('\\');
         filePath = filePath[filePath.length - 1];
         $("#"+id).text(filePath);
+    }
+
+    function subType(val) {
+        console.log( val)
+        if(val=="Хүнд ММ"){
+            $('#truckSizes' ).removeAttr("hidden")
+            $('#bus' ).attr("hidden", true)
+            $('#special' ).attr("hidden", true)
+        }
+        else if(val=="Автобус"){
+            $('#truckSizes' ).attr("hidden", true)
+            $('#bus' ).removeAttr("hidden")
+            $('#special' ).attr("hidden", true)
+        }
+        else if(val=="Тусгай ММ"){
+            $('#truckSizes' ).attr("hidden", true)
+            $('#bus' ).attr("hidden", true)
+            $('#special' ).removeAttr("hidden")
+        }
+        else{
+            $('#truckSizes' ).attr("hidden", true)
+            $('#bus' ).attr("hidden", true)
+            $('#special' ).attr("hidden", true)
+        }
     }
 
     var modelData = {

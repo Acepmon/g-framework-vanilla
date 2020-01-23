@@ -33,5 +33,6 @@ class CarGroupsTableSeeder extends Seeder
                 "parent_id" => null
             ]
         ]);
+        Group::where('title', 'Damoa')->first()->parent_id = Group::where('title', 'Auto Dealer')->first()->id;
     }
 }
