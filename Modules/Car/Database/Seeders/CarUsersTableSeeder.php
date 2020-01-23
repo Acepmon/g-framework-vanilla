@@ -20,17 +20,10 @@ class CarUsersTableSeeder extends Seeder
     {
         Model::unguard();
 
-        factory(User::class, 3)->create()->each(function ($user) {
+        factory(User::class, 1)->create()->each(function ($user) {
             $carGroups = Group::where('type', Group::TYPE_DYNAMIC)->get();
-            $randomGroup = $carGroups->random();
-            $randomGroupId = $randomGroup->id;
-
-            // $user->groups()->attach(3);
-            $user->groups()->attach($randomGroupId);
 
             $user->metas()->saveMany([
-                new UserMeta(['key' => 'type', 'value' => $randomGroup->title]),
-                new UserMeta(['key' => 'phone', 'value' => '88206116']),
                 new UserMeta(['key' => 'type', 'value' => 'Damoa']),
                 new UserMeta(['key' => 'phone', 'value' => '99119922']),
             ]);

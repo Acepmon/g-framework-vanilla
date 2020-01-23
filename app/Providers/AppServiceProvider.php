@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use DB;
+use Log;
 use App\Resolvers\SocialUserResolver;
 use Coderello\SocialGrant\Resolvers\SocialUserResolverInterface;
 use Illuminate\Support\ServiceProvider;
@@ -51,6 +53,13 @@ class AppServiceProvider extends ServiceProvider
             return preg_replace('/\{\?(.+)\?\}/', '<?php ${1} ?>', $value);
         });
 
+        DB::listen(function($query) {
+            Log::info(
+                $query->sql,
+                $query->bindings,
+                $query->time
+            );
+        });
 
 
     }

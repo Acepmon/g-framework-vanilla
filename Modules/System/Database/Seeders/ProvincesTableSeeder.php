@@ -21,8 +21,11 @@ class ProvincesTableSeeder extends Seeder
         $location = ['Улаанбаатар', 'Дархан', 'Эрдэнэт', 'Архангай', 'Баян-Өлгий', 'Баянхонгор', 'Булган', 'Говь-Алтай', 'Говьсүмбэр', 'Дархан-Уул', 'Дорноговь', 'Дорнод'
             , 'Дундговь', 'Завхан', 'Орхон', 'Өвөрхангай', 'Өмнөговь', 'Сүхбаатар', 'Сэлэнгэ', 'Төв', 'Увс', 'Ховд', 'Хөвсгөл', 'Хэнтий'];
 
+        $parent = TaxonomyManager::register('Area', 'area', null, ['metaKey' => 'area']);
         foreach ($location as $key => $province) {
-            TaxonomyManager::register($province, 'provinces', null, ['metaKey' => 'area']);
+            TaxonomyManager::register($province, 'provinces', $parent->term->id);
         }
+        
+        TaxonomyManager::updateTaxonomyChildrenSlugs($parent->id);
     }
 }

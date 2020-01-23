@@ -21,7 +21,7 @@ $itemsPerPage = request('itemsPerPage', "10");
 <div class="row">
     <div class="bg-white shadow-soft-blue page-top-navbar pt-5">
         <div class="col-md-6 float-left"><h3 class="pl-3">Mileage</h3></div>
-        <div class="col-md-6 float-left text-right font-weight-bold"><p class="d-inline pr-3">My mileage: &nbsp; &nbsp;<span class="pt-2 pr-4 pb-2 pl-4 btn-round bg-primary text-white">5000</span></p></div>
+        <div class="col-md-6 float-left text-right font-weight-bold"><p class="d-inline pr-3">My mileage: &nbsp; &nbsp;<span class="pt-2 pr-4 pb-2 pl-4 btn-round bg-primary text-white">{{ Auth::user()->metaValue('cash', 0) }}</span></p></div>
         <div class="col-md-12 pt-4 float-left">
             <p><h5 class="pl-3">Mileage history</h5></p>
         </div>
