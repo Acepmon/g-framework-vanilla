@@ -2,8 +2,6 @@
 
 @section('title', 'Зарна')
 
-@endsection
-
 @section('load')
 
 @endsection

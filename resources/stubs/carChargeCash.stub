@@ -1,8 +1,6 @@
 @extends('themes.car-web.layouts.default')
 
 @section('title', 'Данс цэнэглэх')
-Charge Cash
-@endsection
 
 @section('load')
 <link href="{{ asset('car-web/vendor/simple-line-icons/css/simple-line-icons.css') }}" rel="stylesheet" type="text/css">

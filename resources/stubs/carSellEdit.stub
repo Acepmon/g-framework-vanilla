@@ -7,8 +7,6 @@
 
 @section('title', 'Засах')
 
-@endsection
-
 @section('load')
 <script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/plugins/uploaders/dropzone.min.js') }}"></script>
 <link href="{{ asset('car-web/vendor/bootstrap-select/css/bootstrap-select.min.css') }}" rel="stylesheet">

@@ -2,8 +2,6 @@
 
 @section('title', 'Сонирхосон аукцион машинууд')
 
-@endsection
-
 @section('load')
 
 @endsection

@@ -2,8 +2,6 @@
 
 @section('title', 'Лизинг')
 
-@endsection
-
 @section('load')
     @if(Auth::user()!=null)
         @php

@@ -2,8 +2,6 @@
 
 @section('title', 'Зарагдсан')
 
-@endsection
-
 @section('load')
 
 @endsection

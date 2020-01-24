@@ -2,11 +2,7 @@
 
 @section('title', 'Зарж байгаа')
 
-@endsection
-
 @section('load')
-
-
 
 @endsection
 

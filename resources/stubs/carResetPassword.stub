@@ -4,8 +4,6 @@
 @endsection
 @section('title', 'Нууц үг сэргээх')
 
-@endsection
-
 @section('content')
     <!-- Masthead -->
     <div class="masthead text-center menu-absolute">

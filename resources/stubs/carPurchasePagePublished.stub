@@ -2,8 +2,6 @@
 
 @section('title', 'Төлбөрийн хүсэлтүүд')
 
-@endsection
-
 @section('load')
 
 @endsection

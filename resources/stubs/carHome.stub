@@ -22,8 +22,6 @@ $itsIntCar=false;
 @endsection
 @section('title', 'Нүүр')
 
-@endsection
-
 @section('content')
     <!-- Masthead -->
     <header class="masthead text-center">

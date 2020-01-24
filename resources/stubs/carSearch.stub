@@ -15,8 +15,6 @@ $banner = App\Banner::where('location_id', 5)->where('status', 'active')->inRand
 
 @section('title', 'Хайлт')
 
-@endsection
-
 @section('load')
 <link href="{{ asset('car-web/vendor/simple-line-icons/css/simple-line-icons.css') }}" rel="stylesheet" type="text/css">
 <link href="{{ asset('car-web/vendor/bootstrap-slider/css/bootstrap-slider.min.css') }}" rel="stylesheet">

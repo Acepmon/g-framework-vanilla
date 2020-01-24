@@ -16,8 +16,6 @@ $banner = App\Banner::where('location_id', 5)->where('status', 'active')->inRand
 
 @section('title', 'Авъя')
 
-@endsection
-
 @section('load')
 <style>
 .truncate {

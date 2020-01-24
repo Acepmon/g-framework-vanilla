@@ -2,8 +2,6 @@
 
 @section('title', 'Миний хуудас')
 
-@endsection
-
 @section('load')
 <style>
 .avatarChange {
