@@ -2,9 +2,7 @@
 @section('load')
 
 @endsection
-@section('title')
-
-@endsection
+@section('title', 'Нууц үг сэргээх')
 
 @section('content')
     <!-- Masthead -->

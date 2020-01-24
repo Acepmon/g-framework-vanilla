@@ -10,8 +10,6 @@ $itemsPerPage = request('itemsPerPage', "10");
 
 @section('title', 'Данс')
 
-@endsection
-
 @section('load')
 
 

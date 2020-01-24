@@ -2,9 +2,7 @@
 @section('load')
 
 @endsection
-@section('title')
-
-@endsection
+@section('title', 'Нэвтрэх')
 
 @section('content')
     <!-- Masthead -->
