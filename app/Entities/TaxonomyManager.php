@@ -173,11 +173,14 @@ class TaxonomyManager extends Manager
     /*
     * returns top 5 manufacturer with most content on top
     */
-    public static function getManufacturers($type='normal', $limit = 5)
+    public static function getManufacturers($type='normal', $count=True, $limit = 5)
     {
         $terms_id = Term::where($type, True)->pluck('id');
-        // $manufacturers = TermTaxonomy::where('taxonomy', 'car-manufacturer')->whereIn('term_id', $terms_id);
-        $manufacturers = TermTaxonomy::where([['taxonomy', 'car-manufacturer'], ['count', '!=', 0]])->whereIn('term_id', $terms_id);
+        if ($count) {
+            $manufacturers = TermTaxonomy::where([['taxonomy', 'car-manufacturer'], ['count', '!=', 0]])->whereIn('term_id', $terms_id);
+        } else {
+            $manufacturers = TermTaxonomy::where('taxonomy', 'car-manufacturer')->whereIn('term_id', $terms_id);
+        }
         $most = clone $manufacturers;
         $most = $most->orderBy('count', 'desc')->limit($limit);
         $most = $most->get()->merge($manufacturers->get());
