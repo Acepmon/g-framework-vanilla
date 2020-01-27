@@ -12,8 +12,9 @@
             <form id="make-premium" class="maz-form">
                 <div class="row">
 
-                    <label for="bestPremium" class="col-md-6">
-                        <div class="col-md-12 float-left">
+
+                        <div class="col-md-6 float-left">
+                            <label for="bestPremium" class="col-md-12">
                             <div class="d-flex">
                                 <div class="custom-control custom-radio custom-control-inline">
                                     <input type="radio" id="bestPremium" name="publishType" value="best_premium" class="custom-control-input">
@@ -30,6 +31,7 @@
                                 <option value="{{$data->term->id}}">{{$data->term->name}}</option>
                                 @endforeach
                             </select>
+                    </label>
                             <p>
                                 Та зараа олон хүнд хүргэж, түргэн хугацаанд зарахыг хүсвэл Best Premium зарыг сонгоно уу.
                                 </br>
@@ -38,12 +40,13 @@
                                 Зөвхөн 12 ширхэг зар байрлах учраас олонд хүрэх хүртээмж нь их.
                             </p>
                         </div>
-                    </label>
+
                     <div class="col-md-6 float-left">
                         <div id="best-zar"></div>
                     </div>
-                    <label for="premium" class="col-md-6">
+
                         <div class="col-md-12 float-left">
+                            <label for="premium" class="col-md-12">
                             <div class="d-flex">
                                 <div class="custom-control custom-radio custom-control-inline">
                                     <input type="radio" id="premium" name="publishType" value="premium" class="custom-control-input">
@@ -60,6 +63,7 @@
                                 <option value="{{$data->term->id}}">{{$data->term->name}}</option>
                                 @endforeach
                             </select>
+                            </label>
                             <p>
                                 Онцгой машин хайж байгаа худалдан авагчдад өөрийн машиныг сурталчилах боломжтой.
                                 </br>
@@ -68,7 +72,7 @@
                                 Random аргаар харуулна.
                             </p>
                         </div>
-                    </label>
+
                     <div class="col-md-6 float-left">
                         <div id="special-zar"></div>
                     </div>
