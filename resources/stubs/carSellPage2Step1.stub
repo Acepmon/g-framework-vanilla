@@ -124,8 +124,7 @@
         <div class="form-group col-md-6">
             <label for="capacityAmount">Моторын хэмжээ:</label>
             <div class="input-group">
-                <input type="number" min="0" class="form-control" id="capacityAmount" name="capacityAmount" placeholder="Моторын хэмжээ" value="{{ $car->metaValue('capacityAmount') }}">
-<!--                <input type="text" min="0" name="capacityAmount" class="form-control text-left" id="capacityAmount" value="{{ $car->metaValue('capacityAmount') }}" placeholder="Моторын хэмжээ" data-inputmask="'alias': 'numeric', 'groupSeparator': ',', 'autoGroup': true, 'digits': 0, 'digitsOptional': false">-->
+                <input type="text" min="0" name="capacityAmount" class="form-control text-left" id="capacityAmount" value="{{ $car->metaValue('capacityAmount') }}" placeholder="Моторын хэмжээ" data-inputmask="'alias': 'numeric', 'groupSeparator': ',', 'autoGroup': true, 'digits': 0, 'digitsOptional': false">
                 <input type="hidden" class="form-control" id="capacityUnit" name="capacityUnit" value="Л">
                 <div class="input-group-prepend">
                     <div class="input-group-text-right">Л</div>
