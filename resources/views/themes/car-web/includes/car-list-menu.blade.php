@@ -59,7 +59,7 @@ $categoryName = [
                 @foreach(App\Entities\TaxonomyManager::getManufacturers('normal') as $taxonomy)
                 <div class="custom-control custom-radio">
                     <!-- <a href="/car-list?{{ $category . '=' . $taxonomy->term->name }}" class="text-body text-decoration-none"> -->
-                    <input type="radio" id="{{$taxonomy->term->name}}" name="{{ $category }}" class="custom-control-input car-manufacturer" value="{{ $taxonomy->term->id }}" {{ ($taxonomy->term->id == request($category, Null))?'checked':'' }}>
+                    <input type="radio" id="{{$taxonomy->term->id}}" name="{{ $category }}" class="custom-control-input car-manufacturer" value="{{ $taxonomy->term->id }}" placeholder="{{$taxonomy->term->name}}" {{ ($taxonomy->term->id == request($category, Null))?'checked':'' }}>
                     <label class="custom-control-label  d-flex justify-content-between" for="{{$taxonomy->term->id}}">{{ $taxonomy->term->name }}
                     </label>
                 </div>
@@ -92,7 +92,7 @@ $categoryName = [
                 </select>
             </div>
             <div class="col-md-6">
-                <select id="min-year" class="form-control" name="importDate" onchange="formSubmit('importDate','no-value')">
+                <select id="max-year" class="form-control" name="importDate" onchange="formSubmit('importDate','no-value')">
                 <option value="">Орж ирсэн он</option>
                 @for($i=date('Y'); $i>=($request['buildYear']?$request['buildYear']:1990); $i--)
                 <option value="{{ $i }}" {{ $request['importDate']==$i?'selected':'' }}>{{ $i }}</option>
@@ -162,8 +162,8 @@ $categoryName = [
                 </label>
             </div>
             <div class="custom-control custom-radio">
-                <input type="radio" id="doctorVerified" name="car-doctor-verified" class="custom-control-input" value="0" {{ ($request['doctorVerified'] == 0)?'checked':'' }}>
-                <label class="custom-control-label  d-flex justify-content-between" for="doctorVerified">Баталгаажаагүй
+                <input type="radio" id="doctorVerifiedNo" name="car-doctor-verified" class="custom-control-input" value="0" {{ ($request['doctorVerified'] == 0)?'checked':'' }}>
+                <label class="custom-control-label  d-flex justify-content-between" for="doctorVerifiedNo">Баталгаажаагүй
                 </label>
             </div>
         </div>
@@ -252,7 +252,7 @@ $("input[name='car-type']").on("click", function() {
                 let checked = (termid == '{{ $request['markName'] }}')?'checked':'';
 
                 html = '<div class="custom-control custom-radio">' +
-                    '<input type="radio" id="'+termid+'" name="{{ $category }}" class="custom-control-input car-manufacturer" value="'+termid+'"' +checked+ '>'+
+                    '<input type="radio" id="'+termid+'" name="{{ $category }}" class="custom-control-input car-manufacturer" value="'+termid+'"' +checked+ ' placeholder="'+termname+'">'+
                     '<label class="custom-control-label  d-flex justify-content-between" for="'+termid+'">'+termname+'</label>';
                 $(".manufacturer").append(html);
             }
@@ -277,7 +277,7 @@ $("input.car-manufacturer").on("click", onManufacturerSelect);
 function onManufacturerSelect() {
     if (waiting == 0) {
         // let val = $(this).val();
-        let val = $(this).attr("id");
+        let val = $(this).attr("placeholder");
         console.log(val);
         let subList = $(".car-filter .models[name=\"" + val + "\"");
 

@@ -127,7 +127,7 @@ $itsIntCar=false;
                                         <select id="vehicleManufacturer" class="form-control" name="car-manufacturer">
                                             <option value="">Үйлдвэрлэгч</option>
                                             @foreach(App\Entities\TaxonomyManager::getManufacturers('normal') as $data)
-                                                <option value="{{$data->term->id}}">{{$data->term->name}}({{$data->count}})</option>
+                                                <option id="{{$data->term->name}}" value="{{$data->term->id}}">{{$data->term->name}}({{$data->count}})</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -165,7 +165,7 @@ $itsIntCar=false;
                                             <option value="" >Үйлдвэрлэгч</option>
                                             @getTaxonomys({"filter":[{"field":"taxonomy", "key":"car-manufacturer"}], "returnValue":"manufacturers"})
                                             @foreach($manufacturers as $data)
-                                            <option value="{{$data->term->id}}">{{$data->term->name}}</option>
+                                            <option id="{{$data->term->name}}" value="{{$data->term->id}}">{{$data->term->name}}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -203,7 +203,7 @@ $itsIntCar=false;
                                             <option value="" >Үйлдвэрлэгч</option>
                                             @getTaxonomys({"filter":[{"field":"taxonomy", "key":"car-manufacturer"}], "returnValue":"manufacturers"})
                                             @foreach($manufacturers as $data)
-                                            <option value="{{$data->term->id}}">{{$data->term->name}}</option>
+                                            <option id="{{$data->term->name}}" value="{{$data->term->id}}">{{$data->term->name}}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -343,7 +343,7 @@ $itsIntCar=false;
 
             $("#vehicleManufacturer").change(
                 function (e) {
-                    var markName=$(this).val();
+                    var markName=$(this).find(":selected").attr("id");
                     $.ajax({
                         type: 'Get',
                         url: '/api/v1/taxonomies/car-'+toKebabCase(markName),
@@ -373,7 +373,7 @@ $itsIntCar=false;
             )
             $("#vehicleManufacturer1").change(
                 function (e) {
-                    var markName=$(this).val();
+                    var markName=$(this).find(":selected").attr("id");
                     $.ajax({
                         type: 'Get',
                         url: '/api/v1/taxonomies/car-'+toKebabCase(markName),
@@ -403,7 +403,7 @@ $itsIntCar=false;
             )
             $("#vehicleManufacturer2").change(
                 function (e) {
-                    var markName=$(this).val();
+                    var markName=$(this).find(":selected").attr("id");
                     $.ajax({
                         type: 'Get',
                         url: '/api/v1/taxonomies/car-'+toKebabCase(markName),
