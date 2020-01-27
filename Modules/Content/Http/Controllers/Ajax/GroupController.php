@@ -115,11 +115,11 @@ class GroupController extends Controller
         ]);
         if (request()->hasFile('retailImage')) {
             $filename = MediaManager::storeFile(request()->file('retailImage'), 'avatars/retail');
-            GroupMeta::create(['group_id' => $company->id, 'key' => 'retailImage', 'value' => array_key_exists('retailImage', $data) ? $filename : '']);
+            GroupMeta::create(['group_id' => $company->id, 'key' => 'retailImage', 'value' => array_key_exists('retailImage', $data) ? $filename . '' : '']);
         }
-        GroupMeta::create(['group_id' => $company->id, 'key' => 'website', 'value' => array_key_exists('website', $data) ? $data['website'] : '']);
-        GroupMeta::create(['group_id' => $company->id, 'key' => 'schedule', 'value' => array_key_exists('schedule', $data) ? $data['schedule'] : '']);
-        GroupMeta::create(['group_id' => $company->id, 'key' => 'address', 'value' => array_key_exists('address', $data) ? $data['address'] : '']);
+        GroupMeta::create(['group_id' => $company->id, 'key' => 'website', 'value' => array_key_exists('website', $data) ? $data['website'] . '' : '']);
+        GroupMeta::create(['group_id' => $company->id, 'key' => 'schedule', 'value' => array_key_exists('schedule', $data) ? $data['schedule'] . '' : '']);
+        GroupMeta::create(['group_id' => $company->id, 'key' => 'address', 'value' => array_key_exists('address', $data) ? $data['address'] . '' : '']);
         return $company;
     }
 }
