@@ -337,46 +337,47 @@
 
     function subType(val) {
         console.log( val)
-        if(val=="Хүнд ММ"){
-            $('#truckSizes' ).removeAttr("hidden")
-            $('#bus' ).attr("hidden", true)
-            $('#special' ).attr("hidden", true)
-            $('#models' ).attr("hidden", true)
-            $('#manufacturerSelect' ).attr("hidden", true)
-            $('#manufacturerSelect1' ).removeAttr("hidden")
-            $('#manufacturerSelect2' ).attr("hidden", true)
-            $('#manufacturerSelect3' ).attr("hidden", true)
+        if(val==="Хүнд ММ"){
+            $('#truckSizes' ).removeAttr("hidden");
+            $('#bus' ).attr("hidden", true);
+            $('#special' ).attr("hidden", true);
+            $('#models').attr("hidden", true).removeAttr("required");
+            //$('#models' ).removeAttr("required");
+            $('#manufacturerSelect' ).attr("hidden", true).removeAttr("required");
+            $('#manufacturerSelect1' ).removeAttr("hidden").attr("required");
+            $('#manufacturerSelect2' ).attr("hidden", true).removeAttr("required");
+            $('#manufacturerSelect3' ).attr("hidden", true).removeAttr("required");
         }
-        else if(val=="Автобус"){
-            $('#truckSizes' ).attr("hidden", true)
-            $('#bus' ).removeAttr("hidden")
-            $('#special' ).attr("hidden", true)
-            $('#models' ).attr("hidden", true)
-            $('#manufacturerSelect' ).attr("hidden", true)
-            $('#manufacturerSelect1' ).attr("hidden", true)
-            $('#manufacturerSelect2' ).removeAttr("hidden")
-            $('#manufacturerSelect3' ).attr("hidden", true)
+        else if(val==="Автобус"){
+            $('#truckSizes' ).attr("hidden", true);
+            $('#bus' ).removeAttr("hidden");
+            $('#special' ).attr("hidden", true);
+            $('#models' ).attr("hidden", true).removeAttr("required");
+            $('#manufacturerSelect' ).attr("hidden", true).removeAttr("required");
+            $('#manufacturerSelect1' ).attr("hidden", true).removeAttr("required");
+            $('#manufacturerSelect2' ).removeAttr("hidden").attr("required");
+            $('#manufacturerSelect3' ).attr("hidden", true).removeAttr("required");
         }
-        else if(val=="Тусгай ММ"){
-            $('#truckSizes' ).attr("hidden", true)
-            $('#bus' ).attr("hidden", true)
-            $('#special' ).removeAttr("hidden")
-            $('#models' ).attr("hidden", true)
-            $('#manufacturerSelect' ).attr("hidden", true)
-            $('#manufacturerSelect1' ).attr("hidden", true)
-            $('#manufacturerSelect2' ).attr("hidden", true)
-            $('#manufacturerSelect3' ).removeAttr("hidden")
+        else if(val==="Тусгай ММ"){
+            $('#truckSizes' ).attr("hidden", true);
+            $('#bus' ).attr("hidden", true);
+            $('#special' ).removeAttr("hidden");
+            $('#models' ).attr("hidden", true).removeAttr("required");
+            $('#manufacturerSelect' ).attr("hidden", true).removeAttr("required");
+            $('#manufacturerSelect1' ).attr("hidden", true.removeAttr("required"));
+            $('#manufacturerSelect2' ).attr("hidden", true).removeAttr("required");
+            $('#manufacturerSelect3' ).removeAttr("hidden").attr("required");
 
         }
         else{
-            $('#truckSizes' ).attr("hidden", true)
-            $('#bus' ).attr("hidden", true)
-            $('#special' ).attr("hidden", true)
-            $('#models' ).removeAttr("hidden")
-            $('#manufacturerSelect' ).removeAttr("hidden")
-            $('#manufacturerSelect1' ).attr("hidden", true)
-            $('#manufacturerSelect2' ).attr("hidden", true)
-            $('#manufacturerSelect3' ).attr("hidden", true)
+            $('#truckSizes' ).attr("hidden", true);
+            $('#bus' ).attr("hidden", true);
+            $('#special' ).attr("hidden", true);
+            $('#models' ).removeAttr("hidden");
+            $('#manufacturerSelect' ).removeAttr("hidden");
+            $('#manufacturerSelect1' ).attr("hidden", true).removeAttr("required");
+            $('#manufacturerSelect2' ).attr("hidden", true).removeAttr("required");
+            $('#manufacturerSelect3' ).attr("hidden", true).removeAttr("required");
         }
     }
 
