@@ -48,19 +48,19 @@
                 <option {{ ($car->metaValue('markName') == $taxonomy->term->name)?'selected':'' }}>{{$taxonomy->term->name}}</option>
                 @endforeach
             </select>
-            <select id="manufacturerSelect1" hidden="true" name="markName" class="form-control" required>
+            <select id="manufacturerSelect1" hidden="true" name="markName" class="form-control">
                 <option value="">Үйлдвэрлэгч</option>
                 @foreach(App\Entities\TaxonomyManager::getManufacturers('truck', $count = False) as $taxonomy)
                 <option {{ ($car->metaValue('markName') == $taxonomy->term->name)?'selected':'' }}>{{$taxonomy->term->name}}</option>
                 @endforeach
             </select>
-            <select id="manufacturerSelect2" hidden="true" name="markName" class="form-control" required>
+            <select id="manufacturerSelect2" hidden="true" name="markName" class="form-control">
                 <option value="">Үйлдвэрлэгч</option>
                 @foreach(App\Entities\TaxonomyManager::getManufacturers('bus', $count = False) as $taxonomy)
                 <option {{ ($car->metaValue('markName') == $taxonomy->term->name)?'selected':'' }}>{{$taxonomy->term->name}}</option>
                 @endforeach
             </select>
-            <select id="manufacturerSelect3" hidden="true" name="markName" class="form-control" required>
+            <select id="manufacturerSelect3" hidden="true" name="markName" class="form-control">
                 <option value="">Үйлдвэрлэгч</option>
                 @foreach(App\Entities\TaxonomyManager::getManufacturers('special', $count = False) as $taxonomy)
                 <option {{ ($car->metaValue('markName') == $taxonomy->term->name)?'selected':'' }}>{{$taxonomy->term->name}}</option>
