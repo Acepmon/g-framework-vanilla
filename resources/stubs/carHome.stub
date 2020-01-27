@@ -126,8 +126,7 @@ $itsIntCar=false;
                                     <div class="form-group">
                                         <select id="vehicleManufacturer" class="form-control" name="car-manufacturer">
                                             <option value="">Үйлдвэрлэгч</option>
-                                            @getTaxonomys({"filter":[{"field":"taxonomy", "key":"car-manufacturer"}], "returnValue":"manufacturers"})
-                                            @foreach($manufacturers as $data)
+                                            @foreach(App\Entities\TaxonomyManager::getManufacturers('normal') as $data)
                                                 <option value="{{$data->term->name}}">{{$data->term->name}}</option>
                                             @endforeach
                                         </select>
