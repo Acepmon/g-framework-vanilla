@@ -45,7 +45,7 @@
                         <div id="best-zar"></div>
                     </div>
 
-                        <div class="col-md-12 float-left">
+                        <div class="col-md-6 float-left">
                             <label for="premium" class="col-md-12">
                             <div class="d-flex">
                                 <div class="custom-control custom-radio custom-control-inline">
