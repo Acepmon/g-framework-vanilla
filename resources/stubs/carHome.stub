@@ -128,7 +128,7 @@ $itsIntCar=false;
                                             <option value="">Үйлдвэрлэгч</option>
                                             @getTaxonomys({"filter":[{"field":"taxonomy", "key":"car-manufacturer"}], "returnValue":"manufacturers"})
                                             @foreach($manufacturers as $data)
-                                                <option value="{{$data->term->name}}">{{$data->term->name}}</option>
+                                                <option value="{{$data->term->id}}" id="{{$data->term->name}}">{{$data->term->name}}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -344,7 +344,7 @@ $itsIntCar=false;
 
             $("#vehicleManufacturer").change(
                 function (e) {
-                    var markName=$(this).val();
+                    var markName=$(this).find(":selected").attr("id");
                     $.ajax({
                         type: 'Get',
                         url: '/api/v1/taxonomies/car-'+toKebabCase(markName),
@@ -374,7 +374,7 @@ $itsIntCar=false;
             )
             $("#vehicleManufacturer1").change(
                 function (e) {
-                    var markName=$(this).val();
+                    var markName=$(this).find(":selected").attr("id");
                     $.ajax({
                         type: 'Get',
                         url: '/api/v1/taxonomies/car-'+toKebabCase(markName),
@@ -404,7 +404,7 @@ $itsIntCar=false;
             )
             $("#vehicleManufacturer2").change(
                 function (e) {
-                    var markName=$(this).val();
+                    var markName=$(this).find(":selected").attr("id");
                     $.ajax({
                         type: 'Get',
                         url: '/api/v1/taxonomies/car-'+toKebabCase(markName),
