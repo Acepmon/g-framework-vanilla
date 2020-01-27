@@ -4,6 +4,8 @@
 @endsection
 @section('title', 'Нэвтрэх')
 
+@endsection
+
 @section('content')
     <!-- Masthead -->
     <header class="masthead text-center">

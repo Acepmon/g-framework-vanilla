@@ -48,19 +48,19 @@
                 <option {{ ($car->metaValue('markName') == $taxonomy->term->name)?'selected':'' }}>{{$taxonomy->term->name}}</option>
                 @endforeach
             </select>
-            <select id="manufacturerSelect1" hidden="true" name="markName" class="form-control" required>
+            <select id="manufacturerSelect1" hidden="true" name="markName" class="form-control">
                 <option value="">Үйлдвэрлэгч</option>
                 @foreach(App\Entities\TaxonomyManager::getManufacturers('truck', $count = False) as $taxonomy)
                 <option {{ ($car->metaValue('markName') == $taxonomy->term->name)?'selected':'' }}>{{$taxonomy->term->name}}</option>
                 @endforeach
             </select>
-            <select id="manufacturerSelect2" hidden="true" name="markName" class="form-control" required>
+            <select id="manufacturerSelect2" hidden="true" name="markName" class="form-control">
                 <option value="">Үйлдвэрлэгч</option>
                 @foreach(App\Entities\TaxonomyManager::getManufacturers('bus', $count = False) as $taxonomy)
                 <option {{ ($car->metaValue('markName') == $taxonomy->term->name)?'selected':'' }}>{{$taxonomy->term->name}}</option>
                 @endforeach
             </select>
-            <select id="manufacturerSelect3" hidden="true" name="markName" class="form-control" required>
+            <select id="manufacturerSelect3" hidden="true" name="markName" class="form-control">
                 <option value="">Үйлдвэрлэгч</option>
                 @foreach(App\Entities\TaxonomyManager::getManufacturers('special', $count = False) as $taxonomy)
                 <option {{ ($car->metaValue('markName') == $taxonomy->term->name)?'selected':'' }}>{{$taxonomy->term->name}}</option>
@@ -124,8 +124,7 @@
         <div class="form-group col-md-6">
             <label for="capacityAmount">Моторын хэмжээ:</label>
             <div class="input-group">
-                <input type="number" min="0" class="form-control" id="capacityAmount" name="capacityAmount" placeholder="Моторын хэмжээ" value="{{ $car->metaValue('capacityAmount') }}">
-<!--                <input type="text" min="0" name="capacityAmount" class="form-control text-left" id="capacityAmount" value="{{ $car->metaValue('capacityAmount') }}" placeholder="Моторын хэмжээ" data-inputmask="'alias': 'numeric', 'groupSeparator': ',', 'autoGroup': true, 'digits': 0, 'digitsOptional': false">-->
+                <input type="text" min="0" name="capacityAmount" class="form-control text-left" id="capacityAmount" value="{{ $car->metaValue('capacityAmount') }}" placeholder="Моторын хэмжээ" data-inputmask="'alias': 'numeric', 'groupSeparator': ',', 'autoGroup': true, 'digits': 0, 'digitsOptional': false">
                 <input type="hidden" class="form-control" id="capacityUnit" name="capacityUnit" value="Л">
                 <div class="input-group-prepend">
                     <div class="input-group-text-right">Л</div>
@@ -337,46 +336,47 @@
 
     function subType(val) {
         console.log( val)
-        if(val=="Хүнд ММ"){
-            $('#truckSizes' ).removeAttr("hidden")
-            $('#bus' ).attr("hidden", true)
-            $('#special' ).attr("hidden", true)
-            $('#models' ).attr("hidden", true)
-            $('#manufacturerSelect' ).attr("hidden", true)
-            $('#manufacturerSelect1' ).removeAttr("hidden")
-            $('#manufacturerSelect2' ).attr("hidden", true)
-            $('#manufacturerSelect3' ).attr("hidden", true)
+        if(val==="Хүнд ММ"){
+            $('#truckSizes' ).removeAttr("hidden");
+            $('#bus' ).attr("hidden", true);
+            $('#special' ).attr("hidden", true);
+            $('#models').attr("hidden", true).removeAttr("required");
+            //$('#models' ).removeAttr("required");
+            $('#manufacturerSelect' ).attr("hidden", true).removeAttr("required");
+            $('#manufacturerSelect1' ).removeAttr("hidden").attr("required");
+            $('#manufacturerSelect2' ).attr("hidden", true).removeAttr("required");
+            $('#manufacturerSelect3' ).attr("hidden", true).removeAttr("required");
         }
-        else if(val=="Автобус"){
-            $('#truckSizes' ).attr("hidden", true)
-            $('#bus' ).removeAttr("hidden")
-            $('#special' ).attr("hidden", true)
-            $('#models' ).attr("hidden", true)
-            $('#manufacturerSelect' ).attr("hidden", true)
-            $('#manufacturerSelect1' ).attr("hidden", true)
-            $('#manufacturerSelect2' ).removeAttr("hidden")
-            $('#manufacturerSelect3' ).attr("hidden", true)
+        else if(val==="Автобус"){
+            $('#truckSizes' ).attr("hidden", true);
+            $('#bus' ).removeAttr("hidden");
+            $('#special' ).attr("hidden", true);
+            $('#models' ).attr("hidden", true).removeAttr("required");
+            $('#manufacturerSelect' ).attr("hidden", true).removeAttr("required");
+            $('#manufacturerSelect1' ).attr("hidden", true).removeAttr("required");
+            $('#manufacturerSelect2' ).removeAttr("hidden").attr("required");
+            $('#manufacturerSelect3' ).attr("hidden", true).removeAttr("required");
         }
-        else if(val=="Тусгай ММ"){
-            $('#truckSizes' ).attr("hidden", true)
-            $('#bus' ).attr("hidden", true)
-            $('#special' ).removeAttr("hidden")
-            $('#models' ).attr("hidden", true)
-            $('#manufacturerSelect' ).attr("hidden", true)
-            $('#manufacturerSelect1' ).attr("hidden", true)
-            $('#manufacturerSelect2' ).attr("hidden", true)
-            $('#manufacturerSelect3' ).removeAttr("hidden")
+        else if(val==="Тусгай ММ"){
+            $('#truckSizes' ).attr("hidden", true);
+            $('#bus' ).attr("hidden", true);
+            $('#special' ).removeAttr("hidden");
+            $('#models' ).attr("hidden", true).removeAttr("required");
+            $('#manufacturerSelect' ).attr("hidden", true).removeAttr("required");
+            $('#manufacturerSelect1' ).attr("hidden", true.removeAttr("required"));
+            $('#manufacturerSelect2' ).attr("hidden", true).removeAttr("required");
+            $('#manufacturerSelect3' ).removeAttr("hidden").attr("required");
 
         }
         else{
-            $('#truckSizes' ).attr("hidden", true)
-            $('#bus' ).attr("hidden", true)
-            $('#special' ).attr("hidden", true)
-            $('#models' ).removeAttr("hidden")
-            $('#manufacturerSelect' ).removeAttr("hidden")
-            $('#manufacturerSelect1' ).attr("hidden", true)
-            $('#manufacturerSelect2' ).attr("hidden", true)
-            $('#manufacturerSelect3' ).attr("hidden", true)
+            $('#truckSizes' ).attr("hidden", true);
+            $('#bus' ).attr("hidden", true);
+            $('#special' ).attr("hidden", true);
+            $('#models' ).removeAttr("hidden");
+            $('#manufacturerSelect' ).removeAttr("hidden");
+            $('#manufacturerSelect1' ).attr("hidden", true).removeAttr("required");
+            $('#manufacturerSelect2' ).attr("hidden", true).removeAttr("required");
+            $('#manufacturerSelect3' ).attr("hidden", true).removeAttr("required");
         }
     }
 
