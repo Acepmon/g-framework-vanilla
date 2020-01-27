@@ -127,7 +127,7 @@ $itsIntCar=false;
                                         <select id="vehicleManufacturer" class="form-control" name="car-manufacturer">
                                             <option value="">Үйлдвэрлэгч</option>
                                             @foreach(App\Entities\TaxonomyManager::getManufacturers('normal') as $data)
-                                                <option value="{{$data->term->name}}">{{$data->term->name}}</option>
+                                                <option value="{{$data->term->name}}">{{$data->term->name}}({{$data->count}})</option>
                                             @endforeach
                                         </select>
                                     </div>
