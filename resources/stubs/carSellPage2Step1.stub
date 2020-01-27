@@ -372,7 +372,7 @@
             $('#truckSizes' ).attr("hidden", true);
             $('#bus' ).attr("hidden", true);
             $('#special' ).attr("hidden", true);
-            $('#models' ).removeAttr("hidden");
+            $('#models' ).removeAttr("hidden").attr("required");
             $('#manufacturerSelect' ).removeAttr("hidden");
             $('#manufacturerSelect1' ).attr("hidden", true).removeAttr("required");
             $('#manufacturerSelect2' ).attr("hidden", true).removeAttr("required");
