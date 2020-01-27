@@ -62,10 +62,10 @@
                                     <div class="control-ad">
                                         @if (Auth::check())
                                             @if ($content->metaValue('publishType') == 'free' && Auth::user()->id == $content->author_id)
-                                                <a class="disabled btn btn-warning btn-round shadow-soft-blue btn-icon-left px-3" href="{{ url('/my-page/premiums') }}">
+                                                <button class="btn btn-warning btn-round shadow-soft-blue btn-icon-left px-3" data-toggle="modal" onclick="transferId({{$content->id}})" data-target="#premiumAd">
                                                     @include('themes.car-web.includes.premium-svg')
                                                     Рremium болгох
-                                                </a>
+                                                </button>
                                             @endif
 
                                             @if (!$content->metaValue('doctorVerified') && Auth::user()->id == $content->author_id)

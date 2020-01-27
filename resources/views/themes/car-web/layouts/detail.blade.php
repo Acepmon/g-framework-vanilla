@@ -118,10 +118,19 @@
             'morelink'=> url('/search?min_price='.(($priceAmount - 1000000) < 0 ? 0 : ($priceAmount - 1000000)).'&max_price='.($priceAmount + 1000000))
         ])
 
+        @push('modals')
+
+        @include('themes.car-web.includes.modal-make-premium')
+
+        @endpush
+
          <!-- Footer -->
         @include('themes.car-web.includes.footer')
 
+
         @stack('modals')
+
+
 
         @include('themes.car-web.includes.loader')
         <!-- <div class="spinner-border" id="demo-spinner" role="status" style="position: fixed; z-index: 1000; top: 50%; left: 50%; display: none">
