@@ -127,7 +127,7 @@ $itsIntCar=false;
                                         <select id="vehicleManufacturer" class="form-control" name="car-manufacturer">
                                             <option value="">Үйлдвэрлэгч</option>
                                             @foreach(App\Entities\TaxonomyManager::getManufacturers('normal') as $data)
-                                                <option value="{{$data->term->name}}">{{$data->term->name}}({{$data->count}})</option>
+                                                <option value="{{$data->term->id}}">{{$data->term->name}}({{$data->count}})</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -165,7 +165,7 @@ $itsIntCar=false;
                                             <option value="" >Үйлдвэрлэгч</option>
                                             @getTaxonomys({"filter":[{"field":"taxonomy", "key":"car-manufacturer"}], "returnValue":"manufacturers"})
                                             @foreach($manufacturers as $data)
-                                            <option value="{{$data->term->name}}">{{$data->term->name}}</option>
+                                            <option value="{{$data->term->id}}">{{$data->term->name}}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -203,7 +203,7 @@ $itsIntCar=false;
                                             <option value="" >Үйлдвэрлэгч</option>
                                             @getTaxonomys({"filter":[{"field":"taxonomy", "key":"car-manufacturer"}], "returnValue":"manufacturers"})
                                             @foreach($manufacturers as $data)
-                                            <option value="{{$data->term->name}}">{{$data->term->name}}</option>
+                                            <option value="{{$data->term->id}}">{{$data->term->name}}</option>
                                             @endforeach
                                         </select>
                                     </div>
