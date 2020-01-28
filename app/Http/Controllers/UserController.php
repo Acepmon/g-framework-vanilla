@@ -9,7 +9,7 @@ use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 // use App\Http\Controllers\Controller;
-use Modules\Content\Http\Controllers\GroupController;
+use Modules\Content\Http\Controllers\Ajax\GroupController;
 use Validator;
 
 class UserController extends Controller
@@ -70,7 +70,7 @@ class UserController extends Controller
             $group = Group::findOrFail($input['groupId']);
             // If make row per dealer 
             if ($group->title == 'Auto Dealer') {
-                $company = GroupController::register($group, $request->input());
+                $company = GroupController::register($group, $input);
                 $user->groups()->attach(config('system.register.defaultGroup'));
                 $user->groups()->attach($company);
             } else {
