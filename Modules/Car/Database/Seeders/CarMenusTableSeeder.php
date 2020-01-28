@@ -47,7 +47,7 @@ class CarMenusTableSeeder extends Seeder
             ['Бидний тухай', '/about-introduction', '', 'Car'],
             ['Үзлэгт орсон', '/search?doctorVerified=1', '', 'Car'],
             ['+Хүсэлт оруулах', '/wishlist', '', 'Car'],
-            ['Төлбөртэй зарын заавар', '/', '', 'Car']
+            ['Төлбөртэй зарын заавар', '/manual', '', 'Car']
         ]];
         $carFooterMenus = ['Car Footer', '', '', 'Car', [
             ['Бидний тухай', '/about-introduction', '', 'Car'],

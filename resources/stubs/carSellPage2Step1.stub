@@ -48,19 +48,19 @@
                 <option {{ ($car->metaValue('markName') == $taxonomy->term->name)?'selected':'' }}>{{$taxonomy->term->name}}</option>
                 @endforeach
             </select>
-            <select id="manufacturerSelect1" hidden="true" name="markName" class="form-control" required>
+            <select id="manufacturerSelect1" hidden="true" name="markName" class="form-control">
                 <option value="">Үйлдвэрлэгч</option>
                 @foreach(App\Entities\TaxonomyManager::getManufacturers('truck', $count = False) as $taxonomy)
                 <option {{ ($car->metaValue('markName') == $taxonomy->term->name)?'selected':'' }}>{{$taxonomy->term->name}}</option>
                 @endforeach
             </select>
-            <select id="manufacturerSelect2" hidden="true" name="markName" class="form-control" required>
+            <select id="manufacturerSelect2" hidden="true" name="markName" class="form-control">
                 <option value="">Үйлдвэрлэгч</option>
                 @foreach(App\Entities\TaxonomyManager::getManufacturers('bus', $count = False) as $taxonomy)
                 <option {{ ($car->metaValue('markName') == $taxonomy->term->name)?'selected':'' }}>{{$taxonomy->term->name}}</option>
                 @endforeach
             </select>
-            <select id="manufacturerSelect3" hidden="true" name="markName" class="form-control" required>
+            <select id="manufacturerSelect3" hidden="true" name="markName" class="form-control">
                 <option value="">Үйлдвэрлэгч</option>
                 @foreach(App\Entities\TaxonomyManager::getManufacturers('special', $count = False) as $taxonomy)
                 <option {{ ($car->metaValue('markName') == $taxonomy->term->name)?'selected':'' }}>{{$taxonomy->term->name}}</option>
@@ -114,7 +114,7 @@
             <label for="yearEntry">Орж ирсэн он:</label>
             <select id="yearEntry" name="importDate" class="form-control">
                 <option value="" selected>Сонгох...</option>
-                @for($i=date('Y'); $i>=1990; $i--)
+                @for($i=date('Y'); $i>=($car->metaValue('buildYear')?$car->metaValue('buildYear'):1990); $i--)
                 <option value="{{ $i }}" {{ ($car->metaValue('importDate') == $i)?'selected':'' }}>{{ $i }}</option>
                 @endfor
             </select>
@@ -124,8 +124,7 @@
         <div class="form-group col-md-6">
             <label for="capacityAmount">Моторын хэмжээ:</label>
             <div class="input-group">
-                <input type="number" min="0" class="form-control" id="capacityAmount" name="capacityAmount" placeholder="Моторын хэмжээ" value="{{ $car->metaValue('capacityAmount') }}">
-<!--                <input type="text" min="0" name="capacityAmount" class="form-control text-left" id="capacityAmount" value="{{ $car->metaValue('capacityAmount') }}" placeholder="Моторын хэмжээ" data-inputmask="'alias': 'numeric', 'groupSeparator': ',', 'autoGroup': true, 'digits': 0, 'digitsOptional': false">-->
+                <input type="text" min="0" name="capacityAmount" class="form-control text-left" id="capacityAmount" value="{{ $car->metaValue('capacityAmount') }}" placeholder="Моторын хэмжээ" data-inputmask="'alias': 'numeric', 'groupSeparator': ',', 'autoGroup': true, 'digits': 0, 'digitsOptional': false">
                 <input type="hidden" class="form-control" id="capacityUnit" name="capacityUnit" value="Л">
                 <div class="input-group-prepend">
                     <div class="input-group-text-right">Л</div>
@@ -334,49 +333,54 @@
         filePath = filePath[filePath.length - 1];
         $("#"+id).text(filePath);
     }
-
+    var sCarType=""
     function subType(val) {
-        console.log( val)
-        if(val=="Хүнд ММ"){
-            $('#truckSizes' ).removeAttr("hidden")
-            $('#bus' ).attr("hidden", true)
-            $('#special' ).attr("hidden", true)
-            $('#models' ).attr("hidden", true)
-            $('#manufacturerSelect' ).attr("hidden", true)
-            $('#manufacturerSelect1' ).removeAttr("hidden")
-            $('#manufacturerSelect2' ).attr("hidden", true)
-            $('#manufacturerSelect3' ).attr("hidden", true)
+        sCarType=val;
+        if(val==="Хүнд ММ"){
+            $('#truckSizes' ).removeAttr("hidden");
+            $('#bus' ).attr("hidden", true);
+            $('#special' ).attr("hidden", true);
+            $('#models').attr("hidden", true).removeAttr("required");
+            $('#modelSelect').removeAttr("required");
+            //$('#models' ).removeAttr("required");
+            $('#manufacturerSelect' ).attr("hidden", true).removeAttr("required");
+            $('#manufacturerSelect1' ).removeAttr("hidden").attr("required");
+            $('#manufacturerSelect2' ).attr("hidden", true).removeAttr("required");
+            $('#manufacturerSelect3' ).attr("hidden", true).removeAttr("required");
         }
-        else if(val=="Автобус"){
-            $('#truckSizes' ).attr("hidden", true)
-            $('#bus' ).removeAttr("hidden")
-            $('#special' ).attr("hidden", true)
-            $('#models' ).attr("hidden", true)
-            $('#manufacturerSelect' ).attr("hidden", true)
-            $('#manufacturerSelect1' ).attr("hidden", true)
-            $('#manufacturerSelect2' ).removeAttr("hidden")
-            $('#manufacturerSelect3' ).attr("hidden", true)
+        else if(val==="Автобус"){
+            $('#truckSizes' ).attr("hidden", true);
+            $('#bus' ).removeAttr("hidden");
+            $('#special' ).attr("hidden", true);
+            $('#models' ).attr("hidden", true).removeAttr("required");
+            $('#modelSelect').removeAttr("required");
+            $('#manufacturerSelect' ).attr("hidden", true).removeAttr("required");
+            $('#manufacturerSelect1' ).attr("hidden", true).removeAttr("required");
+            $('#manufacturerSelect2' ).removeAttr("hidden").attr("required");
+            $('#manufacturerSelect3' ).attr("hidden", true).removeAttr("required");
         }
-        else if(val=="Тусгай ММ"){
-            $('#truckSizes' ).attr("hidden", true)
-            $('#bus' ).attr("hidden", true)
-            $('#special' ).removeAttr("hidden")
-            $('#models' ).attr("hidden", true)
-            $('#manufacturerSelect' ).attr("hidden", true)
-            $('#manufacturerSelect1' ).attr("hidden", true)
-            $('#manufacturerSelect2' ).attr("hidden", true)
-            $('#manufacturerSelect3' ).removeAttr("hidden")
+        else if(val==="Тусгай ММ"){
+            $('#truckSizes' ).attr("hidden", true);
+            $('#bus' ).attr("hidden", true);
+            $('#special' ).removeAttr("hidden");
+            $('#models' ).attr("hidden", true).removeAttr("required");
+            $('#modelSelect').removeAttr("required");
+            $('#manufacturerSelect' ).attr("hidden", true).removeAttr("required");
+            $('#manufacturerSelect1' ).attr("hidden", true.removeAttr("required"));
+            $('#manufacturerSelect2' ).attr("hidden", true).removeAttr("required");
+            $('#manufacturerSelect3' ).removeAttr("hidden").attr("required");
 
         }
         else{
-            $('#truckSizes' ).attr("hidden", true)
-            $('#bus' ).attr("hidden", true)
-            $('#special' ).attr("hidden", true)
-            $('#models' ).removeAttr("hidden")
-            $('#manufacturerSelect' ).removeAttr("hidden")
-            $('#manufacturerSelect1' ).attr("hidden", true)
-            $('#manufacturerSelect2' ).attr("hidden", true)
-            $('#manufacturerSelect3' ).attr("hidden", true)
+            $('#truckSizes' ).attr("hidden", true);
+            $('#bus' ).attr("hidden", true);
+            $('#special' ).attr("hidden", true);
+            $('#models' ).removeAttr("hidden").attr("required");
+            $('#modelSelect').removeAttr("required");
+            $('#manufacturerSelect' ).removeAttr("hidden");
+            $('#manufacturerSelect1' ).attr("hidden", true).removeAttr("required");
+            $('#manufacturerSelect2' ).attr("hidden", true).removeAttr("required");
+            $('#manufacturerSelect3' ).attr("hidden", true).removeAttr("required");
         }
     }
 
@@ -398,6 +402,18 @@
                 this.value = 'off';
                 console.log(this.value);
             }
+        });
+
+        $("#yearProduct").change(function() {
+            var year = $(this).val();
+            $("#yearEntry > option").each(function() {
+                var val = $(this).val();
+                if (val < year) {
+                    $(this).hide();
+                } else {
+                    $(this).show();
+                }
+            });
         });
 
         $('#manufacturerSelect').change(function() {
@@ -460,7 +476,21 @@
     }
 
     function step1SubmitAjax(__callback) {
-        var title = $("#manufacturerSelect").val() + ' ' + $("#modelSelect").val();
+        console.log(sCarType);
+        var title = ""
+        if(sCarType==="Хүнд ММ"){
+            title = $("#manufacturerSelect1").val();
+        }
+        else if(sCarType==="Автобус"){
+            title = $("#manufacturerSelect2").val();
+        }
+        else if(sCarType==="Тусгай ММ"){
+            title = $("#manufacturerSelect3").val();
+        }
+        else{
+            title = $("#manufacturerSelect").val() + ' ' + $("#modelSelect").val();
+        }
+
 
         $("#demo-spinner").css({'display': 'block'});
         $.ajax({

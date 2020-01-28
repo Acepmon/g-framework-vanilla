@@ -11,7 +11,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
-use Modules\Content\Http\Controllers\GroupController;
+use Modules\Content\Http\Controllers\Ajax\GroupController;
 
 use Socialite;
 
@@ -111,7 +111,7 @@ class RegisterController extends Controller
         $groupId = array_key_exists('groupId', $data) ? $data['groupId'] : config('system.register.defaultGroup');
         if (!empty($groupId)) {
             $except = array_merge($except, ['groupId']);
-            $group = Group::findOrFail($data['groupId']);
+            $group = Group::findOrFail($groupId);
             // If make row per dealer 
             if ($group->title == 'Auto Dealer') {
                 $except = array_merge($except, ['companyName', 'description', 'schedule', 'address']);

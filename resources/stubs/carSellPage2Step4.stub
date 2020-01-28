@@ -1,8 +1,9 @@
 <form id="step-4-publish" class="maz-form">
     <div class="row">
 
-        <label for="bestPremium" class="col-md-6">
-            <div class="col-md-12 float-left">
+
+            <div class="col-md-6 float-left">
+                <label for="bestPremium" class="col-md-12">
                 <div class="d-flex">
                     <div class="custom-control custom-radio custom-control-inline">
                         <input type="radio" id="bestPremium" name="publishType" value="best_premium" class="custom-control-input">
@@ -19,6 +20,7 @@
                         <option value="{{$data->term->id}}">{{$data->term->name}}</option>
                     @endforeach
                 </select>
+                </label>
                 {{--@php--}}
                     {{--dd($bestPremium)--}}
                 {{--@endphp--}}
@@ -30,14 +32,13 @@
                     Зөвхөн 12 ширхэг зар байрлах учраас олонд хүрэх хүртээмж нь их.
                 </p>
             </div>
-            </label>
+
             <div class="col-md-6 float-left">
                 <div id="best-zar"></div>
             </div>
 
-
-        <label for="premium" class="col-md-6">
-            <div class="col-md-12 float-left">
+            <div class="col-md-6 float-left">
+                <label for="premium" class="col-md-12">
                 <div class="d-flex">
                     <div class="custom-control custom-radio custom-control-inline">
                         <input type="radio" id="premium" name="publishType" value="premium" class="custom-control-input">
@@ -54,6 +55,7 @@
                         <option value="{{$data->term->id}}">{{$data->term->name}}</option>
                     @endforeach
                 </select>
+                </label>
                 <p>
                     Онцгой машин хайж байгаа худалдан авагчдад өөрийн машиныг сурталчилах боломжтой.
                     </br>
@@ -67,8 +69,8 @@
                 <div id="special-zar"></div>
             </div>
 
-        <label for="free" class="col-md-6">
-            <div class="col-md-12 float-left">
+            <div class="col-md-6 float-left">
+                <label for="free" class="col-md-12">
                 <div class="d-flex">
                     <div class="custom-control custom-radio custom-control-inline">
                         <input type="radio" id="free" name="publishType" value="free" class="custom-control-input" checked>
@@ -76,13 +78,14 @@
                     </div>
                     <h6 class="font-weight-bold mb-0">Regular</h6>
                 </div>
+                </label>
                 <p>
                     Хэрэглэгчээр бүртгүүлэн энгийн буюу үнэгүй зар оруулах боломжтой
                     </br>
                     Үнэгүй зар нь  Нүүр хуудас, бусад хуудас–ийн үнэтэй зарын доор байрлана.
                 </p>
             </div>
-            </label>
+
             <div class="col-md-6 float-left">
                 <img src="{{asset('car-web/img/normal-zar.png')}}" class="img-fluid" alt="">
             </div>
@@ -182,7 +185,7 @@ $("input").click(function(){
         paramObjs['publishedAt'] = new Date();
         delete paramObjs.publishPriceAmountBest;
         delete paramObjs.publishPriceAmountPremium;
-
+        var userCash={{Auth::user()->metaValue('cash' ,0 )}}
         $.ajax({
             type: 'PUT',
             url: '/ajax/contents/' + carId + '/metas/sync',
@@ -199,7 +202,12 @@ $("input").click(function(){
                 console.log(data);
                 if (paramObjs.publishType === "free") {
                     $("#responseText").html("Амжилттай бүртгэгдлээ. Үнэтэй зараар өөрчлөхийг хүсвэл, Cash буюу үйлчилгээний төлбөрөө шилжүүлсний дараагаар Миний хуудас дахь үнэтэй зар болгох хэсэгт хүсэлтэй илгээнэ үү.");
-                } else {
+                }
+                // else if(paramObjs.publishType!="free" && userCash < publishPricing){
+                //     console.log("uuuuuuuuuuuu");
+                //     $("#responseText").html("Амжилттай бүртгэгдлээ. Таны үлдэгдэл хүрэлцэхгүй тулд mileage-ийг цэнэглэнэ үү.");
+                // }
+                else {
                     $("#responseText").html("Амжилттай бүртгэгдлээ. Үйлчилгээний төлбөрийг таны үлдэгдэл Cash-аас тооцсон болно.");
                 }
                 $('#carRegSuccess').modal('show');
@@ -224,7 +232,7 @@ $("input").click(function(){
                         setTimeout(function(){
                             window.location.href = "/charge-cash?id=" + carId;
                         }, 3000);
-                    
+
                     }
                 }
                 fail(err);
