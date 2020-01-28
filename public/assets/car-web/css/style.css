@@ -1371,7 +1371,7 @@ header.masthead .discover span::after {
   pointer-events: none;
   content: "";
   background-color: #fff;
-  border: #E0E5EB solid 1px;
+  border: #E0E5EB solid 2px;
   border-radius: 50%;
   box-shadow: none;
 }
@@ -1847,26 +1847,6 @@ select {
   box-shadow: 0 10px 20px -10px rgba(43, 54, 81, 0.2) !important;
 }
 
-.car-list .card .doctor-verified-tag {
-  position: absolute;
-  right: 0;
-  top: 0;
-  background: #000;
-  z-index: 1000;
-  max-width: 50%;
-  color: #fff;
-  padding: .5rem 1rem;
-  border-radius: 4px;
-  opacity: 1;
-  box-sizing: border-box;
-  font-weight: 600;
-}
-
-.car-list .card .doctor-verified-tag span {
-  display: block;
-  color: #FEC400;
-}
-
 .car-list .card .card-body {
   display: flex;
   border: none;
@@ -1904,6 +1884,25 @@ select {
   pointer-events: none;
   justify-content: center;
   align-items: center;
+}
+
+.car-list .card .card-body .card-img .doctor-verified-tag {
+  position: absolute;
+  right: 0;
+  top: 0;
+  background: #DF2626;
+  z-index: 1000;
+  color: #fff;
+  padding: .5rem .75rem;
+  border-radius: 0 4px 0 8px;
+  font-size: .75rem;
+  box-sizing: border-box;
+  font-weight: 700;
+}
+
+.car-list .card .card-body .card-img .doctor-verified-tag span {
+  display: block;
+  color: #f3abab;
 }
 
 .car-list .card .card-body .card-img .maz-auction-time {
@@ -3059,8 +3058,8 @@ body.menu-absolute .header-menu .menu-brand-bg {
 
 .menu-brand-bg {
   background: url(../img/brand.png);
-  width: 483px;
-  height: 323px;
+  max-width: 483px;
+  max-height: 323px;
   position: absolute;
   left: -9%;
   top: -60%;
@@ -3824,20 +3823,19 @@ section .owl-carousel .owl-nav button.owl-next, section .owl-carousel .owl-nav b
   position: absolute;
   right: 0;
   top: 0;
-  background: #000;
+  background: #DF2626;
   z-index: 1000;
-  max-width: 50%;
   color: #fff;
-  padding: .5rem 1rem;
-  border-radius: 4px;
-  opacity: 1;
+  padding: .5rem .75rem;
+  border-radius: 0 4px 0 8px;
+  font-size: .75rem;
   box-sizing: border-box;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .card-list .card .doctor-verified-tag span {
   display: block;
-  color: #FEC400;
+  color: #f3abab;
 }
 
 .card-list .card .card-img {

@@ -32,18 +32,18 @@
                         <div class="col-lg-6 col-md-6">
                             <!-- card start -->
                             <a href="{{$othCars->slug}}" target="_blank" class="card">
+                                <div class="card-body">
+                                    <div class="card-img">
                                     @if(getMetasValue($othCars->metas, 'doctorVerified')==1)
                                     <div class="doctor-verified-tag"><span>Verified by</span> CAR DOCTOR</div>
                                     @endif
-                                <div class="card-body">
-                                    <div class="card-img">
                                         <img src="{{(getMetasValue($othCars->metas,'thumbnail'))}}" class="img-fluid" alt="alt">
                                     </div>
                                     <div class="card-description">
                                         <div class="card-caption">
                                             <div class="card-title">{{$othCars->title}}</div>
                                             <div class="meta">{{(getMetasValue($othCars->metas,'buildYear'))}} / {{(getMetasValue($othCars->metas,'importDate'))}} | {{(getMetasValue($othCars->metas,'mileageAmount'))}} {{(getMetasValue($othCars->metas,'mileageUnit'))}}</div>
-                                            <div class="price">{{numerizePrice((getMetasValue($othCars->metas,'priceAmount')))}} {{(getMetasValue($othCars->metas, 'priceUnit'))}} {{(getMetasValue($othCars->metas,'doctorVerified'))}}</div>
+                                            <div class="price">{{numerizePrice((getMetasValue($othCars->metas,'priceAmount')))}} {{(getMetasValue($othCars->metas, 'priceUnit'))}}</div>
                                             @if(Auth::user()!=null && $othCars->author_id==Auth::user()->id)
                                                 <div class="favorite">
                                                     <span class=""><i class="fas fa-car"></i> This is your car</span>

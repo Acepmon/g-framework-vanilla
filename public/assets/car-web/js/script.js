@@ -286,7 +286,7 @@
 
         if (mazMenuDistance < 10) {
             $('.header-menu').addClass('is-mobile');
-        } else {
+        } if($('.header-menu').hasClass('is-mobile') && $(window).width() > 1000) {
             $('.header-menu').removeClass('is-mobile');
         }
     }
