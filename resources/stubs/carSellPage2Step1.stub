@@ -333,14 +333,15 @@
         filePath = filePath[filePath.length - 1];
         $("#"+id).text(filePath);
     }
-
+    var sCarType=""
     function subType(val) {
-        console.log( val)
+        sCarType=val;
         if(val==="Хүнд ММ"){
             $('#truckSizes' ).removeAttr("hidden");
             $('#bus' ).attr("hidden", true);
             $('#special' ).attr("hidden", true);
             $('#models').attr("hidden", true).removeAttr("required");
+            $('#modelSelect').removeAttr("required");
             //$('#models' ).removeAttr("required");
             $('#manufacturerSelect' ).attr("hidden", true).removeAttr("required");
             $('#manufacturerSelect1' ).removeAttr("hidden").attr("required");
@@ -352,6 +353,7 @@
             $('#bus' ).removeAttr("hidden");
             $('#special' ).attr("hidden", true);
             $('#models' ).attr("hidden", true).removeAttr("required");
+            $('#modelSelect').removeAttr("required");
             $('#manufacturerSelect' ).attr("hidden", true).removeAttr("required");
             $('#manufacturerSelect1' ).attr("hidden", true).removeAttr("required");
             $('#manufacturerSelect2' ).removeAttr("hidden").attr("required");
@@ -362,6 +364,7 @@
             $('#bus' ).attr("hidden", true);
             $('#special' ).removeAttr("hidden");
             $('#models' ).attr("hidden", true).removeAttr("required");
+            $('#modelSelect').removeAttr("required");
             $('#manufacturerSelect' ).attr("hidden", true).removeAttr("required");
             $('#manufacturerSelect1' ).attr("hidden", true.removeAttr("required"));
             $('#manufacturerSelect2' ).attr("hidden", true).removeAttr("required");
@@ -373,6 +376,7 @@
             $('#bus' ).attr("hidden", true);
             $('#special' ).attr("hidden", true);
             $('#models' ).removeAttr("hidden").attr("required");
+            $('#modelSelect').removeAttr("required");
             $('#manufacturerSelect' ).removeAttr("hidden");
             $('#manufacturerSelect1' ).attr("hidden", true).removeAttr("required");
             $('#manufacturerSelect2' ).attr("hidden", true).removeAttr("required");
@@ -460,7 +464,21 @@
     }
 
     function step1SubmitAjax(__callback) {
-        var title = $("#manufacturerSelect").val() + ' ' + $("#modelSelect").val();
+        console.log(sCarType);
+        var title = ""
+        if(sCarType==="Хүнд ММ"){
+            title = $("#manufacturerSelect1").val();
+        }
+        else if(sCarType==="Автобус"){
+            title = $("#manufacturerSelect2").val();
+        }
+        else if(sCarType==="Тусгай ММ"){
+            title = $("#manufacturerSelect3").val();
+        }
+        else{
+            title = $("#manufacturerSelect").val() + ' ' + $("#modelSelect").val();
+        }
+
 
         $("#demo-spinner").css({'display': 'block'});
         $.ajax({
