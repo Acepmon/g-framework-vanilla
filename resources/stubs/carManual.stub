@@ -1,0 +1,109 @@
+@extends('themes.car-web.layouts.default')
+
+@section('title', 'Танилцуулга')
+
+@section('load')
+@endsection
+
+@section('content')
+    <!-- Masthead -->
+    <div class="bg-page-header"> </div>
+
+    <section class="bg-dark p-5 text-white position-relative">
+        <div class="container">
+            <div class="row">
+                <div class="card shadow-soft-blue page-top-navbar mb-5">
+                    <div class="d-flex justify-content-around">
+                        <a class="active" href="{{ url('/about-introduction') }}">Танилцуулга</a>
+                        <a href="{{ url('/about-paid-ads') }}">Төлбөртэй зар</a>
+                        <a href="{{ url('/about-finance') }}">Санхүүжилт</a>
+                        <a href="{{ url('/about-technical-examination') }}">Техникийн үзлэг</a>
+                        <a href="{{ url('/about-auction') }}">Дуудлага худалдаа</a>
+                        <a href="{{ url('/about-dream-car') }}">Хүслийн машин</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <h3>Компаний танилцуулга</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="page-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 d-flex align-items-center">
+                    <div class="about-main-text">
+                        <div class="about-heading-title">Танилцуулга </div>
+                        <div class="about-text">
+                            <p>Манай компани нь Вэб болон Мобайл дээр автомашины зуучлалын платформ нэвтрүүлж байна. 
+                                    Бид автомашин борлуулагч болон найдвартай анхүүгийн байгууллагуудтай хамтран ажиллаж хэрэгэлэгчдийг сэтгэл хангалуун байлгахын тулд зуучлалын системийг хийхээр хичээн ажиллаж байна. 
+                                    </p>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="col-md-6">
+                    <img src="{{ asset('car-web/img/about-illustration.png')}}" class="img-fluid" alt="">
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <section class="page-section bg-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <h4 class="section-heading">Автомашины зуучлалын <br>платформын онцлог</h4>
+                </div>
+            </div>
+            <div class="row">
+                    <div class="col-md-6 d-flex align-items-center">
+                            <img src="{{ asset('car-web/img/Image6.png')}}" class="img-fluid" alt="">
+                        </div>
+                <div class="col-md-6 d-flex align-items-center">
+                    <div class="about-main-text">
+                        <div class="about-text">
+                            <ul>
+                                <li>
+                                    <p class="font-weight-bold mb-0">Автомашин худалдах, худалдан авах зар</p>
+                                    <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et</p>
+                                </li>
+                                <li>
+                                     <p class="font-weight-bold mb-0"> AUCTION зуучлах</p>
+                                    <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et</p>
+                                </li>
+                                <li>
+                                     <p class="font-weight-bold mb-0">Машин зээлийн асуудал шийдүүлэх</p>
+                                    <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et</p>
+                                </li>
+                                <li>
+                                     <p class="font-weight-bold mb-0">Техникийн үзлэг оношлогоо</p>
+                                    <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et</p>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="pageType-footer">
+        <div class="container">
+            <div class="row">
+                <div class="sell-type-img">
+                    <img src="{{ asset('car-web/img/sell-car.png') }}" alt="">
+                </div>
+            </div>
+        </div>
+    </section>
+@endsection
+
+@section('script')
+@endsection

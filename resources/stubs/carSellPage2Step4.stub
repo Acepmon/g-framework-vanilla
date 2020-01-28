@@ -185,7 +185,7 @@ $("input").click(function(){
         paramObjs['publishedAt'] = new Date();
         delete paramObjs.publishPriceAmountBest;
         delete paramObjs.publishPriceAmountPremium;
-
+        var userCash={{Auth::user()->metaValue('cash' ,0 )}}
         $.ajax({
             type: 'PUT',
             url: '/ajax/contents/' + carId + '/metas/sync',
@@ -202,7 +202,12 @@ $("input").click(function(){
                 console.log(data);
                 if (paramObjs.publishType === "free") {
                     $("#responseText").html("Амжилттай бүртгэгдлээ. Үнэтэй зараар өөрчлөхийг хүсвэл, Cash буюу үйлчилгээний төлбөрөө шилжүүлсний дараагаар Миний хуудас дахь үнэтэй зар болгох хэсэгт хүсэлтэй илгээнэ үү.");
-                } else {
+                }
+                // else if(paramObjs.publishType!="free" && userCash < publishPricing){
+                //     console.log("uuuuuuuuuuuu");
+                //     $("#responseText").html("Амжилттай бүртгэгдлээ. Таны үлдэгдэл хүрэлцэхгүй тулд mileage-ийг цэнэглэнэ үү.");
+                // }
+                else {
                     $("#responseText").html("Амжилттай бүртгэгдлээ. Үйлчилгээний төлбөрийг таны үлдэгдэл Cash-аас тооцсон болно.");
                 }
                 $('#carRegSuccess').modal('show');
@@ -227,7 +232,7 @@ $("input").click(function(){
                         setTimeout(function(){
                             window.location.href = "/charge-cash?id=" + carId;
                         }, 3000);
-                    
+
                     }
                 }
                 fail(err);

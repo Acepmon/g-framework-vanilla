@@ -162,7 +162,7 @@
                                         <div class="form-group">
                                             <label for="companyName">Байгууллагын нэр</label>
                                             <div class="input-group">
-                                                <input type="text" class="form-control" name="companyName" id="companyName" placeholder="Байгууллагын нэр" required>
+                                                <input type="text" class="form-control" name="companyName" id="companyName" placeholder="Байгууллагын нэр">
                                             </div>
                                         </div>
                                         <div class="form-group">
