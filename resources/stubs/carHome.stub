@@ -102,19 +102,13 @@ $itsIntCar=false;
                         </div>
                         <ul class="nav nav-tabs px-5" id="heroTab" role="tablist">
                             <li class="nav-item">
-                                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#allVehicles"
-                                   role="tab"
-                                   aria-controls="imported" aria-selected="true">Жижиг тэрэг</a>
+                                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#allVehicles" role="tab" aria-controls="imported" aria-selected="true">Жижиг тэрэг</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" id="contact-tab" data-toggle="tab" href="#budget" role="tab"
-                                   aria-controls="budget"
-                                   aria-selected="false">Том тэрэг</a>
+                                <a class="nav-link" id="contact-tab" data-toggle="tab" href="#budget" role="tab" aria-controls="budget" aria-selected="false">Том тэрэг</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#auction" role="tab"
-                                   aria-controls="used"
-                                   aria-selected="false">Аукцион</a>
+                                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#auction" role="tab" aria-controls="used" aria-selected="false">Аукцион</a>
                             </li>
                         </ul>
                         <div class="tab-content p-5" id="heroTabFilter">
@@ -161,18 +155,19 @@ $itsIntCar=false;
                                     @csrf
                                     <input type="text" name="title" hidden class="searchTitle">
                                     <div class="form-group">
-                                        <select id="vehicleManufacturer1" class="form-control" name="car-manufacturer">
-                                            <option value="" >Үйлдвэрлэгч</option>
-                                            @getTaxonomys({"filter":[{"field":"taxonomy", "key":"car-manufacturer"}], "returnValue":"manufacturers"})
-                                            @foreach($manufacturers as $data)
+                                        <select id="vehicleManufacturer1" class="form-control" name="car-type">
+                                            <option value="" >Төрөл</option>
+                                            @foreach(\App\TermTaxonomy::where('taxonomy', 'car-type')->get() as $key => $data)
+                                            @if($data->term->id==462 || $data->term->id==463 || $data->term->id==464)
                                             <option id="{{$data->term->name}}" value="{{$data->term->id}}">{{$data->term->name}}</option>
+                                            @else
+                                            @endif
                                             @endforeach
                                         </select>
                                     </div>
                                     <div class="form-group">
-                                        <select id="vehicleManufacturerModels1" class="form-control" name="car-model">
+                                        <select id="vehicleManufacturerModels1" class="form-control" name="carSubType">
                                             <option value="" >Модел</option>
-                                            {{--//@getTaxonomys({"filter":[{"field":"taxonomy", "key":"model"}], "returnValue":"models"})--}}
                                         </select>
                                     </div>
                                     <div class="form-group">
@@ -374,9 +369,21 @@ $itsIntCar=false;
             $("#vehicleManufacturer1").change(
                 function (e) {
                     var markName=$(this).find(":selected").attr("id");
+                    console.log(markName);
+                    var speModel="truck-size";
+                    if(markName=="Автобус"){
+                        speModel="bus-sizes"
+                    }
+                    else if(markName=="Хүнд ММ"){
+                        speModel="truck-sizes"
+                    }
+                    else if (markName=="Тусгай ММ"){
+                        speModel="special"
+                    }
+                    console.log(speModel);
                     $.ajax({
                         type: 'Get',
-                        url: '/api/v1/taxonomies/car-'+toKebabCase(markName),
+                        url: '/api/v1/taxonomies/'+toKebabCase(speModel),
                         // /data: paramObjs
                     }).done(function(data) {
                         console.log("DONE!");
