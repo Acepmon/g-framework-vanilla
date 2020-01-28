@@ -1,44 +1,92 @@
 @extends('themes.car-web.layouts.default')
 
-@section('title', 'Гарын авлага')
+@section('title', 'Хэрэглэгчийн машин')
 
 @section('load')
+@if(Auth::user()!=null)
+@php
+$interestedCars=Auth::user()->metaArray('interestedCars');
+@endphp
+@else
+@php
+$interestedCars=[];
+@endphp
+@endif
 @endsection
 
 @section('content')
     <!-- Masthead -->
     <div class="bg-page-header"></div>
 
-    <section class="page-section">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6 d-flex align-items-center">
-                    <div class="about-main-text">
-                        <div class="about-heading-title">Заавар </div>
-                        <div class="about-text">
-                            <p>
-                                1. Бүртгүүлэх </br>
-                                2. Машины зар оруулах </br>
-                                3. Үйлчилгээний төлбөрөө төлөх.( дансы дугаар :         хэрэглэгчийн төв:           ) </br>
-                                4. My Page –н үйлчилгээний төлбөр төлсний 30 минутын дараа тухайн төлбөр нь mileage болон хувирах. </br>
-                                5. My page-н  “миний оруулсан зар” хэсэгт үнэтэй зар болгох, хугацаа сунгах зэрэг сонгол хийх. </br>
-                                6. mileage –аар үнэтэй зар болгох, хугацаа сунгах боломжтой </br>
-                                7. Үнэтэй зар оруулах, зарын хугацаа сунгах хүсэлт явуулах
-                            </p>
-                        </div>
+<section class="mainPage-items bg-light homeFreeCars">
+    <div class="container">
+
+        <div class="row">
+            <div class="car-list">
+                <div class="row">
+                    @content(type=car, status=published, author_id=request('author_id') as $othCars | paginate)
+                    @if(count($interestedCars) > 0)
+                    @foreach($interestedCars as $intCars)
+                    @if($intCars==$othCars->id)
+                    @php
+                    $itsIntCar=true;
+                    @endphp
+                    @break;
+                    @else
+                    @php
+                    $itsIntCar=false;
+                    @endphp
+                    @endif
+                    @endforeach
+                    @else
+                    @php
+                    $itsIntCar=false;
+                    @endphp
+                    @endif
+                    <div class="col-lg-6 col-md-6">
+                        <!-- card start -->
+                        <a href="{{$othCars->slug}}" target="_blank" class="card">
+                            <div class="card-body">
+                                <div class="card-img">
+                                    @if(getMetasValue($othCars->metas, 'doctorVerified')==1)
+                                    <div class="doctor-verified-tag"><span>Verified by</span> CAR DOCTOR</div>
+                                    @endif
+                                    <img src="{{(getMetasValue($othCars->metas,'thumbnail'))}}" class="img-fluid" alt="alt">
+                                </div>
+                                <div class="card-description">
+                                    <div class="card-caption">
+                                        <div class="card-title">{{$othCars->title}}</div>
+                                        <div class="meta">{{(getMetasValue($othCars->metas,'buildYear'))}} / {{(getMetasValue($othCars->metas,'importDate'))}} | {{(getMetasValue($othCars->metas,'mileageAmount'))}} {{(getMetasValue($othCars->metas,'mileageUnit'))}}</div>
+                                        <div class="price">{{numerizePrice((getMetasValue($othCars->metas,'priceAmount')))}} {{(getMetasValue($othCars->metas, 'priceUnit'))}}</div>
+                                        @if(Auth::user()!=null && $othCars->author_id==Auth::user()->id)
+                                        <div class="favorite">
+                                            <span class=""><i class="fas fa-car"></i> This is your car</span>
+                                        </div>
+                                        @else
+                                        <div class="favorite saveToInterested" data-target="{{ $othCars->id }}">
+                                            @if($itsIntCar==true)
+                                            <span class="text-danger"><i class="fas fa-heart"></i></span>
+                                            @else
+                                            <i class="icon-heart"></i>
+                                            @endif
+                                        </div>
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
                     </div>
-
-
+                    <!-- card end -->
+                    @endcontent
                 </div>
-                <div class="col-md-6">
-                    <img src="{{ asset('car-web/img/about-illustration.png')}}" class="img-fluid" alt="">
-                </div>
-
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <section class="pageType-footer">
+
+
+<section class="pageType-footer">
         <div class="container">
             <div class="row">
                 <div class="sell-type-img">
