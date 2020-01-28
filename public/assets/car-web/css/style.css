@@ -1371,7 +1371,7 @@ header.masthead .discover span::after {
   pointer-events: none;
   content: "";
   background-color: #fff;
-  border: #E0E5EB solid 1px;
+  border: #E0E5EB solid 2px;
   border-radius: 50%;
   box-shadow: none;
 }
@@ -3058,8 +3058,8 @@ body.menu-absolute .header-menu .menu-brand-bg {
 
 .menu-brand-bg {
   background: url(../img/brand.png);
-  width: 483px;
-  height: 323px;
+  max-width: 483px;
+  max-height: 323px;
   position: absolute;
   left: -9%;
   top: -60%;
