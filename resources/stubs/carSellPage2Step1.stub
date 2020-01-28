@@ -114,7 +114,7 @@
             <label for="yearEntry">Орж ирсэн он:</label>
             <select id="yearEntry" name="importDate" class="form-control">
                 <option value="" selected>Сонгох...</option>
-                @for($i=date('Y'); $i>=1990; $i--)
+                @for($i=date('Y'); $i>=($car->metaValue('buildYear')?$car->metaValue('buildYear'):1990); $i--)
                 <option value="{{ $i }}" {{ ($car->metaValue('importDate') == $i)?'selected':'' }}>{{ $i }}</option>
                 @endfor
             </select>
@@ -402,6 +402,18 @@
                 this.value = 'off';
                 console.log(this.value);
             }
+        });
+
+        $("#yearProduct").change(function() {
+            var year = $(this).val();
+            $("#yearEntry > option").each(function() {
+                var val = $(this).val();
+                if (val < year) {
+                    $(this).hide();
+                } else {
+                    $(this).show();
+                }
+            });
         });
 
         $('#manufacturerSelect').change(function() {

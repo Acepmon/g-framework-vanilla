@@ -36,8 +36,8 @@
                     <th>Type</th>
                     <th>Amount</th>
                     <th>Usage</th>
-                    <th>Bonus</th>
-                    <th>Current Amount</th>
+                    <th>Phone</th>
+                    <th>Content</th>
                     <th>Accepted By</th>
                 </tr>
             </thead>
@@ -58,8 +58,12 @@
                             <td>{{$transaction->transaction_type}}</td>
                             <td>{{$transaction->transaction_amount}}</td>
                             <td>{{$transaction->transaction_usage}}</td>
-                            <td>{{$transaction->bonus}}</td>
-                            <td>{{$transaction->current_amount}}</td>
+                            <td>{{$transaction->phone?$transaction->phone:$transaction->user->metaValue('phone')}}</td>
+                            <td>
+                                @if($transaction->content)
+                                <a href="/admin/modules/car/{{$transaction->content->id}}" target="_blank">View</a>
+                                @endif
+                            </td>
                             <td class="text-center">
                                 @if($transaction->status ==  \Modules\Payment\Entities\Transaction::STATUS_PENDING)
                                 <a class="btn btn-success color-white" href="{{ route('admin.modules.payment.transactions.edit', ['id' => $transaction->id]) }}">Accept</a>
