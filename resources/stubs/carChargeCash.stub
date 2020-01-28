@@ -72,13 +72,13 @@
                         <input type="hidden" name="content_id" value="{{ \App\Content::find(request('id', 0))?request('id'):'' }}">
 
                         <div class="form-group">
-                            <label for="name" class="col-form-label">᠌Гүйлгээний утга:</label>
-                            <input type="text" class="form-control" id="name" name="info" required>
+                            <label for="name" class="col-form-label">᠌Гүйлгээний дүн:</label>
+                            <input type="number" class="form-control" id="name" name="transaction_amount" required>
                         </div>
 
                         <div class="form-group">
                             <label for="phone" class="col-form-label">Утасны дугаар:</label>
-                            <input type="text" class="form-control" id="phone" name="phone" value="{{ \Auth::user()->metaValue('phone') }}" required>
+                            <input type="number" class="form-control" id="phone" name="phone" value="{{ \Auth::user()->metaValue('phone') }}" required>
                         </div>
 
                         <div class="modal-footer pb-5">
