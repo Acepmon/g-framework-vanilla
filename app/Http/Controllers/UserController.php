@@ -66,17 +66,16 @@ class UserController extends Controller
         $success['token'] = $user->createToken('MyApp')->accessToken;
         $success['name'] = $user->name;
 
-        if ($input['groupId']) {
+        if (array_key_exists('groupId', $input) && $input['groupId']) {
             $group = Group::findOrFail($input['groupId']);
             // If make row per dealer 
             if ($group->title == 'Auto Dealer') {
                 $company = GroupController::register($group, $input);
-                $user->groups()->attach(config('system.register.defaultGroup'));
                 $user->groups()->attach($company);
-            } else {
                 $user->groups()->attach($group);
             }
         }
+        $user->groups()->attach(config('system.register.defaultGroup'));
 
         return response()->json(['success' => $success], $this->successStatus);
     }
