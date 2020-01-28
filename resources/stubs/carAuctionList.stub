@@ -8,9 +8,7 @@ $allItems = metaHas($allItems, 'endsAt', now(), '>=');
 $banner = \App\Banner::where('location_id', 5)->where('status', 'active')->inRandomOrder()->first();
 @endphp
 
-@section('title')
-Car dealer
-@endsection
+@section('title', 'Аукцион')
 
 @section('load')
 <link href="{{ asset('car-web/vendor/simple-line-icons/css/simple-line-icons.css') }}" rel="stylesheet" type="text/css">

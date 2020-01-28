@@ -32,11 +32,10 @@
                         <div class="col-lg-6 col-md-6">
                             <!-- card start -->
                             <a href="{{$othCars->slug}}" target="_blank" class="card">
-                                <div class="card-body">
-
                                     @if(getMetasValue($othCars->metas, 'doctorVerified')==1)
-                                    DV<div class="premium-tag shadow-soft-blue"><img src="{{asset('car-web/img/icons/corona.svg')}}" alt=""></div>
+                                    <div class="doctor-verified-tag"><span>Verified by</span> CAR DOCTOR</div>
                                     @endif
+                                <div class="card-body">
                                     <div class="card-img">
                                         <img src="{{(getMetasValue($othCars->metas,'thumbnail'))}}" class="img-fluid" alt="alt">
                                     </div>

@@ -25,7 +25,7 @@
                                         <h1 class="vehicle-title">{{ $content->title }}</h1>
                                     @endif
                                     <p class="vehicle-meta text-muted">Үйлдвэрлэсэн он: {{$content->metaValue('buildYear')}} / Орж ирсэн он: {{$content->metaValue('importDate')}}</p>
-                                    <p class="vehicle-meta text-muted">Гүйлт: {{$content->metaValue('mileageAmount')}} {{$content->metaValue('mileageUnit')}} |
+                                    <p class="vehicle-meta text-muted">Гүйлт: {{$content->metaValue('mileageAmount', 0)}} {{$content->metaValue('mileageUnit')}} |
                                         Шатхуун: {{$content->metaValue('fuelType')}} | Хөдөлгүүрийн багтаамж: {{$content->metaValue('capacityAmount')}} {{$content->metaValue('capacityUnit')}}
                                     </p>
 
@@ -62,10 +62,10 @@
                                     <div class="control-ad">
                                         @if (Auth::check())
                                             @if ($content->metaValue('publishType') == 'free' && Auth::user()->id == $content->author_id)
-                                                <a class="disabled btn btn-warning btn-round shadow-soft-blue btn-icon-left px-3" href="{{ url('/my-page/premiums') }}">
+                                                <button class="btn btn-warning btn-round shadow-soft-blue btn-icon-left px-3" data-toggle="modal" onclick="transferId({{$content->id}})" data-target="#premiumAd">
                                                     @include('themes.car-web.includes.premium-svg')
                                                     Рremium болгох
-                                                </a>
+                                                </button>
                                             @endif
 
                                             @if (!$content->metaValue('doctorVerified') && Auth::user()->id == $content->author_id)

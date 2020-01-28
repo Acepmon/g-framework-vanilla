@@ -5,7 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="csrf-token" content="{{ csrf_token() }}">
-        <title>@yield('title')</title>
+        <title>MAZ.mn | @yield('title')</title>
 
         <!-- Global stylesheets -->
         <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
@@ -118,10 +118,19 @@
             'morelink'=> url('/search?min_price='.(($priceAmount - 1000000) < 0 ? 0 : ($priceAmount - 1000000)).'&max_price='.($priceAmount + 1000000))
         ])
 
+        @push('modals')
+
+        @include('themes.car-web.includes.modal-make-premium')
+
+        @endpush
+
          <!-- Footer -->
         @include('themes.car-web.includes.footer')
 
+
         @stack('modals')
+
+
 
         @include('themes.car-web.includes.loader')
         <!-- <div class="spinner-border" id="demo-spinner" role="status" style="position: fixed; z-index: 1000; top: 50%; left: 50%; display: none">

@@ -1,8 +1,6 @@
 @extends('themes.car-web.layouts.default')
 
-@section('title')
-
-@endsection
+@section('title', 'Зарна')
 
 @section('load')
 

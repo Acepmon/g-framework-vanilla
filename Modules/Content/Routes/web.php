@@ -35,6 +35,13 @@ Route::middleware(['auth'])->group(function () {
                 Route::put('{user}', 'UserController@update')->name('ajax.users.update');
                 Route::delete('{user}', 'UserController@destroy')->name('ajax.users.destroy');
             });
+
+            Route::prefix('groups')->group(function () {
+                Route::get('', 'GroupController@index')->name('ajax.groups.index');
+                Route::post('', 'GroupController@store')->name('ajax.groups.store');
+                Route::put('{id}', 'GroupController@update')->name('ajax.groups.update');
+                Route::delete('{id}', 'GroupController@destroy')->name('ajax.groups.destroy');
+            });
         });
     });
 });

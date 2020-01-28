@@ -1,6 +1,6 @@
 @extends('themes.car-web.layouts.default')
 
-@section('title', 'Register')
+@section('title', 'Бүртгүүлэх')
 
 @section('load')
 @endsection
@@ -162,7 +162,7 @@
                                         <div class="form-group">
                                             <label for="companyName">Байгууллагын нэр</label>
                                             <div class="input-group">
-                                                <input type="text" class="form-control" name="companyName" id="companyName" placeholder="Байгууллагын нэр">
+                                                <input type="text" class="form-control" name="companyName" id="companyName" placeholder="Байгууллагын нэр" required>
                                             </div>
                                         </div>
                                         <div class="form-group">

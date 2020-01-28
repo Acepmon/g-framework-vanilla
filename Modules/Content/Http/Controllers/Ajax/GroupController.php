@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Content\Http\Controllers;
+namespace Modules\Content\Http\Controllers\Ajax;
 
 use App\Group;
 use App\GroupMeta;
@@ -68,6 +68,31 @@ class GroupController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $group = Group::findOrFail($id);
+        
+        if ($request->has('companyName')) {
+            $group->title = $request->input('companyName');
+            $group->save();
+        }
+        if ($request->has('description')) {
+            $group->description = $request->input('description');
+            $group->save();
+        }
+        if ($request->has('address')) {
+            $group->setMetaValue('address', $request->input('address'));
+        }
+        if ($request->has('schedule')) {
+            $group->setMetaValue('schedule', $request->input('schedule'));
+        }
+        if ($request->has('website')) {
+            $group->setMetaValue('website', $request->input('website'));
+        }
+        if ($request->hasFile('retailImage')) {
+            $filename = MediaManager::storeFile($request->file('retailImage'), 'avatars/retail');
+            $group->setMetaValue('retailImage', $filename);
+        }
+
+        return back()->with('group', $group);
     }
 
     /**
@@ -90,11 +115,11 @@ class GroupController extends Controller
         ]);
         if (request()->hasFile('retailImage')) {
             $filename = MediaManager::storeFile(request()->file('retailImage'), 'avatars/retail');
-            GroupMeta::create(['group_id' => $company->id, 'key' => 'retailImage', 'value' => array_key_exists('retailImage', $data) ? $filename : '']);
+            GroupMeta::create(['group_id' => $company->id, 'key' => 'retailImage', 'value' => array_key_exists('retailImage', $data) ? $filename . '' : '']);
         }
-        GroupMeta::create(['group_id' => $company->id, 'key' => 'website', 'value' => array_key_exists('website', $data) ? $data['website'] : '']);
-        GroupMeta::create(['group_id' => $company->id, 'key' => 'schedule', 'value' => array_key_exists('schedule', $data) ? $data['schedule'] : '']);
-        GroupMeta::create(['group_id' => $company->id, 'key' => 'address', 'value' => array_key_exists('address', $data) ? $data['address'] : '']);
+        GroupMeta::create(['group_id' => $company->id, 'key' => 'website', 'value' => array_key_exists('website', $data) ? $data['website'] . '' : '']);
+        GroupMeta::create(['group_id' => $company->id, 'key' => 'schedule', 'value' => array_key_exists('schedule', $data) ? $data['schedule'] . '' : '']);
+        GroupMeta::create(['group_id' => $company->id, 'key' => 'address', 'value' => array_key_exists('address', $data) ? $data['address'] . '' : '']);
         return $company;
     }
 }

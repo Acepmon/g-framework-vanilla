@@ -1,8 +1,6 @@
 @extends('themes.car-web.layouts.mypage')
 
-@section('title')
-
-@endsection
+@section('title', 'Миний хуудас')
 
 @section('load')
 <style>
@@ -87,18 +85,18 @@
     @if(Auth::user()->get_dealer_group())
         <div class="card-body">
             <h2>Байгууллагын мэдээлэл</h2>
-            <form id="editDealerForm" action="{{ route('ajax.users.update', ['user' => Auth::user()->id ]) }}" method="post" enctype="multipart/form-data">
+            <form id="editDealerForm" action="{{ route('ajax.groups.update', ['user' => Auth::user()->get_dealer_group()->id ]) }}" method="post" enctype="multipart/form-data">
             <div class="row my-4">
                 <div class="col-md-2">
                     <div class="pro-img">
                         <label class="avatarChange" style="display: none">Change
                             <input type="file" name="retailImage" id="avatarChooserRetail" accept="image/*" onchange="readURL(this, 2)" style="display:none"/>
                         </label>
-                        <img src="{{ Auth::user()->avatar_url() }}" alt="" id="avatarRetail">
+                        <img src="{{ Auth::user()->get_dealer_group()->metaValue("retailImage") }}" alt="" id="avatarRetail">
                     </div>
                     <button type="button" id="editDealerBtn" class="btn btn-sm btn-light my-3">Засах</button>
                 </div>
-                <div class="pro-info">
+                <div class="pro-info col-md-8">
                     <div class="form-group">
                         <label for="companyName">Байгууллагын нэр:</label>
                         <input type="text" class="form-control" id="companyName" name="companyName" value="{{ old('companyName')?old('companyName'):Auth::user()->get_dealer_group()->title }}" readonly>
@@ -110,7 +108,7 @@
                     </div>
                     <div class="form-group">
                         <label for="description">Тайлбар:</label>
-                        <textarea type="text" class="form-control" id="description" name="description" value="{{ old('description')?old('description'):Auth::user()->get_dealer_group()->metaValue('description') }}" readonly></textarea>
+                        <textarea type="text" class="form-control" id="description" name="description" readonly>{{Auth::user()->get_dealer_group()->description }}</textarea>
                         @error('email')
                         <span class="validation-error-label text-danger" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -119,7 +117,7 @@
                     </div>
                     <div class="form-group">
                         <label for="schedule">Цагын хуваарь:</label>
-                        <textarea type="text" class="form-control" id="schedule" name="schedule" value="{{ old('schedule')?old('schedule'):Auth::user()->get_dealer_group()->metaValue('schedule') }}" readonly></textarea>
+                        <textarea type="text" class="form-control" id="schedule" name="schedule" readonly>{{Auth::user()->get_dealer_group()->metaValue('schedule')}}</textarea>
                         @error('schedule')
                         <span class="validation-error-label text-danger" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -128,7 +126,7 @@
                     </div>
                     <div class="form-group">
                         <label for="address">Хаяг:</label>
-                        <textarea type="text" class="form-control" id="address" name="address" value="{{ old('address')?old('address'):Auth::user()->get_dealer_group()->metaValue('address') }}" readonly></textarea>
+                        <textarea type="text" class="form-control" id="address" name="address" readonly>{{Auth::user()->get_dealer_group()->metaValue('address')}}</textarea>
                         @error('address')
                         <span class="validation-error-label text-danger" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -165,9 +163,6 @@
 
     </div>
         @endif
-    <div class="car-list">
-
-    </div>
     <!-- row end -->
 </div>
 

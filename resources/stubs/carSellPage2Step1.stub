@@ -14,8 +14,8 @@
         <div id="truckSizes" hidden="true" class="grid-radio mt-5">
             @foreach(\App\TermTaxonomy::where('taxonomy', 'truck-size')->get() as $key => $taxonomy)
             <div class="cd-radio">
-                <input type="radio" id="{{ $taxonomy->term->metaValue('value') }}" name="carSubType" value="{{ $taxonomy->term->name }}" class="custom-control-input" {{ ($key == 0 || $car->metaValue('carType') == $taxonomy->term->name)?'checked':'' }}>
-                <label class="custom-control-label " for="{{ $taxonomy->term->metaValue('value') }}"> <img src="{{ asset('car-web/img/icons/' . strtolower($taxonomy->term->metaValue('value')) . '.svg') }}" alt=""><span>{{ $taxonomy->term->name }}</span>
+                <input type="radio" id="{{ $taxonomy->term->name }}" name="carSubType" value="{{ $taxonomy->term->name }}" class="custom-control-input" {{ ($key == 0 || $car->metaValue('carType') == $taxonomy->term->name)?'checked':'' }}>
+                <label class="custom-control-label " for="{{ $taxonomy->term->name }}"> <img src="{{ asset('car-web/img/icons/' . strtolower($taxonomy->term->metaValue('value')) . '.svg') }}" alt=""><span>{{ $taxonomy->term->name }}</span>
                 </label>
             </div>
             @endforeach
@@ -23,8 +23,8 @@
         <div id="bus" hidden="true" class="grid-radio mt-5">
             @foreach(\App\TermTaxonomy::where('taxonomy', 'bus-sizes')->get() as $key => $taxonomy)
             <div class="cd-radio">
-                <input type="radio" id="{{ $taxonomy->term->metaValue('value') }}" name="carSubType" value="{{ $taxonomy->term->name }}" class="custom-control-input" {{ ($key == 0 || $car->metaValue('carType') == $taxonomy->term->name)?'checked':'' }}>
-                <label class="custom-control-label " for="{{ $taxonomy->term->metaValue('value') }}"> <img src="{{ asset('car-web/img/icons/' . strtolower($taxonomy->term->metaValue('value')) . '.svg') }}" alt=""><span>{{ $taxonomy->term->name }}</span>
+                <input type="radio" id="{{ $taxonomy->term->name }}" name="carSubType" value="{{ $taxonomy->term->name }}" class="custom-control-input" {{ ($key == 0 || $car->metaValue('carType') == $taxonomy->term->name)?'checked':'' }}>
+                <label class="custom-control-label " for="{{ $taxonomy->term->name }}"> <img src="{{ asset('car-web/img/icons/' . strtolower($taxonomy->term->metaValue('value')) . '.svg') }}" alt=""><span>{{ $taxonomy->term->name }}</span>
                 </label>
             </div>
             @endforeach
@@ -32,8 +32,8 @@
         <div id="special" hidden="true" class="grid-radio mt-5">
             @foreach(\App\TermTaxonomy::where('taxonomy', 'special')->get() as $key => $taxonomy)
             <div class="cd-radio">
-                <input type="radio" id="{{ $taxonomy->term->metaValue('value') }}" name="carSubType" value="{{ $taxonomy->term->name }}" class="custom-control-input" {{ ($key == 0 || $car->metaValue('carType') == $taxonomy->term->name)?'checked':'' }}>
-                <label class="custom-control-label " for="{{ $taxonomy->term->metaValue('value') }}"> <img src="{{ asset('car-web/img/icons/' . strtolower($taxonomy->term->metaValue('value')) . '.svg') }}" alt=""><span>{{ $taxonomy->term->name }}</span>
+                <input type="radio" id="{{ $taxonomy->term->name }}" name="carSubType" value="{{ $taxonomy->term->name }}" class="custom-control-input" {{ ($key == 0 || $car->metaValue('carType') == $taxonomy->term->name)?'checked':'' }}>
+                <label class="custom-control-label " for="{{ $taxonomy->term->name }}"> <img src="{{ asset('car-web/img/icons/' . strtolower($taxonomy->term->metaValue('value')) . '.svg') }}" alt=""><span>{{ $taxonomy->term->name }}</span>
                 </label>
             </div>
             @endforeach
@@ -44,7 +44,25 @@
             <label for="Manufacturer">Үйлдвэрлэгч:</label>
             <select id="manufacturerSelect" name="markName" class="form-control" required>
                 <option value="">Үйлдвэрлэгч</option>
-                @foreach(\App\TermTaxonomy::where('taxonomy', 'car-manufacturer')->get() as $taxonomy)
+                @foreach(App\Entities\TaxonomyManager::getManufacturers('normal', $count = False) as $taxonomy)
+                <option {{ ($car->metaValue('markName') == $taxonomy->term->name)?'selected':'' }}>{{$taxonomy->term->name}}</option>
+                @endforeach
+            </select>
+            <select id="manufacturerSelect1" hidden="true" name="markName" class="form-control">
+                <option value="">Үйлдвэрлэгч</option>
+                @foreach(App\Entities\TaxonomyManager::getManufacturers('truck', $count = False) as $taxonomy)
+                <option {{ ($car->metaValue('markName') == $taxonomy->term->name)?'selected':'' }}>{{$taxonomy->term->name}}</option>
+                @endforeach
+            </select>
+            <select id="manufacturerSelect2" hidden="true" name="markName" class="form-control">
+                <option value="">Үйлдвэрлэгч</option>
+                @foreach(App\Entities\TaxonomyManager::getManufacturers('bus', $count = False) as $taxonomy)
+                <option {{ ($car->metaValue('markName') == $taxonomy->term->name)?'selected':'' }}>{{$taxonomy->term->name}}</option>
+                @endforeach
+            </select>
+            <select id="manufacturerSelect3" hidden="true" name="markName" class="form-control">
+                <option value="">Үйлдвэрлэгч</option>
+                @foreach(App\Entities\TaxonomyManager::getManufacturers('special', $count = False) as $taxonomy)
                 <option {{ ($car->metaValue('markName') == $taxonomy->term->name)?'selected':'' }}>{{$taxonomy->term->name}}</option>
                 @endforeach
             </select>
@@ -52,7 +70,7 @@
                 Үйлдвэрлэгчээ сонгоно уу
             </span>
         </div>
-        <div class="form-group col-md-6">
+        <div id="models" class="form-group col-md-6">
             <label for="Model">Загвар:</label>
             <select id="modelSelect" name="modelName" class="form-control" required>
                 <option value="">Загвар</option>
@@ -106,8 +124,7 @@
         <div class="form-group col-md-6">
             <label for="capacityAmount">Моторын хэмжээ:</label>
             <div class="input-group">
-                <input type="number" min="0" class="form-control" id="capacityAmount" name="capacityAmount" placeholder="Моторын хэмжээ" value="{{ $car->metaValue('capacityAmount') }}">
-<!--                <input type="text" min="0" name="capacityAmount" class="form-control text-left" id="capacityAmount" value="{{ $car->metaValue('capacityAmount') }}" placeholder="Моторын хэмжээ" data-inputmask="'alias': 'numeric', 'groupSeparator': ',', 'autoGroup': true, 'digits': 0, 'digitsOptional': false">-->
+                <input type="text" min="0" name="capacityAmount" class="form-control text-left" id="capacityAmount" value="{{ $car->metaValue('capacityAmount') }}" placeholder="Моторын хэмжээ" data-inputmask="'alias': 'numeric', 'groupSeparator': ',', 'autoGroup': true, 'digits': 0, 'digitsOptional': false">
                 <input type="hidden" class="form-control" id="capacityUnit" name="capacityUnit" value="Л">
                 <div class="input-group-prepend">
                     <div class="input-group-text-right">Л</div>
@@ -319,25 +336,47 @@
 
     function subType(val) {
         console.log( val)
-        if(val=="Хүнд ММ"){
-            $('#truckSizes' ).removeAttr("hidden")
-            $('#bus' ).attr("hidden", true)
-            $('#special' ).attr("hidden", true)
+        if(val==="Хүнд ММ"){
+            $('#truckSizes' ).removeAttr("hidden");
+            $('#bus' ).attr("hidden", true);
+            $('#special' ).attr("hidden", true);
+            $('#models').attr("hidden", true).removeAttr("required");
+            //$('#models' ).removeAttr("required");
+            $('#manufacturerSelect' ).attr("hidden", true).removeAttr("required");
+            $('#manufacturerSelect1' ).removeAttr("hidden").attr("required");
+            $('#manufacturerSelect2' ).attr("hidden", true).removeAttr("required");
+            $('#manufacturerSelect3' ).attr("hidden", true).removeAttr("required");
         }
-        else if(val=="Автобус"){
-            $('#truckSizes' ).attr("hidden", true)
-            $('#bus' ).removeAttr("hidden")
-            $('#special' ).attr("hidden", true)
+        else if(val==="Автобус"){
+            $('#truckSizes' ).attr("hidden", true);
+            $('#bus' ).removeAttr("hidden");
+            $('#special' ).attr("hidden", true);
+            $('#models' ).attr("hidden", true).removeAttr("required");
+            $('#manufacturerSelect' ).attr("hidden", true).removeAttr("required");
+            $('#manufacturerSelect1' ).attr("hidden", true).removeAttr("required");
+            $('#manufacturerSelect2' ).removeAttr("hidden").attr("required");
+            $('#manufacturerSelect3' ).attr("hidden", true).removeAttr("required");
         }
-        else if(val=="Тусгай ММ"){
-            $('#truckSizes' ).attr("hidden", true)
-            $('#bus' ).attr("hidden", true)
-            $('#special' ).removeAttr("hidden")
+        else if(val==="Тусгай ММ"){
+            $('#truckSizes' ).attr("hidden", true);
+            $('#bus' ).attr("hidden", true);
+            $('#special' ).removeAttr("hidden");
+            $('#models' ).attr("hidden", true).removeAttr("required");
+            $('#manufacturerSelect' ).attr("hidden", true).removeAttr("required");
+            $('#manufacturerSelect1' ).attr("hidden", true.removeAttr("required"));
+            $('#manufacturerSelect2' ).attr("hidden", true).removeAttr("required");
+            $('#manufacturerSelect3' ).removeAttr("hidden").attr("required");
+
         }
         else{
-            $('#truckSizes' ).attr("hidden", true)
-            $('#bus' ).attr("hidden", true)
-            $('#special' ).attr("hidden", true)
+            $('#truckSizes' ).attr("hidden", true);
+            $('#bus' ).attr("hidden", true);
+            $('#special' ).attr("hidden", true);
+            $('#models' ).removeAttr("hidden").attr("required");
+            $('#manufacturerSelect' ).removeAttr("hidden");
+            $('#manufacturerSelect1' ).attr("hidden", true).removeAttr("required");
+            $('#manufacturerSelect2' ).attr("hidden", true).removeAttr("required");
+            $('#manufacturerSelect3' ).attr("hidden", true).removeAttr("required");
         }
     }
 

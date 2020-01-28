@@ -8,9 +8,7 @@ $itemsPerPage = request('itemsPerPage', "10");
 
 @endphp
 
-@section('title')
-
-@endsection
+@section('title', 'Данс')
 
 @section('load')
 

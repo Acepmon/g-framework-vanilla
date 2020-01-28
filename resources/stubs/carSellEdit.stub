@@ -5,9 +5,7 @@
 
 @extends('themes.car-web.layouts.default')
 
-@section('title')
-
-@endsection
+@section('title', 'Засах')
 
 @section('load')
 <script type="text/javascript" src="{{ asset('limitless/bootstrap4/js/plugins/uploaders/dropzone.min.js') }}"></script>

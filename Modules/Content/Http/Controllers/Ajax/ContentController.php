@@ -249,7 +249,11 @@ class ContentController extends Controller
             $content->visibility = $request->input('visibility', Content::VISIBILITY_PUBLIC);
             
             $author = null;
-            $publishType = $content->metaValue('publishType');
+            if ($request->has('publishType')) {
+                $publishType = $request->input('publishType');
+            } else {
+                $publishType = $content->metaValue('publishType');
+            }
             if ($publishType == 'best_premium' || $publishType == 'premium') {
                 $author = $content->author()->first();
                 $publishPricing = $request->input('publishPricing');

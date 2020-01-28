@@ -1,8 +1,6 @@
 @extends('themes.car-web.layouts.mypage')
 
-@section('title')
-
-@endsection
+@section('title', 'Сонирхосон аукцион машинууд')
 
 @section('load')
 

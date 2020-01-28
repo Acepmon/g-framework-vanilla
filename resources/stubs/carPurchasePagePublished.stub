@@ -1,14 +1,14 @@
 @extends('themes.car-web.layouts.mypage')
 
-@section('title')
-
-@endsection
+@section('title', 'Төлбөрийн хүсэлтүүд')
 
 @section('load')
 
 @endsection
 
 @section('content')
+
+@include('themes.car-web.includes.loader')
 <div class="row">
     <div class="card shadow-soft-blue page-top-navbar">
         <div class="mypage-nav">
@@ -81,6 +81,7 @@
                             </div>
                         </div>
                         <div class="sell-action">
+                            <div data-toggle="modal" onclick="transferId({{$published->id}})" data-target="#premiumAd">Сунгах</div>
                             <div onclick="window.open('/edit?id={{$published->id}}');">Засах</div>
                             <div data-toggle="modal" data-target="#deteleCont" onclick="contsId({{$published->id}})">Устгах</div>
                             <div data-toggle="modal" data-target="#markCont" onclick="contsId({{$published->id}})">Зарагдсан</div>
@@ -97,6 +98,26 @@
 @endsection
 
 @push('modals')
+
+@include('themes.car-web.includes.modal-make-premium')
+
+<div class="modal fade" id="carRegSuccess">
+    <div class="modal-dialog  modal-dialog-centered">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header text-center">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body text-center">
+                <div class="maz-modal-title" style="font-size:1.5rem">Sell advertise!</div>
+                <div id="sent-ad" style="width: 300px; display:inline-block"></div>
+                <h5 id="responseText" class="mb-5">Амжилттай бүртгэгдлээ!</h5>
+            </div>
+        </div>
+    </div>
+</div>
 
     <div class="modal fade" id="deteleCont" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -163,6 +184,13 @@
 @section('script')
 
     <script type="text/javascript">
+
+
+
+
+
+
+
 
         function formSubmit(id, value, sortDir, sortDirValue) {
             console.log(id)
