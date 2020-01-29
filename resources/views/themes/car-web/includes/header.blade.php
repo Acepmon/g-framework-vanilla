@@ -1,5 +1,5 @@
 <header class="header-menu">
-<a class="maz-mobile-brand" href="/"><img src="{{asset('car-web/img/logo-light.svg')}}" alt=""></a>
+<a class="maz-mobile-brand" href="/"><img src="{{asset('car-web/img/logo.svg')}}" alt=""></a>
     <div class="maz-burger-menu">
         <span></span>
         <span></span>

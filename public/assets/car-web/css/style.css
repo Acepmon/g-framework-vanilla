@@ -2957,7 +2957,7 @@ body.menu-absolute .header-menu .menu-brand-bg {
   position: relative;
   width: 100%;
   padding: 0;
-  margin-top: 4rem;
+  margin-top: 2rem;
 }
 
 .header-menu.is-mobile .maz-navbar .maz-menu .maz-menu-list .maz-menu-item {
@@ -2983,6 +2983,7 @@ body.menu-absolute .header-menu .menu-brand-bg {
 
 .header-menu.is-mobile .maz-navbar .maz-brand {
   color: #EAEEF1;
+  display: none;
 }
 
 .header-menu.is-mobile .maz-burger-menu {
