@@ -375,7 +375,7 @@ $itsIntCar=false;
                         speModel="bus-sizes"
                     }
                     else if(markName=="Хүнд ММ"){
-                        speModel="truck-sizes"
+                        speModel="truck-size"
                     }
                     else if (markName=="Тусгай ММ"){
                         speModel="special"
