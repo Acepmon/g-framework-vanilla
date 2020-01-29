@@ -2540,6 +2540,7 @@ select {
   align-items: center;
   justify-content: start;
   flex-direction: column;
+  padding: 0 .5rem;
 }
 
 .detail-page .dealer-information .dealer-more .value {
@@ -3453,7 +3454,7 @@ body.menu-absolute .header-menu .menu-brand-bg {
 }
 
 .maz-mobile-brand img {
-  height: 50px;
+  height: 40px;
 }
 
 @media (max-width: 767.98px) {
