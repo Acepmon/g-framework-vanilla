@@ -341,7 +341,7 @@ $itsIntCar=false;
                     var markName=$(this).find(":selected").attr("id");
                     $.ajax({
                         type: 'Get',
-                        url: '/api/v1/taxonomies/car-'+toKebabCase(markName),
+                        url: '/api/v1/taxonomies/car-'+toKebabCase(markName) + '?count=true',
                         // /data: paramObjs
                     }).done(function(data) {
                         console.log("DONE!");
