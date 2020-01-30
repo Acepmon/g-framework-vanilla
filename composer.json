@@ -27,7 +27,8 @@
         "predis/predis": "^1.1",
         "pusher/pusher-php-server": "^4.0",
         "rachidlaasri/laravel-installer": "^4.0",
-        "spatie/laravel-backup": "^6.2"
+        "spatie/laravel-backup": "^6.2",
+        "symfony/console": "4.3.4"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",
