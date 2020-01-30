@@ -11,7 +11,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-lg-6 col-md-12">
                     <div class="title">Ерөнхий</div>
                     <div class="info-list">
                         <ul>
@@ -60,7 +60,7 @@
                         </ul>
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-lg-6 col-md-12">
                     <div class="title">Үзүүлэлт</div>
                     <div class="info-list">
                         <ul>
