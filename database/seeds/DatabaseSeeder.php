@@ -24,10 +24,12 @@ class DatabaseSeeder extends Seeder
 
     private function isModuleEnabled($moduleName) {
         $path = storage_path('app/modules_statuses.json');
-        $json = json_decode(file_get_contents($path), true);
-        foreach ($json as $module => $boolean) {
-            if ($module == $moduleName) {
-                return $boolean;
+        if (file_exists($path)) {
+            $json = json_decode(file_get_contents($path), true);
+            foreach ($json as $module => $boolean) {
+                if ($module == $moduleName) {
+                    return $boolean;
+                }
             }
         }
     }
