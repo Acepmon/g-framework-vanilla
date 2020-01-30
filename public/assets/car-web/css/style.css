@@ -1602,12 +1602,6 @@ select {
   right: 1rem;
 }
 
-@media (max-width: 1199.98px) {
-  .left-bar-title .mh-search-input {
-    top: 20px;
-  }
-}
-
 .left-bar-title .mh-search-input .search {
   position: absolute;
   box-sizing: border-box;
@@ -2540,6 +2534,7 @@ select {
   align-items: center;
   justify-content: start;
   flex-direction: column;
+  padding: 0 .5rem;
 }
 
 .detail-page .dealer-information .dealer-more .value {
@@ -2957,7 +2952,7 @@ body.menu-absolute .header-menu .menu-brand-bg {
   position: relative;
   width: 100%;
   padding: 0;
-  margin-top: 4rem;
+  margin-top: 2rem;
 }
 
 .header-menu.is-mobile .maz-navbar .maz-menu .maz-menu-list .maz-menu-item {
@@ -2983,6 +2978,7 @@ body.menu-absolute .header-menu .menu-brand-bg {
 
 .header-menu.is-mobile .maz-navbar .maz-brand {
   color: #EAEEF1;
+  display: none;
 }
 
 .header-menu.is-mobile .maz-burger-menu {
@@ -3452,7 +3448,7 @@ body.menu-absolute .header-menu .menu-brand-bg {
 }
 
 .maz-mobile-brand img {
-  height: 50px;
+  height: 40px;
 }
 
 @media (max-width: 767.98px) {

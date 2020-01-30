@@ -24,8 +24,8 @@
                                     @if ($content->title)
                                         <h1 class="vehicle-title">{{ $content->title }}</h1>
                                     @endif
-                                    <p class="vehicle-meta text-muted">Үйлдвэрлэсэн он: {{$content->metaValue('buildYear')}} / Орж ирсэн он: {{$content->metaValue('importDate')}}</p>
-                                    <p class="vehicle-meta text-muted">Гүйлт: {{$content->metaValue('mileageAmount', 0)}} {{$content->metaValue('mileageUnit')}} |
+                                    <p class="vehicle-meta">Үйлдвэрлэсэн он: {{$content->metaValue('buildYear')}} / Орж ирсэн он: {{$content->metaValue('importDate')}}</p>
+                                    <p class="vehicle-meta">Гүйлт: {{$content->metaValue('mileageAmount', 0)}} {{$content->metaValue('mileageUnit')}} |
                                         Шатхуун: {{$content->metaValue('fuelType')}} | Хөдөлгүүрийн багтаамж: {{$content->metaValue('capacityAmount')}} {{$content->metaValue('capacityUnit')}}
                                     </p>
 

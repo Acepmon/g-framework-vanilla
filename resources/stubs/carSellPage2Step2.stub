@@ -22,14 +22,14 @@
             ]
             @endphp
             @foreach($imagesList as $index=>$images)
-                <div class="col-sm-2 imgUp ml-4">
-                    {{$images}}
-                    @if($car->metaValue($index)!=null)
+                <div class="col-sm-3 imgUp">
+                <p class="text-muted text-center">{{$images}}</p> 
+                   @if($car->metaValue($index)!=null)
                         <div id="{{$index}}preview" class="imagePreview" style="background-image: url({{$car->metaValue($index)}})"></div>
                         @else
                         <div id="{{$index}}preview" class="imagePreview"></div>
                     @endif
-                    <label class="btn btn-primary">
+                    <label class="btn btn-primary text-center">
                         Сонгох<input id="{{$index}}" name="{{$index}}" type="file" class="uploadFile img" style="width: 0px;height: 0px;overflow: hidden;" accept="image/x-png,image/gif,image/jpeg">
                     </label>
                     @if($car->metaValue($index)!=null)
@@ -73,15 +73,8 @@
         background-size: cover;
         background-repeat:no-repeat;
         display: inline-block;
-        box-shadow:0px -3px 6px 2px rgba(0,0,0,0.2);
     }
-    .btn-primary
-    {
-        display:block;
-        border-radius:0px;
-        box-shadow:0px 4px 6px 2px rgba(0,0,0,0.2);
-        margin-top:-5px;
-    }
+
     .imgUp
     {
         margin-bottom:15px;
@@ -89,8 +82,8 @@
     .del
     {
         position:absolute;
-        top:0px;
-        right:15px;
+        top:15px;
+        right:5px;
         width:30px;
         height:30px;
         text-align:center;
@@ -104,7 +97,6 @@
         border-radius:50%;
         background-color:#4bd7ef;
         color:#fff;
-        box-shadow:0px 0px 2px 1px rgba(0,0,0,0.2);
         text-align:center;
         line-height:30px;
         margin-top:0px;

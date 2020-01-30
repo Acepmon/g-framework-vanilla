@@ -54,10 +54,10 @@
             <div class="container">
 
                 <div class="row">
-                    <div class="col-md-8">
+                    <div class="col-lg-8 col-md-12">
                         @include('themes.car-web.includes.detail-slide-gallery', ['content', $content])
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-lg-4 col-md-12">
                         <div class="row">
                             <div class="col-md-12 mb-2">
                                 @include('themes.car-web.includes.detail-seller', ['user' => $content->author])
