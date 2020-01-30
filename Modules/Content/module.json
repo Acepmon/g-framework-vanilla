@@ -3,7 +3,7 @@
     "alias": "content",
     "description": "",
     "keywords": [],
-    "order": 9999,
+    "order": 2,
     "providers": [
         "Modules\\Content\\Providers\\ContentServiceProvider"
     ],

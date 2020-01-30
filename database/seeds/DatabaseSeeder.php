@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Nwidart\Modules\Facades\Module;
 
 class DatabaseSeeder extends Seeder
 {
@@ -11,14 +12,23 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // Run System Module Seeder
-        if (env('SEED_SYSTEM_MODULE', true)) {
-            $this->call(Modules\System\Database\Seeders\SystemDatabaseSeeder::class);
-        }
+        foreach (Module::getOrdered() as $module) {
+            $name = $module->getName();
+            $path = 'Modules\\'.$name.'\Database\Seeders\\'.$name.'DatabaseSeeder';
 
-        // Run Content Module Seeder
-        if (env('SEED_CONTENT_MODULE', true)) {
-            $this->call(Modules\Content\Database\Seeders\ContentDatabaseSeeder::class);
+            if ($this->isModuleEnabled($name)) {
+                $this->call($path);
+            }
+        }
+    }
+
+    private function isModuleEnabled($moduleName) {
+        $path = storage_path('app/modules_statuses.json');
+        $json = json_decode(file_get_contents($path), true);
+        foreach ($json as $module => $boolean) {
+            if ($module == $moduleName) {
+                return $boolean;
+            }
         }
     }
 }

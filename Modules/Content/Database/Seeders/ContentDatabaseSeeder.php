@@ -18,7 +18,8 @@ class ContentDatabaseSeeder extends Seeder
 
         $this->call(MenusTableSeeder::class);
         $this->call(GroupMenuTableSeeder::class);
-        $this->call(GroupPermissionTableSeeder::class);
+
         $this->call(ContentsTableSeeder::class);
+        $this->call(TermTaxonomyTableSeeder::class);
     }
 }

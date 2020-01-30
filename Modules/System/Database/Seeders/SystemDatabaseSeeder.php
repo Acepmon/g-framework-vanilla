@@ -19,10 +19,10 @@ class SystemDatabaseSeeder extends Seeder
         $this->call(PermissionsTableSeeder::class);
         $this->call(GroupsTableSeeder::class);
         $this->call(UsersTableSeeder::class);
+        $this->call(GroupPermissionTableSeeder::class);
 
         $this->call(UserPermissionTableSeeder::class);
         $this->call(UserGroupTableSeeder::class);
-        $this->call(TermTaxonomyTableSeeder::class);
         $this->call(ThemesTableSeeder::class);
     }
 }
