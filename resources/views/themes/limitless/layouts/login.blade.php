@@ -34,7 +34,7 @@
 
 	<style>
 		.login-covers {
-			background: url('{{ url(asset('images/login-covers/' . collect(File::files(public_path(asset('images/login-covers'))))->shuffle()->first()->getFilename())) }}') no-repeat;
+			background: url('{{ unsplash_random() }}') no-repeat;
     		background-size: cover;
 		}
 	</style>

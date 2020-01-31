@@ -241,6 +241,11 @@ return [
         'LogReader' => Jackiedo\LogReader\Facades\LogReader::class,
         // Image Intervention
         'Image' => Intervention\Image\Facades\Image::class,
+
+        'UnsplashSearch' => shweshi\LaravelUnsplashWrapper\Facades\UnsplashSearchFacade::class,
+        'UnsplashUsers' => shweshi\LaravelUnsplashWrapper\Facades\UnsplashUsersFacade::class,
+        'UnsplashPhotos' => shweshi\LaravelUnsplashWrapper\Facades\UnsplashPhotosFacade::class,
+        'UnsplashCollections' => shweshi\LaravelUnsplashWrapper\Facades\UnsplashCollectionsFacade::class,
     ],
 
     /*

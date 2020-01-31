@@ -147,3 +147,13 @@ function format_phone($phone) {
     // a more robust ways would be to use a regular expression
     return "(".substr($phone, 0, 3).") ".substr($phone, 3, 4)." ".substr($phone, 7);
 }
+
+function unsplash_random() {
+    $randPage = rand(1, 10);
+    $single = \UnsplashCollections::photos(402, ['page' => $randPage]);
+    $single = json_decode($single);
+    $single = collect($single->preview_photos);
+    $single = $single->random();
+
+    return $single->urls->regular;
+}
