@@ -4,7 +4,7 @@ namespace Modules\System\Entities;
 
 use Auth;
 use Str;
-use App\Menu;
+use Modules\System\Entities\Menu;
 use Modules\System\Entities\Group;
 use Modules\System\Entities\UserMeta;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -65,7 +65,7 @@ class User extends Authenticatable implements CanResetPassword
 
     public function permissions()
     {
-        return $this->belongsToMany('App\Permission', 'user_permission')->withPivot('is_granted');
+        return $this->belongsToMany('Modules\System\Entities\Permission', 'user_permission')->withPivot('is_granted');
     }
 
     public function comments()

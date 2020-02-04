@@ -75,12 +75,12 @@
                                     @enderror
                                 </div>
                             </div>
-                                
+
                             <div class="form-group row">
                                 <label for="type" class="col-form-label col-lg-2">Type</label>
                                 <div class="col-lg-10">
                                     <select id="type" name="type" required="required" class="form-control text-capitalize">
-                                        @foreach(App\Permission::TYPE_ARRAY as $value)
+                                        @foreach(Modules\System\Entities\Permission::TYPE_ARRAY as $value)
                                         <option value="{{ $value }}" {{ ($value === $permission->type)?'selected':'' }}>{{ $value }}</option>
                                         @endforeach
                                     </select>

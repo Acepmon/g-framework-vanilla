@@ -15,7 +15,7 @@
                     <div class="premium-tag shadow-soft-blue"><img src="{{ asset('car-web/img/icons/corona.svg') }}" alt=""></div>
                     @endif
                     <div class="card-img">
-                        <img src="{{ (substr($car->metaValue('thumbnail'), 0, 4) !== 'http')?(App\Config::getStorage() . $car->metaValue('thumbnail')):$car->metaValue('thumbnail') }}" class="img-fluid" alt="alt">
+                        <img src="{{ (substr($car->metaValue('thumbnail'), 0, 4) !== 'http')?(Modules\System\Entities\Config::getStorage() . $car->metaValue('thumbnail')):$car->metaValue('thumbnail') }}" class="img-fluid" alt="alt">
 
                         <div class="card-caption">
                             <div class="meta">{{ $car->metaValue('mileageAmount') }} {{ $car->metaValue('mileageUnit') }} | {{ ucfirst($car->metaValue('fuelType')) }} | {{ $car->metaValue('capacityAmount') }} {{ $car->metaValue('capacityUnit') }}</div>
@@ -79,7 +79,7 @@ function addToInterestFromSlider(event, value) {
     // target.innerHTML = 'Loading';
 
     $.ajax({
-      url: '/ajax/user/interested_cars', 
+      url: '/ajax/user/interested_cars',
       dataType: 'json',
       method: 'PUT',
       data: {

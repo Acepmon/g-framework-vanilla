@@ -1,9 +1,9 @@
 <?php
 
-namespace App;
+namespace Modules\System\Entities;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Config;
+use Modules\System\Entities\Config;
 use File;
 
 class Theme extends Model

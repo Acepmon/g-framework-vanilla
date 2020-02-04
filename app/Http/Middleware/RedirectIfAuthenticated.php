@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use Modules\System\Entities\User;
 use Modules\System\Entities\Group;
-use App\Config;
+use Modules\System\Entities\Config;
 use Closure;
 use Illuminate\Support\Facades\Auth;
 

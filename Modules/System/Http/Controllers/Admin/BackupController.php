@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Validator;
 use Spatie\Backup\BackupDestination\BackupDestination;
 
 use Storage;
-use App\Backup;
+use Modules\System\Entities\Backup;
 use DB;
 
 class BackupController extends Controller

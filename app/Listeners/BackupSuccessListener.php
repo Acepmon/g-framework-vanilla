@@ -5,7 +5,7 @@ namespace App\Listeners;
 use \Spatie\Backup\Events\BackupWasSuccessful;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use App\Backup;
+use Modules\System\Entities\Backup;
 
 class BackupSuccessListener
 {

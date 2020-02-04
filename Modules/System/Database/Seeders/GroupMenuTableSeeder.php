@@ -6,7 +6,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 
 use Modules\System\Entities\Group;
-use App\Menu;
+use Modules\System\Entities\Menu;
 
 class GroupMenuTableSeeder extends Seeder
 {

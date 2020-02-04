@@ -30,7 +30,7 @@
             <a href="#" class="breadcrumb-elements-item"><i class="icon-comment-discussion mr-2"></i>Link</a>
             <div class="breadcrumb-elements-item dropdown p-0">
                 <a href="#" class="breadcrumb-elements-item dropdown-toggle" data-toggle="dropdown" aria-expanded="true"><i class="icon-gear mr-2"></i>Dropdown</a>
-                <div class="dropdown-menu dropdown-menu-right" x-placement="bottom-end" 
+                <div class="dropdown-menu dropdown-menu-right" x-placement="bottom-end"
                     style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(-84px, 40px, 0px);">
                     <a href="#" class="dropdown-item"><i class="icon-user-lock"></i> Account security</a>
                     <a href="#" class="dropdown-item"><i class="icon-statistics"></i> Analytics</a>
@@ -80,7 +80,7 @@
                         <label for="type" class="col-form-label col-lg-2">Type</label>
                         <div class="col-lg-10">
                             <select id="type" name="type" required="required" class="form-control text-capitalize">
-                                @foreach(App\Permission::TYPE_ARRAY as $value)
+                                @foreach(Modules\System\Entities\Permission::TYPE_ARRAY as $value)
                                 <option value="{{ $value }}">{{ $value }}</option>
                                 @endforeach
                             </select>

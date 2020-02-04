@@ -35,7 +35,7 @@
                         <label class="control-label col-lg-2">Type</label>
                         <div class="col-lg-10">
                             <select id="type" name="type" type="text" value="{{ $menu->type }}" required class="form-control">
-                                @foreach(App\Menu::TYPE_ARRAY as $value)
+                                @foreach(Modules\System\Entities\Menu::TYPE_ARRAY as $value)
                                 <option value="{{ $value }}">{{ $value }}</option>
                                 @endforeach
                             </select>

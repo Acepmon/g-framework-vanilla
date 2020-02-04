@@ -7,7 +7,7 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Validator;
 
-use App\Permission;
+use Modules\System\Entities\Permission;
 use Modules\System\Entities\User;
 
 class PermissionController extends Controller

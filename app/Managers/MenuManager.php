@@ -3,7 +3,7 @@
 namespace App\Managers;
 
 use Illuminate\Support\Arr;
-use App\Menu;
+use Modules\System\Entities\Menu;
 use Modules\System\Entities\Group;
 
 class MenuManager extends Manager

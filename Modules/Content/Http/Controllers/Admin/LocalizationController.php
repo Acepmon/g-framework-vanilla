@@ -8,7 +8,7 @@ use Illuminate\Routing\Controller;
 
 use File;
 use Str;
-use App\Locale;
+use Modules\System\Entities\Locale;
 
 class LocalizationController extends Controller
 {

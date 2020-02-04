@@ -52,7 +52,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-4 col-lg-3">
-                        
+
                         <div class="card shadow-soft-blue my-page-left">
                             <div class="card-body">
                                 @include('themes.car-web.includes.profile')
@@ -63,7 +63,7 @@
                                         <a href="{{ route('admin.dashboard') }}">Admin Panel</a>
                                     </li>
                                 @endif
-                                @foreach (\App\Menu::where('title', 'Car Profile Dropdown')->first()->children as $menu)
+                                @foreach (\Modules\System\Entities\Menu::where('title', 'Car Profile Dropdown')->first()->children as $menu)
                                     <li class="list-group-item {{ (Request::is(\Str::startsWith($menu->link, '/') ? substr($menu->link, 1) : $menu->link) ||
                                         (Request::is('sell-page-*') && \Str::startsWith($menu->link, '/sell-page-')) ||
                                         (Request::is('purchase-page-*') && \Str::startsWith($menu->link, '/purchase-page-'))

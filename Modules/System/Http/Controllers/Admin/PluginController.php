@@ -8,7 +8,7 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
-use App\Plugin;
+use Modules\System\Entities\Plugin;
 
 class PluginController extends Controller
 {

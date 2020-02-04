@@ -8,7 +8,7 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
-use App\Theme;
+use Modules\System\Entities\Theme;
 use File;
 
 use GuzzleHttp\Client;

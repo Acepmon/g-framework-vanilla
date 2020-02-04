@@ -17,8 +17,8 @@ use Storage;
 use Modules\Content\Entities\Content;
 use Modules\Content\Entities\ContentMeta;
 use Modules\System\Entities\User;
-use App\Config;
-use App\Theme;
+use Modules\System\Entities\Config;
+use Modules\System\Entities\Theme;
 
 class ContentController extends Controller
 {

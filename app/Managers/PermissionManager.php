@@ -2,7 +2,7 @@
 
 namespace App\Managers;
 
-use App\Permission;
+use Modules\System\Entities\Permission;
 use Modules\System\Entities\Group;
 use Modules\System\Entities\User;
 

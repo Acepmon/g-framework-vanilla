@@ -6,7 +6,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Schema;
 
-use App\Permission;
+use Modules\System\Entities\Permission;
 use App\Managers\PermissionManager;
 
 class UserPermissionTableSeeder extends Seeder

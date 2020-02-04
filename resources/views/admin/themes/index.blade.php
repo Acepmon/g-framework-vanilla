@@ -32,7 +32,7 @@
             <a href="#" class="breadcrumb-elements-item"><i class="icon-comment-discussion mr-2"></i>Link</a>
             <div class="breadcrumb-elements-item dropdown p-0">
                 <a href="#" class="breadcrumb-elements-item dropdown-toggle" data-toggle="dropdown" aria-expanded="true"><i class="icon-gear mr-2"></i>Dropdown</a>
-                <div class="dropdown-menu dropdown-menu-right" x-placement="bottom-end" 
+                <div class="dropdown-menu dropdown-menu-right" x-placement="bottom-end"
                     style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(-84px, 40px, 0px);">
                     <a href="#" class="dropdown-item"><i class="icon-user-lock"></i> Account security</a>
                     <a href="#" class="dropdown-item"><i class="icon-statistics"></i> Analytics</a>
@@ -81,13 +81,13 @@
                         {{ $theme->description }}
                     </p>
 
-                    @if($theme->status == \App\Theme::AVAILABLE)
+                    @if($theme->status == \Modules\System\Entities\Theme::AVAILABLE)
                         <button type="button" data-target="{{ $theme->id  }}" data-loading-text="<i class='icon-spinner4 spinner'></i> Downloading..." class="btn btn-light theme-install">Install</button>
-                    @elseif($theme->status == \App\Theme::DEACTIVATED)
+                    @elseif($theme->status == \Modules\System\Entities\Theme::DEACTIVATED)
                         <button type="button" data-target="{{ $theme->id  }}" class="btn btn-success theme-activate">Activate</button>
-                    @elseif($theme->status == \App\Theme::ACTIVATED)
+                    @elseif($theme->status == \Modules\System\Entities\Theme::ACTIVATED)
                         <button type="button" data-target="{{ $theme->id  }}" class="btn btn-danger theme-deactivate">Deactivate</button>
-                    @elseif($theme->status == \App\Theme::INSTALLED)
+                    @elseif($theme->status == \Modules\System\Entities\Theme::INSTALLED)
                         <a href="{{ route('admin.themes.edit', $theme->id) }}" class="btn btn-light theme-customize">Customize</a>
                     @else
                         <button data-target="{{ $theme->id  }}" data-loading-text="<i class='icon-spinner4 spinner'></i> Downloading..." disabled class="btn btn-light theme-install">Install</button>

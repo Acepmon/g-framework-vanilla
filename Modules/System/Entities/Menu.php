@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace Modules\System\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Kodeine\Metable\Metable;
@@ -20,12 +20,12 @@ class Menu extends Model
 
     public function parent()
     {
-        return $this->hasOne('App\Menu', 'id', 'parent_id');
+        return $this->hasOne('Modules\System\Entities\Menu', 'id', 'parent_id');
     }
 
     public function children()
     {
-        return $this->hasMany('App\Menu', 'parent_id', 'id');
+        return $this->hasMany('Modules\System\Entities\Menu', 'parent_id', 'id');
     }
 
     public function groups()

@@ -7,9 +7,9 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 
 use Modules\System\Entities\Group;
-use App\Menu;
+use Modules\System\Entities\Menu;
 use Modules\System\Entities\User;
-use App\Permission;
+use Modules\System\Entities\Permission;
 
 class GroupController extends Controller
 {

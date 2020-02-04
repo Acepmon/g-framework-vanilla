@@ -10,7 +10,7 @@ use App;
 use Storage;
 use Artisan;
 use Notification;
-// use App\Config;
+// use Modules\System\Entities\Config;
 use App\Notifications\MaintenanceModeEnabled;
 use App\Notifications\MaintenanceModeDisabled;
 

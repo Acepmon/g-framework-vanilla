@@ -53,7 +53,7 @@ class Group extends Model
 
     public function menus()
     {
-        return $this->belongsToMany('App\Menu', 'group_menu');
+        return $this->belongsToMany('Modules\System\Entities\Menu', 'group_menu');
     }
 
     public function users()
@@ -63,7 +63,7 @@ class Group extends Model
 
     public function permissions()
     {
-        return $this->belongsToMany('App\Permission', 'group_permission')->withPivot('is_granted');
+        return $this->belongsToMany('Modules\System\Entities\Permission', 'group_permission')->withPivot('is_granted');
     }
 
     public function parent()

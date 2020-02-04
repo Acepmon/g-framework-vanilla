@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Auth;
 use Auth;
 use Modules\System\Entities\User;
 use Modules\System\Entities\Group;
-use App\Config;
+use Modules\System\Entities\Config;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 

@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Validator;
 use phpDocumentor\Reflection\DocBlock\Tags\Uses;
 
 use Route;
-use App\Menu;
+use Modules\System\Entities\Menu;
 use Modules\Content\Entities\Content;
 
 class MenuController extends Controller

@@ -6,7 +6,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 
 use DB;
-use App\Theme;
+use Modules\System\Entities\Theme;
 
 class ThemesTableSeeder extends Seeder
 {

@@ -58,7 +58,7 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <select name="key_module" id="key_module" class="form-control text-capitalize" required>
-                                    @foreach (\App\Config::MODULE_ARRAY as $module)
+                                    @foreach (\Modules\System\Entities\Config::MODULE_ARRAY as $module)
                                         <option value="{{$module}}">{{$module}}</option>
                                     @endforeach
                                 </select>
