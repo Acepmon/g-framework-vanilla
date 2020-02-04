@@ -84,7 +84,7 @@ class Content extends Model
 
     public function author()
     {
-        return $this->hasOne('App\User', 'id', 'author_id');
+        return $this->hasOne('Modules\System\Entities\User', 'id', 'author_id');
     }
 
     public function medias()

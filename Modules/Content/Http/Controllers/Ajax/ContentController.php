@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Storage;
 use Modules\Content\Entities\Content;
 use Modules\Content\Entities\ContentMeta;
 use Modules\System\Entities\Group;
-use App\User;
+use Modules\System\Entities\User;
 use Modules\Content\Entities\Term;
 use App\Managers\ContentManager;
 use App\Managers\MediaManager;

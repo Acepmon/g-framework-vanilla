@@ -10,7 +10,7 @@ use Modules\System\Transformers\UserCommentCollection;
 use Modules\System\Transformers\UserContentCollection;
 
 use App\Managers\ContentManager;
-use App\UserMeta;
+use Modules\System\Entities\UserMeta;
 
 /*
 |--------------------------------------------------------------------------

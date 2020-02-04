@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 use Modules\Content\Entities\Content;
 use Modules\Content\Entities\ContentMeta;
-use App\User;
+use Modules\System\Entities\User;
 
 class ContentsTableSeeder extends Seeder
 {

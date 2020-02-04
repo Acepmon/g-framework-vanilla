@@ -58,7 +58,7 @@ class Group extends Model
 
     public function users()
     {
-        return $this->belongsToMany('App\User', 'user_group');
+        return $this->belongsToMany('Modules\System\Entities\User', 'user_group');
     }
 
     public function permissions()

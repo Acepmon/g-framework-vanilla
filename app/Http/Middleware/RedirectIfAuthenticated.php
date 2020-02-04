@@ -2,7 +2,7 @@
 
 namespace App\Http\Middleware;
 
-use App\User;
+use Modules\System\Entities\User;
 use Modules\System\Entities\Group;
 use App\Config;
 use Closure;

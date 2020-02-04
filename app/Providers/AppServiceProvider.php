@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Blade;
 use Modules\Content\Entities\Content;
 use Modules\Content\Entities\ContentMeta;
-use App\UserMeta;
+use Modules\System\Entities\UserMeta;
 use App\Observers\ContentObserver;
 use App\Observers\ContentMetaObserver;
 use App\Observers\UserMetaObserver;

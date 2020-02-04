@@ -8,7 +8,7 @@ use Illuminate\Routing\Controller;
 
 use Route;
 use App\Permission;
-use App\User;
+use Modules\System\Entities\User;
 
 class UserPermissionController extends Controller
 {

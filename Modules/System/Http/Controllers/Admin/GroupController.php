@@ -8,7 +8,7 @@ use Illuminate\Routing\Controller;
 
 use Modules\System\Entities\Group;
 use App\Menu;
-use App\User;
+use Modules\System\Entities\User;
 use App\Permission;
 
 class GroupController extends Controller

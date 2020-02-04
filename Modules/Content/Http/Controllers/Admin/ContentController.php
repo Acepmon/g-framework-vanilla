@@ -16,7 +16,7 @@ use Auth;
 use Storage;
 use Modules\Content\Entities\Content;
 use Modules\Content\Entities\ContentMeta;
-use App\User;
+use Modules\System\Entities\User;
 use App\Config;
 use App\Theme;
 

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use Auth;
-use App\User;
+use Modules\System\Entities\User;
 use Modules\System\Entities\Group;
 use App\Config;
 use App\Http\Controllers\Controller;

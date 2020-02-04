@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 
-use App\User;
+use Modules\System\Entities\User;
 
 class UserGroupController extends Controller
 {
@@ -44,7 +44,7 @@ class UserGroupController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\User  $user
+     * @param  \Modules\System\Entities\User  $user
      * @return \Illuminate\Http\Response
      */
     public function show(User $user)
@@ -55,7 +55,7 @@ class UserGroupController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\User  $user
+     * @param  \Modules\System\Entities\User  $user
      * @return \Illuminate\Http\Response
      */
     public function edit(User $user)
@@ -67,7 +67,7 @@ class UserGroupController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\User  $user
+     * @param  \Modules\System\Entities\User  $user
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, User $user)
@@ -78,7 +78,7 @@ class UserGroupController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\User  $user
+     * @param  \Modules\System\Entities\User  $user
      * @return \Illuminate\Http\Response
      */
     public function destroy(User $user)

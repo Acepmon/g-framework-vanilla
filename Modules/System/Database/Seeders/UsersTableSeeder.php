@@ -8,7 +8,7 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Hash;
 
-use App\User;
+use Modules\System\Entities\User;
 
 class UsersTableSeeder extends Seeder
 {

@@ -1,12 +1,12 @@
 <?php
 
-namespace App;
+namespace Modules\System\Entities;
 
 use Auth;
 use Str;
 use App\Menu;
 use Modules\System\Entities\Group;
-use App\UserMeta;
+use Modules\System\Entities\UserMeta;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\CanResetPassword;
@@ -114,7 +114,7 @@ class User extends Authenticatable implements CanResetPassword
 
     public function metas()
     {
-        return $this->hasMany('App\UserMeta');
+        return $this->hasMany('Modules\System\Entities\UserMeta');
     }
 
     public function metaValue($key, $value = Null) {

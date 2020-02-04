@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Input;
 
 use Route;
 use Modules\Content\Entities\Content;
-use App\User;
+use Modules\System\Entities\User;
 
 class UserContentController extends Controller
 {

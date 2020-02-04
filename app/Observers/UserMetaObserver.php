@@ -4,8 +4,8 @@ namespace App\Observers;
 
 use Modules\Content\Entities\Content;
 use Modules\Content\Entities\ContentMeta;
-use App\User;
-use App\UserMeta;
+use Modules\System\Entities\User;
+use Modules\System\Entities\UserMeta;
 
 class UserMetaObserver
 {

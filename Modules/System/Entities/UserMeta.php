@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace Modules\System\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -15,6 +15,6 @@ class UserMeta extends Model
 
     public function user()
     {
-        return $this->belongsTo('App\User', 'user_id');
+        return $this->belongsTo('Modules\System\Entities\User', 'user_id');
     }
 }

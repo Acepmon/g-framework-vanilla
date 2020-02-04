@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 
-use App\User;
+use Modules\System\Entities\User;
 use Modules\Content\Entities\Content;
 use App\Managers\MediaManager;
 

@@ -7,7 +7,7 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 
 use Storage;
-use App\User;
+use Modules\System\Entities\User;
 use Modules\Content\Entities\Content;
 
 class MediaController extends Controller

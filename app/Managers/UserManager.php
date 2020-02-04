@@ -2,7 +2,7 @@
 
 namespace App\Managers;
 
-use App\User;
+use Modules\System\Entities\User;
 
 class UserManager extends Manager
 {

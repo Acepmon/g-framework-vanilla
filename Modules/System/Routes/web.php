@@ -22,7 +22,7 @@ Route::prefix('ajax')->group(function () {
 
         Route::get('user_exists', function (Request $request) {
             return response()->json([
-                'status' => \App\User::where('email', $request->input('email'))->count() > 0 ? true : false
+                'status' => \Modules\System\Entities\User::where('email', $request->input('email'))->count() > 0 ? true : false
             ]);
         });
 

@@ -7,7 +7,7 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 
 use Route;
-use App\User;
+use Modules\System\Entities\User;
 use App\Setting;
 
 class UserSettingController extends Controller

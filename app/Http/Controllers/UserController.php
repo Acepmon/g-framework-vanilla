@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
+use Modules\System\Entities\User;
 use Modules\System\Entities\Group;
 use Modules\System\Entities\GroupMeta;
 use Auth;

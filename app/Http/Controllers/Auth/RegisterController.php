@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Auth;
 
 use Auth;
-use App\User;
-use App\UserMeta;
+use Modules\System\Entities\User;
+use Modules\System\Entities\UserMeta;
 use Modules\System\Entities\Group;
 use App\Config;
 use App\Http\Controllers\Controller;
@@ -72,7 +72,7 @@ class RegisterController extends Controller
      * Create a new user instance after a valid registration.
      *
      * @param  array  $data
-     * @return \App\User
+     * @return \Modules\System\Entities\User
      */
     protected function create(array $data)
     {
