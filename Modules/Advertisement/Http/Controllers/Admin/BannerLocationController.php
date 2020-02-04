@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\System\Http\Controllers\Admin;
+namespace Modules\Advertisement\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;

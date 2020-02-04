@@ -69,16 +69,6 @@ Route::middleware(['auth', 'admin'])->group(function () {
                 Route::delete('{log}', 'LogController@delete')->name('admin.logs.delete');
             });
 
-            Route::prefix('media')->group(function () {
-                Route::get('/', 'MediaController@index')->name('admin.media.index');
-                Route::get('medias', 'MediaController@medias')->name('admin.media.medias');
-                Route::get('avatars', 'MediaController@avatars')->name('admin.media.avatars');
-                Route::delete('delete', 'MediaController@delete')->name('admin.media.delete');
-                Route::get('thumbnails', 'MediaController@thumbnails')->name('admin.media.thumbnails');
-                Route::get('assets', 'MediaController@assets')->name('admin.media.assets');
-                Route::get('upload', 'MediaController@upload')->name('admin.media.upload');
-            });
-
             Route::prefix('menus')->group(function () {
                 Route::get('tree', 'MenuController@tree')->name('admin.menus.tree');
                 Route::put('tree', 'MenuController@updateTree')->name('admin.menus.tree.update');
@@ -180,91 +170,6 @@ Route::middleware(['auth', 'admin'])->group(function () {
                 Route::get('{group}/edit', 'GroupController@edit')->name('admin.groups.edit');
                 Route::put('{group}', 'GroupController@update')->name('admin.groups.update');
                 Route::delete('{group}', 'GroupController@destroy')->name('admin.groups.destroy');
-            });
-
-            Route::prefix('contents')->group(function () {
-                Route::get('{content}/revisions/{revision}/revert', 'ContentController@revert')->name('admin.contents.revisions.revert');
-                Route::get('{content}/revisions/{revision}', 'ContentController@viewRevision')->name('admin.contents.revisions.show');
-                Route::put('{content}/revisions', 'ContentController@updateRevision')->name('admin.contents.revisions.update');
-
-                Route::get('{content}/metas', 'ContentMetaController@index')->name('admin.contents.metas.index');
-                Route::get('{content}/metas/create', 'ContentMetaController@create')->name('admin.contents.metas.create');
-                Route::post('{content}/metas', 'ContentMetaController@store')->name('admin.contents.metas.store');
-                Route::get('{content}/metas/{meta}/edit', 'ContentMetaController@edit')->name('admin.contents.metas.edit');
-                Route::put('{content}/metas/{meta}', 'ContentMetaController@update')->name('admin.contents.metas.update');
-                Route::delete('{content}/metas/{meta}', 'ContentMetaController@destroy')->name('admin.contents.metas.destroy');
-
-                Route::get('', 'ContentController@index')->name('admin.contents.index');
-                Route::get('create', 'ContentController@create')->name('admin.contents.create');
-                Route::post('', 'ContentController@store')->name('admin.contents.store');
-                Route::get('{content}', 'ContentController@show')->name('admin.contents.show');
-                Route::get('{content}/edit', 'ContentController@edit')->name('admin.contents.edit');
-                Route::put('{content}', 'ContentController@update')->name('admin.contents.update');
-                Route::delete('{content}', 'ContentController@destroy')->name('admin.contents.destroy');
-            });
-
-            Route::prefix('banners')->group(function () {
-                Route::prefix('locations')->group(function () {
-                    Route::get('', 'BannerLocationController@index')->name('admin.banners.locations.index');
-                    Route::get('create', 'BannerLocationController@create')->name('admin.banners.locations.create');
-                    Route::post('', 'BannerLocationController@store')->name('admin.banners.locations.store');
-                    Route::get('{location}', 'BannerLocationController@show')->name('admin.banners.locations.show');
-                    Route::get('{location}/edit', 'BannerLocationController@edit')->name('admin.banners.locations.edit');
-                    Route::put('{location}', 'BannerLocationController@update')->name('admin.banners.locations.update');
-                    Route::delete('{location}', 'BannerLocationController@destroy')->name('admin.banners.locations.destroy');
-                });
-
-                Route::get('', 'BannerController@index')->name('admin.banners.index');
-                Route::get('create', 'BannerController@create')->name('admin.banners.create');
-                Route::post('', 'BannerController@store')->name('admin.banners.store');
-                Route::get('{banner}', 'BannerController@show')->name('admin.banners.show');
-                Route::get('{banner}/edit', 'BannerController@edit')->name('admin.banners.edit');
-                Route::put('{banner}', 'BannerController@update')->name('admin.banners.update');
-                Route::delete('{banner}', 'BannerController@destroy')->name('admin.banners.destroy');
-            });
-
-            Route::prefix('comments')->group(function () {
-                Route::get('{comment}/metas', 'CommentMetaController@index')->name('admin.comments.metas.index');
-                Route::get('{comment}/metas/create', 'CommentMetaController@create')->name('admin.comments.metas.create');
-                Route::post('{comment}/metas', 'CommentMetaController@store')->name('admin.comments.metas.store');
-                Route::get('{comment}/metas/{meta}/edit', 'CommentMetaController@edit')->name('admin.comments.metas.edit');
-                Route::put('{comment}/metas/{meta}', 'CommentMetaController@update')->name('admin.comments.metas.update');
-                Route::delete('{comment}/metas/{meta}', 'CommentMetaController@destroy')->name('admin.comments.metas.destroy');
-
-                Route::get('', 'CommentController@index')->name('admin.comments.index');
-                Route::get('create', 'CommentController@create')->name('admin.comments.create');
-                Route::post('', 'CommentController@store')->name('admin.comments.store');
-                Route::get('{comment}', 'CommentController@show')->name('admin.comments.show');
-                Route::get('{comment}/edit', 'CommentController@edit')->name('admin.comments.edit');
-                Route::put('{comment}', 'CommentController@update')->name('admin.comments.update');
-                Route::delete('{comment}', 'CommentController@destroy')->name('admin.comments.destroy');
-            });
-
-            Route::prefix('taxonomy')->group(function () {
-                Route::get('{taxonomy}/metas', 'TermMetaController@index')->name('admin.taxonomy.metas.index');
-                Route::get('{taxonomy}/metas/create', 'TermMetaController@create')->name('admin.taxonomy.metas.create');
-                Route::post('{taxonomy}/metas', 'TermMetaController@store')->name('admin.taxonomy.metas.store');
-                Route::get('{taxonomy}/metas/{meta}/edit', 'TermMetaController@edit')->name('admin.taxonomy.metas.edit');
-                Route::put('{taxonomy}/metas/{meta}', 'TermMetaController@update')->name('admin.taxonomy.metas.update');
-                Route::delete('{taxonomy}/metas/{meta}', 'TermMetaController@destroy')->name('admin.taxonomy.metas.destroy');
-
-                Route::get('', 'TaxonomyController@index')->name('admin.taxonomy.index');
-                Route::get('create', 'TaxonomyController@create')->name('admin.taxonomy.create');
-                Route::post('', 'TaxonomyController@store')->name('admin.taxonomy.store');
-                Route::get('{taxonomy}', 'TaxonomyController@show')->name('admin.taxonomy.show');
-                Route::get('{taxonomy}/edit', 'TaxonomyController@edit')->name('admin.taxonomy.edit');
-                Route::put('{taxonomy}', 'TaxonomyController@update')->name('admin.taxonomy.update');
-                Route::delete('{taxonomy}', 'TaxonomyController@destroy')->name('admin.taxonomy.destroy');
-            });
-
-            Route::prefix('localizations')->group(function () {
-                Route::get('', 'LocalizationController@index')->name('admin.localizations.index');
-                Route::get('create', 'LocalizationController@create')->name('admin.localizations.create');
-                Route::post('', 'LocalizationController@store')->name('admin.localizations.store');
-                Route::get('{localization}', 'LocalizationController@show')->name('admin.localizations.show');
-                Route::get('{localization}/edit', 'LocalizationController@edit')->name('admin.localizations.edit');
-                Route::put('{localization}', 'LocalizationController@update')->name('admin.localizations.update');
-                Route::delete('{localization}', 'LocalizationController@destroy')->name('admin.localizations.destroy');
             });
 
         });

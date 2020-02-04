@@ -3,7 +3,7 @@
     "alias": "advertisement",
     "description": "",
     "keywords": [],
-    "order": 3,
+    "order": 2,
     "providers": [
         "Modules\\Advertisement\\Providers\\AdvertisementServiceProvider"
     ],
