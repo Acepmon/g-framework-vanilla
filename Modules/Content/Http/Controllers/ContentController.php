@@ -3,7 +3,7 @@
 namespace Modules\Content\Http\Controllers;
 
 use Auth;
-use App\Content;
+use Modules\Content\Entities\Content;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;

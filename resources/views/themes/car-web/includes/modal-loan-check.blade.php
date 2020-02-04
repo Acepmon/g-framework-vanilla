@@ -19,9 +19,9 @@
                     </div>
                     <input type="hidden" name="title" value="Loan Check">
                     <input type="hidden" name="slug" value="{{ \Str::uuid() }}">
-                    <input type="hidden" name="type" value="{{ \App\Content::TYPE_LOAN_CHECK }}">
-                    <input type="hidden" name="status" value="{{ \App\Content::STATUS_DRAFT }}">
-                    <input type="hidden" name="visibility" value="{{ \App\Content::VISIBILITY_PUBLIC }}">
+                    <input type="hidden" name="type" value="{{ \Modules\Content\Entities\Content::TYPE_LOAN_CHECK }}">
+                    <input type="hidden" name="status" value="{{ \Modules\Content\Entities\Content::STATUS_DRAFT }}">
+                    <input type="hidden" name="visibility" value="{{ \Modules\Content\Entities\Content::VISIBILITY_PUBLIC }}">
                     @auth
                     <input type="hidden" name="author_id" value="{{ \Auth::user()->id }}">
                     @endauth

@@ -2,8 +2,8 @@
 
 namespace App\Observers;
 
-use App\Content;
-use App\ContentMeta;
+use Modules\Content\Entities\Content;
+use Modules\Content\Entities\ContentMeta;
 use App\User;
 use App\UserMeta;
 

@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 
-use App\Content;
+use Modules\Content\Entities\Content;
 use Auth;
 
 class PublicController extends Controller

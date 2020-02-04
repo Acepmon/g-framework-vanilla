@@ -8,7 +8,7 @@ use Illuminate\Routing\Controller;
 
 use Modules\Advertisement\Entities\Banner;
 use Modules\Advertisement\Entities\BannerLocation;
-use App\Content;
+use Modules\Content\Entities\Content;
 use File;
 use Storage;
 use Carbon\Carbon;

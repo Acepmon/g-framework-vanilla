@@ -10,7 +10,7 @@ use phpDocumentor\Reflection\DocBlock\Tags\Uses;
 
 use Route;
 use App\Menu;
-use App\Content;
+use Modules\Content\Entities\Content;
 
 class MenuController extends Controller
 {

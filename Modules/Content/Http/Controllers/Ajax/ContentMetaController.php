@@ -6,8 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 
-use App\Content;
-use App\ContentMeta;
+use Modules\Content\Entities\Content;
+use Modules\Content\Entities\ContentMeta;
 use App\Term;
 use App\TermMeta;
 use App\Managers\ContentManager;

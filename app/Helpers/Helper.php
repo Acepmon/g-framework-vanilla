@@ -82,9 +82,9 @@ function getMetasValue($metas, $key) {
 
 function isPremium($car) {
     return
-        $car->type == App\Content::TYPE_CAR &&
-        $car->status == App\Content::STATUS_PUBLISHED &&
-        $car->visibility == App\Content::VISIBILITY_PUBLIC &&
+        $car->type == Modules\Content\Entities\Content::TYPE_CAR &&
+        $car->status == Modules\Content\Entities\Content::STATUS_PUBLISHED &&
+        $car->visibility == Modules\Content\Entities\Content::VISIBILITY_PUBLIC &&
         $car->metaValue('publishVerified') == True &&
         $car->metaValue('publishVerifiedEnd') >= now() &&
         ($car->metaValue('publishType') == 'best_premium' || $car->metaValue('publishType') == 'premium');

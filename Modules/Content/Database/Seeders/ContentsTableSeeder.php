@@ -5,8 +5,8 @@ namespace Modules\Content\Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 
-use App\Content;
-use App\ContentMeta;
+use Modules\Content\Entities\Content;
+use Modules\Content\Entities\ContentMeta;
 use App\User;
 
 class ContentsTableSeeder extends Seeder

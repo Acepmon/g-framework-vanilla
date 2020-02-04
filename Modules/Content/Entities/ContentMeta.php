@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace Modules\Content\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -15,11 +15,11 @@ class ContentMeta extends Model
 
     public $timestamps = false;
 
-    const NAMING_CONVENTION = \App\Content::NAMING_CONVENTION;
+    const NAMING_CONVENTION = \Modules\Content\Entities\Content::NAMING_CONVENTION;
 
     public function content()
     {
-        return $this->belongsTo('App\Content', 'content_id');
+        return $this->belongsTo('Modules\Content\Entities\Content', 'content_id');
     }
 
     public function revisionView()

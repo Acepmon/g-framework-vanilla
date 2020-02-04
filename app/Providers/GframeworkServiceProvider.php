@@ -5,11 +5,11 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Database\Eloquent\Model;
-use App\Content;
+use Modules\Content\Entities\Content;
 use Modules\Advertisement\Entities\Banner;
 use App\TermTaxonomy;
 use App\PaymentTransaction;
-use App\ContentMeta;
+use Modules\Content\Entities\ContentMeta;
 use DB;
 use Modules\Content\Transformers\TaxonomyCollection;
 use App\Managers\ContentManager;
@@ -219,7 +219,7 @@ class GframeworkServiceProvider extends ServiceProvider
         // End uneheer zavaan uildel hiigdej bgaa!!!
         // Anhaaraltai yum oorchilno uu.
         // Er ni yum oorchlood heregguidee. Amarhan evderne!
-        $contents = "\App\Content";
+        $contents = "\Modules\Content\Entities\Content";
         $sort = null;
         $sortDir = 'desc';
         foreach ($parsed->filters as $index => $filter) {

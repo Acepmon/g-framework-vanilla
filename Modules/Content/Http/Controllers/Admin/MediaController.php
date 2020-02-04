@@ -8,7 +8,7 @@ use Illuminate\Routing\Controller;
 
 use Storage;
 use App\User;
-use App\Content;
+use Modules\Content\Entities\Content;
 
 class MediaController extends Controller
 {

@@ -7,7 +7,7 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 
 use App\User;
-use App\Content;
+use Modules\Content\Entities\Content;
 use App\Managers\MediaManager;
 
 class UserController extends Controller

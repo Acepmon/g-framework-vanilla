@@ -11,8 +11,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
-use App\Content;
-use App\ContentMeta;
+use Modules\Content\Entities\Content;
+use Modules\Content\Entities\ContentMeta;
 use App\Group;
 use App\User;
 use App\Term;
@@ -123,7 +123,7 @@ class ContentController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Content  $content
+     * @param  \Modules\Content\Entities\Content  $content
      * @return \Illuminate\Http\Response
      */
     public function show(Content $content)
@@ -135,7 +135,7 @@ class ContentController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Content  $content
+     * @param  \Modules\Content\Entities\Content  $content
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Content $content)
@@ -231,7 +231,7 @@ class ContentController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Content  $content
+     * @param  \Modules\Content\Entities\Content  $content
      * @return \Illuminate\Http\Response
      */
     public function destroy(Request $request, Content $content)

@@ -45,7 +45,7 @@
         <div class="bg-page-header"></div>
 
         <!-- Sticky Sidebar -->
-        @include('themes.car-web.includes.fixed-right-sidebar', ['sideBanners' => \Modules\Advertisement\Entities\Banner::where('location_id', 4)->get(), 'premium' => \App\Content::where('type', \App\Content::TYPE_CAR)->limit(5)->get()])
+        @include('themes.car-web.includes.fixed-right-sidebar', ['sideBanners' => \Modules\Advertisement\Entities\Banner::where('location_id', 4)->get(), 'premium' => \Modules\Content\Entities\Content::where('type', \Modules\Content\Entities\Content::TYPE_CAR)->limit(5)->get()])
 
         @include('themes.car-web.includes.section-title', ['content', $content])
 
@@ -113,8 +113,8 @@
         @endphp
         @include('themes.car-web.includes.section-slider', [
             'title' => 'Ойролцоо үнэтэй',
-            'contents' => \App\Content::inRangeMetas('priceAmount', ($priceAmount - 1000000) < 0 ? '0' : ($priceAmount - 1000000),
-                $priceAmount + 1000000)->where('id', '!=', $content->id)->where('status', \App\Content::STATUS_PUBLISHED)->where('visibility', 'public')->orderBy('id', 'desc')->get(),
+            'contents' => \Modules\Content\Entities\Content::inRangeMetas('priceAmount', ($priceAmount - 1000000) < 0 ? '0' : ($priceAmount - 1000000),
+                $priceAmount + 1000000)->where('id', '!=', $content->id)->where('status', \Modules\Content\Entities\Content::STATUS_PUBLISHED)->where('visibility', 'public')->orderBy('id', 'desc')->get(),
             'morelink'=> url('/search?min_price='.(($priceAmount - 1000000) < 0 ? 0 : ($priceAmount - 1000000)).'&max_price='.($priceAmount + 1000000))
         ])
 

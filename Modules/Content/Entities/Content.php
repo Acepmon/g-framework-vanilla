@@ -1,8 +1,8 @@
 <?php
 
-namespace App;
+namespace Modules\Content\Entities;
 
-use App\ContentMeta;
+use Modules\Content\Entities\ContentMeta;
 use App\TermTaxonomy;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
@@ -69,7 +69,7 @@ class Content extends Model
 
     public function metas()
     {
-        return $this->hasMany('App\ContentMeta', 'content_id');
+        return $this->hasMany('Modules\Content\Entities\ContentMeta', 'content_id');
     }
 
     public function comments()

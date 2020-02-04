@@ -7,7 +7,7 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
 
-use App\Content;
+use Modules\Content\Entities\Content;
 use App\Term;
 use App\Managers\ContentManager;
 
@@ -52,7 +52,7 @@ class ContentController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Content  $content
+     * @param  \Modules\Content\Entities\Content  $content
      * @return \Illuminate\Http\Response
      */
     public function show(Content $content)
@@ -64,7 +64,7 @@ class ContentController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Content  $content
+     * @param  \Modules\Content\Entities\Content  $content
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Content $content)
@@ -75,7 +75,7 @@ class ContentController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Content  $content
+     * @param  \Modules\Content\Entities\Content  $content
      * @return \Illuminate\Http\Response
      */
     public function destroy(Content $content)

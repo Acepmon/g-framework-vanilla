@@ -83,8 +83,8 @@
                 'title': markName + ' ' + modelName,
                 'slug': '{{ \Str::uuid() }}',
                 'type': 'wanna-buy',
-                'status': '{{ \App\Content::STATUS_PUBLISHED }}',
-                'visibility': '{{ \App\Content::VISIBILITY_PUBLIC }}',
+                'status': '{{ \Modules\Content\Entities\Content::STATUS_PUBLISHED }}',
+                'visibility': '{{ \Modules\Content\Entities\Content::VISIBILITY_PUBLIC }}',
                 'author_id': '{{ Auth::user()->id }}'
             };
 

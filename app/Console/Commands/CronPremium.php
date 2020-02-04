@@ -4,7 +4,7 @@ namespace App\Console\Commands;
 
 use Carbon\Carbon;
 use Illuminate\Console\Command;
-use App\ContentMeta;
+use Modules\Content\Entities\ContentMeta;
 use App\Comment;
 
 class CronPremium extends Command

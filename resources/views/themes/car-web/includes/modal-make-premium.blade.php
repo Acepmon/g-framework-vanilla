@@ -170,7 +170,7 @@ function makePremium() {
         $.ajax({
             type: 'POST',
             url: '/ajax/contents/' + makeCarId + '/publish',
-            data: {"status":'{{ \App\Content::STATUS_PUBLISHED}}', "visibility":'{{ \App\Content::VISIBILITY_PUBLIC }}', "publishPricing": publishPricing, "publishType": paramObjs.publishType}
+            data: {"status":'{{ \Modules\Content\Entities\Content::STATUS_PUBLISHED}}', "visibility":'{{ \Modules\Content\Entities\Content::VISIBILITY_PUBLIC }}', "publishPricing": publishPricing, "publishType": paramObjs.publishType}
         }).done(function(data) {
             nextPrev(1);
             console.log("DONE!");

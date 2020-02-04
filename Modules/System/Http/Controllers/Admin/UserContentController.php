@@ -8,7 +8,7 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Input;
 
 use Route;
-use App\Content;
+use Modules\Content\Entities\Content;
 use App\User;
 
 class UserContentController extends Controller
