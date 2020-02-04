@@ -10,7 +10,7 @@ use App\Content;
 use App\ContentMeta;
 use App\Term;
 use App\TermMeta;
-use App\Entities\ContentManager;
+use App\Managers\ContentManager;
 
 class ContentMetaController extends Controller
 {

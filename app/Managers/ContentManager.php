@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Entities;
+namespace App\Managers;
 
 use App\Content;
 use App\ContentMeta;
@@ -206,7 +206,7 @@ class ContentManager extends Manager
                     $contents = $contents->whereHas('metas', function ($query) use ($key, $value, $request) {
                         $meta = self::requestOperator($key, $request, Null, $value);
                         $query->where('key', $key);
-    
+
                         if (\Str::endsWith($key, 'Amount')) {
                             $query->whereRaw('cast(value as unsigned) ' . $meta['operator'] . ' ' . $meta['value']);
                         } else {

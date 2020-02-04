@@ -6,7 +6,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 
 use App\Menu;
-use App\Entities\MenuManager;
+use App\Managers\MenuManager;
 
 class MenusTableSeeder extends Seeder
 {

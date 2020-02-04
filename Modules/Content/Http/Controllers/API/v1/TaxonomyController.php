@@ -8,7 +8,7 @@ use Illuminate\Routing\Controller;
 
 use Modules\Content\Transformers\TaxonomyCollection;
 
-use App\Entities\TaxonomyManager;
+use App\Managers\TaxonomyManager;
 use App\TermTaxonomy;
 
 class TaxonomyController extends Controller

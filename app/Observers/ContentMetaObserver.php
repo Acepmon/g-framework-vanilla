@@ -6,7 +6,7 @@ use App\Content;
 use App\ContentMeta;
 use App\Term;
 use App\TermTaxonomy;
-use App\Entities\TaxonomyManager;
+use App\Managers\TaxonomyManager;
 
 use Carbon\Carbon;
 
@@ -25,7 +25,7 @@ class ContentMetaObserver
         if ($contentMeta->key == 'publishType') {
             $content->updateMeta('publishedAt', Carbon::now());
             if ($contentMeta->value == 'best_premium' || $contentMeta->value == 'premium') {
-                
+
             }
         }
 

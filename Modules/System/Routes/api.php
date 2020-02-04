@@ -9,7 +9,7 @@ use Modules\System\Transformers\UserMenuCollection;
 use Modules\System\Transformers\UserCommentCollection;
 use Modules\System\Transformers\UserContentCollection;
 
-use App\Entities\ContentManager;
+use App\Managers\ContentManager;
 use App\UserMeta;
 
 /*

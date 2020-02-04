@@ -8,7 +8,7 @@ use Illuminate\Routing\Controller;
 
 use App\User;
 use App\Content;
-use App\Entities\MediaManager;
+use App\Managers\MediaManager;
 
 class UserController extends Controller
 {

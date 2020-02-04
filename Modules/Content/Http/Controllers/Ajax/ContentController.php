@@ -16,8 +16,8 @@ use App\ContentMeta;
 use App\Group;
 use App\User;
 use App\Term;
-use App\Entities\ContentManager;
-use App\Entities\MediaManager;
+use App\Managers\ContentManager;
+use App\Managers\MediaManager;
 
 class ContentController extends Controller
 {
@@ -227,7 +227,7 @@ class ContentController extends Controller
 
         return response()->json($doc_list);
     }
-    
+
     /**
      * Remove the specified resource from storage.
      *
@@ -247,7 +247,7 @@ class ContentController extends Controller
             $content = Content::findOrFail($contentId);
             $content->status = $request->input('status', Content::STATUS_PUBLISHED);
             $content->visibility = $request->input('visibility', Content::VISIBILITY_PUBLIC);
-            
+
             $author = null;
             if ($request->has('publishType')) {
                 $publishType = $request->input('publishType');

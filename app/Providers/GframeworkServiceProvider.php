@@ -12,7 +12,7 @@ use App\PaymentTransaction;
 use App\ContentMeta;
 use DB;
 use Modules\Content\Transformers\TaxonomyCollection;
-use App\Entities\ContentManager;
+use App\Managers\ContentManager;
 use Illuminate\Support\Carbon;
 
 class GframeworkServiceProvider extends ServiceProvider
@@ -254,7 +254,7 @@ class GframeworkServiceProvider extends ServiceProvider
                 }
             }
         }
-        
+
         if (isset($sort)) {
             $contents = $contents . $sort;
         }

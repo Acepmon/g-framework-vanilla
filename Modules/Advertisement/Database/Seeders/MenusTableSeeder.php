@@ -5,7 +5,7 @@ namespace Modules\Advertisement\Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 
-use App\Entities\MenuManager;
+use App\Managers\MenuManager;
 
 class MenusTableSeeder extends Seeder
 {

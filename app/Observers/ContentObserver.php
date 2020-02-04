@@ -6,7 +6,7 @@ use App\Content;
 use App\ContentMeta;
 use App\Term;
 use App\TermTaxonomy;
-use App\Entities\TaxonomyManager;
+use App\Managers\TaxonomyManager;
 
 class ContentObserver
 {
@@ -17,7 +17,7 @@ class ContentObserver
 
     public function updating(Content $content)
     {
-        if ($content->isDirty('status') && $content->status == Content::STATUS_PUBLISHED && 
+        if ($content->isDirty('status') && $content->status == Content::STATUS_PUBLISHED &&
             $content->isDirty('visibility') && $content->visibility == Content::VISIBILITY_PUBLIC) {
 
             // Start my listings when I submit them

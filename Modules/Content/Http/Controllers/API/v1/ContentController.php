@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 
 use App\Content;
 use App\Term;
-use App\Entities\ContentManager;
+use App\Managers\ContentManager;
 
 class ContentController extends Controller
 {
@@ -90,7 +90,7 @@ class ContentController extends Controller
             $content = Content::findOrFail($contentId);
             $content->status = $request->input('status', Content::STATUS_PUBLISHED);
             $content->visibility = $request->input('visibility', Content::VISIBILITY_PUBLIC);
-            
+
             $author = null;
             if ($request->has('publishType')) {
                 $publishType = $request->input('publishType');

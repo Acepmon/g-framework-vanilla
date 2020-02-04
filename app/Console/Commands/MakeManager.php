@@ -37,7 +37,7 @@ class MakeManager extends Command
      */
     public function handle()
     {
-        $dirName = 'Entities';
+        $dirName = 'Managers';
         $stub = resource_path('stubs/commands/MakeManager/manager.stub');
         $name = trim($this->argument('name'));
 

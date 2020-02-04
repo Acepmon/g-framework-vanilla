@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Entities;
+namespace App\Managers;
 
 use App\Permission;
 use App\Group;

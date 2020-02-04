@@ -4,7 +4,7 @@ namespace Modules\Content\Http\Controllers\Ajax;
 
 use App\Group;
 use App\GroupMeta;
-use App\Entities\MediaManager;
+use App\Managers\MediaManager;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
@@ -69,7 +69,7 @@ class GroupController extends Controller
     {
         //
         $group = Group::findOrFail($id);
-        
+
         if ($request->has('companyName')) {
             $group->title = $request->input('companyName');
             $group->save();

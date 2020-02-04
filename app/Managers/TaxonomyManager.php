@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Entities;
+namespace App\Managers;
 
 use App\Content;
 use App\ContentMeta;

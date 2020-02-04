@@ -56,7 +56,7 @@ $categoryName = [
         <div id="{{ $category }}" class="collapse {{ request($category, False)?'show':'' }}" aria-labelledby="{{ $category }}">
         <div id="manufacturerBody" class="card-body bg-light">
             <div class="manufacturer">
-                @foreach(App\Entities\TaxonomyManager::getManufacturers('normal') as $taxonomy)
+                @foreach(App\Managers\TaxonomyManager::getManufacturers('normal') as $taxonomy)
                 <div class="custom-control custom-radio">
                     <!-- <a href="/car-list?{{ $category . '=' . $taxonomy->term->name }}" class="text-body text-decoration-none"> -->
                     <input type="radio" id="{{$taxonomy->term->id}}" name="{{ $category }}" class="custom-control-input car-manufacturer" value="{{ $taxonomy->term->id }}" placeholder="{{$taxonomy->term->name}}" {{ ($taxonomy->term->id == request($category, Null))?'checked':'' }}>
@@ -67,7 +67,7 @@ $categoryName = [
             </div>
             @if(request('car-model', Null))
             <div class="models" name="{{ request('car-manufacturer', 'no-id') }}" style="display: none">
-                <div class="models-back" style="cursor:pointer"><i class="fab fa fa-angle-left"></i> буцах</div> 
+                <div class="models-back" style="cursor:pointer"><i class="fab fa fa-angle-left"></i> буцах</div>
                 @foreach(App\TermTaxonomy::where('parent_id', request('car-manufacturer', Null))->where('count', '!=', 0)->get() as $taxonomy)
                 <div class="custom-control custom-radio">
                     <input type="radio" id="{{$taxonomy->term->name}}" name="car-model" class="custom-control-input" value="{{ $taxonomy->term->id }}" {{ ($taxonomy->term->id == request('car-model', Null))?'checked':'' }}>
@@ -300,7 +300,7 @@ function onManufacturerSelect() {
                     let termname = modelList.data[i].term.name;
                     let termid = modelList.data[i].term.id;
                     let checked = (termid == '{{ $request['modelName'] }}')?'checked':'';
-                    html = html + '<div class="custom-control custom-radio"> '+ 
+                    html = html + '<div class="custom-control custom-radio"> '+
                         '<input type="radio" id="' + termname + '" name="car-model" value="' + termid + '" class="custom-control-input" '+checked+'> '+
                         '<label class="custom-control-label d-flex justify-content-between" for="' + termname + '">' + termname + '</label></div>';
                 }

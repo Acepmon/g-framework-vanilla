@@ -17,7 +17,7 @@
                                 <input type="text" value="{{ $content->metaValue('priceAmount') }}" name="carPrice" id="carPrice" hidden>
                                 <p>Урьдчилгаа төлбөр (эхний 20%)</p>
                                 <div class="select-first-price">
-                                    @foreach (\App\Entities\TaxonomyManager::collection('car-advance-payments') as $index => $advancePayment)
+                                    @foreach (\App\Managers\TaxonomyManager::collection('car-advance-payments') as $index => $advancePayment)
                                         <div class="custom-control custom-radio custom-control-inline">
                                             <input type="radio" id="{{ $advancePayment->term->name }}%" name="advancePaymentPercent" value="{{ $advancePayment->term->name }}" class="advancePayment custom-control-input" {{ $index == 0 ? 'checked' : ''}}>
                                             <label class="custom-control-label" for="{{ $advancePayment->term->name }}%">{{ $advancePayment->term->name }}%</label>
@@ -26,7 +26,7 @@
                                 </div>
                                 <p>Зээлийн хугацаа</p>
                                 <div class="select-month">
-                                    @foreach (\App\Entities\TaxonomyManager::collection('car-loan-terms') as $index => $loanTerm)
+                                    @foreach (\App\Managers\TaxonomyManager::collection('car-loan-terms') as $index => $loanTerm)
                                         <div class="custom-control custom-radio custom-control-inline">
                                             <input type="radio" id="{{ $loanTerm->term->name }}month" name="loanTerm" value="{{ $loanTerm->term->name }}" data-interest="{{ $loanTerm->term->metaValue('interest') }}" class="loanTerm custom-control-input" {{ $index == 0 ? 'checked' : ''}}>
                                             <label class="custom-control-label" for="{{ $loanTerm->term->name }}month">{{ $loanTerm->term->name }} сар</label>
