@@ -6,8 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 
-use App\Banner;
-use App\BannerLocation;
+use Modules\Advertisement\Entities\Banner;
+use Modules\Advertisement\Entities\BannerLocation;
 use App\Content;
 use File;
 use Storage;
@@ -89,7 +89,7 @@ class BannerController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Banner  $banner
+     * @param  \Modules\Advertisement\Entities\Banner  $banner
      * @return \Illuminate\Http\Response
      */
     public function show(Banner $banner)
@@ -100,7 +100,7 @@ class BannerController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Banner  $banner
+     * @param  \Modules\Advertisement\Entities\Banner  $banner
      * @return \Illuminate\Http\Response
      */
     public function edit(Banner $banner)
@@ -115,7 +115,7 @@ class BannerController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Banner  $banner
+     * @param  \Modules\Advertisement\Entities\Banner  $banner
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Banner $banner)
@@ -181,7 +181,7 @@ class BannerController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Banner  $banner
+     * @param  \Modules\Advertisement\Entities\Banner  $banner
      * @return \Illuminate\Http\Response
      */
     public function destroy(Request $request, Banner $banner)

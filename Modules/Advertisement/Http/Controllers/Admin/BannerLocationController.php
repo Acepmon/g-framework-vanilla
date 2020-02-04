@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 
-use App\BannerLocation;
+use Modules\Advertisement\Entities\BannerLocation;
 
 class BannerLocationController extends Controller
 {
@@ -77,7 +77,7 @@ class BannerLocationController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\BannerLocation  $location
+     * @param  \Modules\Advertisement\Entities\BannerLocation  $location
      * @return \Illuminate\Http\Response
      */
     public function show(BannerLocation $location)
@@ -88,7 +88,7 @@ class BannerLocationController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\BannerLocation  $location
+     * @param  \Modules\Advertisement\Entities\BannerLocation  $location
      * @return \Illuminate\Http\Response
      */
     public function edit(BannerLocation $location)
@@ -100,7 +100,7 @@ class BannerLocationController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\BannerLocation  $location
+     * @param  \Modules\Advertisement\Entities\BannerLocation  $location
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, BannerLocation $location)
@@ -140,7 +140,7 @@ class BannerLocationController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\BannerLocation  $location
+     * @param  \Modules\Advertisement\Entities\BannerLocation  $location
      * @return \Illuminate\Http\Response
      */
     public function destroy(Request $request, BannerLocation $location)

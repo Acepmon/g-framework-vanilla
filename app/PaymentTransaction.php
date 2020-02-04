@@ -16,6 +16,6 @@ class PaymentTransaction extends Model
 
 //    public function location()
 //    {
-//        return $this->hasOne('App\BannerLocation', 'id', 'location_id');
+//        return $this->hasOne('Modules\Advertisement\Entities\BannerLocation', 'id', 'location_id');
 //    }
 }

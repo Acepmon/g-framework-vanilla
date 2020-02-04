@@ -117,8 +117,8 @@
                         <div class="form-group @error('status') has-error @enderror">
                             <label for="status" class="col-form-label">Status <span class="text-danger">*</span></label>
                             <select name="status" id="status" class="form-control text-capitalize">
-                                @foreach (\App\Banner::STATUS_ARRAY as $status)
-                                    <option value="{{ $status }}" {{ $status == \App\Banner::STATUS_DRAFT ? 'selected' : '' }}>{{ $status }}</option>
+                                @foreach (\Modules\Advertisement\Entities\Banner::STATUS_ARRAY as $status)
+                                    <option value="{{ $status }}" {{ $status == \Modules\Advertisement\Entities\Banner::STATUS_DRAFT ? 'selected' : '' }}>{{ $status }}</option>
                                 @endforeach
                             </select>
                             @error('status')

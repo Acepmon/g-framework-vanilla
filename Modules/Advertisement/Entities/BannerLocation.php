@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace Modules\Advertisement\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -25,6 +25,6 @@ class BannerLocation extends Model
 
     public function banners()
     {
-        return $this->hasMany('App\Banner', 'location_id');
+        return $this->hasMany('Modules\Advertisement\Entities\Banner', 'location_id');
     }
 }

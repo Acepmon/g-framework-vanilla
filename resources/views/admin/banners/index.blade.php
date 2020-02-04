@@ -64,7 +64,7 @@
                         </a>
                     </td>
                     <td>
-                        @if ($banner->status == \App\Banner::STATUS_ACTIVE)
+                        @if ($banner->status == \Modules\Advertisement\Entities\Banner::STATUS_ACTIVE)
                             <span class="text-success">{{ $banner->status }}</span>
                         @else
                             <span class="text-muted">{{ $banner->status }}</span>

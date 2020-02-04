@@ -55,7 +55,7 @@
                     <div class="form-group">
                         <label for="type" class="col-form-label">Type</label>
                         <select class="form-control text-capitalize" name="type" id="type">
-                            @foreach (\App\BannerLocation::TYPE_ARRAY as $type)
+                            @foreach (\Modules\Advertisement\Entities\BannerLocation::TYPE_ARRAY as $type)
                                 <option value="{{ $type }}" {{ $location->type == $type ? 'selected' : '' }}>{{ $type }}</option>
                             @endforeach
                         </select>

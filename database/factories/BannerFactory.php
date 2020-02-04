@@ -2,7 +2,7 @@
 
 /* @var $factory \Illuminate\Database\Eloquent\Factory */
 
-use App\Banner;
+use Modules\Advertisement\Entities\Banner;
 use Faker\Generator as Faker;
 
 $factory->define(Banner::class, function (Faker $faker) {

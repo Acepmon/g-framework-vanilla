@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace Modules\Advertisement\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -16,6 +16,6 @@ class Banner extends Model
 
     public function location()
     {
-        return $this->hasOne('App\BannerLocation', 'id', 'location_id');
+        return $this->hasOne('Modules\Advertisement\Entities\BannerLocation', 'id', 'location_id');
     }
 }

@@ -6,7 +6,7 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Database\Eloquent\Model;
 use App\Content;
-use App\Banner;
+use Modules\Advertisement\Entities\Banner;
 use App\TermTaxonomy;
 use App\PaymentTransaction;
 use App\ContentMeta;

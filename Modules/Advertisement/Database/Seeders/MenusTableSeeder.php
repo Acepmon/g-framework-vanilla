@@ -26,7 +26,7 @@ class MenusTableSeeder extends Seeder
             'group' => [1, 2],
             'icon' => 'icon-printer4'
         ]);
-        MenuManager::register('Create Banner', '/admin/bannres/create', [
+        MenuManager::register('Create Banner', '/admin/banners/create', [
             'parent_id' => $parent_id,
             'module' => 'Advertisement',
             'group' => [1, 2],
