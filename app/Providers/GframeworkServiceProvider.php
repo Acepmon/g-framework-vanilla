@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 use Modules\Content\Entities\Content;
 use Modules\Advertisement\Entities\Banner;
 use Modules\Content\Entities\TermTaxonomy;
-use App\PaymentTransaction;
 use Modules\Content\Entities\ContentMeta;
 use DB;
 use Modules\Content\Transformers\TaxonomyCollection;
