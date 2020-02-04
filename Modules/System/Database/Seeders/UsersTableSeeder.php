@@ -44,14 +44,6 @@ class UsersTableSeeder extends Seeder
                     'password' => Hash::make('content'),
                     'name' => 'Content Operator',
                 ],
-
-                // Damoa Capital
-                [
-                    'username' => 'damoa',
-                    'email' => 'damoa@example.com',
-                    'password' => Hash::make('123456789'),
-                    'name' => 'Damoa Capital',
-                ]
             ];
 
             foreach ($users as $user) {
