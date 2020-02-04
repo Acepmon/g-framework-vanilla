@@ -16,7 +16,7 @@
                             <div class="form-group col-md-6">
                                 <label for="Manufacturer">Үйлдвэрлэгч:</label>
                                 <select id="addWishMark" name="markName" class="form-control" required>
-                                    @foreach(App\TermTaxonomy::where('taxonomy', 'car-manufacturer')->get() as $taxonomy)
+                                    @foreach(Modules\Content\Entities\TermTaxonomy::where('taxonomy', 'car-manufacturer')->get() as $taxonomy)
                                         <option value="{{$taxonomy->term->name}}">{{$taxonomy->term->name}}</option>
                                     @endforeach
                                 </select>

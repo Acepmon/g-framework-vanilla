@@ -138,7 +138,7 @@
                         <label class="col-form-label col-lg-2">Category</label>
                         <div class="col-lg-10">
                             <select name="category" type="text" class="form-control">
-                                @foreach(App\TermTaxonomy::where('taxonomy', 'category')->get() as $taxonomy)
+                                @foreach(Modules\Content\Entities\TermTaxonomy::where('taxonomy', 'category')->get() as $taxonomy)
                                     <option value="{{$taxonomy->id}}" {{ count($content->terms->where('id', $taxonomy->id))>0?'selected':'' }}>{{$taxonomy->term->name}}</option>
                                 @endforeach
                             </select>
@@ -149,7 +149,7 @@
                         <label class="col-form-label col-lg-2">Tags</label>
                         <div class="col-lg-10">
                             <select name="tags[]" id="tags" data-placeholder="Select Tags..." multiple="multiple" class="select">
-                                @foreach(App\TermTaxonomy::where('taxonomy', 'tag')->get() as $tag)
+                                @foreach(Modules\Content\Entities\TermTaxonomy::where('taxonomy', 'tag')->get() as $tag)
                                     @php $selected = False @endphp
                                     @foreach($content->terms as $term)
                                         @php $selected = ($selected || $term->id == $tag->id) @endphp

@@ -15,7 +15,7 @@ use Modules\Content\Entities\Content;
 use Modules\Content\Entities\ContentMeta;
 use App\Group;
 use App\User;
-use App\Term;
+use Modules\Content\Entities\Term;
 use App\Managers\ContentManager;
 use App\Managers\MediaManager;
 

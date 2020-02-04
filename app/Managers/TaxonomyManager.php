@@ -4,9 +4,9 @@ namespace App\Managers;
 
 use Modules\Content\Entities\Content;
 use Modules\Content\Entities\ContentMeta;
-use App\TermTaxonomy;
-use App\Term;
-use App\TermMeta;
+use Modules\Content\Entities\TermTaxonomy;
+use Modules\Content\Entities\Term;
+use Modules\Content\Entities\TermMeta;
 
 class TaxonomyManager extends Manager
 {

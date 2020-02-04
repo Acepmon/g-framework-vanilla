@@ -8,7 +8,7 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
 
 use Modules\Content\Entities\Content;
-use App\Term;
+use Modules\Content\Entities\Term;
 use App\Managers\ContentManager;
 
 class ContentController extends Controller

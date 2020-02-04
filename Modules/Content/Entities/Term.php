@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace Modules\Content\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -11,17 +11,17 @@ class Term extends Model
 
     public function metas()
     {
-        return $this->hasMany('App\TermMeta', 'term_id');
+        return $this->hasMany('Modules\Content\Entities\TermMeta', 'term_id');
     }
 
     public function group()
     {
-        return $this->belongsTo('App\Term', 'group_id');
+        return $this->belongsTo('Modules\Content\Entities\Term', 'group_id');
     }
 
     public function taxonomy()
     {
-        return $this->hasOne('App\TermTaxonomy', 'term_id');
+        return $this->hasOne('Modules\Content\Entities\TermTaxonomy', 'term_id');
     }
 
     public function metaValue($key) {

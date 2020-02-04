@@ -21,7 +21,7 @@ $categoryName = [
         @if($category == 'car-type')
         <div id="{{ $category }}" class="collapse {{ request($category, False)?'show':'' }}" aria-labelledby="{{ $category }}">
         <div class="card-body bg-light grid-radio gr-3">
-            @foreach(App\TermTaxonomy::where('taxonomy', $category)->get() as $taxonomy)
+            @foreach(Modules\Content\Entities\TermTaxonomy::where('taxonomy', $category)->get() as $taxonomy)
             <div class="cd-radio">
             <input type="radio" id="{{ $taxonomy->term->metaValue('value') }}" name="{{ $category }}" class="custom-control-input" value="{{ $taxonomy->term->name }}" {{ ($taxonomy->term->name == $request['carType'])?'checked':''}}>
             <label class="custom-control-label " for="{{ $taxonomy->term->metaValue('value') }}">
@@ -34,19 +34,19 @@ $categoryName = [
         <div class="card-body bg-light grid-radio pt-0 pb-0">
             <select id="truck-choice" class="form-control mb-3 type-choice" name="truck-size" onchange="formSubmit('carSubType','no-value')" @if($request['carType']!='Хүнд ММ') style="display: none" @endif>
             <option value="">Хэмжээ сонгох</option>
-            @foreach(App\TermTaxonomy::where('taxonomy', 'truck-size')->get() as $taxonomy)
+            @foreach(Modules\Content\Entities\TermTaxonomy::where('taxonomy', 'truck-size')->get() as $taxonomy)
             <option value="{{$taxonomy->term->id}}" {{ ($request['carSubType']==$taxonomy->term->id)?'selected':'' }}>{{ $taxonomy->term->name }}</option>
             @endforeach
             </select>
             <select id="bus-choice" class="form-control mb-3 type-choice" name="bus-size" onchange="formSubmit('carSubType','no-value')" @if($request['carType']!='Автобус') style="display: none" @endif>
             <option value="">Хэмжээ сонгох</option>
-            @foreach(App\TermTaxonomy::where('taxonomy', 'bus-sizes')->get() as $taxonomy)
+            @foreach(Modules\Content\Entities\TermTaxonomy::where('taxonomy', 'bus-sizes')->get() as $taxonomy)
             <option value="{{$taxonomy->term->id}}" {{ ($request['carSubType']==$taxonomy->term->id)?'selected':'' }}>{{ $taxonomy->term->name }}</option>
             @endforeach
             </select>
             <select id="special-choice" class="form-control mb-3 type-choice" name="special" onchange="formSubmit('carSubType','no-value')" @if($request['carType']!='Тусгай ММ') style="display: none" @endif>
             <option value="">Төрөл сонгох</option>
-            @foreach(App\TermTaxonomy::where('taxonomy', 'special')->get() as $taxonomy)
+            @foreach(Modules\Content\Entities\TermTaxonomy::where('taxonomy', 'special')->get() as $taxonomy)
             <option value="{{$taxonomy->term->id}}" {{ ($request['carSubType']==$taxonomy->term->id)?'selected':'' }}>{{ $taxonomy->term->name }}</option>
             @endforeach
             </select>
@@ -68,7 +68,7 @@ $categoryName = [
             @if(request('car-model', Null))
             <div class="models" name="{{ request('car-manufacturer', 'no-id') }}" style="display: none">
                 <div class="models-back" style="cursor:pointer"><i class="fab fa fa-angle-left"></i> буцах</div>
-                @foreach(App\TermTaxonomy::where('parent_id', request('car-manufacturer', Null))->where('count', '!=', 0)->get() as $taxonomy)
+                @foreach(Modules\Content\Entities\TermTaxonomy::where('parent_id', request('car-manufacturer', Null))->where('count', '!=', 0)->get() as $taxonomy)
                 <div class="custom-control custom-radio">
                     <input type="radio" id="{{$taxonomy->term->name}}" name="car-model" class="custom-control-input" value="{{ $taxonomy->term->id }}" {{ ($taxonomy->term->id == request('car-model', Null))?'checked':'' }}>
                     <label class="custom-control-label  d-flex justify-content-between" for="{{$taxonomy->term->name}}">{{ $taxonomy->term->name }}
@@ -139,7 +139,7 @@ $categoryName = [
         @elseif($category == 'car-options')
         <div id="{{ $category }}" class="collapse {{ request($category, False)?'show':'' }}" aria-labelledby="{{ $category }}">
         <div class="card-body bg-light" style="overflow: auto; height: auto">
-            @foreach(App\TermTaxonomy::where('taxonomy', $category)->get() as $taxonomy_parent)
+            @foreach(Modules\Content\Entities\TermTaxonomy::where('taxonomy', $category)->get() as $taxonomy_parent)
             @foreach($taxonomy_parent->children as $taxonomy)
                 <div class="custom-control custom-radio">
                 <input type="checkbox" id="{{ $taxonomy->term->name }}" name="{{ $category }}[]" class="custom-control-input" value="{{ $taxonomy->term->metaValue('metaKey') }}" {{ in_array($taxonomy->term->metaValue('metaKey'), request($category, []))?'checked':'' }}>
@@ -171,7 +171,7 @@ $categoryName = [
         @else
         <div id="{{ $category }}" class="collapse {{ request($category, False)?'show':'' }}" aria-labelledby="{{ $category }}">
         <div class="card-body bg-light">
-            @foreach(App\TermTaxonomy::where('taxonomy', $category)->get() as $taxonomy)
+            @foreach(Modules\Content\Entities\TermTaxonomy::where('taxonomy', $category)->get() as $taxonomy)
             <div class="custom-control custom-radio">
             <!-- <a href="/car-list?{{ $category . '=' . $taxonomy->term->name }}" class="text-body text-decoration-none"> -->
             <input type="radio" id="{{$taxonomy->term->name}}" name="{{ $category }}" class="custom-control-input" value="{{ $taxonomy->term->id }}" {{ ($taxonomy->term->id == request($category, Null))?'checked':'' }}>

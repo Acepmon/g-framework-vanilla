@@ -7,9 +7,9 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 
 use Route;
-use App\Term;
-use App\TermMeta;
-use App\TermTaxonomy;
+use Modules\Content\Entities\Term;
+use Modules\Content\Entities\TermMeta;
+use Modules\Content\Entities\TermTaxonomy;
 
 class TermMetaController extends Controller
 {

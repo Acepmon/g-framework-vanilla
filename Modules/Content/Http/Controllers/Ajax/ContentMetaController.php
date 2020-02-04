@@ -8,8 +8,8 @@ use Illuminate\Routing\Controller;
 
 use Modules\Content\Entities\Content;
 use Modules\Content\Entities\ContentMeta;
-use App\Term;
-use App\TermMeta;
+use Modules\Content\Entities\Term;
+use Modules\Content\Entities\TermMeta;
 use App\Managers\ContentManager;
 
 class ContentMetaController extends Controller

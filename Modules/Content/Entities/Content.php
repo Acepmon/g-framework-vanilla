@@ -3,7 +3,7 @@
 namespace Modules\Content\Entities;
 
 use Modules\Content\Entities\ContentMeta;
-use App\TermTaxonomy;
+use Modules\Content\Entities\TermTaxonomy;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 
@@ -79,7 +79,7 @@ class Content extends Model
 
     public function terms()
     {
-        return $this->belongsToMany('App\TermTaxonomy', 'term_relationships');
+        return $this->belongsToMany('Modules\Content\Entities\TermTaxonomy', 'term_relationships');
     }
 
     public function author()

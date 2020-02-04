@@ -9,7 +9,7 @@ use Illuminate\Routing\Controller;
 use Modules\Content\Transformers\TaxonomyCollection;
 
 use App\Managers\TaxonomyManager;
-use App\TermTaxonomy;
+use Modules\Content\Entities\TermTaxonomy;
 
 class TaxonomyController extends Controller
 {

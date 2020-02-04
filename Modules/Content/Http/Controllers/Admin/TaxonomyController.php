@@ -8,8 +8,8 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 
-use App\Term;
-use App\TermTaxonomy;
+use Modules\Content\Entities\Term;
+use Modules\Content\Entities\TermTaxonomy;
 
 class TaxonomyController extends Controller
 {

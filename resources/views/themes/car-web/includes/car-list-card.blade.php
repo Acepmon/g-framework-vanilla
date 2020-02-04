@@ -73,8 +73,8 @@
                     <p>{{ $car->metaValue('axleCount') }} WD</p>
                 </span>
                 @endif
-                @if(\App\Term::where('name', $car->metaValue('colorName'))->first())
-                <span class="info-icon color" data-color="{{ strtolower(\App\Term::where('name', $car->metaValue('colorName'))->first()->metaValue('value')) }}">
+                @if(\Modules\Content\Entities\Term::where('name', $car->metaValue('colorName'))->first())
+                <span class="info-icon color" data-color="{{ strtolower(\Modules\Content\Entities\Term::where('name', $car->metaValue('colorName'))->first()->metaValue('value')) }}">
                     <p>{{ ucfirst($car->metaValue('colorName')) }}</p>
                 </span>
                 @endif

@@ -18,8 +18,8 @@ class TaxonomyManagerTester extends Seeder
     {
         // Clear Taxonomy Tables
         DB::statement('SET FOREIGN_KEY_CHECKS=0;');
-        \App\TermTaxonomy::whereRaw('1', '1')->delete();
-        \App\Term::whereRaw('1', '1')->delete();
+        \Modules\Content\Entities\TermTaxonomy::whereRaw('1', '1')->delete();
+        \Modules\Content\Entities\Term::whereRaw('1', '1')->delete();
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
 
         // Insert test taxonomies

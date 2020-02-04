@@ -130,7 +130,7 @@
                         <label for="category" class="col-form-label col-lg-2">Category</label>
                         <div class="col-lg-10">
                             <select name="category" type="text" class="form-control">
-                                @foreach(App\TermTaxonomy::where('taxonomy', 'category')->get() as $taxonomy)
+                                @foreach(Modules\Content\Entities\TermTaxonomy::where('taxonomy', 'category')->get() as $taxonomy)
                                     <option value="{{$taxonomy->id}}">{{$taxonomy->term->name}}</option>
                                 @endforeach
                             </select>
@@ -141,7 +141,7 @@
                         <label for="tags" class="col-form-label col-lg-2">Tags</label>
                         <div class="col-lg-10">
                             <select name="tags[]" id="tags" data-placeholder="Select Tags..." multiple="multiple" class="form-control">
-                                @foreach(App\TermTaxonomy::where('taxonomy', 'tag')->get() as $tag)
+                                @foreach(Modules\Content\Entities\TermTaxonomy::where('taxonomy', 'tag')->get() as $tag)
                                     @php $selected = False @endphp
                                     @if(Request::old('tags'))
                                         @foreach(Request::old('tags') as $tag_id)

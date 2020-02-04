@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Blade;
 use Illuminate\Database\Eloquent\Model;
 use Modules\Content\Entities\Content;
 use Modules\Advertisement\Entities\Banner;
-use App\TermTaxonomy;
+use Modules\Content\Entities\TermTaxonomy;
 use App\PaymentTransaction;
 use Modules\Content\Entities\ContentMeta;
 use DB;
@@ -264,7 +264,7 @@ class GframeworkServiceProvider extends ServiceProvider
     }
 
     private function parseTaxonomy($parsed, $returnArg) {
-        $taxonomy = "\App\TermTaxonomy";
+        $taxonomy = "\Modules\Content\Entities\TermTaxonomy";
         $sort = null;
         foreach ($parsed->filters as $index => $filter) {
             $inputExcept = ['id', 'term_id', 'taxonomy', 'description', 'parent_id', 'count', 'limit', 'page', 'sort', 'sortDir'];

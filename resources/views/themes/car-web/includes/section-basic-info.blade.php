@@ -15,10 +15,10 @@
                     <div class="title">Ерөнхий</div>
                     <div class="info-list">
                         <ul>
-                            @if ($content->metaValue('carType') && \App\Term::where('name', $content->metaValue('carType'))->first())
+                            @if ($content->metaValue('carType') && \Modules\Content\Entities\Term::where('name', $content->metaValue('carType'))->first())
                                 <li>
                                     <span class="info-icon">
-                                        <img src="{{ asset('car-web/img/icons/' . strtolower(\App\Term::where('name', $content->metaValue('carType'))->first()->metaValue('value')) . '.svg') }}" alt="">
+                                        <img src="{{ asset('car-web/img/icons/' . strtolower(\Modules\Content\Entities\Term::where('name', $content->metaValue('carType'))->first()->metaValue('value')) . '.svg') }}" alt="">
                                         <p>{{ $content->metaValue('carType') }}</p>
                                     </span>
                                 </li>
@@ -45,7 +45,7 @@
                             @if ($content->metaValue('colorNameInterior'))
                                 <li>
                                     <span class="info-icon color" data-color="{{ strtolower($content->metaValue('colorNameInterior')) }}">
-                                        <p>{{ ucfirst(\App\Term::where('name', $content->metaValue('colorNameInterior'))->first()->metaValue('value')) }} (Гадна)</p>
+                                        <p>{{ ucfirst(\Modules\Content\Entities\Term::where('name', $content->metaValue('colorNameInterior'))->first()->metaValue('value')) }} (Гадна)</p>
                                     </span>
                                 </li>
                             @endif
@@ -53,7 +53,7 @@
                             @if ($content->metaValue('colorName'))
                                 <li>
                                     <span class="info-icon color" data-color="{{ strtolower($content->metaValue('colorName')) }}">
-                                        <p>{{ ucfirst(\App\Term::where('name', $content->metaValue('colorName'))->first()->metaValue('value')) }} (Салон)</p>
+                                        <p>{{ ucfirst(\Modules\Content\Entities\Term::where('name', $content->metaValue('colorName'))->first()->metaValue('value')) }} (Салон)</p>
                                     </span>
                                 </li>
                             @endif

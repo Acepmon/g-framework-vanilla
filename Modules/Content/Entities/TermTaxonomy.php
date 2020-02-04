@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace Modules\Content\Entities;
 
 use GeneaLabs\LaravelModelCaching\Traits\Cachable;
 use Illuminate\Database\Eloquent\Model;
@@ -14,17 +14,17 @@ class TermTaxonomy extends Model
 
     public function term()
     {
-        return $this->belongsTo('App\Term', 'term_id', 'id');
+        return $this->belongsTo('Modules\Content\Entities\Term', 'term_id', 'id');
     }
 
     public function parent()
     {
-        return $this->belongsTo('App\Term', 'parent_id', 'id');
+        return $this->belongsTo('Modules\Content\Entities\Term', 'parent_id', 'id');
     }
 
     public function children()
     {
-        return $this->hasMany('App\TermTaxonomy', 'parent_id');
+        return $this->hasMany('Modules\Content\Entities\TermTaxonomy', 'parent_id');
     }
 
     public function contents()

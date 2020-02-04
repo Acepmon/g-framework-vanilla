@@ -4,8 +4,8 @@ namespace App\Observers;
 
 use Modules\Content\Entities\Content;
 use Modules\Content\Entities\ContentMeta;
-use App\Term;
-use App\TermTaxonomy;
+use Modules\Content\Entities\Term;
+use Modules\Content\Entities\TermTaxonomy;
 use App\Managers\TaxonomyManager;
 
 class ContentObserver
