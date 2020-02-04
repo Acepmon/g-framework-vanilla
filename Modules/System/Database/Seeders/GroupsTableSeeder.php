@@ -40,11 +40,6 @@ class GroupsTableSeeder extends Seeder
                     "title" => "Guest",
                     "description" => "Non member entity who has brief access to some services for a temporary time. Any user who is not registered is considered 'guest' by default.",
                     "type" => Group::TYPE_SYSTEM
-                ],
-                [
-                    "title" => "Damoa",
-                    "description" => "ДАМОА КАПИТАЛ нь 2012 онд үүсгэн байгуулагдсан цагаасаа өнөөг хүртэл Монголын санхүүгийн зах зээлд үйлчлүүлэгчдийн талархлыг хүлээн ажилласаар байна..",
-                    "type" => Group::TYPE_DEALER,
                 ]
             ]);
 
@@ -64,9 +59,7 @@ class GroupsTableSeeder extends Seeder
                 ],
             ]);
 
-            // $id = Group::find('id')->where('title', 'Damoa');
-
-            DB::table('group_metas')->insert([
+            DB::table('groups_meta')->insert([
                 [
                     "group_id" => 5,
                     "key" => "address",
@@ -81,11 +74,6 @@ class GroupsTableSeeder extends Seeder
                     "group_id" => 5,
                     "key" => "retailImage",
                     "value" => "\assets\images\login-covers\\493628.jpg"
-                ],
-                [
-                    "group_id" => 5,
-                    "key" => "website",
-                    "value" => "https://www.damoacapital.com/"
                 ],
                 [
                     "group_id" => 5,

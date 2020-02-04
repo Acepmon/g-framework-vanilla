@@ -11,9 +11,7 @@ class UserMeta extends Model
      *
      * @var string
      */
-    protected $table = 'user_metas';
-
-    public $timestamps = false;
+    protected $table = 'users_meta';
 
     public function user()
     {

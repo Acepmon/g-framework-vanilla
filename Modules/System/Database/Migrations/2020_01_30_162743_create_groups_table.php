@@ -23,13 +23,21 @@ class CreateGroupsTable extends Migration
             $table->foreign('parent_id')->references('id')->on('groups');
         });
 
-        Schema::create('group_metas', function (Blueprint $table) {
+        Schema::create('groups_meta', function (Blueprint $table) {
+            // Identifier
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('group_id');
-            $table->string('key');
-            $table->longText('value');
 
-            $table->foreign('group_id')->references('id')->on('groups');
+            // Relationships
+            $table->unsignedBigInteger('group_id')->index();
+            $table->foreign('group_id')->references('id')->on('groups')->onDelete('cascade');
+
+            // Main Fields
+            $table->string('type')->default('null');
+            $table->string('key')->index();
+            $table->text('value')->nullable();
+
+            // Logs
+            $table->timestamps();
         });
 
         Schema::create('user_group', function (Blueprint $table) {
@@ -49,7 +57,7 @@ class CreateGroupsTable extends Migration
     public function down()
     {
         Schema::dropIfExists('user_group');
-        Schema::dropIfExists('group_metas');
+        Schema::dropIfExists('groups_meta');
         Schema::dropIfExists('groups');
     }
 }

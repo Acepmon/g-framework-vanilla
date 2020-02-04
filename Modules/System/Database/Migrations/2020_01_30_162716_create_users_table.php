@@ -31,13 +31,21 @@ class CreateUsersTable extends Migration
             $table->string('social_token')->nullable();
         });
 
-        Schema::create('user_metas', function (Blueprint $table) {
+        Schema::create('users_meta', function (Blueprint $table) {
+            // Identifier
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('user_id');
-            $table->string('key');
-            $table->longText('value');
 
+            // Relationships
+            $table->unsignedBigInteger('user_id')->index();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+
+            // Main Fields
+            $table->string('type')->default('null');
+            $table->string('key')->index();
+            $table->text('value')->nullable();
+
+            // Logs
+            $table->timestamps();
         });
     }
 
@@ -48,7 +56,7 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_metas');
+        Schema::dropIfExists('users_meta');
         Schema::dropIfExists('users');
     }
 }

@@ -28,7 +28,8 @@
         "pusher/pusher-php-server": "^4.0",
         "shweshi/laravel-unsplash-wrapper": "^3.0",
         "spatie/laravel-backup": "^6.2",
-        "symfony/console": "4.3.4"
+        "symfony/console": "4.3.4",
+        "kodeine/laravel-meta": "master"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",

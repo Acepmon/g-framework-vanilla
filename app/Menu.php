@@ -3,15 +3,20 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Kodeine\Metable\Metable;
 
 class Menu extends Model
 {
+    use Metable;
+
     /**
      * Indicates if the model should be timestamped.
      *
      * @var bool
      */
     public $timestamps = false;
+
+    protected $metaTable = 'menus_meta';
 
     public function parent()
     {
