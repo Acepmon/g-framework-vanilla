@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\User;
-use App\Group;
-use App\GroupMeta;
+use Modules\System\Entities\Group;
+use Modules\System\Entities\GroupMeta;
 use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -68,7 +68,7 @@ class UserController extends Controller
 
         if (array_key_exists('groupId', $input) && $input['groupId']) {
             $group = Group::findOrFail($input['groupId']);
-            // If make row per dealer 
+            // If make row per dealer
             if ($group->title == 'Auto Dealer') {
                 $company = GroupController::register($group, $input);
                 $user->groups()->attach($company);

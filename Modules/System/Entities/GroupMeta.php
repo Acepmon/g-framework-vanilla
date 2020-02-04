@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace Modules\System\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -16,6 +16,6 @@ class GroupMeta extends Model
 
     public function group()
     {
-        return $this->belongsTo('App\Group', 'group_id');
+        return $this->belongsTo('Modules\System\Entities\Group', 'group_id');
     }
 }

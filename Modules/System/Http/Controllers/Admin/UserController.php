@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 
-use App\Group;
+use Modules\System\Entities\Group;
 use App\User;
 
 class UserController extends Controller

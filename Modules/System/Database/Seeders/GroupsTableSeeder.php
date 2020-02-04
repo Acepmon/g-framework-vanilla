@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Schema;
 
 use DB;
-use App\Group;
+use Modules\System\Entities\Group;
 
 class GroupsTableSeeder extends Seeder
 {

@@ -30,6 +30,6 @@ class Menu extends Model
 
     public function groups()
     {
-        return $this->belongsToMany('App\Group', 'group_menu');
+        return $this->belongsToMany('Modules\System\Entities\Group', 'group_menu');
     }
 }

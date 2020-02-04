@@ -2,8 +2,8 @@
 
 namespace Modules\Content\Http\Controllers\Ajax;
 
-use App\Group;
-use App\GroupMeta;
+use Modules\System\Entities\Group;
+use Modules\System\Entities\GroupMeta;
 use App\Managers\MediaManager;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;

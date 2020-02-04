@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Storage;
 
 use Modules\Content\Entities\Content;
 use Modules\Content\Entities\ContentMeta;
-use App\Group;
+use Modules\System\Entities\Group;
 use App\User;
 use Modules\Content\Entities\Term;
 use App\Managers\ContentManager;

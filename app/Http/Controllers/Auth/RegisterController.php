@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Auth;
 use Auth;
 use App\User;
 use App\UserMeta;
-use App\Group;
+use Modules\System\Entities\Group;
 use App\Config;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
@@ -112,7 +112,7 @@ class RegisterController extends Controller
         if (!empty($groupId)) {
             $except = array_merge($except, ['groupId']);
             $group = Group::findOrFail($groupId);
-            // If make row per dealer 
+            // If make row per dealer
             if ($group->title == 'Auto Dealer') {
                 $except = array_merge($except, ['companyName', 'description', 'schedule', 'address']);
                 $company = GroupController::register($group, $data);
@@ -182,12 +182,12 @@ class RegisterController extends Controller
         } catch (\Exception $e) {
             return redirect()->route('register');
         }
-        
+
         self::registerUserFromSocialite($user, $driver);
 
         return redirect($this->redirectPath());
     }
-    
+
     public function registerUserFromSocialite($user, $provider) {
         $existingUser = User::where('email', $user->getEmail())->first();
 

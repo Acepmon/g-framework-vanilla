@@ -5,7 +5,7 @@ namespace App;
 use Auth;
 use Str;
 use App\Menu;
-use App\Group;
+use Modules\System\Entities\Group;
 use App\UserMeta;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -55,7 +55,7 @@ class User extends Authenticatable implements CanResetPassword
 
     public function groups()
     {
-        return $this->belongsToMany('App\Group', 'user_group');
+        return $this->belongsToMany('Modules\System\Entities\Group', 'user_group');
     }
 
     public function contents()

@@ -3,7 +3,7 @@
 namespace App\Managers;
 
 use App\Permission;
-use App\Group;
+use Modules\System\Entities\Group;
 use App\User;
 
 class PermissionManager extends Manager

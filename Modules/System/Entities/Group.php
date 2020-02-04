@@ -1,8 +1,8 @@
 <?php
 
-namespace App;
+namespace Modules\System\Entities;
 
-use App\GroupMeta;
+use Modules\System\Entities\GroupMeta;
 use Illuminate\Database\Eloquent\Model;
 
 class Group extends Model
@@ -27,7 +27,7 @@ class Group extends Model
 
     public function metas()
     {
-        return $this->hasMany('App\GroupMeta', 'group_id');
+        return $this->hasMany('Modules\System\Entities\GroupMeta', 'group_id');
     }
 
     public function setMetaValue($key, $value) {
@@ -68,7 +68,7 @@ class Group extends Model
 
     public function parent()
     {
-        return $this->hasOne('App\Group', 'id', 'parent_id');
+        return $this->hasOne('Modules\System\Entities\Group', 'id', 'parent_id');
     }
 
     public function typeClass()

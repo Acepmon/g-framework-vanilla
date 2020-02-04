@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Schema;
 
 use App\User;
-use App\Group;
+use Modules\System\Entities\Group;
 
 class UserGroupTableSeeder extends Seeder
 {

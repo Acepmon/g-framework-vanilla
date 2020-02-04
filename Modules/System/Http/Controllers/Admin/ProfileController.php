@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Validation\Rule;
 
 use Auth;
-use App\Group;
+use Modules\System\Entities\Group;
 
 class ProfileController extends Controller
 {

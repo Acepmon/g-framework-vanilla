@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use Auth;
 use Closure;
-use App\Group;
+use Modules\System\Entities\Group;
 use App\Config;
 
 class AuthorizeAdminUser

@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 
-use App\Group;
+use Modules\System\Entities\Group;
 use App\Menu;
 use App\User;
 use App\Permission;
