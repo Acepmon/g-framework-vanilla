@@ -74,7 +74,7 @@ class Content extends Model
 
     public function comments()
     {
-        return $this->morphMany('App\Comment', 'commentable');
+        return $this->morphMany('Modules\Content\Entities\Comment', 'commentable');
     }
 
     public function terms()

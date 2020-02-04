@@ -70,7 +70,7 @@ class User extends Authenticatable implements CanResetPassword
 
     public function comments()
     {
-        return $this->hasMany('App\Comment', 'author_id');
+        return $this->hasMany('Modules\Content\Entities\Comment', 'author_id');
     }
 
     public function getAllPermissionsAttribute()

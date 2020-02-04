@@ -5,7 +5,7 @@ namespace App\Console;
 use Carbon\Carbon;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
-use App\Comment;
+use Modules\Content\Entities\Comment;
 
 class Kernel extends ConsoleKernel
 {

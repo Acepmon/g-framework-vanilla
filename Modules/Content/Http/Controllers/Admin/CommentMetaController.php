@@ -8,8 +8,8 @@ use Illuminate\Routing\Controller;
 use Illuminate\Validation\Rule;
 
 use Route;
-use App\Comment;
-use App\CommentMeta;
+use Modules\Content\Entities\Comment;
+use Modules\Content\Entities\CommentMeta;
 
 class CommentMetaController extends Controller
 {

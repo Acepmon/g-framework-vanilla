@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace Modules\Content\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -9,12 +9,12 @@ class Comment extends Model
     //
     public function children()
     {
-        return $this->hasMany('App\Comment', 'parent_id');
+        return $this->hasMany('Modules\Content\Entities\Comment', 'parent_id');
     }
 
     public function metas()
     {
-        return $this->hasMany('App\CommentMeta', 'comment_id');
+        return $this->hasMany('Modules\Content\Entities\CommentMeta', 'comment_id');
     }
 
     public function commentable()
