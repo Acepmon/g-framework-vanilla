@@ -24,5 +24,7 @@ class SystemDatabaseSeeder extends Seeder
         $this->call(UserPermissionTableSeeder::class);
         $this->call(UserGroupTableSeeder::class);
         $this->call(ThemesTableSeeder::class);
+        $this->call(MenusTableSeeder::class);
+        $this->call(GroupMenuTableSeeder::class);
     }
 }
