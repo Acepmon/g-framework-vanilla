@@ -22,7 +22,7 @@ class CreateTermTaxonomyTable extends Migration
             $table->foreign('group_id')->references('id')->on('terms');
         });
 
-        Schema::create('term_metas', function (Blueprint $table) {
+        Schema::create('terms_meta', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('term_id');
             $table->string('key');
@@ -63,7 +63,7 @@ class CreateTermTaxonomyTable extends Migration
     {
         Schema::dropIfExists('term_relationships');
         Schema::dropIfExists('term_taxonomy');
-        Schema::dropIfExists('term_metas');
+        Schema::dropIfExists('terms_meta');
         Schema::dropIfExists('terms');
     }
 }

@@ -11,7 +11,7 @@ class ContentMeta extends Model
      *
      * @var string
      */
-    protected $table = 'content_metas';
+    protected $table = 'contents_meta';
 
     public $timestamps = false;
 

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class TermMeta extends Model
 {
     //
-    protected $table = 'term_metas';
+    protected $table = 'terms_meta';
 
     public $timestamps = false;
 

@@ -8,6 +8,8 @@ use File;
 
 class Theme extends Model
 {
+    public $timestamps = false;
+
     const AVAILABLE = 'available';
     const DOWNLOADING = 'downloading';
     const INSTALLING = 'installing';

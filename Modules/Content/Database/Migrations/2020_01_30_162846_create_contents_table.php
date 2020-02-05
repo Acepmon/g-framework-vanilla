@@ -26,7 +26,7 @@ class CreateContentsTable extends Migration
             $table->foreign('author_id')->references('id')->on('users');
         });
 
-        Schema::create('content_metas', function (Blueprint $table) {
+        Schema::create('contents_meta', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('content_id');
             $table->string('key');
@@ -44,7 +44,7 @@ class CreateContentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('content_metas');
+        Schema::dropIfExists('contents_meta');
         Schema::dropIfExists('contents');
     }
 }

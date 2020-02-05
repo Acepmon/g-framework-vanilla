@@ -21,7 +21,6 @@ class CreateThemesTable extends Migration
             $table->string('version', 50);
             $table->string('status', 50);
             $table->string('package')->nullable();
-            $table->timestamps();
         });
     }
 
